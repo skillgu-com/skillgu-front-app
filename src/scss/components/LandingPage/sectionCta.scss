@@ -1,0 +1,9 @@
+@use '../../variables' as *;
+
+.section-cta{
+  background-color: #7bdeff;
+
+  &:after{
+    background-image: url('../../../assets/img/wave2.svg');
+  }
+}

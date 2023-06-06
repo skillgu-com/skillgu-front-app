@@ -1,0 +1,27 @@
+//Components styles
+@forward './components/Topbar.scss';
+@forward './components/CustomButton.scss';
+@forward './components/Form.scss';
+@forward './components/Footer.scss';
+@forward './components/Field.scss';
+@forward './components/HeroHeader.scss';
+@forward './components/BlockedScreen.scss';
+@forward './components/Modal.scss';
+@forward './components/CardsSlider.scss';
+
+//Landing page styles
+@forward './components/LandingPage';
+@forward './components/LoginScreen';
+
+//App styles
+//Components styles
+@forward './components/CommonApp/AppLayout.scss';
+@forward './components/CommonApp/AplicationLeftNav.scss';
+@forward './components/CommonApp/AppTopbar.scss';
+@forward './components/CommonApp/Tab.scss';
+@forward './components/CommonApp/InvestCard.scss';
+@forward './components/CommonApp/Card';
+@forward './components/CommonApp/CardNavigation';
+
+//App screens
+@forward './components/AppScreens/index';

@@ -1,0 +1,64 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+@use 'sass:map';
+
+.section-whywe {
+	padding: 32px 0;
+
+	//Content
+	&__content {
+		text-align: center;
+		margin-bottom: 32px;
+	}
+
+	//Benefits list
+	.benefits-list {
+		&__item {
+			margin-bottom: 24px;
+		}
+
+		&__index {
+			min-width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background-color: $primary-color;
+			color: $light-color;
+			font-weight: 600;
+		}
+
+		&__text {
+			margin-left: 12px;
+			font-size: map-get($font-size, 'md');
+			letter-spacing: 0.2px;
+		}
+	}
+
+	//Invest phone image
+	&__image {
+		width: 100%;
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
+		&__content {
+			text-align: left;
+			margin-bottom: 0;
+
+			.section__text {
+				margin: 0;
+			}
+		}
+
+		//Benefits list
+		.benefits-list {
+			&__item:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		padding: 64px 0;
+	}
+}

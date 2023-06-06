@@ -1,0 +1,39 @@
+@use '../variables' as *;
+@use 'sass:map' as *;
+
+.cards-slider {
+	border-radius: 15px;
+	margin-bottom: 30px;
+
+	&__title {
+		padding: 5px 0;
+		margin-bottom: 0.35em;
+		color: $dark-color;
+	}
+
+	&__slider {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		gap: 20px;
+		border-radius: 7.5px;
+		min-height: 32px;
+		padding: 25px 15px;
+		max-height: 700px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+		overflow-y: scroll;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		&--no-max-height {
+			max-height: unset;
+		}
+
+		& > * {
+			grid-column: 1/-1;
+		}
+	}
+}

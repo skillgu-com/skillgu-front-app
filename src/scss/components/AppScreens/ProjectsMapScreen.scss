@@ -1,0 +1,19 @@
+@use '../../variables' as *;
+
+.projects-map {
+	flex-wrap: wrap-reverse;
+	margin-right: -15px;
+	margin-left: -15px;
+
+	&__map {
+		min-height: 300px;
+		height: calc(50vh - 115px);
+	}
+
+	@media screen and (min-width: 1200px){
+		
+		&__map {
+			height: calc(100vh - 94px);
+		}
+	}
+}

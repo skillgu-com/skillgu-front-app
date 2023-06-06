@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '../../variables' as *;
+
+.app-layout {
+	display: grid;
+	grid-template-columns: 300px calc(100% - 300px);
+	grid-template-rows: min-content 1fr;
+	width: 100%;
+
+	&__view {
+		padding-top: 24px;
+		grid-column: 1/-1;
+		grid-row: 2/3;
+		padding-bottom: 64px;
+	}
+
+	@media screen and(min-width: map-get($breakpoints, 'lg')) {
+		&__view {
+			grid-column: 2/-1;
+		}
+	}
+}

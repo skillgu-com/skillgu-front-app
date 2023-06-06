@@ -1,0 +1,160 @@
+@use '../_variables' as *;
+@use 'sass:map';
+
+%common {
+	left: 0;
+	width: 100%;
+	background-color: $light-color;
+}
+
+.topbar {
+	@extend %common;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	padding: 10px 0;
+	box-shadow: 0 -3px 10px rgba($dark-color, 0.3);
+
+	//Topbar container
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-right: 5px;
+	}
+
+	//Topbar logo
+	&__logo {
+		img {
+			margin-bottom: -3px;
+		}
+	}
+
+	//Topbar button
+	&__menu-btn {
+		padding: 10px;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+
+		.menu-btn__inner {
+			display: block;
+			width: 24px;
+			height: 1px;
+			background-color: $dark-color;
+			margin: 5px 0;
+		}
+	}
+
+	//Topbar menu
+	&__menu {
+		@extend %common;
+		position: absolute;
+		z-index: -1;
+		top: 100%;
+		border-top: 1px solid rgba($dark-color, 0.3);
+		transform: translateX(100%);
+		transition: transform $duration;
+
+		&--active {
+			transform: translateX(0);
+		}
+
+		//Tobar navigation
+		.nav-list {
+			max-height: 100vh;
+			padding: 0 0 25px;
+			overflow-x: hidden;
+			overflow-y: scroll;
+
+			//Remove elements scrollbar
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+			overflow-y: scroll;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+
+			//Topbar navigation item
+			&__item {
+				border-bottom: 1px solid rgba($dark-color, 0.3);
+
+				&-link {
+					display: block;
+					width: 100%;
+					padding: 10px 15px 10px 10px;
+					background-color: $light-color;
+					color: $dark-color;
+					text-align: right;
+					letter-spacing: 0.25px;
+					font-weight: 600;
+					transition: background-color $duration;
+
+					&--login {
+						color: $success-color;
+					}
+
+					&--register {
+						color: $primary-color;
+					}
+
+					&:hover {
+						background-color: darken($light-color, 2%);
+					}
+				}
+			}
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		//Topbar button
+		&__menu-btn {
+			display: none;
+		}
+
+		//Topbar menu
+		&__menu {
+			position: static;
+			z-index: 2;
+			width: max-content;
+			border-top: none;
+			transform: translateX(0);
+
+			//Tobar navigation
+			.nav-list {
+				display: flex;
+				padding-bottom: 0;
+				overflow-x: visible;
+				overflow-y: visible;
+				padding: 2.5px 0;
+
+				//Topbar navigation item
+				&__item {
+					border-bottom: none;
+
+					&-link {
+						display: block;
+						padding: 10px 15px;
+						border-radius: 10px;
+						background-color: transparent;
+						text-align: center;
+						letter-spacing: 0.1px;
+
+						&--login {
+							color: $success-color;
+						}
+
+						&--register {
+							color: $primary-color;
+						}
+
+						&:hover {
+							background-color: darken($light-color, 2%);
+						}
+					}
+				}
+			}
+		}
+	}
+}

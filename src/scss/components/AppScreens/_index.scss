@@ -1,0 +1,18 @@
+@use '../../variables' as *;
+@forward './Pitchdeck/PitchdeckForm.scss';
+@forward './Pitchdeck/PitchdeckProgressBar.scss';
+@forward './Pitchdeck/PitchdeckModal.scss';
+@forward './ProjectsMapScreen.scss';
+@forward './UserProfileScreen.scss';
+@forward './HomeScreen.scss';
+@forward './Settings.scss';
+
+.pitchdeck-wrapper {
+	padding-bottom: 32px;
+}
+
+.pitchdeck__budget {
+	padding: 16px 14px 24px;
+	font-weight: 600;
+	color: $primary-color;
+}

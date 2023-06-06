@@ -1,0 +1,133 @@
+@use '../../variables' as *;
+
+%card-icon {
+	width: 36px;
+	height: 36px;
+	margin-right: 18px;
+}
+
+%additional-info {
+	margin-top: 3px;
+	font-size: 14px;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.card {
+	padding-right: 10px;
+	margin-bottom: 10px;
+
+	&__container {
+		width: 100%;
+		padding: 24px;
+		background-color: $light-color;
+		border-radius: 8px;
+	}
+
+	.card__icon {
+		position: relative;
+		overflow: hidden;
+
+		img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 100%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&--info {
+		.card__icon {
+			@extend %card-icon;
+			border: 1px dashed $primary-color;
+			border-radius: 50%;
+
+			img {
+				width: 70%;
+			}
+		}
+
+		.card__title {
+			font-size: 16px;
+			font-weight: 400;
+		}
+
+		.card__info {
+			font-size: 16px;
+		}
+	}
+
+	&--download {
+		cursor: pointer;
+		transition: background-color 0.2s;
+
+		.card__icon {
+			@extend %card-icon;
+		}
+
+		.card__info {
+			@extend %additional-info;
+		}
+
+		&:hover {
+			.card__container {
+				background-color: darken($light-color, 5%);
+			}
+		}
+	}
+
+	&--employee {
+		.card__container {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.card__info {
+			@extend %additional-info;
+		}
+
+		.card__icon {
+			width: 128px;
+			height: 128px;
+			margin-bottom: 24px;
+			border-radius: 50%;
+		}
+	}
+
+	&--investor{
+		@extend .card--employee;
+
+		.card__city{
+			@extend %additional-info;
+			text-transform: none;
+		}
+
+		.card__info{
+			&--small{
+				font-size: 13px;
+			}
+		}
+
+		.card__btn{
+			display: block;
+			width: 100%;
+			padding: 12px;
+			background-color: transparent;
+			border: none;
+			border-top: 1px solid rgba($dark-color, .2);
+			font-size: 15px;
+			font-weight: 700;
+			color: $primary-color;
+			cursor: pointer;
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		&__container {
+			padding: 32px;
+		}
+	}
+}

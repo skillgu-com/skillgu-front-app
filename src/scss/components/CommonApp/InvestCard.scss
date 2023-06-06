@@ -1,0 +1,115 @@
+@use '../../variables' as *;
+@use 'sass:map' as *;
+
+.invest-card {
+	position: relative;
+	width: 100%;
+	padding: 16px;
+	border-radius: 10px;
+	background-color: darken($light-color, 1%);
+	box-shadow: -3px -3px 8px rgba(70, 70, 70, 0.12),
+		5px 5px 10px rgba(70, 70, 70, 0.12);
+	border: 1px solid rgba($dark-color, 0.125);
+	gap: 20px;
+
+	> .d-flex{
+		gap: 20px;
+	}
+
+	&__icon {
+		min-width: 45px;
+		width: 50%;
+		max-width: 120px;
+		height: 100px;
+		margin: 0 auto;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+
+		& + .invest-card__info {
+			margin-left: 16px;
+		}
+	}
+
+	&__info {
+		margin-bottom: 0.75em;
+	}
+
+	&__title {
+		font-size: map-get($font-size, 'lg');
+		font-weight: 600;
+		color: $dark-color;
+		margin: 0.65em auto 0.85em;
+	}
+
+	&__description {
+		margin-top: 8px;
+		font-size: 14px;
+		font-weight: 300;
+		color: $dark-color;
+	}
+
+	&__buttons {
+		margin-top: 100%;
+		margin-top: 10px;
+		gap: 15px;
+		flex-wrap: wrap;
+		height: max-content;
+
+		.custom-btn {
+			font-size: 14px;
+		}
+
+		.custom-btn--transparent {
+			max-width: max-content;
+			padding-right: 10px;
+			padding-left: 10px;
+			background-color: $danger-color;
+			color: $light-color;
+		}
+	}
+
+	&__invest-sign {
+		position: absolute;
+		z-index: 99;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 5px;
+		left: 5px;
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		background-color: $primary-color;
+		color: $light-color;
+		font-weight: 700;
+		cursor: default;
+
+		span {
+			position: absolute;
+			z-index: -1;
+			left: 0;
+			display: flex;
+			align-items: center;
+			height: 35px;
+			padding: 0 15px 0 35px;
+			background-color: $primary-color;
+			border-radius: 25px;
+			opacity: 0;
+			transform: scale(0);
+			transform-origin: left;
+			cursor: default;
+			transition: opacity 0.24s, transform 0.24s;
+		}
+
+		&:hover {
+			span {
+				opacity: 1;
+				transform: scaleX(1);
+			}
+		}
+	}
+}

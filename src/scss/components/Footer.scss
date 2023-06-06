@@ -1,0 +1,57 @@
+@use '../variables' as *;
+@use 'sass:map';
+
+.footer {
+	background-color: $primary-color;
+	color: $light-color;
+
+	&__nav {
+		padding: 32px 0 18px;
+
+		&-title {
+			margin-bottom: 14px;
+			font-size: 20px;
+		}
+
+		&-list {
+			margin-bottom: 24px;
+		}
+	}
+
+	&__copy {
+		padding: 20px 14px;
+		border-top: 1px dashed $light-color;
+
+		.social-list {
+			&__item {
+				margin: 0 6px;
+			}
+			&__link {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 32px;
+				height: 32px;
+				background-color: rgba($light-color, 0.3);
+				color: $light-color;
+				border-radius: 3px;
+				transition: background-color $duration, color $duration;
+
+				&:hover {
+					background-color: rgba($light-color, 0.35);
+					color: rgba($light-color, .9);
+				}
+			}
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
+		&__nav {
+			padding: 32px 32px 18px;
+
+			& > div {
+				padding-right: 16px;
+			}
+		}
+	}
+}

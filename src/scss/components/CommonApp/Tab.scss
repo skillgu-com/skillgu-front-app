@@ -1,0 +1,12 @@
+.tab-panel {
+	margin-top: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: center;
+
+	&__img{
+		display: block;
+		width: 75%;
+		max-width: 325px;
+		margin: 20px auto;
+	}
+}

@@ -1,0 +1,41 @@
+@use '../../variables' as *;
+@use 'sass:map';
+
+.section-steps {
+	position: relative;
+	margin-top: -40px;
+  padding: 54px 0 24px;
+	border-radius: 25px 25px 0 0;
+	background-color: $light-color;
+	box-shadow: 0 0px 20px rgba($dark-color, 0.3);
+
+	&__step {
+		flex: 1;
+		max-width: max-content;
+		padding-bottom: 24px;
+		padding-right: 16px;
+
+		.step__title {
+			margin-bottom: 12px;
+			font-size: 20px;
+			letter-spacing: 0.25px;
+			color: $primary-color;
+		}
+
+		.step__description {
+			max-width: 245px;
+			font-size: map-get($font-size, 'sm');
+			color: rgba($dark-color, 0.9);
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		margin-top: -62px;
+		padding: 72px 0 24px;
+		border-radius: 50px 50px 0 0;
+
+    .step__title {
+			font-size: 22px;
+		}
+	}
+}

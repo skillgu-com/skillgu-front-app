@@ -1,0 +1,31 @@
+.pitchdeck-modal {
+	.line-separator {
+		margin: 0;
+	}
+
+	&__header {
+		flex-direction: column !important;
+	}
+
+	&__text {
+		.app__title {
+			margin-top: 0;
+			margin-bottom: 1em;
+		}
+	}
+
+	.custom-btn {
+		display: block;
+		margin: 45px auto 0;
+	}
+
+	@media screen and (min-width: 576px) {
+		&__header {
+			flex-direction: row !important;
+		}
+
+		&__text {
+			padding-left: 10px;
+		}
+	}
+}

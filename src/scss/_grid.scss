@@ -1,0 +1,159 @@
+@use './variables' as *;
+@use 'sass:map';
+
+$columns: 12;
+
+.container {
+	width: 100%;
+  max-width: 1250px;
+	padding: 0 16px;
+	margin: 0 auto;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
+.d-block {
+	display: block;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.row {
+	@extend .d-flex;
+	flex-direction: row;
+}
+
+.column {
+	@extend .d-flex;
+	flex-direction: column;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.mx-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.align-items {
+	align-items: stretch;
+	&-center {
+		align-items: center;
+	}
+	&-end {
+		align-items: flex-end;
+	}
+	&-start {
+		align-items: flex-start;
+	}
+	&-between {
+		align-items: space-between;
+	}
+	&-around {
+		align-items: space-around;
+	}
+}
+
+.justify-content {
+	justify-content: stretch;
+	&-center {
+		justify-content: center;
+	}
+	&-end {
+		justify-content: flex-end;
+	}
+	&-start {
+		justify-content: flex-start;
+	}
+	&-between {
+		justify-content: space-between;
+	}
+	&-around {
+		justify-content: space-around;
+	}
+}
+
+@mixin grid($size: false, $name: '') {
+	@if $size != false {
+		@if $name == '' {
+			@error 'Unknow name property for size: #{$size}';
+		}
+
+		@media screen and (min-width: $size) {
+			@for $i from 1 through $columns {
+				.col-#{$name}-#{$i} {
+					flex: 0 0 calc(100% / $columns * $i) !important;
+				}
+			}
+			.col-#{$name}-auto{
+				flex: 0 0 auto!important;
+			}
+		}
+	} @else {
+		@for $i from 1 through $columns {
+			.col-#{$i} {
+				flex: 0 0 calc(100% / $columns * $i);
+			}
+		}
+	}
+}
+
+@include grid();
+@include grid(map-get($breakpoints, 'xs'), 'xs');
+@include grid(map-get($breakpoints, 'sm'), 'sm');
+@include grid(map-get($breakpoints, 'md'), 'md');
+@include grid(map-get($breakpoints, 'lg'), 'lg');
+@include grid(map-get($breakpoints, 'xl'), 'xl');
+@include grid(map-get($breakpoints, 'xxl'), 'xxl');
+
+//Margins
+
+.mt-1{
+	margin-top: 8px;
+}
+
+.mt-2{
+	margin-top: 16px;
+}
+
+.mt-3{
+	margin-top: 24px;
+}
+
+.my-1{
+	margin: 8px 0;
+}
+
+.my-2{
+	margin: 16px 0;
+}
+
+.my-3{
+	margin: 24px 0;
+}
+
+.px-1{
+	padding: 0 16px;
+}
+
+.w-100 {
+	width: 100%;
+}

@@ -1,0 +1,116 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+@use 'sass:map';
+
+.left-bar {
+	position: fixed;
+	inset: 0;
+	z-index: 999;
+	width: 100%;
+	max-height: 100%;
+	background-color: $primary-color;
+	text-align: center;
+	color: $light-color;
+	transform: translateY(100%);
+	transition: transform $duration;
+	padding-top: 32px;
+	padding-bottom: 48px;
+	overflow-y: scroll;
+
+	//Remove elements scrollbar
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	&__btn {
+		position: fixed;
+		z-index: 999;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 5px;
+		width: 48px;
+		height: 48px;
+		border-radius: 50% 50%;
+		background-color: $primary-color;
+		border: none;
+		cursor: pointer;
+
+		&:before {
+			@include pseudo-element;
+			bottom: 0;
+			z-index: -1;
+			width: 100vw;
+			height: 36px;
+			background-color: $primary-color;
+			pointer-events: none;
+		}
+
+		.btn__inner {
+			display: block;
+			width: 50%;
+			height: 2px;
+			background-color: $light-color;
+		}
+	}
+
+	&__nav {
+		width: 100%;
+		padding: 0 15px;
+		font-size: map-get($font-size, 'lg');
+	}
+
+	&__list {
+		padding: 20px 0;
+		border-bottom: 1px solid rgba($light-color, 0.3);
+	}
+
+	&__item {
+		&:not(&:last-of-type) {
+			margin-bottom: 10px;
+		}
+	}
+
+	&__link {
+		display: block;
+		width: 100%;
+		padding: 8px;
+
+		&:hover {
+			background-color: darken($primary-color, 5%);
+		}
+	}
+
+	&--active {
+		transform: translateY(0);
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		width: 300px;
+		padding-top: 80px;
+		transform: translateY(0);
+		transition: transform 0s;
+
+		&__btn {
+			display: none;
+		}
+
+		&__nav {
+			font-size: map-get($font-size, 'md');
+			text-align-last: left;
+		}
+
+		&__link {
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+	}
+}

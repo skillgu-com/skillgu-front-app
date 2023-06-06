@@ -1,0 +1,27 @@
+@use '../../variables' as *;
+@use 'sass:map' as *;
+
+.home-screen {
+	&__title {
+		margin-bottom: 1em;
+	}
+
+	&__services-panel {
+		padding: 40px 0 60px;
+	}
+
+	&__lists {
+		gap: 30px;
+		flex-wrap: wrap;
+
+		> * {
+			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'xl')) {
+		&__lists {
+			flex-wrap: nowrap;
+		}
+	}
+}

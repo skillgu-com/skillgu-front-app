@@ -1,0 +1,48 @@
+.hero-header {
+	position: relative;
+	z-index: 0;
+	display: flex;
+	align-items: end;
+	border-radius: 15px;
+	padding: clamp(85px, 17vw, 175px) clamp(20px, 15vw, 32px)
+		clamp(20px, 15vw, 36px);
+	color: #fff;
+	overflow: hidden;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+		rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+	&__img {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgb(9, 9, 121);
+			background: linear-gradient(
+				0deg,
+				rgba(9, 9, 121, 0.8) 0%,
+				rgba(9, 9, 121, 0.1) 85%,
+				rgba(0, 202, 248, 0) 100%
+			);
+		}
+	}
+
+	.home-screen__title {
+		margin-bottom: 0;
+	}
+}

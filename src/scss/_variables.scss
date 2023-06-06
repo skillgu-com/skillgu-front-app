@@ -1,0 +1,28 @@
+$primary-color: #0069ff;
+$secondary-color: #b0cdff;
+$light-color: #f9fafe;
+$dark-color: #031b4e;
+$gray-color: #7a7a7a;
+$success-color: #1fc198;
+$danger-color: #ff4c6c;
+
+$font-size: (
+	xs: 14px,
+	sm: 16px,
+	md: 18px,
+	lg: 22px,
+	xl: 26px,
+	xxl: 30px,
+	xxxl: 32px,
+);
+
+$breakpoints: (
+	xs: 414px,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1400px,
+);
+
+$duration: 0.25s;

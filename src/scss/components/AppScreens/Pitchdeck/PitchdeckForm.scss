@@ -1,0 +1,26 @@
+@use '../../../variables' as *;
+
+.pitchdeck__form {
+	padding-bottom: 32px;
+
+	&-img {
+    margin-bottom: 32px;
+    
+    img{
+      width: 75%;
+    }
+  }
+
+	&-btn {
+		margin: 24px 0 0;
+		font-size: 16px;
+
+		&:last-of-type {
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			padding: 0;
+			color: $primary-color;
+		}
+	}
+}

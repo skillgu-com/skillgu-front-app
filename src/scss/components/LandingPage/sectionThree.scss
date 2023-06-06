@@ -1,0 +1,58 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+@use 'sass:map';
+
+%waves {
+	@include pseudo-element;
+	left: 0;
+	width: 150%;
+	height: 40px;
+	background-image: url('../../../assets/img/wave.svg');
+	filter: drop-shadow(2px -4px 2px rgba($dark-color, 0.1));
+}
+
+.section-info {
+	position: relative;
+	padding-top: 32px;
+	text-align: center;
+	background-color: $light-color;
+
+	&__search {
+		width: 80%;
+		padding-bottom: 32px;
+		svg {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	&--secondary {
+		position: relative;
+		padding: 104px 0;
+		background-color: $secondary-color;
+		overflow: hidden;
+
+		&:before {
+			@extend %waves;
+			top: 0;
+			transform: rotate(180deg);
+		}
+
+		&:after {
+			@extend %waves;
+			bottom: 0;
+		}
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		padding-top: 64px;
+
+		&__search {
+			padding-bottom: 64px;
+		}
+
+		&--secondary {
+			padding: 154px 0;
+		}
+	}
+}

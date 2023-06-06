@@ -1,0 +1,255 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+body {
+	box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+	min-width: 300px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+ul,
+ol {
+	list-style-type: none;
+	list-style-position: inside;
+}
+
+.top-space {
+	margin-top: 63px;
+}
+
+.section__title {
+	@include roboto;
+	margin-bottom: 16px;
+	font-size: map-get($font-size, 'xl');
+	letter-spacing: 0.7px;
+	color: $dark-color;
+
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
+		font-size: map-get($font-size, 'xxl');
+	}
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		font-size: map-get($font-size, 'xxxl');
+	}
+}
+
+.section__text {
+	max-width: 640px;
+	margin: 0 auto;
+	padding-bottom: 32px;
+	font-size: map-get($font-size, 'sm');
+	font-weight: 300;
+	line-height: 1.35em;
+	color: rgba($dark-color, 0.85);
+}
+
+.section__cta {
+	position: relative;
+	display: block;
+	width: max-content;
+	padding-right: 20px;
+	font-size: map-get($font-size, 'sm');
+	margin-top: 32px;
+	text-decoration: none;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: $primary-color;
+
+	&:after {
+		@include pseudo-element;
+		content: '->';
+		height: 100%;
+		top: 0;
+		right: 0;
+		letter-spacing: normal;
+		transition: transform $duration;
+	}
+
+	&:hover {
+		&:after {
+			transform: translateX(5px);
+		}
+	}
+}
+
+.app__title {
+	color: $primary-color;
+	letter-spacing: 0.15px;
+	font-weight: 700;
+	font-size: map-get($font-size, 'md');
+}
+
+.app__text {
+	font-family: 'Inter', sans-serif;
+	font-weight: 300;
+	font-size: map-get($font-size, 'sm');
+}
+
+.textarea-vertical {
+	resize: vertical;
+	padding: 14px 8px;
+	min-height: 75px;
+	background-color: transparent;
+	font-family: 'Inter', sans-serif;
+}
+
+.bg--primary {
+	background-color: $primary-color !important;
+}
+
+.slider__description {
+	white-space: nowrap;
+	padding: 0 14px;
+	opacity: 0.7;
+	font-size: 14px;
+}
+
+.map-container {
+	width: 100%;
+	height: 100%;
+}
+
+.app-section {
+	margin: 32px 0;
+
+	&--mt-0 {
+		margin-top: 0;
+	}
+
+	&--mb-0 {
+		margin-bottom: 0;
+	}
+
+	&__title {
+		width: max-content;
+		letter-spacing: 0.2px;
+		font-size: 20px;
+		margin-bottom: 16px;
+		color: $primary-color;
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		margin: 38px 0;
+
+		&--mt-0 {
+			margin-top: 0;
+		}
+
+		&--mb-0 {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.app__title--huge {
+	letter-spacing: 0.3px;
+	font-size: map-get($font-size, 'xl');
+	margin-bottom: 0.8em;
+
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
+		font-size: map-get($font-size, 'xxl');
+	}
+
+	@media screen and (min-width: map-get($breakpoints, 'xl')) {
+		font-size: map-get($font-size, 'xxxl');
+	}
+}
+
+.app-slider {
+	margin: 0 auto;
+	width: 100%;
+}
+
+.app__additional-info {
+	font-size: 14px;
+	font-weight: 300;
+}
+
+.presentation{
+	gap: 20px;
+
+	&__invest-target {
+		min-width: 270px;
+		width: 50%;
+	
+		@media screen and (min-width: map-get($breakpoints, 'xl')) {
+			max-width: 600px;
+		}
+	}
+}
+
+.invest-target {
+	&__progress-bar {
+		width: 100%;
+
+		.progress-bar__inner {
+			width: 100%;
+			background-color: $light-color;
+
+			&-value {
+				display: block;
+				padding: 5px;
+				background: linear-gradient(270deg, #295ad0 23.44%, #25d6d1 100%);
+				text-align: right;
+				font-weight: 600;
+				color: #fff;
+			}
+		}
+	}
+}
+
+
+.beta{
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	z-index: 9999999;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #fff;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.app-list{
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+
+	&__item{
+		display: block;
+		background-color: rgb(230, 230, 230);
+		padding: 8px 12px;
+		margin-right: 8px;
+		margin-bottom: 8px;
+		border-radius: 5px;
+	}
+}
+
+.line-separator{
+	margin: 32px 0;
+	border-color: $primary-color;
+	opacity: .15;
+
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
+		margin: 64px 0;
+	}
+}

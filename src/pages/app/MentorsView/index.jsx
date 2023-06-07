@@ -5,7 +5,7 @@ import {getAllClientUsers, getClientUser} from "../../../services/UserProfileSer
 import HeroHeader from '../../../component/HeroHeader';
 import investors from '../../../assets/img/galaxy.png'
 
-const InvestrosScreen = (props) => {
+const MentorScreen = (props) => {
 
     let [users, setUsers] = useState([]);
     useEffect(() => {
@@ -17,7 +17,7 @@ const InvestrosScreen = (props) => {
 
     return (
         <AppLayout>
-            <HeroHeader title='Inwestorzy' image={<img src={investors} alt='investors'/>}/>
+            <HeroHeader title='Mentorzy' image={<img src={investors} alt='mentors'/>}/>
             <section className='d-flex flex-wrap'>
                 {users.map(element=> {
                     return (
@@ -41,4 +41,4 @@ const InvestrosScreen = (props) => {
     )
 }
 
-export default InvestrosScreen
+export default MentorScreen

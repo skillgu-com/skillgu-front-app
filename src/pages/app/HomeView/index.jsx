@@ -47,36 +47,36 @@ const navigation = [
 
 const cards = [
 	{
-		title: 'MMW',
-		location: 'Warszawa, Kraków, Gdańsk, Szczecin',
+		title: 'MSW',
+		location: 'Adam Nowak',
 		industry: 'IT',
 		roi: 10,
 		noFollow: true,
 	},
-	{
-		title: 'MMW',
-		location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-		industry: 'IT',
-		roi: 10,
-		noFollow: true,
-		invested: true,
-	},
-	{
-		title: 'MMW',
-		location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-		industry: 'IT',
-		roi: 10,
-		noFollow: true,
-		invested: true,
-	},
-	{
-		title: 'MMW',
-		location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-		industry: 'IT',
-		roi: 10,
-		noFollow: true,
-		invested: true,
-	},
+	// {
+	// 	title: 'MMW',
+	// 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
+	// 	industry: 'IT',
+	// 	roi: 10,
+	// 	noFollow: true,
+	// 	invested: true,
+	// },
+	// {
+	// 	title: 'MMW',
+	// 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
+	// 	industry: 'IT',
+	// 	roi: 10,
+	// 	noFollow: true,
+	// 	invested: true,
+	// },
+	// {
+	// 	title: 'MMW',
+	// 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
+	// 	industry: 'IT',
+	// 	roi: 10,
+	// 	noFollow: true,
+	// 	invested: true,
+	// },
 ];
 
 const myCards = [
@@ -109,7 +109,7 @@ const HomeScreen = () => {
 				))}
 			</div>
 			<div className='home-screen__lists d-flex'>
-				<CardsSlider title='Obserwowane' as={InvestCard} items={cards} noMaxHeight />
+				<CardsSlider title='Obserowani mentorzy' as={InvestCard} items={cards} noMaxHeight />
 				<CardsSlider title='Moje projekty' as={InvestCard} items={myCards} noMaxHeight />
 			</div>
 		</AppLayout>

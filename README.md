@@ -24,7 +24,7 @@ Your app is ready to be deployed!
 
 ### About skillguru.pl
 ### Skillguru.pl
-     is a React.js application aimed at connecting users with mentors in the fields of IT, business, and related domains. It provides a platform where users can easily find and connect with experienced professionals who can guide and mentor them in their career development and skill enhancement journey.
+is a React.js application aimed at connecting users with mentors in the fields of IT, business, and related domains. It provides a platform where users can easily find and connect with experienced professionals who can guide and mentor them in their career development and skill enhancement journey.
 
 ### Features
 Browse and search for mentors based on different skill categories and expertise.

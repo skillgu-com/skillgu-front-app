@@ -12,9 +12,9 @@ import UserProfileScreen from "./pages/app/UserProfileScreen";
 import ProjectsSearchScreen from "./pages/app/SearchOfProjectsView";
 import HomeScreen from "./pages/app/HomeView";
 import AuthContextProvider from "./context/AuthContextProvider";
-import InvestrosScreen from "./pages/app/InvestorsView";
+import MentorScreen from "./pages/app/MentorsView";
 import HelpScreen from "./pages/app/HelpView";
-import InvestorProfileScreen from "./pages/app/InvestorProfileScreen";
+import InvestorProfileScreen from "./pages/app/MentorProfileScreen";
 import SearchBusinessPartner from "./pages/app/SearchBusinessPartner";
 import Settings from "./pages/app/Settings";
 import PitchDeckCreatorScreen from "./pages/app/CreatorNewProjectView";
@@ -32,7 +32,7 @@ function App() {
                     <Route path="/search-invest-projects" element={<ProtectedRoute><ProjectsSearchScreen /></ProtectedRoute>} />
                     <Route path="/search-business-partner" element={<ProtectedRoute><SearchBusinessPartner /></ProtectedRoute>} />
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen /></ProtectedRoute>} />
-                    <Route path="/investors" element={<ProtectedRoute><InvestrosScreen /></ProtectedRoute>} />
+                    <Route path="/investors" element={<ProtectedRoute><MentorScreen /></ProtectedRoute>} />
                     <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen /></ProtectedRoute>} />
                     <Route path="/investor-profile/:uuid" element={<ProtectedRoute><InvestorProfileScreen /></ProtectedRoute>} />
                     <Route path="/business-partner" element={<ProtectedRoute><Underconstruction /></ProtectedRoute>} />

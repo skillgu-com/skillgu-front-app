@@ -32,10 +32,10 @@ const InvestCard = ({
                 <div>
                     <h4 className='invest-card__title'>{pitchDeckTitle}</h4>
                     <p className='invest-card__info'>
-                        <strong>Lokalizacje:</strong> {location}
+                        <strong>Imię:</strong> {location}
                     </p>
                     <p className='invest-card__info '>
-                        <strong>Banże:</strong> {industry}
+                        <strong>Branża:</strong> {industry}
                     </p>
                     <p className='invest-card__info '>
                         <strong>Rentowność:</strong> {roi}%
@@ -48,7 +48,10 @@ const InvestCard = ({
                         Nie obserwuj
                     </CustomButton>
                 )}
-                <CustomButton as='internal-link' link={`/pitchdeck/${pitchDeckURL}`}>
+                {/*<CustomButton as='internal-link' link={`/pitchdeck/${pitchDeckURL}`}>*/}
+                {/*    Więcej*/}
+                {/*</CustomButton>*/}
+                <CustomButton as='internal-link' link={`/user-profile`}>
                     Więcej
                 </CustomButton>
             </div>

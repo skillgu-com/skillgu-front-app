@@ -24,12 +24,12 @@ const AplicationLeftNav = () => {
             // },
         ],
         [
+            // {
+            //     label: 'Mapa projektów',
+            //     redirectUrl: '/invest-maps',
+            // },
             {
-                label: 'Mapa projektów',
-                redirectUrl: '/invest-maps',
-            },
-            {
-                label: 'Inwestorzy',
+                label: 'Mentorzy',
                 redirectUrl: '/investors',
             },
         ],

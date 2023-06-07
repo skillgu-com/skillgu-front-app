@@ -41,11 +41,11 @@ const Topbar = () => {
 					<img
 						height='21.75'
 						width='138'
-						className='log__img'
-						src={logo}
-						alt='Logo investalert'
+						// className='log__img'
+						// src={logo}
+						// alt='Logo skillguru.pl'
 					/>
-					<h4 className='px-1'>| BETA.v0.1</h4>
+					<h4 className='px-1'>| skillguru.pl v.0.1</h4>
 				</Link>
 				<nav className={`topbar__menu${isActive ? ' topbar__menu--active' : ''}`}>
 					<ul className='nav-list'>

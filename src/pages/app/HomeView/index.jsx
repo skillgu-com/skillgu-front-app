@@ -81,9 +81,10 @@ const cards = [
 
 const myCards = [
 	{
-		title: 'MMW',
+		firstName: 'MMW',
 		location: 'Warszawa, Kraków, Gdańsk, Szczecin',
 		industry: 'IT',
+		jobPosition: 'Software Engineer at Facebook',
 		roi: 10,
 	},
 ];

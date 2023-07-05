@@ -32,9 +32,9 @@ function App() {
                     <Route path="/search-invest-projects" element={<ProtectedRoute><ProjectsSearchScreen /></ProtectedRoute>} />
                     <Route path="/search-business-partner" element={<ProtectedRoute><SearchBusinessPartner /></ProtectedRoute>} />
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen /></ProtectedRoute>} />
-                    <Route path="/investors" element={<ProtectedRoute><MentorScreen /></ProtectedRoute>} />
+                    <Route path="/mentors" element={<ProtectedRoute><MentorScreen /></ProtectedRoute>} />
                     <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen /></ProtectedRoute>} />
-                    <Route path="/investor-profile/:uuid" element={<ProtectedRoute><InvestorProfileScreen /></ProtectedRoute>} />
+                    <Route path="/mentor-profile/:id" element={<ProtectedRoute><InvestorProfileScreen /></ProtectedRoute>} />
                     <Route path="/business-partner" element={<ProtectedRoute><Underconstruction /></ProtectedRoute>} />
                     <Route path="/pitchdeck" element={<ProtectedRoute><PitchdeckScreen /></ProtectedRoute>} />
                     <Route path="/pitchdeck/:pitchDeckURL" element={<ProtectedRoute><PitchdeckScreen /></ProtectedRoute>} />

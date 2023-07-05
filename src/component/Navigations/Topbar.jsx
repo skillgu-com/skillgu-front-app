@@ -9,7 +9,7 @@ const navList = [
 	// },
 	// {
 	// 	label: 'Inwestorzy',
-	// 	redirectUrl: '/investors',
+	// 	redirectUrl: '/mentors',
 	// },
 	// {
 	// 	label: 'Wiadomości inwestycyjne',

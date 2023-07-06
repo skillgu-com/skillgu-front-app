@@ -14,7 +14,7 @@ const MentorCardExpectations = (props) => {
 				Czego możesz się spodziewać po tym mentorze?
 			</h6>
 			<ul className='mentor-card__expectations-list'>
-				{expectations.map((item) => (
+				{expectations?.map((item) => (
 					<li className='mentor-card__expectations-item'>{item}</li>
 				))}
 			</ul>

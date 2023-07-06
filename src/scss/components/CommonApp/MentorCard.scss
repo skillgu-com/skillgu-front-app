@@ -1,0 +1,97 @@
+@use '../../variables' as *;
+
+.mentor-card {
+	position: relative;
+	display: grid;
+	width: 100%;
+	padding: 20px 15px;
+	border-radius: 15px;
+	border: 1px solid rgba($gray-color, 0.65);
+
+	// Profile image
+	&__profile {
+		height: 280px;
+		border-radius: 8px;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// Overview
+	&__overview {
+		padding: 18px 0;
+
+		&-name {
+			margin-bottom: 0.35em;
+			font-size: 22px;
+		}
+
+		&-spec {
+			margin-bottom: 0.5em;
+			font-size: 14px;
+			font-weight: 500;
+
+			&-description {
+				color: $primary-color;
+				margin-bottom: 0.5em;
+				font-size: 14px;
+				line-height: 1.5em;
+				font-weight: inherit;
+			}
+		}
+
+		&-link {
+			width: 100%;
+			text-align: center;
+		}
+
+		&-responder {
+			position: absolute;
+			top: 10px;
+			right: 7.5px;
+			display: block;
+			width: max-content;
+			padding: 4px 15px;
+			border-radius: 15px;
+			background-color: $success-color;
+			box-shadow: rgba(33, 35, 38, 0.4) 0px 10px 10px -10px;
+			font-size: 12px;
+			letter-spacing: 0.125px;
+			color: $light-color;
+		}
+
+		&-reviews {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 12px;
+		}
+
+		&-stars {
+			font-size: 1.2rem !important;
+		}
+
+		&-description {
+			margin: 1em 0;
+			padding: 0.5em 0;
+			font-size: 14px;
+			line-height: 1.5em;
+			font-weight: inherit;
+			border-top: 1px solid rgba($gray-color, 0.65);
+		}
+
+		&-skills {
+			font-size: 12px;
+			margin-bottom: 20px;
+		}
+	}
+
+	// Expectations
+	&__expectations {
+		display: none;
+	}
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Rating} from '@mui/material';
+import CustomButton, {buttonColors, buttonTypes} from '../../../CustomButton';
 
 const MentorCardOverview = (props) => {
 	const {
@@ -29,7 +30,15 @@ const MentorCardOverview = (props) => {
 			<h5 className='mentor-card__overview-spec-description'>
 				{specializationDescription}
 			</h5>
-			<Rating name='read-only' value={reviews} readOnly />
+			<div className='mentor-card__overview-reviews'>
+				<Rating
+					className='mentor-card__overview-stars'
+					name='read-only'
+					value={reviews}
+					readOnly
+				/>
+				<span><b>{reviews}</b> ({reviewsAmount} opinii)</span>
+			</div>
 			{/* ------------------------------- */}
 			<div className='mentor-card__overview-contact'></div>
 			{/* ------------------------------- */}
@@ -41,9 +50,12 @@ const MentorCardOverview = (props) => {
 					))}
 				</ul>
 			)}
-			<Link className='mentor-card__overview-link' to={`/mentor-profile/${id}`}>
+			<CustomButton
+				classes='mentor-card__overview-link'
+				as={buttonTypes.internalLink}
+				link={`/mentor-profile/${id}`}>
 				Zobacz profil
-			</Link>
+			</CustomButton>
 		</div>
 	);
 };

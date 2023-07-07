@@ -1,12 +1,19 @@
 @use '../../variables' as *;
+@use 'sass:map';
 
 .mentor-card {
 	position: relative;
 	display: grid;
+	grid-template-columns: 3fr 1fr 2fr 2fr 3fr;
+	gap: 20px;
 	width: 100%;
 	padding: 20px 15px;
 	border-radius: 15px;
 	border: 1px solid rgba($gray-color, 0.65);
+
+	& > * {
+		grid-column: 1/-1;
+	}
 
 	// Profile image
 	&__profile {
@@ -23,8 +30,6 @@
 
 	// Overview
 	&__overview {
-		padding: 18px 0;
-
 		&-name {
 			margin-bottom: 0.35em;
 			font-size: 22px;
@@ -93,5 +98,133 @@
 	// Expectations
 	&__expectations {
 		display: none;
+	}
+
+	// Price
+	&__price {
+		font-size: 24px;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 1em;
+
+		small {
+			font-size: 0.65em;
+			font-weight: 500;
+		}
+
+		&--desktop {
+			display: none;
+		}
+	}
+
+	// *******************
+	// Tablet
+	// *******************
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
+		&__profile {
+			grid-column: 1/3;
+		}
+
+		&__overview {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			grid-column: 3/-1;
+			grid-row: 1/3;
+			padding: 0;
+
+			& > * {
+				width: 100%;
+			}
+
+			&-name {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 15px;
+				font-size: 26px;
+			}
+
+			&-responder {
+				position: relative;
+				top: unset;
+				right: unset;
+			}
+
+			&-spec,
+			&-description {
+				font-size: 16px;
+			}
+
+			&-reviews {
+				font-size: 14px;
+			}
+
+			&-stars {
+				font-size: 1.4rem !important;
+			}
+
+			&-link {
+				align-self: flex-end;
+			}
+		}
+
+		&__price {
+			font-size: 28px;
+			margin-bottom: 0;
+			text-align: left;
+			grid-row: 2/3;
+
+			&--desktop {
+				display: block;
+				grid-column: 1/3;
+			}
+
+			&--mobile {
+				display: none;
+			}
+		}
+	}
+	// *******************
+	// Tablet
+	// *******************
+	@media screen and (min-width: map-get($breakpoints, 'xl')) {
+		&__profile {
+			grid-column: 1/2;
+		}
+
+		&__overview {
+			grid-column: 2/5;
+
+			&-link {
+				max-width: 260px;
+			}
+		}
+
+		&__expectations {
+			display: block;
+			grid-column: 5/-1;
+			grid-row: 1/3;
+			padding-left: 15px;
+			border-left: 1px solid rgba($gray-color, 0.65);
+
+			&-trail {
+				display: block;
+				width: max-content;
+				padding: 4px 15px;
+				border-radius: 15px;
+				font-size: 12px;
+				background-color: rgba($gray-color, 0.25);
+				font-weight: 700;
+				margin-left: auto;
+				margin-bottom: 24px;
+			}
+
+			&-title {
+				font-size: 12px;
+				padding-bottom: 1.2em;
+				border-bottom: 1px solid rgba($gray-color, 0.65);
+			}
+		}
 	}
 }

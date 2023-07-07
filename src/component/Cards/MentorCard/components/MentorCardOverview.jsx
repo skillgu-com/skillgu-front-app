@@ -15,6 +15,7 @@ const MentorCardOverview = (props) => {
 		skills,
 		id,
 		quickResponder,
+		monthlyPrice
 	} = props;
 
 	return (
@@ -37,7 +38,9 @@ const MentorCardOverview = (props) => {
 					value={reviews}
 					readOnly
 				/>
-				<span><b>{reviews}</b> ({reviewsAmount} opinii)</span>
+				<span>
+					<b>{reviews}</b> ({reviewsAmount} opinii)
+				</span>
 			</div>
 			{/* ------------------------------- */}
 			<div className='mentor-card__overview-contact'></div>
@@ -50,6 +53,9 @@ const MentorCardOverview = (props) => {
 					))}
 				</ul>
 			)}
+			<p className='mentor-card__price mentor-card__price--mobile'>
+				{monthlyPrice} <small>zł / msc</small>
+			</p>
 			<CustomButton
 				classes='mentor-card__overview-link'
 				as={buttonTypes.internalLink}

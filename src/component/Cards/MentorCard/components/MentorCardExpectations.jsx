@@ -7,7 +7,7 @@ const MentorCardExpectations = (props) => {
 		<div className='mentor-card__expectations'>
 			{trail && (
 				<div className='app__list-item mentor-card__expectations-trail'>
-					{trail}
+					{trail} dni za darmo
 				</div>
 			)}
 			<h6 className='mentor-card__expectations-title'>

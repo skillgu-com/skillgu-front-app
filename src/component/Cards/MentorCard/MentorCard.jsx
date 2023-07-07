@@ -37,11 +37,12 @@ const MentorCard = (props) => {
 				description={description}
 				skills={skills}
 				quickResponder={quickResponder}
+				monthlyPrice={monthlyPrice}
 			/>
 			<MentorCardExpectations expectations={expectations} trail={trail} />
-			{/* <p className='mentor-card__price'>
+			<p className='mentor-card__price mentor-card__price--desktop'>
 				{monthlyPrice} <small>zł / msc</small>
-			</p> */}
+			</p>
 		</div>
 	);
 };

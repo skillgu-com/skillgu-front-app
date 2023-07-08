@@ -15,7 +15,7 @@ const MentorCardOverview = (props) => {
 		skills,
 		id,
 		quickResponder,
-		monthlyPrice
+		monthlyPrice,
 	} = props;
 
 	return (
@@ -43,7 +43,11 @@ const MentorCardOverview = (props) => {
 				</span>
 			</div>
 			{/* ------------------------------- */}
-			<div className='mentor-card__overview-contact'></div>
+			<div className='mentor-card__overview-contact'>
+				{contactOptions.chat && <p className='overview-contact__option'>Czat</p>}
+				{contactOptions.call &&<p className='overview-contact__option'>Rozmowa</p>}
+				{contactOptions.handsOn &&<p className='overview-contact__option'>Spotkanie</p>}
+			</div>
 			{/* ------------------------------- */}
 			<p className='mentor-card__overview-description'>{description}</p>
 			{skills.length > 0 && (

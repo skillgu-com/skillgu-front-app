@@ -34,13 +34,13 @@ const MentorScreen = () => {
 						profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
 						specialization={'Senior Full-Stack Developer'}
 						specializationDescription={'Opis doświadczenia w danych technologiach / dziedzinach itp.'}
-						// contactOptions={}
+						contactOptions={{chat: true, call: true, handsOn: true}}
 						reviews={4}
 						reviewsAmount={21}
 						description={'desc'}
 						skills={['IT', 'Frontend', 'Backend']}
 						monthlyPrice={223}
-						// expectations={}
+						expectations={['Wsparcie techniczne', 'Nielimitowany czat, e-mail z mentorem']}
 						quickResponder={true}
 						trail={3}
 						/>

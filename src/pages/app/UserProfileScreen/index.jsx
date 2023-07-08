@@ -3,6 +3,7 @@ import AppLayout from '../../../component/AppLayout';
 import {getClientUser} from '../../../services/UserProfileService';
 import HeroHeader from '../../../component/HeroHeader';
 import sunset from '../../../assets/img/sunset.jpg';
+import PlansPanel from '../../../component/PlansPanel/PlansPanel';
 
 const UserProfileScreen = () => {
 	let [user, setUser] = useState({});
@@ -14,7 +15,10 @@ const UserProfileScreen = () => {
 
 	return (
 		<AppLayout>
-			<HeroHeader title='Profil użytkownika' image={<img src={sunset} alt='słońce' />} />
+			<HeroHeader
+				title='Profil użytkownika'
+				image={<img src={sunset} alt='słońce' />}
+			/>
 			<div className='user-profile__grid'>
 				<section className='user-profile__data d-flex flex-wrap'>
 					<div className='user-profile__data-photo'>
@@ -69,20 +73,10 @@ const UserProfileScreen = () => {
 						</ul>
 					</article>
 				</section>
-				<section className='user-profile__investment-info'>
-					<div className='investment-info__activity'>
-						<h2 className='investment-info__header app-section__title'>Moje inwestycje: <span className='investment-info__info--big'>1</span></h2>
-						<h2 className='investment-info__header app-section__title mb-0'>Liczba znajomych: <span className='investment-info__info--big'>1</span></h2>
-					</div>
-					<div className='investment-info__investments'>
-						<h2 className='investment-info__header app-section__title'>Inwestycje w które zainwestowałem</h2>
-						<ul className='investment-info__list'>
-							<li className='investment-info__list-item'>Investalert.pl</li>
-							<li className='investment-info__list-item'>macglaz.com</li>
-						</ul>
-					</div>
-				</section>
 			</div>
+				<div className='user-profile__price'>
+					<PlansPanel />
+				</div>
 		</AppLayout>
 	);
 };

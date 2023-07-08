@@ -11,8 +11,7 @@
 	}
 
 	&__data,
-	&__about,
-	&__investment-info {
+	&__about{
 		grid-column: 1/-1;
 	}
 
@@ -70,71 +69,10 @@
 		grid-row: 2/3;
 	}
 
-	&__investment-info {
-		grid-row: 3/4;
-
-		.investment-info {
-			&__activity,
-			&__investments {
-        margin-bottom: 20px;
-				padding: 25px 15px;
-				box-shadow: 0 0 5px rgba($dark-color, 0.2);
-				border-radius: 8px;
-			}
-
-			&__header {
-				width: 100%;
-				font-size: 20px;
-				margin-bottom: 20px;
-
-				&:has(span){
-					text-align: left;
-				}
-
-				&.mb-0{
-					margin-bottom: 0;
-				}
-
-				span{
-					color: $dark-color;
-				}
-			}
-
-			&__info {
-        margin-top: 15px;
-				font-size: 16px;
-				font-weight: 300;
-        text-align: center;
-
-        &--big{
-          font-size: 20px;
-          font-weight: 700;
-        }
-			}
-
-      &__list{
-        &-item{
-          font-weight: 400;
-          padding: 12px 8px;
-          border-bottom: 1px solid $primary-color;
-
-          &:last-of-type{
-            border-bottom: none;
-          }
-        }
-      }
-		}
-	}
-
 	@media screen and(min-width: 1350px) {
 		&__data,
 		&__about {
 			grid-column: 1/2;
-		}
-
-		&__investment-info {
-			grid-column: 2/3;
-			grid-row: 1/-1;
 		}
 	}
 }

@@ -10,9 +10,31 @@ const SESSIONS_PLACEHOLDER_ARRAY = [
 	{id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
 ];
 
+const MENTORSHIP_PLACEHOLDER_ARRAY = {
+	lite: {
+		id: 123,
+		monthlyPrice: 300,
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi vero, ipsam quidem sunt totam saepe facere perferendis distinctio necessitatibus quo.',
+		benefits: ['1 rozmowa miesięcznie'],
+	},
+	standard: {
+		id: 123,
+		monthlyPrice: 300,
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi vero, ipsam quidem sunt totam saepe facere perferendis distinctio necessitatibus quo.',
+		benefits: [
+			'1 rozmowa miesięcznie',
+			'Nielimitowane pytania',
+			'Odpowiedzi 2 razy dziennie',
+			'7 dni za darmo',
+		],
+	},
+};
+
 const PlansPanel = () => {
 	// States
-	const [currentTab, setCurrentTab] = useState('session');
+	const [currentTab, setCurrentTab] = useState('mentorship');
 	const [currentSession, setCurrentSession] = useState(
 		SESSIONS_PLACEHOLDER_ARRAY[0].id
 	);
@@ -23,7 +45,7 @@ const PlansPanel = () => {
 	const currentView = useMemo(() => {
 		switch (currentTab) {
 			case 'mentorship':
-				return <Mentroship />;
+				return <Mentroship plans={MENTORSHIP_PLACEHOLDER_ARRAY} />;
 			case 'session':
 				return (
 					<Sessions

@@ -9,14 +9,21 @@ const MentorshipPlan = (props) => {
 
 	return (
 		<div className='mentorship__plan' data-visible={isCurrent}>
-			<h4 className='mentorship__plan-price'>{monthlyPrice}</h4>
+			<h4 className='mentorship__plan-price'>
+				{monthlyPrice} <small>zł / msc</small>
+			</h4>
 			<p className='mentorship__plan-description'>{description}</p>
 			<ul className='mentorship__plan-benefits'>
-				{benefits?.map((benefit) => (
-					<li className='mentorship__plan-benefits-item'>{benefit}</li>
+				{benefits?.map((benefit, index) => (
+					<li key={index} className='mentorship__plan-benefits-item'>
+						{benefit}
+					</li>
 				))}
 			</ul>
-			<CustomButton as={buttonTypes.internalLink} link={'/'}>
+			<CustomButton
+				classes='mentorship__plan-link'
+				as={buttonTypes.internalLink}
+				link={'/'}>
 				Zapisz się teraz
 			</CustomButton>
 		</div>

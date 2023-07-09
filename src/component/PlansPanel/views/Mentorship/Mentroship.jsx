@@ -1,38 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import MentorshipTab from './components/MentorshipTab';
 import MentorshipPlan from './components/MentorshipPlan';
 
 const Mentroship = (props) => {
 	const {plans} = props;
 	// States
-	const [currentPlan, setCurrentPlan] = useState('little');
+	const [currentPlan, setCurrentPlan] = useState('lite');
 	// Handlers
 	const changePlanHandler = (id) => setCurrentPlan(id);
 	// Plan views
-	const plansViews = () => {
+	const plansViews = useMemo(() => {
+		if (!plans) return;
 		const plansTypes = Object.keys(plans);
 
-		return plansTypes.map((planKey) => (
+		return plansTypes?.map((planKey) => (
 			<MentorshipPlan
+				key={planKey}
 				isCurrent={planKey === currentPlan}
 				planProps={plans[planKey]}
 			/>
 		));
-	};
+	}, [plans, currentPlan]);
 	// JSX
 	return (
-		<div className='plans-panel__content-mentorship mentorship'>
+		<div className='mentorship'>
 			<div className='mentorship__tabs'>
 				<MentorshipTab
-					id='litle'
+					id='lite'
 					name='plan'
-					onChange={changePlanHandler}
+					text='Lite Plan'
+					onChangeHandler={changePlanHandler}
 					currentPlan={currentPlan}
 				/>
 				<MentorshipTab
 					id='standard'
 					name='plan'
-					onChange={changePlanHandler}
+					text='Standard Plan'
+					onChangeHandler={changePlanHandler}
 					currentPlan={currentPlan}
 				/>
 			</div>

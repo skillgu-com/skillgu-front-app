@@ -6,7 +6,7 @@ const Sessions = (props) => {
 	const {sessions, onChangeHandler, currentSession} = props;
 
 	return (
-		<div className='plans-panel__content-session session'>
+		<div className='session'>
 			<ul className='session__list'>
 				{sessions?.map((sessionProps) => (
 					<SessionItem

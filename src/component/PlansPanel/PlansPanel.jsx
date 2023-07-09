@@ -1,21 +1,42 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
+import Mentroship from './views/Mentorship/Mentroship';
+import Sessions from './views/Sessions/Sessions';
+import PlanPanelTabs from './components/PlanPanelTabs';
 
 const PlansPanel = () => {
+	// States
+	const [currentTab, setCurrentTab] = useState('mentorship');
+	// Handlers
+	const onChangePlanHandler = (id) => setCurrentTab(id);
+	// Views
+	const currentView = useMemo(() => {
+		switch (currentTab) {
+			case 'mentorship':
+				return <Mentroship />;
+			case 'session':
+				return <Sessions />;
+			default:
+				throw new Error(`Unknown view ${currentTab}`);
+		}
+	}, [currentTab]);
+
 	return (
 		<div className='plans-panel'>
 			<div className='plans-panel__tabs'>
-				<label className='plans-panel__tabs-item'>
-					<input type='radio' name='mentorship' id='mentorship'/>
-          Plan mentorstwa
-				</label>
-				<label className='plans-panel__tabs-item'>
-					<input type='radio' name='session' id='session'/>
-          Sesja
-				</label>
+				<PlanPanelTabs
+					id='mentorship'
+					text='Plan mentorstwa'
+					currentTab={currentTab}
+					onChangeHandler={onChangePlanHandler}
+				/>
+				<PlanPanelTabs
+					id='session'
+					text='Sesja'
+					currentTab={currentTab}
+					onChangeHandler={onChangePlanHandler}
+				/>
 			</div>
-      <div className="plans-panel__content">
-        
-      </div>
+			<div className='plans-panel__content'>{currentView}</div>
 		</div>
 	);
 };

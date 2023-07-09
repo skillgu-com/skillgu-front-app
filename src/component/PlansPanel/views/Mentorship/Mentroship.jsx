@@ -25,13 +25,13 @@ const Mentroship = (props) => {
 			<div className='mentorship__tabs'>
 				<MentorshipTab
 					id='litle'
-					name='litle'
+					name='plan'
 					onChange={changePlanHandler}
 					currentPlan={currentPlan}
 				/>
 				<MentorshipTab
 					id='standard'
-					name='standard'
+					name='plan'
 					onChange={changePlanHandler}
 					currentPlan={currentPlan}
 				/>

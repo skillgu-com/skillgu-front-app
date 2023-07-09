@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomButton, {buttonTypes} from '../../../CustomButton';
+import CustomButton, {buttonTypes} from '../../../../CustomButton';
 
 const MentorshipPlan = (props) => {
 	const {

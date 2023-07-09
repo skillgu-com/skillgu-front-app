@@ -3,15 +3,24 @@ import CustomButton, {buttonColors, buttonTypes} from '../../../CustomButton';
 import SessionItem from './components/SessionItem';
 
 const Sessions = (props) => {
-	const {sessions} = props;
+	const {sessions, onChangeHandler, currentSession} = props;
 
 	return (
 		<div className='plans-panel__content-session session'>
-			<ul className='session__list'>{sessions?.map((sessionProps) => <SessionItem {...sessionProps}/>)}</ul>
-			<CustomButton as={buttonTypes.internalLink} link='/'>
+			<ul className='session__list'>
+				{sessions?.map((sessionProps) => (
+					<SessionItem
+						key={sessionProps.id}
+						{...sessionProps}
+						onChangeHandler={onChangeHandler}
+						currentSession={currentSession}
+					/>
+				))}
+			</ul>
+			<CustomButton classes='session__button' as={buttonTypes.internalLink} link='/'>
 				Zarezerwuj teraz
 			</CustomButton>
-			<CustomButton color={buttonColors.secondary}>
+			<CustomButton classes='session__button' color={buttonColors.secondary}>
 				Zobacz wszystkie sesje
 			</CustomButton>
 		</div>

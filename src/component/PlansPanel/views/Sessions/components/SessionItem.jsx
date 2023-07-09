@@ -1,14 +1,26 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
 const SessionItem = (props) => {
-	const {id, name, minutes, price, isChecked} = props;
+	const {id, text, minutes, price, currentSession, onChangeHandler} = props;
+
+	const isChecked = useMemo(() => currentSession === id, [currentSession, id]);
 
 	return (
 		<li className='session__list-item'>
-			<label>
-				<input type='radio' name='session-type' id={id} checked={isChecked} />
-				<span className='session__name'>{name}</span>
-				<span className='session__details'>{minutes} minut, {price} zł za sesję</span>
+			<label data-selected={isChecked}>
+				<input
+					type='radio'
+					name='session-type'
+					id={id}
+					checked={isChecked}
+					onChange={() => onChangeHandler(id)}
+				/>
+				<span className='session__info'>
+					{text} <br />
+					<small>
+						{minutes} minut, {price} zł za sesję
+					</small>
+				</span>
 			</label>
 		</li>
 	);

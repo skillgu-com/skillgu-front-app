@@ -3,22 +3,39 @@ import Mentroship from './views/Mentorship/Mentroship';
 import Sessions from './views/Sessions/Sessions';
 import PlanPanelTabs from './components/PlanPanelTabs';
 
+const SESSIONS_PLACEHOLDER_ARRAY = [
+	{id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
+	{id: 'work', minutes: 30, price: 200, text: 'Work review'},
+	{id: 'interview', minutes: 30, price: 200, text: 'Interview Preparation'},
+	{id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
+];
+
 const PlansPanel = () => {
 	// States
-	const [currentTab, setCurrentTab] = useState('mentorship');
+	const [currentTab, setCurrentTab] = useState('session');
+	const [currentSession, setCurrentSession] = useState(
+		SESSIONS_PLACEHOLDER_ARRAY[0].id
+	);
 	// Handlers
 	const onChangePlanHandler = (id) => setCurrentTab(id);
+	const onChangeSessionHandler = (id) => setCurrentSession(id);
 	// Views
 	const currentView = useMemo(() => {
 		switch (currentTab) {
 			case 'mentorship':
 				return <Mentroship />;
 			case 'session':
-				return <Sessions />;
+				return (
+					<Sessions
+						sessions={SESSIONS_PLACEHOLDER_ARRAY}
+						currentSession={currentSession}
+						onChangeHandler={onChangeSessionHandler}
+					/>
+				);
 			default:
 				throw new Error(`Unknown view ${currentTab}`);
 		}
-	}, [currentTab]);
+	}, [currentTab, currentSession]);
 
 	return (
 		<div className='plans-panel'>

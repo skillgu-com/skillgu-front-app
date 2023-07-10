@@ -30,7 +30,7 @@ const AplicationLeftNav = () => {
             // },
             {
                 label: 'Mentorzy',
-                redirectUrl: '/investors',
+                redirectUrl: '/mentors',
             },
         ],
         [

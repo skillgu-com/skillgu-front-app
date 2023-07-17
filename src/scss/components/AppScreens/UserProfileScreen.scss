@@ -1,17 +1,18 @@
 @use '../../variables' as *;
+@use 'sass:map';
 
 .user-profile {
 	&__grid {
 		display: grid;
 		width: 100%;
-		grid-template-columns: 3fr 1fr;
+		grid-template-columns: 4fr 3fr;
 		grid-template-rows: auto auto auto;
 		gap: 20px;
 		margin-top: 32px;
 	}
 
 	&__data,
-	&__about{
+	&__about, &__price{
 		grid-column: 1/-1;
 	}
 
@@ -69,10 +70,15 @@
 		grid-row: 2/3;
 	}
 
-	@media screen and(min-width: 1350px) {
+	@media screen and(min-width: map-get($breakpoints, 'md')) {
 		&__data,
 		&__about {
 			grid-column: 1/2;
+		}
+		
+		&__price{
+			grid-column: 2/3;
+			grid-row: 1/-1;
 		}
 	}
 }

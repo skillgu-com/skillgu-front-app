@@ -73,10 +73,10 @@ const UserProfileScreen = () => {
 						</ul>
 					</article>
 				</section>
+			<div className='user-profile__price'>
+				<PlansPanel />
 			</div>
-				<div className='user-profile__price'>
-					<PlansPanel />
-				</div>
+			</div>
 		</AppLayout>
 	);
 };

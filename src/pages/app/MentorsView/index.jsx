@@ -26,7 +26,7 @@ const MentorScreen = () => {
 			<HeroHeader title='Mentorzy' image={<img src={investors} alt='mentors' />} />
 			<section className='d-flex flex-wrap'>
 				{/* {users?.map((element) => { */}
-					{/* return (    grid-column: 1/2; */}
+					{/* return (     */}
 						<MentorCard
 						id={1}
 						name={'Jerzy'}

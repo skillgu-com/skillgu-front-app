@@ -8,46 +8,11 @@ const SessionsModal = (props) => {
 		<div className='session-modal'>
 			<h3 className='session-modal__title'>Wybierz sesję z {name}</h3>
 			<ul className='session-modal__list'>
-				<li className='session-modal__list-item'>
-					<SessionCard
-						title={'title'}
-						description={
-							'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.'
-						}
-						price={300}
-						minutes={30}
-					/>
-				</li>
-				<li className='session-modal__list-item'>
-					<SessionCard
-						title={'title'}
-						description={
-							'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.'
-						}
-						price={300}
-						minutes={30}
-					/>
-				</li>
-				<li className='session-modal__list-item'>
-					<SessionCard
-						title={'title'}
-						description={
-							'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.'
-						}
-						price={300}
-						minutes={30}
-					/>
-				</li>
-				<li className='session-modal__list-item'>
-					<SessionCard
-						title={'title'}
-						description={
-							'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.'
-						}
-						price={300}
-						minutes={30}
-					/>
-				</li>
+				{sessions.map((session) => (
+					<li className='session-modal__list-item' key={session.id}>
+						<SessionCard {...session} />
+					</li>
+				))}
 			</ul>
 		</div>
 	);

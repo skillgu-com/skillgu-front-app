@@ -35,7 +35,38 @@ const Sessions = (props) => {
 						Zobacz wszystkie sesje
 					</CustomButton>
 				}>
-				<SessionsModal />
+				<SessionsModal
+					sessions={[
+						{
+							title: 'title',
+							description:
+								'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
+							price: 300,
+							minutes: 30,
+						},
+						{
+							title: 'title',
+							description:
+								'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
+							price: 300,
+							minutes: 30,
+						},
+						{
+							title: 'title',
+							description:
+								'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
+							price: 300,
+							minutes: 30,
+						},
+						{
+							title: 'title',
+							description:
+								'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
+							price: 300,
+							minutes: 30,
+						},
+					]} name='Tester'
+				/>
 			</Modal>
 		</div>
 	);

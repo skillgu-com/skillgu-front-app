@@ -6,6 +6,7 @@ export const buttonTypes = {
 	submit: 'submit',
 	externalLink: 'external-link',
 	internalLink: 'internal-link',
+	span: 'span',
 };
 
 export const buttonColors = {
@@ -16,13 +17,15 @@ export const buttonColors = {
 	transparent: 'transparent',
 };
 
-const CustomButton = ({as = buttonTypes.button,
-						  color = buttonColors.primary,
-						  children,
-						  classes,
-						  link,
-						  _onClick,
-						  disabled}) => {
+const CustomButton = ({
+	as = buttonTypes.button,
+	color = buttonColors.primary,
+	children,
+	classes,
+	link,
+	_onClick,
+	disabled,
+}) => {
 	const config = `custom-btn custom-btn--${color}${
 		classes ? ' ' + classes : ''
 	}`;
@@ -48,9 +51,19 @@ const CustomButton = ({as = buttonTypes.button,
 					'Button can not have link attribute. Use internal or external link type.'
 				);
 			return (
-				<button type='submit' className={config} onClick={_onClick && _onClick } disabled={disabled}>
+				<button
+					type='submit'
+					className={config}
+					onClick={_onClick && _onClick}
+					disabled={disabled}>
 					{children}
 				</button>
+			);
+		case buttonTypes.span:
+			return (
+				<span className={config}>
+					{children}
+				</span>
 			);
 		default:
 			if (link)
@@ -58,7 +71,10 @@ const CustomButton = ({as = buttonTypes.button,
 					'Button can not have link attribute. Use internal or external link type.'
 				);
 			return (
-				<button className={config} onClick={_onClick && _onClick} disabled={disabled}>
+				<button
+					className={config}
+					onClick={_onClick && _onClick}
+					disabled={disabled}>
 					{children}
 				</button>
 			);

@@ -1,6 +1,8 @@
 import React from 'react';
 import CustomButton, {buttonColors, buttonTypes} from '../../../CustomButton';
 import SessionItem from './components/SessionItem';
+import Modal from '../../../Modal';
+import SessionsModal from './components/SessionsModal';
 
 const Sessions = (props) => {
 	const {sessions, onChangeHandler, currentSession} = props;
@@ -17,12 +19,24 @@ const Sessions = (props) => {
 					/>
 				))}
 			</ul>
-			<CustomButton classes='session__button' as={buttonTypes.internalLink} link='/'>
+			<CustomButton
+				classes='session__button'
+				as={buttonTypes.internalLink}
+				link='/'>
 				Zarezerwuj teraz
 			</CustomButton>
-			<CustomButton classes='session__button' color={buttonColors.secondary}>
-				Zobacz wszystkie sesje
-			</CustomButton>
+
+			<Modal
+				trigger={
+					<CustomButton
+						as={buttonTypes.span}
+						classes='session__button'
+						color={buttonColors.secondary}>
+						Zobacz wszystkie sesje
+					</CustomButton>
+				}>
+				<SessionsModal />
+			</Modal>
 		</div>
 	);
 };

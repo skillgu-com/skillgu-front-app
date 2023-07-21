@@ -15,7 +15,7 @@ const SessionsModal = (props) => {
 				))}
 			</ul>
 		</div>
-	);
+	); 
 };
 
 export default SessionsModal;

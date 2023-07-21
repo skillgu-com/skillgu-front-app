@@ -18,6 +18,7 @@ import InvestorProfileScreen from "./pages/app/MentorProfileScreen";
 import SearchBusinessPartner from "./pages/app/SearchBusinessPartner";
 import Settings from "./pages/app/Settings";
 import PitchDeckCreatorScreen from "./pages/app/CreatorNewProjectView";
+import SesionDetailsScreen from "./pages/app/SesionDetailsScreen/SesionDetailsScreen";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/mentors" element={<ProtectedRoute><MentorScreen /></ProtectedRoute>} />
                     <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen /></ProtectedRoute>} />
                     <Route path="/mentor-profile/:id" element={<ProtectedRoute><InvestorProfileScreen /></ProtectedRoute>} />
+                    <Route path="/session-details/:id" element={<ProtectedRoute><SesionDetailsScreen /></ProtectedRoute>} />
                     <Route path="/business-partner" element={<ProtectedRoute><Underconstruction /></ProtectedRoute>} />
                     <Route path="/pitchdeck" element={<ProtectedRoute><PitchdeckScreen /></ProtectedRoute>} />
                     <Route path="/pitchdeck/:pitchDeckURL" element={<ProtectedRoute><PitchdeckScreen /></ProtectedRoute>} />

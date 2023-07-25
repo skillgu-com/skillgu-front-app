@@ -100,88 +100,119 @@ const BookForm = () => {
 
 	return (
 		<form className='book-form'>
-			<div className='book-form__group'>
-				<h2 className='book-form__title'>Contact Information</h2>
-				<Grid container spacing={2}>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							autoComplete='given-name'
-							name='firstName'
-							required
-							fullWidth
-							id='firstName'
-							label='Imię'
-							autoFocus
-							value={firstName}
-							onChange={handleFirstName}
-						/>
+			<div className='book-form__data'>
+				<div className='book-form__group'>
+					<h2 className='book-form__title'>Contact Information</h2>
+					<Grid container spacing={2}>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								autoComplete='given-name'
+								name='firstName'
+								required
+								fullWidth
+								id='firstName'
+								label='Imię'
+								autoFocus
+								value={firstName}
+								onChange={handleFirstName}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								required
+								fullWidth
+								id='lastName'
+								label='Nazwisko'
+								name='lastName'
+								autoComplete='family-name'
+								value={lastName}
+								onChange={handleLastName}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								required
+								fullWidth
+								id='email'
+								label='Email'
+								name='email'
+								autoComplete='email'
+								value={email}
+								onChange={handleEmail}
+							/>
+						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							fullWidth
-							id='lastName'
-							label='Nazwisko'
-							name='lastName'
-							autoComplete='family-name'
-							value={lastName}
-							onChange={handleLastName}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<TextField
-							required
-							fullWidth
-							id='email'
-							label='Email'
-							name='email'
-							autoComplete='email'
-							value={email}
-							onChange={handleEmail}
-						/>
-					</Grid>
-				</Grid>
-			</div>
-			<div className='book-form__group'>
-				<h2 className='book-form__title'>Szczegóły spotkania</h2>
-				<p className='book-form__text'>Wybierz dzień oraz godzinę spotkania.</p>
+				</div>
+				<div className='book-form__group'>
+					<h2 className='book-form__title'>Szczegóły spotkania</h2>
+					<p className='book-form__text'>Wybierz dzień oraz godzinę spotkania.</p>
 
-				<ul className='book-form__days'>
-					{DATES_PLACEHOLDER.map(
-						({id, date, hours}) =>
-							hours.length > 0 && (
-								<li key={'d' + id}>
+					<ul className='book-form__days'>
+						{DATES_PLACEHOLDER.map(
+							({id, date, hours}) =>
+								hours.length > 0 && (
+									<li key={'d' + id}>
+										<DayRadio
+											date={date}
+											spots={hours.length}
+											name='day'
+											id={id}
+											selectedId={day}
+											onChangeHandler={handleDay}
+										/>
+									</li>
+								)
+						)}
+					</ul>
+
+					{DATES_PLACEHOLDER.map(({id, date, hours}) => (
+						<ul className='book-form__hours' key={'h' + id} data-visible={day === id}>
+							{hours.map((item) => (
+								<li key={item.id}>
 									<DayRadio
-										date={date}
-										spots={hours.length}
-										name='day'
-										id={id}
-										selectedId={day}
-										onChangeHandler={handleDay}
+										name='dayHour'
+										{...item}
+										selectedId={hour}
+										onChangeHandler={handleHour}
 									/>
 								</li>
-							)
-					)}
-				</ul>
-
-				{DATES_PLACEHOLDER.map(({id, date, hours}) => (
-					<ul className='book-form__hours' key={'h' + id} data-visible={day === id}>
-						{hours.map((item) => (
-							<li key={item.id}>
-								<DayRadio
-									name='dayHour'
-									{...item}
-									selectedId={hour}
-									onChangeHandler={handleHour}
-								/>
-							</li>
-						))}
-					</ul>
-				))}
+							))}
+						</ul>
+					))}
+				</div>
+				<div className='book-form__group'>
+					<label className='book-form__text' htmlFor='message'>
+						<b>Wiadomość do</b>
+					</label>
+					<textarea name='message' id='message' cols='30' rows='10'></textarea>
+				</div>
 			</div>
-			<div className='book-form__group'>
-				<label className='book-form__text' htmlFor="message"><b>Wiadomość do</b></label>
-				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+			<div className='book-form__submit'>
+				<div className='book-form__group'>
+					<h2 className='book-form__title'>Podsumowanie</h2>
+					<div className='book-form__submit-container'>
+						<div className='submit-container__mentor'>
+							<div className='submit-container__mentor-image'>
+								<img src="https://cdn.pixabay.com/photo/2021/12/22/01/40/male-6886494_960_720.jpg" alt="mentor" />
+							</div>
+							<h3 className='submit-container__mentor-title'>Nazwa sesji</h3>
+							<h4 className='submit-container__mentor-subtitle'>
+								Mentor - Nazwa Mentora
+							</h4>
+						</div>
+						<ul className='submit-container__info'>
+							<li className='submit-container__info-item'>
+								<span>Cena</span>
+								<span>200 zł</span>
+							</li>
+							<li className='submit-container__info-item'>
+								<span>Czas</span>
+								<span>20 minut</span>
+							</li>
+						</ul>
+						<CustomButton type={buttonTypes.submit}>Zamów i zapłać</CustomButton>
+					</div>
+				</div>
 			</div>
 		</form>
 	);

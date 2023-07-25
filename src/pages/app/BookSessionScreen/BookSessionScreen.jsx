@@ -4,6 +4,7 @@ import AppLayout from '../../../component/AppLayout';
 import {getClientUserUUID} from '../../../services/UserProfileService';
 import {useParams} from 'react-router-dom';
 import BookForm from './views/BookForm';
+import Payment from './views/BookPayment';
 
 const BookSessionScreen = () => {
 	let {uuid} = useParams();
@@ -21,7 +22,7 @@ const BookSessionScreen = () => {
 
 	return (
 		<AppLayout>
-			<BookForm />
+			<Payment />
 		</AppLayout>
 	);
 };

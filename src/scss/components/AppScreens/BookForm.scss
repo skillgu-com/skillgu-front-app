@@ -1,0 +1,57 @@
+@use '../../variables' as *;
+
+.book-form {
+	&__title {
+		font-size: 20px;
+		margin-bottom: 1em;
+	}
+
+  &__text{
+    display: block;
+    font-size: 14px;
+    margin-bottom: 1em;
+  }
+
+	&__group {
+		padding: 25px 0 30px;
+
+		textarea {
+			width: 100%;
+		}
+	}
+
+	&__days {
+		display: flex;
+		gap: 14px;
+		padding: 15px 0 25px;
+		overflow-x: scroll;
+	}
+
+	&__hours {
+		display: none;
+
+		&[data-visible='true'] {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 14px;
+			padding-top: 25px;
+
+			> * {
+				flex: 1 1 52px;
+				label {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	@media screen and (min-width: $md) {
+		&__title {
+			font-size: 24px;
+		}
+
+    &__text{
+      font-size: 16px;
+    }
+	}
+}

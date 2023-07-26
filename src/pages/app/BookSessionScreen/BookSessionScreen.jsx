@@ -9,6 +9,7 @@ import Payment from './views/BookPayment';
 const BookSessionScreen = () => {
 	let {uuid} = useParams();
 
+	let [step, setStep] = useState(1);
 	let [user, setUser] = useState({});
 	let [session, setSession] = useState({});
 
@@ -22,7 +23,8 @@ const BookSessionScreen = () => {
 
 	return (
 		<AppLayout>
-			<Payment />
+			{step === 1 && <BookForm changeStepHandler={() => setStep(2)} />}
+			{step === 2 && <Payment changeStepHandler={() => setStep(1)} />}
 		</AppLayout>
 	);
 };

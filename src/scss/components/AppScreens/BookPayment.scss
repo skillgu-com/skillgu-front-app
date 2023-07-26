@@ -1,6 +1,14 @@
 @use '../../variables' as *;
 
 .book-payment {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+
+	> * {
+		grid-column: 1/-1;
+	}
+
 	&__submit {
 		&-session-name,
 		&-session-submit {
@@ -17,24 +25,43 @@
 		&-image {
 			margin-top: 36px;
 			width: 100%;
-      height: $xs;
+			height: $xs;
 			max-width: $xs;
 			overflow: hidden;
 			border-radius: 15px;
 
 			img {
 				width: 100%;
-        height: 100%;
+				height: 100%;
 				object-fit: cover;
 			}
 		}
 
-    &-button{
-      background-color: transparent;
-      border: none;
-      margin-bottom: 36px;
-      font-size: 14px;
-      cursor: pointer;
-    }
+		&-button {
+			background-color: transparent;
+			border: none;
+			margin-bottom: 36px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+	}
+
+	&__form {
+		display: block;
+		padding: 30px 0;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px -20px 20px -20px;
+	}
+
+	@media screen and (min-width: $md) {
+		> * {
+			grid-column: span 1;
+		}
+
+		&__form {
+			min-height: min-content;
+			height: 90vh;
+			padding: 120px 40px 0;
+			box-shadow: rgba(0, 0, 0, 0.25) -20px 0px 20px -20px;
+		}
 	}
 }

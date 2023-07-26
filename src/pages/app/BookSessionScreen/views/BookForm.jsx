@@ -71,7 +71,7 @@ const DATES_PLACEHOLDER = [
 	},
 ];
 
-const BookForm = () => {
+const BookForm = ({changeStepHandler}) => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
@@ -210,7 +210,7 @@ const BookForm = () => {
 								<span>20 minut</span>
 							</li>
 						</ul>
-						<CustomButton type={buttonTypes.submit}>Zamów i zapłać</CustomButton>
+						<CustomButton _onClick={changeStepHandler} type={buttonTypes.submit}>Zamów i zapłać</CustomButton>
 					</div>
 				</div>
 			</div>

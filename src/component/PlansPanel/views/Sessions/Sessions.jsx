@@ -22,7 +22,7 @@ const Sessions = (props) => {
 			<CustomButton
 				classes='session__button'
 				as={buttonTypes.internalLink}
-				link='/'>
+				link='/session-details/1/book'>
 				Zarezerwuj teraz
 			</CustomButton>
 

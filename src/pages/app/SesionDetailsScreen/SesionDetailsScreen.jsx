@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import AppLayout from '../../../component/AppLayout';
-import CustomButton from '../../../component/CustomButton';
+import CustomButton, {buttonTypes} from '../../../component/CustomButton';
 import {Rating} from '@mui/material';
 import {Link} from 'react-router-dom';
 
@@ -82,7 +82,12 @@ const SesionDetailsScreen = () => {
 							</li>
 						))}
 					</ul>
-					<CustomButton>Kontynuuj</CustomButton>
+					<CustomButton
+					classes='session-details__button'
+						as={buttonTypes.internalLink}
+						link={`/session-details/${id}/book`}>
+						Kontynuuj
+					</CustomButton>
 				</div>
 			</section>
 		</AppLayout>

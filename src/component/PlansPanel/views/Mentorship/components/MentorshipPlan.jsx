@@ -23,7 +23,7 @@ const MentorshipPlan = (props) => {
 			<CustomButton
 				classes='mentorship__plan-link'
 				as={buttonTypes.internalLink}
-				link={'/'}>
+				link={'/session-details/1/book'}>
 				Zapisz się teraz
 			</CustomButton>
 		</div>

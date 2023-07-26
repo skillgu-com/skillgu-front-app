@@ -14,7 +14,6 @@ import HomeScreen from "./pages/app/HomeView";
 import AuthContextProvider from "./context/AuthContextProvider";
 import MentorScreen from "./pages/app/MentorsView";
 import HelpScreen from "./pages/app/HelpView";
-import InvestorProfileScreen from "./pages/app/MentorProfileScreen";
 import SearchBusinessPartner from "./pages/app/SearchBusinessPartner";
 import Settings from "./pages/app/Settings";
 import PitchDeckCreatorScreen from "./pages/app/CreatorNewProjectView";
@@ -36,7 +35,7 @@ function App() {
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen /></ProtectedRoute>} />
                     <Route path="/mentors" element={<ProtectedRoute><MentorScreen /></ProtectedRoute>} />
                     <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen /></ProtectedRoute>} />
-                    <Route path="/mentor-profile/:id" element={<ProtectedRoute><InvestorProfileScreen /></ProtectedRoute>} />
+                    <Route path="/mentor-profile/:id" element={<ProtectedRoute><UserProfileScreen /></ProtectedRoute>} />
                     <Route path="/session-details/:id/book" element={<ProtectedRoute><BookSessionScreen /></ProtectedRoute>} />
                     <Route path="/session-details/:id" element={<ProtectedRoute><SesionDetailsScreen /></ProtectedRoute>} />
                     <Route path="/business-partner" element={<ProtectedRoute><Underconstruction /></ProtectedRoute>} />

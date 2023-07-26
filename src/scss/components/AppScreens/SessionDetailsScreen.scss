@@ -77,6 +77,10 @@
 		}
 	}
 
+	&__button {
+		text-align: center;
+	}
+
 	@media screen and (min-width: $md) {
 		padding-top: 60px;
 

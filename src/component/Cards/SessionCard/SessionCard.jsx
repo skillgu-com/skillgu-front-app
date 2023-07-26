@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomButton from '../../CustomButton';
+import CustomButton, {buttonTypes} from '../../CustomButton';
 
 const SessionCard = (props) => {
 	const {title, description, price, minutes, id} = props;
@@ -12,7 +12,11 @@ const SessionCard = (props) => {
 				<h6 className='session-card__price'>
 					{price} zł <small>/ {minutes} min</small>
 				</h6>
-				<CustomButton>Więcej</CustomButton>
+				<CustomButton
+					as={buttonTypes.internalLink}
+					link={`/session-details/${id}`}>
+					Więcej
+				</CustomButton>
 			</div>
 		</div>
 	);

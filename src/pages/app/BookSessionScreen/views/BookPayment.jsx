@@ -27,7 +27,8 @@ const BookPayment = ({changeStepHandler}) => {
 							required
 							fullWidth
 							id='email'
-							label='1234 1234 1234 1234'
+							label='Numer karty'
+							placeholder='1234 1234 1234 1234'
 							name='email'
 							autoComplete='email'
 							// value={email}
@@ -41,7 +42,8 @@ const BookPayment = ({changeStepHandler}) => {
 							required
 							fullWidth
 							id='firstName'
-							label='MM / YY'
+							label='Data'
+							placeholder='MM / YY'
 							autoFocus
 							// value={firstName}
 							// onChange={handleFirstName}
@@ -53,6 +55,7 @@ const BookPayment = ({changeStepHandler}) => {
 							fullWidth
 							id='lastName'
 							label='CVC'
+							placeholder='123'
 							name='lastName'
 							autoComplete='family-name'
 							// value={lastName}

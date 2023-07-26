@@ -4,35 +4,49 @@ import {getClientUser} from '../../../services/UserProfileService';
 import HeroHeader from '../../../component/HeroHeader';
 import sunset from '../../../assets/img/sunset.jpg';
 import PlansPanel from '../../../component/PlansPanel/PlansPanel';
+import {useParams} from 'react-router-dom';
+import {getClientUserUUID} from '../../../services/UserProfileService';
+
+const PLACEHOLDER_USER = {
+	firstName: 'Jerzy Adamczyk',
+	jobRole: 'Dyrektor Marketingu',
+	description:
+		'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.',
+	industry: 'D4 Cloud',
+};
 
 const UserProfileScreen = () => {
-	let [user, setUser] = useState({});
+	let {uuid} = useParams();
+	let [user, setUser] = useState(PLACEHOLDER_USER);
+
 	useEffect(() => {
-		getClientUser().then((response) => {
-			setUser(response.data);
-		});
+		// getClientUser().then((response) => {
+		// 	setUser(response.data);
+		// });
+	}, []);
+
+	useEffect(() => {
+		// getClientUserUUID(uuid).then(response => {
+		// 				setUser(response.data)
+		// 				console.log(response.data)
+		// 		})
 	}, []);
 
 	return (
 		<AppLayout>
-			<HeroHeader
-				title='Profil użytkownika'
-				image={<img src={sunset} alt='słońce' />}
-			/>
 			<div className='user-profile__grid'>
-				<section className='user-profile__data d-flex flex-wrap'>
+				<section className='user-profile__data'>
 					<div className='user-profile__data-photo'>
 						<img
 							src='https://cdn.pixabay.com/photo/2021/12/22/01/40/male-6886494_960_720.jpg'
 							alt='profile'
 						/>
 					</div>
-					<div className='user-profile__data-info'>
-						<h3 className='info__name'>{user.firstName}</h3>
-						<h4 className='info__position'>{user.jobRole}</h4>
-						<h5 className='info__company'>Investalert.pl</h5>
-						<h6 className='info__industry'>{user.industry}</h6>
-					</div>
+				</section>
+				<section className='user-profile__data-info'>
+					<h3 className='info__name'>{user.firstName}</h3>
+					<h4 className='info__position'>{user.jobRole} w {user.industry}</h4>
+					<p className='info__description'>{user.description}</p>
 				</section>
 				<section className='user-profile__about'>
 					<article className='app-section'>
@@ -73,9 +87,9 @@ const UserProfileScreen = () => {
 						</ul>
 					</article>
 				</section>
-			<div className='user-profile__price'>
-				<PlansPanel />
-			</div>
+				<div className='user-profile__price'>
+					<PlansPanel />
+				</div>
 			</div>
 		</AppLayout>
 	);

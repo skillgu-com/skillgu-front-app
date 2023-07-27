@@ -7,7 +7,16 @@ const BookPayment = ({changeStepHandler}) => {
 	return (
 		<div className='book-payment'>
 			<div className='book-payment__submit'>
-				<button onClick={changeStepHandler} className='book-payment__submit-button'>Cofnij</button>
+				<button onClick={changeStepHandler} className='book-payment__submit-button'>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						height='48'
+						viewBox='0 -960 960 960'
+						width='48'>
+						<path d='m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z' />
+					</svg>
+					<span>Cofnij</span>
+				</button>
 				<h2 className='book-payment__submit-session-name'>Tytuł sesji</h2>
 				<h3 className='book-payment__submit-session-price'>200 zł</h3>
 				<h4 className='book-payment__submit-session-submit'>
@@ -21,6 +30,7 @@ const BookPayment = ({changeStepHandler}) => {
 				</div>
 			</div>
 			<form className='book-payment__form'>
+				<h5 className='book-payment__form-title'>Płatność Kartą</h5>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<TextField

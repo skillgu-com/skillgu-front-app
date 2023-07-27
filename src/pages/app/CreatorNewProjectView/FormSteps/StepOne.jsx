@@ -98,7 +98,7 @@ const StepOne = ({
     return <Grid container spacing={2} marginTop={4}>
         <Grid item xs={12} sm={6}>
             <FormLabel id='projectTitle' className='field__label'>
-                Tytuł projektu
+                Imię
             </FormLabel>
             <TextField
                 autoComplete='given-name'
@@ -106,7 +106,7 @@ const StepOne = ({
                 required
                 fullWidth
                 id='projectTitle'
-                placeholder='wpisz pełną nazwę projektu'
+                placeholder='Podaj swoje imię'
                 value={projectTitle}
                 onChange={changeProjectTitle}
                 onBlur={onBlurCreateFirstPart}
@@ -115,7 +115,7 @@ const StepOne = ({
         </Grid>
         <Grid item xs={12} sm={6}>
             <FormLabel id='projectName' className='field__label'>
-                Wpisz unikatową nazwę projektu
+               Nazwisko
             </FormLabel>
             <TextField
                 autoComplete='given-name'
@@ -123,21 +123,9 @@ const StepOne = ({
                 required
                 fullWidth
                 id='projectName'
-                placeholder='www.inwestalert.pl/unikatowa-nazwa'
+                placeholder='Podaj swoje nazwisko'
                 value={uniqueProjectName}
                 onChange={changeUniqueProjectName}
-                onBlur={() => {
-                    if (!pitchDeckUniqueToken || firstStepChanged()) {
-                        isAvailablePitchDeckURL(
-                            onBlurCreateFirstPart,
-                            () => {
-                                alert('Taka unikatowa nazwa już istnieje, wymyśl inną!');
-                                setUniqueProjectName(firstStepLastData.current.uniqueProjectName)
-                            });
-                    } else {
-                        onBlurCreateFirstPart();
-                    }
-                }}
                 disabled={loading}
             />
         </Grid>

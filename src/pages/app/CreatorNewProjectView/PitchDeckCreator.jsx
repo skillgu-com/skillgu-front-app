@@ -6,9 +6,6 @@ import {getKeyValues} from "../../../services/KeyValuesService";
 import StepTwo from "./FormSteps/StepTwo";
 import StepThree from "./FormSteps/StepThree";
 import StepFour from "./FormSteps/StepFour";
-import StepFifth from "./FormSteps/StepFifth";
-import SteptSix from "./FormSteps/SteptSix";
-
 
 const PitchDeckCreator = (props) => {
 
@@ -29,33 +26,8 @@ const PitchDeckCreator = (props) => {
         setPitchDeckUrl,
         setIsNextStepDisabled,
         state: {
-            projectTitle,
             uniqueProjectName,
             pitchDeckUniqueToken,
-            projectLocalization,
-            projectIndustry,
-            projectStage,
-            startDate,
-            investorNumbers,
-            typeOfInvestor,
-            companyAssetMinMax,
-            minimumCompanyAsset,
-            roi,
-            paybackTime,
-            businessType,
-            offerDescription,
-            solutionDescription,
-            competitionExists,
-            competitionDescription,
-            businessModelDescription,
-            suggestionOfferDescription,
-            phoneNumber,
-            email,
-            movie,
-            businessInsurance,
-            employees,
-            files,
-            presentationFiles
         },
     } = props;
 
@@ -109,21 +81,6 @@ const PitchDeckCreator = (props) => {
                        unlockedStep4={unlockedStep4}
                        keyValues={keyValues}
                        setUnlockedStep5={setUnlockedStep5}
-            />
-
-            <hr className='line-separator'/>
-
-            <StepFifth
-                pitchDeckUniqueToken={pitchDeckUniqueToken}
-                unlockedStep5={unlockedStep5}
-                keyValues={keyValues}
-                setUnlockedStep6={setUnlockedStep6}
-            />
-            <hr className='line-separator'/>
-
-            <SteptSix
-                pitchDeckUniqueToken={pitchDeckUniqueToken}
-                unlockedStep6={unlockedStep6}
             />
 
             <hr className='line-separator'/>

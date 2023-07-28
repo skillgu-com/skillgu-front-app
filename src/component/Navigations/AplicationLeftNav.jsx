@@ -16,7 +16,7 @@ const AplicationLeftNav = () => {
             },
             // {
             //     label: 'Stwórz projekt',
-            //     redirectUrl: '/create-pitch-deck',
+            //     redirectUrl: '/create-mentor',
             // },
             // {
             //     label: 'Szukaj inwestycji',

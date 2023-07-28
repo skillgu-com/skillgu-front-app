@@ -28,7 +28,7 @@ const navigation = [
 	{
 		id: 2,
 		title: 'Stwórz inwestycje',
-		link: '/create-pitch-deck',
+		link: '/create-mentor',
 		icon: <Create />,
 	},
 	{

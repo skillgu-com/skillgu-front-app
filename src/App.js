@@ -29,7 +29,7 @@ function App() {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/home" element={<ProtectedRoute><HomeScreen /></ProtectedRoute>} />
-                    <Route path="/create-pitch-deck" element={<ProtectedRoute><PitchDeckCreatorScreen /></ProtectedRoute>} />
+                    <Route path="/create-mentor" element={<ProtectedRoute><PitchDeckCreatorScreen /></ProtectedRoute>} />
                     <Route path="/search-invest-projects" element={<ProtectedRoute><ProjectsSearchScreen /></ProtectedRoute>} />
                     <Route path="/search-business-partner" element={<ProtectedRoute><SearchBusinessPartner /></ProtectedRoute>} />
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen /></ProtectedRoute>} />

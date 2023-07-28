@@ -16,7 +16,7 @@ const AppLayout = ({children}) => {
 			e.returnValue = '';
 		};
 
-		if (pathname === '/create-pitch-deck' || pathname === '/user-setup') {
+		if (pathname === '/create-mentor' || pathname === '/user-setup') {
 			window.addEventListener('beforeunload', alertUser);
 		}
 

@@ -118,7 +118,7 @@ function PitchDeckCreatorScreen(props) {
     return (
         <AppLayout>
             <HeroHeader
-                title='Stwórz projekt'
+                title='Stwórz konto mentora'
                 image={<img src={headerImg} alt='froest'/>}
             />
             <div className={'pitchdeck-wrapper'}>
@@ -131,7 +131,7 @@ function PitchDeckCreatorScreen(props) {
                                     classes='w-100 pitchdeck__form-btn'
                                     _onClick={(e) => setStep(e, activeStep + 1)}
                                     disabled={isNextStepDisabled}>
-                                    Stwórz projekt
+                                    Stwórz konto mentora
                                 </CustomButton>
                                 <CustomButton
                                     classes='pitchdeck__form-btn'

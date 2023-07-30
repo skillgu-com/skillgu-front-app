@@ -5,7 +5,7 @@ import CustomButton from '../CustomButton';
 const InvestCard = ({
                         title,
                         location,
-                        icon = 'https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_960_720.png',
+                        icon = 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
                         noFollow,
                         industry,
                         roi,

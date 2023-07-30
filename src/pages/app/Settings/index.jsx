@@ -225,6 +225,34 @@ const Settings = () => {
 							autoFocus
 						/>
 					</Grid>
+					<Grid item xs={12} sm={6}>
+						<FormLabel id='twitter' className='field__label'>
+							Twitter
+						</FormLabel>
+						<TextField
+							autoComplete='twitter'
+							name='twitter'
+							required
+							fullWidth
+							id='twitter'
+							placeholder="Podaj link do Twitter'a"
+							autoFocus
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<FormLabel id='youtube' className='field__label'>
+							Youtube
+						</FormLabel>
+						<TextField
+							autoComplete='youtube'
+							name='youtube'
+							required
+							fullWidth
+							id='youtube'
+							placeholder="Podaj link do Yotube'a"
+							autoFocus
+						/>
+					</Grid>
 				</Grid>
 				<hr className='line-separator' />
 				<Grid item xs={12}>

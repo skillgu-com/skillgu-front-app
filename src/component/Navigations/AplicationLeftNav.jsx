@@ -29,7 +29,7 @@ const AplicationLeftNav = () => {
             //     redirectUrl: '/invest-maps',
             // },
             {
-                label: 'Mentorzy',
+                label: 'Znajdź menotra',
                 redirectUrl: '/mentors',
             },
         ],

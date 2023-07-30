@@ -43,6 +43,12 @@ const navigation = [
 		link: '/underconstruction',
 		icon: <Handshake />,
 	},
+	{
+		id: 5,
+		title: 'Szukaj pratnera biznesowego',
+		link: '/underconstruction',
+		icon: <Handshake />,
+	},
 ];
 
 const cards = [
@@ -101,7 +107,7 @@ const HomeScreen = () => {
 	return (
 		<AppLayout>
 			<HeroHeader
-				title='Panel użytkownika'
+				title='Panel Mentora'
 				image={<img src={homeBg} alt='investors' />}
 			/>
 			<div className='row flex-wrap justify-content-around my-3 home-screen__services-panel'>
@@ -110,8 +116,9 @@ const HomeScreen = () => {
 				))}
 			</div>
 			<div className='home-screen__lists d-flex'>
-				<CardsSlider title='Obserowani mentorzy' as={InvestCard} items={cards} noMaxHeight />
-				<CardsSlider title='Moje projekty' as={InvestCard} items={myCards} noMaxHeight />
+				<CardsSlider title='Moi studenci' as={InvestCard} items={cards} noMaxHeight />
+				{/*TODO */}
+				{/*<CardsSlider title='Moje projekty' as={InvestCard} items={myCards} noMaxHeight />*/}
 			</div>
 		</AppLayout>
 	);

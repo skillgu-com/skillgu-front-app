@@ -21,33 +21,33 @@ import homeBg from '../../../assets/img/landscape.jpg';
 const navigation = [
 	{
 		id: 1,
-		title: 'Gotowe inwestycje',
+		title: 'Kalendarz',
 		link: '/invest-maps',
 		icon: <HandMoney />,
 	},
 	{
 		id: 2,
-		title: 'Stwórz inwestycje',
+		title: 'Stwórz spotkania',
 		link: '/create-mentor',
 		icon: <Create />,
 	},
 	{
 		id: 3,
-		title: 'Szukaj inwestycji',
+		title: 'Harmonogram spotkań',
 		link: '/search-invest-projects',
 		icon: <Search />,
 	},
 	{
 		id: 4,
-		title: 'Szukaj pratnera biznesowego',
+		title: 'Szukaj mentora do współpracy',
 		link: '/underconstruction',
 		icon: <Handshake />,
 	},
 	{
 		id: 5,
-		title: 'Szukaj pratnera biznesowego',
+		title: 'Twoje konto',
 		link: '/underconstruction',
-		icon: <Handshake />,
+		icon: <HandMoney />,
 	},
 ];
 

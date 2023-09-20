@@ -77,9 +77,9 @@ const LoginPage = () => {
                     <Link className='form__link' to='/'>
                         Zapomniałeś hasła?
                     </Link>
-                    <h4 className='form__cta'>Chcesz dołączyć do grona inwestorów?</h4>
+                    <h4 className='form__cta'>Chcesz dołączyć do grona mentorów?</h4>
                     <Link className='form__link' to='/register'>
-                        Utwórz bezpłatne konto już teraz.
+                        Utwórz konto już teraz.
                     </Link>
                     <Copyright sx={{mt: 5, mb: 4}}/>
                 </div>

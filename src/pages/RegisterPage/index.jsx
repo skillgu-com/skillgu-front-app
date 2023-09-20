@@ -4,6 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import {GitHub} from '@mui/icons-material';
+import {LinkedIn} from '@mui/icons-material';
 import {Link} from 'react-router-dom';
 import CustomButton, {
     buttonTypes,
@@ -13,6 +14,7 @@ import Copyright from '../../component/Copyrigth';
 import PropTypes from "prop-types";
 import {AuthContext} from "../../context/AuthContextProvider";
 import {Form} from "react-bootstrap";
+import {ToggleButton, ToggleButtonGroup} from "@mui/material";
 
 function RegisterPage() {
 
@@ -25,6 +27,7 @@ function RegisterPage() {
     const [password, setPassword] = useState("");
     const [agreement, setAgreement] = useState(false);
     const [industry, setIndustry] = useState("");
+    const [selectedRole, setSelectedRole] = useState(null);
 
     const handleFirstName = (event) => {
         event.preventDefault();
@@ -53,10 +56,15 @@ function RegisterPage() {
         setAgreement(event.target.checked);
     }
 
+    const handleRoleChange = (event, newRole) => {
+        setSelectedRole(newRole);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        context.register(firstName, lastName, industry, email, password, agreement)
+        context.register(firstName, lastName, industry, email, password, agreement,selectedRole)
     };
+
 
     return (
         <section className='join'>
@@ -64,7 +72,7 @@ function RegisterPage() {
                 <div className='form'>
                     <h2 className='form__title'>Rejestracja</h2>
                     <h3 className='form__subtitle'>
-                        Utwórz darmowe konto i zacznij inwestować.
+                        Utwórz konto i zacznij się szkolić.
                     </h3>
                     <form className='form__container' onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
@@ -124,6 +132,20 @@ function RegisterPage() {
                                            onChange={handleIndustry}/>
                             </Grid>
                             <Grid item xs={12}>
+                                <ToggleButtonGroup
+                                    value={selectedRole}
+                                    exclusive
+                                    onChange={handleRoleChange}
+                                    aria-label="Wybierz rolę">
+                                    <ToggleButton value="mentor" aria-label="Mentor">
+                                        Mentor
+                                    </ToggleButton>
+                                    <ToggleButton value="student" aria-label="Student">
+                                        Student
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox
                                         value={agreement}
@@ -144,10 +166,11 @@ function RegisterPage() {
                         </CustomButton>
                     </form>
                     <CustomButton
+                        // TODO linkedIN btn nie dziala @Adrian
                         as={buttonTypes.button}
                         color={buttonColors.transparent}
-                        classes='form__github-btn d-flex align-items-center justify-content-center'>
-                        <GitHub sx={{mr: 1}}/> Zarejestruj się za pomocą GitHuba
+                        className='form__linkedin-btn d-flex align-items-center justify-content-center'>
+                        <LinkedIn sx={{mr: 1}}/> Zarejestruj się za pomocą Linkedin
                     </CustomButton>
                     <p>
                         Masz już konto ?{' '}

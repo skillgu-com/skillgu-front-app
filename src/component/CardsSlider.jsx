@@ -14,7 +14,7 @@ const CardsSlider = (props) => {
 			<div className='cards-slider'>
 				<div className={`cards-slider__slider${noMaxHeight ? ' cards-slider__slider--no-max-height' : ''}`}>
 					{items.map((item) => (
-						<Element {...item} />
+						<Element key={item.id}{...item} />
 					))}
 				</div>
 			</div>

@@ -7,19 +7,26 @@ export const AuthContext = createContext({
     user: {firstName: '', lastName: ''},
     login: (email, password) => {
     },
-    register: (firstName, lastName, industry, email, password, agreement) => {
+    register: (firstName, lastName, industry, email, password, agreement,selectedRole) => {
     }
 })
 
 function AuthContextProvider(props) {
-    const token = localStorage.getItem('jwttoken');
+
+    const[token,setToken] = useState("");
 
     const [user, setUser] = useState(token ? _parseUserFromJwt(token) : null);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setToken(localStorage.getItem("jwttoken"))
+    },[]);
+
     const login = (email, password) => {
         loginUser(email, password)
             .then((res) => {
+                console.log('Odpowiedź od loginUser:', res);
                 localStorage.setItem('jwttoken', res.data.jwttoken);
                 setUser(_parseUserFromJwt(res.data.jwttoken))
                 navigate('/home');
@@ -28,12 +35,12 @@ function AuthContextProvider(props) {
                 console.log(err);
             });
     }
-    const register = (firstName, lastName, industry, email, password, agreement) => {
-        registerAccount(firstName, lastName, industry, email, password, agreement)
+    const register = (firstName, lastName, industry, email, password, agreement,selectedRole) => {
+        registerAccount(firstName, lastName, industry, email, password, agreement,selectedRole)
             .then((res) => {
                 localStorage.setItem('jwttoken', res.data.jwttoken);
                 setUser(_parseUserFromJwt(res.data.jwttoken))
-                navigate('/home');
+                navigate('/login');
             })
             .catch((err) => {
                 console.log(err);
@@ -73,7 +80,7 @@ function AuthContextProvider(props) {
 const _parseUserFromJwt = (token) => {
     if (token) {
         const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const base64 = base64Url.replace(/-/g, '+')?.replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('')
             .map((c) => {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
@@ -82,11 +89,10 @@ const _parseUserFromJwt = (token) => {
         return {
             firstName: payload.sub,
             lastName: ''
-        }
-
+        };
     }
     return null;
-
 }
+
 
 export default AuthContextProvider;

@@ -26,9 +26,9 @@ function AuthContextProvider(props) {
     const login = (email, password) => {
         loginUser(email, password)
             .then((res) => {
-                console.log('Odpowiedź od loginUser:', res);
-                localStorage.setItem('jwttoken', res.data.jwttoken);
-                setUser(_parseUserFromJwt(res.data.jwttoken))
+                console.log("CO TUTAJ JEST ", res.data);
+                localStorage.setItem('jwttoken', res.data);
+                setUser(_parseUserFromJwt(res.data))
                 navigate('/home');
             })
             .catch((err) => {
@@ -38,8 +38,8 @@ function AuthContextProvider(props) {
     const register = (firstName, lastName, industry, email, password, agreement,selectedRole) => {
         registerAccount(firstName, lastName, industry, email, password, agreement,selectedRole)
             .then((res) => {
-                localStorage.setItem('jwttoken', res.data.jwttoken);
-                setUser(_parseUserFromJwt(res.data.jwttoken))
+                localStorage.setItem('jwttoken', res.data.body.jwttoken);
+                setUser(_parseUserFromJwt(res.data.body.jwttoken))
                 navigate('/login');
             })
             .catch((err) => {

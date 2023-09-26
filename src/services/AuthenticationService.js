@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const registerAccount = async (firstName, lastName, industry, email, password, agreement, selectedRole) => {
     return await axios
-        .post('/api/mentor/register', {
+        .post('/api/user/register', {
             firstName: firstName,
             lastName: lastName,
             industry: industry,
@@ -15,7 +15,7 @@ export const registerAccount = async (firstName, lastName, industry, email, pass
 }
 export const loginUser = async (email, password) => {
     return await axios
-        .post('api/mentor/login-mentor', {
+        .post('api/user/login', {
             email: email,
             password: password,
         });

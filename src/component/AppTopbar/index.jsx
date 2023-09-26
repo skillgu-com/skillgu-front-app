@@ -12,12 +12,15 @@ import Logout from '@mui/icons-material/Logout';
 import {AuthContext} from "../../context/AuthContextProvider";
 
 const AppTopbar = () => {
+
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
+	const context = useContext(AuthContext);
+	const avatarLetter = context.user.role[0] === 'MENTOR' ? 'M' : context.user.role[0] === 'STUDENT' ? 'S' : 'A';
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-	const context = useContext(AuthContext);
+
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -26,7 +29,7 @@ const AppTopbar = () => {
 		<div className='app-top-bar'>
 			<div className='container d-flex align-items-center justify-content-end'>
 				<Box>
-					{context.user ? context.user.firstName + ' ' +context.user.lastName : 'brak imienia'}
+					{context.user.firstName}
 					<Tooltip title='Account settings'>
 						<IconButton
 							onClick={handleClick}
@@ -35,7 +38,7 @@ const AppTopbar = () => {
 							aria-controls={open ? 'account-menu' : undefined}
 							aria-haspopup='true'
 							aria-expanded={open ? 'true' : undefined}>
-							<Avatar sx={{width: 32, height: 32}}>M</Avatar>
+							<Avatar sx={{width: 32, height: 32}}>{avatarLetter}</Avatar>
 						</IconButton>
 					</Tooltip>
 				</Box>

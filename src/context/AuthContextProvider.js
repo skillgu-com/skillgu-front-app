@@ -4,16 +4,16 @@ import {loginUser, registerAccount} from "../services/AuthenticationService";
 import axios from "axios";
 
 export const AuthContext = createContext({
-    user: {firstName: '', lastName: ''},
+    user: {firstName: '',role: ""},
     login: (email, password) => {
     },
-    register: (firstName, lastName, industry, email, password, agreement,selectedRole) => {
+    register: (firstName, lastName, industry, email, password, agreement, selectedRole) => {
     }
 })
 
 function AuthContextProvider(props) {
 
-    const[token,setToken] = useState("");
+    const [token, setToken] = useState("");
 
     const [user, setUser] = useState(token ? _parseUserFromJwt(token) : null);
 
@@ -21,12 +21,14 @@ function AuthContextProvider(props) {
 
     useEffect(() => {
         setToken(localStorage.getItem("jwttoken"))
-    },[]);
+    }, []);
 
     const login = (email, password) => {
         loginUser(email, password)
             .then((res) => {
-                console.log("CO TUTAJ JEST ", res.data);
+                // const decodedToken = JSON.parse(atob(res.data.split('.')[1]));
+                // const userRole = decodedToken.role;
+                // console.log(`Rola użytkownika: ${userRole}`);
                 localStorage.setItem('jwttoken', res.data);
                 setUser(_parseUserFromJwt(res.data))
                 navigate('/home');
@@ -35,11 +37,11 @@ function AuthContextProvider(props) {
                 console.log(err);
             });
     }
-    const register = (firstName, lastName, industry, email, password, agreement,selectedRole) => {
-        registerAccount(firstName, lastName, industry, email, password, agreement,selectedRole)
+    const register = (firstName, lastName, industry, email, password, agreement, selectedRole) => {
+        registerAccount(firstName, lastName, industry, email, password, agreement, selectedRole)
             .then((res) => {
-                localStorage.setItem('jwttoken', res.data.body.jwttoken);
-                setUser(_parseUserFromJwt(res.data.body.jwttoken))
+                // localStorage.setItem('jwttoken', res.data);
+                // setUser(_parseUserFromJwt(res.data))
                 navigate('/login');
             })
             .catch((err) => {
@@ -50,6 +52,7 @@ function AuthContextProvider(props) {
     const logout = () => {
         localStorage.removeItem('jwttoken');
         setUser(null);
+        navigate('/');
     }
 
     const value = {user: user, login: login, register: register, logout: logout}
@@ -88,7 +91,9 @@ const _parseUserFromJwt = (token) => {
         const payload = JSON.parse(jsonPayload);
         return {
             firstName: payload.sub,
-            lastName: ''
+            role: payload.role
+
+
         };
     }
     return null;

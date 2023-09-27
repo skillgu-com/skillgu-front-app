@@ -19,6 +19,7 @@ import Settings from "./pages/app/Settings";
 import PitchDeckCreatorScreen from "./pages/app/CreatorNewProjectView";
 import SesionDetailsScreen from "./pages/app/SesionDetailsScreen/SesionDetailsScreen";
 import BookSessionScreen from "./pages/app/BookSessionScreen/BookSessionScreen";
+import Raports from "./pages/app/Raports/Raports";
 
 function App() {
     return (
@@ -44,6 +45,7 @@ function App() {
                     <Route path="/help" element={<ProtectedRoute><HelpScreen /></ProtectedRoute>} />
                     <Route path="/underconstruction" element={<Underconstruction />} />
                     <Route path="/user-setup" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+                    <Route path="/raports" element={<ProtectedRoute><Raports /></ProtectedRoute>} />
                 </Routes>
             </AuthContextProvider>
         </BrowserRouter>

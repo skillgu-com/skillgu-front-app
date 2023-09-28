@@ -24,37 +24,37 @@ const navigation = [
     {
         id: 1,
         title: 'Kalendarz',
-        link: '/invest-maps',
+        link: '/calendar-view',
         icon: <HandMoney/>,
         allowedRoles: ['STUDENT', "MENTOR"],
     },
     {
         id: 2,
         title: 'Stwórz spotkania',
-        link: '/create-mentor',
+        link: '/create-new-meeting',
         icon: <Create/>,
-        allowedRoles: ['STUDENT', "MENTOR"],
+        allowedRoles: ["MENTOR"],
     },
     {
         id: 3,
         title: 'Harmonogram spotkań',
-        link: '/search-invest-projects',
+        link: '/schedule-meeting',
         icon: <Search/>,
-        allowedRoles: ['STUDENT'],
+        allowedRoles: ['STUDENT','MENTOR'],
     },
     {
         id: 4,
         title: 'Szukaj mentora do współpracy',
-        link: '/underconstruction',
+        link: '/mentors',
         icon: <Handshake/>,
-        allowedRoles: ['STUDENT'],
+        allowedRoles: ['STUDENT','MENTOR'],
     },
     {
         id: 5,
         title: 'Twoje konto',
-        link: '/underconstruction',
+        link: '/account-view',
         icon: <HandMoney/>,
-        allowedRoles: ['STUDENT'],
+        allowedRoles: ['STUDENT','MENTOR'],
     },
 ];
 
@@ -66,32 +66,6 @@ const users2 = [
         roi: 10,
         noFollow: true,
     },
-
-
-    // {
-    // 	title: 'MMW',
-    // 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-    // 	industry: 'IT',
-    // 	roi: 10,
-    // 	noFollow: true,
-    // 	invested: true,
-    // },
-    // {
-    // 	title: 'MMW',
-    // 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-    // 	industry: 'IT',
-    // 	roi: 10,
-    // 	noFollow: true,
-    // 	invested: true,
-    // },
-    // {
-    // 	title: 'MMW',
-    // 	location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-    // 	industry: 'IT',
-    // 	roi: 10,
-    // 	noFollow: true,
-    // 	invested: true,
-    // },
 ];
 
 const myCards = [
@@ -127,7 +101,6 @@ const HomeScreen = () => {
             .then(res => {
                 if (res.data.length > 0) {
                     setUsers(res.data);
-                    console.log(res.data)
                 } else {
                     setUsers([]);
                 }

@@ -7,10 +7,11 @@ import PlansPanel from '../../../component/PlansPanel/PlansPanel';
 import {useParams} from 'react-router-dom';
 import {getClientUserUUID} from '../../../services/UserProfileService';
 import {searchAllMyOwnProjects} from "../../../services/SearchOfProjectsService";
+import {AuthContext} from "../../../context/AuthContextProvider";
 
 const PLACEHOLDER_USER = {
-    firstName: 'Jerzy Adamczyk',
-    jobRole: 'Dyrektor Marketingu',
+    firstName: '',
+    jobRole: '',
     description:
         'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.',
     industry: 'D4 Cloud',
@@ -19,10 +20,16 @@ const PLACEHOLDER_USER = {
 const UserProfileScreen = () => {
     let {studentID} = useParams();
     let [user, setUser] = useState(PLACEHOLDER_USER);
+    // const {usertest} = useContext(AuthContext);
+    const { userTT} = useContext(AuthContext);
+
+    // console.log('sprawdzam sobie context uzytkownika: ' + userTT.firstName)
+    console.log('eldo',userTT)
 
     useEffect(() => {
         getUserProfile(studentID).then((response) => {
             setUser(response.data);
+
         });
     }, []);
 

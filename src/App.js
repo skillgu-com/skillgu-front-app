@@ -19,6 +19,12 @@ import PitchDeckCreatorScreen from "./pages/app/CreatorNewProjectView";
 import SesionDetailsScreen from "./pages/app/SesionDetailsScreen/SesionDetailsScreen";
 import BookSessionScreen from "./pages/app/BookSessionScreen/BookSessionScreen";
 import Underconstruction from "./pages/Underconstruction";
+import CalendarView from "./pages/app/CalendarView/CalendarView";
+import CreateNewMeeting from "./pages/app/CreateMeetingView/CreateNewMeeting";
+import MeetingSchedule from "./pages/app/MeetingScheduleView/MeetingSchedule";
+import AccountView from "./pages/app/AccountView/AccountView";
+import MentoringPlanCreatorView from "./pages/app/CreateMeetingView/FormSteps/MentoringPlanCreatorView";
+import SessionPlanCreatorView from "./pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews";
 
 function App() {
     return (
@@ -30,12 +36,12 @@ function App() {
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/home" element={<ProtectedRoute><HomeScreen/></ProtectedRoute>}/>
                     <Route path="/create-mentor" element={<ProtectedRoute><PitchDeckCreatorScreen/></ProtectedRoute>}/>
-                    <Route path="/search-invest-projects"
-                           element={<ProtectedRoute><ProjectsSearchScreen/></ProtectedRoute>}/>
+                    <Route path="/search-invest-projects" element={<ProtectedRoute><ProjectsSearchScreen/></ProtectedRoute>}/>
                     <Route path="/search-business-partner"
                            element={<ProtectedRoute><SearchBusinessPartner/></ProtectedRoute>}/>
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen/></ProtectedRoute>}/>
                     <Route path="/mentors" element={<ProtectedRoute><MentorScreen/></ProtectedRoute>}/>
+                    <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/user-profile/:studentID" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/mentor-profile/:id" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/session-details/:id/book"
@@ -46,6 +52,12 @@ function App() {
                     <Route path="/help" element={<ProtectedRoute><HelpScreen/></ProtectedRoute>}/>
                     <Route path="/underconstruction" element={<Underconstruction/>}/>
                     <Route path="/user-setup" element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
+                    <Route path="/calendar-view" element={<ProtectedRoute><CalendarView/></ProtectedRoute>}/>
+                    <Route path="/create-new-meeting" element={<ProtectedRoute><CreateNewMeeting/></ProtectedRoute>}/>
+                    <Route path="/schedule-meeting" element={<ProtectedRoute><MeetingSchedule/></ProtectedRoute>}/>
+                    <Route path="/account-view" element={<ProtectedRoute><AccountView/></ProtectedRoute>}/>
+                    <Route path="/create-mentoring-plan" element={<ProtectedRoute><MentoringPlanCreatorView/></ProtectedRoute>}/>
+                    <Route path="/create-session-plan" element={<ProtectedRoute><SessionPlanCreatorView/></ProtectedRoute>}/>
                 </Routes>
             </AuthContextProvider>
         </BrowserRouter>

@@ -91,7 +91,7 @@ const Footer = () => {
 
 				<div className='footer__copy d-flex align-items-center justify-content-between'>
 					<p className='text-left'>
-						&copy; 2022 Copyright: <Link to='/'>investalert.pl</Link>
+						&copy; 2022 Copyright: <Link to='/'>skillguru.pl</Link>
 					</p>
 					<div className='footer__social'>
 						<ul className='social-list d-flex align-items-center justify-content-center'>

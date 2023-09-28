@@ -12,12 +12,9 @@ const CardsSlider = (props) => {
 		<section>
 			<h2 className='cards-slider__title'>{title}</h2>
 			<div className='cards-slider'>
-				<div
-					className={`cards-slider__slider${
-						noMaxHeight ? ' cards-slider__slider--no-max-height' : ''
-					}`}>
-					{items.map((item, index) => (
-						<Element key={item.id + index} {...item} />
+				<div className={`cards-slider__slider${noMaxHeight ? ' cards-slider__slider--no-max-height' : ''}`}>
+					{items.map((item) => (
+						<Element key={item.id}{...item} />
 					))}
 				</div>
 			</div>

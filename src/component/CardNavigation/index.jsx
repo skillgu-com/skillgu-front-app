@@ -3,7 +3,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const CardNavigation = (props) => {
-	const {title, link, icon} = props;
+	const {title, link, icon,allowedRoles} = props;
 
 	return (
 		<div className='card-navigation__wrapper d-flex justify-content-center col-12 col-sm-6 col-xl-3'>

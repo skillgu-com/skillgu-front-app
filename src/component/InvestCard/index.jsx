@@ -3,19 +3,23 @@ import {useNavigate} from 'react-router-dom';
 import CustomButton from '../CustomButton';
 
 const InvestCard = ({
-                        title,
+                        studentID,
+                        firstName,
                         location,
                         icon = 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
                         noFollow,
                         industry,
-                        roi,
+                        lastName,
+                        jobTitle,
                         invested = false,
                         pitchDeckURL = false,
                         pitchDeckTitle,
+                        linkedin_url,
+                        goalDescription
                     }) => {
     const navigate = useNavigate();
     const handleNavigate = () => {
-        navigate(`/pitchdeck/${pitchDeckURL}`);
+        // navigate(`/pitchdeck/${pitchDeckURL}`);
     };
 
     return (
@@ -32,14 +36,24 @@ const InvestCard = ({
                 <div>
                     <h4 className='invest-card__title'>{pitchDeckTitle}</h4>
                     <p className='invest-card__info'>
-                        <strong>Imię:</strong> {location}
+                        <strong>Imię:</strong> {firstName}
                     </p>
                     <p className='invest-card__info '>
-                        <strong>Branża:</strong> {industry}
+                        <strong>Nazwisko:</strong> {lastName}
                     </p>
                     <p className='invest-card__info '>
-                        <strong>Rentowność:</strong> {roi}%
+                        <strong>Zawód:</strong> {jobTitle}
                     </p>
+                    <p className='invest-card__info '>
+                        <strong>Wykupione spotkania:</strong> {true}
+                    </p>
+                    <p className='invest-card__info '>
+                        <strong>Cele do zrealizowania:</strong> {goalDescription}
+                    </p>
+                    <p className='invest-card__info '>
+                        <strong>Linkedin:</strong> {linkedin_url}
+                    </p>
+
                 </div>
             </div>
             <div className='invest-card__buttons d-flex justify-content-center align-items-center'>
@@ -48,10 +62,11 @@ const InvestCard = ({
                         Nie obserwuj
                     </CustomButton>
                 )}
-                {/*<CustomButton as='internal-link' link={`/pitchdeck/${pitchDeckURL}`}>*/}
+                {/*<CustomButton as='internal-link' link={`/user-profile/${studentID}`}>*/}
                 {/*    Więcej*/}
                 {/*</CustomButton>*/}
-                <CustomButton as='internal-link' link={`/user-profile`}>
+
+                <CustomButton as='internal-link' link={`/user-profile/${studentID}`}>
                     Więcej
                 </CustomButton>
             </div>

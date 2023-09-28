@@ -36,7 +36,7 @@ function App() {
                            element={<ProtectedRoute><SearchBusinessPartner/></ProtectedRoute>}/>
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen/></ProtectedRoute>}/>
                     <Route path="/mentors" element={<ProtectedRoute><MentorScreen/></ProtectedRoute>}/>
-                    <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
+                    <Route path="/user-profile/:studentID" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/mentor-profile/:id" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/session-details/:id/book"
                            element={<ProtectedRoute><BookSessionScreen/></ProtectedRoute>}/>
@@ -61,9 +61,9 @@ const ProtectedRoute = (props) => {
     const isAuthenticated = !!localStorage.getItem('jwttoken');
 
     const {user} = useContext(AuthContext);
-    console.log(user);
-    console.log('Uzytkownik po autentykacji: ', user.firstName);
-    console.log('rola po autentykacji: ', user.role[0]);
+    // console.log(user);
+    // console.log('Uzytkownik po autentykacji: ', user.firstName);
+    // console.log('rola po autentykacji: ', user.role[0]);
 
     return isAuthenticated ? props.children : <Navigate to="/" replace/>;
 }

@@ -28,3 +28,7 @@ export const getUserProfile = async (userID) => {
     return await axios.get(`/api/user/get-user-profile/${userID}`);
 }
 
+export const getUserProfileByEmail = async  (email) => {
+    return await axios.get(`/api/user/user-profile/${email}`);
+}
+

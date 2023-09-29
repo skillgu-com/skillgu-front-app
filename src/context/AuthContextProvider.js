@@ -4,7 +4,7 @@ import {loginUser, registerAccount} from "../services/AuthenticationService";
 import axios from "axios";
 
 export const AuthContext = createContext({
-    user: {firstName: '',role: ""},
+    user: {email: '',role: ""},
     login: (email, password) => {
     },
     register: (firstName, lastName, industry, email, password, agreement, selectedRole) => {
@@ -90,7 +90,7 @@ const _parseUserFromJwt = (token) => {
             }).join(''));
         const payload = JSON.parse(jsonPayload);
         return {
-            firstName: payload.sub,
+            email: payload.sub,
             role: payload.role
 
 

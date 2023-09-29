@@ -25,6 +25,7 @@ import MeetingSchedule from "./pages/app/MeetingScheduleView/MeetingSchedule";
 import AccountView from "./pages/app/AccountView/AccountView";
 import MentoringPlanCreatorView from "./pages/app/CreateMeetingView/FormSteps/MentoringPlanCreatorView";
 import SessionPlanCreatorView from "./pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews";
+import LoggedProfileScreen from "./pages/app/UserProfileScreen/LoggedProfileScreen";
 
 function App() {
     return (
@@ -41,7 +42,7 @@ function App() {
                            element={<ProtectedRoute><SearchBusinessPartner/></ProtectedRoute>}/>
                     <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen/></ProtectedRoute>}/>
                     <Route path="/mentors" element={<ProtectedRoute><MentorScreen/></ProtectedRoute>}/>
-                    <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
+                    <Route path="/user-profile" element={<ProtectedRoute><LoggedProfileScreen/></ProtectedRoute>}/>
                     <Route path="/user-profile/:studentID" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/mentor-profile/:id" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
                     <Route path="/session-details/:id/book"

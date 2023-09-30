@@ -14,7 +14,6 @@ export const registerAccount = async (firstName, lastName, industry, email, pass
         });
 }
 export const loginUser = async (email, password) => {
-    console.log('di kurwe')
     return await axios
         .post('api/user/login', {
             email: email,

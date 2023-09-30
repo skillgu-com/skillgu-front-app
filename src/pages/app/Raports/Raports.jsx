@@ -4,6 +4,7 @@ import React from 'react';
 import AppLayout from '../../../component/AppLayout';
 import Table from '../../../component/Table/Table';
 import HeroHeader from '../../../component/HeroHeader';
+import {TextField, MenuItem} from '@mui/material';
 // Images
 import investors from '../../../assets/img/galaxy.png';
 
@@ -11,6 +12,17 @@ const Raports = () => {
 	return (
 		<AppLayout>
 			<HeroHeader title='Raporty' image={<img src={investors} alt='mentors' />} />
+			<div className='mentor-filters'>
+				<TextField id='title' select label='Temat' defaultValue={1}>
+					<MenuItem value={1}>Wszystkie</MenuItem>
+				</TextField>
+				<TextField id='status' select label='Status' defaultValue={1}>
+					<MenuItem value={1}>Wszystkie</MenuItem>
+				</TextField>
+				<TextField id='student' select label='Student' defaultValue={1}>
+					<MenuItem value={1}>Wszyscy</MenuItem>
+				</TextField>
+			</div>
 			<Table
 				headers={[
 					{id: 'h01', value: 'Temat'},

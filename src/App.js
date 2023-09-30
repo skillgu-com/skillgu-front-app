@@ -30,38 +30,38 @@ import SessionPlanCreatorView from "./pages/app/CreateMeetingView/FormSteps/Sess
 function App() {
     return (
         <BrowserRouter>
-            <AuthContextProvider>
+            <>
                 <Routes>
                     <Route path="/" element={<Landing/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/home" element={<ProtectedRoute><HomeScreen/></ProtectedRoute>}/>
-                    <Route path="/create-mentor" element={<ProtectedRoute><PitchDeckCreatorScreen/></ProtectedRoute>}/>
-                    <Route path="/search-invest-projects" element={<ProtectedRoute><ProjectsSearchScreen/></ProtectedRoute>}/>
+                    <Route path="/home" element={<><HomeScreen/></>}/>
+                    <Route path="/create-mentor" element={<><PitchDeckCreatorScreen/></>}/>
+                    <Route path="/search-invest-projects" element={<><ProjectsSearchScreen/></>}/>
                     <Route path="/search-business-partner"
-                           element={<ProtectedRoute><SearchBusinessPartner/></ProtectedRoute>}/>
-                    <Route path="/invest-maps" element={<ProtectedRoute><ProjectsMapScreen/></ProtectedRoute>}/>
-                    <Route path="/mentors" element={<ProtectedRoute><MentorScreen/></ProtectedRoute>}/>
-                    <Route path="/user-profile" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
-                    <Route path="/user-profile/:studentID" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
-                    <Route path="/mentor-profile/:id" element={<ProtectedRoute><UserProfileScreen/></ProtectedRoute>}/>
+                           element={<><SearchBusinessPartner/></>}/>
+                    <Route path="/invest-maps" element={<><ProjectsMapScreen/></>}/>
+                    <Route path="/mentors" element={<><MentorScreen/></>}/>
+                    <Route path="/user-profile" element={<><UserProfileScreen/></>}/>
+                    <Route path="/user-profile/:studentID" element={<><UserProfileScreen/></>}/>
+                    <Route path="/mentor-profile/:id" element={<><UserProfileScreen/></>}/>
                     <Route path="/session-details/:id/book"
-                           element={<ProtectedRoute><BookSessionScreen/></ProtectedRoute>}/>
+                           element={<><BookSessionScreen/></>}/>
                     <Route path="/session-details/:id"
-                           element={<ProtectedRoute><SesionDetailsScreen/></ProtectedRoute>}/>
-                    <Route path="/business-partner" element={<ProtectedRoute><Underconstruction/></ProtectedRoute>}/>
-                    <Route path="/help" element={<ProtectedRoute><HelpScreen/></ProtectedRoute>}/>
+                           element={<><SesionDetailsScreen/></>}/>
+                    <Route path="/business-partner" element={<><Underconstruction/></>}/>
+                    <Route path="/help" element={<><HelpScreen/></>}/>
                     <Route path="/underconstruction" element={<Underconstruction/>}/>
-                    <Route path="/user-setup" element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
-                    <Route path="/calendar-view" element={<ProtectedRoute><CalendarView/></ProtectedRoute>}/>
-                    <Route path="/create-new-meeting" element={<ProtectedRoute><CreateNewMeeting/></ProtectedRoute>}/>
-                    <Route path="/schedule-meeting" element={<ProtectedRoute><MeetingSchedule/></ProtectedRoute>}/>
-                    <Route path="/account-view" element={<ProtectedRoute><AccountView/></ProtectedRoute>}/>
-                    <Route path="/create-mentoring-plan" element={<ProtectedRoute><MentoringPlanCreatorView/></ProtectedRoute>}/>
-                    <Route path="/create-session-plan" element={<ProtectedRoute><SessionPlanCreatorView/></ProtectedRoute>}/>
-                    <Route path="/raports" element={<ProtectedRoute><Raports/></ProtectedRoute>}/>
+                    <Route path="/user-setup" element={<><Settings/></>}/>
+                    <Route path="/calendar-view" element={<><CalendarView/></>}/>
+                    <Route path="/create-new-meeting" element={<><CreateNewMeeting/></>}/>
+                    <Route path="/schedule-meeting" element={<><MeetingSchedule/></>}/>
+                    <Route path="/account-view" element={<><AccountView/></>}/>
+                    <Route path="/create-mentoring-plan" element={<><MentoringPlanCreatorView/></>}/>
+                    <Route path="/create-session-plan" element={<><SessionPlanCreatorView/></>}/>
+                    <Route path="/raports" element={<><Raports/></>}/>
                 </Routes>
-            </AuthContextProvider>
+            </>
         </BrowserRouter>
     );
 }

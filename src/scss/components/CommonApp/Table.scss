@@ -1,0 +1,54 @@
+@use '../../variables' as *;
+
+%common-status {
+	display: block;
+	padding: 0.25em 1.5em;
+	background-color: $success-color;
+	color: #fff;
+	text-align: center;
+  font-weight: 600;
+	border-radius: 1em;
+	max-width: max-content;
+}
+
+.styled-table {
+	width: 100%;
+	margin-top: 60px;
+  overflow-x: scroll;
+
+  table{
+    border-collapse: collapse;
+  }
+
+	td,
+	th {
+    min-width: 200px;
+		padding: 1em 0.5em;
+		border-top: 1px solid rgba($gray-color, 0.25);
+		border-bottom: 1px solid rgba($gray-color, 0.25);
+		text-align: left;
+	}
+
+	&__head {
+		font-size: 16px;
+	}
+
+	&__body {
+		td {
+			span {
+				&[data-type='accepted'] {
+					@extend %common-status;
+					background-color: $success-color;
+				}
+				&[data-type='waiting'] {
+					@extend %common-status;
+					background-color: rgba($gray-color, 0.75);
+				}
+				&[data-type='rejected'] {
+					@extend %common-status;
+					background-color: $danger-color;
+				}
+			}
+		}
+	}
+}

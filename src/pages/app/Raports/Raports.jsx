@@ -26,7 +26,7 @@ const Raports = () => {
 						dataRow: [
 							{id: 'd01t01', value: 'Testowy temat'},
 							{id: 'd01t02', value: new Date().toLocaleString()},
-							{id: 'd01t03', value: 'Potwierdzone', as: 'organizer'},
+							{id: 'd01t03', value: 'W oczekiwaniu', type: 'waiting'},
 							{id: 'd01t04', value: 'Jan Kowalski'},
 							{id: 'd01t05', value: 'Tester Testowicz'},
 							{id: 'd01t06', value: '+48123123123'},
@@ -37,7 +37,18 @@ const Raports = () => {
 						dataRow: [
 							{id: 'd01t01', value: 'Testowy temat'},
 							{id: 'd01t02', value: new Date().toLocaleString()},
-							{id: 'd01t03', value: 'Potwierdzone', as: 'organizer'},
+							{id: 'd01t03', value: 'Potwierdzone', type: 'accepted'},
+							{id: 'd01t04', value: 'Jan Kowalski'},
+							{id: 'd01t05', value: 'Tester Testowicz'},
+							{id: 'd01t06', value: '+48123123123'},
+						],
+					},
+					{
+						id: 'd03',
+						dataRow: [
+							{id: 'd01t01', value: 'Testowy temat'},
+							{id: 'd01t02', value: new Date().toLocaleString()},
+							{id: 'd01t03', value: 'Odrzucone', type: 'rejected'},
 							{id: 'd01t04', value: 'Jan Kowalski'},
 							{id: 'd01t05', value: 'Tester Testowicz'},
 							{id: 'd01t06', value: '+48123123123'},

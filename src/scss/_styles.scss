@@ -91,10 +91,10 @@ ol {
 }
 
 .app__title {
-	color: $primary-color;
+	color: $dark-color;
 	letter-spacing: 0.15px;
 	font-weight: 700;
-	font-size: map-get($font-size, 'md');
+	font-size: map-get($font-size, 'lg');
 }
 
 .app__text {

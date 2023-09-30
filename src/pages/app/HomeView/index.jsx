@@ -18,7 +18,12 @@ import {ReactComponent as Search} from '../../../assets/icons/search-money.svg';
 import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg';
 import homeBg from '../../../assets/img/landscape.jpg';
 import {AuthContext} from "../../../context/AuthContextProvider";
-import {getAllMentorStudents} from "../../../services/UserProfileService";
+import {
+    getAll,
+    getAllMentorStudents,
+    getAllStudentMentors,
+    getAllUsersWithRoles
+} from "../../../services/UserProfileService";
 
 const navigation = [
     {
@@ -97,7 +102,7 @@ const HomeScreen = () => {
     }, []);
 
     useEffect(() => {
-        getAllMentorStudents()
+        getAllUsersWithRoles()
             .then(res => {
                 if (res.data.length > 0) {
                     setUsers(res.data);

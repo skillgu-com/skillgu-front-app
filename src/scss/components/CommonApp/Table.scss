@@ -13,11 +13,14 @@
 
 .styled-table {
 	width: 100%;
-	margin-top: 60px;
   overflow-x: scroll;
-
+  border: 1px solid rgba($gray-color, 0.25);
+  border-radius: 7px;
+  
   table{
     border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 7px;
   }
 
 	td,
@@ -31,6 +34,10 @@
 
 	&__head {
 		font-size: 16px;
+
+    tr{
+      background-color: rgba($gray-color, .25);
+    }
 	}
 
 	&__body {
@@ -49,6 +56,15 @@
 					background-color: $danger-color;
 				}
 			}
+
+      a{
+        &[data-type='download'] {
+					@extend %common-status;
+          padding: .75em 1.5em;
+          border-radius: 7px;
+          background-color: $primary-color;
+        }
+      }
 		}
 	}
 }

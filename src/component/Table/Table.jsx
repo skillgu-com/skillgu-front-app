@@ -17,9 +17,15 @@ const Table = (props) => {
 				<tbody className='styled-table__body'>
 					{data?.map(({id, dataRow}) => (
 						<tr key={id}>
-							{dataRow.map(({id, value, type}) => (
+							{dataRow.map(({id, value, type, link}) => (
 								<td key={id}>
-									<span data-type={type}>{value}</span>
+									{type === 'download' ? (
+										<a href={link} download data-type={type}>
+											{value}
+										</a>
+									) : (
+										<span data-type={type}>{value}</span>
+									)}
 								</td>
 							))}
 						</tr>

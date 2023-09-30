@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Card from '../../../component/Card';
 import AppLayout from '../../../component/AppLayout';
-import {
-    getAllClientUsers, getAllMentors,
-    getClientUser,
-} from '../../../services/UserProfileService';
+import {getAllMentors,} from '../../../services/UserProfileService';
 import HeroHeader from '../../../component/HeroHeader';
 import investors from '../../../assets/img/galaxy.png';
 import MentorCard from '../../../component/Cards/MentorCard/MentorCard';

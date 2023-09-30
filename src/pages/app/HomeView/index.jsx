@@ -19,9 +19,6 @@ import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg'
 import homeBg from '../../../assets/img/landscape.jpg';
 import {AuthContext} from "../../../context/AuthContextProvider";
 import {
-    getAll,
-    getAllMentorStudents,
-    getAllStudentMentors,
     getAllUsersWithRoles
 } from "../../../services/UserProfileService";
 

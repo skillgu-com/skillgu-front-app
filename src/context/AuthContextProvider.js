@@ -26,6 +26,7 @@ function AuthContextProvider(props) {
     const login = (email, password) => {
         loginUser(email, password)
             .then((res) => {
+
                 // const decodedToken = JSON.parse(atob(res.data.split('.')[1]));
                 // const userRole = decodedToken.role;
                 // console.log(`Rola użytkownika: ${userRole}`);

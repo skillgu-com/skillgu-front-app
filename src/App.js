@@ -232,7 +232,7 @@ const ProtectedRoute = (props) => {
 	// console.log('Uzytkownik po autentykacji: ', user.firstName);
 	// console.log('rola po autentykacji: ', user.role[0]);
 
-	return true ? props.children : <Navigate to='/' replace />;
+	return isAuthenticated ? props.children : <Navigate to='/' replace />;
 };
 
 export default App;

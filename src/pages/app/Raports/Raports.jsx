@@ -6,12 +6,12 @@ import Table from '../../../component/Table/Table';
 import HeroHeader from '../../../component/HeroHeader';
 import {TextField, MenuItem} from '@mui/material';
 // Images
-import investors from '../../../assets/img/galaxy.png';
+import girl from '../../../assets/img/girl.jpg';
 
 const Raports = () => {
 	return (
 		<AppLayout>
-			<HeroHeader title='Raporty' image={<img src={investors} alt='mentors' />} />
+			<HeroHeader title='Raporty' image={<img src={girl} alt='mentors' />} />
 			<div className='mentor-filters'>
 				<TextField id='title' select label='Temat' defaultValue={1}>
 					<MenuItem value={1}>Wszystkie</MenuItem>

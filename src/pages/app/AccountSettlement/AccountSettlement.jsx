@@ -5,14 +5,14 @@ import AppLayout from '../../../component/AppLayout';
 import Table from '../../../component/Table/Table';
 import HeroHeader from '../../../component/HeroHeader';
 // Images
-import investors from '../../../assets/img/galaxy.png';
+import mount from '../../../assets/img/mount.jpg';
 
 const AccountSettlement = () => {
 	return (
 		<AppLayout>
 			<HeroHeader
 				title='Rozliczenia'
-				image={<img src={investors} alt='mentors' />}
+				image={<img src={mount} alt='rozliczenia' />}
 			/>
 			<section>
 				<h2 className='app__title'>Bieżące subskrypcje</h2>
@@ -38,6 +38,7 @@ const AccountSettlement = () => {
 			</section>
 			<section>
 				<h2 className='app__title'>Faktury</h2>
+        <p className="app__text"></p>
 				<Table
 					headers={[
 						{id: 'h01', value: 'Data'},

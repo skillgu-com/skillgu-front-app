@@ -39,17 +39,17 @@ function App() {
 					<Route
 						path='/home'
 						element={
-							<>
+							<ProtectedRoute>
 								<HomeScreen />
-							</>
+							</ProtectedRoute>
 						}
 					/>
 					<Route
 						path='/create-mentor'
 						element={
-							<>
+							<ProtectedRoute>
 								<PitchDeckCreatorScreen />
-							</>
+							</ProtectedRoute>
 						}
 					/>
 					<Route

@@ -85,9 +85,10 @@ const HomeScreen = () => {
 
 
     const {user} = useContext(AuthContext);
+    console.log(user);
 
     const filteredNavigation = navigation.filter((item) =>
-        item.allowedRoles.includes(user.role[0])
+        item.allowedRoles.includes(user.role)
     );
 
     useEffect(() => {

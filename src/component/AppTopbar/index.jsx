@@ -29,7 +29,7 @@ const AppTopbar = () => {
 		<div className='app-top-bar'>
 			<div className='container d-flex align-items-center justify-content-end'>
 				<Box>
-					{context.user.firstName}
+					{context.user.email}
 					<Tooltip title='Account settings'>
 						<IconButton
 							onClick={handleClick}

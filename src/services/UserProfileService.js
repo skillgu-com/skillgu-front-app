@@ -20,6 +20,7 @@ export const getClientUserUUID = async (uuid) => {
 }
 
 export const getAllMentorStudents = async () => {
+    console.log('getAllMentorStudents');
     return await axios.get('/api/user/get-all-mentor-students');
 }
 
@@ -31,4 +32,14 @@ export const getUserProfile = async (userID) => {
 export const getUserProfileByEmail = async  (email) => {
     return await axios.get(`/api/user/user-profile/${email}`);
 }
+
+export const getAllMentors = async  () => {
+    return await axios.get(`/api/user/get-all-mentors`);
+}
+
+export const getAllStudentMentors = async  () => {
+    console.log('getAllStudentMentors');
+    return await axios.get(`/api/user/get-all-student-mentors`);
+}
+
 

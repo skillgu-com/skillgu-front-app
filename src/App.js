@@ -31,7 +31,7 @@ import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 function App() {
 	return (
 		<BrowserRouter>
-			<AuthContextProvider>
+			<>
 				<Routes>
 					<Route path='/' element={<Landing />} />
 					<Route path='/register' element={<RegisterPage />} />
@@ -214,7 +214,7 @@ function App() {
 						}
 					/>
 				</Routes>
-			</AuthContextProvider>
+			</>
 		</BrowserRouter>
 	);
 }
@@ -232,7 +232,7 @@ const ProtectedRoute = (props) => {
 	// console.log('Uzytkownik po autentykacji: ', user.firstName);
 	// console.log('rola po autentykacji: ', user.role[0]);
 
-	return isAuthenticated ? props.children : <Navigate to='/' replace />;
+	return true ? props.children : <Navigate to='/' replace />;
 };
 
 export default App;

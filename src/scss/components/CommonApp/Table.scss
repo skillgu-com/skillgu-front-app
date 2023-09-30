@@ -16,6 +16,7 @@
   overflow-x: scroll;
   border: 1px solid rgba($gray-color, 0.25);
   border-radius: 7px;
+  max-width: max-content;
   
   table{
     border-collapse: collapse;
@@ -25,12 +26,15 @@
 
 	td,
 	th {
-    min-width: 200px;
-		padding: 1em 0.5em;
+		padding: 1em 0.75em;
 		border-top: 1px solid rgba($gray-color, 0.25);
 		border-bottom: 1px solid rgba($gray-color, 0.25);
 		text-align: left;
 	}
+  
+  th{
+    padding: 1em 2.5em 1em .75em;
+  }
 
 	&__head {
 		font-size: 16px;
@@ -63,6 +67,7 @@
           padding: .75em 1.5em;
           border-radius: 7px;
           background-color: $primary-color;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 25px -12px;
         }
       }
 		}

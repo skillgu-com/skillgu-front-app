@@ -9,18 +9,21 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import {AuthContext} from "../../context/AuthContextProvider";
+import {AuthContext} from '../../context/AuthContextProvider';
 
 const AppTopbar = () => {
-
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const context = useContext(AuthContext);
-	const avatarLetter = context.user.role[0] === 'MENTOR' ? 'M' : context.user.role[0] === 'STUDENT' ? 'S' : 'A';
+	const avatarLetter =
+		context.user?.role[0] === 'MENTOR'
+			? 'M'
+			: context.user?.role[0] === 'STUDENT'
+			? 'S'
+			: 'A';
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -29,7 +32,7 @@ const AppTopbar = () => {
 		<div className='app-top-bar'>
 			<div className='container d-flex align-items-center justify-content-end'>
 				<Box>
-					{context.user.email}
+					{context.user?.email}
 					<Tooltip title='Account settings'>
 						<IconButton
 							onClick={handleClick}
@@ -70,7 +73,12 @@ const AppTopbar = () => {
 								height: 10,
 								bgcolor: 'background.paper',
 								transform: 'translateY(-50%) rotate(45deg)',
-								zIndex: 0,},},}} transformOrigin={{horizontal: 'right', vertical: 'top'}} anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
+								zIndex: 0,
+							},
+						},
+					}}
+					transformOrigin={{horizontal: 'right', vertical: 'top'}}
+					anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
 					<MenuItem>
 						<Avatar /> Profil
 					</MenuItem>

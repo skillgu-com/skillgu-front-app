@@ -31,7 +31,7 @@ import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 function App() {
 	return (
 		<BrowserRouter>
-			<>
+			<AuthContextProvider>
 				<Routes>
 					<Route path='/' element={<Landing />} />
 					<Route path='/register' element={<RegisterPage />} />
@@ -214,7 +214,7 @@ function App() {
 						}
 					/>
 				</Routes>
-			</>
+			</AuthContextProvider>
 		</BrowserRouter>
 	);
 }

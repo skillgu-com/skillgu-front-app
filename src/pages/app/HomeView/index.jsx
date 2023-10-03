@@ -58,6 +58,23 @@ const navigation = [
         icon: <HandMoney/>,
         allowedRoles: ['STUDENT','MENTOR'],
     },
+
+    {
+        id: 6,
+        title: 'Raporty',
+        link: '/raports',
+        icon: <HandMoney/>,
+        allowedRoles: ['STUDENT','MENTOR'],
+    },
+
+    {
+        id: 7,
+        title: 'account-settlements',
+        link: '/account-settlements',
+        icon: <HandMoney/>,
+        allowedRoles: ['STUDENT','MENTOR'],
+    },
+
 ];
 
 const users2 = [
@@ -87,10 +104,9 @@ const HomeScreen = () => {
 
 
     const {user} = useContext(AuthContext);
-    console.log(user);
 
     const filteredNavigation = navigation.filter((item) =>
-        item.allowedRoles.includes(user.role)
+        item.allowedRoles.includes(user.role[0])
     );
 
     useEffect(() => {

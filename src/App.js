@@ -31,16 +31,16 @@ import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 function App() {
     return (
         <BrowserRouter>
-            <>
+            <AuthContextProvider>
                 <Routes>
-                    <Route path='/' element={<Landing/>}/>
-                    <Route path='/register' element={<RegisterPage/>}/>
-                    <Route path='/login' element={<LoginPage/>}/>
+                    <Route path='/' element={<Landing />} />
+                    <Route path='/register' element={<RegisterPage />} />
+                    <Route path='/login' element={<LoginPage />} />
                     <Route
                         path='/home'
                         element={
                             <ProtectedRoute>
-                                <HomeScreen/>
+                                <HomeScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -48,7 +48,7 @@ function App() {
                         path='/create-mentor'
                         element={
                             <ProtectedRoute>
-                                <PitchDeckCreatorScreen/>
+                                <PitchDeckCreatorScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -56,7 +56,7 @@ function App() {
                         path='/search-invest-projects'
                         element={
                             <ProtectedRoute>
-                                <ProjectsSearchScreen/>
+                                <ProjectsSearchScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -64,7 +64,7 @@ function App() {
                         path='/search-business-partner'
                         element={
                             <ProtectedRoute>
-                                <SearchBusinessPartner/>
+                                <SearchBusinessPartner />
                             </ProtectedRoute>
                         }
                     />
@@ -72,7 +72,7 @@ function App() {
                         path='/invest-maps'
                         element={
                             <ProtectedRoute>
-                                <ProjectsMapScreen/>
+                                <ProjectsMapScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -80,7 +80,7 @@ function App() {
                         path='/mentors'
                         element={
                             <ProtectedRoute>
-                                <MentorScreen/>
+                                <MentorScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -88,7 +88,7 @@ function App() {
                         path='/user-profile'
                         element={
                             <ProtectedRoute>
-                                <UserProfileScreen/>
+                                <UserProfileScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -96,7 +96,7 @@ function App() {
                         path='/user-profile/:studentID'
                         element={
                             <ProtectedRoute>
-                                <UserProfileScreen/>
+                                <UserProfileScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -104,7 +104,7 @@ function App() {
                         path='/mentor-profile/:id'
                         element={
                             <ProtectedRoute>
-                                <UserProfileScreen/>
+                                <UserProfileScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -112,7 +112,7 @@ function App() {
                         path='/session-details/:id/book'
                         element={
                             <ProtectedRoute>
-                                <BookSessionScreen/>
+                                <BookSessionScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -120,7 +120,7 @@ function App() {
                         path='/session-details/:id'
                         element={
                             <ProtectedRoute>
-                                <SesionDetailsScreen/>
+                                <SesionDetailsScreen />
                             </ProtectedRoute>
                         }
                     />
@@ -128,7 +128,7 @@ function App() {
                         path='/business-partner'
                         element={
                             <ProtectedRoute>
-                                <Underconstruction/>
+                                <Underconstruction />
                             </ProtectedRoute>
                         }
                     />
@@ -136,16 +136,16 @@ function App() {
                         path='/help'
                         element={
                             <ProtectedRoute>
-                                <HelpScreen/>
+                                <HelpScreen />
                             </ProtectedRoute>
                         }
                     />
-                    <Route path='/underconstruction' element={<Underconstruction/>}/>
+                    <Route path='/underconstruction' element={<Underconstruction />} />
                     <Route
                         path='/user-setup'
                         element={
                             <ProtectedRoute>
-                                <Settings/>
+                                <Settings />
                             </ProtectedRoute>
                         }
                     />
@@ -153,7 +153,7 @@ function App() {
                         path='/calendar-view'
                         element={
                             <ProtectedRoute>
-                                <CalendarView/>
+                                <CalendarView />
                             </ProtectedRoute>
                         }
                     />
@@ -161,7 +161,7 @@ function App() {
                         path='/create-new-meeting'
                         element={
                             <ProtectedRoute>
-                                <CreateNewMeeting/>
+                                <CreateNewMeeting />
                             </ProtectedRoute>
                         }
                     />
@@ -169,7 +169,7 @@ function App() {
                         path='/schedule-meeting'
                         element={
                             <ProtectedRoute>
-                                <MeetingSchedule/>
+                                <MeetingSchedule />
                             </ProtectedRoute>
                         }
                     />
@@ -177,7 +177,7 @@ function App() {
                         path='/account-view'
                         element={
                             <ProtectedRoute>
-                                <AccountView/>
+                                <AccountView />
                             </ProtectedRoute>
                         }
                     />
@@ -185,7 +185,7 @@ function App() {
                         path='/create-mentoring-plan'
                         element={
                             <ProtectedRoute>
-                                <MentoringPlanCreatorView/>
+                                <MentoringPlanCreatorView />
                             </ProtectedRoute>
                         }
                     />
@@ -193,7 +193,7 @@ function App() {
                         path='/create-session-plan'
                         element={
                             <ProtectedRoute>
-                                <SessionPlanCreatorView/>
+                                <SessionPlanCreatorView />
                             </ProtectedRoute>
                         }
                     />
@@ -201,7 +201,7 @@ function App() {
                         path='/raports'
                         element={
                             <ProtectedRoute>
-                                <Raports/>
+                                <Raports />
                             </ProtectedRoute>
                         }
                     />
@@ -209,12 +209,12 @@ function App() {
                         path='/account-settlements'
                         element={
                             <ProtectedRoute>
-                                <AccountSettlement/>
+                                <AccountSettlement />
                             </ProtectedRoute>
                         }
                     />
                 </Routes>
-            </>
+            </AuthContextProvider>
         </BrowserRouter>
     );
 }

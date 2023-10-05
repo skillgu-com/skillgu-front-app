@@ -230,7 +230,7 @@ const ProtectedRoute = (props) => {
 	const {user} = useContext(AuthContext);
 	// console.log(user);
 	// console.log('Uzytkownik po autentykacji: ', user.firstName);
-	// console.log('rola po autentykacji: ', user.role[0]);
+	// console.log('rola po autentykacji: ', user?.role[0]);
 
 	return isAuthenticated ? props.children : <Navigate to='/' replace />;
 };

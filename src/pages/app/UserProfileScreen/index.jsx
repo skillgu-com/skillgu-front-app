@@ -20,16 +20,10 @@ const PLACEHOLDER_USER = {
 const UserProfileScreen = () => {
     let {studentID} = useParams();
     let [user, setUser] = useState(PLACEHOLDER_USER);
-    // const {usertest} = useContext(AuthContext);
-    const { userTT} = useContext(AuthContext);
-
-    // console.log('sprawdzam sobie context uzytkownika: ' + userTT.firstName)
-    console.log('eldo',userTT)
 
     useEffect(() => {
         getUserProfile(studentID).then((response) => {
             setUser(response.data);
-
         });
     }, []);
 

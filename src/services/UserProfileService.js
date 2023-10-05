@@ -23,12 +23,14 @@ export const getAllUsersWithRoles = async () => {
     return await axios.get('/api/user/users-with-roles');
 }
 
-export const getAllStudentMentors = async (userID) => {
-    return await axios.get(`/api/user/get-all-student-mentors}`);
-}
-
-
 export const getUserProfile = async (userID) => {
     return await axios.get(`/api/user/get-user-profile/${userID}`);
 }
 
+export const getUserProfileByEmail = async  (email) => {
+    return await axios.get(`/api/user/user-profile/${email}`);
+}
+
+export const getAllMentors = async  () => {
+    return await axios.get(`/api/user/get-all-mentors`);
+}

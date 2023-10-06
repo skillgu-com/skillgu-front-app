@@ -93,7 +93,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/user-profile/:studentID'
+						path='/user-profile/:userID'
 						element={
 							<ProtectedRoute>
 								<UserProfileScreen />
@@ -220,17 +220,8 @@ function App() {
 }
 
 const ProtectedRoute = (props) => {
-	// Sprawdź autentykację użytkownika i zaimplementuj odpowiednią logikę
-	// np. sprawdzając czy użytkownik jest zalogowany lub ma odpowiednie uprawnienia
-
-	// const isAuthenticated = true; // Zmień na false, jeśli chcesz wyłączyć autentykację
 
 	const isAuthenticated = !!localStorage.getItem('jwttoken');
-
-	const {user} = useContext(AuthContext);
-	// console.log(user);
-	// console.log('Uzytkownik po autentykacji: ', user.firstName);
-	// console.log('rola po autentykacji: ', user?.role[0]);
 
 	return isAuthenticated ? props.children : <Navigate to='/' replace />;
 };

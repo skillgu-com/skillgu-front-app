@@ -1,10 +1,12 @@
-import React, {createContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {loginUser, registerAccount} from '../services/AuthenticationService';
+import React, { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
+import { loginUser, registerAccount } from '../services/AuthenticationService';
+
 export const AuthContext = createContext({
-	user: {email: '', role: ''},
+	user: { email: '', role: '' },
 	login: (email, password) => {},
 	register: (
 		firstName,
@@ -17,12 +19,12 @@ export const AuthContext = createContext({
 	) => {},
 });
 
-function AuthContextProvider(props) {
-	const [token, setToken] = useState('');
-
-	const [user, setUser] = useState(token ? _parseUserFromJwt(token) : null);
-
+const AuthContextProvider = (props) => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const [token, setToken] = useState('');
+	const [user, setUser] = useState(token ? _parseUserFromJwt(token) : null);
 
 	useEffect(() => {
 		setToken(localStorage.getItem('jwttoken'));
@@ -31,9 +33,7 @@ function AuthContextProvider(props) {
 	const login = (email, password) => {
 		loginUser(email, password)
 			.then((res) => {
-				// const decodedToken = JSON.parse(atob(res.data.split('.')[1]));
-				// const userRole = decodedToken?.role;
-				// console.log(`Rola użytkownika: ${userRole}`);
+				dispatch({ type: 'LOGIN', payload: _parseUserFromJwt(res.data) });
 				localStorage.setItem('jwttoken', res.data);
 				setUser(_parseUserFromJwt(res.data));
 				navigate('/home');
@@ -42,6 +42,7 @@ function AuthContextProvider(props) {
 				console.log(err);
 			});
 	};
+
 	const register = (
 		firstName,
 		lastName,
@@ -61,8 +62,6 @@ function AuthContextProvider(props) {
 			selectedRole
 		)
 			.then((res) => {
-				// localStorage.setItem('jwttoken', res.data);
-				// setUser(_parseUserFromJwt(res.data))
 				navigate('/login');
 			})
 			.catch((err) => {
@@ -73,10 +72,9 @@ function AuthContextProvider(props) {
 	const logout = () => {
 		localStorage.removeItem('jwttoken');
 		setUser(null);
+		dispatch({ type: 'LOGOUT' });
 		navigate('/');
 	};
-
-	const value = {user: user, login: login, register: register, logout: logout};
 
 	useEffect(() => {
 		const interceptor = axios.interceptors.response.use(
@@ -97,10 +95,12 @@ function AuthContextProvider(props) {
 		};
 	}, []);
 
+	const value = { user, login, register, logout };
+
 	return (
 		<AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
 	);
-}
+};
 
 const _parseUserFromJwt = (token) => {
 	if (token) {

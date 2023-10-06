@@ -23,8 +23,10 @@ export const getAllUsersWithRoles = async () => {
     return await axios.get('/api/user/users-with-roles');
 }
 
-export const getUserProfile = async (userID) => {
-    return await axios.get(`/api/user/get-user-profile/${userID}`);
+export const getUserProfile = async (userData) => {
+    // return await axios.post(`/api/user/get-user-profile/${userData}`);
+    return await axios.post('/api/user/get-user-profile', userData);
+
 }
 
 export const getUserProfileByEmail = async  (email) => {

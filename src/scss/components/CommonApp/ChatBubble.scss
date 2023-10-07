@@ -15,27 +15,29 @@
 
 	&[data-is-user='true'] {
 		.chat-bubble__date {
-      margin-left: auto;
-      width: max-content;
+			margin-left: auto;
+			width: max-content;
     }
-
+		
     .chat-bubble__message {
 			margin-left: auto;
+			width: max-content;
 			background-image: linear-gradient(
 				35deg,
 				lighten($primary-color, 5%),
 				lighten($primary-color, 15%)
-			);
+				);
+			}
 		}
-	}
-	&[data-is-user='false'] {
-    .chat-bubble__date {
-      width: max-content;
-      margin-right: auto;
-    }
-    
-		.chat-bubble__message {
-      margin-right: auto;
+		&[data-is-user='false'] {
+			.chat-bubble__date {
+				width: max-content;
+				margin-right: auto;
+			}
+			
+			.chat-bubble__message {
+				width: max-content;
+				margin-right: auto;
 			background-image: linear-gradient(
         35deg,
 				lighten($gray-color, 5%),

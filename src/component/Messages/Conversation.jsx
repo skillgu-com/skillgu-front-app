@@ -16,8 +16,18 @@ const PLACEHOLDER_CONVERSATION = {
 		status: 'online',
 	},
 	content: [
-		{id: 'm01', userId: true, message: 'Witam!', date: new Date().toLocaleDateString()},
-		{id: 'm02', userId: false, message: 'Zacznijmy naukę!', date: new Date().toLocaleDateString()},
+		{
+			id: 'm01',
+			userId: true,
+			message: 'Witam!',
+			date: new Date().toLocaleDateString(),
+		},
+		{
+			id: 'm02',
+			userId: false,
+			message: 'Zacznijmy naukę!',
+			date: new Date().toLocaleDateString(),
+		},
 		{
 			id: 'm03',
 			userId: false,

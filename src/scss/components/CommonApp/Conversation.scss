@@ -3,7 +3,7 @@
 
 .conversation {
 	display: grid;
-  grid-template-columns: auto minmax(300px, 20vh) auto;
+  grid-template-columns: auto minmax(300px, 40vh) auto;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
 		rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
@@ -31,7 +31,7 @@
 	&__wrapper {
 		grid-column: 1/3;
 		grid-row: 2/3;
-    height: clamp(300px, 20vh, 20vh);
+    height: clamp(300px, 40vh, 40vh);
     overflow-y: scroll;
     border-top: 1px solid rgba($gray-color, 0.25);
 	}

@@ -39,8 +39,10 @@ const PLACEHOLDER_CONTSCTS = [
 const MessagesView = () => {
 	return (
 		<AppLayout>
-			<ContactList contacts={PLACEHOLDER_CONTSCTS} />
-			<Conversation />
+			<main className='messages-view'>
+				<ContactList contacts={PLACEHOLDER_CONTSCTS} />
+				<Conversation />
+			</main>
 		</AppLayout>
 	);
 };

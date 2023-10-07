@@ -6,7 +6,7 @@ import MentorCardExpectations from './components/MentorCardExpectations';
 
 const MentorCard = (props) => {
 	const {
-		id,
+		userID,
 		name,
 		surname,
 		profileImg,
@@ -23,11 +23,12 @@ const MentorCard = (props) => {
 		trail,
 	} = props;
 
+
 	return (
 		<div className='mentor-card'>
 			<MentorCardProfile name={name} surname={surname} profileImg={profileImg} />
 			<MentorCardOverview
-				id={id}
+				id={userID}
 				fullName={`${name} ${surname}`}
 				specialization={specialization}
 				specializationDescription={specializationDescription}

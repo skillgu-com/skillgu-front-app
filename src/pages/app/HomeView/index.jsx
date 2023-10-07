@@ -115,7 +115,6 @@ const HomeScreen = () => {
 		getAllUsersWithRoles()
 			.then((res) => {
 				if (res.data.length > 0) {
-					console.log(res.data);
 					setUsers(res.data);
 				} else {
 					setUsers([]);

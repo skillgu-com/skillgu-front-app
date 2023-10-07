@@ -18,6 +18,8 @@ const MentorCardOverview = (props) => {
 		monthlyPrice,
 	} = props;
 
+	console.log('userID: ' + specialization)
+
 	return (
 		<div className='mentor-card__overview'>
 			<h3 className='mentor-card__overview-name'>
@@ -63,8 +65,8 @@ const MentorCardOverview = (props) => {
 			<CustomButton
 				classes='mentor-card__overview-link'
 				as={buttonTypes.internalLink}
-				link={`/mentor-profile/${id}`}>
-				Zobacz profil
+				link={`/user-profile/${id}`}>
+				Zobacz profil TEST
 			</CustomButton>
 		</div>
 	);

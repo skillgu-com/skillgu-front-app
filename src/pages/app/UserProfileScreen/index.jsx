@@ -16,13 +16,9 @@ const PLACEHOLDER_USER = {
 
 const UserProfileScreen = () => {
 
-
     const { userID } = useParams();
-
     let [user, setUser] = useState(PLACEHOLDER_USER);
-
     const userFromRedux = useSelector((state) => state.auth.user);
-
 
     const userData = ({
         userID: userID,
@@ -33,6 +29,7 @@ const UserProfileScreen = () => {
     useEffect(() => {
         getUserProfile(userData).then((response) => {
             setUser(response.data);
+            console.log(user);
         });
     }, []);
 
@@ -89,9 +86,12 @@ const UserProfileScreen = () => {
                         </ul>
                     </article>
                 </section>
-                <div className='user-profile__price'>
-                    <PlansPanel/>
-                </div>
+                {/*TODO tutaj jakos wykminic kiedy ma sie pojawic widok PlansPanel w zaleznosci czy to student wtedy nie widac, czy mentor*/}
+                {user?.role === 'mentor' && (
+                    <div className='user-profile__price'>
+                        <PlansPanel />
+                    </div>
+                )}
             </div>
         </AppLayout>
     );

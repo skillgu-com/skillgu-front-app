@@ -24,7 +24,6 @@ export const getAllUsersWithRoles = async () => {
 }
 
 export const getUserProfile = async (userData) => {
-    // return await axios.post(`/api/user/get-user-profile/${userData}`);
     return await axios.post('/api/user/get-user-profile', userData);
 
 }

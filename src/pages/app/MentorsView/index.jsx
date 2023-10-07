@@ -13,12 +13,13 @@ const MentorScreen = () => {
         getAllMentors()
             .then((response) => {
                 setMentors(response.data);
-                console.log(response.data)
             })
             .catch((error) => {
                 throw new Error(error.message);
             });
     }, []);
+
+
 
     return (
         <AppLayout>
@@ -56,6 +57,7 @@ const MentorScreen = () => {
                             ]}
                             quickResponder={true}
                             trail={3}
+                            userID={element.userID}
                         />
                     ))
                 )}

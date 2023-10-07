@@ -80,7 +80,7 @@
 		margin-top: 20px;
 	}
 
-	@media screen and(min-width: map-get($breakpoints, 'md')) {
+	@media screen and (min-width: map-get($breakpoints, 'md')) {
 
 		&__data,
 		&__data-info {

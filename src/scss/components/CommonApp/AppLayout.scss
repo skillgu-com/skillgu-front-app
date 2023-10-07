@@ -14,7 +14,7 @@
 		padding-bottom: 64px;
 	}
 
-	@media screen and(min-width: map-get($breakpoints, 'lg')) {
+	@media screen and (min-width: map-get($breakpoints, 'lg')) {
 		&__view {
 			grid-column: 2/-1;
 		}

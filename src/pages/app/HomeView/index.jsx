@@ -1,17 +1,13 @@
 // Libraries
 import React, {useContext, useEffect, useState} from 'react';
-
 // Components
 import AppLayout from '../../../component/AppLayout';
 import UsersCard from '../../../component/InvestCard';
 import CardNavigation from '../../../component/CardNavigation';
 import HeroHeader from '../../../component/HeroHeader';
 import CardsSlider from '../../../component/CardsSlider';
-import UserMessageItem from '../../../component/Messages/ContactItem';
-
 // APIs
 import {searchAllMyOwnProjects} from '../../../services/SearchOfProjectsService';
-
 // Icons
 import {ReactComponent as Handshake} from '../../../assets/icons/handshake.svg';
 import {ReactComponent as Create} from '../../../assets/icons/create.svg';
@@ -136,7 +132,6 @@ const HomeScreen = () => {
 					<CardNavigation key={id} title={title} icon={icon} link={link} />
 				))}
 			</div>
-				<UserMessageItem imageUrl='https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg' username='Nazwa' status='online' />
 			<div className='home-screen__lists d-flex'>
 				<CardsSlider
 					title={user?.role[0] === 'MENTOR' ? 'Moi studenci' : 'Moi mentorzy'}

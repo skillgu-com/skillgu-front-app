@@ -64,8 +64,15 @@ const navigation = [
 
 	{
 		id: 7,
-		title: 'account-settlements',
+		title: 'Rozliczenia',
 		link: '/account-settlements',
+		icon: <HandMoney />,
+		allowedRoles: ['STUDENT', 'MENTOR'],
+	},
+	{
+		id: 8,
+		title: 'Wiadomości',
+		link: '/messages',
 		icon: <HandMoney />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},

@@ -2,11 +2,8 @@
 import React from 'react';
 // Components
 import AppLayout from '../../component/AppLayout';
-import HeroHeader from '../../component/HeroHeader';
 import ContactList from '../../component/Messages/ContactList';
 import Conversation from '../../component/Messages/Conversation';
-// Images
-import girl from '../../assets/img/girl.jpg';
 
 const PLACEHOLDER_CONTSCTS = [
 	{
@@ -42,7 +39,6 @@ const PLACEHOLDER_CONTSCTS = [
 const MessagesView = () => {
 	return (
 		<AppLayout>
-			<HeroHeader title='Wiadomości' image={<img src={girl} alt='mentors' />} />
 			<ContactList contacts={PLACEHOLDER_CONTSCTS} />
 			<Conversation />
 		</AppLayout>

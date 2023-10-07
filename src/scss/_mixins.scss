@@ -2,8 +2,17 @@
 	font-family: 'Roboto', sans-serif;
 }
 
-@mixin pseudo-element{
+@mixin pseudo-element {
 	content: '';
 	position: absolute;
 	display: block;
+}
+
+@mixin hide-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }

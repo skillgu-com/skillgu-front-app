@@ -1,0 +1,47 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.conversation {
+	display: grid;
+	grid-template-areas: 'header photo' 'content content' 'form form';
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+		rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+	border-radius: 25px;
+  padding: 20px;
+
+	&__header {
+		grid-area: header;
+    padding-bottom: 36px;
+    
+		.app__title {
+      margin: 0 0 0.75em;
+		}
+	}
+  
+	.user-photo {
+    grid-area: photo;
+		width: 100px;
+		height: 100px;
+		justify-self: end;
+	}
+  
+	&__content {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 24px;
+    grid-area: content;
+    border-top: 1px solid rgba($gray-color, .25);
+    max-height: 40vh;
+    min-height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @include hide-scrollbar;
+	}
+
+	&__form {
+		grid-area: form;
+	}
+}

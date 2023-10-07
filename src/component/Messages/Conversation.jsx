@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 // Components
 import UserPhoto from './UserPhoto';
 import CustomButton, {buttonTypes, buttonColors} from '../CustomButton';
-import Message from './Message';
+import ChatBubble from './ChatBubble';
 
 const PLACEHOLDER_CONVERSATION = {
 	id: '11202a03d',
@@ -15,13 +15,13 @@ const PLACEHOLDER_CONVERSATION = {
 			'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
 		status: 'online',
 	},
-	content: [{id: 'm01', isUser: true, message: 'Witam!'},{id: 'm02', isUser: false, message: 'Zacznijmy naukę!'}],
+	content: [{id: 'm01', userId: true, message: 'Witam!'},{id: 'm02', userId: false, message: 'Zacznijmy naukę!'}],
 };
 
 const Conversation = (props) => {
 	const [conversation, setConversation] = useState(PLACEHOLDER_CONVERSATION);
 	const {id} = props;
-	// Download message info from API
+	// TODO: Download message info from API
 
 	return (
 		<section className='conversation'>
@@ -37,7 +37,7 @@ const Conversation = (props) => {
 			/>
 			<div className='conversation__content'>
 				{conversation.content.map((message) => (
-					<Message key={message.id} {...message} />
+					<ChatBubble key={message.id} {...message} />
 				))}
 			</div>
 			<form className='conversation__form'>

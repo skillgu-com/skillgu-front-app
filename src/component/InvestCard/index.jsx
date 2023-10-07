@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import CustomButton from '../CustomButton';
 
 const InvestCard = ({
-                        studentID,
+                        userID,
                         firstName,
                         location,
                         icon = 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
@@ -66,7 +66,7 @@ const InvestCard = ({
                 {/*    Więcej*/}
                 {/*</CustomButton>*/}
 
-                <CustomButton as='internal-link' link={`/user-profile/${studentID}`}>
+                <CustomButton as='internal-link' link={`/user-profile/${userID}`}>
                     Więcej
                 </CustomButton>
             </div>

@@ -1,13 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AppLayout from '../../../component/AppLayout';
-import {getClientUser, getUserProfile} from '../../../services/UserProfileService';
-import HeroHeader from '../../../component/HeroHeader';
-import sunset from '../../../assets/img/sunset.jpg';
-import PlansPanel from '../../../component/PlansPanel/PlansPanel';
 import {useParams} from 'react-router-dom';
-import {getClientUserUUID} from '../../../services/UserProfileService';
-import {searchAllMyOwnProjects} from "../../../services/SearchOfProjectsService";
 import {AuthContext} from "../../../context/AuthContextProvider";
+import {useSelector} from "react-redux";
+import {getUserProfile} from "../../../services/UserProfileService";
+import PlansPanel from "../../../component/PlansPanel/PlansPanel";
 
 const PLACEHOLDER_USER = {
     firstName: '',
@@ -18,11 +15,23 @@ const PLACEHOLDER_USER = {
 };
 
 const UserProfileScreen = () => {
-    let {studentID} = useParams();
+
+
+    const { userID } = useParams();
+
     let [user, setUser] = useState(PLACEHOLDER_USER);
 
+    const userFromRedux = useSelector((state) => state.auth.user);
+
+
+    const userData = ({
+        userID: userID,
+        role: userFromRedux.role[0]
+    })
+
+
     useEffect(() => {
-        getUserProfile(studentID).then((response) => {
+        getUserProfile(userData).then((response) => {
             setUser(response.data);
         });
     }, []);
@@ -41,21 +50,21 @@ const UserProfileScreen = () => {
                     </div>
                 </section>
                 <section className='user-profile__data-info'>
-                    <h3 className='info__name'>{user.firstName}</h3>
-                    <h4 className='info__lastName'>{user.lastName}</h4>
-                    <p className='info__description'>{user.description}</p>
+                    <h3 className='info__name'>{user?.firstName}</h3>
+                    <h4 className='info__lastName'>{user?.lastName}</h4>
+                    <p className='info__description'>{user?.description}</p>
                 </section>
                 <section className='user-profile__about'>
                     <article className='app-section'>
                         <h3 className='app-section__title'>O mnie</h3>
                         <p className='app__text text-left'>
-                            {user.description}
+                            {user?.description}
                         </p>
                     </article>
                     <article className='app-section'>
                         <h3 className='app-section__title'>Branże które mnie interesują</h3>
                         <p className='app__text text-left'>
-                            {user.industry}
+                            {user?.industry}
                         </p>
                     </article>
                     <article className='app-section'>

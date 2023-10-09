@@ -7,32 +7,30 @@ import {getUserProfile} from "../../../services/UserProfileService";
 import PlansPanel from "../../../component/PlansPanel/PlansPanel";
 
 const PLACEHOLDER_USER = {
-    firstName: '',
-    jobRole: '',
+    firstName: 'server:500',
+    jobRole: 'server:500',
     description:
-        'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.',
-    industry: 'D4 Cloud',
+        'server:500',
+    industry: 'server:500',
 };
 
 const UserProfileScreen = () => {
 
     const { userID } = useParams();
-    let [user, setUser] = useState(PLACEHOLDER_USER);
     const userFromRedux = useSelector((state) => state.auth.user);
+    const [user, setUser] = useState({});
 
     const userData = ({
         userID: userID,
-        role: userFromRedux.role[0]
+        role: userFromRedux.role[0] === 'STUDENT' ? 'mentor' : 'student',
     })
 
 
     useEffect(() => {
         getUserProfile(userData).then((response) => {
             setUser(response.data);
-            console.log(user);
         });
     }, []);
-
 
 
     return (
@@ -87,7 +85,7 @@ const UserProfileScreen = () => {
                     </article>
                 </section>
                 {/*TODO tutaj jakos wykminic kiedy ma sie pojawic widok PlansPanel w zaleznosci czy to student wtedy nie widac, czy mentor*/}
-                {user?.role === 'mentor' && (
+                {user?.user_role === 'MENTOR' && (
                     <div className='user-profile__price'>
                         <PlansPanel />
                     </div>

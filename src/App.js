@@ -27,6 +27,7 @@ import AccountView from './pages/app/AccountView/AccountView';
 import MentoringPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/MentoringPlanCreatorView';
 import SessionPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
+import MessagesView from './pages/app/MessagesView';
 
 function App() {
 	return (
@@ -210,6 +211,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<AccountSettlement />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path='/messages'
+						element={
+							<ProtectedRoute>
+								<MessagesView />
 							</ProtectedRoute>
 						}
 					/>

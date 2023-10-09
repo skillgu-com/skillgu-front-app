@@ -183,13 +183,13 @@ ol {
 	font-weight: 300;
 }
 
-.presentation{
+.presentation {
 	gap: 20px;
 
 	&__invest-target {
 		min-width: 270px;
 		width: 50%;
-	
+
 		@media screen and (min-width: map-get($breakpoints, 'xl')) {
 			max-width: 600px;
 		}
@@ -216,8 +216,7 @@ ol {
 	}
 }
 
-
-.beta{
+.beta {
 	position: fixed;
 	top: 15px;
 	left: 15px;
@@ -229,12 +228,12 @@ ol {
 	pointer-events: none;
 }
 
-.app-list{
+.app-list {
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
 
-	&__item{
+	&__item {
 		display: block;
 		background-color: rgb(230, 230, 230);
 		padding: 8px 12px;
@@ -244,12 +243,16 @@ ol {
 	}
 }
 
-.line-separator{
+.line-separator {
 	margin: 32px 0;
 	border-color: $primary-color;
-	opacity: .15;
+	opacity: 0.15;
 
 	@media screen and (min-width: map-get($breakpoints, 'md')) {
 		margin: 64px 0;
 	}
+}
+
+textarea {
+	@include roboto;
 }

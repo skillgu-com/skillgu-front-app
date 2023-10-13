@@ -2,16 +2,24 @@
 
 const initialState = {
     isAuthenticated: false,
-    user: null,
+    user: {
+        id: null,
+        email: null,
+        role: null,
+    },
 };
-
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN':
+            console.log('LOGIN')
             return {
                 ...state,
                 isAuthenticated: true,
-                user: action.payload,
+                user: {
+                    id: action.payload.id, // Add new property id
+                    email: action.payload.email, //  Add new property email
+                    role: action.payload.role, // Add new property role
+                },
 
             };
         case 'LOGOUT':
@@ -19,6 +27,15 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuthenticated: false,
                 user: null,
+            };
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: {
+                    ...state.user,
+                    id: action.payload.id,
+                },
             };
         default:
             return state;

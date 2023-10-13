@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Grid, TextField, FormLabel } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Grid, TextField, FormLabel} from '@mui/material';
 import {
     MenuItem,
     FormControl,
@@ -16,7 +16,9 @@ import AppLayout from "../../../../component/AppLayout";
 import HeroHeader from "../../../../component/HeroHeader";
 import headerImg from "../../../../assets/img/sunrise.png";
 import Checkbox from "@mui/material/Checkbox";
-import CardNavigation from "../../../../component/CardNavigation";
+import {createNewMeeting} from "../../../../services/MeetingCreatorService";
+import {useNavigate} from "react-router-dom";
+import {getKeyValues} from "../../../../services/KeyValuesService";
 
 function valuetext(value) {
     return `${value}°C`;
@@ -27,32 +29,54 @@ const minDistance = 10;
 const SessionPlanCreatorView = (props) => {
     const [value1, setValue1] = useState([0, 10000000]);
     const [startTime, setStartTime] = useState('');
+    const [sessionType, setSessionType] = useState('session');
     const [isChecked, setIsChecked] = useState(false);
-
-    const handleChange1 = (_event, newValue, activeThumb) => {
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-
-        if (activeThumb === 0) {
-            setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
-        } else {
-            setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-        }
-    };
+    const [sessionDescription, setSessionDescription] = useState("");
+    const [keyValues, setKeyValues] = useState("");
+    const [sessionTypeValues, setSessionTypeValues] = useState('');
+    const navigate = useNavigate();
 
     const handleStartTime = (event) => {
         const newStartTime = event.target.value;
         setStartTime(newStartTime);
     };
 
-    const handleCheckboxChange = (event) => {
-        const newCheckedValue = event.target.checked;
-        setIsChecked(newCheckedValue);
+
+    const handleSessionDescriptionChange = (event) => {
+        setSessionDescription(event.target.value);
     };
 
+    const handleCheckboxChange = (event) => {
+        setIsChecked(event.target.checked);
+    };
 
-    let handleSubmitProject;
+    const handleSessionType = (event) => {
+        const selectedValue = event.target.value;
+        setSessionTypeValues(selectedValue);
+        console.log(selectedValue);
+    };
+
+    const handleSubmitProject = (event) => {
+        event.preventDefault();
+
+        createNewMeeting(sessionType, sessionDescription,sessionTypeValues).then(
+            navigate('/home')
+        );
+    };
+    console.log(sessionTypeValues);
+
+
+
+    useEffect(() => {
+        getKeyValues()
+            .then(res => {
+                setKeyValues(res.data);
+
+            })
+            .catch(reason => {
+                console.error("use mock example :)")
+            })
+    }, []);
     return (
         <AppLayout>
             <HeroHeader
@@ -67,22 +91,22 @@ const SessionPlanCreatorView = (props) => {
                     </FormLabel>
                     <FormControl fullWidth>
                         <Select
-                            labelId='localization'
-                            id='localization__field'
+                            labelId='sessionType'
+                            id='sessionType'
                             required
                             displayEmpty
                             inputProps={{'aria-label': 'Without label'}}
-                            value={props.projectLocalization}
-                            onChange={props.handleProjectLocalization}>
+                            value={sessionTypeValues}
+                            onChange={handleSessionType}>
                             <MenuItem value={0} disabled>
                                 Wybierz typ spotkania
                             </MenuItem>
-                            <MenuItem value={0}>Doradctwo marki osobistej</MenuItem>
-                            <MenuItem value={1}>1 sesja mentorska</MenuItem>
-                            <MenuItem value={2}>Plan rozwoju kariery</MenuItem>
-                            <MenuItem value={3}>Strategia poszukiwania pracy</MenuItem>
-                            <MenuItem value={4}>Techniczny próbny wywiad</MenuItem>
-                            <MenuItem value={5}>Twoja sugestia nazwy</MenuItem>
+                            {keyValues?.sessionType && keyValues.sessionType.map((element) => (
+                                <MenuItem key={element.key} value={element.key}>
+                                    {' '}
+                                    {element.value}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Grid>
@@ -178,47 +202,64 @@ const SessionPlanCreatorView = (props) => {
                     </FormControl>
                 </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <Grid>
-                            <FormLabel id='start-data' className='field__label'>
-                                Poniedziałek
-                                <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
-                            </FormLabel>
-                            <TextField
-                                autoComplete='given-name'
-                                name='end-data'
-                                required
-                                fullWidth
-                                id='end-data'
-                                placeholder='12.02.2022'
-                                type='date'
-                                autoFocus
-                                value={startTime}
-                                onChange={handleStartTime}
-                            />
-                            <FormLabel id='start-data' className='field__label'>
-                                Wtorek
-                                <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
-                            </FormLabel>
-                            <TextField
-                                autoComplete='given-name'
-                                name='end-data'
-                                required
-                                fullWidth
-                                id='end-data'
-                                placeholder='12.02.2022'
-                                type='date'
-                                autoFocus
-                                value={startTime}
-                                onChange={handleStartTime}
-                            />
-                        </Grid>
+                <Grid item xs={12} md={6}>
+                    <FormLabel id='rent-form__field' className='field__label'>
+                        Opisz sesje
+                    </FormLabel>
+                    <TextareaAutosize
+                        minRows={3} // Minimalna liczba widocznych wierszy (możesz dostosować)
+                        name='session-description'
+                        required
+                        fullWidth
+                        id='session-description'
+                        placeholder='Opisz swoją sesję...'
+                        value={sessionDescription}
+                        onChange={handleSessionDescriptionChange}
+                    />
+                </Grid>
 
+
+                <Grid item xs={12} md={6}>
+                    <Grid>
+                        <FormLabel id='start-data' className='field__label'>
+                            Poniedziałek
+                            <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
+                        </FormLabel>
+                        <TextField
+                            autoComplete='given-name'
+                            name='end-data'
+                            required
+                            fullWidth
+                            id='end-data'
+                            placeholder='12.02.2022'
+                            type='date'
+                            autoFocus
+                            value={startTime}
+                            onChange={handleStartTime}
+                        />
+                        <FormLabel id='start-data' className='field__label'>
+                            Wtorek
+                            <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
+                        </FormLabel>
+                        <TextField
+                            autoComplete='given-name'
+                            name='end-data'
+                            required
+                            fullWidth
+                            id='end-data'
+                            placeholder='12.02.2022'
+                            type='date'
+                            autoFocus
+                            value={startTime}
+                            onChange={handleStartTime}
+                        />
                     </Grid>
+
+                </Grid>
 
             </Grid>
             <CustomButton as={buttonTypes.submit} color={buttonColors.primary} _onClick={handleSubmitProject}>
-                Dodaj
+                Dodaj test
             </CustomButton>
 
         </AppLayout>

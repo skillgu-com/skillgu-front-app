@@ -2,8 +2,9 @@ import React, {useState, useMemo} from 'react';
 import MentorshipTab from './components/MentorshipTab';
 import MentorshipPlan from './components/MentorshipPlan';
 
-const Mentroship = (props) => {
+const MentorShip = (props) => {
 	const {plans} = props;
+
 	// States
 	const [currentPlan, setCurrentPlan] = useState('lite');
 	// Handlers
@@ -45,4 +46,4 @@ const Mentroship = (props) => {
 	);
 };
 
-export default Mentroship;
+export default MentorShip;

@@ -28,6 +28,7 @@ import MentoringPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/Me
 import SessionPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import MessagesView from './pages/app/MessagesView';
+import LoggedProfileScreen from "./pages/app/UserProfileScreen/LoggedProfileScreen";
 
 function App() {
 	return (
@@ -89,7 +90,7 @@ function App() {
 						path='/user-profile'
 						element={
 							<ProtectedRoute>
-								<UserProfileScreen />
+								<LoggedProfileScreen />
 							</ProtectedRoute>
 						}
 					/>

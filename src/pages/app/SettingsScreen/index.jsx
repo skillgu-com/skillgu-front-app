@@ -4,14 +4,14 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import AplicationLeftNav from "../../../component/Navigations/AplicationLeftNav";
+import ApplicationLeftNav from "../../../component/Navigations/ApplicationLeftNav";
 import AppLayout from '../../../component/AppLayout';
 
 function SettingsScreen(props) {
 
     return (
         <AppLayout>
-            <AplicationLeftNav/>
+            <ApplicationLeftNav/>
             <div className={'box-wrapper pitchdeck-wrapper'}>
                 <React.Fragment>
                     <Typography variant="h6" gutterBottom>

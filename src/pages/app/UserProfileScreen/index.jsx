@@ -22,16 +22,14 @@ const UserProfileScreen = () => {
 
     const userData = ({
         userID: userID,
-        role: userFromRedux.role[0] === 'STUDENT' ? 'mentor' : 'student',
+        role: userFromRedux?.role[0] === 'STUDENT' ? 'mentor' : 'student',
     })
-
 
     useEffect(() => {
         getUserProfile(userData).then((response) => {
             setUser(response.data);
         });
     }, []);
-
 
     return (
         <AppLayout>

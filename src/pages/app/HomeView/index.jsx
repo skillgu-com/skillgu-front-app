@@ -76,6 +76,13 @@ const navigation = [
 		icon: <HandMoney />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
+	{
+		id: 9,
+		title: 'Harmonogramy',
+		link: '/schedules',
+		icon: <HandMoney />,
+		allowedRoles: ['STUDENT', 'MENTOR'],
+	},
 ];
 
 const users2 = [

@@ -78,12 +78,5 @@ import axios from "axios";
 // };
 
 export const getKeyValues = async () => {
-
-    //TODO: example mock
-    //FIXME: remove before going to production
-    // return new Promise((resolve) => {
-    //     resolve({data: mockedKeyValues});
-    // });
-
     return await axios.get('/api/key-values')
 }

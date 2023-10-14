@@ -32,7 +32,7 @@ const TimeInterval = (props) => {
 	const removeHoursHandler = () => removeHours(index)
 
 	return (
-		<div>
+		<div className='schedule__hours-interval'>
 			<Input
 				id='name'
 				name='from'

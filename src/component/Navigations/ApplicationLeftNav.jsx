@@ -1,9 +1,11 @@
 import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../../context/AuthContextProvider';
+import {useSelector} from "react-redux";
 
-const AplicationLeftNav = () => {
+const ApplicationLeftNav = () => {
 	const [isActive, setIsActive] = useState(false);
+	const userFromRedux = useSelector((state) => state.auth.user);
 
 	const direction = [
 		{
@@ -79,4 +81,4 @@ const AplicationLeftNav = () => {
 	);
 };
 
-export default AplicationLeftNav;
+export default ApplicationLeftNav;

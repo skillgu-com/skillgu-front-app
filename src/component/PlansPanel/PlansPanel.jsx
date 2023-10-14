@@ -1,7 +1,8 @@
 import React, {useState, useMemo} from 'react';
-import Mentroship from './views/Mentorship/Mentroship';
+import MentorShip from './views/Mentorship/MentorShip';
 import Sessions from './views/Sessions/Sessions';
 import PlanPanelTabs from './components/PlanPanelTabs';
+import {useParams} from "react-router-dom";
 
 const SESSIONS_PLACEHOLDER_ARRAY = [
 	{id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
@@ -34,10 +35,9 @@ const MENTORSHIP_PLACEHOLDER_ARRAY = {
 
 const PlansPanel = () => {
 	// States
+	const { userID } = useParams();
 	const [currentTab, setCurrentTab] = useState('mentorship');
-	const [currentSession, setCurrentSession] = useState(
-		SESSIONS_PLACEHOLDER_ARRAY[0].id
-	);
+	const [currentSession, setCurrentSession] = useState(SESSIONS_PLACEHOLDER_ARRAY[0].id);
 	// Handlers
 	const onChangePlanHandler = (id) => setCurrentTab(id);
 	const onChangeSessionHandler = (id) => setCurrentSession(id);
@@ -45,7 +45,7 @@ const PlansPanel = () => {
 	const currentView = useMemo(() => {
 		switch (currentTab) {
 			case 'mentorship':
-				return <Mentroship plans={MENTORSHIP_PLACEHOLDER_ARRAY} />;
+				return <MentorShip plans={MENTORSHIP_PLACEHOLDER_ARRAY} />;
 			case 'session':
 				return (
 					<Sessions

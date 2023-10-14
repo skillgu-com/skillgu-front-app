@@ -15,7 +15,8 @@ import {ReactComponent as Search} from '../../../assets/icons/search-money.svg';
 import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg';
 import homeBg from '../../../assets/img/landscape.jpg';
 import {AuthContext} from '../../../context/AuthContextProvider';
-import {getAllUsersWithRoles} from '../../../services/UserProfileService';
+import {getAllUsersWithRoles, updateUser} from '../../../services/UserProfileService';
+import {useDispatch, useSelector} from "react-redux";
 
 const navigation = [
 	{
@@ -108,12 +109,14 @@ const myCards = [
 const HomeScreen = () => {
 	let [projects, setProjects] = useState([]);
 	const [users, setUsers] = useState([]); // Inicjalizacja stanu users jako pusta tablica
-
 	const {user} = useContext(AuthContext);
+	const userFromRedux = useSelector((state) => state.auth.user);
+	const dispatch = useDispatch(); // Pobierz funkcję dispatch z Redux
 
 	const filteredNavigation = navigation.filter((item) =>
 		item.allowedRoles.includes(user?.role[0])
 	);
+
 
 	useEffect(() => {
 		searchAllMyOwnProjects().then((r) => {
@@ -134,6 +137,10 @@ const HomeScreen = () => {
 				console.error(reason);
 			});
 	}, []);
+
+
+
+
 
 	return (
 		<AppLayout>

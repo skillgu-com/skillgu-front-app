@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from 'react';
 import {useLocation} from 'react-router-dom';
 
 //Components
-import AplicationLeftNav from '../Navigations/AplicationLeftNav';
+import ApplicationLeftNav from '../Navigations/ApplicationLeftNav';
 import AppTopbar from '../AppTopbar';
 
 const AppLayout = ({children}) => {
@@ -27,7 +27,7 @@ const AppLayout = ({children}) => {
 
 	return (
 		<div className='app-layout'>
-			<AplicationLeftNav />
+			<ApplicationLeftNav />
 			<AppTopbar />
 			<main className='app-layout__view'>
 				<div className='container'>{children}</div>

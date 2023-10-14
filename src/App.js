@@ -16,7 +16,7 @@ import HelpScreen from './pages/app/HelpView';
 import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
 import Settings from './pages/app/Settings';
 import PitchDeckCreatorScreen from './pages/app/CreatorNewProjectView';
-import SesionDetailsScreen from './pages/app/SesionDetailsScreen/SesionDetailsScreen';
+import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
 import BookSessionScreen from './pages/app/BookSessionScreen/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
 import Underconstruction from './pages/Underconstruction';
@@ -27,8 +27,8 @@ import AccountView from './pages/app/AccountView/AccountView';
 import MentoringPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/MentoringPlanCreatorView';
 import SessionPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
-import MessagesView from './pages/app/MessagesView';
 import LoggedProfileScreen from "./pages/app/UserProfileScreen/LoggedProfileScreen";
+import MessagesView from "./pages/app/MessagesView/MessagesView";
 
 function App() {
 	return (
@@ -122,7 +122,7 @@ function App() {
 						path='/session-details/:id'
 						element={
 							<ProtectedRoute>
-								<SesionDetailsScreen />
+								<SessionDetailsScreen />
 							</ProtectedRoute>
 						}
 					/>

@@ -34,7 +34,7 @@ const placeholderObject = {
 	],
 };
 
-const SesionDetailsScreen = () => {
+const SessionDetailsScreen = () => {
 	const {id} = useParams();
 	const [session, setSession] = useState(placeholderObject);
 
@@ -94,4 +94,4 @@ const SesionDetailsScreen = () => {
 	);
 };
 
-export default SesionDetailsScreen;
+export default SessionDetailsScreen;

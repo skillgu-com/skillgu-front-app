@@ -1,9 +1,9 @@
 // Librares
 import React from 'react';
+import AppLayout from "../../../component/AppLayout";
+import ContactList from "../../../component/Messages/ContactList";
+import Conversation from "../../../component/Messages/Conversation";
 // Components
-import AppLayout from '../../component/AppLayout';
-import ContactList from '../../component/Messages/ContactList';
-import Conversation from '../../component/Messages/Conversation';
 
 const PLACEHOLDER_CONTSCTS = [
 	{

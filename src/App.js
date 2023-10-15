@@ -29,6 +29,7 @@ import SessionPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/Sess
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import LoggedProfileScreen from "./pages/app/UserProfileScreen/LoggedProfileScreen";
 import MessagesView from "./pages/app/MessagesView/MessagesView";
+import SchedulesView from "./pages/app/SchedulesView";
 
 function App() {
 	return (

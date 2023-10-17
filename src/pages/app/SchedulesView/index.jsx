@@ -33,7 +33,7 @@ const SchedulesView = () => {
 	return (
 		<AppLayout>
 			<HeroHeader
-				title={`Hrmonogramy`}
+				title={`Haromonogramy`}
 				image={<img src={homeBg} alt='harmonogramy' />}
 			/>
 			<main className='schedule-view'>

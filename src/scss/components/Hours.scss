@@ -1,8 +1,13 @@
+@use '../variables' as *;
+
 .schedule__hours {
 	width: 100%;
+	padding: 32px 0 10px;
+	border-bottom: 1px solid rgba($gray-color, .25);
 	&-top {
 		width: 100%;
 		justify-content: space-between;
+		align-items: flex-start;
 		display: flex;
 	}
 

@@ -203,18 +203,22 @@ const ScheduleForm = () => {
 						</Tabs>
 					</Box>
 					<TabPanel value={value} index={0}>
-						{inputs.map((input) => (
-							<Input
-								{...input}
-								value={currentState[input.name].value}
-								errorMessage={currentState[input.name].errorMessage}
-								valueChangeHandler={upadateStateHandler}
-							/>
-						))}
+						<div className='schedule-form__schedule'>
+							{inputs.map((input) => (
+								<Input
+									key={input.id}
+									{...input}
+									value={currentState[input.name].value}
+									errorMessage={currentState[input.name].errorMessage}
+									valueChangeHandler={upadateStateHandler}
+								/>
+							))}
+						</div>
 					</TabPanel>
 					<TabPanel value={value} index={1}>
 						{inputsHours.map((input) => (
 							<Hours
+								key={input.id}
 								{...input}
 								value={currentState[input.name].value}
 								errorMessage={currentState[input.name].errorMessage}

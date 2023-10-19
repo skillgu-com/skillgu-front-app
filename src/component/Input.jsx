@@ -29,21 +29,21 @@ const Input = (props) => {
 	const changeHandler = (e) => {
 		const errorMessage = validation(touched, e.target.value, name, required);
 		valueChangeHandler(name, {
-			value: e.target.value,
+			value: e.target.value ??  e.target.valueAsDate,
 			errorMessage,
 			isValid: errorMessage === '' && touched,
 		});
 	};
 
-	useEffect(() => {
-		const errorMessage = validation(touched, value, name, required);
+	// useEffect(() => {
+	// 	const errorMessage = validation(touched, value, name, required);
 
-		valueChangeHandler(name, {
-			value,
-			errorMessage,
-			isValid: errorMessage === '',
-		});
-	}, [touched]);
+	// 	valueChangeHandler(name, {
+	// 		value,
+	// 		errorMessage,
+	// 		isValid: errorMessage === '',
+	// 	});
+	// }, [touched]);
 
 	return (
 		<div

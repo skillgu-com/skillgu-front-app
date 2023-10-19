@@ -7,26 +7,19 @@ import CustomButton from '../../../component/CustomButton';
 const TimeInterval = (props) => {
 	const {
 		isAdditional,
-		from: defaultFrom,
-		to: defaultTo,
+		from: {value: defaultFrom},
+		to: {value: defaultTo},
 		updateHours,
 		index,
 		removeHours
 	} = props;
 
-	const [from, setFrom] = useState(defaultFrom);
-	const [to, setTo] = useState(defaultTo);
-
-	const updateFromHandler = (e) => {
-		const value = e.target?.value;
-		setFrom(value);
-		updateHours(index, value, to);
+	const updateFromHandler = (name, value) => {
+		updateHours(index, value);
 	};
 
-	const updateToHandler = (e) => {
-		const value = e.target?.value;
-		setTo(value);
-		updateHours(index, from, value);
+	const updateToHandler = (name, value) => {
+		updateHours(index, undefined, value.value);
 	};
 
 	const removeHoursHandler = () => removeHours(index)
@@ -40,7 +33,7 @@ const TimeInterval = (props) => {
 				placeholder='09:00'
 				label='Od'
 				required={false}
-				value={from}
+				value={defaultFrom}
 				// errorMessage={currentState.name.errorMessage}
 				valueChangeHandler={updateFromHandler}
 			/>
@@ -51,7 +44,7 @@ const TimeInterval = (props) => {
 				placeholder='10:00'
 				label='Do'
 				required={false}
-				value={to}
+				value={defaultTo}
 				// errorMessage={currentState.name.errorMessage}
 				valueChangeHandler={updateToHandler}
 			/>

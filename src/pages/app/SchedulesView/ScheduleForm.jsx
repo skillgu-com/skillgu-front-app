@@ -43,37 +43,93 @@ const INITIAL_STATE = {
 		isValid: undefined,
 	},
 	timeMonday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeTuesday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeWednesday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeThursday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeFriday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeSaturday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
 	timeSunday: {
-		value: '',
+		value: {
+			isActive: false,
+			times: {
+				0: {
+					from: {value: '00:00', errorMessage: '', isValid: undefined},
+					to: {value: '01:00', errorMessage: '', isValid: undefined},
+				},
+			},
+		},
 		errorMessage: '',
 		isValid: undefined,
 	},
@@ -183,6 +239,10 @@ const ScheduleForm = () => {
 		setCurrentState({...currentState, [name]: value});
 	};
 
+	const upadateHourStateHandler = (name, value) => {
+		setCurrentState({...currentState, [name]: {...currentState[name], value}});
+	};
+
 	const submitHandler = (e) => {
 		e.preventDefault();
 	};
@@ -222,7 +282,7 @@ const ScheduleForm = () => {
 								{...input}
 								value={currentState[input.name].value}
 								errorMessage={currentState[input.name].errorMessage}
-								valueChangeHandler={upadateStateHandler}
+								valueChangeHandler={upadateHourStateHandler}
 							/>
 						))}
 					</TabPanel>

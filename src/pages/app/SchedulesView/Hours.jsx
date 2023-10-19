@@ -1,30 +1,38 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 // Components
 import Checkbox from '../../../component/Checkbox';
 import CustomButton from '../../../component/CustomButton';
 import TimeInterval from './TimeInterval';
-import {NoLuggage} from '@mui/icons-material';
 
 const Hours = (props) => {
 	const [isActive, setIsActive] = useState(props.value?.isActive);
 	const [hourIndex, setHourIndex] = useState(1);
 
 	const toggleActiveHandler = () => setIsActive(!isActive);
-	const addHoursHandler = () => {
-		setHourIndex(hourIndex + 1);
-	};
 
 	const updateHours = (index, from, to) => {
-		console.log(props);
-		console.log(index, from, to);
 		const newHours = {
 			[index]: {
 				from: from ?? props.value?.times[index].from,
 				to: to ?? props.value?.times[index].to,
 			},
 		};
-		props.valueChangeHandler(props.name, {...props.value, times: newHours});
+
+		props.valueChangeHandler(props.name, {
+			...props.value,
+			times: {...props.value.times, ...newHours},
+		});
+	};
+
+	const addHoursHandler = () => {
+		const newIndex = hourIndex + 1;
+		setHourIndex(newIndex);
+		updateHours(
+			newIndex,
+			{value: '00:00', errorMessage: '', isValid: undefined},
+			{value: '01:00', errorMessage: '', isValid: undefined}
+		);
 	};
 
 	const removeHours = (index) => null;

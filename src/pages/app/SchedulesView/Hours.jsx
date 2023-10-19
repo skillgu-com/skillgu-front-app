@@ -11,12 +11,14 @@ const Hours = (props) => {
 
 	const toggleActiveHandler = () => setIsActive(!isActive);
 
-	const updateHours = (index, from, to) => {
+	const updateHours = (index, from, to, remove = false) => {
 		const newHours = {
-			[index]: {
-				from: from ?? props.value?.times[index].from,
-				to: to ?? props.value?.times[index].to,
-			},
+			[index]: remove
+				? undefined
+				: {
+						from: from ?? props.value?.times[index].from,
+						to: to ?? props.value?.times[index].to,
+				  },
 		};
 
 		props.valueChangeHandler(props.name, {
@@ -35,7 +37,7 @@ const Hours = (props) => {
 		);
 	};
 
-	const removeHours = (index) => null;
+	const removeHours = (index) => updateHours(index, undefined, undefined, true);
 
 	return (
 		<div className='schedule__hours'>

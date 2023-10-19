@@ -22,6 +22,7 @@ const Hours = (props) => {
 
 	const removeHours = (index) => setHours({...hours, [index]: undefined});
 
+
 	return (
 		<div className='schedule__hours'>
 			<div className='schedule__hours-top'>

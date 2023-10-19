@@ -1,5 +1,5 @@
 // Librares
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // Components
 import AppLayout from '../../../component/AppLayout';
 import HeroHeader from '../../../component/HeroHeader';
@@ -7,6 +7,7 @@ import Table from '../../../component/Table/Table';
 import ScheduleForm from './ScheduleForm';
 // Images
 import homeBg from '../../../assets/img/landscape.jpg';
+import {getAllSchedulesMeeting} from "../../../services/MeetingCreatorService";
 
 const PLACEHOLDER_TABLE = {
 	headers: [
@@ -28,7 +29,14 @@ const PLACEHOLDER_TABLE = {
 
 const SchedulesView = () => {
 	const [schedules, setSchedules] = useState([]);
-	// TODO: Add downloading schedules from API
+	useEffect(() => {
+		getAllSchedulesMeeting().then((response) => {
+			setSchedules(response.data);
+		});
+	}, []);
+
+	console.log(schedules);
+
 
 	return (
 		<AppLayout>

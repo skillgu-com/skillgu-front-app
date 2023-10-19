@@ -1,85 +1,61 @@
 // Libraries
-import React, {useState} from 'react';
-import {Box, Tabs, Tab} from '@mui/material';
+import React, {useEffect, useState} from 'react';
 import {FormLabel, TextField, Grid, Box, Tabs, Tab, FormControlLabel, Switch} from '@mui/material';
 // Components
 import CustomButton, {buttonTypes} from '../../../component/CustomButton';
 import Input from '../../../component/Input';
 import Hours from './Hours';
-import {createScheduleMeeting} from "../../../services/MeetingCreatorService";
+import {createScheduleMeeting, getAllSchedulesMeeting} from "../../../services/MeetingCreatorService";
+import {getUserProfile} from "../../../services/UserProfileService";
 
 const INITIAL_STATE = {
-	name: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	meetTime: {
-		value: 45,
-		errorMessage: '',
-		isValid: undefined,
-	},
-	planned: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	limit: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	start: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	end: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeMonday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeTuesday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeWednesday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeThursday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeFriday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeSaturday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeSunday: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
+
+    meetTime: {
+        value: 45,
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeMonday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeTuesday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeWednesday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeThursday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeFriday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeSaturday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeSunday: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
     scheduleName: {
         value: '',
         errorMessage: '',
         isValid: undefined,
     },
-    break: {
+    meetingBreakDuration: {
         value: '',
         errorMessage: '',
         isValid: undefined,
@@ -98,77 +74,120 @@ const INITIAL_STATE = {
         value: false,
         errorMessage: '',
         isValid: undefined,
-    }
+    },
+    scheduleStartDay: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
+    scheduleEndDay: {
+        value: '',
+        errorMessage: '',
+        isValid: undefined,
+    },
 };
 
 const inputs = [
-	{
-		id: 'name',
-		name: 'name',
-		type: 'text',
-		placeholder: 'Mój harmonogram',
-		label: 'Nazwa harmonogramu',
-		required: true,
-	},
-	{
-		id: 'meetTime',
-		name: 'meetTime',
-		type: 'number',
-		label: 'Długość spotkania',
-		required: true,
-		step: '5',
-		min: 15,
-	},
-	{
-		id: 'break',
-		name: 'break',
-		type: 'number',
-		label: 'Długość przerwy',
-		placeholder: '15',
-		required: true,
-		step: '15',
-		min: 0,
-	},
-	{
-		id: 'planned',
-		name: 'planned',
-		type: 'number',
-		label: 'Spotaknie może być zaplanowane nie wcześniej niż',
-		placeholder: 'Pozostaw puste jeżeli chcesz zdjąć ograniczenia',
-		required: false,
-	},
-	{
-		id: 'limit',
-		name: 'limit',
-		type: 'number',
-		label: 'Limit dziennych spotkań',
-		placeholder: 'Pozostaw puste jeżeli chcesz zdjąć ograniczenia',
-		required: false,
-	},
-	{
-		id: 'start',
-		name: 'start',
-		type: 'date',
-		label: 'Rozpoczęcie harmonogramu',
-		required: true,
-	},
-	{
-		id: 'end',
-		name: 'end',
-		type: 'date',
-		label: 'Zakończenie harmonogramu',
-		required: true,
-	},
+    {
+        id: 'scheduleName',
+        name: 'scheduleName',
+        type: 'text',
+        placeholder: 'Mój harmonogram',
+        label: 'Nazwa harmonogramu',
+        required: true,
+    },
+    {
+        id: 'meetTime',
+        name: 'meetTime',
+        type: 'number',
+        label: 'Długość spotkania',
+        placeholder: 'Podaj długość spotkania, nie krócej niż 15 minut',
+        required: true,
+        step: '5',
+        min: 15,
+    },
+    {
+        id: 'meetingBreakDuration',
+        name: 'meetingBreakDuration',
+        type: 'number',
+        label: 'Długość przerwy',
+        placeholder: '15',
+        required: true,
+        step: '15',
+        min: 0,
+    },
+    {
+        id: 'participant',
+        name: 'participant',
+        type: 'number',
+        label: 'Ilość uczestników',
+        placeholder: 'Podaj maksymalną ilość osób na spotkaniu',
+        required: false,
+        step: '1',
+        min: 1,
+        max: 3,
+    },
+    {
+        id: 'meetingLimit',
+        name: 'meetingLimit',
+        type: 'number',
+        label: 'Limit dziennych spotkań',
+        placeholder: 'Pozostaw puste jeżeli chcesz zdjąć ograniczenia',
+        required: false,
+    },
+    {
+        id: 'scheduleStartDay',
+        name: 'scheduleStartDay',
+        type: 'date',
+        label: 'Rozpoczęcie harmonogramu',
+        required: true,
+    },
+    {
+        id: 'scheduleEndDay',
+        name: 'scheduleEndDay',
+        type: 'date',
+        label: 'Zakończenie harmonogramu',
+        required: true,
+    },
 ];
 
 const inputsHours = [
-	{id: 'timeMonday', name: 'timeMonday', label: 'Poniedziałek'},
-	{id: 'timeTuesday', name: 'timeTuesday', label: 'Wtorek'},
-	{id: 'timeWednesday', name: 'timeWednesday', label: 'Środa'},
-	{id: 'timeThursday', name: 'timeThursday', label: 'Czwartek'},
-	{id: 'timeFriday', name: 'timeFriday', label: 'Piątek'},
-	{id: 'timeSaturday', name: 'timeSaturday', label: 'Sobota'},
-	{id: 'timeSunday', name: 'timeSunday', label: 'Niedziela'},
+    {
+        id: 'timeMonday',
+        name: 'timeMonday',
+        type: 'text',
+        label: 'Poniedziałek'
+    },
+    {
+        id: 'timeTuesday',
+        name: 'timeTuesday',
+        label: 'Wtorek'
+    },
+    {
+        id: 'timeWednesday',
+        name: 'timeWednesday',
+        label: 'Środa'
+    },
+    {
+        id: 'timeThursday',
+        name: 'timeThursday',
+        label: 'Czwartek'
+    },
+    {
+        id: 'timeFriday',
+        name: 'timeFriday',
+        label: 'Piątek'
+    },
+    {
+        id: 'timeSaturday',
+        name: 'timeSaturday',
+        label: 'Sobota'
+    },
+    {
+        id: 'timeSunday',
+        name: 'timeSunday',
+        label: 'Niedziela'
+    },
 ];
 
 function TabPanel(props) {
@@ -197,6 +216,7 @@ const ScheduleForm = () => {
     const [currentState, setCurrentState] = useState(INITIAL_STATE);
     const [value, setValue] = useState(0);
     const [isChecked, setIsChecked] = useState(false);
+    const [schedules, setSchedules] = useState({});
 
 
     const handleChange = (_event, newValue) => {
@@ -204,24 +224,30 @@ const ScheduleForm = () => {
     };
 
     const updateStateHandler = (name, value) => {
+        // console.log(value.value)
         setCurrentState({...currentState, [name]: value});
     };
-    const handleSwitchChange = () => {
-        setIsChecked(!isChecked);
+
+    const updateStateHandler2 = (name, value) => {
+        console.log('test')
+        setCurrentState({...currentState, [name]: value});
     };
+
+
+
 
     const submitHandler = (e) => {
         e.preventDefault();
         createScheduleMeeting(currentState);
     };
 
-
+    //
     return (
         <section>
             <h2 className='app__title'>Dodaj nowy harmonogram</h2>
 
             <form className='schedule-form' onSubmit={submitHandler}>
-                <Box sx={{width: '100%'}} marginTop={4}>
+                <Box sx={{width: '100%'}}>
                     <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                         <Tabs
                             value={value}
@@ -231,158 +257,49 @@ const ScheduleForm = () => {
                             <Tab label='Dostępność' {...a11yProps(3)} />
                         </Tabs>
                     </Box>
-                    <TabPanel value={value} index={0}>
-                        <Input
-                            id='scheduleName'
-                            name='scheduleName'
-                            type='text'
-                            placeholder='Mój harmonogram'
-                            label='Nazwa harmonogramu'
-                            required={true}
-                            value={currentState.scheduleName.value}
-                            // errorMessage={currentState.name.errorMessage}
-                            valueChangeHandler={updateStateHandler}
-                        />
-                        <Input
-                            id='break'
-                            name='break'
-                            type='number'
-                            placeholder='15'
-                            label='Długość przerwy między spotkaniami'
-                            required={true}
-                            value={currentState.break.value}
-                            step='15' // Działa co 15
-                            valueChangeHandler={updateStateHandler}
-                        />
 
-                        <Input
-                            id='participant'
-                            name='participant'
-                            type='number'
-                            placeholder='0'
-                            label='Maksymalna liczba uczestników na spotkaniu'
-                            // required={true}
-                            value={currentState.participant.value}
-                            // errorMessage={currentState.name.errorMessage}
-                            valueChangeHandler={updateStateHandler}
-                        />
-                        <Input
-                            id='meetingLimit'
-                            name='meetingLimit'
-                            type='number'
-                            placeholder='Ile dziennie maksymalnie chcesz spotkań'
-                            label='Limit dziennych spotkań'
-                            // required={true}
-                            value={currentState.meetingLimit.value}
-                            // errorMessage={currentState.name.errorMessage}
-                            valueChangeHandler={updateStateHandler}
-                        />
-                        <Grid item xs={12} md={6}>
-                            <div className='schedule-form__inline'>
-                                <FormLabel id='start-data' className='field__label'>
-                                    Odwoływanie zajęć
-                                </FormLabel>
-                                <FormControlLabel
-                                    control={
-                                        <Switch
-                                            checked={currentState.cancelingClasses.value}
-                                            onChange={(event) => {
-                                                updateStateHandler('cancelingClasses', { value: event.target.checked });
-                                            }}
-                                            name='cancelingClasses'
-                                        />
-                                    }
-                                    label='wył/wł'
+                    <TabPanel value={value} index={0}>
+                        <div className='schedule-form__schedule'>
+                            {inputs.map((input) => (
+                                <Input
+                                    key={input.id}
+                                    {...input}
+                                    value={currentState[input.name].value}
+                                    // errorMessage={currentState[input.name].errorMessage}
+                                    valueChangeHandler={updateStateHandler}
                                 />
-                            </div>
-                        </Grid>
-                        <h3 className='app__title'>Harmonogram obowiązuje</h3>
-                        <div className='schedule-form__inline'>
-                            <Grid item xs={12} md={6}>
-                                <FormLabel id='start-data' className='field__label'>
-                                    Od
-                                </FormLabel>
-                                <TextField
-                                    autoComplete='given-name'
-                                    name='start-data'
-                                    required
-                                    fullWidth
-                                    id='start-data'
-                                    placeholder='12.02.2022'
-                                    type={'date'}
-                                    autoFocus
-                                    // value={}
-                                    // onChange={props.handleStartDate}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <FormLabel id='start-data' className='field__label'>
-                                    Do
-                                </FormLabel>
-                                <TextField
-                                    autoComplete='given-name'
-                                    name='start-data'
-                                    required
-                                    fullWidth
-                                    id='start-data'
-                                    placeholder='12.02.2022'
-                                    type={'date'}
-                                    autoFocus
-                                    // value={}
-                                    // onChange={props.handleStartDate}
-                                />
-                            </Grid>
+                            ))}
+                        </div>
+                        <div>
+                            <FormLabel id='start-data' className='field__label'>
+                                Odwoływanie zajęć
+                            </FormLabel>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={currentState.cancelingClasses.value}
+                                        onChange={(event) => {
+                                            updateStateHandler('cancelingClasses', {value: event.target.checked});
+                                        }}
+                                        name='cancelingClasses'
+                                    />
+                                }
+                                label='wył/wł'
+                            />
                         </div>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <Hours
-                            id='limit'
-                            name='limit'
-                            placeholder='Pozostaw puste jeżeli chcesz zdjąć ograniczenia'
-                            label='Poniedziałek'
-                            value={currentState.scheduleName.value}
-                            // errorMessage={currentState.name.errorMessage}
-                            valueChangeHandler={updateStateHandler}
-                        />
+                        {inputsHours.map((input) => (
+                            <Hours
+                                key={input.id}
+                                {...input}
+                                value={currentState[input.name].value}
+                                // errorMessage={currentState[input.name].errorMessage}
+                                valueChangeHandler={updateStateHandler2}
+                            />
+                        ))}
                     </TabPanel>
                 </Box>
-			<form className='schedule-form' onSubmit={submitHandler}>
-				<Box sx={{width: '100%'}}>
-					<Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-						<Tabs
-							value={value}
-							onChange={handleChange}
-							aria-label='basic tabs example'>
-							<Tab label='Harmonogram' {...a11yProps(2)} />
-							<Tab label='Dostępność' {...a11yProps(3)} />
-						</Tabs>
-					</Box>
-					<TabPanel value={value} index={0}>
-						<div className='schedule-form__schedule'>
-							{inputs.map((input) => (
-								<Input
-									key={input.id}
-									{...input}
-									value={currentState[input.name].value}
-									errorMessage={currentState[input.name].errorMessage}
-									valueChangeHandler={upadateStateHandler}
-								/>
-							))}
-						</div>
-					</TabPanel>
-					<TabPanel value={value} index={1}>
-						{inputsHours.map((input) => (
-							<Hours
-								key={input.id}
-								{...input}
-								value={currentState[input.name].value}
-								errorMessage={currentState[input.name].errorMessage}
-								valueChangeHandler={upadateStateHandler}
-							/>
-						))}
-					</TabPanel>
-				</Box>
-
                 <CustomButton as={buttonTypes.submit}>Zatwierdź</CustomButton>
             </form>
         </section>

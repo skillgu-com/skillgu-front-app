@@ -11,11 +11,13 @@ export const createNewMeeting = async (timeZone, sessionDescription, sessionType
 }
 
 export const createScheduleMeeting = async (currentState) => {
+    console.log(currentState);
     return await axios.post('/api/meeting/create-schedule-meeting', {
         scheduleName: currentState.scheduleName.value,
-        scheduleStartDay: "start",
-        scheduleEndDay: "end",
-        pause: currentState.break.value,
+        scheduleStartDay: currentState.scheduleStartDay,
+        scheduleEndDay: currentState.scheduleEndDay,
+        meetTime: currentState.meetTime,
+        meetingBreakDuration: currentState.meetingBreakDuration.value,
         participant: currentState.participant.value,
         meetingLimit: currentState.meetingLimit.value,
         cancelingClasses: currentState.cancelingClasses.value

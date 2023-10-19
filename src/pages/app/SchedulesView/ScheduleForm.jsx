@@ -228,13 +228,6 @@ const ScheduleForm = () => {
         setCurrentState({...currentState, [name]: value});
     };
 
-    const updateStateHandler2 = (name, value) => {
-        console.log('test')
-        setCurrentState({...currentState, [name]: value});
-    };
-
-
-
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -295,7 +288,7 @@ const ScheduleForm = () => {
                                 {...input}
                                 value={currentState[input.name].value}
                                 // errorMessage={currentState[input.name].errorMessage}
-                                valueChangeHandler={updateStateHandler2}
+                                valueChangeHandler={updateStateHandler}
                             />
                         ))}
                     </TabPanel>

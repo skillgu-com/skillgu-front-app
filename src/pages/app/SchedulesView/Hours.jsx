@@ -6,10 +6,13 @@ import CustomButton from '../../../component/CustomButton';
 import TimeInterval from './TimeInterval';
 
 const Hours = (props) => {
-	const [isActive, setIsActive] = useState(props.value?.isActive);
-	const [hourIndex, setHourIndex] = useState(1);
+	const [hourIndex, setHourIndex] = useState(0);
 
-	const toggleActiveHandler = () => setIsActive(!isActive);
+	const toggleActiveHandler = () =>
+		props.valueChangeHandler(props.name, {
+			...props.value,
+			isActive: !props.value.isActive,
+		});
 
 	const updateHours = (index, from, to, remove = false) => {
 		const newHours = {
@@ -39,15 +42,12 @@ const Hours = (props) => {
 
 	const removeHours = (index) => updateHours(index, undefined, undefined, true);
 
-
-
-
 	return (
 		<div className='schedule__hours'>
 			<div className='schedule__hours-top'>
 				<Checkbox
 					valueChangeHandler={toggleActiveHandler}
-					value={isActive}
+					value={props.value.isActive}
 					label={props.label}
 					required={false}
 					classes='contact-form__policy'

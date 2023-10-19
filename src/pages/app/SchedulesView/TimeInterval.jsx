@@ -19,7 +19,7 @@ const TimeInterval = (props) => {
 	};
 
 	const updateToHandler = (name, value) => {
-		updateHours(index, undefined, value.value);
+		updateHours(index, undefined, value);
 	};
 
 	const removeHoursHandler = () => removeHours(index)

@@ -280,15 +280,14 @@ const ScheduleForm = () => {
         setCurrentState({...currentState, [name]: value});
     };
 
+    const updateHourStateHandler = (name, value) => {
+        setCurrentState({...currentState, [name]: {...currentState[name], value}});
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
         createScheduleMeeting(currentState);
     };
-    const updateHourStateHandler = (name, value) => {
-        setCurrentState({...currentState, [name]: {...currentState[name], value}});
-    };
-
 
     return (
         <section>

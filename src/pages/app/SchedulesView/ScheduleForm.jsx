@@ -15,41 +15,6 @@ const INITIAL_STATE = {
         errorMessage: '',
         isValid: undefined,
     },
-    timeMonday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeTuesday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeWednesday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeThursday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeFriday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeSaturday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
-    timeSunday: {
-        value: '',
-        errorMessage: '',
-        isValid: undefined,
-    },
     scheduleName: {
         value: '',
         errorMessage: '',
@@ -85,132 +50,97 @@ const INITIAL_STATE = {
         errorMessage: '',
         isValid: undefined,
     },
-	name: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	meetTime: {
-		value: 45,
-		errorMessage: '',
-		isValid: undefined,
-	},
-	break: {
-		value: 0,
-		errorMessage: '',
-		isValid: undefined,
-	},
-	planned: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	limit: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	start: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	end: {
-		value: '',
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeMonday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeTuesday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeWednesday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeThursday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeFriday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeSaturday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
-	timeSunday: {
-		value: {
-			isActive: false,
-			times: {
-				0: {
-					from: {value: '00:00', errorMessage: '', isValid: undefined},
-					to: {value: '01:00', errorMessage: '', isValid: undefined},
-				},
-			},
-		},
-		errorMessage: '',
-		isValid: undefined,
-	},
+    timeMonday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeTuesday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeWednesday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeThursday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeFriday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeSaturday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    },
+    timeSunday: {
+        value: {
+            isActive: false,
+            times: {
+                0: {
+                    from: {value: '00:00', errorMessage: '', isValid: undefined},
+                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                },
+            },
+        },
+        errorMessage: '',
+        isValid: undefined,
+    }
 };
 
 const inputs = [
@@ -339,76 +269,89 @@ function a11yProps(index) {
 }
 
 const ScheduleForm = () => {
-	const [currentState, setCurrentState] = useState(INITIAL_STATE);
-	const [value, setValue] = useState(0);
+    const [currentState, setCurrentState] = useState(INITIAL_STATE);
+    const [value, setValue] = useState(0);
 
-	const handleChange = (_event, newValue) => {
-		setValue(newValue);
-	};
+    const handleChange = (_event, newValue) => {
+        setValue(newValue);
+    };
 
-	const upadateStateHandler = (name, value) => {
-		setCurrentState({...currentState, [name]: value});
-	};
+    const updateStateHandler = (name, value) => {
+        setCurrentState({...currentState, [name]: value});
+    };
 
 
     const submitHandler = (e) => {
         e.preventDefault();
         createScheduleMeeting(currentState);
     };
-	const upadateHourStateHandler = (name, value) => {
-		setCurrentState({...currentState, [name]: {...currentState[name], value}});
-	};
+    const updateHourStateHandler = (name, value) => {
+        setCurrentState({...currentState, [name]: {...currentState[name], value}});
+    };
 
-	const submitHandler = (e) => {
-		e.preventDefault();
-	};
 
-    //
     return (
         <section>
             <h2 className='app__title'>Dodaj nowy harmonogram</h2>
 
-			<form className='schedule-form' onSubmit={submitHandler}>
-				<Box sx={{width: '100%'}}>
-					<Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-						<Tabs
-							value={value}
-							onChange={handleChange}
-							aria-label='basic tabs example'>
-							<Tab label='Harmonogram' {...a11yProps(2)} />
-							<Tab label='Dostępność' {...a11yProps(3)} />
-						</Tabs>
-					</Box>
-					<TabPanel value={value} index={0}>
-						<div className='schedule-form__schedule'>
-							{inputs.map((input) => (
-								<Input
-									key={input.id}
-									{...input}
-									value={currentState[input.name].value}
-									errorMessage={currentState[input.name].errorMessage}
-									valueChangeHandler={upadateStateHandler}
-								/>
-							))}
-						</div>
-					</TabPanel>
-					<TabPanel value={value} index={1}>
-						{inputsHours.map((input) => (
-							<Hours
-								key={input.id}
-								{...input}
-								value={currentState[input.name].value}
-								errorMessage={currentState[input.name].errorMessage}
-								valueChangeHandler={upadateHourStateHandler}
-							/>
-						))}
-					</TabPanel>
-				</Box>
+            <form className='schedule-form' onSubmit={submitHandler}>
+                <Box sx={{width: '100%'}}>
+                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            aria-label='basic tabs example'>
+                            <Tab label='Harmonogram' {...a11yProps(2)} />
+                            <Tab label='Dostępność' {...a11yProps(3)} />
+                        </Tabs>
+                    </Box>
+                    <TabPanel value={value} index={0}>
+                        <div className='schedule-form__schedule'>
+                            {inputs.map((input) => (
+                                <Input
+                                    key={input.id}
+                                    {...input}
+                                    value={currentState[input.name].value}
+                                    errorMessage={currentState[input.name].errorMessage}
+                                    valueChangeHandler={updateStateHandler}
+                                />
+                            ))}
+                        </div>
+                        <div>
+                            <FormLabel id='start-data' className='field__label'>
+                                Odwoływanie zajęć
+                            </FormLabel>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={currentState.cancelingClasses.value}
+                                        onChange={(event) => {
+                                            updateStateHandler('cancelingClasses', {value: event.target.checked});
+                                        }}
+                                        name='cancelingClasses'
+                                    />
+                                }
+                                label='wył/wł'
+                            />
+                        </div>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        {inputsHours.map((input) => (
+                            <Hours
+                                key={input.id}
+                                {...input}
+                                value={currentState[input.name].value}
+                                errorMessage={currentState[input.name].errorMessage}
+                                valueChangeHandler={updateHourStateHandler}
+                            />
+                        ))}
+                    </TabPanel>
+                </Box>
 
-				<CustomButton as={buttonTypes.submit}>Zatwierdź</CustomButton>
-			</form>
-		</section>
-	);
+                <CustomButton as={buttonTypes.submit}>Zatwierdź</CustomButton>
+            </form>
+        </section>
+    );
 };
 
 export default ScheduleForm;

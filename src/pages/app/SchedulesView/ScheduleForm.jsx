@@ -1,5 +1,6 @@
 // Libraries
 import React, {useState} from 'react';
+import {Box, Tabs, Tab} from '@mui/material';
 import {FormLabel, TextField, Grid, Box, Tabs, Tab, FormControlLabel, Switch} from '@mui/material';
 // Components
 import CustomButton, {buttonTypes} from '../../../component/CustomButton';
@@ -8,6 +9,71 @@ import Hours from './Hours';
 import {createScheduleMeeting} from "../../../services/MeetingCreatorService";
 
 const INITIAL_STATE = {
+	name: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	meetTime: {
+		value: 45,
+		errorMessage: '',
+		isValid: undefined,
+	},
+	planned: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	limit: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	start: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	end: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeMonday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeTuesday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeWednesday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeThursday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeFriday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeSaturday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
+	timeSunday: {
+		value: '',
+		errorMessage: '',
+		isValid: undefined,
+	},
     scheduleName: {
         value: '',
         errorMessage: '',
@@ -34,6 +100,76 @@ const INITIAL_STATE = {
         isValid: undefined,
     }
 };
+
+const inputs = [
+	{
+		id: 'name',
+		name: 'name',
+		type: 'text',
+		placeholder: 'Mój harmonogram',
+		label: 'Nazwa harmonogramu',
+		required: true,
+	},
+	{
+		id: 'meetTime',
+		name: 'meetTime',
+		type: 'number',
+		label: 'Długość spotkania',
+		required: true,
+		step: '5',
+		min: 15,
+	},
+	{
+		id: 'break',
+		name: 'break',
+		type: 'number',
+		label: 'Długość przerwy',
+		placeholder: '15',
+		required: true,
+		step: '15',
+		min: 0,
+	},
+	{
+		id: 'planned',
+		name: 'planned',
+		type: 'number',
+		label: 'Spotaknie może być zaplanowane nie wcześniej niż',
+		placeholder: 'Pozostaw puste jeżeli chcesz zdjąć ograniczenia',
+		required: false,
+	},
+	{
+		id: 'limit',
+		name: 'limit',
+		type: 'number',
+		label: 'Limit dziennych spotkań',
+		placeholder: 'Pozostaw puste jeżeli chcesz zdjąć ograniczenia',
+		required: false,
+	},
+	{
+		id: 'start',
+		name: 'start',
+		type: 'date',
+		label: 'Rozpoczęcie harmonogramu',
+		required: true,
+	},
+	{
+		id: 'end',
+		name: 'end',
+		type: 'date',
+		label: 'Zakończenie harmonogramu',
+		required: true,
+	},
+];
+
+const inputsHours = [
+	{id: 'timeMonday', name: 'timeMonday', label: 'Poniedziałek'},
+	{id: 'timeTuesday', name: 'timeTuesday', label: 'Wtorek'},
+	{id: 'timeWednesday', name: 'timeWednesday', label: 'Środa'},
+	{id: 'timeThursday', name: 'timeThursday', label: 'Czwartek'},
+	{id: 'timeFriday', name: 'timeFriday', label: 'Piątek'},
+	{id: 'timeSaturday', name: 'timeSaturday', label: 'Sobota'},
+	{id: 'timeSunday', name: 'timeSunday', label: 'Niedziela'},
+];
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -210,6 +346,42 @@ const ScheduleForm = () => {
                         />
                     </TabPanel>
                 </Box>
+			<form className='schedule-form' onSubmit={submitHandler}>
+				<Box sx={{width: '100%'}}>
+					<Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+						<Tabs
+							value={value}
+							onChange={handleChange}
+							aria-label='basic tabs example'>
+							<Tab label='Harmonogram' {...a11yProps(2)} />
+							<Tab label='Dostępność' {...a11yProps(3)} />
+						</Tabs>
+					</Box>
+					<TabPanel value={value} index={0}>
+						<div className='schedule-form__schedule'>
+							{inputs.map((input) => (
+								<Input
+									key={input.id}
+									{...input}
+									value={currentState[input.name].value}
+									errorMessage={currentState[input.name].errorMessage}
+									valueChangeHandler={upadateStateHandler}
+								/>
+							))}
+						</div>
+					</TabPanel>
+					<TabPanel value={value} index={1}>
+						{inputsHours.map((input) => (
+							<Hours
+								key={input.id}
+								{...input}
+								value={currentState[input.name].value}
+								errorMessage={currentState[input.name].errorMessage}
+								valueChangeHandler={upadateStateHandler}
+							/>
+						))}
+					</TabPanel>
+				</Box>
 
                 <CustomButton as={buttonTypes.submit}>Zatwierdź</CustomButton>
             </form>

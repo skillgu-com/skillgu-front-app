@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 // Helpers
 import validation from '../helpers/improovedValidation';
+import { min } from 'lodash';
 
 const Input = (props) => {
 	const {
@@ -18,6 +19,8 @@ const Input = (props) => {
 		isValid,
 		valueChangeHandler,
 		classes,
+		step = undefined,
+		min = undefined
 	} = props;
 	const Tag = as;
 
@@ -62,6 +65,8 @@ const Input = (props) => {
 					placeholder={placeholder}
 					autoComplete='true'
 					onBlur={() => setTouched(true)}
+					step={step}
+					min={min}
 				/>
 			</label>
 			<span className='input__error'>{errorMessage}</span>

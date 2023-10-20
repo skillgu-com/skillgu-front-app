@@ -60,11 +60,7 @@ const CustomButton = ({
 				</button>
 			);
 		case buttonTypes.span:
-			return (
-				<span className={config}>
-					{children}
-				</span>
-			);
+			return <span className={config}>{children}</span>;
 		default:
 			if (link)
 				throw new Error(
@@ -72,6 +68,7 @@ const CustomButton = ({
 				);
 			return (
 				<button
+					type='button'
 					className={config}
 					onClick={_onClick && _onClick}
 					disabled={disabled}>

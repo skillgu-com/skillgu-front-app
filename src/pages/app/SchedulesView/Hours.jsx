@@ -52,7 +52,7 @@ const Hours = (props) => {
 					required={false}
 					classes='contact-form__policy'
 				/>
-				<CustomButton _onClick={addHoursHandler}>Dodaj godziny</CustomButton>
+				<CustomButton as='button' _onClick={addHoursHandler}>Dodaj godziny</CustomButton>
 			</div>
 			{props.value?.times &&
 				Object.keys(props.value.times)?.map(

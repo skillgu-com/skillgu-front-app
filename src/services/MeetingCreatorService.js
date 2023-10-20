@@ -14,13 +14,14 @@ export const createScheduleMeeting = async (currentState, weekTimes) => {
     console.log(currentState, weekTimes);
     return await axios.post('/api/meeting/create-schedule-meeting', {
         scheduleName: currentState.scheduleName.value,
-        scheduleStartDay: currentState.scheduleStartDay,
-        scheduleEndDay: currentState.scheduleEndDay,
-        meetTime: currentState.meetTime,
+        scheduleStartDay: currentState.scheduleStartDay.value,
+        scheduleEndDay: currentState.scheduleEndDay.value,
+        meetTime: currentState.meetTime.value,
         meetingBreakDuration: currentState.meetingBreakDuration.value,
         participant: currentState.participant.value,
         meetingLimit: currentState.meetingLimit.value,
-        cancelingClasses: currentState.cancelingClasses.value
+        cancelingClasses: currentState.cancelingClasses.value,
+        weekTimes: weekTimes
     });
 }
 

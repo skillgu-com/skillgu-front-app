@@ -35,7 +35,6 @@ const SchedulesView = () => {
 		});
 	}, []);
 
-	console.log(schedules);
 
 
 	return (

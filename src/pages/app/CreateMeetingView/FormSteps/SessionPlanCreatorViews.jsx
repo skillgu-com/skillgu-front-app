@@ -16,7 +16,7 @@ import AppLayout from "../../../../component/AppLayout";
 import HeroHeader from "../../../../component/HeroHeader";
 import headerImg from "../../../../assets/img/sunrise.png";
 import Checkbox from "@mui/material/Checkbox";
-import {createNewMeeting} from "../../../../services/MeetingCreatorService";
+import {createNewMeeting, getScheduleNames} from "../../../../services/MeetingCreatorService";
 import {useNavigate} from "react-router-dom";
 import {getKeyValues} from "../../../../services/KeyValuesService";
 
@@ -37,15 +37,16 @@ const SessionPlanCreatorView = (props) => {
     const [sessionTypeValues, setSessionTypeValues] = useState('');
     const [sessionPrice, setSessionPrice] = useState('');
     const [typeOfNotification, setTypeOfNotification] = useState('');
+    const [scheduleNames, setScheduleNames] = useState([]);
+    const [selectedSchedule, setSelectedSchedule] = useState('');
     const navigate = useNavigate();
 
     const handleSubmitProject = (event) => {
         event.preventDefault();
-        createNewMeeting(timeZone,sessionDescription,sessionTypeValues,sessionPrice,typeOfNotification).then(
+        createNewMeeting(timeZone,sessionDescription,sessionTypeValues,sessionPrice,typeOfNotification,selectedSchedule).then(
             navigate('/home')
         );
     };
-    console.log(sessionTypeValues);
 
     const handleTimeZone = (event) => {
         const timeZone = event.target.value;
@@ -71,6 +72,16 @@ const SessionPlanCreatorView = (props) => {
         const newSessionPrice = event.target.value;
         setSessionPrice(newSessionPrice);
     };
+    const handleScheduleNames = (event) => {
+        const selectedValue = event.target.value;
+        setSelectedSchedule(selectedValue); // Aktualizuj stan wybranego harmonogramu
+    };
+
+    useEffect(()=> {
+        getScheduleNames().then(res=> {
+            setScheduleNames(res.data);
+        })
+    },[]);
 
 
 
@@ -85,6 +96,8 @@ const SessionPlanCreatorView = (props) => {
                 console.error("use mock example :)")
             })
     }, []);
+
+
     return (
         <AppLayout>
             <HeroHeader
@@ -193,16 +206,15 @@ const SessionPlanCreatorView = (props) => {
                             displayEmpty
                             inputProps={{'aria-label': 'Without label'}}
                             value={sessionTypeValues}
-                            onChange={handleSessionType}>
+                            onChange={handleScheduleNames}>
                             <MenuItem value={0} disabled>
                                 Wybierz harmonogram sesji
                             </MenuItem>
-                            {/*{keyValues?.sessionType && keyValues.sessionType.map((element) => (*/}
-                            {/*    <MenuItem key={element.key} value={element.key}>*/}
-                            {/*        {' '}*/}
-                            {/*        {element.value}*/}
-                            {/*    </MenuItem>*/}
-                            {/*))}*/}
+                            {scheduleNames.map((element, index) => (
+                                <MenuItem key={index} value={element}>
+                                    {element}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Grid>

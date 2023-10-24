@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const createNewMeeting = async (timeZone, sessionDescription, sessionTypeValues, sessionPrice, typeOfNotification) => {
+export const createNewMeeting = async (timeZone, sessionDescription, sessionTypeValues, sessionPrice, typeOfNotification,selectedSchedule) => {
     return await axios.post('/api/meeting/create-session', {
         timeZone: timeZone,
         sessionDescription: sessionDescription,
         sessionTypeValues: sessionTypeValues,
         sessionPrice: sessionPrice,
-        typeOfNotification: typeOfNotification
+        typeOfNotification: typeOfNotification,
+        selectedSchedule:selectedSchedule
     });
 }
 
@@ -33,6 +34,12 @@ export const getAllSchedulesMeeting = async () => {
 export const getScheduleMeetingById = async () => {
     return await axios.get('/api/meeting/get-schedule-meeting-by-id', {});
 }
+
+export const getScheduleNames = async () => {
+    return await axios.get('/api/meeting/get-all-schedule-meeting-names');
+}
+
+
 
 
 

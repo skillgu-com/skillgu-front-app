@@ -43,3 +43,7 @@ export const getAllMentors = async () => {
 export const updateUser = async (email) => {
     return await axios.post('/api/user/update-user-by-id', email)
 }
+
+export const settingUser = async (userSettingState) => {
+    return await axios.patch('/api/user/setting-user',userSettingState)
+}

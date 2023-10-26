@@ -256,21 +256,29 @@ const Settings = () => {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='position' className='field__label'>
+                        <FormLabel id='hobby' className='field__label'>
                             Stanowisko
                         </FormLabel>
-                        <TextField
-                            autoComplete='position'
-                            name='position'
-                            required
-                            fullWidth
-                            id='position'
-                            placeholder='Wpisz nazwę stanowiska np. CEO'
-                            autoFocus
-                            value={userSettingState.jobPosition.value}
-                            onChange={changeJobPosition}
-                        />
+                        <FormControl fullWidth>
+                            <MuiChipsInput value={userSettingState.jobPosition} onChange={changeJobPosition}/>
+                        </FormControl>
                     </Grid>
+                    {/*<Grid item xs={12} sm={6}>*/}
+                    {/*    <FormLabel id='position' className='field__label'>*/}
+                    {/*        Stanowisko*/}
+                    {/*    </FormLabel>*/}
+                    {/*    <TextField*/}
+                    {/*        autoComplete='position'*/}
+                    {/*        name='position'*/}
+                    {/*        required*/}
+                    {/*        fullWidth*/}
+                    {/*        id='position'*/}
+                    {/*        placeholder='Wpisz nazwę stanowiska np. CEO'*/}
+                    {/*        autoFocus*/}
+                    {/*        value={userSettingState.jobPosition.value}*/}
+                    {/*        onChange={changeJobPosition}*/}
+                    {/*    />*/}
+                    {/*</Grid>*/}
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='city' className='field__label'>
                             Lokalizacja

@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {
     FormLabel,
     TextField,
@@ -20,7 +20,7 @@ import CustomButton, {
 
 // Images
 import forest from '../../../assets/img/forest.png';
-import {settingUser, updateUser} from "../../../services/UserProfileService";
+import {getUserProfile, settingUser, updateUser} from "../../../services/UserProfileService";
 import {useSelector} from "react-redux";
 
 const SETTING_ACTIONS = {
@@ -29,6 +29,7 @@ const SETTING_ACTIONS = {
     CHANGE_HOBBY: 'CHANGE_HOBBY',
     CHANGE_FIRST_NAME: 'CHANGE_FIRST_NAME',
     OLD_EMAIL: 'OLD_EMAIL',
+    CHANGE_NEW_EMAIL: 'CHANGE_NEW_EMAIL',
     CHANGE_LAST_NAME: 'CHANGE_LAST_NAME',
     CHANGE_JOB_POSITION: 'CHANGE_JOB_POSITION',
     CHANGE_LOCATION: 'CHANGE_LOCATION',
@@ -55,6 +56,8 @@ const reducer = (state, action) => {
             return {...state, firstName: action.payload}
         case SETTING_ACTIONS.OLD_EMAIL:
             return {...state, oldEmail: action.payload}
+        case SETTING_ACTIONS.CHANGE_NEW_EMAIL:
+            return {...state, newEmail: action.payload};
         case SETTING_ACTIONS.CHANGE_LAST_NAME:
             return {...state, lastName: action.payload}
         case SETTING_ACTIONS.CHANGE_JOB_POSITION:
@@ -83,6 +86,14 @@ const reducer = (state, action) => {
 
 const Settings = () => {
     const userFromRedux = useSelector((state) => state.auth.user);
+    const [user, setUser] = useState({});
+    const userData = ({
+        userID: userFromRedux.id,
+        role: userFromRedux?.role[0],
+        email:userFromRedux.email
+    })
+
+
 
 
     const [userSettingState, dispatch] = useReducer(reducer, {
@@ -155,8 +166,15 @@ const Settings = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(userSettingState);
         settingUser(userSettingState);
     };
+
+    useEffect(() => {
+        getUserProfile(userData).then((response) => {
+            setUser(response.data);
+        });
+    }, []);
 
 
     return (

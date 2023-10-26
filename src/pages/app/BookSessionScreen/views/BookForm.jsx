@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { ScrollContainer } from 'react-indiana-drag-scroll';
 
 import {Grid, TextField, TextArea} from '@mui/material';
 import CustomButton, {
@@ -147,7 +148,7 @@ const BookForm = ({changeStepHandler}) => {
 					<h2 className='book-form__title'>Szczegóły spotkania</h2>
 					<p className='book-form__text'>Wybierz dzień oraz godzinę spotkania.</p>
 
-					<ul className='book-form__days'>
+					<ScrollContainer className='book-form__days'>
 						{DATES_PLACEHOLDER.map(
 							({id, date, hours}) =>
 								hours.length > 0 && (
@@ -163,7 +164,7 @@ const BookForm = ({changeStepHandler}) => {
 									</li>
 								)
 						)}
-					</ul>
+					</ScrollContainer>
 
 					{DATES_PLACEHOLDER.map(({id, date, hours}) => (
 						<ul className='book-form__hours' key={'h' + id} data-visible={day === id}>

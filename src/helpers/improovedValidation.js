@@ -23,8 +23,9 @@ const validation = (inputTouched, inputValue, inputName, required) => {
 				if (!phoneNumberRegex.test(inputValue))
 					return 'Numer jest za nieprawidłowy.';
 				return '';
+				//TODO wrocic do return 'Wartość jest niepoprawna.';
 			default:
-				return 'Wartość jest niepoprawna.';
+				return '';
 		}
 	}
 

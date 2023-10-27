@@ -74,7 +74,7 @@ const SessionPlanCreatorView = (props) => {
     };
     const handleScheduleNames = (event) => {
         const selectedValue = event.target.value;
-        setSelectedSchedule(selectedValue); // Aktualizuj stan wybranego harmonogramu
+        setSelectedSchedule(selectedValue);
     };
 
     useEffect(()=> {
@@ -203,9 +203,9 @@ const SessionPlanCreatorView = (props) => {
                             labelId='sessionType'
                             id='sessionType'
                             required
-                            displayEmpty
+                            displayEmpty={false}
                             inputProps={{'aria-label': 'Without label'}}
-                            value={sessionTypeValues}
+                            value={selectedSchedule}
                             onChange={handleScheduleNames}>
                             <MenuItem value={0} disabled>
                                 Wybierz harmonogram sesji

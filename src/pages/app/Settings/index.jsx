@@ -6,7 +6,7 @@ import {
     FormControlLabel,
     Checkbox,
     TextareaAutosize,
-    FormControl,
+    FormControl, Select, MenuItem,
 } from '@mui/material';
 import {MuiChipsInput} from 'mui-chips-input';
 // Components
@@ -40,6 +40,7 @@ const SETTING_ACTIONS = {
     CHANGE_TWITTER_URL: 'CHANGE_TWITTER_URL',
     CHANGE_LINKEDIN_URL: 'CHANGE_LINKEDIN_URL',
     CHANGE_YOUTUBE_URL: 'CHANGE_YOUTUBE_URL',
+    CHANGE_TIME_ZONE: 'CHANGE_TIME_ZONE',
 
 };
 
@@ -78,6 +79,8 @@ const reducer = (state, action) => {
             return {...state, twitterURL: action.payload}
         case SETTING_ACTIONS.CHANGE_YOUTUBE_URL:
             return {...state, youtubeURL: action.payload}
+        case SETTING_ACTIONS.CHANGE_TIME_ZONE:
+            return {...state, timeZone: action.payload}
 
         default:
             return state;
@@ -87,13 +90,12 @@ const reducer = (state, action) => {
 const Settings = () => {
     const userFromRedux = useSelector((state) => state.auth.user);
     const [user, setUser] = useState({});
+    const [timeZone, setTimeZone] = useState('');
     const userData = ({
         userID: userFromRedux.id,
         role: userFromRedux?.role[0],
-        email:userFromRedux.email
+        email: userFromRedux.email
     })
-
-
 
 
     const [userSettingState, dispatch] = useReducer(reducer, {
@@ -113,7 +115,8 @@ const Settings = () => {
         instagramURL: '',
         twitterURL: '',
         linkedInURL: '',
-        youtubeURL: ''
+        youtubeURL: '',
+        timeZone: ''
     });
 
 
@@ -161,6 +164,10 @@ const Settings = () => {
     }
     const changeYoutubeURL = (value) => {
         dispatch({type: SETTING_ACTIONS.CHANGE_YOUTUBE_URL, payload: value.target.value});
+    }
+
+    const changeTimeZone = (value) => {
+        dispatch({type: SETTING_ACTIONS.CHANGE_TIME_ZONE, payload: value.target.value});
     }
 
 
@@ -263,22 +270,6 @@ const Settings = () => {
                             <MuiChipsInput value={userSettingState.jobPosition} onChange={changeJobPosition}/>
                         </FormControl>
                     </Grid>
-                    {/*<Grid item xs={12} sm={6}>*/}
-                    {/*    <FormLabel id='position' className='field__label'>*/}
-                    {/*        Stanowisko*/}
-                    {/*    </FormLabel>*/}
-                    {/*    <TextField*/}
-                    {/*        autoComplete='position'*/}
-                    {/*        name='position'*/}
-                    {/*        required*/}
-                    {/*        fullWidth*/}
-                    {/*        id='position'*/}
-                    {/*        placeholder='Wpisz nazwę stanowiska np. CEO'*/}
-                    {/*        autoFocus*/}
-                    {/*        value={userSettingState.jobPosition.value}*/}
-                    {/*        onChange={changeJobPosition}*/}
-                    {/*    />*/}
-                    {/*</Grid>*/}
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='city' className='field__label'>
                             Lokalizacja
@@ -330,10 +321,34 @@ const Settings = () => {
                             <MuiChipsInput value={userSettingState.hobby} onChange={changeHobby}/>
                         </FormControl>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <FormLabel id='localization' className='field__label'>
+                            Strefa czasowa
+                        </FormLabel>
+                        <FormControl fullWidth>
+                            <Select
+                                labelId='localization'
+                                id='localization__field'
+                                required
+                                displayEmpty
+                                inputProps={{'aria-label': 'Without label'}}
+                                value={userSettingState.timeZone}
+                                onChange={changeTimeZone}>
+                                <MenuItem value={0} disabled>
+                                    Wybierz strefe czasową
+                                </MenuItem>
+                                <MenuItem value={'Europe/Warsaw'}>Europe/Warsaw</MenuItem>
+                                <MenuItem value={'Europe/Rome'}>Europe/Rome</MenuItem>
+                                <MenuItem value={'Europe/Riga'}>Europe/Riga</MenuItem>
+                                <MenuItem value={'Europe/Berlin'}>Europe/Berlin</MenuItem>
+                                <MenuItem value={'Europe/Amsterdam'}>Europe/Amsterdam</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
                     <Grid item xs={12}>
                         <FormControlLabel
                             control={<Checkbox lue='isInvestor' color='primary'/>}
-                            label='Chcę być widoczny jako inwestor.'
+                            label='Chcę być promowany +.'
                         />
                     </Grid>
                 </Grid>
@@ -425,7 +440,7 @@ const Settings = () => {
                 <Grid item xs={12}>
                     <FormControlLabel
                         control={<Checkbox lue='allowVisibility' color='primary'/>}
-                        label='Ukryj dane przed nieznajomymi.'
+                        label='Ukryj mnie przed innymi mentorami.'
                     />
                 </Grid>
                 <Grid container justifyContent='flex-end' className='app-settings__btns'>

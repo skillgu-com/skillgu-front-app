@@ -11,7 +11,7 @@ import girl from '../../../assets/img/girl.jpg';
 const Raports = () => {
 	return (
 		<AppLayout>
-			<HeroHeader title='Raporty' image={<img src={girl} alt='mentors' />} />
+			<HeroHeader title='Raporty ze spotkań' image={<img src={girl} alt='mentors' />} />
 			<div className='mentor-filters'>
 				<TextField id='title' select label='Temat' defaultValue={1}>
 					<MenuItem value={1}>Wszystkie</MenuItem>

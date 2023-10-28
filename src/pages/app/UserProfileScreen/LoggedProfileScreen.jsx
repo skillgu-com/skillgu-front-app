@@ -25,6 +25,7 @@ const LoggedProfileScreen = () => {
     useEffect(() => {
         getLoggedProfileByEmail(userData).then((res) => {
             setUser(res.data);
+            console.log(res.data)
         });
     }, []);
 
@@ -43,7 +44,7 @@ const LoggedProfileScreen = () => {
                 <section className='user-profile__data-info'>
                     <h3 className='info__name'>{user?.firstName}</h3>
                     <h4 className='info__lastName'>{user?.lastName}</h4>
-                    <p className='info__description'>{user?.description}</p>
+                    <h4 className='info__job_position'>{user?.jobPosition}</h4>
                 </section>
                 <section className='user-profile__about'>
                     <article className='app-section'>
@@ -53,22 +54,16 @@ const LoggedProfileScreen = () => {
                         </p>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Branże które mnie interesują</h3>
-                        <p className='app__text text-left'>
-                            {/*{user?.industry}*/}
-                        </p>
-                    </article>
-                    <article className='app-section'>
-                        <h3 className='app-section__title'>Region</h3>
+                        <h3 className='app-section__title'>Moje branże</h3>
                         <ul className='app-list'>
-                            <li className='app-list__item'>Warszawa</li>
-                            <li className='app-list__item'>Wrocław</li>
-                            <li className='app-list__item'>Kraków</li>
-                            <li className='app-list__item'>Cała Polska</li>
+                            <li className='app-list__item'>IT</li>
+                            <li className='app-list__item'>BIZNES</li>
+                            <li className='app-list__item'>MARKETING</li>
+                            <li className='app-list__item'>FINTECH</li>
                         </ul>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Moja wiedza i doświadczenie</h3>
+                        <h3 className='app-section__title'>Moja zainteresowania</h3>
                         <ul className='app-list'>
                             <li className='app-list__item'>Software development</li>
                             <li className='app-list__item'>Scrum</li>

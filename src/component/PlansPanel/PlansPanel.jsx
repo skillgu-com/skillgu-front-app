@@ -33,6 +33,8 @@ const MENTORSHIP_PLACEHOLDER_ARRAY = {
 	},
 };
 
+//TODO podlaczyc api dla sesji
+
 const PlansPanel = () => {
 	// States
 	const { userID } = useParams();

@@ -1,13 +1,11 @@
 import axios from "axios";
 
-export const createNewMeeting = async (timeZone, sessionDescription, sessionTypeValues, sessionPrice, typeOfNotification,selectedSchedule) => {
+export const createNewSessionMeeting = async (sessionDescription,sessionTypeValues,sessionPrice,selectedSchedule) => {
     return await axios.post('/api/meeting/create-session', {
-        timeZone: timeZone,
-        sessionDescription: sessionDescription,
-        sessionTypeValues: sessionTypeValues,
-        sessionPrice: sessionPrice,
-        typeOfNotification: typeOfNotification,
-        selectedSchedule:selectedSchedule
+        description:sessionDescription,
+        sessionTypeValues:sessionTypeValues,
+        sessionPrice:sessionPrice,
+        selectedSchedule:selectedSchedule,
     });
 }
 

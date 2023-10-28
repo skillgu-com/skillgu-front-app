@@ -1,0 +1,27 @@
+@use '../variables' as *;
+
+.calendar-wrapper {
+	margin-top: 64px;
+
+	.rbc-calendar {
+		min-width: $xs;
+	}
+  
+  .rbc-toolbar-label{
+    max-width: max-content;
+    font-weight: 700;
+  }
+
+  .rbc-toolbar {
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  button.rbc-event-allday{
+    background-color: $primary-color;
+  }
+
+  @media screen and (max-width: 450px) {
+		overflow-x: scroll;
+	}
+}

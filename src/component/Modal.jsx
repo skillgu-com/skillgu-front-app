@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
+import classNames from 'classnames';
 
 const Modal = (props) => {
-	const {trigger, children, close, setClose} = props;
+	const {trigger, children, close, setClose, buttonClasses} = props;
 	const [visibility, setVisibility] = useState(false);
 
 	const modalContainer = useRef(null);
@@ -31,7 +32,7 @@ const Modal = (props) => {
 
 	return (
 		<>
-			<button className='modal__button' onClick={() => triggerModalHandler(true)}>
+			<button className={classNames('modal__button', buttonClasses)} onClick={() => triggerModalHandler(true)}>
 				{trigger}
 			</button>
 			<div className={`modal${visibility ? ' modal--visible' : ''}`}>

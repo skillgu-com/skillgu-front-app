@@ -5,6 +5,7 @@
 
 	.rbc-calendar {
 		min-width: $xs;
+    height: clamp(500px, 50vw, 50vw)!important;
 	}
   
   .rbc-toolbar-label{
@@ -19,6 +20,16 @@
 
   button.rbc-event-allday{
     background-color: $primary-color;
+  }
+
+  .rbc-row-content{
+    .rbc-row {
+      padding-bottom: 5px;
+    }
+  }
+
+  .rbc-month-row{
+    overflow: visible;
   }
 
   @media screen and (max-width: 450px) {

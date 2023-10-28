@@ -12,7 +12,7 @@ const CalendarView = () => {
 	// console.log('Uzytkownik po autentykacji: ', user.firstName);
 
 	return (
-		<AppLayout>
+		<AppLayout fluid>
 			<>
 				<div>
 					<h1>Kalendarz</h1>

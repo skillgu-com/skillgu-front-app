@@ -5,7 +5,7 @@ import {useLocation} from 'react-router-dom';
 import ApplicationLeftNav from '../Navigations/ApplicationLeftNav';
 import AppTopbar from '../AppTopbar';
 
-const AppLayout = ({children}) => {
+const AppLayout = ({children, fluid = false}) => {
 	const location = useLocation();
 
 	const pathname = useMemo(() => location.pathname, [location.pathname]);
@@ -30,7 +30,7 @@ const AppLayout = ({children}) => {
 			<ApplicationLeftNav />
 			<AppTopbar />
 			<main className='app-layout__view'>
-				<div className='container'>{children}</div>
+				<div className='container' data-fluid={fluid}>{children}</div>
 			</main>
 		</div>
 	);

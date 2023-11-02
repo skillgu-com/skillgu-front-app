@@ -4,7 +4,7 @@ import CustomButton from '../../../../component/CustomButton';
 import Input from '../../../../component/Input';
 
 const MeetDetails = (props) => {
-	const {title, startDate, endDate, email, phone, participants} = props;
+	const {title, startDate, endDate, email, phone, participants, triggerModalHandler} = props;
 	const [newDate, setNewDate] = useState({
 		value: '',
 		errorMessage: '',
@@ -13,6 +13,7 @@ const MeetDetails = (props) => {
 
 	const rescheduleHandler = (e) => {
 		e.preventDefault();
+    triggerModalHandler(false)
 	};
 
 	return (
@@ -58,7 +59,7 @@ const MeetDetails = (props) => {
 				<CustomButton as='submit'>Potwierdź nowy termin</CustomButton>
 			</form>
 			<hr />
-			<CustomButton color='danger' classes='meet-details__cancel'>
+			<CustomButton color='danger' classes='meet-details__cancel' _onClick={() => triggerModalHandler(false)}>
 				Odwołaj
 			</CustomButton>
 		</div>

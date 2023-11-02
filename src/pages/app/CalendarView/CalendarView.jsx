@@ -4,6 +4,7 @@ import {AuthContext} from '../../../context/AuthContextProvider';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import Modal from '../../../component/Modal';
+import MeetDetails from './containers/MeetDetails';
 
 const localizer = momentLocalizer(moment);
 const CalendarView = () => {
@@ -49,7 +50,14 @@ const CalendarView = () => {
 						components={{
 							eventWrapper: ({event}) => (
 								<Modal buttonClasses='rbc-event rbc-event-allday' trigger={event.title}>
-									{event.title}
+									<MeetDetails
+										title={event.title}
+										startDate={event.start}
+										endDate={event.end}
+										email={'test@test.pl'}
+										phone={'123123123'}
+										participants={['Jan Kowalski', 'Kowalski Jan']}
+									/>
 								</Modal>
 							),
 						}}

@@ -30,6 +30,15 @@ const Modal = (props) => {
 		return () => window.removeEventListener('click', hideModal);
 	}, [visibility]);
 
+	const childrenWithProps = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        triggerModalHandler: triggerModalHandler,
+      });
+    }
+    return child;
+  });
+
 	return (
 		<>
 			<button className={classNames('modal__button', buttonClasses)} onClick={() => triggerModalHandler(true)}>
@@ -42,7 +51,7 @@ const Modal = (props) => {
 						onClick={() => triggerModalHandler(false)}>
 						x
 					</button>
-					{children}
+					{childrenWithProps}
 				</div>
 			</div>
 		</>

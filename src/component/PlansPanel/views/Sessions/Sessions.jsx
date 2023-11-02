@@ -7,6 +7,8 @@ import SessionsModal from './components/SessionsModal';
 const Sessions = (props) => {
 	const {sessions, onChangeHandler, currentSession} = props;
 
+	console.log(sessions[0].mentorID);
+
 	return (
 		<div className='session'>
 			<ul className='session__list'>

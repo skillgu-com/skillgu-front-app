@@ -4,15 +4,8 @@ import Sessions from './views/Sessions/Sessions';
 import PlanPanelTabs from './components/PlanPanelTabs';
 import {useParams} from "react-router-dom";
 import {getMeetingPlanPanelSchedule} from "../../services/MeetingCreatorService";
-import {useSelector} from "react-redux";
 
-const SESSIONS_PLACEHOLDER_ARRAY = [
-    // {id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
-    // {id: 'work', minutes: 30, price: 200, text: 'Work review'},
-    // {id: 'interview', minutes: 30, price: 200, text: 'Interview Preparation'},
-    // {id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
-];
-
+const SESSIONS_PLACEHOLDER_ARRAY = [];
 const MENTORSHIP_PLACEHOLDER_ARRAY = {
     lite: {
         id: 123,
@@ -35,14 +28,12 @@ const MENTORSHIP_PLACEHOLDER_ARRAY = {
     },
 };
 
-
 const PlansPanel = () => {
     // States
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
     const [currentSession, setCurrentSession] = useState([]);
     const [sessionFromApi, setSessionFromApi] = useState([]);
-
 
     useEffect(() => {
         getMeetingPlanPanelSchedule(userID).then((res) => {
@@ -51,13 +42,13 @@ const PlansPanel = () => {
                 minutes: element.sessionTime,
                 price: element.sessionPrice,
                 text: element.description,
+                mentorID: element.mentorID,
             }));
             const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];
             setSessionFromApi(updatedSessions);
         });
     }, []);
 
-    // Handlers
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);
     // Views
@@ -77,7 +68,6 @@ const PlansPanel = () => {
                 throw new Error(`Unknown view ${currentTab}`);
         }
     }, [currentTab, currentSession]);
-
     return (
         <div className='plans-panel'>
 
@@ -99,5 +89,4 @@ const PlansPanel = () => {
         </div>
     );
 };
-
 export default PlansPanel;

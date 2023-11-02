@@ -3,14 +3,14 @@ import MentorShip from './views/Mentorship/MentorShip';
 import Sessions from './views/Sessions/Sessions';
 import PlanPanelTabs from './components/PlanPanelTabs';
 import {useParams} from "react-router-dom";
-import {getMeetingPlanPanelSchedule} from "../../services/MeetingCreatorService";
+import {getAllSchedulesMeeting, getMeetingPlanPanelSchedule} from "../../services/MeetingCreatorService";
 import {useSelector} from "react-redux";
 
 const SESSIONS_PLACEHOLDER_ARRAY = [
     {id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
-    {id: 'work', minutes: 30, price: 200, text: 'Work review'},
-    {id: 'interview', minutes: 30, price: 200, text: 'Interview Preparation'},
-    {id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
+    // {id: 'work', minutes: 30, price: 200, text: 'Work review'},
+    // {id: 'interview', minutes: 30, price: 200, text: 'Interview Preparation'},
+    // {id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
 ];
 
 const MENTORSHIP_PLACEHOLDER_ARRAY = {
@@ -36,28 +36,31 @@ const MENTORSHIP_PLACEHOLDER_ARRAY = {
 };
 
 
-
-
 const PlansPanel = () => {
     // States
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
-    const [currentSession, setCurrentSession] = useState(SESSIONS_PLACEHOLDER_ARRAY[0].id);
-
-    const userFromRedux = useSelector((state) => state.auth.user);
-
-// const userData = ({
-//     userID: userFromReduxuserID,
-//     role: userFromRedux?.role[0] === 'STUDENT' ? 'mentor' : 'student',
-// })
+    const [currentSession, setCurrentSession] = useState([]);
+    const [sessionFromApi, setSessionFromApi] = useState([]);
 
 
     useEffect(() => {
-        getMeetingPlanPanelSchedule(userFromRedux.id).then((response) => {
+        getMeetingPlanPanelSchedule(userID).then((res) => {
+            const session = res.data.map((element) => ({
+                id: element.sessionType,
+                minutes: element.sessionTime,
+                price: element.sessionPrice,
+                text: element.description,
+
+            }));
+            const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...session];
+            setSessionFromApi(updatedSessions);
+            console.log(sessionFromApi);
+
         });
     }, []);
 
-    // Handlers
+
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);
     // Views
@@ -68,7 +71,7 @@ const PlansPanel = () => {
             case 'session':
                 return (
                     <Sessions
-                        sessions={SESSIONS_PLACEHOLDER_ARRAY}
+                        sessionFromApi={sessionFromApi}
                         currentSession={currentSession}
                         onChangeHandler={onChangeSessionHandler}
                     />
@@ -76,7 +79,7 @@ const PlansPanel = () => {
             default:
                 throw new Error(`Unknown view ${currentTab}`);
         }
-    }, [currentTab, currentSession]);
+    }, [sessionFromApi, currentSession]);
 
     return (
         <div className='plans-panel'>

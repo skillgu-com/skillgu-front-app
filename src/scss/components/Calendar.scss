@@ -23,6 +23,7 @@
   }
 
   .rbc-row-content{
+    z-index: auto;
     .rbc-row {
       padding-bottom: 5px;
     }
@@ -35,4 +36,26 @@
   @media screen and (max-width: 450px) {
 		overflow-x: scroll;
 	}
+}
+
+.meet-details{
+  .app__title{
+    margin: 1em 0;
+
+    &:first-of-type{
+      margin-top: 0;
+    }
+  }
+  hr{
+    margin: 24px 0;
+  }
+
+  .input{
+    margin-top: 1em;
+  }
+
+  &__cancel{
+    display: block;
+    width: 100%;
+  }
 }

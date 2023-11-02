@@ -5,16 +5,12 @@ import Modal from '../../../Modal';
 import SessionsModal from './components/SessionsModal';
 
 const Sessions = (props) => {
-	const {sessionFromApi, onChangeHandler, currentSession} = props;
-
-	console.log('sessions:')
-	console.log(sessionFromApi);
-
+	const {sessions, onChangeHandler, currentSession} = props;
 
 	return (
 		<div className='session'>
 			<ul className='session__list'>
-				{sessionFromApi.map((sessionProps) => (
+				{sessions?.map((sessionProps) => (
 					<SessionItem
 						key={sessionProps.id}
 						{...sessionProps}

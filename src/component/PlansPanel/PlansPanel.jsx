@@ -3,11 +3,11 @@ import MentorShip from './views/Mentorship/MentorShip';
 import Sessions from './views/Sessions/Sessions';
 import PlanPanelTabs from './components/PlanPanelTabs';
 import {useParams} from "react-router-dom";
-import {getAllSchedulesMeeting, getMeetingPlanPanelSchedule} from "../../services/MeetingCreatorService";
+import {getMeetingPlanPanelSchedule} from "../../services/MeetingCreatorService";
 import {useSelector} from "react-redux";
 
 const SESSIONS_PLACEHOLDER_ARRAY = [
-    {id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
+    // {id: 'resume', minutes: 30, price: 200, text: 'Resume feedback'},
     // {id: 'work', minutes: 30, price: 200, text: 'Work review'},
     // {id: 'interview', minutes: 30, price: 200, text: 'Interview Preparation'},
     // {id: 'consultation', minutes: 30, price: 200, text: 'Expert consultation'},
@@ -46,21 +46,18 @@ const PlansPanel = () => {
 
     useEffect(() => {
         getMeetingPlanPanelSchedule(userID).then((res) => {
-            const session = res.data.map((element) => ({
+            const sessionFromApi = res.data.map((element) => ({
                 id: element.sessionType,
                 minutes: element.sessionTime,
                 price: element.sessionPrice,
                 text: element.description,
-
             }));
-            const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...session];
+            const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];
             setSessionFromApi(updatedSessions);
-            console.log(sessionFromApi);
-
         });
     }, []);
 
-
+    // Handlers
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);
     // Views
@@ -71,7 +68,7 @@ const PlansPanel = () => {
             case 'session':
                 return (
                     <Sessions
-                        sessionFromApi={sessionFromApi}
+                        sessions={sessionFromApi}
                         currentSession={currentSession}
                         onChangeHandler={onChangeSessionHandler}
                     />
@@ -79,7 +76,7 @@ const PlansPanel = () => {
             default:
                 throw new Error(`Unknown view ${currentTab}`);
         }
-    }, [sessionFromApi, currentSession]);
+    }, [currentTab, currentSession]);
 
     return (
         <div className='plans-panel'>

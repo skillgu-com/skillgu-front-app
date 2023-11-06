@@ -49,6 +49,8 @@ const PlansPanel = () => {
         });
     }, []);
 
+
+
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);
     // Views

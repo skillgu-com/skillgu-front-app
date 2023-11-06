@@ -5,6 +5,7 @@ import {AuthContext} from "../../../context/AuthContextProvider";
 import {useSelector} from "react-redux";
 import {getUserProfile} from "../../../services/UserProfileService";
 import PlansPanel from "../../../component/PlansPanel/PlansPanel";
+import connectionProcessReducer from "../../../connectionProcessReducer";
 
 const PLACEHOLDER_USER = {
     firstName: 'server:500',
@@ -30,6 +31,7 @@ const UserProfileScreen = () => {
             setUser(response.data);
         });
     }, []);
+
 
     return (
         <AppLayout>

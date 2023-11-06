@@ -120,7 +120,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/session-details/:id'
+						path='/session-details/:mentorID'
 						element={
 							<ProtectedRoute>
 								<SessionDetailsScreen />

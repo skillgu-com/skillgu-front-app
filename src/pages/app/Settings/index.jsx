@@ -141,9 +141,8 @@ const Settings = () => {
         setNewEmail(event.target.value);
     }
 
-    const handleJobPosition = (event) => {
-        event.preventDefault();
-        setJobPosition(event.target.value);
+    const handleJobPosition = (value) => {
+        setJobPosition(value);
     }
 
     const handleLocation = (event) => {
@@ -205,7 +204,7 @@ const Settings = () => {
             />
             <form className='app-settings' onSubmit={handleSubmit}>
                 <h3 className='app__title'>Twoje zdjęcie</h3>
-                <ProfileImage src={profileImage} changeHandler={handleImage}/>
+                {/* <ProfileImage src={profileImage} changeHandler={handleImage}/> */}
                 <hr className='line-separator'/>
                 <h3 className='app__title'>Twoje dane</h3>
                 <Grid container spacing={2}>

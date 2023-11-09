@@ -7,6 +7,7 @@ import CustomButton, {
     buttonTypes,
 } from '../../../../component/CustomButton';
 import DayRadio from './components/DayRadio';
+import {useSelector} from "react-redux";
 
 const DATES_PLACEHOLDER = [
     {
@@ -79,6 +80,8 @@ const BookForm = ({changeStepBookHandler}) => {
     const [day, setDay] = useState(null);
     const [hour, setHour] = useState(null);
     const [message, setMessage] = useState('');
+    const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
+
 
 
     const bookForm = {
@@ -232,11 +235,11 @@ const BookForm = ({changeStepBookHandler}) => {
                         <ul className='submit-container__info'>
                             <li className='submit-container__info-item'>
                                 <span>Cena</span>
-                                <span>200 zł</span>
+                                <span>{userFromRedux.sessionPrice}</span>
                             </li>
                             <li className='submit-container__info-item'>
                                 <span>Czas</span>
-                                <span>20 minut</span>
+                                <span>{userFromRedux.sessionMinutes} minut</span>
                             </li>
                         </ul>
                         <CustomButton _onClick={handleNextStep} type={buttonTypes.submit}>Zamów i zapłać</CustomButton>

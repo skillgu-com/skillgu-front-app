@@ -5,7 +5,6 @@ import {
     Grid,
     FormControlLabel,
     Checkbox,
-    TextareaAutosize,
     FormControl, Select, MenuItem,
 } from '@mui/material';
 import {MuiChipsInput} from 'mui-chips-input';
@@ -89,7 +88,7 @@ const reducer = (state, action) => {
 
 const Settings = () => {
     const userFromRedux = useSelector((state) => state.auth.user);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState([]);
     const [timeZone, setTimeZone] = useState('');
     const userData = ({
         userID: userFromRedux.id,
@@ -173,7 +172,6 @@ const Settings = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(userSettingState);
         settingUser(userSettingState);
     };
 

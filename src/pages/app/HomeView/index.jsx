@@ -139,6 +139,8 @@ const HomeScreen = () => {
 	}, []);
 
 
+	console.log('jestes zalogowany jako:' + userFromRedux?.role)
+	console.log('twoj email zalogowany pod adresem:' + userFromRedux?.email)
 
 	return (
 		<AppLayout>

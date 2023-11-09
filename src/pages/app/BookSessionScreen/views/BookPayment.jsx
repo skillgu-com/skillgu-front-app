@@ -2,8 +2,12 @@ import React from 'react';
 import {Grid, TextField} from '@mui/material';
 
 import CustomButton, {buttonTypes} from '../../../../component/CustomButton';
+import {useSelector} from "react-redux";
 
 const BookPayment = ({changeStepHandler}) => {
+
+	const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
+
 	return (
 		<div className='book-payment'>
 			<div className='book-payment__submit'>
@@ -17,10 +21,10 @@ const BookPayment = ({changeStepHandler}) => {
 					</svg>
 					<span>Cofnij</span>
 				</button>
-				<h2 className='book-payment__submit-session-name'>Tytuł sesji</h2>
-				<h3 className='book-payment__submit-session-price'>200 zł</h3>
+				<h2 className='book-payment__submit-session-name'>Nazwa sesji: {userFromRedux.sessionName}</h2>
+				<h3 className='book-payment__submit-session-price'>Cena sesji: {userFromRedux.sessionPrice} zł</h3>
 				<h4 className='book-payment__submit-session-submit'>
-					Sesja (30 minut) z mentorem
+					Czas sesji ({userFromRedux.sessionMinutes} minut) z mentorem
 				</h4>
 				<div className='book-payment__submit-image'>
 					<img

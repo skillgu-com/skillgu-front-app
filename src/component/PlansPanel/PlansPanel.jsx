@@ -41,7 +41,7 @@ const PlansPanel = () => {
                 id: element.sessionType,
                 minutes: element.sessionTime,
                 price: element.sessionPrice,
-                text: element.description,
+                description: element.description,
                 mentorID: element.mentorID,
             }));
             const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];

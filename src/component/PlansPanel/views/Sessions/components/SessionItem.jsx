@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
 
 const SessionItem = (props) => {
-	const {id, text, minutes, price, currentSession, onChangeHandler} = props;
-
+	const {id, description, minutes, price, currentSession, onChangeHandler} = props;
 	const isChecked = useMemo(() => currentSession === id, [currentSession, id]);
+
 
 	return (
 		<li className='session__list-item'>
@@ -16,7 +16,7 @@ const SessionItem = (props) => {
 					onChange={() => onChangeHandler(id)}
 				/>
 				<span className='session__info'>
-					{text} <br />
+					{description} <br />
 					<small>
 						{minutes} minut, {price} zł za sesję
 					</small>

@@ -4,7 +4,9 @@ const initialState = {
     sessionStep: {
         mentorID: '',
         sessionName: '',
-        sessionDescription: ''
+        sessionDescription: '',
+        sessionPrice: '',
+        sessionMinutes: ''
     }
 
 }
@@ -12,21 +14,24 @@ const initialState = {
 const connectionProcessReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'NEXT_STEP_IN_SESSION_CREATION':
-            console.log(action)
             return {
                 ...state,
                 sessionStep: {
                     mentorID: action.payload.mentorID,
-                    sessionName: action.payload.sessionName
+                    sessionName: action.payload.sessionName,
+                    sessionDescription: action.payload.sessionDescription,
+                    sessionPrice: action.payload.sessionPrice,
+                    sessionMinutes: action.payload.sessionMinutes
                 },
             };
         case 'SESSION_DETAILS_STEP_IN_SESSION_CREATION':
-            console.log(action)
             return {
                 ...state,
                 sessionStep: {
-                    ...state.sessionStep,
-                    sessionDescription: action.payload.sessionDescription
+                    // ...state.sessionStep,
+                    // sessionDescription: action.payload.sessionDescription,
+                    // sessionPrice: action.payload.sessionPrice,
+                    // sessionMinutes: action.payload.sessionMinutes
                 }
             }
 
@@ -37,3 +42,4 @@ const connectionProcessReducer = (state = initialState, action) => {
 
 
 export default connectionProcessReducer;
+

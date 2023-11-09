@@ -24,7 +24,6 @@ const BookSessionScreen = () => {
 	//     }, []
 	// );
 
-	console.log(userFromRedux)
 
 	const changeStepBookHandler = (bookForm) => {
 		// Tutaj możesz przetwarzać dane z formularza (formData)
@@ -52,3 +51,5 @@ const BookSessionScreen = () => {
 };
 
 export default BookSessionScreen;
+
+

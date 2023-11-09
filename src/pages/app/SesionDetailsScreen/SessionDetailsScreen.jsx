@@ -6,50 +6,42 @@ import {Rating} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-const placeholderObject = {
-    sessionName: 'Feddback',
-    mentorName: 'Janusz',
-    mentorId: 1,
-    price: '100',
-    reviews: 4,
-    reviewsAmount: 20,
-    country: 'Polska',
-    description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vero laborum dolorum, culpa maiores dolorem, deserunt, libero maxime enim adipisci repellat. Corporis tempora fugit aut? Iste quae voluptas reprehenderit blanditiis! Lorem ipsum dolor sit amet consectetur adipisicing elit.Voluptates vero laborum dolorum, culpa maiores dolorem, deserunt, libero maxime enim adipisci repellat. Corporis tempora fugit aut? Iste quae voluptas reprehenderit blanditiis!',
-    benefits: [
-        {
-            title: '30 minut',
-            description:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
-        },
-        {
-            title: 'Kontakt',
-            description:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
-        },
-        {
-            title: 'Doświadczenie',
-            description:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
-        },
-    ],
-};
+
+
 
 const SessionDetailsScreen = () => {
     const {id} = useParams();
+    const sessionProcess = useSelector((state) => state.connectionProcess.sessionStep);
+    console.log(sessionProcess)
+
+    const placeholderObject = {
+        sessionName: sessionProcess.sessionName,
+        mentorName: 'Janusz',
+        mentorId: 1,
+        price: sessionProcess.sessionPrice,
+        reviews: 4,
+        reviewsAmount: 20,
+        country: 'Polska',
+        description:sessionProcess.sessionDescription,
+        benefits: [
+            {
+                title: sessionProcess.sessionMinutes,
+                description:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+            },
+            {
+                title: 'Kontakt',
+                description:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+            },
+            {
+                title: 'Doświadczenie',
+                description:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+            },
+        ],
+    };
     const [session, setSession] = useState(placeholderObject);
-    const dispatch = useDispatch();
-
-
-
-    useEffect(() => {
-        dispatch({
-            type: 'SESSION_DETAILS_STEP_IN_SESSION_CREATION',
-            payload: {
-                sessionDescription: 'tutaj nic nie bedzie'
-            }
-        });
-    })
 
 
 
@@ -96,7 +88,7 @@ const SessionDetailsScreen = () => {
                     <CustomButton
                         classes='session-details__button'
                         as={buttonTypes.internalLink}
-                        link={`/session-details/${id}/book`}>
+                        link={`/session-details/${sessionProcess.mentorID}/book`}>
                         Kontynuuj
                     </CustomButton>
                 </div>

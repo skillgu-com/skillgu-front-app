@@ -7,32 +7,38 @@ import {useDispatch, useSelector} from "react-redux";
 
 
 const Sessions = (props) => {
-    const {sessions, onChangeHandler, currentSession} = props;
+    const {sessions, onChangeHandler, currentSession, price} = props;
     const [mentorID, setMentorID] = useState(null);
     const dispatch = useDispatch();
-
+    const selectedSession = sessions.find((session) => session.id === currentSession);
 
     useEffect(() => {
-        setMentorID(sessions[0].mentorID);
+        setMentorID(sessions[0]?.mentorID);
     });
 
+
     useEffect(() => {
-        dispatch({
-            type: 'NEXT_STEP_IN_SESSION_CREATION',
-            payload: {
-                mentorID: mentorID,
-                sessionName: currentSession,
-            }
-        });
-    })
+        if (selectedSession) {
+            dispatch({
+                type: 'NEXT_STEP_IN_SESSION_CREATION',
+                payload: {
+                    mentorID: mentorID,
+                    sessionName: currentSession,
+                    sessionPrice: selectedSession.price,
+                    sessionMinutes: selectedSession.minutes,
+                    sessionDescription: selectedSession.description
+                }
+            });
+        }
+    }, [dispatch,mentorID,selectedSession.price,selectedSession.minutes,selectedSession.description])
 
     return (
         <div className='session'>
             <ul className='session__list'>
-                {sessions?.map((sessionProps) => (
+                {sessions?.map((element) => (
                     <SessionItem
-                        key={sessionProps.id}
-                        {...sessionProps}
+                        key={element.id}
+                        {...element}
                         onChangeHandler={onChangeHandler}
                         currentSession={currentSession}
                     />

@@ -24,13 +24,13 @@ const Sessions = (props) => {
                 payload: {
                     mentorID: mentorID,
                     sessionName: currentSession,
-                    sessionPrice: selectedSession.price,
-                    sessionMinutes: selectedSession.minutes,
-                    sessionDescription: selectedSession.description
+                    sessionPrice: selectedSession?.price,
+                    sessionMinutes: selectedSession?.minutes,
+                    sessionDescription: selectedSession?.description
                 }
             });
         }
-    }, [dispatch,mentorID,selectedSession.price,selectedSession.minutes,selectedSession.description])
+    }, [dispatch,mentorID,selectedSession?.price,selectedSession?.minutes,selectedSession?.description])
 
     return (
         <div className='session'>

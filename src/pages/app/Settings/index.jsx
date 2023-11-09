@@ -1,27 +1,27 @@
+import React, { useEffect, useState } from 'react';
+
 import {
     FormLabel,
     TextField,
     Grid,
     FormControlLabel,
     Checkbox,
-    FormControl, Select, MenuItem,
+    FormControl,
+    Select,
+    MenuItem,
 } from '@mui/material';
+
+import { getUserProfile, settingUser } from '../../../services/UserProfileService';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppLayout from '../../../component/AppLayout';
 import HeroHeader from '../../../component/HeroHeader';
 import ProfileImage from './ProfileImage';
-import CustomButton, {
-    buttonTypes,
-    buttonColors,
-} from '../../../component/CustomButton';
+import CustomButton, { buttonTypes, buttonColors } from '../../../component/CustomButton';
 
 // Images
 import forest from '../../../assets/img/forest.png';
-import {getUserProfile, settingUser} from "../../../services/UserProfileService";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
 import {MuiChipsInput} from "mui-chips-input";
-
 
 const Settings = () => {
     const userSetting = useSelector((state) => state.userSetting.userSettingStep);
@@ -33,6 +33,7 @@ const Settings = () => {
         role: userFromRedux?.role[0],
         email: userFromRedux.email
     })
+
     const [firstName, setFirstName] = useState("");
     const [image, setImage] = useState("");
     const [profileImage, setProfileImage] = useState("");
@@ -53,8 +54,6 @@ const Settings = () => {
     const [youtubeURL, setYoutubeURL] = useState("");
     const [timeZone, setTimeZone] = useState("");
     const [user, setUser] = useState([]);
-
-
 
     useEffect(() => {
         dispatch({
@@ -280,16 +279,13 @@ const Settings = () => {
                         <FormLabel id='hobby' className='field__label'>
                             Stanowisko
                         </FormLabel>
-                        <div>
+                        <FormControl fullWidth>
                             <MuiChipsInput
                                 clearInputOnBlur
                                 value={jobPosition}
                                 onChange={handleJobPosition}
                             />
-                        </div>
-                        {/*<FormControl fullWidth>*/}
-
-                        {/*</FormControl>*/}
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='city' className='field__label'>

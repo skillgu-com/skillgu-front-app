@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import {
     FormLabel,
     TextField,
@@ -172,7 +172,9 @@ const Settings = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        settingUser(userSettingState);
+        settingUser(userSettingState).then((res)=>{
+
+        })
     };
 
     useEffect(() => {

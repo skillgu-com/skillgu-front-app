@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useReducer } from 'react';
 import {
     FormLabel,
     TextField,
@@ -7,8 +6,7 @@ import {
     Checkbox,
     FormControl, Select, MenuItem,
 } from '@mui/material';
-import {MuiChipsInput} from 'mui-chips-input';
-// Components
+
 import AppLayout from '../../../component/AppLayout';
 import HeroHeader from '../../../component/HeroHeader';
 import ProfileImage from './ProfileImage';
@@ -19,169 +17,185 @@ import CustomButton, {
 
 // Images
 import forest from '../../../assets/img/forest.png';
-import {getUserProfile, settingUser, updateUser} from "../../../services/UserProfileService";
-import {useSelector} from "react-redux";
+import {getUserProfile, settingUser} from "../../../services/UserProfileService";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {MuiChipsInput} from "mui-chips-input";
 
-const SETTING_ACTIONS = {
-    CHANGE_PROFILE: 'CHANGE_PROFILE',
-    CHANGE_INDUSTRY: 'CHANGE_INDUSTRY',
-    CHANGE_HOBBY: 'CHANGE_HOBBY',
-    CHANGE_FIRST_NAME: 'CHANGE_FIRST_NAME',
-    OLD_EMAIL: 'OLD_EMAIL',
-    CHANGE_NEW_EMAIL: 'CHANGE_NEW_EMAIL',
-    CHANGE_LAST_NAME: 'CHANGE_LAST_NAME',
-    CHANGE_JOB_POSITION: 'CHANGE_JOB_POSITION',
-    CHANGE_LOCATION: 'CHANGE_LOCATION',
-    CHANGE_DESCRIPTION_ABOUT_ME: 'CHANGE_DESCRIPTION_ABOUT_ME',
-    CHANGE_PHONE: 'CHANGE_PHONE',
-    CHANGE_FACEBOOK_URL: 'CHANGE_FACEBOOK_URL',
-    CHANGE_INSTAGRAM_URL: 'CHANGE_INSTAGRAM_URL',
-    CHANGE_TWITTER_URL: 'CHANGE_TWITTER_URL',
-    CHANGE_LINKEDIN_URL: 'CHANGE_LINKEDIN_URL',
-    CHANGE_YOUTUBE_URL: 'CHANGE_YOUTUBE_URL',
-    CHANGE_TIME_ZONE: 'CHANGE_TIME_ZONE',
-
-};
-
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case SETTING_ACTIONS.CHANGE_PROFILE:
-            return {...state, profileImage: action.payload};
-        case SETTING_ACTIONS.CHANGE_INDUSTRY:
-            return {...state, industry: action.payload};
-        case SETTING_ACTIONS.CHANGE_HOBBY:
-            return {...state, hobby: action.payload};
-        case SETTING_ACTIONS.CHANGE_FIRST_NAME:
-            return {...state, firstName: action.payload}
-        case SETTING_ACTIONS.OLD_EMAIL:
-            return {...state, oldEmail: action.payload}
-        case SETTING_ACTIONS.CHANGE_NEW_EMAIL:
-            return {...state, newEmail: action.payload};
-        case SETTING_ACTIONS.CHANGE_LAST_NAME:
-            return {...state, lastName: action.payload}
-        case SETTING_ACTIONS.CHANGE_JOB_POSITION:
-            return {...state, jobPosition: action.payload}
-        case SETTING_ACTIONS.CHANGE_LOCATION:
-            return {...state, location: action.payload}
-        case SETTING_ACTIONS.CHANGE_DESCRIPTION_ABOUT_ME:
-            return {...state, descriptionAboutMe: action.payload}
-        case SETTING_ACTIONS.CHANGE_PHONE:
-            return {...state, phone: action.payload}
-        case SETTING_ACTIONS.CHANGE_FACEBOOK_URL:
-            return {...state, facebookURL: action.payload}
-        case SETTING_ACTIONS.CHANGE_INSTAGRAM_URL:
-            return {...state, instagramURL: action.payload}
-        case SETTING_ACTIONS.CHANGE_LINKEDIN_URL:
-            return {...state, linkedInURL: action.payload}
-        case SETTING_ACTIONS.CHANGE_TWITTER_URL:
-            return {...state, twitterURL: action.payload}
-        case SETTING_ACTIONS.CHANGE_YOUTUBE_URL:
-            return {...state, youtubeURL: action.payload}
-        case SETTING_ACTIONS.CHANGE_TIME_ZONE:
-            return {...state, timeZone: action.payload}
-
-        default:
-            return state;
-    }
-};
 
 const Settings = () => {
+    const userSetting = useSelector((state) => state.userSetting.userSettingStep);
     const userFromRedux = useSelector((state) => state.auth.user);
-    const [user, setUser] = useState([]);
-    const [timeZone, setTimeZone] = useState('');
+    const dispatch = useDispatch();
+
     const userData = ({
         userID: userFromRedux.id,
         role: userFromRedux?.role[0],
         email: userFromRedux.email
     })
+    const [firstName, setFirstName] = useState("");
+    const [image, setImage] = useState("");
+    const [profileImage, setProfileImage] = useState("");
+    const [industry, setIndustry] = useState([]);
+    const [hobby, setHobby] = useState([]);
+    const [lastName, setLastName] = useState("");
+    const [id, setId] = useState("");
+    const [oldEmail, setOldEmail] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [jobPosition, setJobPosition] = useState([]);
+    const [location, setLocation] = useState("");
+    const [descriptionAboutMe, setDescriptionAboutMe] = useState("");
+    const [phone, setPhone] = useState("");
+    const [facebookURL, setFacebookURL] = useState("");
+    const [instagramURL, setInstagramURL] = useState("");
+    const [twitterURL, setTwitterURL] = useState("");
+    const [linkedInURL, setLinkedInURL] = useState("");
+    const [youtubeURL, setYoutubeURL] = useState("");
+    const [timeZone, setTimeZone] = useState("");
+    const [user, setUser] = useState([]);
 
 
-    const [userSettingState, dispatch] = useReducer(reducer, {
-        profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-        industry: '',
-        hobby: '',
-        firstName: '',
-        lastName: '',
-        id: userFromRedux.id,
-        oldEmail: userFromRedux.email,
-        newEmail: '',
-        jobPosition: '',
-        location: '',
-        descriptionAboutMe: '',
-        phone: '',
-        facebookURL: '',
-        instagramURL: '',
-        twitterURL: '',
-        linkedInURL: '',
-        youtubeURL: '',
-        timeZone: ''
-    });
 
-
-    const setImage = (value) =>
-        dispatch({type: SETTING_ACTIONS.CHANGE_PROFILE, payload: value});
-
-    const changeIndustry = (value) =>
-        dispatch({type: SETTING_ACTIONS.CHANGE_INDUSTRY, payload: value});
-
-    const changeHobby = (value) =>
-        dispatch({type: SETTING_ACTIONS.CHANGE_HOBBY, payload: value});
-
-    const changeFirstName = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_FIRST_NAME, payload: value.target.value});
-    }
-    const changeNewEmail = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_NEW_EMAIL, payload: value.target.value});
-    }
-    const changeLastName = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_LAST_NAME, payload: value.target.value});
-    }
-    const changeJobPosition = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_JOB_POSITION, payload: value.target.value});
-    }
-    const changeLocation = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_LOCATION, payload: value.target.value});
-    }
-    const changeDescriptionAboutMe = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_DESCRIPTION_ABOUT_ME, payload: value.target.value});
-    }
-    const changePhone = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_PHONE, payload: value.target.value});
-    }
-    const changeFacebookURL = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_FACEBOOK_URL, payload: value.target.value});
-    }
-    const changeInstagramURL = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_INSTAGRAM_URL, payload: value.target.value});
-    }
-    const changeLinkedInURL = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_LINKEDIN_URL, payload: value.target.value});
-    }
-    const changeTwitterURL = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_TWITTER_URL, payload: value.target.value});
-    }
-    const changeYoutubeURL = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_YOUTUBE_URL, payload: value.target.value});
-    }
-
-    const changeTimeZone = (value) => {
-        dispatch({type: SETTING_ACTIONS.CHANGE_TIME_ZONE, payload: value.target.value});
-    }
+    useEffect(() => {
+        dispatch({
+            type: 'STEP_FIRST_USER_SETTING',
+            payload: {
+                profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                industry: industry,
+                hobby: hobby,
+                firstName: firstName,
+                lastName: lastName,
+                id: userData.userID,
+                oldEmail: userData.email,
+                newEmail: newEmail,
+                jobPosition: jobPosition,
+                location: location,
+                descriptionAboutMe: descriptionAboutMe,
+                phone: phone,
+                facebookURL: facebookURL,
+                instagramURL: instagramURL,
+                twitterURL: twitterURL,
+                linkedInURL: linkedInURL,
+                youtubeURL: youtubeURL,
+                timeZone: timeZone
+            }
+        });
+    }, [industry, hobby, firstName, lastName, userData.userID, userData.email, newEmail, jobPosition, location,
+        descriptionAboutMe, phone, facebookURL, instagramURL, twitterURL, linkedInURL, youtubeURL, timeZone])
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        settingUser(userSettingState).then((res)=>{
-
-        })
+        settingUser(userSetting).then((res) => {
+        });
     };
+
 
     useEffect(() => {
         getUserProfile(userData).then((response) => {
-            setUser(response.data);
+            // setUser(response.data);
         });
     }, []);
+
+    const handleFirstName = (event) => {
+        event.preventDefault();
+        setFirstName(event.target.value)
+    }
+
+    const handleImage = (event) => {
+        event.preventDefault();
+        setImage(event.target.value);
+    }
+
+    const handleProfileImage = (event) => {
+        event.preventDefault();
+        setProfileImage(event.target.value);
+    }
+
+    const handleIndustry = (event) => {
+        event.preventDefault();
+        setIndustry(event.target.value);
+    }
+
+    const handleHobby = (event) => {
+        event.preventDefault();
+        setHobby(event.target.value);
+    }
+
+    const handleLastName = (event) => {
+        event.preventDefault();
+        setLastName(event.target.value);
+    }
+
+    const handleId = (event) => {
+        event.preventDefault();
+        setId(event.target.value);
+    }
+
+    const handleOldEmail = (event) => {
+        event.preventDefault();
+        setOldEmail(event.target.value);
+    }
+
+    const handleNewEmail = (event) => {
+        event.preventDefault();
+        setNewEmail(event.target.value);
+    }
+
+    const handleJobPosition = (event) => {
+        event.preventDefault();
+        // setJobPosition(event.target.value);
+    }
+
+    const handleLocation = (event) => {
+        event.preventDefault();
+        setLocation(event.target.value);
+    }
+
+    const handleDescriptionAboutMe = (event) => {
+        event.preventDefault();
+        setDescriptionAboutMe(event.target.value);
+    }
+
+    const handlePhone = (event) => {
+        event.preventDefault();
+        setPhone(event.target.value);
+    }
+
+    const handleFacebookURL = (event) => {
+        event.preventDefault();
+        setFacebookURL(event.target.value);
+    }
+
+    const handleInstagramURL = (event) => {
+        event.preventDefault();
+        setInstagramURL(event.target.value);
+    }
+
+    const handleTwitterURL = (event) => {
+        event.preventDefault();
+        setTwitterURL(event.target.value);
+    }
+
+    const handleLinkedInURL = (event) => {
+        event.preventDefault();
+        setLinkedInURL(event.target.value);
+    }
+
+    const handleYoutubeURL = (event) => {
+        event.preventDefault();
+        setYoutubeURL(event.target.value);
+    }
+
+    const handleTimeZone = (event) => {
+        event.preventDefault();
+        setTimeZone(event.target.value);
+    }
+
+    const handleUser = (event) => {
+        event.preventDefault();
+        setUser(event.target.value);
+    }
 
 
     return (
@@ -192,7 +206,7 @@ const Settings = () => {
             />
             <form className='app-settings' onSubmit={handleSubmit}>
                 <h3 className='app__title'>Twoje zdjęcie</h3>
-                <ProfileImage src={userSettingState.profileImage} changeHandler={setImage}/>
+                <ProfileImage src={profileImage} changeHandler={handleImage}/>
                 <hr className='line-separator'/>
                 <h3 className='app__title'>Twoje dane</h3>
                 <Grid container spacing={2}>
@@ -208,8 +222,8 @@ const Settings = () => {
                             id='name'
                             placeholder='Podaj imię'
                             autoFocus
-                            value={userSettingState.firstName.value}
-                            onChange={changeFirstName}
+                            value={firstName}
+                            onChange={handleFirstName}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -224,8 +238,8 @@ const Settings = () => {
                             id='lastName'
                             placeholder='Podaj nazwisko'
                             autoFocus
-                            value={userSettingState.lastName.value}
-                            onChange={changeLastName}
+                            value={lastName}
+                            onChange={handleLastName}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -241,8 +255,8 @@ const Settings = () => {
                             type='email'
                             placeholder='Podaj adres e-mail'
                             autoFocus
-                            value={userSettingState.newEmail.value}
-                            onChange={changeNewEmail}
+                            value={newEmail}
+                            onChange={handleNewEmail}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -258,8 +272,8 @@ const Settings = () => {
                             type='tel'
                             placeholder='Podaj numer telefonu '
                             autoFocus
-                            value={userSettingState.phone.value}
-                            onChange={changePhone}
+                            value={phone}
+                            onChange={handlePhone}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -267,7 +281,11 @@ const Settings = () => {
                             Stanowisko
                         </FormLabel>
                         <FormControl fullWidth>
-                            <MuiChipsInput value={userSettingState.jobPosition} onChange={changeJobPosition}/>
+                            <MuiChipsInput
+                                clearInputOnBlur
+                                value={jobPosition}
+                                onChange={handleJobPosition}
+                            />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -282,8 +300,8 @@ const Settings = () => {
                             id='city'
                             placeholder='Wpisz miasto'
                             autoFocus
-                            value={userSettingState.location.value}
-                            onChange={changeLocation}
+                            value={location}
+                            onChange={handleLocation}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -300,27 +318,27 @@ const Settings = () => {
                             multiline
                             rows={2}
                             autoFocus
-                            value={userSettingState.descriptionAboutMe.value}
-                            onChange={changeDescriptionAboutMe}
+                            value={descriptionAboutMe}
+                            onChange={handleDescriptionAboutMe}
                         />
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
-                        <FormLabel id='industry' className='field__label'>
-                            Wybierz Branżę
-                        </FormLabel>
-                        <FormControl fullWidth>
-                            <MuiChipsInput value={userSettingState.industry} onChange={changeIndustry}/>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <FormLabel id='hobby' className='field__label'>
-                            Twoje zainteresowania
-                        </FormLabel>
-                        <FormControl fullWidth>
-                            <MuiChipsInput value={userSettingState.hobby} onChange={changeHobby}/>
-                        </FormControl>
-                    </Grid>
+                    {/*        <Grid item xs={12} sm={6}>*/}
+                    {/*            <FormLabel id='industry' className='field__label'>*/}
+                    {/*                Wybierz Branżę*/}
+                    {/*            </FormLabel>*/}
+                    {/*            <FormControl fullWidth>*/}
+                    {/*                <MuiChipsInput value={industry} onChange={handleIndustry}/>*/}
+                    {/*            </FormControl>*/}
+                    {/*        </Grid>*/}
+                    {/*        <Grid item xs={12} sm={6}>*/}
+                    {/*            <FormLabel id='hobby' className='field__label'>*/}
+                    {/*                Twoje zainteresowania*/}
+                    {/*            </FormLabel>*/}
+                    {/*            <FormControl fullWidth>*/}
+                    {/*                <MuiChipsInput value={hobby} onChange={handleHobby}/>*/}
+                    {/*            </FormControl>*/}
+                    {/*        </Grid>*/}
                     <Grid item xs={12} md={6}>
                         <FormLabel id='localization' className='field__label'>
                             Strefa czasowa
@@ -332,8 +350,8 @@ const Settings = () => {
                                 required
                                 displayEmpty
                                 inputProps={{'aria-label': 'Without label'}}
-                                value={userSettingState.timeZone}
-                                onChange={changeTimeZone}>
+                                value={timeZone}
+                                onChange={handleTimeZone}>
                                 <MenuItem value={0} disabled>
                                     Wybierz strefe czasową
                                 </MenuItem>
@@ -367,8 +385,8 @@ const Settings = () => {
                             id='facebook'
                             placeholder="Podaj link do Facebook'a"
                             autoFocus
-                            value={userSettingState.facebookURL}
-                            onChange={changeFacebookURL}
+                            value={facebookURL}
+                            onChange={handleFacebookURL}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -383,8 +401,8 @@ const Settings = () => {
                             id='instagram'
                             placeholder="Podaj link do Instagram'a"
                             autoFocus
-                            value={userSettingState.instagramURL}
-                            onChange={changeInstagramURL}
+                            value={instagramURL}
+                            onChange={handleInstagramURL}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -399,8 +417,8 @@ const Settings = () => {
                             id='linkedin'
                             placeholder="Podaj link do LinkedIn'a"
                             autoFocus
-                            value={userSettingState.linkedInURL}
-                            onChange={changeLinkedInURL}
+                            value={linkedInURL}
+                            onChange={handleLinkedInURL}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -415,8 +433,8 @@ const Settings = () => {
                             id='twitter'
                             placeholder="Podaj link do Twitter'a"
                             autoFocus
-                            value={userSettingState.twitterURL}
-                            onChange={changeTwitterURL}
+                            value={twitterURL}
+                            onChange={handleTwitterURL}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -431,8 +449,8 @@ const Settings = () => {
                             id='youtube'
                             placeholder="Podaj link do Yotube'a"
                             autoFocus
-                            value={userSettingState.youtubeURL}
-                            onChange={changeYoutubeURL}
+                            value={youtubeURL}
+                            onChange={handleYoutubeURL}
                         />
                     </Grid>
                 </Grid>

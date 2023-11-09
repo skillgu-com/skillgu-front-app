@@ -10,6 +10,8 @@ import CustomButton, {
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContextProvider";
 import {Form} from "react-bootstrap";
+import {FormControl, FormLabel, Grid} from "@mui/material";
+import {MuiChipsInput} from "mui-chips-input";
 
 const LoginPage = () => {
     Form.propTypes = {children: PropTypes.node};
@@ -32,8 +34,6 @@ const LoginPage = () => {
         event.preventDefault();
         setEmail(event.target.value)
     }
-
-
 
     return (
         <section className='join'>

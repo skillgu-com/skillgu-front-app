@@ -144,7 +144,7 @@ const Settings = () => {
 
     const handleJobPosition = (event) => {
         event.preventDefault();
-        // setJobPosition(event.target.value);
+        setJobPosition(event.target.value);
     }
 
     const handleLocation = (event) => {
@@ -280,13 +280,16 @@ const Settings = () => {
                         <FormLabel id='hobby' className='field__label'>
                             Stanowisko
                         </FormLabel>
-                        <FormControl fullWidth>
+                        <div>
                             <MuiChipsInput
                                 clearInputOnBlur
                                 value={jobPosition}
                                 onChange={handleJobPosition}
                             />
-                        </FormControl>
+                        </div>
+                        {/*<FormControl fullWidth>*/}
+
+                        {/*</FormControl>*/}
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='city' className='field__label'>

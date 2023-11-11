@@ -25,6 +25,7 @@ const BookSessionScreen = () => {
 	// );
 
 
+
 	const changeStepBookHandler = (bookForm) => {
 		// Tutaj możesz przetwarzać dane z formularza (formData)
 		console.log('Dane z formularza:', bookForm);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createNewSessionMeeting = async (sessionDescription, sessionTypeValues, sessionPrice, selectedSchedule) => {
-    return await axios.post('/api/meeting/create-session', {
+    return await axios.post('/api/meeting/create-schedule-session', {
         description: sessionDescription,
         sessionTypeValues: sessionTypeValues,
         sessionPrice: sessionPrice,
@@ -37,5 +37,11 @@ export const getScheduleNames = async () => {
 
 export const getMeetingPlanPanelSchedule = async (userID) => {
     return await axios.get(`/api/meeting/get-meeting-plan-panel-schedule?userID=${userID}`);
+
+}
+
+export const createSession = async (mentorID) => {
+    console.log('createSession')
+    return await axios.post(`/api/meeting/create-session?mentorID=${mentorID}`);
 
 }

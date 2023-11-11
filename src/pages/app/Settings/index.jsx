@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
     FormLabel,
@@ -11,13 +11,13 @@ import {
     MenuItem,
 } from '@mui/material';
 
-import { getUserProfile, settingUser } from '../../../services/UserProfileService';
-import { useDispatch, useSelector } from 'react-redux';
+import {getUserProfile, settingUser} from '../../../services/UserProfileService';
+import {useDispatch, useSelector} from 'react-redux';
 
 import AppLayout from '../../../component/AppLayout';
 import HeroHeader from '../../../component/HeroHeader';
 import ProfileImage from './ProfileImage';
-import CustomButton, { buttonTypes, buttonColors } from '../../../component/CustomButton';
+import CustomButton, {buttonTypes, buttonColors} from '../../../component/CustomButton';
 
 // Images
 import forest from '../../../assets/img/forest.png';
@@ -34,54 +34,65 @@ const Settings = () => {
         email: userFromRedux.email
     })
 
-    const [firstName, setFirstName] = useState("");
-    const [image, setImage] = useState("");
-    const [profileImage, setProfileImage] = useState("");
-    const [industry, setIndustry] = useState([]);
-    const [hobby, setHobby] = useState([]);
-    const [lastName, setLastName] = useState("");
-    const [id, setId] = useState("");
-    const [oldEmail, setOldEmail] = useState("");
-    const [newEmail, setNewEmail] = useState("");
-    const [jobPosition, setJobPosition] = useState([]);
-    const [location, setLocation] = useState("");
-    const [descriptionAboutMe, setDescriptionAboutMe] = useState("");
-    const [phone, setPhone] = useState("");
-    const [facebookURL, setFacebookURL] = useState("");
-    const [instagramURL, setInstagramURL] = useState("");
-    const [twitterURL, setTwitterURL] = useState("");
-    const [linkedInURL, setLinkedInURL] = useState("");
-    const [youtubeURL, setYoutubeURL] = useState("");
-    const [timeZone, setTimeZone] = useState("");
-    const [user, setUser] = useState([]);
+    const [formValues, setFormValues] = useState({
+        firstName: '',
+        image: '',
+        profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        industry: [],
+        hobby: [],
+        lastName: '',
+        id: '',
+        oldEmail: '',
+        newEmail: '',
+        jobPosition: [],
+        location: '',
+        descriptionAboutMe: '',
+        phone: '',
+        facebookURL: '',
+        instagramURL: '',
+        twitterURL: '',
+        linkedInURL: '',
+        youtubeURL: '',
+        timeZone: '',
+        user: [],
+    });
+
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setFormValues((element) => ({
+            ...element,
+            [name]: value,
+        }));
+    };
+
+    const handleHobbyChange = (name, value) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
+
+    const handleIndustryChange = (name, value) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
+
+    const handleJobPositionChange = (name, value) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
+
 
     useEffect(() => {
         dispatch({
             type: 'STEP_FIRST_USER_SETTING',
-            payload: {
-                profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                industry: industry,
-                hobby: hobby,
-                firstName: firstName,
-                lastName: lastName,
-                id: userData.userID,
-                oldEmail: userData.email,
-                newEmail: newEmail,
-                jobPosition: jobPosition,
-                location: location,
-                descriptionAboutMe: descriptionAboutMe,
-                phone: phone,
-                facebookURL: facebookURL,
-                instagramURL: instagramURL,
-                twitterURL: twitterURL,
-                linkedInURL: linkedInURL,
-                youtubeURL: youtubeURL,
-                timeZone: timeZone
-            }
+            payload: formValues,
         });
-    }, [industry, hobby, firstName, lastName, userData.userID, userData.email, newEmail, jobPosition, location,
-        descriptionAboutMe, phone, facebookURL, instagramURL, twitterURL, linkedInURL, youtubeURL, timeZone])
-
+    }, [formValues]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -96,106 +107,6 @@ const Settings = () => {
         });
     }, []);
 
-    const handleFirstName = (event) => {
-        event.preventDefault();
-        setFirstName(event.target.value)
-    }
-
-    const handleImage = (event) => {
-        event.preventDefault();
-        setImage(event.target.value);
-    }
-
-    const handleProfileImage = (event) => {
-        event.preventDefault();
-        setProfileImage(event.target.value);
-    }
-
-    const handleIndustry = (event) => {
-        event.preventDefault();
-        setIndustry(event.target.value);
-    }
-
-    const handleHobby = (event) => {
-        event.preventDefault();
-        setHobby(event.target.value);
-    }
-
-    const handleLastName = (event) => {
-        event.preventDefault();
-        setLastName(event.target.value);
-    }
-
-    const handleId = (event) => {
-        event.preventDefault();
-        setId(event.target.value);
-    }
-
-    const handleOldEmail = (event) => {
-        event.preventDefault();
-        setOldEmail(event.target.value);
-    }
-
-    const handleNewEmail = (event) => {
-        event.preventDefault();
-        setNewEmail(event.target.value);
-    }
-
-    const handleJobPosition = (value) => {
-        setJobPosition(value);
-    }
-
-    const handleLocation = (event) => {
-        event.preventDefault();
-        setLocation(event.target.value);
-    }
-
-    const handleDescriptionAboutMe = (event) => {
-        event.preventDefault();
-        setDescriptionAboutMe(event.target.value);
-    }
-
-    const handlePhone = (event) => {
-        event.preventDefault();
-        setPhone(event.target.value);
-    }
-
-    const handleFacebookURL = (event) => {
-        event.preventDefault();
-        setFacebookURL(event.target.value);
-    }
-
-    const handleInstagramURL = (event) => {
-        event.preventDefault();
-        setInstagramURL(event.target.value);
-    }
-
-    const handleTwitterURL = (event) => {
-        event.preventDefault();
-        setTwitterURL(event.target.value);
-    }
-
-    const handleLinkedInURL = (event) => {
-        event.preventDefault();
-        setLinkedInURL(event.target.value);
-    }
-
-    const handleYoutubeURL = (event) => {
-        event.preventDefault();
-        setYoutubeURL(event.target.value);
-    }
-
-    const handleTimeZone = (event) => {
-        event.preventDefault();
-        setTimeZone(event.target.value);
-    }
-
-    const handleUser = (event) => {
-        event.preventDefault();
-        setUser(event.target.value);
-    }
-
-
     return (
         <AppLayout>
             <HeroHeader
@@ -209,19 +120,19 @@ const Settings = () => {
                 <h3 className='app__title'>Twoje dane</h3>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='name' className='field__label'>
+                        <FormLabel id='firstName' className='field__label'>
                             Imię
                         </FormLabel>
                         <TextField
                             autoComplete='name'
-                            name='name'
+                            name='firstName'
                             required
                             fullWidth
-                            id='name'
+                            id='firstName'
                             placeholder='Podaj imię'
                             autoFocus
-                            value={firstName}
-                            onChange={handleFirstName}
+                            value={formValues.firstName.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -236,8 +147,8 @@ const Settings = () => {
                             id='lastName'
                             placeholder='Podaj nazwisko'
                             autoFocus
-                            value={lastName}
-                            onChange={handleLastName}
+                            value={formValues.lastName.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -253,8 +164,8 @@ const Settings = () => {
                             type='email'
                             placeholder='Podaj adres e-mail'
                             autoFocus
-                            value={newEmail}
-                            onChange={handleNewEmail}
+                            value={formValues.newEmail.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -270,86 +181,84 @@ const Settings = () => {
                             type='tel'
                             placeholder='Podaj numer telefonu '
                             autoFocus
-                            value={phone}
-                            onChange={handlePhone}
+                            value={formValues.phone.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='hobby' className='field__label'>
+                        <FormLabel id='jobPosition' className='field__label'>
                             Stanowisko
                         </FormLabel>
                         <FormControl fullWidth>
-                            <MuiChipsInput
-                                clearInputOnBlur
-                                value={jobPosition}
-                                onChange={handleJobPosition}
-                            />
+                            <MuiChipsInput value={formValues.jobPosition}
+                                           onChange={(value) => handleJobPositionChange('jobPosition', value)}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='city' className='field__label'>
+                        <FormLabel id='location' className='field__label'>
                             Lokalizacja
                         </FormLabel>
                         <TextField
-                            autoComplete='city'
-                            name='city'
+                            autoComplete='location'
+                            name='location'
                             required
                             fullWidth
-                            id='city'
+                            id='location'
                             placeholder='Wpisz miasto'
                             autoFocus
-                            value={location}
-                            onChange={handleLocation}
+                            value={formValues.location.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormLabel id="about" className="field__label">
+                        <FormLabel id="descriptionAboutMe" className="field__label">
                             O mnie
                         </FormLabel>
                         <TextField
-                            autoComplete="about"
-                            name="about"
+                            autoComplete="descriptionAboutMe"
+                            name="descriptionAboutMe"
                             required
                             fullWidth
-                            id="about"
+                            id="descriptionAboutMe"
                             placeholder="Napisz coś o sobie"
                             multiline
                             rows={2}
                             autoFocus
-                            value={descriptionAboutMe}
-                            onChange={handleDescriptionAboutMe}
+                            value={formValues.descriptionAboutMe.value}
+                            onChange={handleChange}
                         />
                     </Grid>
-
-                    {/*        <Grid item xs={12} sm={6}>*/}
-                    {/*            <FormLabel id='industry' className='field__label'>*/}
-                    {/*                Wybierz Branżę*/}
-                    {/*            </FormLabel>*/}
-                    {/*            <FormControl fullWidth>*/}
-                    {/*                <MuiChipsInput value={industry} onChange={handleIndustry}/>*/}
-                    {/*            </FormControl>*/}
-                    {/*        </Grid>*/}
-                    {/*        <Grid item xs={12} sm={6}>*/}
-                    {/*            <FormLabel id='hobby' className='field__label'>*/}
-                    {/*                Twoje zainteresowania*/}
-                    {/*            </FormLabel>*/}
-                    {/*            <FormControl fullWidth>*/}
-                    {/*                <MuiChipsInput value={hobby} onChange={handleHobby}/>*/}
-                    {/*            </FormControl>*/}
-                    {/*        </Grid>*/}
+                    <Grid item xs={12} sm={6}>
+                        <FormLabel id='industry' className='field__label'>
+                            Wybierz Branżę
+                        </FormLabel>
+                        <FormControl fullWidth>
+                            <MuiChipsInput value={formValues.industry}
+                                           onChange={(value) => handleIndustryChange('industry', value)}/>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormLabel id='hobby' className='field__label'>
+                            Twoje zainteresowania
+                        </FormLabel>
+                        <FormControl fullWidth>
+                            <MuiChipsInput clearInputOnBlur value={formValues.hobby}
+                                           onChange={(value) => handleHobbyChange('hobby', value)}/>
+                        </FormControl>
+                    </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormLabel id='localization' className='field__label'>
+                        <FormLabel id='timeZone' className='field__label'>
                             Strefa czasowa
                         </FormLabel>
                         <FormControl fullWidth>
                             <Select
-                                labelId='localization'
-                                id='localization__field'
+                                labelId='timeZone'
+                                id='timeZone'
                                 required
                                 displayEmpty
                                 inputProps={{'aria-label': 'Without label'}}
-                                value={timeZone}
-                                onChange={handleTimeZone}>
+                                value={formValues.timeZone.value}
+                                onChange={handleChange}>
                                 <MenuItem value={0} disabled>
                                     Wybierz strefe czasową
                                 </MenuItem>
@@ -372,83 +281,83 @@ const Settings = () => {
                 <h3 className='app__title'>Social media</h3>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='facebook' className='field__label'>
+                        <FormLabel id='facebookURL' className='field__label'>
                             Facebook
                         </FormLabel>
                         <TextField
                             autoComplete='facebook'
-                            name='facebook'
+                            name='facebookURL'
                             required
                             fullWidth
-                            id='facebook'
+                            id='facebookURL'
                             placeholder="Podaj link do Facebook'a"
                             autoFocus
-                            value={facebookURL}
-                            onChange={handleFacebookURL}
+                            value={formValues.facebookURL.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='instagram' className='field__label'>
+                        <FormLabel id='instagramURL' className='field__label'>
                             Instagram
                         </FormLabel>
                         <TextField
                             autoComplete='instagram'
-                            name='instagram'
+                            name='instagramURL'
                             required
                             fullWidth
-                            id='instagram'
+                            id='instagramURL'
                             placeholder="Podaj link do Instagram'a"
                             autoFocus
-                            value={instagramURL}
-                            onChange={handleInstagramURL}
+                            value={formValues.instagramURL.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='linkedin' className='field__label'>
+                        <FormLabel id='linkedInURL' className='field__label'>
                             LinkedIn
                         </FormLabel>
                         <TextField
                             autoComplete='linkedin'
-                            name='linkedin'
+                            name='linkedInURL'
                             required
                             fullWidth
-                            id='linkedin'
+                            id='linkedInURL'
                             placeholder="Podaj link do LinkedIn'a"
                             autoFocus
-                            value={linkedInURL}
-                            onChange={handleLinkedInURL}
+                            value={formValues.linkedInURL.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='twitter' className='field__label'>
+                        <FormLabel id='twitterURL' className='field__label'>
                             Twitter
                         </FormLabel>
                         <TextField
                             autoComplete='twitter'
-                            name='twitter'
+                            name='twitterURL'
                             required
                             fullWidth
-                            id='twitter'
+                            id='twitterURL'
                             placeholder="Podaj link do Twitter'a"
                             autoFocus
-                            value={twitterURL}
-                            onChange={handleTwitterURL}
+                            value={formValues.twitterURL.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='youtube' className='field__label'>
+                        <FormLabel id='youtubeURL' className='field__label'>
                             Youtube
                         </FormLabel>
                         <TextField
                             autoComplete='youtube'
-                            name='youtube'
+                            name='youtubeURL'
                             required
                             fullWidth
-                            id='youtube'
+                            id='youtubeURL'
                             placeholder="Podaj link do Yotube'a"
                             autoFocus
-                            value={youtubeURL}
-                            onChange={handleYoutubeURL}
+                            value={formValues.youtubeURL.value}
+                            onChange={handleChange}
                         />
                     </Grid>
                 </Grid>

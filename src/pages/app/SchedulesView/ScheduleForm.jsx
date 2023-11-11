@@ -19,6 +19,7 @@ import {
 	getAllSchedulesMeeting,
 } from '../../../services/MeetingCreatorService';
 import {getUserProfile} from '../../../services/UserProfileService';
+import {useNavigate} from "react-router-dom";
 
 const INITIAL_STATE = {
 	meetTime: {
@@ -282,6 +283,11 @@ function a11yProps(index) {
 const ScheduleForm = () => {
 	const [currentState, setCurrentState] = useState(INITIAL_STATE);
 	const [value, setValue] = useState(0);
+	const navigate = useNavigate();
+
+	const handleButtonClick = () => {
+		navigate('/home');
+	};
 
 	const handleChange = (_event, newValue) => {
 		setValue(newValue);
@@ -379,8 +385,9 @@ const ScheduleForm = () => {
 						))}
 					</TabPanel>
 				</Box>
-
-				<CustomButton as={buttonTypes.submit}>Zatwierdź</CustomButton>
+				<CustomButton as={buttonTypes.submit} onClick={handleButtonClick}>
+					Zatwierdź
+				</CustomButton>
 			</form>
 		</section>
 	);

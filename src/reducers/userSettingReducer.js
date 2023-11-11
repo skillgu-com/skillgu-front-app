@@ -24,6 +24,7 @@ const initialState = {
 const userSettingReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'STEP_FIRST_USER_SETTING':
+            // console.log(action)
             return {
                 ...state,
                 userSettingStep: {

@@ -44,5 +44,6 @@ export const updateUser = async (email) => {
 }
 
 export const settingUser = async (userSettingState) => {
+    console.log(userSettingState)
     return await axios.patch('/api/user/setting-user',userSettingState)
 }

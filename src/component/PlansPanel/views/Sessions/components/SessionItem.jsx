@@ -16,7 +16,7 @@ const SessionItem = (props) => {
 					onChange={() => onChangeHandler(id)}
 				/>
 				<span className='session__info'>
-					{description} <br />
+					{id} <br />
 					<small>
 						{minutes} minut, {price} zł za sesję
 					</small>

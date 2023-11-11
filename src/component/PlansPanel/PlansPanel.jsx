@@ -49,6 +49,7 @@ const PlansPanel = () => {
         });
     }, []);
 
+    console.log(sessionFromApi)
 
 
     const onChangePlanHandler = (id) => setCurrentTab(id);

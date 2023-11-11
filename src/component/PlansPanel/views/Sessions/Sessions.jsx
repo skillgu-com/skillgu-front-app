@@ -16,6 +16,7 @@ const Sessions = (props) => {
         setMentorID(sessions[0]?.mentorID);
     });
 
+    console.log(selectedSession)
 
     useEffect(() => {
         if (selectedSession) {
@@ -30,7 +31,7 @@ const Sessions = (props) => {
                 }
             });
         }
-    }, [dispatch,mentorID,selectedSession?.price,selectedSession?.minutes,selectedSession?.description])
+    }, [dispatch, mentorID, selectedSession?.price, selectedSession?.minutes, selectedSession?.description])
 
     return (
         <div className='session'>
@@ -93,8 +94,6 @@ const Sessions = (props) => {
                 />
             </Modal>
         </div>
-    )
-        ;
+    );
 };
-
 export default Sessions;

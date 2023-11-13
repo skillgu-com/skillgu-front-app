@@ -43,13 +43,12 @@ const PlansPanel = () => {
                 price: element.sessionPrice,
                 description: element.description,
                 mentorID: element.mentorID,
+                sessionTypeID:element.sessionTypeID
             }));
             const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];
             setSessionFromApi(updatedSessions);
         });
     }, []);
-
-    console.log(sessionFromApi)
 
 
     const onChangePlanHandler = (id) => setCurrentTab(id);

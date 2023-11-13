@@ -54,6 +54,8 @@ const SessionPlanCreatorView = (props) => {
             })
     }, []);
 
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         createNewSessionMeeting(sessionDescription,sessionTypeValues,sessionPrice,selectedSchedule).then(

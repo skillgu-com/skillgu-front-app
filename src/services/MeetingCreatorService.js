@@ -40,8 +40,10 @@ export const getMeetingPlanPanelSchedule = async (userID) => {
 
 }
 
-export const createSession = async (mentorID) => {
-    console.log('createSession')
-    return await axios.post(`/api/meeting/create-session?mentorID=${mentorID}`);
+export const createSession = async (createSessionRequest) => {
+    return await axios.post('/api/meeting/create-session', {
+        mentorID: createSessionRequest.mentorID,
+        sessionTypeID: createSessionRequest.sessionTypeID
+    });
 
 }

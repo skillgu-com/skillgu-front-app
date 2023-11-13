@@ -6,7 +6,8 @@ const initialState = {
         sessionName: '',
         sessionDescription: '',
         sessionPrice: '',
-        sessionMinutes: ''
+        sessionMinutes: '',
+        sessionTypeID: ''
     }
 
 }
@@ -21,7 +22,8 @@ const connectionProcessReducer = (state = initialState, action) => {
                     sessionName: action.payload.sessionName,
                     sessionDescription: action.payload.sessionDescription,
                     sessionPrice: action.payload.sessionPrice,
-                    sessionMinutes: action.payload.sessionMinutes
+                    sessionMinutes: action.payload.sessionMinutes,
+                    sessionTypeID: action.payload.sessionTypeID
                 },
             };
         case 'SESSION_DETAILS_STEP_IN_SESSION_CREATION':

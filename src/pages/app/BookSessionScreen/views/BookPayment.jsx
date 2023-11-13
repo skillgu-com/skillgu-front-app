@@ -11,10 +11,13 @@ const BookPayment = ({changeStepHandler}) => {
     const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
 
     const navigate = useNavigate();
+    const createSessionRequest = {
+        mentorID: userFromRedux.mentorID,
+        sessionTypeID:userFromRedux.sessionTypeID
+    }
 
     const handleButtonClick = () => {
-        createSession(userFromRedux.mentorID).then(() => {
-            console.log('konczymy zabawe');
+        createSession(createSessionRequest).then(() => {
         })
         navigate('/home');
     };

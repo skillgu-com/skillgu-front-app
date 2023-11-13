@@ -16,7 +16,6 @@ const Sessions = (props) => {
         setMentorID(sessions[0]?.mentorID);
     });
 
-    console.log(selectedSession)
 
     useEffect(() => {
         if (selectedSession) {
@@ -27,11 +26,13 @@ const Sessions = (props) => {
                     sessionName: currentSession,
                     sessionPrice: selectedSession?.price,
                     sessionMinutes: selectedSession?.minutes,
-                    sessionDescription: selectedSession?.description
+                    sessionDescription: selectedSession?.description,
+                    sessionTypeID: selectedSession?.sessionTypeID
                 }
             });
         }
     }, [dispatch, mentorID, selectedSession?.price, selectedSession?.minutes, selectedSession?.description])
+
 
     return (
         <div className='session'>
@@ -45,12 +46,14 @@ const Sessions = (props) => {
                     />
                 ))}
             </ul>
+
             <CustomButton
                 classes='session__button'
                 as={buttonTypes.internalLink}
                 link={`/session-details/${mentorID}`}>
                 Zarezerwuj teraz
             </CustomButton>
+
             <Modal
                 trigger={
                     <CustomButton

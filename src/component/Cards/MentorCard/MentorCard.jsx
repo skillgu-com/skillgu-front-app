@@ -23,6 +23,7 @@ const MentorCard = (props) => {
 		trail,
 	} = props;
 
+	console.log(skills)
 
 	return (
 		<div className='mentor-card'>

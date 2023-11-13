@@ -18,6 +18,7 @@ const initialState = {
         linkedInURL: '',
         youtubeURL: '',
         timeZone: '',
+        skill:''
     }
 }
 
@@ -45,7 +46,8 @@ const userSettingReducer = (state = initialState, action) => {
                     twitterURL: action.payload.twitterURL,
                     linkedInURL: action.payload.linkedInURL,
                     youtubeURL: action.payload.youtubeURL,
-                    timeZone: action.payload.timeZone
+                    timeZone: action.payload.timeZone,
+                    skill: action.payload.skill
                 },
             };
 

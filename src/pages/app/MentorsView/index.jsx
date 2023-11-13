@@ -20,6 +20,7 @@ const MentorScreen = () => {
     }, []);
 
 
+    console.log(mentors)
 
     return (
         <AppLayout>
@@ -32,23 +33,25 @@ const MentorScreen = () => {
                             name={element.firstName}
                             surname={element.lastName}
                             profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
-                            specialization={'Dyrektor Marketingu w D4 Cloud'}
-                            specializationDescription={
-                                'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.'
-                            }
+                            specialization={element.jobPosition.join(', ')}
+                            // specializationDescription={
+                            //     'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.'
+                            // }
                             contactOptions={{ chat: true, call: true, handsOn: true }}
                             reviews={4}
                             reviewsAmount={21}
                             description={element.description}
-                            skills={[
-                                'Marketing',
-                                'digital Marketing',
-                                'Marketing digital',
-                                'Marketing Google',
-                                'Automation',
-                                'SEO',
-                                'Strategy Career',
-                            ]}
+                            skills={element.skill && element.skill.length > 0 ? element.skill : []}
+
+                            // skills={[
+                            //     'Marketing',
+                            //     'digital Marketing',
+                            //     'Marketing digital',
+                            //     'Marketing Google',
+                            //     'Automation',
+                            //     'SEO',
+                            //     'Strategy Career',
+                            // ]}
                             monthlyPrice={223}
                             expectations={[
                                 'Jeden z naszych najlepszych mentorów, najlepsza obsługa i szybkie odpowiedzi',

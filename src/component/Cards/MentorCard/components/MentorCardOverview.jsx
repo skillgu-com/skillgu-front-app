@@ -18,7 +18,7 @@ const MentorCardOverview = (props) => {
 		monthlyPrice,
 	} = props;
 
-	console.log('userID: ' + specialization)
+
 
 	return (
 		<div className='mentor-card__overview'>

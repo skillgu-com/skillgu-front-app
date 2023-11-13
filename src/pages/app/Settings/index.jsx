@@ -55,6 +55,7 @@ const Settings = () => {
         youtubeURL: '',
         timeZone: '',
         user: [],
+        skill:[]
     });
 
     const handleChange = (event) => {
@@ -80,6 +81,12 @@ const Settings = () => {
     };
 
     const handleJobPositionChange = (name, value) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
+    const handleSkillChange = (name, value) => {
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: value,
@@ -244,6 +251,15 @@ const Settings = () => {
                         <FormControl fullWidth>
                             <MuiChipsInput clearInputOnBlur value={formValues.hobby}
                                            onChange={(value) => handleHobbyChange('hobby', value)}/>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormLabel id='skill' className='field__label'>
+                            Umiejętności
+                        </FormLabel>
+                        <FormControl fullWidth>
+                            <MuiChipsInput clearInputOnBlur value={formValues.skill}
+                                           onChange={(value) => handleSkillChange('skill', value)}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>

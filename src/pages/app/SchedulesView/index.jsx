@@ -7,7 +7,8 @@ import Table from '../../../component/Table/Table';
 import ScheduleForm from './ScheduleForm';
 // Images
 import homeBg from '../../../assets/img/landscape.jpg';
-import {getAllSchedulesMeeting} from "../../../services/MeetingCreatorService";
+import {getAllSchedulesMeeting} from '../../../services/MeetingCreatorService';
+import {buttonColors} from '../../../component/CustomButton';
 
 const PLACEHOLDER_TABLE = {
 	headers: [
@@ -20,8 +21,36 @@ const PLACEHOLDER_TABLE = {
 			id: 'd01',
 			dataRow: [
 				{id: 'd01t01', value: 'Testowy temat'},
-				{id: 'd01t02', value: new Date().toLocaleString()},
-				{id: 'd01t06', value: '+48123123123'},
+				{
+					id: 'd01t02',
+					value: 'Edytuj',
+					type: 'button',
+					buttonProps: {_onClick: () => console.log('Edytuj')},
+				},
+				{
+					id: 'd01t06',
+					value: 'Usuń',
+					type: 'button',
+					buttonProps: {color: 'danger', _onClick: () => console.log('Usuń')},
+				},
+			],
+		},
+		{
+			id: 'd02',
+			dataRow: [
+				{id: 'd02t01', value: 'Testowy temat'},
+				{
+					id: 'd02t02',
+					value: 'Edytuj',
+					type: 'button',
+					buttonProps: {_onClick: () => console.log('Edytuj')},
+				},
+				{
+					id: 'd02t06',
+					value: 'Usuń',
+					type: 'button',
+					buttonProps: {color: 'danger', _onClick: () => console.log('Usuń')},
+				},
 			],
 		},
 	],
@@ -34,8 +63,6 @@ const SchedulesView = () => {
 			setSchedules(response.data);
 		});
 	}, []);
-
-
 
 	return (
 		<AppLayout>

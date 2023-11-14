@@ -34,27 +34,12 @@ const navigation = [
 		allowedRoles: ['MENTOR'],
 	},
 	{
-		id: 3,
-		title: 'Harmonogram spotkań',
-		link: '/schedule-meeting',
-		icon: <Search />,
-		allowedRoles: ['STUDENT', 'MENTOR'],
-	},
-	{
 		id: 4,
 		title: 'Szukaj mentora do współpracy',
 		link: '/mentors',
 		icon: <Handshake />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
-	{
-		id: 5,
-		title: 'Twoje konto',
-		link: '/account-view',
-		icon: <HandMoney />,
-		allowedRoles: ['STUDENT', 'MENTOR'],
-	},
-
 	{
 		id: 6,
 		title: 'Raporty',

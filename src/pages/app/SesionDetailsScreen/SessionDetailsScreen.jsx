@@ -7,41 +7,38 @@ import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 
-
-
 const SessionDetailsScreen = () => {
     const {id} = useParams();
     const sessionProcess = useSelector((state) => state.connectionProcess.sessionStep);
+    console.log(sessionProcess)
 
     const placeholderObject = {
         sessionName: sessionProcess.sessionName,
-        mentorName: 'Janusz',
+        mentorName: 'Maciej',
         mentorId: 1,
         price: sessionProcess.sessionPrice,
         reviews: 4,
         reviewsAmount: 20,
-        country: 'Polska',
-        description:sessionProcess.sessionDescription,
+        country: 'Stany Zjednoczone Ameryki',
+        description: sessionProcess.sessionDescription,
         benefits: [
             {
                 title: sessionProcess.sessionMinutes,
                 description:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+                    'To jest czas jaki mentor poświęci ci na tej sesji.',
             },
             {
                 title: 'Kontakt',
                 description:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+                    'Na sesji kontakt, jest tylko podczas trwania rozmowy, oraz na chat, po zakonczonym spotkaniu.',
             },
             {
-                title: 'Doświadczenie',
-                description:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, dolorum.',
+                title: 'Opis sesji',
+                description: sessionProcess.sessionDescription,
             },
         ],
     };
     const [session, setSession] = useState(placeholderObject);
-
 
 
     return (
@@ -75,7 +72,7 @@ const SessionDetailsScreen = () => {
                         </div>
                         <p className='session-details__info-country'>{session.country}</p>
                     </div>
-                    <p className='session-details__descrition'>{session.description}</p>
+                    {/*<p className='session-details__descrition'>{session.description}</p>*/}
                     <ul className='session-details__benefits'>
                         {session.benefits.map(({title, description}) => (
                             <li key={title} className='session-details__benefits-item'>

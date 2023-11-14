@@ -21,6 +21,7 @@ export const getClientUserUUID = async (uuid) => {
 
 export const getAllUsersWithRoles = async () => {
     return await axios.get('/api/user/users-with-roles');
+
 }
 
 export const getUserProfile = async (userData) => {

@@ -47,3 +47,11 @@ export const createSession = async (createSessionRequest) => {
     });
 
 }
+
+export const getAllScheduleMeetingTimeDetails = async (sessionID) => {
+    return await axios.get(`/api/meeting/get-all-schedule-meeting-time-details?sessionID=${sessionID}`);
+
+}
+
+
+

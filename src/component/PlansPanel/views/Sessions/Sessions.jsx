@@ -27,7 +27,9 @@ const Sessions = (props) => {
                     sessionPrice: selectedSession?.price,
                     sessionMinutes: selectedSession?.minutes,
                     sessionDescription: selectedSession?.description,
-                    sessionTypeID: selectedSession?.sessionTypeID
+                    sessionTypeID: selectedSession?.sessionTypeID,
+                    sessionID: selectedSession?.sessionID,
+                    scheduleID: selectedSession?.scheduleID,
                 }
             });
         }

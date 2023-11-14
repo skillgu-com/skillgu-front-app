@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollContainer} from 'react-indiana-drag-scroll';
 
 import {Grid, TextField, TextArea} from '@mui/material';
@@ -8,6 +8,7 @@ import CustomButton, {
 } from '../../../../component/CustomButton';
 import DayRadio from './components/DayRadio';
 import {useSelector} from "react-redux";
+import {getAllScheduleMeetingTimeDetails} from "../../../../services/MeetingCreatorService";
 
 const DATES_PLACEHOLDER = [
     {
@@ -92,6 +93,16 @@ const BookForm = ({changeStepBookHandler}) => {
         hour: hour,
         message: message
     }
+
+
+    useEffect(()=>{
+        console.log(userFromRedux)
+        getAllScheduleMeetingTimeDetails(userFromRedux.sessionID).then((res)=>{
+            console.log(res)
+        })
+
+    })
+
 
     const handleNextStep = () => {
         changeStepBookHandler(bookForm);

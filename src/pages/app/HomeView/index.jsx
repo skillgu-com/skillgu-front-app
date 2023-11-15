@@ -35,28 +35,15 @@ const navigation = [
 	},
 	{
 		id: 3,
-		title: 'Harmonogram spotkań',
-		link: '/schedule-meeting',
-		icon: <Search />,
-		allowedRoles: ['STUDENT', 'MENTOR'],
-	},
-	{
-		id: 4,
 		title: 'Szukaj mentora do współpracy',
 		link: '/mentors',
 		icon: <Handshake />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
-	{
-		id: 5,
-		title: 'Twoje konto',
-		link: '/account-view',
-		icon: <HandMoney />,
-		allowedRoles: ['STUDENT', 'MENTOR'],
-	},
+
 
 	{
-		id: 6,
+		id: 4,
 		title: 'Raporty',
 		link: '/raports',
 		icon: <HandMoney />,
@@ -64,24 +51,24 @@ const navigation = [
 	},
 
 	{
-		id: 7,
+		id: 5,
 		title: 'Rozliczenia',
 		link: '/account-settlements',
 		icon: <HandMoney />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
 	{
-		id: 8,
+		id: 6,
 		title: 'Wiadomości',
 		link: '/messages',
 		icon: <HandMoney />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
 	{
-		id: 9,
+		id: 7,
 		title: 'Harmonogramy',
 		link: '/schedules',
-		icon: <HandMoney />,
+		icon: <Search />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
 ];
@@ -137,10 +124,6 @@ const HomeScreen = () => {
 				console.error(reason);
 			});
 	}, []);
-
-
-	// console.log('jestes zalogowany jako:' + userFromRedux?.role)
-	// console.log('twoj email zalogowany pod adresem:' + userFromRedux?.email)
 
 	return (
 		<AppLayout>

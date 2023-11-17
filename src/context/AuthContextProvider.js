@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import axios from 'axios';
 
-import {loginUser, registerAccount} from '../services/AuthenticationService';
+import {loginGoogleUser, loginUser, registerAccount} from '../services/AuthenticationService';
 import {updateUser} from "../services/UserProfileService";
 
 export const AuthContext = createContext({
@@ -33,16 +33,6 @@ const AuthContextProvider = (props) => {
         setToken(localStorage.getItem('jwttoken'));
     }, []);
 
-
-    // useEffect(() => {
-    // 	updateUser().then((res) => {
-    // 		dispatch({ type: 'UPDATE_USER', payload: res.data});
-    // 		setTest(userFromRedux);
-    // 	});
-    // }, []); // Pusta tablica oznacza, że useEffect zostanie wywołany tylko raz po pierwszym renderowaniu komponentu.
-    //
-
-
     const login = (email, password) => {
         loginUser(email, password)
             .then((res) => {
@@ -61,10 +51,7 @@ const AuthContextProvider = (props) => {
 
                     });
                 })
-
-                // dispatch({ type: 'LOGIN', payload: _parseUserFromJwt(res.data) });
                 localStorage.setItem('jwttoken', res.data);
-                // setUser(_parseUserFromJwt(res.data));
                 setUser(userData);
                 navigate('/home');
             })
@@ -72,6 +59,15 @@ const AuthContextProvider = (props) => {
                 console.log(err);
             });
     };
+
+    const loginGoogle = (response) => {
+        loginGoogleUser(response).then((res) => {
+            const userData = _parseUserFromJwt(res.data);
+            localStorage.setItem('jwttoken', res.data);
+            setUser(userData);
+            navigate('/home');
+        })
+    }
 
 
     const register = (
@@ -126,7 +122,7 @@ const AuthContextProvider = (props) => {
         };
     }, []);
 
-    const value = {user, login, register, logout};
+    const value = {user, login, register, logout, loginGoogle};
 
     return (
         <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>

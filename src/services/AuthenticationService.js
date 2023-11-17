@@ -20,3 +20,11 @@ export const loginUser = async (email, password) => {
             password: password,
         });
 }
+
+export const loginGoogleUser = async (response) => {
+    return await axios
+        .post('api/user/google-login', {
+            tokenId: response
+        });
+}
+

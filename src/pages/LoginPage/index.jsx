@@ -7,11 +7,11 @@ import CustomButton, {
     buttonTypes,
     buttonColors,
 } from '../../component/CustomButton';
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/AuthContextProvider";
 import {Form} from "react-bootstrap";
-import {FormControl, FormLabel, Grid} from "@mui/material";
-import {MuiChipsInput} from "mui-chips-input";
+import {jwtDecode} from "jwt-decode";
+import {loginGoogleUser} from "../../services/AuthenticationService";
 
 const LoginPage = () => {
     Form.propTypes = {children: PropTypes.node};
@@ -25,6 +25,7 @@ const LoginPage = () => {
         context.login(email, password);
     };
 
+
     const handlePassword = (event) => {
         event.preventDefault();
         setPassword(event.target.value)
@@ -35,13 +36,40 @@ const LoginPage = () => {
         setEmail(event.target.value)
     }
 
+    const handleGoogleLoginSuccess = (response) => {
+        // console.log('Google login success', response.credential);
+        // var userObcjet = jwtDecode(response.credential);
+
+        // console.log(userObcjet);
+        // console.log(response);
+        context.loginGoogle(response.credential);
+    };
+
+    const handleGoogleLoginFailure = (error) => {
+        console.log('TT Google login failed', error);
+        // Obsługa błędów logowania
+    };
+
+    useEffect(() => {
+        window.google.accounts.id.initialize({
+            client_id: "853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com",
+            callback: handleGoogleLoginSuccess
+        });
+        window.google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            {theme: "outline", size: "large"})
+
+
+    }, []);
+
+
     return (
         <section className='join'>
             <div className='container d-flex align-items-center justify-content-center w-100'>
                 <div className='form'>
                     <h2 className='form__title'>Zaloguj się</h2>
                     <h3 className='form__subtitle'>Zaloguj się do swojego konta.</h3>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="form__login">
                         <TextField
                             type='email'
                             margin='normal'
@@ -74,18 +102,22 @@ const LoginPage = () => {
                             Zaloguj
                         </CustomButton>
                     </form>
-
+                    <div className="form__options">
+                        <div id="signInDiv">
+                            Zaloguj sie
+                        </div>
+                    </div>
+                    <h4 className='form__cta'>Chcesz dołączyć do grona mentorów?</h4>
                     <Link className='form__link' to='/'>
                         Zapomniałeś hasła?
                     </Link>
-                    <h4 className='form__cta'>Chcesz dołączyć do grona mentorów?</h4>
                     <Link className='form__link' to='/register'>
                         Utwórz konto już teraz.
                     </Link>
-                    <Copyright sx={{mt: 5, mb: 4}}/>
                 </div>
             </div>
         </section>
+
     );
 };
 export default LoginPage;

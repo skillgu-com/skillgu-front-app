@@ -133,7 +133,7 @@ const HomeScreen = () => {
 				image={<img src={homeBg} alt='investors' />}
 			/>
 			<div className='row flex-wrap justify-content-around my-3 home-screen__services-panel'>
-				{filteredNavigation.map(({title, id, icon, link}) => (
+				{filteredNavigation?.map(({title, id, icon, link}) => (
 					<CardNavigation key={id} title={title} icon={icon} link={link} />
 				))}
 			</div>

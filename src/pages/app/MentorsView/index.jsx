@@ -19,9 +19,6 @@ const MentorScreen = () => {
             });
     }, []);
 
-
-    console.log(mentors)
-
     return (
         <AppLayout>
             <HeroHeader title='Mentorzy' image={<img src={investors} alt='mentors'/>}/>
@@ -29,7 +26,7 @@ const MentorScreen = () => {
             <section className='d-flex flex-wrap'>
                 {mentors.length === 0 ? (<p>Brak dostępnych mentorów.</p>):(mentors.map((element) => (
                         <MentorCard
-                            key={element.id}
+                            key={element.zecnalID}
                             name={element.firstName}
                             surname={element.lastName}
                             profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
@@ -60,7 +57,7 @@ const MentorScreen = () => {
                             ]}
                             quickResponder={true}
                             trail={3}
-                            userID={element.userID}
+                            userID={element.zecnalID}
                         />
                     ))
                 )}

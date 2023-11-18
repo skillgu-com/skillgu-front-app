@@ -83,7 +83,6 @@ const StepTwo = ({
 				company
 			)
 				.then((response) => {
-					console.log('Odpowiedz z update scond step: ', response);
 				})
 				.catch();
 		}

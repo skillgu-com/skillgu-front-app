@@ -14,10 +14,12 @@ const MentorCardExpectations = (props) => {
 				Czego możesz się spodziewać po tym mentorze?
 			</h6>
 			<ul className='mentor-card__expectations-list'>
-				{expectations?.map((item) => (
-					<>
-						<li className='mentor-card__expectations-item'>{item}</li>
-					</>
+				{expectations?.map((item, index) => (
+					<li
+						key={Math.random() + item.slice(0, 5) + index}
+						className='mentor-card__expectations-item'>
+						{item}
+					</li>
 				))}
 			</ul>
 		</div>

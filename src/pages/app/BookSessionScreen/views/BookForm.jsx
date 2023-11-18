@@ -96,9 +96,7 @@ const BookForm = ({changeStepBookHandler}) => {
 
 
     useEffect(()=>{
-        console.log(userFromRedux)
         getAllScheduleMeetingTimeDetails(userFromRedux.sessionID).then((res)=>{
-            console.log(res)
         })
 
     })

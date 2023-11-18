@@ -26,7 +26,8 @@ const ApplicationLeftNav = () => {
 
 		{
 			label: 'Znajdź studenta',
-			redirectUrl: '/students',
+			// redirectUrl: '/students',
+			redirectUrl: '/underconstruction',
 			allowedRoles: ['MENTOR'],
 		},
 
@@ -52,7 +53,8 @@ const ApplicationLeftNav = () => {
 		},
 	];
 
-	const {user} = useContext(AuthContext);
+	const user = useSelector((state) => state.auth.user);
+
 
 	return (
 		<>

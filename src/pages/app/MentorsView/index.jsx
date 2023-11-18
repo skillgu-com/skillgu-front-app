@@ -33,7 +33,7 @@ const MentorScreen = () => {
                             name={element.firstName}
                             surname={element.lastName}
                             profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
-                            specialization={element.jobPosition.join(', ')}
+                            specialization={element.jobPosition?.join(', ')}
                             // specializationDescription={
                             //     'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.'
                             // }

@@ -68,6 +68,7 @@ const Sessions = (props) => {
                 <SessionsModal
                     sessions={[
                         {
+                            id: '01',
                             title: 'title',
                             description:
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
@@ -75,6 +76,7 @@ const Sessions = (props) => {
                             minutes: 30,
                         },
                         {
+                            id: '02',
                             title: 'title',
                             description:
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
@@ -82,6 +84,7 @@ const Sessions = (props) => {
                             minutes: 30,
                         },
                         {
+                            id: '03',
                             title: 'title',
                             description:
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',
@@ -89,6 +92,7 @@ const Sessions = (props) => {
                             minutes: 30,
                         },
                         {
+                            id: '04',
                             title: 'title',
                             description:
                                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit repellat cumque esse hic similique modi obcaecati deserunt laboriosam, sed dolorum, ut dolorem dolore, eveniet ratione consectetur fuga aut voluptate.',

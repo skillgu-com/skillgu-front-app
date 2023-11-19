@@ -87,7 +87,7 @@ const routes = [
 	},
   {
 		id: 'route12',
-    path: '/mentor-profile/:id',
+    path: '/mentor-profile/:userID',
     element: <UserProfileScreen />,
 		isProtected: true,
 	},

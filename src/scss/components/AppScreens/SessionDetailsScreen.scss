@@ -77,7 +77,14 @@
 		}
 	}
 
+	&__buttons{
+		display: flex;
+		gap: 24px;
+		flex-wrap: wrap;
+	}
+
 	&__button {
+		flex: 1 0 100px;
 		text-align: center;
 	}
 

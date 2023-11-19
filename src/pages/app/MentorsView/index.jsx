@@ -57,7 +57,7 @@ const MentorScreen = () => {
                             ]}
                             quickResponder={true}
                             trail={3}
-                            userID={element.zecnalID}
+                            userID={element.userID}
                         />
                     ))
                 )}

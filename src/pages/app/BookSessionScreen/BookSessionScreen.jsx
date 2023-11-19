@@ -8,7 +8,7 @@ import Payment from './views/BookPayment';
 import {useSelector} from "react-redux";
 
 const BookSessionScreen = () => {
-	let {uuid} = useParams();
+	const {id} = useParams();
 	const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
 
 
@@ -16,13 +16,13 @@ const BookSessionScreen = () => {
 	let [user, setUser] = useState({});
 	let [session, setSession] = useState({});
 
-	// useEffect(() => {
-	//     getClientUserUUID(uuid).then(response => {
-	//             setUser(response.data)
-	//             console.log(response.data)
-	//         })
-	//     }, []
-	// );
+	useEffect(() => {
+	    getClientUserUUID(id).then(response => {
+	            setUser(response.data)
+	            console.log(response.data)
+	        })
+	    }, []
+	);
 
 
 

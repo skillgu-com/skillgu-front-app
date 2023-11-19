@@ -10,9 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import {AuthContext} from '../../context/AuthContextProvider';
+import { useSelector } from 'react-redux';
 
 const AppTopbar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
+	const email = useSelector(state => state.auth?.user?.email)
 	const open = Boolean(anchorEl);
 	const context = useContext(AuthContext);
 	const avatarLetter =
@@ -32,7 +34,7 @@ const AppTopbar = () => {
 		<div className='app-top-bar'>
 			<div className='container d-flex align-items-center justify-content-end'>
 				<Box>
-					{context.user?.email}
+					{email}
 					<Tooltip title='Account settings'>
 						<IconButton
 							onClick={handleClick}

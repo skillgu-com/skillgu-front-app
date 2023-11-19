@@ -5,6 +5,7 @@ import {getClientUserUUID} from '../../../services/UserProfileService';
 import {useParams} from 'react-router-dom';
 import BookForm from './views/BookForm';
 import Payment from './views/BookPayment';
+import BookSuccess from './views/BookSuccess';
 import {useSelector} from "react-redux";
 
 const BookSessionScreen = () => {
@@ -43,11 +44,14 @@ const BookSessionScreen = () => {
 	};
 
 
+	console.log(step);
+
 	return (
 		<AppLayout>
 			{step === 1 && <BookForm changeStepBookHandler={changeStepBookHandler} />}
 			{/*{step === 1 && <BookForm changeStepHandler={() => setStep(2)} />}*/}
-			{step === 2 && <Payment changeStepHandler={() => setStep(1)} />}
+			{step === 2 && <Payment changeStepHandler={(num) => setStep(num)} />}
+			{step === 3 && <BookSuccess changeStepHandler={(num) => setStep(num)} />}
 		</AppLayout>
 	);
 };

@@ -51,6 +51,8 @@ const AuthContextProvider = (props) => {
 
                     });
                 })
+                console.log("USERDATA w loginie: ", userData);
+                console.log('W loginie res', res.data)
                 localStorage.setItem('jwttoken', res.data);
                 setUser(userData);
                 navigate('/home');
@@ -60,14 +62,33 @@ const AuthContextProvider = (props) => {
             });
     };
 
-    const loginGoogle = (response) => {
-        loginGoogleUser(response).then((res) => {
-            const userData = _parseUserFromJwt(res.data);
-            localStorage.setItem('jwttoken', res.data);
-            setUser(userData);
-            navigate('/home');
-        })
-    }
+    const loginGoogle = (response, email) => {
+        loginGoogleUser(response)
+            .then((res) => {
+                const userData = _parseUserFromJwt(res.data.body);
+                const userSender = ({
+                    email: email
+                })
+                updateUser(userSender).then(idResponse => {
+                    dispatch({
+                        type: 'LOGIN-GOOGLE_SUCCESS',
+                        payload: {
+                            id: idResponse.data,
+                            email: userData.email,
+                            role: userData.role,
+                        }
+
+                    });
+                })
+                console.log("USERDATA: ", userData);
+                localStorage.setItem('jwttoken', res.data.body);
+                setUser(userData);
+                navigate('/home');
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
 
     const register = (

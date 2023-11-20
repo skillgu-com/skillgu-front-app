@@ -38,6 +38,16 @@ const authReducer = (state = initialState, action) => {
                     id: action.payload.id,
                 },
             };
+        case 'LOGIN-GOOGLE_SUCCESS':
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: {
+                    id: action.payload.id, // Add new property id
+                    email: action.payload.email, //  Add new property email
+                    role: action.payload.role, // Add new property role
+                },
+            };
         default:
             return state;
     }

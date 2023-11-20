@@ -4,9 +4,9 @@ export const searchAllProjects = async (token) => {
     return await axios.get('/api/project-search/get-all-projects')
 }
 
-export const searchAllMyOwnProjects = async () => {
-    return await axios.get('/api/project-search/get-all-my-own-projects')
-}
+// export const searchAllMyOwnProjects = async () => {
+//     return await axios.get('/api/project-search/get-all-my-own-projects')
+// }
 
 export const searchByToken = async (token) => {
     return await axios.get('/api/project-search/search-token-result/' + token)

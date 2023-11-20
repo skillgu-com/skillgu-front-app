@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AppLayout from '../../../component/AppLayout';
 import {useParams} from 'react-router-dom';
-import {AuthContext} from "../../../context/AuthContextProvider";
 import {useSelector} from "react-redux";
 import {getUserProfile} from "../../../services/UserProfileService";
 import PlansPanel from "../../../component/PlansPanel/PlansPanel";

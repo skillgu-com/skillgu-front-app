@@ -38,11 +38,8 @@ const LoginPage = () => {
 
     const handleGoogleLoginSuccess = (response) => {
         // console.log('Google login success', response.credential);
-        // var userObcjet = jwtDecode(response.credential);
-
-        // console.log(userObcjet);
-        // console.log(response);
-        context.loginGoogle(response.credential);
+        var userObcjet = jwtDecode(response.credential);
+        context.loginGoogle(response.credential,userObcjet.email);
     };
 
     const handleGoogleLoginFailure = (error) => {

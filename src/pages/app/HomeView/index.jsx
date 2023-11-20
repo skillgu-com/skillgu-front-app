@@ -102,15 +102,18 @@ const HomeScreen = () => {
 	const user = useSelector((state) => state.auth.user);
 
 	const filteredNavigation = navigation.filter((item) =>
-		item.allowedRoles.includes(user?.role[0])
+		item.allowedRoles.includes(user?.role?.[0])
 	);
 
-	useEffect(() => {
-		user &&
-			searchAllMyOwnProjects().then((r) => {
-				setProjects(r.data);
-			});
-	}, [user]);
+
+
+	console.log(user);
+	// useEffect(() => {
+	// 	user &&
+	// 		searchAllMyOwnProjects().then((r) => {
+	// 			setProjects(r.data);
+	// 		});
+	// }, [user]);
 
 	useEffect(() => {
 		getAllUsersWithRoles()
@@ -139,7 +142,7 @@ const HomeScreen = () => {
 			</div>
 			<div className='home-screen__lists d-flex'>
 				<CardsSlider
-					title={user?.role[0] === 'MENTOR' ? 'Moi studenci' : 'Moi mentorzy'}
+					title={user?.role?.[0] === 'MENTOR' ? 'Moi studenci' : 'Moi mentorzy'}
 					as={UsersCard}
 					items={users}
 					noMaxHeight

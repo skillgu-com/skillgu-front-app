@@ -4,16 +4,33 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './scss/main.scss';
 import axios from 'axios';
-import {configureStore} from "@reduxjs/toolkit";
-import { Provider } from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider} from 'react-redux';
 import rootReducer from './rootReducer';
+import {PersistGate} from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage';
+import {persistStore, persistReducer} from 'redux-persist';
 
+const persistConfig = {
+	key: 'root',
+	storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
-	reducer: rootReducer,
+	reducer: persistedReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: ['persist/PERSIST'],
+			},
+		}),
 	// ...
 });
+
+const persistor = persistStore(store);
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 console.log(process.env.REACT_APP_BASE_URL);
@@ -35,7 +52,9 @@ axios.interceptors.request.use(
 
 root.render(
 	<Provider store={store}>
-		<App />
+		<PersistGate loading={null} persistor={persistor}>
+			<App />
+		</PersistGate>
 	</Provider>
 );
 

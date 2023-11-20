@@ -25,7 +25,6 @@ const LoggedProfileScreen = () => {
     useEffect(() => {
         getLoggedProfileByEmail(userData).then((res) => {
             setUser(res.data);
-            console.log(res.data)
         });
     }, []);
 

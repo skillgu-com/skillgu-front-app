@@ -29,7 +29,7 @@ const CustomButton = ({
 	const config = `custom-btn custom-btn--${color}${
 		classes ? ' ' + classes : ''
 	}`;
-
+	
 	switch (as) {
 		case buttonTypes.externalLink:
 			if (!link) throw new Error('Link type should has link attribute.');

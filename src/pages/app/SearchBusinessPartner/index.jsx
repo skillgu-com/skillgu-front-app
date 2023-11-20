@@ -95,7 +95,6 @@ function SearchBusinessPartner(props) {
 
     const setStep = (e, step) => {
         e.preventDefault();
-        console.log(step)
         if (activeStep === 0) {
         }
         if (activeStep === 1) {

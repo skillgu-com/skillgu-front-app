@@ -15,8 +15,11 @@ import {ReactComponent as Search} from '../../../assets/icons/search-money.svg';
 import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg';
 import homeBg from '../../../assets/img/landscape.jpg';
 import {AuthContext} from '../../../context/AuthContextProvider';
-import {getAllUsersWithRoles, updateUser} from '../../../services/UserProfileService';
-import {useDispatch, useSelector} from "react-redux";
+import {
+	getAllUsersWithRoles,
+	updateUser,
+} from '../../../services/UserProfileService';
+import {useDispatch, useSelector} from 'react-redux';
 
 const navigation = [
 	{
@@ -40,7 +43,6 @@ const navigation = [
 		icon: <Handshake />,
 		allowedRoles: ['STUDENT', 'MENTOR'],
 	},
-
 
 	{
 		id: 4,
@@ -96,20 +98,19 @@ const myCards = [
 const HomeScreen = () => {
 	let [projects, setProjects] = useState([]);
 	const [users, setUsers] = useState([]); // Inicjalizacja stanu users jako pusta tablica
-	const {user} = useContext(AuthContext);
-	const userFromRedux = useSelector((state) => state.auth.user);
-	const dispatch = useDispatch(); // Pobierz funkcję dispatch z Redux
+	// const {user} = useContext(AuthContext);
+	const user = useSelector((state) => state.auth.user);
 
 	const filteredNavigation = navigation.filter((item) =>
 		item.allowedRoles.includes(user?.role[0])
 	);
 
-
 	useEffect(() => {
-		searchAllMyOwnProjects().then((r) => {
-			setProjects(r.data);
-		});
-	}, []);
+		user &&
+			searchAllMyOwnProjects().then((r) => {
+				setProjects(r.data);
+			});
+	}, [user]);
 
 	useEffect(() => {
 		getAllUsersWithRoles()
@@ -132,7 +133,7 @@ const HomeScreen = () => {
 				image={<img src={homeBg} alt='investors' />}
 			/>
 			<div className='row flex-wrap justify-content-around my-3 home-screen__services-panel'>
-				{filteredNavigation.map(({title, id, icon, link}) => (
+				{filteredNavigation?.map(({title, id, icon, link}) => (
 					<CardNavigation key={id} title={title} icon={icon} link={link} />
 				))}
 			</div>

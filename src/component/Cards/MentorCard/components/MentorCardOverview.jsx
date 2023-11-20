@@ -65,7 +65,7 @@ const MentorCardOverview = (props) => {
 			<CustomButton
 				classes='mentor-card__overview-link'
 				as={buttonTypes.internalLink}
-				link={`/user-profile/${id}`}>
+				link={`/mentor-profile/${id}`}>
 				Zobacz profil TEST
 			</CustomButton>
 		</div>

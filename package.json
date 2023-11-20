@@ -25,6 +25,7 @@
     "react": "18.1.0",
     "react-big-calendar": "^1.8.4",
     "react-bootstrap": "2.6.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.1.0",
     "react-gallery-carousel": "0.3.0",
     "react-indiana-drag-scroll": "^3.0.3-alpha",
@@ -32,6 +33,7 @@
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "5.3.5",
     "web-vitals": "^2.1.4"
   },

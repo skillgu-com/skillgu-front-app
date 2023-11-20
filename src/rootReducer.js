@@ -1,14 +1,14 @@
 // rootReducer.js
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-import connectionProcessReducer from "./connectionProcessReducer";
-import userSettingReducer from "./reducers/userSettingReducer";
+import connectionProcessReducer from './connectionProcessReducer';
+import userSettingReducer from './reducers/userSettingReducer';
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    connectionProcess: connectionProcessReducer,
-    userSetting: userSettingReducer
-    // Dodaj inne reduktory, jeśli będziesz miał
+  auth: authReducer,
+  connectionProcess: connectionProcessReducer,
+  userSetting: userSettingReducer,
+  // Add other reducers if you have them
 });
 
 export default rootReducer;

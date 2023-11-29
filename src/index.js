@@ -6,10 +6,10 @@ import './scss/main.scss';
 import axios from 'axios';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-import rootReducer from './rootReducer';
 import {PersistGate} from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer} from 'redux-persist';
+import rootReducer from "./reducers/rootReducer";
 
 const persistConfig = {
 	key: 'root',

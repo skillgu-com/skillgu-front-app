@@ -31,6 +31,11 @@ const UserProfileScreen = () => {
     }, []);
 
 
+    console.log(userData?.role);
+    console.log('chce byc tutaj2');
+    console.log(user?.user_role);
+
+
     return (
         <AppLayout>
             <div className='user-profile__grid'>
@@ -83,7 +88,7 @@ const UserProfileScreen = () => {
                     </article>
                 </section>
                 {/*TODO tutaj jakos wykminic kiedy ma sie pojawic widok PlansPanel w zaleznosci czy to student wtedy nie widac, czy mentor*/}
-                {user?.user_role === 'MENTOR' && (
+                {user?.role !== 'mentor' && (
                     <div className='user-profile__price'>
                         <PlansPanel />
                     </div>

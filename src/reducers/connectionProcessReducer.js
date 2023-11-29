@@ -1,4 +1,3 @@
-import authReducer from "./authReducer";
 
 const initialState = {
     sessionStep: {

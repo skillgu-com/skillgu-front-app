@@ -33,11 +33,11 @@ export const getUserProfileByEmail = async (email) => {
 }
 
 export const getLoggedProfileByEmail = async (userData) => {
-    return await axios.post('/api/user/get-logged-profile', userData);
+    return await axios.post('/api/auth/get-logged-profile', userData);
 }
 
 export const getAllMentors = async () => {
-    return await axios.get(`/api/user/get-all-mentors`);
+    return await axios.get(`/api/mentor/get-all-mentors`);
 }
 
 export const updateUser = async (email) => {

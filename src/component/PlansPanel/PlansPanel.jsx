@@ -56,7 +56,6 @@ const PlansPanel = () => {
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);
     // Views
-    console.log(sessionFromApi);
     const currentView = useMemo(() => {
         switch (currentTab) {
             case 'mentorship':

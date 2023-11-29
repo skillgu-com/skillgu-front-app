@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import {loginGoogleUser, loginUser, registerAccount} from '../services/AuthenticationService';
 import {updateUser} from "../services/UserProfileService";
+import {googleCalendar} from "../services/GoogleService";
 
 export const AuthContext = createContext({
     user: {email: '', role: '', id: ''},
@@ -51,8 +52,6 @@ const AuthContextProvider = (props) => {
 
                     });
                 })
-                console.log("USERDATA w loginie: ", userData);
-                console.log('W loginie res', res.data)
                 localStorage.setItem('jwttoken', res.data);
                 setUser(userData);
                 navigate('/home');
@@ -80,7 +79,6 @@ const AuthContextProvider = (props) => {
 
                     });
                 })
-                console.log("USERDATA: ", userData);
                 localStorage.setItem('jwttoken', res.data.body);
                 setUser(userData);
                 navigate('/home');
@@ -89,6 +87,7 @@ const AuthContextProvider = (props) => {
                 console.error(err);
             });
     };
+
 
 
     const register = (

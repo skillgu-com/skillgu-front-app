@@ -29,8 +29,8 @@ const BookSessionScreen = () => {
 
 	const changeStepBookHandler = (bookForm) => {
 		// Tutaj możesz przetwarzać dane z formularza (formData)
-		console.log('Dane z formularza:', bookForm);
-		console.log('Dane z reduktora:', userFromRedux);
+		console.log('Dane przygotowane do wyslania do kalendarza:', bookForm);
+		// console.log('Dane z reduktora:', userFromRedux);
 
 		// Dodatkowo, możesz zaktualizować stan lub wykonać inne operacje
 
@@ -44,7 +44,6 @@ const BookSessionScreen = () => {
 	};
 
 
-	console.log(step);
 
 	return (
 		<AppLayout>

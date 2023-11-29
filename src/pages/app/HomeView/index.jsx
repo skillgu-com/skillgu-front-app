@@ -107,7 +107,6 @@ const HomeScreen = () => {
 
 
 
-	console.log(user);
 	// useEffect(() => {
 	// 	user &&
 	// 		searchAllMyOwnProjects().then((r) => {

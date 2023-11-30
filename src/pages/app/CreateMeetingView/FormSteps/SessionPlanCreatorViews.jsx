@@ -3,16 +3,18 @@ import {FormControl, FormLabel, Grid, MenuItem, Select, TextField} from '@mui/ma
 import CustomButton, {buttonColors, buttonTypes} from '../../../../component/CustomButton';
 import AppLayout from "../../../../component/AppLayout";
 import HeroHeader from "../../../../component/HeroHeader";
-import {createNewSessionMeeting, getScheduleNames} from "../../../../services/MeetingCreatorService";
+import {getScheduleNames} from "../../../../services/MeetingCreatorService";
 import {useNavigate} from "react-router-dom";
 import forest from "../../../../assets/img/forest.png";
-import {getKeyValues} from "../../../../services/KeyValuesService";
+import {getKeyValues, getSessionTypes} from "../../../../services/KeyValuesService";
+import {createSession} from "../../../../services/SessionService";
 
 
 const SessionPlanCreatorView = (props) => {
     const [sessionDescription, setSessionDescription] = useState("");
     const [keyValues, setKeyValues] = useState("");
-    const [sessionTypeValues, setSessionTypeValues] = useState('');
+    const [sessionTypes, setSessionTypes] = useState([]);
+    const [sessionTypeValues, setSessionTypeValues] = useState(0);
     const [sessionPrice, setSessionPrice] = useState('');
     const [scheduleNames, setScheduleNames] = useState([]);
     const [selectedSchedule, setSelectedSchedule] = useState('');
@@ -43,26 +45,38 @@ const SessionPlanCreatorView = (props) => {
         })
     }, []);
 
+    // useEffect(() => {
+    //     getKeyValues()
+    //         .then(res => {
+    //             setKeyValues(res.data);
+    //
+    //         })
+    //         .catch(reason => {
+    //             console.error("use mock example :)")
+    //         })
+    // }, []);
+
+    //
     useEffect(() => {
-        getKeyValues()
+        getSessionTypes()
             .then(res => {
-                setKeyValues(res.data);
+                //  Konwersja obiektu na tablicę w useEffect: bo teraz res.data jest obiektem
+                const sessionArray = Object?.entries(res.data).map(([key, value]) => value);
+                setSessionTypes(sessionArray);
 
             })
             .catch(reason => {
-                console.error("use mock example :)")
+                console.error("something goes wrong.")
             })
     }, []);
 
 
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        createNewSessionMeeting(sessionDescription,sessionTypeValues,sessionPrice,selectedSchedule).then(
+        createSession(sessionDescription, sessionTypeValues, sessionPrice, selectedSchedule).then(
             navigate('/home')
         );
     };
-
 
     return (
         <AppLayout>
@@ -122,10 +136,9 @@ const SessionPlanCreatorView = (props) => {
                                 <MenuItem value={0} disabled>
                                     Wybierz typ spotkania
                                 </MenuItem>
-                                {keyValues?.sessionType && keyValues.sessionType.map((element) => (
-                                    <MenuItem key={element.key} value={element.key}>
-                                        {' '}
-                                        {element.value}
+                                {sessionTypes?.map((element, index) => (
+                                    <MenuItem key={index} value={index}>
+                                        {element}
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -147,7 +160,7 @@ const SessionPlanCreatorView = (props) => {
                                 <MenuItem value={0} disabled>
                                     Wybierz harmonogram
                                 </MenuItem>
-                                {scheduleNames.map((element, index) => (
+                                {scheduleNames?.map((element, index) => (
                                     <MenuItem key={index} value={element}>
                                         {element}
                                     </MenuItem>

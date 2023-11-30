@@ -134,7 +134,7 @@ const routes = [
 	},
   {
     id: 'route20',
-    path: '/create-new-meeting',
+    path: '/sessions-mentorings',
     element: <CreateNewMeeting />,
     isProtected: true,
 	},
@@ -152,13 +152,13 @@ const routes = [
 	},
   {
     id: 'route23',
-    path: '/create-mentoring-plan',
+    path: '/create-mentoring',
     element: <MentoringPlanCreatorView />,
     isProtected: true,
 	},
   {
     id: 'route24',
-    path: '/create-session-plan',
+    path: '/create-session',
     element: <SessionPlanCreatorView />,
     isProtected: true,
 	},

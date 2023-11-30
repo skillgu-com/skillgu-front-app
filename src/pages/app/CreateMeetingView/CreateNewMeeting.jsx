@@ -12,14 +12,14 @@ const CreateNewMeeting = () => {
         {
             id: 1,
             title: 'Plan mentoringu',
-            link: '/create-mentoring-plan',
+            link: '/create-mentoring',
             icon: <HandMoney/>,
-            allowedRoles: [ "MENTOR"],
+            allowedRoles: ["MENTOR"],
         },
         {
             id: 2,
             title: 'Sesje',
-            link: '/create-session-plan',
+            link: '/create-session',
             icon: <Create/>,
             allowedRoles: ["MENTOR"],
         },

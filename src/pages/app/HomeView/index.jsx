@@ -32,7 +32,7 @@ const navigation = [
 	{
 		id: 2,
 		title: 'Stwórz spotkania',
-		link: '/create-new-meeting',
+		link: '/sessions-mentorings',
 		icon: <Create />,
 		allowedRoles: ['MENTOR'],
 	},

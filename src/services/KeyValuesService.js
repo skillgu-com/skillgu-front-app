@@ -80,3 +80,7 @@ import axios from "axios";
 export const getKeyValues = async () => {
     return await axios.get('/api/key-values')
 }
+
+export const getSessionTypes = async () => {
+    return await axios.get('/api/session-types/get-all')
+}

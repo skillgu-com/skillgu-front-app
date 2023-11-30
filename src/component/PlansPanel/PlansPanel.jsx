@@ -52,6 +52,7 @@ const PlansPanel = () => {
         });
     }, []);
 
+    console.log(sessionFromApi)
 
     const onChangePlanHandler = (id) => setCurrentTab(id);
     const onChangeSessionHandler = (id) => setCurrentSession(id);

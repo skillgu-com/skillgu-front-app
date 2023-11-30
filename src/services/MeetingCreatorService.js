@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const createNewSessionMeeting = async (sessionDescription, sessionTypeValues, sessionPrice, selectedSchedule) => {
-    return await axios.post('/api/meeting/create-schedule-session', {
-        description: sessionDescription,
-        sessionTypeValues: sessionTypeValues,
-        sessionPrice: sessionPrice,
-        selectedSchedule: selectedSchedule,
-    });
-}
+// export const createNewSessionMeeting = async (sessionDescription, sessionTypeValues, sessionPrice, selectedSchedule) => {
+//     return await axios.post('/api/meeting/create-schedule-session', {
+//         description: sessionDescription,
+//         sessionTypeValues: sessionTypeValues,
+//         sessionPrice: sessionPrice,
+//         selectedSchedule: selectedSchedule,
+//     });
+// }
 
 export const createScheduleMeeting = async (currentState, weekTimes) => {
     return await axios.post('/api/meeting/create-schedule-meeting', {

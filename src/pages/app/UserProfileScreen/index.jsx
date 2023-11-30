@@ -31,11 +31,6 @@ const UserProfileScreen = () => {
     }, []);
 
 
-    console.log(userData?.role);
-    console.log('chce byc tutaj2');
-    console.log(user?.user_role);
-
-
     return (
         <AppLayout>
             <div className='user-profile__grid'>

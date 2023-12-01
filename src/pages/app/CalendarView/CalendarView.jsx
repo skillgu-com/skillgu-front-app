@@ -7,15 +7,16 @@ import Modal from '../../../component/Modal';
 import MeetDetails from './containers/MeetDetails';
 import {googleCalendar, startGoogleAuth} from "../../../services/GoogleService";
 import axios from "axios";
+import {getAllCalendarEvents} from "../../../services/CalendarService";
 
 const localizer = momentLocalizer(moment);
 const CalendarView = () => {
 
-    // useEffect(() => {
-    //     googleCalendar().then(r => {
-    //         // console.log('tutaj chce teraz sprawdzic odpowiedz');
-    //     });
-    // },[])
+    useEffect(() => {
+        getAllCalendarEvents().then(r => {
+           console.log(r.data)
+        });
+    },[])
 
     return (
         <AppLayout fluid>

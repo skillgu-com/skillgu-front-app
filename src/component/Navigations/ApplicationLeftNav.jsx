@@ -6,6 +6,9 @@ import {useSelector} from "react-redux";
 const ApplicationLeftNav = () => {
 	const [isActive, setIsActive] = useState(false);
 	const userFromRedux = useSelector((state) => state.auth.user);
+	const user = useSelector((state) => state.auth.user);
+
+	console.log(user)
 
 	const direction = [
 		{
@@ -53,7 +56,6 @@ const ApplicationLeftNav = () => {
 		},
 	];
 
-	const user = useSelector((state) => state.auth.user);
 
 
 	return (

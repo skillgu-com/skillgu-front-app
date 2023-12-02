@@ -8,15 +8,20 @@ import MeetDetails from './containers/MeetDetails';
 import {googleCalendar, startGoogleAuth} from "../../../services/GoogleService";
 import axios from "axios";
 import {getAllCalendarEvents} from "../../../services/CalendarService";
+import {useSelector} from "react-redux";
 
 const localizer = momentLocalizer(moment);
 const CalendarView = () => {
+    const userFromRedux = useSelector((state) => state.auth.user);
+
 
     useEffect(() => {
         getAllCalendarEvents().then(r => {
            console.log(r.data)
         });
     },[])
+
+    console.log(userFromRedux.role);
 
     return (
         <AppLayout fluid>

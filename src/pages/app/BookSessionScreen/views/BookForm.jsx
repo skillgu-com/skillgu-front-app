@@ -10,6 +10,7 @@ import DayRadio from './components/DayRadio';
 import {useSelector} from 'react-redux';
 import {getAllScheduleMeetingTimeDetails} from '../../../../services/MeetingCreatorService';
 import {Link, useParams} from 'react-router-dom';
+import {getAllMentorCalendarEvents} from "../../../../services/CalendarService";
 
 const DATES_PLACEHOLDER = [
     {
@@ -78,6 +79,7 @@ const DATES_PLACEHOLDER = [
 const BookForm = ({changeStepBookHandler}) => {
     const {id} = useParams()
     const [firstName, setFirstName] = useState('');
+    const [dataApiFromBackend, setDataApiFromBackend] = useState('');
     const [eventName, setEventName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -88,6 +90,13 @@ const BookForm = ({changeStepBookHandler}) => {
 
 
 
+    useEffect(() => {
+        userFromRedux.sessionID &&
+        getAllMentorCalendarEvents(userFromRedux.mentorID).then((res) => {
+
+            setDataApiFromBackend(res.data);
+        });
+    }, [userFromRedux.mentorID]);
 
     const [calendarForm, setCalendarForm] = useState({
         eventName:'',
@@ -108,15 +117,23 @@ const BookForm = ({changeStepBookHandler}) => {
             [name]: value,
         }));
     };
+    //
+    // const datesPlaceholder = dataApiFromBackend.map((item, index) => {
+    //     // Przetwarzanie danych z backendu na format potrzebny na froncie
+    //     return {
+    //         id: item.weekAvailabilityId ? item.weekAvailabilityId.toString() : (index + 1).toString(),
+    //         date: new Date(item.scheduleStartDay),
+    //         hours: item.fromTime ? [{ id: item.weekAvailabilityId ? item.weekAvailabilityId.toString() : '1', hour: item.fromTime }] : []
+    //     };
+    // });
 
 
-
-
-    useEffect(() => {
-        userFromRedux.sessionID &&
-        getAllScheduleMeetingTimeDetails(userFromRedux.sessionID).then((res) => {
-        });
-    }, [userFromRedux.sessionID]);
+    //
+    // useEffect(() => {
+    //     userFromRedux.sessionID &&
+    //     getAllScheduleMeetingTimeDetails(userFromRedux.sessionID).then((res) => {
+    //     });
+    // }, [userFromRedux.sessionID]);
 
     const handleNextStep = () => {
         changeStepBookHandler(calendarForm);
@@ -204,6 +221,8 @@ const BookForm = ({changeStepBookHandler}) => {
                 <div className='book-form__group'>
                     <h2 className='book-form__title'>Szczegóły spotkania</h2>
                     <p className='book-form__text'>Wybierz dzień oraz godzinę spotkania.</p>
+
+
 
                     <ScrollContainer className='book-form__days'>
                         {DATES_PLACEHOLDER.map(

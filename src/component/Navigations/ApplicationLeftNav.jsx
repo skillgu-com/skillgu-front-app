@@ -62,7 +62,7 @@ const ApplicationLeftNav = () => {
 				<nav className='left-bar__nav'>
 					<ul className='left-bar__list'>
 						{direction
-							.filter((item) => item.allowedRoles.includes(user?.role[0]))
+							.filter((item) => item.allowedRoles.includes(user?.role?.[0]))
 							.map((element, index) => (
 								<li key={'element' + index} className='left-bar__item'>
 									<Link className='left-bar__link' to={element.redirectUrl}>

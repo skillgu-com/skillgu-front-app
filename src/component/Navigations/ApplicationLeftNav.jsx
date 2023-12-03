@@ -8,7 +8,6 @@ const ApplicationLeftNav = () => {
 	const userFromRedux = useSelector((state) => state.auth.user);
 	const user = useSelector((state) => state.auth.user);
 
-	console.log(user)
 
 	const direction = [
 		{

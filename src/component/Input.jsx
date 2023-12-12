@@ -35,16 +35,6 @@ const Input = (props) => {
 		});
 	};
 
-	// useEffect(() => {
-	// 	const errorMessage = validation(touched, value, name, required);
-
-	// 	valueChangeHandler(name, {
-	// 		value,
-	// 		errorMessage,
-	// 		isValid: errorMessage === '',
-	// 	});
-	// }, [touched]);
-
 	return (
 		<div
 			className={classNames('input', classes)}

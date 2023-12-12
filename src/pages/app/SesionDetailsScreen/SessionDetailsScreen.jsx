@@ -13,7 +13,6 @@ const SessionDetailsScreen = () => {
 	const {id} = useParams();
 	const sessionProcess = useSelector((state) => state.connectionProcess.sessionStep);
 
-	console.log(sessionProcess)
 
 	const placeholderObject = {
 		sessionName: sessionProcess.sessionName,

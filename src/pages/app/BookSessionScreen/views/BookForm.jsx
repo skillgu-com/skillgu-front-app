@@ -21,59 +21,14 @@ const DATES_PLACEHOLDER = [
             {id: '12', hour: '17:30'},
         ],
     },
-    {
-        id: '2',
-        date: new Date(),
-        hours: [
-            {id: '21', hour: '16:00'},
-            {id: '22', hour: '17:00'},
-        ],
-    },
-    {
-        id: '3',
-        date: new Date(),
-        hours: [
-            {id: '31', hour: '16:00'},
-            {id: '32', hour: '17:00'},
-        ],
-    },
-    {
-        id: '4',
-        date: new Date(),
-        hours: [
-            {id: '41', hour: '16:00'},
-            {id: '42', hour: '17:00'},
-        ],
-    },
-    {
-        id: '5',
-        date: new Date(),
-        hours: [
-            {id: '51', hour: '16:00'},
-            {id: '52', hour: '17:00'},
-        ],
-    },
-    {
-        id: '6',
-        date: new Date(),
-        hours: [
-            {id: '61', hour: '16:10'},
-            {id: '62', hour: '16:20'},
-            {id: '63', hour: '16:30'},
-            {id: '64', hour: '16:30'},
-            {id: '65', hour: '16:40'},
-            {id: '66', hour: '16:50'},
-            {id: '67', hour: '17:00'},
-        ],
-    },
-    {
-        id: '7',
-        date: new Date(),
-        hours: [
-            {id: '71', hour: '16:00'},
-            {id: '72', hour: '17:00'},
-        ],
-    },
+    // {
+    //     id: '2',
+    //     date: new Date(),
+    //     hours: [
+    //         {id: '21', hour: '16:00'},
+    //         {id: '22', hour: '17:00'},
+    //     ],
+    // }
 ];
 
 const BookForm = ({changeStepBookHandler}) => {
@@ -88,26 +43,66 @@ const BookForm = ({changeStepBookHandler}) => {
     const [message, setMessage] = useState('');
     const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
 
-
+    const [calendarEvents, setCalendarEvents] = useState([]);
+    const [combinedData, setCombinedData] = useState([]); // Dodaj deklarację useState
 
     useEffect(() => {
         userFromRedux.sessionID &&
         getAllMentorCalendarEvents(userFromRedux.mentorID).then((res) => {
+            const dataFromApi = res.data;
+            const combinedData = [];
 
-            setDataApiFromBackend(res.data);
+            console.log(res.data);
+
+            dataFromApi.forEach((item, index) => {
+                const startDate = new Date(item.scheduleStartDay);
+                const endDate = new Date(item.scheduleEndDay);
+                const dateRange = getDateRange(startDate, endDate);
+
+                dateRange.forEach((date, subIndex) => {
+                    const hoursForDay = item.weekAvailabilityResponses.map(element => ({
+                        id: element.weekAvailabilityId,
+                        fromTime: element.fromTime,
+                        toTime: element.toTime,
+                        weekDay: element.weekDay.replace("time", ""),
+                    }));
+
+                    combinedData.push({
+                        id: `${index + 1}-${subIndex + 1}`,
+                        date,
+                        hours: hoursForDay,
+                    });
+                });
+            });
+
+
+
+            setCombinedData(combinedData);
         });
     }, [userFromRedux.mentorID]);
 
-    const [calendarForm, setCalendarForm] = useState({
-        eventName:'',
-        location:'',
-        startDate:'',
-        endDate:'',
-        startTime:'',
-        endTime:'',
-        timeZone:''
-    });
+    function getDateRange(startDate, endDate) {
+        const dateRange = [];
+        const currentDate = new Date(startDate);
 
+        while (currentDate <= endDate) {
+            dateRange.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dateRange;
+    }
+
+
+    const [calendarForm, setCalendarForm] = useState({
+        eventName: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        startTime: '',
+        endTime: '',
+        timeZone: ''
+    });
 
 
     const handleChange = (event) => {
@@ -117,23 +112,6 @@ const BookForm = ({changeStepBookHandler}) => {
             [name]: value,
         }));
     };
-    //
-    // const datesPlaceholder = dataApiFromBackend.map((item, index) => {
-    //     // Przetwarzanie danych z backendu na format potrzebny na froncie
-    //     return {
-    //         id: item.weekAvailabilityId ? item.weekAvailabilityId.toString() : (index + 1).toString(),
-    //         date: new Date(item.scheduleStartDay),
-    //         hours: item.fromTime ? [{ id: item.weekAvailabilityId ? item.weekAvailabilityId.toString() : '1', hour: item.fromTime }] : []
-    //     };
-    // });
-
-
-    //
-    // useEffect(() => {
-    //     userFromRedux.sessionID &&
-    //     getAllScheduleMeetingTimeDetails(userFromRedux.sessionID).then((res) => {
-    //     });
-    // }, [userFromRedux.sessionID]);
 
     const handleNextStep = () => {
         changeStepBookHandler(calendarForm);
@@ -223,18 +201,19 @@ const BookForm = ({changeStepBookHandler}) => {
                     <p className='book-form__text'>Wybierz dzień oraz godzinę spotkania.</p>
 
 
-
                     <ScrollContainer className='book-form__days'>
-                        {DATES_PLACEHOLDER.map(
+                        {combinedData.map(
                             ({id, date, hours}) =>
                                 hours.length > 0 && (
                                     <li key={'d' + id}>
                                         <DayRadio
-                                            date={date}
-                                            spots={hours.length}
-                                            name='day'
+                                            name='days'
                                             id={id}
+                                            days={id}
+                                            date={date}
+                                            weekDayCells={hours.length}
                                             selectedId={day}
+                                            weekDays={hours}
                                             onChangeHandler={handleDay}
                                         />
                                     </li>
@@ -242,13 +221,13 @@ const BookForm = ({changeStepBookHandler}) => {
                         )}
                     </ScrollContainer>
 
-                    {DATES_PLACEHOLDER.map(({id, date, hours}) => (
+                    {combinedData.map(({id, hours}) => (
                         <ul className='book-form__hours' key={'h' + id} data-visible={day === id}>
-                            {hours.map((item) => (
-                                <li key={item.id}>
+                            {hours.map((element) => (
+                                <li key={element.id}>
                                     <DayRadio
                                         name='dayHour'
-                                        {...item}
+                                        {...element}
                                         selectedId={hour}
                                         onChangeHandler={handleHour}
                                     />

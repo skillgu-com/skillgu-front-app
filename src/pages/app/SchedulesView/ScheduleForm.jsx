@@ -65,8 +65,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -78,8 +78,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -91,8 +91,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -104,8 +104,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -117,8 +117,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -130,8 +130,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },
@@ -143,8 +143,8 @@ const INITIAL_STATE = {
             isActive: false,
             times: {
                 0: {
-                    from: {value: '00:00', errorMessage: '', isValid: undefined},
-                    to: {value: '01:00', errorMessage: '', isValid: undefined},
+                    from: {value: '07:00', errorMessage: '', isValid: undefined},
+                    to: {value: '16:00', errorMessage: '', isValid: undefined},
                 },
             },
         },

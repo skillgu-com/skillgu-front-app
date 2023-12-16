@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import InvestCard from '../../../component/InvestCard';
+import UserCard from '../../../component/UserCard';
 import donut from '../../../assets/img/donut.svg';
 import {useNavigate} from 'react-router-dom';
 import {AuthContext} from '../../../context/AuthContextProvider';

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import AppLayout from '../../../component/AppLayout';
-import {getLoggedProfileByEmail,} from '../../../services/UserProfileService';
 import {useSelector} from "react-redux";
+import {fetchUserProfileByEmail} from "../../../services/UserProfileService";
 
 const PLACEHOLDER_USER = {
     firstName: '',
@@ -13,7 +13,6 @@ const PLACEHOLDER_USER = {
 
 const LoggedProfileScreen = () => {
 
-    // const {user} = useContext(AuthContext);
     const userFromRedux = useSelector((state) => state.auth.user);
     const [user, setUser] = useState(null);
 
@@ -23,8 +22,9 @@ const LoggedProfileScreen = () => {
     })
 
     useEffect(() => {
-        getLoggedProfileByEmail(userData).then((res) => {
+        fetchUserProfileByEmail(userData).then((res) => {
             setUser(res.data);
+            console.log(res.data);
         });
     }, []);
 
@@ -53,24 +53,23 @@ const LoggedProfileScreen = () => {
                         </p>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Moje branże</h3>
-                        <ul className='app-list'>
-                            <li className='app-list__item'>IT</li>
-                            <li className='app-list__item'>BIZNES</li>
-                            <li className='app-list__item'>MARKETING</li>
-                            <li className='app-list__item'>FINTECH</li>
-                        </ul>
+                        {user?.role === 'mentor' && (
+                            <>
+                                <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
+                                <ul className='app-list'>
+                                    {user?.categories.map(element => (
+                                        <li className='app-list__item' key={element}>{element}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Moja zainteresowania</h3>
+                        <h3 className='app-section__title'>Umiejętności</h3>
                         <ul className='app-list'>
-                            <li className='app-list__item'>Software development</li>
-                            <li className='app-list__item'>Scrum</li>
-                            <li className='app-list__item'>Zarządzanie</li>
-                            <li className='app-list__item'>IT</li>
-                            <li className='app-list__item'>Nowe technologie</li>
-                            <li className='app-list__item'>Biznes</li>
-                            <li className='app-list__item'>Motywacja</li>
+                            {user?.skills.map(skill => (
+                                <li className='app-list__item' key={skill}>{skill}</li>
+                            ))}
                         </ul>
                     </article>
                 </section>

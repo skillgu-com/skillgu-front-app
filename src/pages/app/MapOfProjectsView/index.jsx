@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AppLayout from '../../../component/AppLayout';
-import InvestCard from '../../../component/InvestCard';
+import UserCard from '../../../component/UserCard';
 import {
 	searchAllProjects,
 	searchByToken,
@@ -34,7 +34,7 @@ function ProjectsMapScreen(props) {
 			<div className='d-flex projects-map'>
 				<div className='col-12 projects-map__offers'>
 					{!!searchResult?.length && (
-						<CardsSlider as={InvestCard} items={searchResult} noMaxHeight={true} />
+						<CardsSlider as={UserCard} items={searchResult} noMaxHeight={true} />
 					)}
 				</div>
 			</div>

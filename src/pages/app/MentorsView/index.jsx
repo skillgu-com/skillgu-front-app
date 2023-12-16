@@ -4,7 +4,7 @@ import {getAllMentors,} from '../../../services/UserProfileService';
 import HeroHeader from '../../../component/HeroHeader';
 import investors from '../../../assets/img/galaxy.png';
 import MentorCard from '../../../component/Cards/MentorCard/MentorCard';
-import MentorFilters from '../../../component/MentorFilters';
+import MentorFilters from "./MentorFilters";
 
 const MentorScreen = () => {
     let [mentors, setMentors] = useState([]);
@@ -13,6 +13,7 @@ const MentorScreen = () => {
         getAllMentors()
             .then((response) => {
                 setMentors(response.data);
+                console.log(response.data)
             })
             .catch((error) => {
                 throw new Error(error.message);
@@ -31,32 +32,23 @@ const MentorScreen = () => {
                             surname={element.lastName}
                             profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
                             specialization={element.jobPosition?.join(', ')}
-                            // specializationDescription={
-                            //     'Ekspert ds. wzrostu organicznego i płatnego z ponad 10-letnim doświadczeniem w agencjach i firmach w marketingu cyfrowym.'
-                            // }
+                            specializationDescription={
+                               element.category?.join(', ')
+                            }
                             contactOptions={{ chat: true, call: true, handsOn: true }}
                             reviews={4}
                             reviewsAmount={21}
                             description={element.description}
                             skills={element.skill && element.skill.length > 0 ? element.skill : []}
 
-                            // skills={[
-                            //     'Marketing',
-                            //     'digital Marketing',
-                            //     'Marketing digital',
-                            //     'Marketing Google',
-                            //     'Automation',
-                            //     'SEO',
-                            //     'Strategy Career',
-                            // ]}
-                            monthlyPrice={223}
+                            monthlyPrice={111}
                             expectations={[
                                 'Jeden z naszych najlepszych mentorów, najlepsza obsługa i szybkie odpowiedzi',
                                 'Nieograniczony czat, e-mail lub SMS z mentorem, w granicach.',
                                 'Do 4 połączeń miesięcznie',
                             ]}
                             quickResponder={true}
-                            trail={3}
+                            trail={7}
                             userID={element.userID}
                         />
                     ))

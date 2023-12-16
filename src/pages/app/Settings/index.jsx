@@ -8,7 +8,7 @@ import {
     Checkbox,
     FormControl,
     Select,
-    MenuItem,
+    MenuItem, FormGroup,
 } from '@mui/material';
 
 import {getUserProfile, settingUser} from '../../../services/UserProfileService';
@@ -34,11 +34,23 @@ const Settings = () => {
         email: userFromRedux.email
     })
 
+    const categories = [
+        "Programowanie", "Konsultacja z ekspertem", "Wspólne programowanie",
+        "Przygotowanie do Rozmów Technicznych", "Sztuczna Inteligencja i Machine Learning",
+        "Design Interaktywny i Doświadczenie Użytkownika", "Zmiana kariery i Rozwój Profesjonalny", "Optymalizacja CV i praca nad Twoim CV",
+        "IT Development", "Mentoring w IT",
+        "Rozwój Umiejętności", "Zarządzanie Projektami i Metodologia Scrum", "Strategie Rozwoju Biznesowego i Liderstwo",
+        "CEO i Founderzy", "Strategie Zarządzania i Rozwoju Startupów", "Business Development", "Product Development",
+    ];
+
+    const [selectedCategories, setSelectedCategories] = useState([]);
+
+
     const [formValues, setFormValues] = useState({
         firstName: '',
         image: '',
         profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-        industry: [],
+        category: [],
         hobby: [],
         lastName: '',
         id: '',
@@ -55,7 +67,7 @@ const Settings = () => {
         youtubeURL: '',
         timeZone: '',
         user: [],
-        skill:[]
+        skill: []
     });
 
     const handleChange = (event) => {
@@ -93,6 +105,29 @@ const Settings = () => {
         }));
     };
 
+    const handleCategories = (event) => {
+        const selectedCategory = event.target.name;
+        if (event.target.checked) {
+            if (selectedCategories.length < 5) {
+                const newSelectedCategories = [...selectedCategories, selectedCategory];
+                setSelectedCategories(newSelectedCategories);
+
+                setFormValues(prevState => ({
+                    ...prevState,
+                    category: newSelectedCategories
+                }));
+            }
+        } else {
+            const newSelectedCategories = selectedCategories.filter(category => category !== selectedCategory);
+            setSelectedCategories(newSelectedCategories);
+
+            setFormValues(prevState => ({
+                ...prevState,
+                category: newSelectedCategories
+            }));
+        }
+    };
+
 
     useEffect(() => {
         dispatch({
@@ -107,12 +142,6 @@ const Settings = () => {
         });
     };
 
-
-    useEffect(() => {
-        getUserProfile(userData).then((response) => {
-            // setUser(response.data);
-        });
-    }, []);
 
     return (
         <AppLayout>
@@ -194,11 +223,12 @@ const Settings = () => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='jobPosition' className='field__label'>
-                            Stanowisko
+                            Twoje Stanowisko
                         </FormLabel>
                         <FormControl fullWidth>
                             <MuiChipsInput value={formValues.jobPosition}
-                                           onChange={(value) => handleJobPositionChange('jobPosition', value)}/>
+                                           onChange={(value) => handleJobPositionChange('jobPosition', value)}
+                                           placeholder={'np. Software Architect / Senior Java Developer'}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -227,7 +257,7 @@ const Settings = () => {
                             required
                             fullWidth
                             id="descriptionAboutMe"
-                            placeholder="Napisz coś o sobie"
+                            placeholder="Opisz profil"
                             multiline
                             rows={2}
                             autoFocus
@@ -236,30 +266,51 @@ const Settings = () => {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormLabel id='industry' className='field__label'>
-                            Wybierz Branżę
-                        </FormLabel>
-                        <FormControl fullWidth>
-                            <MuiChipsInput value={formValues.industry}
-                                           onChange={(value) => handleIndustryChange('industry', value)}/>
+                        <FormControl component="fieldset">
+                            <FormLabel id='category'>Kategorie</FormLabel>
+                            <FormGroup>
+                                {categories.map((category) => (
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={selectedCategories.includes(category)}
+                                                onChange={handleCategories}
+                                                name={category}
+                                                disabled={!selectedCategories.includes(category) && selectedCategories.length >= 5}
+                                            />
+                                        }
+                                        label={category}
+                                        key={category}
+                                    />
+                                ))}
+                            </FormGroup>
                         </FormControl>
+                        {/*<FormLabel id='industry' className='field__label'>*/}
+                        {/*    Kategorie*/}
+                        {/*</FormLabel>*/}
+                        {/*<FormControl fullWidth>*/}
+                        {/*    <MuiChipsInput value={formValues.industry}*/}
+                        {/*                   onChange={(value) => handleIndustryChange('industry', value)}*/}
+                        {/*    placeholder={'np.Przygotowanie do rozmowy rekrutacyjnej, Konsultacja ekspercka, '}/>*/}
+                        {/*</FormControl>*/}
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <FormLabel id='hobby' className='field__label'>
-                            Twoje zainteresowania
-                        </FormLabel>
-                        <FormControl fullWidth>
-                            <MuiChipsInput clearInputOnBlur value={formValues.hobby}
-                                           onChange={(value) => handleHobbyChange('hobby', value)}/>
-                        </FormControl>
-                    </Grid>
+                    {/*<Grid item xs={12} sm={6}>*/}
+                    {/*    <FormLabel id='hobby' className='field__label'>*/}
+                    {/*        Twoje zainteresowania*/}
+                    {/*    </FormLabel>*/}
+                    {/*    <FormControl fullWidth>*/}
+                    {/*        <MuiChipsInput clearInputOnBlur value={formValues.hobby}*/}
+                    {/*                       onChange={(value) => handleHobbyChange('hobby', value)}/>*/}
+                    {/*    </FormControl>*/}
+                    {/*</Grid>*/}
                     <Grid item xs={12} sm={6}>
                         <FormLabel id='skill' className='field__label'>
                             Umiejętności
                         </FormLabel>
                         <FormControl fullWidth>
                             <MuiChipsInput clearInputOnBlur value={formValues.skill}
-                                           onChange={(value) => handleSkillChange('skill', value)}/>
+                                           onChange={(value) => handleSkillChange('skill', value)}
+                                           placeholder={'np. Java, JavaScript, Programowanie, Coaching'}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>

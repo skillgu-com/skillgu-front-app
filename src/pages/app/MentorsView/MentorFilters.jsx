@@ -23,20 +23,17 @@ const MentorFilters = () => {
 				className='mentor-filters__sort'>
 				<MenuItem value={1}>Domyślne</MenuItem>
 			</TextField>
-			<TextField id='category' select label='Kategoria' defaultValue={1}>
+			<TextField id='category' select label='Kategorie' defaultValue={1}>
 				<MenuItem value={1}>Wszystkie</MenuItem>
 			</TextField>
 			<TextField id='skills' select label='Umiejętności' defaultValue={1}>
 				<MenuItem value={1}>Wszystkie</MenuItem>
 			</TextField>
-			<TextField id='lessons' select label='Lekcje' defaultValue={1}>
+			<TextField id='topics' select label='Tematy' defaultValue={1}>
 				<MenuItem value={1}>Wszystkie</MenuItem>
 			</TextField>
-			<TextField id='services' select label='Usługi' defaultValue={1}>
-				<MenuItem value={1}>Wszystkie</MenuItem>
-			</TextField>
-			<TextField id='price' select label='Cena' defaultValue={1}>
-				<MenuItem value={1}>0 - 200 zł</MenuItem>
+			<TextField id='price' select label='Stawka' defaultValue={1}>
+				<MenuItem value={1}>500 zł</MenuItem>
 			</TextField>
 		</div>
 	);

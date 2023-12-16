@@ -1,26 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import CustomButton from '../CustomButton';
 
-const InvestCard = ({
-                        studentID,
-                        firstName,
-                        location,
-                        icon = 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
-                        noFollow,
-                        industry,
-                        lastName,
-                        jobTitle,
-                        invested = false,
-                        pitchDeckURL = false,
-                        pitchDeckTitle,
-                        linkedin_url,
-                        goalDescription
-                    }) => {
+const UserCard = ({
+                      userID,
+                      firstName,
+                      location,
+                      icon = 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
+                      noFollow,
+                      industry,
+                      lastName,
+                      jobTitle,
+                      invested = false,
+                      pitchDeckURL = false,
+                      pitchDeckTitle,
+                      linkedin_url,
+                      goalDescription
+                  }) => {
     const navigate = useNavigate();
     const handleNavigate = () => {
         // navigate(`/pitchdeck/${pitchDeckURL}`);
     };
+
 
     return (
         <div className='invest-card d-flex row justify-content-between align-items-center'>
@@ -66,7 +67,7 @@ const InvestCard = ({
                 {/*    Więcej*/}
                 {/*</CustomButton>*/}
 
-                <CustomButton as='internal-link' link={`/user-profile/${studentID}`}>
+                <CustomButton as='internal-link' link={`/user-profile/${userID}`}>
                     Więcej
                 </CustomButton>
             </div>
@@ -74,4 +75,4 @@ const InvestCard = ({
     );
 };
 
-export default InvestCard;
+export default UserCard;

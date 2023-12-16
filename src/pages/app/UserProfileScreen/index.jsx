@@ -15,7 +15,7 @@ const PLACEHOLDER_USER = {
 
 const UserProfileScreen = () => {
 
-    const { userID } = useParams();
+    const {userID} = useParams();
     const userFromRedux = useSelector((state) => state.auth.user);
     const [user, setUser] = useState({});
 
@@ -33,6 +33,7 @@ const UserProfileScreen = () => {
 
     return (
         <AppLayout>
+            <h1>PROFIL MENTORA KTORY JEST NA LISCIE</h1>
             <div className='user-profile__grid'>
                 <section className='user-profile__data'>
                     <div className='user-profile__data-photo'>
@@ -55,37 +56,25 @@ const UserProfileScreen = () => {
                         </p>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Branże które mnie interesują</h3>
-                        <p className='app__text text-left'>
-                            {user?.industry}
-                        </p>
-                    </article>
-                    <article className='app-section'>
-                        <h3 className='app-section__title'>Region</h3>
+                        <h3 className='app-section__title'>Umiejętności</h3>
                         <ul className='app-list'>
-                            <li className='app-list__item'>Warszawa</li>
-                            <li className='app-list__item'>Wrocław</li>
-                            <li className='app-list__item'>Kraków</li>
-                            <li className='app-list__item'>Cała Polska</li>
+                            {user?.skills.map(skill => (
+                                <li className='app-list__item' key={skill}>{skill}</li>
+                            ))}
                         </ul>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Moja wiedza i doświadczenie</h3>
+                        <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
                         <ul className='app-list'>
-                            <li className='app-list__item'>Software development</li>
-                            <li className='app-list__item'>Scrum</li>
-                            <li className='app-list__item'>Zarządzanie</li>
-                            <li className='app-list__item'>IT</li>
-                            <li className='app-list__item'>Nowe technologie</li>
-                            <li className='app-list__item'>Biznes</li>
-                            <li className='app-list__item'>Motywacja</li>
+                            {user?.categories.map(element => (
+                                <li className='app-list__item' key={element}>{element}</li>
+                            ))}
                         </ul>
                     </article>
                 </section>
-                {/*TODO tutaj jakos wykminic kiedy ma sie pojawic widok PlansPanel w zaleznosci czy to student wtedy nie widac, czy mentor*/}
                 {user?.role !== 'mentor' && (
                     <div className='user-profile__price'>
-                        <PlansPanel />
+                        <PlansPanel/>
                     </div>
                 )}
             </div>

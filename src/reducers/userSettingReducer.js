@@ -1,7 +1,7 @@
 const initialState = {
     userSettingStep: {
         profileImage: '',
-        industry: '',
+        category: '',
         hobby: '',
         firstName: '',
         lastName: '',
@@ -24,13 +24,13 @@ const initialState = {
 
 const userSettingReducer = (state = initialState, action) => {
     switch (action.type) {
+
         case 'STEP_FIRST_USER_SETTING':
-            // console.log(action)
             return {
                 ...state,
                 userSettingStep: {
                     profileImage: action.payload.profileImage,
-                    industry: action.payload.industry,
+                    category: action.payload.category,
                     hobby: action.payload.hobby,
                     firstName: action.payload.firstName,
                     lastName: action.payload.lastName,

@@ -35,8 +35,8 @@ const Hours = (props) => {
 		setHourIndex(newIndex);
 		updateHours(
 			newIndex,
-			{value: '00:00', errorMessage: '', isValid: undefined},
-			{value: '01:00', errorMessage: '', isValid: undefined}
+			{value: '08:00', errorMessage: '', isValid: undefined},
+			{value: '16:00', errorMessage: '', isValid: undefined}
 		);
 	};
 

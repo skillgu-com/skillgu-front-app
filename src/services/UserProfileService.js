@@ -32,8 +32,8 @@ export const getUserProfileByEmail = async (email) => {
     return await axios.get(`/api/user/user-profile/${email}`);
 }
 
-export const getLoggedProfileByEmail = async (userData) => {
-    return await axios.post('/api/auth/get-logged-profile', userData);
+export const fetchUserProfileByEmail = async (userData) => {
+    return await axios.post('/api/user/fetch-user-profile-by-email', userData);
 }
 
 export const getAllMentors = async () => {
@@ -45,6 +45,5 @@ export const updateUser = async (email) => {
 }
 
 export const settingUser = async (userSettingState) => {
-    console.log(userSettingState)
     return await axios.patch('/api/user/setting-user',userSettingState)
 }

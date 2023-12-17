@@ -1,0 +1,59 @@
+@use '@styles/variables' as *;
+
+@mixin hover-effect($color) {
+	background-color: $color;
+	&:hover {
+		background-color: darken($color, 5%);
+	}
+	&:active {
+		background-color: darken($color, 10%);
+	}
+}
+
+.button {
+	display: block;
+	padding: 10px 30px;
+	border-radius: 100px;
+	text-align: center;
+	outline: transparent;
+
+	font-size: 14px;
+	font-weight: 400;
+	cursor: pointer;
+	transition: background-color 0.24s, color 0.24s;
+
+	&--full-width {
+		width: 100%;
+	}
+
+	&[data-variant='primary'] {
+		@include hover-effect($primary-color);
+		color: $white-color;
+
+		&:active {
+			background-color: $dark-color;
+		}
+	}
+	&[data-variant='outline'] {
+		background-color: transparent;
+		color: $primary-color;
+		border: 2px solid $primary-color;
+
+		&:hover {
+			background-color: $primary-color;
+			color: $light-color;
+		}
+	}
+	&[data-variant='light'] {
+		@include hover-effect($white-color);
+		color: $dark-color;
+	}
+	&[data-variant='dark'] {
+		@include hover-effect($dark-color);
+		color: $white-color;
+	}
+
+	@media screen and (min-width: $sm) {
+		font-size: 18px;
+	}
+}

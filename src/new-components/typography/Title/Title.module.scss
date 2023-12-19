@@ -27,7 +27,7 @@
 	}
 	&[data-variant='section'] {
 		margin-bottom: 20px;
-		@include responsive-title(26px, 30px);
+		@include responsive-title(20px, 30px);
 	}
 	&[data-variant='standard'] {
 		margin-bottom: 20px;

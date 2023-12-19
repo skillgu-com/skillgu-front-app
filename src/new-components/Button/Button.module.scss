@@ -1,4 +1,4 @@
-@use '@styles/variables' as *;
+@use '../../scss/variables' as *;
 
 @mixin hover-effect($color) {
 	background-color: $color;
@@ -22,13 +22,13 @@
 	cursor: pointer;
 	transition: background-color 0.24s, color 0.24s;
 
-	&--full-width {
+	&FullWidth {
 		width: 100%;
 	}
 
 	&[data-variant='primary'] {
 		@include hover-effect($primary-color);
-		color: $white-color;
+		color: $light-color;
 
 		&:active {
 			background-color: $dark-color;
@@ -45,12 +45,12 @@
 		}
 	}
 	&[data-variant='light'] {
-		@include hover-effect($white-color);
+		@include hover-effect($light-color);
 		color: $dark-color;
 	}
 	&[data-variant='dark'] {
 		@include hover-effect($dark-color);
-		color: $white-color;
+		color: $light-color;
 	}
 
 	@media screen and (min-width: $sm) {

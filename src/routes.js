@@ -1,7 +1,7 @@
 // Pages
 import Landing from './pages/LandingPage';
 import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 // Screens
 import ProjectsMapScreen from './pages/app/MapOfProjectsView';
 import UserProfileScreen from './pages/app/UserProfileScreen';

@@ -63,7 +63,7 @@ const Button: React.FC<
 			),
 			'data-variant': variant,
 		};
-	}, [classes, id]);
+	}, [classes, id, fullWidth]);
 
 	// Returned JSX
 	switch (as) {

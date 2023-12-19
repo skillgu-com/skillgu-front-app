@@ -1,23 +1,24 @@
-@use '../variables' as *;
+@use '../../scss/variables' as *;
 
 .checkbox {
 	cursor: pointer;
   
-	&__label {
+	&Label {
 		display: flex;
 		position: relative;
 		gap: 10px;
 		font-size: 16px;
-		color: #737373;
+		color: $dark-color;
 
 		&:before {
 			content: '';
 			display: block;
-			width: 18px;
-			min-width: 18px;
-			height: 18px;
+			width: 20px;
+			min-width: 20px;
+			height: 20px;
+			background-color: #fff;
 			border: 2px solid $gray-color;
-			border-radius: 4px;
+			border-radius: 5px;
 		}
 
 		&:after {
@@ -31,7 +32,7 @@
 		}
 	}
 
-	&__field {
+	&Field {
 		display: none;
 		width: 0;
 		height: 0;
@@ -39,7 +40,7 @@
 		visibility: hidden;
 
 		&:checked {
-			+ .checkbox__label {
+			+ .checkboxLabel {
 				&::before {
 					background-color: $primary-color;
 				}
@@ -48,9 +49,9 @@
 	}
 
 	&[data-is-error='true']{
-		.checkbox__label{
+		.checkboxLabel{
 			&:before {
-				border: 2px solid $danger-color;
+				border: 1px solid $danger-color;
 			}
 		}
 	}

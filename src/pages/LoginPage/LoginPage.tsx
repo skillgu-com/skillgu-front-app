@@ -11,6 +11,8 @@ import Button from '../../new-components/Button/Button';
 import {Text} from '../../new-components/typography/index';
 import Checkbox from '../../new-components/Checkbox/Checkbox';
 import Input, {defaultInput} from '../../new-components/Input/Input';
+// Icons
+import Google from '../../assets/icons/Google';
 // Screen
 import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
@@ -19,6 +21,8 @@ import styles from './LoginPage.module.scss';
 const LoginPage = () => {
 	const context = useContext(AuthContext);
 
+	const [remember, setRemember] = useState(false);
+	const [googleLogin, setGoogleLogin] = useState({click: () => {}});
 	const [form, setForm] = useState({
 		email: defaultInput,
 		password: defaultInput,
@@ -45,19 +49,21 @@ const LoginPage = () => {
 	};
 
 	useEffect(() => {
+		if (!!!window) return;
 		(window.google as any)?.accounts.id.initialize({
 			client_id:
 				'853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com',
 			callback: handleGoogleLoginSuccess,
 		});
-		(window.google as any).accounts.id.renderButton(
-			document.getElementById('signInDiv'),
-			{
-				theme: 'outline',
-				size: 'large',
-			}
-		);
-	}, []);
+
+		const googleLoginButton = document.getElementById('signInDiv');
+		(window.google as any).accounts.id.renderButton(googleLoginButton, {});
+
+		const googleLoginWrapperButton: any =
+			googleLoginButton?.querySelector('div[role=button]')!;
+
+		setGoogleLogin({click: () => googleLoginWrapperButton.click()});
+	}, [window]);
 
 	return (
 		<JoinScreen
@@ -90,10 +96,8 @@ const LoginPage = () => {
 						<Checkbox
 							id='remember'
 							name='remember'
-							value={false}
-							valueChangeHandler={() => {
-								return;
-							}}
+							value={remember}
+							valueChangeHandler={() => setRemember(!remember)}
 							label='Zapamiętaj mnie'
 						/>
 						<Link to='/remind-password'>Przypomnij hasło</Link>
@@ -106,9 +110,10 @@ const LoginPage = () => {
 			<Text classes={styles.text}>
 				lub <strong>zaloguj się</strong> z:
 			</Text>
-			<div>
-				<div id='signInDiv'></div>
-			</div>
+			<button className={styles.google} onClick={googleLogin.click}>
+				<Google />
+			</button>
+			<div className={styles.off} id='signInDiv'></div>
 		</JoinScreen>
 	);
 };

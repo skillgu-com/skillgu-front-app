@@ -1,33 +1,54 @@
 @use '../../scss/variables' as *;
 
-.inline{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px - 14px;
+.inline {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 20px - 14px;
 }
 
-.formFields{
-  margin-top: 37px;
+.formFields {
+	margin-top: 37px;
 
-  .inline{
-    margin-top: 13px;
+	.inline {
+		margin-top: 13px;
+	}
+}
+
+.emailInput {
+	margin-bottom: 24px;
+}
+
+.submit {
+	margin-bottom: 20px;
+	margin-top: 40px;
+	padding: 21px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.text {
+	margin: 30px 0;
+	text-align: center;
+}
+
+.google {
+	width: 66px;
+	height: 66px;
+	background-color: $gray-color;
+	border-radius: 50%;
+  cursor: pointer;
+  transition: background-color .24s;
+
+  &:hover{
+    background-color: darken($gray-color, 2%);
+  }
+
+  &:active{
+    background-color: darken($gray-color, 5%);
   }
 }
 
-.emailInput{
-  margin-bottom: 24px;
-}
-
-.submit{
-  margin-bottom: 20px;
-  margin-top: 40px;
-  padding: 21px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.text{
-  margin: 30px 0;
-  text-align: center;
+.off {
+	display: none;
 }

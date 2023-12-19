@@ -22,11 +22,13 @@ import CustomButton, {buttonTypes, buttonColors} from '../../../component/Custom
 // Images
 import forest from '../../../assets/img/forest.png';
 import {MuiChipsInput} from "mui-chips-input";
+import {getAllCategories} from "../../../services/MentorViewService";
 
 const Settings = () => {
     const userSetting = useSelector((state) => state.userSetting.userSettingStep);
     const userFromRedux = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
+    const [category, setCategory] = useState([]);
 
     const userData = ({
         userID: userFromRedux.id,
@@ -34,14 +36,12 @@ const Settings = () => {
         email: userFromRedux.email
     })
 
-    const categories = [
-        "Programowanie", "Konsultacja z ekspertem", "Wspólne programowanie",
-        "Przygotowanie do Rozmów Technicznych", "Sztuczna Inteligencja i Machine Learning",
-        "Design Interaktywny i Doświadczenie Użytkownika", "Zmiana kariery i Rozwój Profesjonalny", "Optymalizacja CV i praca nad Twoim CV",
-        "IT Development", "Mentoring w IT",
-        "Rozwój Umiejętności", "Zarządzanie Projektami i Metodologia Scrum", "Strategie Rozwoju Biznesowego i Liderstwo",
-        "CEO i Founderzy", "Strategie Zarządzania i Rozwoju Startupów", "Business Development", "Product Development",
-    ];
+
+    useState(() => {
+        getAllCategories().then((res) => {
+            setCategory(res.data)
+        })
+    })
 
     const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -269,18 +269,18 @@ const Settings = () => {
                         <FormControl component="fieldset">
                             <FormLabel id='category'>Kategorie</FormLabel>
                             <FormGroup>
-                                {categories.map((category) => (
+                                {category?.map((element) => (
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={selectedCategories.includes(category)}
+                                                checked={selectedCategories.includes(element)}
                                                 onChange={handleCategories}
-                                                name={category}
-                                                disabled={!selectedCategories.includes(category) && selectedCategories.length >= 5}
+                                                name={element}
+                                                disabled={!selectedCategories.includes(element) && selectedCategories.length >= 5}
                                             />
                                         }
-                                        label={category}
-                                        key={category}
+                                        label={element}
+                                        key={element}
                                     />
                                 ))}
                             </FormGroup>

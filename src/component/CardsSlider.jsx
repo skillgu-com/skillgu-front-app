@@ -6,6 +6,7 @@ const CardsSlider = (props) => {
 
 	const Element = as;
 
+
 	if (!as) throw new Error('Porop as is required!');
 
 	return (
@@ -13,9 +14,9 @@ const CardsSlider = (props) => {
 			<h2 className='cards-slider__title'>{title}</h2>
 			<div className='cards-slider'>
 				<div className={`cards-slider__slider${noMaxHeight ? ' cards-slider__slider--no-max-height' : ''}`}>
-					{items.map((item) => (
-						<Element key={item.uuid} {...item} />
-					))}
+					{/*{items?.map((item) => (*/}
+					{/*	<Element key={item.uuid} {...item} />*/}
+					{/*))}*/}
 				</div>
 			</div>
 		</section>

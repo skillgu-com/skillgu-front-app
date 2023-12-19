@@ -4,7 +4,7 @@ import classNames from 'classnames';
 // Helpers
 import validation from '../../helpers/improovedValidation';
 // Styles
-import styles from './Input.module.scss'
+import styles from './Input.module.scss';
 
 interface InputProps {
 	id: string;
@@ -25,7 +25,7 @@ export const defaultInput = {
 	value: '',
 	errorMessage: '',
 	isValid: undefined,
-}
+};
 
 const Input = (props: InputProps) => {
 	const {
@@ -58,6 +58,7 @@ const Input = (props: InputProps) => {
 	};
 
 	useEffect(() => {
+		if (!touched) return;
 		const errorMessage = validation(touched, value, name, required);
 
 		valueChangeHandler(name, {

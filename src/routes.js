@@ -2,6 +2,7 @@
 import Landing from './pages/LandingPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 // Screens
 import ProjectsMapScreen from './pages/app/MapOfProjectsView';
 import UserProfileScreen from './pages/app/UserProfileScreen';
@@ -37,6 +38,11 @@ const routes = [
 		id: 'route02',
     path: '/login',
     element: <LoginPage />,
+	},
+	{
+		id: 'route029',
+    path: '/remind-password',
+    element: <RemindPasswordPage />,
 	},
 	{
 		id: 'route03',

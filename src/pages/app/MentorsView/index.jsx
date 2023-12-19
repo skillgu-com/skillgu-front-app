@@ -7,35 +7,52 @@ import MentorCard from '../../../component/Cards/MentorCard/MentorCard';
 import MentorFilters from "./MentorFilters";
 
 const MentorScreen = () => {
-    let [mentors, setMentors] = useState([]);
+    const [mentors, setMentors] = useState([]);
+    let [filteredMentors, setFilteredMentors] = useState([]);
+    let [selectedCategory, setSelectedCategory] = useState('');
+    let [filters, setFilters] = useState({ category: '', skill: '' });
+
 
     useEffect(() => {
         getAllMentors()
             .then((response) => {
                 setMentors(response.data);
-                console.log(response.data)
+                setFilteredMentors(response.data);
             })
             .catch((error) => {
                 throw new Error(error.message);
             });
     }, []);
 
+    useEffect(() => {
+        const filtered = mentors.filter(mentor =>
+            selectedCategory === '' || mentor.category.includes(selectedCategory)
+        );
+        setFilteredMentors(filtered);
+    }, [selectedCategory, mentors]);
+
+    const handleFilterChange = (element) => {
+        console.log(element);
+        setFilters(prevFilters => ({ ...prevFilters, ...element }));
+    };
+
+
     return (
         <AppLayout>
             <HeroHeader title='Mentorzy' image={<img src={investors} alt='mentors'/>}/>
-            <MentorFilters/>
+            <MentorFilters onFilterChange={handleFilterChange} />
             <section className='d-flex flex-wrap'>
-                {mentors.length === 0 ? (<p>Brak dostępnych mentorów.</p>):(mentors.map((element) => (
+                {mentors.length === 0 ? (<p>Brak dostępnych mentorów.</p>) : (mentors.map((element) => (
                         <MentorCard
-                            key={element.zecnalID}
+                            key={element.uuid}
                             name={element.firstName}
                             surname={element.lastName}
                             profileImg={'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}
                             specialization={element.jobPosition?.join(', ')}
                             specializationDescription={
-                               element.category?.join(', ')
+                                element.category?.join(', ')
                             }
-                            contactOptions={{ chat: true, call: true, handsOn: true }}
+                            contactOptions={{chat: true, call: true, handsOn: true}}
                             reviews={4}
                             reviewsAmount={21}
                             description={element.description}

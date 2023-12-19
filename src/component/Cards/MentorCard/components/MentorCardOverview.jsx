@@ -56,7 +56,7 @@ const MentorCardOverview = (props) => {
 			{skills.length > 0 && (
 				<ul className='app-list mentor-card__overview-skills'>
 					{skills.map((skill) => (
-						<li className='app-list__item'>{skill}</li>
+						<li className='app-list__item' key={skill.uuid}>{skill}</li>
 					))}
 				</ul>
 			)}

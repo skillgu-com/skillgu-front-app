@@ -92,20 +92,16 @@ const AuthContextProvider = (props) => {
 	const register = (
 		firstName,
 		lastName,
-		industry,
 		email,
 		password,
 		agreement,
-		selectedRole
 	) => {
 		registerAccount(
 			firstName,
 			lastName,
-			industry,
 			email,
 			password,
 			agreement,
-			selectedRole
 		)
 			.then((res) => {
 				navigate('/login');

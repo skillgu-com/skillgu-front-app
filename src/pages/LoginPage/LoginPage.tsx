@@ -5,21 +5,14 @@ import classNames from 'classnames';
 import {jwtDecode} from 'jwt-decode';
 
 import {AuthContext} from '../../context/AuthContextProvider';
-import {loginGoogleUser} from '../../services/AuthenticationService';
+// import {loginGoogleUser} from '../../services/AuthenticationService';
 // Components
-import Container from '../../new-components/Container/Container';
 import Button from '../../new-components/Button/Button';
-import {Title, Text} from '../../new-components/typography/index';
+import {Text} from '../../new-components/typography/index';
 import Checkbox from '../../new-components/Checkbox/Checkbox';
 import Input, {defaultInput} from '../../new-components/Input/Input';
-// Icons
-import SkillGuru from '../../assets/icons/SkillGuru';
-// Types
-import {
-	TitleTag,
-	TitleVariant,
-} from '../../new-components/typography/Title/Title';
-import {Tag} from '../../types/tags';
+// Screen
+import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './LoginPage.module.scss';
 
@@ -57,73 +50,66 @@ const LoginPage = () => {
 				'853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com',
 			callback: handleGoogleLoginSuccess,
 		});
-		(window.google as any).accounts.id.renderButton(document.getElementById('signInDiv'), {
-			theme: 'outline',
-			size: 'large',
-		});
+		(window.google as any).accounts.id.renderButton(
+			document.getElementById('signInDiv'),
+			{
+				theme: 'outline',
+				size: 'large',
+			}
+		);
 	}, []);
 
 	return (
-		<Container as={Tag.Main} classes={styles.wrapper}>
-			<aside className={styles.logo}>
-				<SkillGuru />
-			</aside>
-			<section className={styles.formWrapper}>
-				<div className={styles.form}>
-					<Title tag={TitleTag.h1} variant={TitleVariant.section}>
-						Zaloguj się
-					</Title>
-					<form className={styles.formFields} onSubmit={handleSubmit}>
-						<Input
-							classes={styles.emailInput}
-							id='email'
-							name='email'
-							type='email'
-							required
-							value={form.email.value}
-							errorMessage={form.email.errorMessage}
-							isValid={form.email.isValid}
-							valueChangeHandler={upadateFormHandler}
-							label='E-mail'
+		<JoinScreen
+			title='Zaloguj się'
+			redirect={{text: 'Zarejestruj się', link: '/register'}}
+			formContent={
+				<form className={styles.formFields} onSubmit={handleSubmit}>
+					<Input
+						classes={styles.emailInput}
+						id='email'
+						name='email'
+						type='email'
+						required
+						value={form.email.value}
+						errorMessage={form.email.errorMessage}
+						isValid={form.email.isValid}
+						valueChangeHandler={upadateFormHandler}
+						label='E-mail'
+					/>
+					<Input
+						id='password'
+						name='password'
+						type='password'
+						required
+						value={form.password.value}
+						valueChangeHandler={upadateFormHandler}
+						label='Hasło'
+					/>
+					<div className={classNames(styles.inline)}>
+						<Checkbox
+							id='remember'
+							name='remember'
+							value={false}
+							valueChangeHandler={() => {
+								return;
+							}}
+							label='Zapamiętaj mnie'
 						/>
-						<Input
-							id='password'
-							name='password'
-							type='password'
-							required
-							value={form.password.value}
-							valueChangeHandler={upadateFormHandler}
-							label='Hasło'
-						/>
-						<div className={classNames(styles.inline)}>
-							<Checkbox
-								id='remember'
-								name='remember'
-								value={false}
-								valueChangeHandler={() => {
-									return;
-								}}
-								label='Zapamiętaj mnie'
-							/>
-							<Link to='/remind-password'>Przypomnij hasło</Link>
-						</div>
-						<Button type='submit' fullWidth classes={styles.submit}>
-							Zaloguj się
-						</Button>
-					</form>
-					<div className={styles.inline}>
-						<Link to='/register'>Zarejestruj się</Link>
-						<Link to='/policy'>Warunki umowy i współpracy</Link>
+						<Link to='/remind-password'>Przypomnij hasło</Link>
 					</div>
-				</div>
-				<Text classes={styles.text}>
-					lub <strong>zaloguj się</strong> z:
-				</Text>
-				<div>
-					<div id='signInDiv'></div>
-				</div>
-			</section>
-		</Container>
+					<Button type='submit' fullWidth classes={styles.submit}>
+						Zaloguj się
+					</Button>
+				</form>
+			}>
+			<Text classes={styles.text}>
+				lub <strong>zaloguj się</strong> z:
+			</Text>
+			<div>
+				<div id='signInDiv'></div>
+			</div>
+		</JoinScreen>
 	);
 };
 export default LoginPage;

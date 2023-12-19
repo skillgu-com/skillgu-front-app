@@ -26,9 +26,12 @@ const UserProfileScreen = () => {
 
     useEffect(() => {
         getUserProfile(userData).then((response) => {
+            console.log(response.data);
             setUser(response.data);
         });
     }, []);
+
+
 
 
     return (
@@ -57,19 +60,19 @@ const UserProfileScreen = () => {
                     </article>
                     <article className='app-section'>
                         <h3 className='app-section__title'>Umiejętności</h3>
-                        <ul className='app-list'>
-                            {user?.skills.map(skill => (
-                                <li className='app-list__item' key={skill}>{skill}</li>
-                            ))}
-                        </ul>
+                        {/*<ul className='app-list'>*/}
+                        {/*    {user?.skills.map(skill => (*/}
+                        {/*        <li className='app-list__item' key={skill}>{skill}</li>*/}
+                        {/*    ))}*/}
+                        {/*</ul>*/}
                     </article>
                     <article className='app-section'>
                         <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
-                        <ul className='app-list'>
-                            {user?.categories.map(element => (
-                                <li className='app-list__item' key={element}>{element}</li>
-                            ))}
-                        </ul>
+                        {/*<ul className='app-list'>*/}
+                        {/*    {user?.categories.map(element => (*/}
+                        {/*        <li className='app-list__item' key={element}>{element}</li>*/}
+                        {/*    ))}*/}
+                        {/*</ul>*/}
                     </article>
                 </section>
                 {user?.role !== 'mentor' && (

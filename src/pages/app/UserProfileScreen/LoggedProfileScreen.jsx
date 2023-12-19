@@ -57,7 +57,7 @@ const LoggedProfileScreen = () => {
                             <>
                                 <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
                                 <ul className='app-list'>
-                                    {user?.categories.map(element => (
+                                    {user?.category.map(element => (
                                         <li className='app-list__item' key={element}>{element}</li>
                                     ))}
                                 </ul>
@@ -67,7 +67,7 @@ const LoggedProfileScreen = () => {
                     <article className='app-section'>
                         <h3 className='app-section__title'>Umiejętności</h3>
                         <ul className='app-list'>
-                            {user?.skills.map(skill => (
+                            {user?.skill.map(skill => (
                                 <li className='app-list__item' key={skill}>{skill}</li>
                             ))}
                         </ul>

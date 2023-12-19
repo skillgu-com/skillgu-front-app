@@ -26,12 +26,12 @@ const UserProfileScreen = () => {
 
     useEffect(() => {
         getUserProfile(userData).then((response) => {
-            console.log(response.data);
             setUser(response.data);
         });
     }, []);
 
 
+    console.log(user);
 
 
     return (
@@ -59,23 +59,31 @@ const UserProfileScreen = () => {
                         </p>
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Umiejętności</h3>
-                        {/*<ul className='app-list'>*/}
-                        {/*    {user?.skills.map(skill => (*/}
-                        {/*        <li className='app-list__item' key={skill}>{skill}</li>*/}
-                        {/*    ))}*/}
-                        {/*</ul>*/}
+                        {user?.role === 'mentor' && (
+                            <>
+                                <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
+                                <ul className='app-list'>
+                                    {user?.category.map(element => (
+                                        <li className='app-list__item' key={element}>{element}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
                     </article>
                     <article className='app-section'>
-                        <h3 className='app-section__title'>Tematy, w których Tobie pomogę</h3>
-                        {/*<ul className='app-list'>*/}
-                        {/*    {user?.categories.map(element => (*/}
-                        {/*        <li className='app-list__item' key={element}>{element}</li>*/}
-                        {/*    ))}*/}
-                        {/*</ul>*/}
+                        {user?.role === 'mentor' && (
+                            <>
+                                <h3 className='app-section__title'>Moje skille</h3>
+                                <ul className='app-list'>
+                                    {user?.skill.map(element => (
+                                        <li className='app-list__item' key={element}>{element}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
                     </article>
                 </section>
-                {user?.role !== 'mentor' && (
+                {user?.role == 'mentor' && (
                     <div className='user-profile__price'>
                         <PlansPanel/>
                     </div>

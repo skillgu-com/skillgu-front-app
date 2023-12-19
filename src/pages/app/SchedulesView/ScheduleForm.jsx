@@ -15,7 +15,6 @@ import CustomButton, {buttonTypes} from '../../../component/CustomButton';
 import Input from '../../../component/Input';
 import Hours from './Hours';
 import {} from '../../../services/MeetingCreatorService';
-import {getUserProfile} from '../../../services/UserProfileService';
 import {useNavigate} from "react-router-dom";
 import {createScheduleMeeting} from "../../../services/ScheduleService";
 

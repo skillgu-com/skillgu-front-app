@@ -72,30 +72,8 @@ const navigation = [
     },
 ];
 
-const users2 = [
-    {
-        title: 'MSW',
-        location: 'Adam Nowak',
-        industry: 'IT',
-        roi: 10,
-        noFollow: true,
-    },
-];
-
-const myCards = [
-    {
-        firstName: 'MMW',
-        location: 'Warszawa, Kraków, Gdańsk, Szczecin',
-        industry: 'IT',
-        jobPosition: 'Software Engineer at Facebook',
-        roi: 10,
-    },
-];
-
 const HomeScreen = () => {
-    let [projects, setProjects] = useState([]);
-    const [users, setUsers] = useState([]); // Inicjalizacja stanu users jako pusta tablica
-    // const {user} = useContext(AuthContext);
+    const [users, setUsers] = useState([]);
     const user = useSelector((state) => state.auth.user);
 
     const filteredNavigation = navigation.filter((item) =>

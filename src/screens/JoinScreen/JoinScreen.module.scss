@@ -47,7 +47,7 @@
 
 	@media screen and (min-width: $xl) {
 		svg {
-			margin-left: calc(-1 * ((100vh - $xl)/2));
+			margin-left: calc(-1 * ((100vw - $xl)/2));
 		}
 	}
 }

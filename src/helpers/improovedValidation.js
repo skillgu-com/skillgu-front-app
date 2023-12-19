@@ -9,6 +9,8 @@ const validation = (inputTouched, inputValue, inputName, required) => {
 	if (typeof inputValue === 'string') {
 		switch (inputName) {
 			case 'name':
+			case 'firtsName':
+			case 'LastName':
 			case 'company':
 				return inputValue.trim().length < 2 ? 'Pole musi przekraczać 2 znaki.' : '';
 			case 'message':

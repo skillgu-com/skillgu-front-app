@@ -38,7 +38,7 @@ const JoinScreen = (props: JoinScreenProps) => {
 					{formContent}
 					<div className={styles.inline}>
 						<Link to={redirect.link}>{redirect.text}</Link>
-						<Link to='/poicy'>Warunki umowy i współpracy</Link>
+						<Link to='/policy'>Warunki umowy i współpracy</Link>
 					</div>
 				</div>
 				{children}

@@ -5,12 +5,13 @@ import HeroHeader from '../../../component/HeroHeader';
 import investors from '../../../assets/img/galaxy.png';
 import MentorCard from '../../../component/Cards/MentorCard/MentorCard';
 import MentorFilters from "./MentorFilters";
+import {getAllFilteredMentors} from "../../../services/MentorViewService";
 
 const MentorScreen = () => {
     const [mentors, setMentors] = useState([]);
     let [filteredMentors, setFilteredMentors] = useState([]);
     let [selectedCategory, setSelectedCategory] = useState('');
-    let [filters, setFilters] = useState({ category: '', skill: '' });
+    let [filterCriteria, setFilters] = useState({category: '', skill: ''});
 
 
     useEffect(() => {
@@ -32,15 +33,20 @@ const MentorScreen = () => {
     }, [selectedCategory, mentors]);
 
     const handleFilterChange = (element) => {
-        console.log(element);
-        setFilters(prevFilters => ({ ...prevFilters, ...element }));
+        setFilters(prevFilters => ({...prevFilters, ...element}));
+        const user = {
+            skill: filterCriteria.skill,
+            category: filterCriteria.category
+        }
+        getAllFilteredMentors(user);
+
     };
 
 
     return (
         <AppLayout>
             <HeroHeader title='Mentorzy' image={<img src={investors} alt='mentors'/>}/>
-            <MentorFilters onFilterChange={handleFilterChange} />
+            <MentorFilters onFilterChange={handleFilterChange}/>
             <section className='d-flex flex-wrap'>
                 {mentors.length === 0 ? (<p>Brak dostępnych mentorów.</p>) : (mentors.map((element) => (
                         <MentorCard

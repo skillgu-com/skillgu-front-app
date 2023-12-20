@@ -8,7 +8,7 @@ import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 import ProjectsMapScreen from './pages/app/MapOfProjectsView';
 import UserProfileScreen from './pages/app/UserProfileScreen';
 import ProjectsSearchScreen from './pages/app/SearchOfProjectsView';
-import HomeScreen from './pages/app/HomeView';
+import HomeScreen from './pages/app/HomePage/HomePage';
 import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
 import SearchBusinessPartner from './pages/app/SearchBusinessPartner';

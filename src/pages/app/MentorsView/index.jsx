@@ -32,14 +32,26 @@ const MentorScreen = () => {
         setFilteredMentors(filtered);
     }, [selectedCategory, mentors]);
 
-    const handleFilterChange = (element) => {
-        setFilters(prevFilters => ({...prevFilters, ...element}));
+
+    useEffect(() => {
         const user = {
             skill: filterCriteria.skill,
             category: filterCriteria.category
-        }
-        getAllFilteredMentors(user);
+        };
+        getAllFilteredMentors(user)
+            .then((response) => {
+                setMentors(response.data); // aktualizacja mentorów z przefiltrowanymi danymi
+                setFilteredMentors(response.data); // aktualizacja przefiltrowanych mentorów
+            })
+            .catch((error) => {
+                throw new Error(error.message);
+            });
+    }, [filterCriteria]); // nasłuchiwanie zmian w filterCriteria
 
+    console.log(filterCriteria);
+
+    const handleFilterChange = (element) => {
+        setFilters(prevFilters => ({...prevFilters, ...element}));
     };
 
 

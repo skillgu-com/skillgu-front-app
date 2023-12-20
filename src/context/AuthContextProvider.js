@@ -24,6 +24,7 @@ export const AuthContext = createContext({
 		selectedRole
 	) => {},
 	loginGoogle: (prop1, prop2) => {},
+	logout: () => {},
 });
 
 const AuthContextProvider = (props) => {

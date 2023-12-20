@@ -4,18 +4,26 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import AuthContextProvider from './context/AuthContextProvider';
 
 import routes from './routes';
+import AppLayout from './new-components/AppLayout/AppLayout'
 
 function App() {
+	const screen = (hasLayout, element) =>
+		!!hasLayout ? <AppLayout>{element}</AppLayout> : <>{element}</>;
+
 	return (
 		<BrowserRouter>
 			<AuthContextProvider>
 				<Routes>
-					{routes.map(({isProtected, path, element, id}) => (
+					{routes.map(({isProtected, path, element, id, hasLayout}) => (
 						<Route
 							key={id}
 							path={path}
 							element={
-								isProtected ? <ProtectedRoute>{element}</ProtectedRoute> : element
+								isProtected ? (
+									<ProtectedRoute>{screen(hasLayout, element)}</ProtectedRoute>
+								) : (
+									screen(hasLayout, element)
+								)
 							}
 						/>
 					))}

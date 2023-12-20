@@ -1,10 +1,11 @@
 // Libraries
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 // Components
 import Container from '../../../Container/Container';
-// Hooks
+// Context
+import { AuthContext } from '../../../../context/AuthContextProvider';
 // Types
 import {Tag} from '../../../../types/tags';
 // Icons
@@ -19,8 +20,8 @@ import Logout from '../../../../assets/icons/Logout';
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
+	const context = useContext(AuthContext);
 	const [isExpanded, setIsExpanded] = useState(false);
-
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
 
 	return (
@@ -48,26 +49,26 @@ const Navbar = () => {
 						<Home />
 						Home
 					</Link>
-					<Link className={styles.navbarMenuItem} to='/profile'>
+					<Link className={styles.navbarMenuItem} to='/user-profile'>
 						<Doc />
 						Profil
 					</Link>
-					<Link className={styles.navbarMenuItem} to='/profile'>
+					<Link className={styles.navbarMenuItem} to='/user-setup'>
 						<Settings />
 						Ustawienia
 					</Link>
-					<Link className={styles.navbarMenuItem} to='/profile'>
+					<Link className={styles.navbarMenuItem} to='/'>
 						<Wallet />
 						Rozliczenia
 					</Link>
 				</div>
 				<div>
 					<div className={styles.navbarMenuSpace}></div>
-					<Link className={styles.navbarMenuItem} to='/profile'>
+					<Link className={styles.navbarMenuItem} to='/help'>
 						<Help />
 						Pomoc
 					</Link>
-					<button className={styles.navbarMenuItem}>
+					<button className={styles.navbarMenuItem} onClick={context.logout}>
 						<Logout />
 						Wyloguj się
 					</button>

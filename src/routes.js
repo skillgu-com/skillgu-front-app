@@ -55,6 +55,7 @@ const routes = [
 		path: '/home',
 		element: <HomeScreen />,
 		isProtected: true,
+		hasLayout: true,
 	},
 	{
 		id: 'route05',

@@ -17,6 +17,10 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+:root{
+	font-size: 10px;
+}
+
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -24,12 +28,23 @@ code {
 a {
 	text-decoration: none;
 	color: inherit;
+	color: $link-color;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-decoration-line: underline;
 }
 
 ul,
 ol {
 	list-style-type: none;
 	list-style-position: inside;
+}
+
+button{
+	border: none;
+	outline: transparent;
 }
 
 .top-space {

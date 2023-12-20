@@ -28,7 +28,7 @@ function App() {
 const ProtectedRoute = (props) => {
 	const isAuthenticated = !!localStorage.getItem('jwttoken');
 
-	return isAuthenticated ? props.children : <Navigate to='/' replace />;
+	return isAuthenticated ? props.children : <Navigate to='/login' replace />;
 };
 
 export default App;

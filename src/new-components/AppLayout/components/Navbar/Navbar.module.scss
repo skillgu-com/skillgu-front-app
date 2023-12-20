@@ -169,7 +169,19 @@
 	}
 
 	@media screen and (min-width: $md) {
-		box-shadow: none;
+		left: 0;
+		transform: translateX(0);
+		max-width: 242px;
+		height: 100vh;
+		:global {
+			.container {
+				gap: 54px;
+				height: 100%;
+				flex-direction: column;
+				align-items: flex-start;
+				padding: 36px 24px 53px;
+			}
+		}
 
 		&Button {
 			display: none;
@@ -177,23 +189,27 @@
 
 		&Menu {
 			position: relative;
-			z-index: 1;
 			display: flex;
-			align-items: center;
+			flex-direction: column;
+			justify-content: space-between;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			top: unset;
 			background-color: transparent;
-			gap: 20px;
-			width: auto;
-			padding: 0;
-			box-shadow: none;
-			transform: translateY(0) scale(1);
-			opacity: 1;
-		}
-	}
+			padding: 0 0 0 28px;
+			transform: translateY(0);
 
-	@media screen and (min-width: $lg) {
-		:global {
-			.container {
-				padding: 26px 32px;
+			&Space{
+				margin-top: 100%;
+				margin-left: -52px;
+				margin-right: -24px;
+			}
+
+			&Item{
+				&[data-highlited='true'] {
+					width: 194px;
+				}
 			}
 		}
 	}

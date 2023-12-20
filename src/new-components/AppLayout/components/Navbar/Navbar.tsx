@@ -42,45 +42,37 @@ const Navbar = () => {
 				<span></span>
 				<span></span>
 			</button>
-			<ol className={styles.navbarMenu}>
-				<li>
+			<div className={styles.navbarMenu}>
+				<div>
 					<Link className={styles.navbarMenuItem} data-highlited='true' to='/home'>
 						<Home />
 						Home
 					</Link>
-				</li>
-				<li>
 					<Link className={styles.navbarMenuItem} to='/profile'>
 						<Doc />
 						Profil
 					</Link>
-				</li>
-				<li>
 					<Link className={styles.navbarMenuItem} to='/profile'>
 						<Settings />
 						Ustawienia
 					</Link>
-				</li>
-				<li>
 					<Link className={styles.navbarMenuItem} to='/profile'>
 						<Wallet />
 						Rozliczenia
 					</Link>
-				</li>
-				<li className={styles.navbarMenuSpace}></li>
-				<li>
+				</div>
+				<div>
+					<div className={styles.navbarMenuSpace}></div>
 					<Link className={styles.navbarMenuItem} to='/profile'>
 						<Help />
 						Pomoc
 					</Link>
-				</li>
-				<li>
 					<button className={styles.navbarMenuItem}>
 						<Logout />
 						Wyloguj się
 					</button>
-				</li>
-			</ol>
+				</div>
+			</div>
 		</Container>
 	);
 };

@@ -9,20 +9,22 @@ const Home = () => {
 			viewBox='0 0 19 20'
 			fill='none'>
 			<path
-				fill-rule='evenodd'
-				clip-rule='evenodd'
+				fillRule='evenodd'
+				clipRule='evenodd'
 				d='M1 7.3L9.1 1L17.2 7.3V17.2C17.2 18.1941 16.3941 19 15.4 19H2.8C1.80589 19 1 18.1941 1 17.2V7.3Z'
-				stroke='#252B42' className='on-hover'
-				stroke-width='2'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				stroke='#252B42'
+				className='on-hover'
+				strokeWidth='2'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 			<path
 				d='M6.40039 19V10H11.8004V19'
-				stroke='#252B42' className='on-hover'
-				stroke-width='2'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				stroke='#252B42'
+				className='on-hover'
+				strokeWidth='2'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 		</svg>
 	);

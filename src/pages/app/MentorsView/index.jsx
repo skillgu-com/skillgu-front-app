@@ -11,7 +11,7 @@ const MentorScreen = () => {
     const [mentors, setMentors] = useState([]);
     let [filteredMentors, setFilteredMentors] = useState([]);
     let [selectedCategory, setSelectedCategory] = useState('');
-    let [filterCriteria, setFilters] = useState({category: '', skill: ''});
+    let [filterCriteria, setFilters] = useState({category: '', skill: '', sessionType: ''});
 
 
     useEffect(() => {
@@ -36,7 +36,8 @@ const MentorScreen = () => {
     useEffect(() => {
         const user = {
             skill: filterCriteria.skill,
-            category: filterCriteria.category
+            category: filterCriteria.category,
+            sessionType: filterCriteria.sessionType
         };
         getAllFilteredMentors(user)
             .then((response) => {
@@ -48,7 +49,7 @@ const MentorScreen = () => {
             });
     }, [filterCriteria]); // nasłuchiwanie zmian w filterCriteria
 
-    console.log(filterCriteria);
+    // console.log(filterCriteria);
 
     const handleFilterChange = (element) => {
         setFilters(prevFilters => ({...prevFilters, ...element}));

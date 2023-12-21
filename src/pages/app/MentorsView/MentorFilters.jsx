@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {TextField, MenuItem, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {getAllCategories, getAllSkills} from "../../../services/MentorViewService";
+import {getAllCategories, getAllSessionTypes, getAllSkills} from "../../../services/MentorViewService";
 
 const MentorFilters = ({onFilterChange}) => {
     const [skill, setSkill] = useState([]);
     const [category, setCategory] = useState([]);
+    const [sessionType, setSessionType] = useState([]);
     const [selectedSkill, setSelectedSkill] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedSessionType, setSelectedSessionType] = useState('');
 
     useEffect(() => {
         getAllSkills().then((res) => {
@@ -16,6 +18,11 @@ const MentorFilters = ({onFilterChange}) => {
         getAllCategories().then((res) => {
             setCategory(res.data);
         });
+        getAllSessionTypes().then((res) => {
+            setSessionType(res.data);
+        });
+
+
     }, []);
 
     const handleCategoryChange = (event) => {
@@ -26,6 +33,11 @@ const MentorFilters = ({onFilterChange}) => {
     const handleSkillChange = (event) => {
         setSelectedSkill(event.target.value);
         onFilterChange({skill: event.target.value, category: selectedCategory});
+    };
+
+    const handleSessionTypes = (event) => {
+        setSelectedSessionType(event.target.value);
+        onFilterChange({skill: event.target.value, category: event.target.value, sessionType: selectedSessionType});
     };
 
 
@@ -52,7 +64,7 @@ const MentorFilters = ({onFilterChange}) => {
             <TextField
                 id='category'
                 select
-                label='Kategorie'
+                label='Tematy Mentoringu'
                 value={selectedCategory}
                 onChange={handleCategoryChange}
             >
@@ -70,8 +82,13 @@ const MentorFilters = ({onFilterChange}) => {
                     <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
                 ))}
             </TextField>
-            <TextField id='topics' select label='Tematy' defaultValue={1}>
-                <MenuItem value={1}>Wszystkie</MenuItem>
+            <TextField id='topics'
+                       select label='Typy sesji'
+                       value={selectedSessionType}
+                       onChange={handleSessionTypes}>
+                {sessionType?.map(element => (
+                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
+                ))}
             </TextField>
             <TextField id='price' select label='Stawka' defaultValue={1}>
                 <MenuItem value={1}>500 zł</MenuItem>

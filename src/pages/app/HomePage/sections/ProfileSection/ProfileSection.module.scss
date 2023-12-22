@@ -1,0 +1,15 @@
+@use '../../../../../scss/variables' as *;
+
+.wrapper{
+  border-radius: 15px;
+  background: $light-color;
+  padding: 32px 33px 45px;
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 25px;
+  margin-bottom: 41px;
+}

@@ -1,0 +1,31 @@
+@use '../../../../../scss/variables' as *;
+
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 20px 30px;
+
+	> * {
+		grid-column: span 6;
+	}
+
+	@media screen and (min-width: $sm) {
+		> * {
+			grid-column: span 3;
+		}
+	}
+
+	@media screen and (min-width: $md) {
+		gap: 30px;
+
+		> * {
+			grid-column: span 3;
+		}
+	}
+
+	@media screen and (min-width: $xl) {
+		> * {
+			grid-column: span 2;
+		}
+	}
+}

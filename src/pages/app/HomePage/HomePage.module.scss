@@ -1,0 +1,26 @@
+@use '../../../scss/variables' as *;
+
+.wrapper {
+  margin-top: 36px;
+	:global {
+		.container {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+      gap: 30px;
+
+			> * {
+				grid-column: 1/-1;
+			}
+		}
+	}
+
+	@media screen and (min-width: $lg) {
+		:global {
+			.container {
+				> * {
+					grid-column: span 1;
+				}
+			}
+		}
+	}
+}

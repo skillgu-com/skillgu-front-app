@@ -22,7 +22,7 @@ const HomePage = () => {
 				<Title tag={TitleTag.h1} variant={TitleVariant.main}>
 					Witaj Mentorze!
 				</Title>
-				<Text>Zarządzaj i sprawdzaj swoje spotkania, zadania, informacje. </Text>
+				<Text>Zarządzaj i sprawdzaj swoje spotkania, zadania, informacje.</Text>
 			</Container>
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<NavSection />

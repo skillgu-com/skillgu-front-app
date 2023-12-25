@@ -19,6 +19,7 @@ const MentorScreen = () => {
             .then((response) => {
                 setMentors(response.data);
                 setFilteredMentors(response.data);
+                console.log(mentors)
             })
             .catch((error) => {
                 throw new Error(error.message);
@@ -49,7 +50,6 @@ const MentorScreen = () => {
             });
     }, [filterCriteria]); // nasłuchiwanie zmian w filterCriteria
 
-    // console.log(filterCriteria);
 
     const handleFilterChange = (element) => {
         setFilters(prevFilters => ({...prevFilters, ...element}));

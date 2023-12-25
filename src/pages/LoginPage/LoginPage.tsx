@@ -1,5 +1,5 @@
 // Libraries
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 import {jwtDecode} from 'jwt-decode';
@@ -28,7 +28,7 @@ const LoginPage = () => {
 		password: defaultInput,
 	});
 
-	const upadateFormHandler = (name: string, value: any) => {
+	const updateFormHandler = (name: string, value: any) => {
 		setForm({...form, [name]: value});
 	};
 
@@ -80,7 +80,7 @@ const LoginPage = () => {
 						value={form.email.value}
 						errorMessage={form.email.errorMessage}
 						isValid={form.email.isValid}
-						valueChangeHandler={upadateFormHandler}
+						valueChangeHandler={updateFormHandler}
 						label='E-mail'
 					/>
 					<Input
@@ -89,7 +89,7 @@ const LoginPage = () => {
 						type='password'
 						required
 						value={form.password.value}
-						valueChangeHandler={upadateFormHandler}
+						valueChangeHandler={updateFormHandler}
 						label='Hasło'
 					/>
 					<div className={classNames(styles.inline)}>

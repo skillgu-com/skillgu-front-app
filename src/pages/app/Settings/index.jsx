@@ -267,7 +267,7 @@ const Settings = () => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormControl component="fieldset">
-                            <FormLabel id='category'>Kategorie</FormLabel>
+                            <FormLabel id='category'>Tematy Mentoringu</FormLabel>
                             <FormGroup>
                                 {category?.map((element) => (
                                     <FormControlLabel

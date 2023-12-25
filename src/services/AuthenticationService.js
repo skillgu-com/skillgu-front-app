@@ -1,9 +1,9 @@
 import axios from "axios";
 
-
 export const registerAccount = async (firstName, lastName, email, password, agreement) => {
+    console.log(firstName, lastName, email, password, agreement);
     return await axios
-        .post('/api/user/register', {
+        .post('/api/auth/student/register', {
             firstName: firstName,
             lastName: lastName,
             email: email,

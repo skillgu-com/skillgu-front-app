@@ -12,6 +12,7 @@ import {updateUser} from '../services/UserProfileService';
 import {googleCalendar} from '../services/GoogleService';
 
 export const AuthContext = createContext({
+	//TODO czy to ponizej wyszarzone jest do wywalenia?
 	user: {email: '', role: '', id: ''},
 	login: (email, password) => {},
 	register: (

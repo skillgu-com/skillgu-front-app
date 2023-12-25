@@ -37,7 +37,7 @@ const MentorFilters = ({onFilterChange}) => {
 
     const handleSessionTypes = (event) => {
         setSelectedSessionType(event.target.value);
-        onFilterChange({skill: event.target.value, category: event.target.value, sessionType: selectedSessionType});
+        onFilterChange({skill: selectedSkill, category: selectedCategory, sessionType: event.target.value});
     };
 
 

@@ -19,8 +19,6 @@ const MentorCardOverview = (props) => {
 	} = props;
 
 
-
-
 	return (
 		<div className='mentor-card__overview'>
 			<h3 className='mentor-card__overview-name'>

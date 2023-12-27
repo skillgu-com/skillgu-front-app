@@ -1,15 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {TextField, MenuItem, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {getAllCategories, getAllSessionTypes, getAllSkills} from "../../../services/MentorViewService";
+import {
+    getAllCategories,
+    getAllMentorTypes,
+    getAllSessionTypes,
+    getAllSkills
+} from "../../../services/MentorViewService";
 
 const MentorFilters = ({onFilterChange}) => {
     const [skill, setSkill] = useState([]);
     const [category, setCategory] = useState([]);
     const [sessionType, setSessionType] = useState([]);
+    const [mentorType, setMentorTypes] = useState([]);
+
     const [selectedSkill, setSelectedSkill] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSessionType, setSelectedSessionType] = useState('');
+    const [selectedMentorType, setSelectedMentorTypes] = useState('');
+
 
     useEffect(() => {
         getAllSkills().then((res) => {
@@ -20,6 +29,9 @@ const MentorFilters = ({onFilterChange}) => {
         });
         getAllSessionTypes().then((res) => {
             setSessionType(res.data);
+        });
+        getAllMentorTypes().then((res) => {
+            setMentorTypes(res.data);
         });
 
 
@@ -38,6 +50,12 @@ const MentorFilters = ({onFilterChange}) => {
     const handleSessionTypes = (event) => {
         setSelectedSessionType(event.target.value);
         onFilterChange({skill: selectedSkill, category: selectedCategory, sessionType: event.target.value});
+    };
+
+    const handleMentorTypes = (event) => {
+        const newMentorType = event.target.value;
+        setSelectedMentorTypes(newMentorType);
+        onFilterChange({skill: selectedSkill, category: selectedCategory, sessionType: selectedSessionType, mentorType: newMentorType});
     };
 
 
@@ -87,6 +105,14 @@ const MentorFilters = ({onFilterChange}) => {
                        value={selectedSessionType}
                        onChange={handleSessionTypes}>
                 {sessionType?.map(element => (
+                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
+                ))}
+            </TextField>
+            <TextField id='mentorTypes'
+                       select label='Typy mentorów'
+                       value={selectedMentorType}
+                       onChange={handleMentorTypes}>
+                {mentorType?.map(element => (
                     <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
                 ))}
             </TextField>

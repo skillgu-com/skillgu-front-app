@@ -11,7 +11,7 @@ const MentorScreen = () => {
     const [mentors, setMentors] = useState([]);
     let [filteredMentors, setFilteredMentors] = useState([]);
     let [selectedCategory, setSelectedCategory] = useState('');
-    let [filterCriteria, setFilters] = useState({category: '', skill: '', sessionType: ''});
+    let [filterCriteria, setFilters] = useState({category: '', skill: '', sessionType: '', mentorType: ''});
 
 
     useEffect(() => {
@@ -19,7 +19,6 @@ const MentorScreen = () => {
             .then((response) => {
                 setMentors(response.data);
                 setFilteredMentors(response.data);
-                console.log(mentors)
             })
             .catch((error) => {
                 throw new Error(error.message);
@@ -38,10 +37,12 @@ const MentorScreen = () => {
         const user = {
             skill: filterCriteria.skill,
             category: filterCriteria.category,
-            sessionType: filterCriteria.sessionType
+            sessionType: filterCriteria.sessionType,
+            mentorType: filterCriteria?.mentorType,
         };
         getAllFilteredMentors(user)
             .then((response) => {
+                console.log(response.data)
                 setMentors(response.data); // aktualizacja mentorów z przefiltrowanymi danymi
                 setFilteredMentors(response.data); // aktualizacja przefiltrowanych mentorów
             })

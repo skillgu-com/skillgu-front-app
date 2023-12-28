@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {ScrollContainer} from 'react-indiana-drag-scroll';
 // Components
@@ -13,7 +13,45 @@ import {
 // Styles
 import styles from './ListSection.module.scss';
 
+const ITEMS_PLACEHOLDER = [
+	{
+		id: 'd01',
+		name: 'Mateusz Kruk',
+		date: '05.11.23',
+		kind: 'Sesja',
+		type: 'Sesja technicz na',
+		status: {
+			text: 'Kontynuacja',
+			bgColor: '#ECF7F2',
+		},
+	},
+	{
+		id: 'd02',
+		name: 'Anna Kula',
+		date: '05.11.23',
+		kind: 'Mentoring',
+		type: 'Plan pro',
+		status: {
+			text: 'Zaplanowany',
+			bgColor: '#FDF9E9',
+		},
+	},
+	{
+		id: 'd03',
+		name: 'Jan Matulski',
+		date: '05.11.23',
+		kind: 'Sesja',
+		type: 'Sprawdzenie CV',
+		status: {
+			text: 'Zakończony',
+			bgColor: '#FBEAEF',
+		},
+	},
+];
+
 const ListSection = () => {
+	const [items, setItems] = useState(ITEMS_PLACEHOLDER);
+
 	return (
 		<section className={styles.wrapper}>
 			<div className={styles.header}>
@@ -40,13 +78,17 @@ const ListSection = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Mateusz Kruk</td>
-							<td>05.11.23</td>
-							<td>Sesja</td>
-							<td><Tag text='Sesja technicz na'/></td>
-							<td><Tag text='Kontynuacja' bgColor='#ECF7F2' /></td>
-						</tr>
+						{items.map(item => <tr key={item.id}>
+							<td>{item.name}</td>
+							<td>{item.date}</td>
+							<td>{item.kind}</td>
+							<td>
+								<Tag text={item.type} />
+							</td>
+							<td>
+								<Tag {...item.status} />
+							</td>
+						</tr>)}
 					</tbody>
 				</table>
 			</ScrollContainer>

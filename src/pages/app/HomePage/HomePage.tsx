@@ -19,7 +19,7 @@ import styles from './HomePage.module.scss';
 const HomePage = () => {
 	return (
 		<>
-			<Container as={Tag.Header}>
+			<Container as={Tag.Header} classes={styles.header}>
 				<Title tag={TitleTag.h1} variant={TitleVariant.main}>
 					Witaj Mentorze!
 				</Title>

@@ -5,8 +5,16 @@
 	:global {
 		.container {
 			display: grid;
-			grid-template-columns: 55% 40%;
+			grid-template-columns: calc(60% - 15px) calc(40% - 15px);
       gap: 30px;
+			
+			@media screen and (min-width: $xl) {
+				grid-template-columns: calc(100% - 347px) 317px;
+			}
 		}
 	}
+}
+
+.header{
+	padding-top: 24px;
 }

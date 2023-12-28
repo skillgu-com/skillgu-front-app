@@ -1,0 +1,11 @@
+@use '../../scss/variables' as *;
+
+.header {
+	padding-top: 24px;
+
+	@media screen and (min-width: $lg) {
+		.container {
+			width: calc(100% - 70px);
+		}
+	}
+}

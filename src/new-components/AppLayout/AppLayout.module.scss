@@ -3,6 +3,7 @@
 .content {
 	min-height: calc(100vh - 86px);
 	margin-top: 86px;
+	padding-bottom: 32px;
   background-color: $gray-color;
 
 	@media screen and (min-width: $md) {

@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react';
 // Components
-import {Title, Text} from 'src/new-components/typography';
+import AppHeader from 'src/new-components/AppHeader/AppHeader';
 import Container from 'src/new-components/Container/Container';
 // Sections
 import NavSection from './sections/NavSection/NavSection';
@@ -9,22 +9,16 @@ import ProfileSection from './sections/ProfileSection/ProfileSection';
 import ListSection from './sections/ListSection/ListSection';
 // Types
 import {Tag} from 'src/types/tags';
-import {
-	TitleTag,
-	TitleVariant,
-} from 'src/new-components/typography/Title/Title';
 // Styles
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
 	return (
 		<>
-			<Container as={Tag.Header} classes={styles.header}>
-				<Title tag={TitleTag.h1} variant={TitleVariant.main}>
-					Witaj Mentorze!
-				</Title>
-				<Text>Zarządzaj i sprawdzaj swoje spotkania, zadania, informacje.</Text>
-			</Container>
+			<AppHeader
+				title='Witaj Mentorze!'
+				text='Zarządzaj i sprawdzaj swoje spotkania, zadania, informacje.'
+			/>
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<NavSection />
 				<ProfileSection

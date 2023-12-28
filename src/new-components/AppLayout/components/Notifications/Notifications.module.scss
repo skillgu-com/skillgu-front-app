@@ -1,12 +1,21 @@
 @use '../../../../scss/variables' as *;
 
 .wrapper {
-	position: relative;
-	z-index: 9;
-	max-width: max-content;
-	margin-left: auto;
 	padding-top: 24px;
-	padding-right: 20px;
+	
+	:global {
+		.container {
+			position: relative;
+			z-index: 9;
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+
+	@media screen and (min-width: $lg) {
+		height: 0;
+		transform: translateY(100%);
+	}
 }
 
 .button {
@@ -53,7 +62,7 @@
 	padding: 20px 20px 14px 17px;
 	border-radius: 8px;
 	background-color: $light-color;
-	transform: translateY(calc(100% + 23px)) translateX(-15px);
+	transform: translateY(calc(100% + 23px)) translateX(-10px);
 	filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.14));
 	opacity: 0;
 	visibility: hidden;

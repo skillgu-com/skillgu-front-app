@@ -1,7 +1,11 @@
 // Libraries
 import React, {useState} from 'react';
+// Components
+import Container from 'src/new-components/Container/Container';
 // Icons
 import NotificationsSvg from 'src/assets/icons/NotificationsSvg';
+// Types
+import {Tag} from 'src/types/tags';
 // Styles
 import styles from './Notifications.module.scss';
 
@@ -9,10 +13,10 @@ const Notifications = () => {
 	const [nots, setNots] = useState<any[]>([
 		{id: 'd01', text: 'Otrzymałeś wiadomość'},
 	]);
-	const [isVisible, setIsVisible] = useState(true);
+	const [isVisible, setIsVisible] = useState(false);
 
 	return (
-		<div className={styles.wrapper}>
+		<Container as={Tag.Div} classes={styles.wrapper}>
 			<button className={styles.button} onClick={() => setIsVisible(!isVisible)}>
 				<NotificationsSvg />
 				{nots.length > 0 && <span className={styles.counter}>{nots.length}</span>}
@@ -49,7 +53,7 @@ const Notifications = () => {
 					))}
 				</div>
 			)}
-		</div>
+		</Container>
 	);
 };
 

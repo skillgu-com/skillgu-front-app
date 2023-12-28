@@ -1,0 +1,31 @@
+@use '../../../scss/variables' as *;
+
+.wrapper {
+	margin-top: 24px;
+}
+
+.section {
+	padding: 24px 24px 36px;
+	border-radius: 15px;
+	background: $light-color;
+	margin-bottom: 30px;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+
+  &Submit{
+    grid-column: 1/-1;
+    justify-self: end;
+  }
+
+	@media screen and (min-width: $md) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media screen and (min-width: $xl) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}

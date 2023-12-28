@@ -53,7 +53,7 @@ const Navbar = () => {
 						<Doc />
 						Profil
 					</Link>
-					<Link className={styles.navbarMenuItem} to='/user-setup'>
+					<Link className={styles.navbarMenuItem} to='/settings'>
 						<Settings />
 						Ustawienia
 					</Link>

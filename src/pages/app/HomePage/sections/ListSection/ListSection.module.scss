@@ -1,0 +1,60 @@
+@use '../../../../../scss/variables' as *;
+@use '../../../../../scss/mixins' as *;
+
+.wrapper {
+	max-width: 100%;
+	width: 100%;
+	grid-column: 1/-1;
+	padding: 24px 24px 48px;
+	border-radius: 15px;
+	background: #fff;
+
+	@media screen and (min-width: $lg) {
+		grid-column: 1/2;
+		grid-row: 2/3;
+	}
+}
+
+.header {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+
+	&Title {
+		margin-bottom: 7px !important;
+	}
+}
+
+.table {
+	@include hide-scrollbar;
+	margin-top: 23px;
+	max-width: 100%;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	text-align: left;
+	color: #252b42;
+	font-size: 16px;
+	cursor: grab;
+
+	table {
+		border-collapse: collapse;
+	}
+
+	th {
+		font-weight: 600;
+	}
+
+	td,
+	th {
+		padding: 12px 24px;
+		overflow: auto;
+		white-space: nowrap;
+	}
+
+	tr {
+		th:first-of-type,
+		td:first-of-type {
+			padding-left: 0;
+		}
+	}
+}

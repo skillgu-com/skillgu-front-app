@@ -6,6 +6,7 @@ import Container from 'src/new-components/Container/Container';
 // Sections
 import NavSection from './sections/NavSection/NavSection';
 import ProfileSection from './sections/ProfileSection/ProfileSection';
+import ListSection from './sections/ListSection/ListSection';
 // Types
 import {Tag} from 'src/types/tags';
 import {
@@ -51,6 +52,7 @@ const HomePage = () => {
 						},
 					]}
 				/>
+				<ListSection />
 			</Container>
 		</>
 	);

@@ -1,20 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import AppLayout from "../../../component/AppLayout";
+import CustomButton, {buttonColors, buttonTypes} from "../../../component/CustomButton";
 import {FormControl, FormLabel, Grid, MenuItem, Select, TextField} from '@mui/material';
-import CustomButton, {buttonColors, buttonTypes} from '../../../../component/CustomButton';
-import AppLayout from "../../../../component/AppLayout";
-import HeroHeader from "../../../../component/HeroHeader";
-import {getScheduleNames} from "../../../../services/MeetingCreatorService";
+import HeroHeader from "../../../component/HeroHeader";
+import {createSession} from "../../../services/SessionService";
+import {getScheduleNames} from "../../../services/MeetingCreatorService";
+import {getSessionTypes} from "../../../services/KeyValuesService";
 import {useNavigate} from "react-router-dom";
-import forest from "../../../../assets/img/forest.png";
-import {getKeyValues, getSessionTypes} from "../../../../services/KeyValuesService";
-import {createSession} from "../../../../services/SessionService";
+import {useEffect, useState} from "react";
 
 
-const SessionPlanCreatorView = (props) => {
+const CreateSingleSession = (props) => {
     const [sessionDescription, setSessionDescription] = useState("");
-    const [keyValues, setKeyValues] = useState("");
     const [sessionTypes, setSessionTypes] = useState([]);
-    const [sessionTypeValues, setSessionTypeValues] = useState(0);
+    const [sessionTypeValues, setSessionTypeValues] = useState(1);
     const [sessionPrice, setSessionPrice] = useState('');
     const [scheduleNames, setScheduleNames] = useState([]);
     const [selectedSchedule, setSelectedSchedule] = useState('');
@@ -45,22 +43,10 @@ const SessionPlanCreatorView = (props) => {
         })
     }, []);
 
-    // useEffect(() => {
-    //     getKeyValues()
-    //         .then(res => {
-    //             setKeyValues(res.data);
-    //
-    //         })
-    //         .catch(reason => {
-    //             console.error("use mock example :)")
-    //         })
-    // }, []);
 
-    //
     useEffect(() => {
         getSessionTypes()
             .then(res => {
-                //  Konwersja obiektu na tablicę w useEffect: bo teraz res.data jest obiektem
                 const sessionArray = Object?.entries(res.data).map(([key, value]) => value);
                 setSessionTypes(sessionArray);
 
@@ -82,7 +68,6 @@ const SessionPlanCreatorView = (props) => {
         <AppLayout>
             <HeroHeader
                 title='Twoje dane osobowe'
-                image={<img src={forest} alt='las'/>}
             />
             <form className='schedule-form' onSubmit={handleSubmit}>
                 <hr className='line-separator'/>
@@ -133,7 +118,7 @@ const SessionPlanCreatorView = (props) => {
                                 inputProps={{'aria-label': 'Without label'}}
                                 value={sessionTypeValues}
                                 onChange={handleSessionType}>
-                                <MenuItem value={0} disabled>
+                                <MenuItem value={1} disabled>
                                     Wybierz typ spotkania
                                 </MenuItem>
                                 {sessionTypes?.map((element, index) => (
@@ -202,4 +187,4 @@ const SessionPlanCreatorView = (props) => {
 };
 
 
-export default SessionPlanCreatorView;
+export default CreateSingleSession;

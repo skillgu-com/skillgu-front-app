@@ -15,19 +15,19 @@ import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
 import Settings from './pages/app/Settings';
 import PitchDeckCreatorScreen from './pages/app/CreatorNewProjectView';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
-import BookSessionScreen from './pages/app/BookSessionScreen/BookSessionScreen';
+import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
 import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
-import CreateNewMeeting from './pages/app/CreateMeetingView/CreateNewMeeting';
+import MentoringAndSessionDashboard from './pages/app/MentoringAndSessionDashboard/MentoringAndSessionDashboard';
 import MeetingSchedule from './pages/app/MeetingScheduleView/MeetingSchedule';
 import AccountView from './pages/app/AccountView/AccountView';
-import MentoringPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/MentoringPlanCreatorView';
-import SessionPlanCreatorView from './pages/app/CreateMeetingView/FormSteps/SessionPlanCreatorViews';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import LoggedProfileScreen from './pages/app/UserProfileScreen/LoggedProfileScreen';
 import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
+import CreateMentorPlan from "./pages/app/MentoringAndSessionDashboard/CreateMentorPlan";
+import CreateSingleSession from "./pages/app/MentoringAndSessionDashboard/CreateSingleSession";
 
 const routes = [
 	{
@@ -148,7 +148,7 @@ const routes = [
 	{
 		id: 'route20',
 		path: '/sessions-mentorings',
-		element: <CreateNewMeeting />,
+		element: <MentoringAndSessionDashboard />,
 		isProtected: true,
 	},
 	{
@@ -166,13 +166,13 @@ const routes = [
 	{
 		id: 'route23',
 		path: '/create-mentoring',
-		element: <MentoringPlanCreatorView />,
+		element: <CreateMentorPlan />,
 		isProtected: true,
 	},
 	{
 		id: 'route24',
 		path: '/create-session',
-		element: <SessionPlanCreatorView />,
+		element: <CreateSingleSession />,
 		isProtected: true,
 	},
 	{

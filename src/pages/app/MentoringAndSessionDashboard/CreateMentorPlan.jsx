@@ -1,22 +1,7 @@
-import React, {useState} from 'react';
-import {
-    FormLabel,
-    TextField,
-    Grid,
-    MenuItem,
-    FormControl,
-    Select,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
-    Slider,
-    TextareaAutosize,
-    Button,
-} from '@mui/material';
-import CustomButton, {buttonColors} from '../../../../component/CustomButton';
-import AppLayout from "../../../../component/AppLayout";
-import HeroHeader from "../../../../component/HeroHeader";
-import headerImg from "../../../../assets/img/sunrise.png";
+import {FormControl, FormLabel, Grid, MenuItem, Select, Slider, TextField,} from '@mui/material';
+import {useState} from "react";
+import HeroHeader from "../../../component/HeroHeader";
+import AppLayout from "../../../component/AppLayout";
 
 function valuetext(value) {
     return `${value}°C`;
@@ -24,7 +9,7 @@ function valuetext(value) {
 
 const minDistance = 10;
 
-const MentoringPlanCreatorView = (props) => {
+const CreateMentorPlan = (props) => {
     const [value1, setValue1] = useState([0, 10000000]);
 
     const handleChange1 = (_event, newValue, activeThumb) => {
@@ -43,7 +28,6 @@ const MentoringPlanCreatorView = (props) => {
         <AppLayout>
             <HeroHeader
                 title='Stwórz plan mentoringu'
-                image={<img src={headerImg} alt='Las'/>}
             />
 
             <Grid container spacing={2}>
@@ -369,4 +353,4 @@ const MentoringPlanCreatorView = (props) => {
     );
 };
 
-export default MentoringPlanCreatorView;
+export default CreateMentorPlan;

@@ -3,8 +3,8 @@ import {Grid, TextField} from '@mui/material';
 
 import CustomButton, {buttonTypes} from '../../../../component/CustomButton';
 import {useSelector} from 'react-redux';
-import {createSession} from '../../../../services/MeetingCreatorService';
 import {useNavigate} from 'react-router-dom';
+import {bookSingleSession} from "../../../../services/SessionService";
 
 const BookPayment = ({changeStepHandler}) => {
 	const userFromRedux = useSelector(
@@ -19,7 +19,7 @@ const BookPayment = ({changeStepHandler}) => {
 
 	const handleButtonClick = (e) => {
         e.preventDefault()
-		createSession(createSessionRequest).then(() => {
+		bookSingleSession(createSessionRequest).then(() => {
 		}).catch(error => {
             console.log(error.message);
         });

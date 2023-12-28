@@ -9,3 +9,10 @@ export const createSession = async (sessionDescription, sessionTypeValues, sessi
         selectedSchedule: selectedSchedule,
     });
 }
+
+export const bookSingleSession = async (createSessionRequest) => {
+    return await axios.post('/api/session/book-single-session', {
+        mentorID: createSessionRequest.mentorID,
+        sessionTypeID: createSessionRequest.sessionTypeID
+    });
+}

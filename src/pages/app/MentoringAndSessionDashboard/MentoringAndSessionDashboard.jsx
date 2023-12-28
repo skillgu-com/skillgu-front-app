@@ -6,7 +6,7 @@ import CardNavigation from "../../../component/CardNavigation";
 import {ReactComponent as Create} from '../../../assets/icons/create.svg';
 import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg';
 
-const CreateNewMeeting = () => {
+const MentoringAndSessionDashboard = () => {
 
     const navigation = [
         {
@@ -37,10 +37,8 @@ const CreateNewMeeting = () => {
                     <CardNavigation key={id} title={title} icon={icon} link={link}/>
                 ))}
             </div>
-
         </AppLayout>
     );
 }
 
-
-export default CreateNewMeeting;
+export default MentoringAndSessionDashboard;

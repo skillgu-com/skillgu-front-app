@@ -80,6 +80,8 @@ const HomeScreen = () => {
         item.allowedRoles.includes(user?.role?.[0])
     );
 
+    console.log(user);
+
     useEffect(() => {
         getAllUsersWithRoles()
             .then((res) => {

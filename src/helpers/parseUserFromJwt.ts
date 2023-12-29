@@ -13,7 +13,7 @@ export const parseUserFromJwt = (token: string) => {
 		const payload = JSON.parse(jsonPayload);
 		return {
 			email: payload.sub,
-			role: payload?.role,
+			role: payload?.role[0],
 		};
 	}
 	return null;

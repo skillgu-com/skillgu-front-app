@@ -51,7 +51,7 @@ const LoginPage = () => {
 	};
 
 	useEffect(() => {
-		if (!!!window) return;
+		if (!!!window.google) return;
 		(window.google as any)?.accounts.id.initialize({
 			client_id:
 				'853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com',
@@ -65,7 +65,7 @@ const LoginPage = () => {
 			googleLoginButton?.querySelector('div[role=button]')!;
 
 		setGoogleLogin({click: () => googleLoginWrapperButton.click()});
-	}, [window]);
+	}, [window.google]);
 
 	return (
 		<JoinScreen

@@ -27,7 +27,7 @@ export const login = (
 					payload: {
 						id: idResponse.data,
 						email: userData.email,
-						role: userData.role,
+						role: userData.role[0],
 					},
 				});
 			});
@@ -58,7 +58,7 @@ export const loginGoogle = (
 					payload: {
 						id: idResponse.data,
 						email: userData.email,
-						role: userData.role,
+						role: userData.role[0],
 					},
 				});
 			});

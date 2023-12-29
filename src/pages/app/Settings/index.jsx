@@ -30,7 +30,7 @@ const Settings = () => {
 
     const userData = ({
         userID: userFromRedux.id,
-        role: userFromRedux?.role[0],
+        role: userFromRedux?.role,
         email: userFromRedux.email
     })
 

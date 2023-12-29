@@ -1,10 +1,10 @@
 // Libraries
-import React, {useContext, useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import classNames from 'classnames';
 import {jwtDecode} from 'jwt-decode';
 
-import {AuthContext} from '../../context/AuthContextProvider';
 // import {loginGoogleUser} from '../../services/AuthenticationService';
 // Components
 import Button from '../../new-components/Button/Button';
@@ -17,9 +17,11 @@ import Google from '../../assets/icons/Google';
 import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './LoginPage.module.scss';
+import {login, loginGoogle} from 'src/helpers/login';
 
 const LoginPage = () => {
-	const context = useContext(AuthContext);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [remember, setRemember] = useState(false);
 	const [googleLogin, setGoogleLogin] = useState({click: () => {}});
@@ -34,13 +36,13 @@ const LoginPage = () => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		context.login(form.email.value, form.password.value);
+		login(form.email.value, form.password.value, dispatch, navigate);
 	};
 
 	const handleGoogleLoginSuccess = (response: any) => {
 		// console.log('Google login success', response.credential);
 		const userObcjet: {email: any} = jwtDecode(response.credential);
-		context?.loginGoogle(response.credential, userObcjet?.email);
+		loginGoogle(response.credential, userObcjet?.email, dispatch, navigate);
 	};
 
 	const handleGoogleLoginFailure = (error: any) => {

@@ -1,7 +1,8 @@
 // Libraries
-import React, {useContext, useState, useMemo} from 'react';
-// Context
-import {AuthContext} from '../../context/AuthContextProvider';
+import React, {useState, useMemo} from 'react';
+import {useNavigate} from 'react-router-dom';
+// Helpers
+import {register} from 'src/helpers/register';
 // Components
 import Button from '../../new-components/Button/Button';
 import Checkbox from '../../new-components/Checkbox/Checkbox';
@@ -16,7 +17,7 @@ const NUM_REGEX = /\d/;
 const BIG_SIGN_REGEX = /[A-Z]/;
 
 const RegisterPage = () => {
-	const context = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
 		firstName: defaultInput,
@@ -35,12 +36,13 @@ const RegisterPage = () => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		context.register(
+		register(
 			form.firstName.value,
 			form.lastName.value,
 			form.email.value,
 			form.password.value,
-			form.agreement.value
+			form.agreement.value,
+			navigate
 		);
 	};
 

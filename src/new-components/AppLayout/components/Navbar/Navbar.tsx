@@ -1,11 +1,13 @@
 // Libraries
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 // Components
 import Container from '../../../Container/Container';
-// Context
-import { AuthContext } from '../../../../context/AuthContextProvider';
+// Helpers
+import {logout} from 'src/helpers/login';
 // Types
 import {Tag} from '../../../../types/tags';
 // Icons
@@ -20,7 +22,9 @@ import Logout from '../../../../assets/icons/Logout';
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
-	const context = useContext(AuthContext);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const [isExpanded, setIsExpanded] = useState(false);
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
 
@@ -68,7 +72,9 @@ const Navbar = () => {
 						<Help />
 						Pomoc
 					</Link>
-					<button className={styles.navbarMenuItem} onClick={context.logout}>
+					<button
+						className={styles.navbarMenuItem}
+						onClick={() => logout(dispatch, navigate)}>
 						<Logout />
 						Wyloguj się
 					</button>

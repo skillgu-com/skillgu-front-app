@@ -21,14 +21,6 @@ const DATES_PLACEHOLDER = [
             {id: '12', hour: '17:30'},
         ],
     },
-    // {
-    //     id: '2',
-    //     date: new Date(),
-    //     hours: [
-    //         {id: '21', hour: '16:00'},
-    //         {id: '22', hour: '17:00'},
-    //     ],
-    // }
 ];
 
 const BookForm = ({changeStepBookHandler}) => {
@@ -51,8 +43,6 @@ const BookForm = ({changeStepBookHandler}) => {
         getAllMentorCalendarEvents(userFromRedux.mentorID).then((res) => {
             const dataFromApi = res.data;
             const combinedData = [];
-
-            console.log(res.data);
 
             dataFromApi.forEach((item, index) => {
                 const startDate = new Date(item.scheduleStartDay);

@@ -28,6 +28,7 @@ import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
 import CreateMentorPlan from "./pages/app/MentoringAndSessionDashboard/CreateMentorPlan";
 import CreateSingleSession from "./pages/app/MentoringAndSessionDashboard/CreateSingleSession";
+import BookSuccess from "./pages/app/BookSessionView/views/BookSuccess";
 
 const routes = [
 	{
@@ -199,6 +200,14 @@ const routes = [
 		element: <SchedulesView />,
 		isProtected: true,
 	},
+	{
+		id: 'route29',
+		path: '/book-success',
+		element: <BookSuccess />,
+		isProtected: true,
+	},
+
+
 ];
 
 export default routes;

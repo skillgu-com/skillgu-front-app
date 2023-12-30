@@ -102,3 +102,22 @@
 		margin: 0 auto;
 	}
 }
+
+.book-payment-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: start; /* Align items at the start of the container */
+}
+
+.book-payment-container,
+.book-payment-stripe {
+	flex: 1; /* Each takes up an equal amount of space */
+	min-width: 0; /* Prevents flex items from overflowing */
+	padding: 10px; /* Adjust padding as needed */
+}
+
+/* Optional: Hide the interfering span */
+.ProductSummary-totalAmount {
+	display: none; /* Hide it entirely */
+	/* Or use visibility: hidden; if you want to keep its space */
+}

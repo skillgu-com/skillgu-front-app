@@ -11,6 +11,8 @@ export const parseUserFromJwt = (token: string) => {
 				?.join('')
 		);
 		const payload = JSON.parse(jsonPayload);
+
+		console.log(payload);
 		return {
 			email: payload.sub,
 			role: payload?.role[0],

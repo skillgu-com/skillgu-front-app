@@ -1,0 +1,1 @@
+export const getRole = (state: any) => state.auth.user?.role

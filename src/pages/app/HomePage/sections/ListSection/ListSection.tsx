@@ -62,7 +62,7 @@ const ListSection = () => {
 						variant={TitleVariant.standard}>
 						Moi Mentorzy
 					</Title>
-					<Text>Dokumentacja sesji</Text>
+					<Text classes={styles.headerText}>Dokumentacja sesji</Text>
 				</div>
 				<Link to='/'>Zobacz więcej</Link>
 			</div>
@@ -78,17 +78,19 @@ const ListSection = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{items.map(item => <tr key={item.id}>
-							<td>{item.name}</td>
-							<td>{item.date}</td>
-							<td>{item.kind}</td>
-							<td>
-								<Tag text={item.type} />
-							</td>
-							<td>
-								<Tag {...item.status} />
-							</td>
-						</tr>)}
+						{items.map((item) => (
+							<tr key={item.id}>
+								<td>{item.name}</td>
+								<td>{item.date}</td>
+								<td>{item.kind}</td>
+								<td>
+									<Tag text={item.type} />
+								</td>
+								<td>
+									<Tag {...item.status} />
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</ScrollContainer>

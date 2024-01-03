@@ -3,8 +3,9 @@
 .wrapper {
 	border-radius: 15px;
 	background: $light-color;
-	padding: 32px 33px 45px;
+	padding: 32px 33px 79px;
 	grid-column: 1/-1;
+	height: max-content;
 
 	@media screen and (min-width: $lg) {
 		grid-column: 2/3;

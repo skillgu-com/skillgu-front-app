@@ -1,5 +1,8 @@
 // Libraries
-import React from 'react';
+import React, {useState} from 'react';
+import {useSelector} from 'react-redux';
+// Selectors
+import {getRole} from 'src/redux/selectors/authSelectors';
 // Components
 import {Title} from 'src/new-components/typography';
 import MiniUserCard from 'src/new-components/Cards/MiniUserCard/MiniUserCard';
@@ -8,17 +11,35 @@ import {
 	TitleTag,
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
-import {MiniUserCardProps} from 'src/new-components/Cards/MiniUserCard/MiniUserCard';
 // Styles
 import styles from './ProfileSection.module.scss';
 import Tag from 'src/new-components/Tag/Tag';
 
-interface ProfileSectionProps {
-	usersList: MiniUserCardProps[];
-}
+const USERS_PLACEHOLDER = [
+	{
+		id: 'test',
+		name: 'Product manager key advisor',
+		link: '/',
+		image: 'https://cdn.pixabay.com/photo/2023/12/08/07/27/woman-8437007_640.jpg',
+	},
+	{
+		id: 'test 2',
+		name: 'Product manager key advisor',
+		link: '/',
+		image: 'https://cdn.pixabay.com/photo/2023/12/08/07/27/woman-8437007_640.jpg',
+	},
+	{
+		id: 'test 3',
+		name: 'Product manager key advisor',
+		link: '/',
+		image: 'https://cdn.pixabay.com/photo/2023/12/08/07/27/woman-8437007_640.jpg',
+	},
+];
 
-const ProfileSection = (props: ProfileSectionProps) => {
-	const {usersList} = props;
+const ProfileSection = () => {
+	const role = useSelector(getRole);
+
+	const [usersList, setUsersList] = useState(USERS_PLACEHOLDER);
 
 	return (
 		<section className={styles.wrapper}>
@@ -40,16 +61,20 @@ const ProfileSection = (props: ProfileSectionProps) => {
 					<h4 className={styles.userAttributesItem}>
 						17<small>Sesji</small>
 					</h4>
-					<h4 className={styles.userAttributesItem}>
-						180 zł<small>Stawka godz.</small>
-					</h4>
-					<h4 className={styles.userAttributesItem}>
-						8/10<small>Ocena</small>
-					</h4>
+					{role === 'M' && (
+						<>
+							<h4 className={styles.userAttributesItem}>
+								180 zł<small>Stawka godz.</small>
+							</h4>
+							<h4 className={styles.userAttributesItem}>
+								8/10<small>Ocena</small>
+							</h4>
+						</>
+					)}
 				</div>
 			</div>
 			<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
-				Proponowani Mentorzy
+				{role === 'M' ?  'Podobni do Ciebie':'Proponowani Mentorzy'}
 			</Title>
 			<div className={styles.list}>
 				{usersList.map((user) => (

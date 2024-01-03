@@ -1,36 +1,40 @@
 import React, {useState, useEffect} from 'react';
 import {EmbeddedCheckoutProvider, EmbeddedCheckout} from '@stripe/react-stripe-js';
-import {loadStripe} from "@stripe/stripe-js";
-import {testStripePayment} from "../../../../services/Payment";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {createCheckoutSession} from "../../../../services/PaymentService";
 
-const stripePromise = loadStripe('pk_test_51ONE6SIhrdFvuFOceDIubeZWQ6hGTYF5gaFtfg1FIg2iMRpmdZ9d6MQQaKNuEWBCUJOLGLIr1lc5Dp8CcgZ9FhHk002z9EwYZy');
+import { useStripe } from '@stripe/react-stripe-js';
 
 const BookPayment = ({changeStepHandler}) => {
+    const stripe = useStripe();
     const [clientSecret, setClientSecret] = useState('');
     const navigate = useNavigate();
     const userFromRedux = useSelector(
         (state) => state.connectionProcess.sessionStep
     );
 
-    const createSessionRequest = {
+
+    const sessionData = {
         mentorID: userFromRedux.mentorID,
         sessionTypeID: userFromRedux.sessionTypeID,
+        sessionName: userFromRedux.sessionName,
+        sessionPrice: userFromRedux.sessionPrice
     };
 
 
+
+
     useEffect(() => {
-        testStripePayment().then(res => {
+        createCheckoutSession(sessionData).then(res => {
             setClientSecret(res.data.clientSecret)
-            // res.json())
         });
 
     }, []);
 
 
     if (!clientSecret) {
-        console.log(clientSecret);
+        console.log('Client secret is: '+clientSecret)
         return <div>Loading...</div>; // or some loading indicator
     }
 
@@ -68,7 +72,7 @@ const BookPayment = ({changeStepHandler}) => {
                 </div>
             </div>
             <div className='book-payment-stripe'>
-                <EmbeddedCheckoutProvider stripe={stripePromise} options={{clientSecret}}>}
+                <EmbeddedCheckoutProvider stripe={stripe} options={{clientSecret}}>
                     <EmbeddedCheckout/>
                 </EmbeddedCheckoutProvider>
             </div>

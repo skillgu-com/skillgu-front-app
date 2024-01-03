@@ -7,7 +7,7 @@ import routes from './routes';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from "@stripe/stripe-js";
 
-const stripePromise = loadStripe('pk_test_51ONE6SIhrdFvuFOceDIubeZWQ6hGTYF5gaFtfg1FIg2iMRpmdZ9d6MQQaKNuEWBCUJOLGLIr1lc5Dp8CcgZ9FhHk002z9EwYZy');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 
 function App() {

@@ -21,49 +21,49 @@ const NavSection = () => {
 		role === 'S'
 			? [
 					{
-						link: '/',
+						link: '/calendar-view',
 						icon: <Calendar />,
 						text: 'Kalendarz',
 					},
 					{
-						link: '/',
+						link: '/mentors',
 						icon: <Find />,
 						text: 'Znajdź mentora',
 					},
 					{
-						link: '/',
+						link: '/raports',
 						icon: <Raports />,
 						text: 'Raporty',
 					},
 					{
-						link: '/',
+						link: '/messages',
 						icon: <Message />,
 						text: 'Wiadomości',
 					},
 			  ]
 			: [
 					{
-						link: '/',
+						link: '/calendar-view',
 						icon: <Calendar />,
 						text: 'Kalendarz',
 					},
 					{
-						link: '/',
+						link: '/create-session',
 						icon: <Meet />,
 						text: 'Tworzenie spotkań',
 					},
 					{
-						link: '/',
+						link: '/raports',
 						icon: <Raports />,
 						text: 'Raporty',
 					},
 					{
-						link: '/',
+						link: '/messages',
 						icon: <Message />,
 						text: 'Wiadomości',
 					},
 					{
-						link: '/',
+						link: '/account-view',
 						icon: <Payment />,
 						text: 'Rozliczenia',
 					},

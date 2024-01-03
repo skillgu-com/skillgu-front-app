@@ -41,11 +41,11 @@ export const login = (
 
 export const loginGoogle = (
 	email: string,
-	response: any,
+	token: any,
 	dispatch: Dispatch<any>,
 	navigate: NavigateFunction
 ) => {
-	loginGoogleUser(response)
+	loginGoogleUser(token)
 		.then((res) => {
 			const userData = parseUserFromJwt(res.data.body);
 			if (!!!userData) return;

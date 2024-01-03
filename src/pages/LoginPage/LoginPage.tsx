@@ -42,7 +42,7 @@ const LoginPage = () => {
 	const handleGoogleLoginSuccess = (response: any) => {
 		// console.log('Google login success', response.credential);
 		const userObcjet: {email: any} = jwtDecode(response.credential);
-		loginGoogle(response.credential, userObcjet?.email, dispatch, navigate);
+		loginGoogle(userObcjet?.email, response.credential, dispatch, navigate);
 	};
 
 	const handleGoogleLoginFailure = (error: any) => {
@@ -52,7 +52,7 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (!!!window.google) return;
-		(window.google as any)?.accounts.id.initialize({
+		(window.google as any).accounts.id.initialize({
 			client_id:
 				'853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com',
 			callback: handleGoogleLoginSuccess,

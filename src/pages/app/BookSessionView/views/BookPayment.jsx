@@ -22,16 +22,13 @@ const BookPayment = ({changeStepHandler}) => {
         sessionPrice: userFromRedux.sessionPrice
     };
 
-
-
-
     useEffect(() => {
         createCheckoutSession(sessionData).then(res => {
             setClientSecret(res.data.clientSecret)
+            console.log(res.data);
         });
 
     }, []);
-
 
     if (!clientSecret) {
         console.log('Client secret is: '+clientSecret)
@@ -79,6 +76,5 @@ const BookPayment = ({changeStepHandler}) => {
         </div>
     );
 };
-
 
 export default BookPayment;

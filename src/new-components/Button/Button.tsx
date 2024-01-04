@@ -19,6 +19,7 @@ export enum ButtonVariant {
 	Light = 'light',
 	Dark = 'dark',
 	Outline = 'outline',
+	Danger = 'danger',
 }
 
 interface CommonProps extends Common {

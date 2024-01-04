@@ -52,6 +52,10 @@
 		@include hover-effect($dark-color);
 		color: $light-color;
 	}
+	&[data-variant='danger'] {
+		@include hover-effect(#F00);
+		color: $light-color;
+	}
 
 	@media screen and (min-width: $sm) {
 		font-size: 18px;

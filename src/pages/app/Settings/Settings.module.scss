@@ -16,16 +16,32 @@
 	grid-template-columns: 1fr;
 	gap: 24px;
 
-  &Submit{
-    grid-column: 1/-1;
-    justify-self: end;
-  }
+	&Submit {
+		grid-column: 1/-1;
+		justify-self: end;
+	}
 
-	@media screen and (min-width: $md) {
+	@media screen and (min-width: $sm) {
 		grid-template-columns: 1fr 1fr;
 	}
 
 	@media screen and (min-width: $xl) {
 		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+.textarea {
+	grid-column: 1/-1;
+
+	textarea {
+		min-height: clamp(120px, 20vw, 200px);
+	}
+}
+
+.input {
+	&[data-status='success']{
+		input, textarea{
+			border: 1px solid #EFF4F9!important;
+		}
 	}
 }

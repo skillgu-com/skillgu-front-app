@@ -27,6 +27,7 @@ interface CommonProps extends Common {
 	fullWidth?: boolean;
 	href?: string;
 	variant?: ButtonVariant;
+	disableButton?: boolean
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -42,6 +43,7 @@ const Button: React.FC<
 		href,
 		as = ButtonTag.Button,
 		variant = ButtonVariant.Primary,
+		disableButton
 	} = props;
 
 	const config = useMemo(() => {
@@ -52,6 +54,7 @@ const Button: React.FC<
 					e[0] !== 'classes' &&
 					e[0] !== 'href' &&
 					e[0] !== 'children' &&
+					e[0] !== 'disableButton' &&
 					e[0] !== 'as'
 			)
 		);
@@ -64,7 +67,7 @@ const Button: React.FC<
 			),
 			'data-variant': variant,
 		};
-	}, [classes, id, fullWidth]);
+	}, [classes, id, fullWidth, disableButton]);
 
 	// Returned JSX
 	switch (as) {
@@ -84,7 +87,7 @@ const Button: React.FC<
 			);
 		default:
 			const buttonConfig = config as ButtonProps;
-			return <button {...buttonConfig}>{children}</button>;
+			return <button {...buttonConfig} disabled={disableButton}>{children}</button>;
 	}
 };
 

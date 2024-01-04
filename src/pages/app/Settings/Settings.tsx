@@ -1,11 +1,14 @@
 // Libraries
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 // Components
+import classNames from 'classnames';
 import AppHeader from 'src/new-components/AppHeader/AppHeader';
 import Container from 'src/new-components/Container/Container';
 import {Title, Text} from 'src/new-components/typography';
 import Input, {defaultInput} from '../../../new-components/Input/Input';
 import Button, {ButtonVariant} from '../../../new-components/Button/Button';
+import PasswordValidator from 'src/new-components/PasswordValidator/PasswordValidator';
+import Checkbox from 'src/new-components/Checkbox/Checkbox';
 // Types
 import {Tag} from 'src/types/tags';
 import {
@@ -14,13 +17,12 @@ import {
 } from 'src/new-components/typography/Title/Title';
 // Styles
 import styles from './Settings.module.scss';
-import classNames from 'classnames';
-import Checkbox from 'src/new-components/Checkbox/Checkbox';
 
 const Settings = () => {
 	const [form, setForm] = useState({
 		firstName: defaultInput,
 		lastName: defaultInput,
+		phone: defaultInput,
 		position: defaultInput,
 		location: defaultInput,
 		linkedin: defaultInput,
@@ -39,11 +41,8 @@ const Settings = () => {
 		services: defaultInput,
 		market: defaultInput,
 	});
-
-	const [profileForm, setProfileForm] = useState({
-		email: defaultInput,
+	const [passwordForm, setPasswordForm] = useState({
 		password: defaultInput,
-		phone: defaultInput,
 	});
 
 	const upadateFormHandler = (name: string, value: any) => {
@@ -54,8 +53,8 @@ const Settings = () => {
 		setMentorForm({...mentorForm, [name]: value});
 	};
 
-	const upadateProfileFormHandler = (name: string, value: any) => {
-		setProfileForm({...profileForm, [name]: value});
+	const upadatePasswordFormHandler = (name: string, value: any) => {
+		setPasswordForm({...passwordForm, [name]: value});
 	};
 
 	return (
@@ -63,9 +62,10 @@ const Settings = () => {
 			<AppHeader title='Ustawienia użytownika' text='Zarządzaj swoimi danymi.' />
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
+					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
 						Twoje dane
 					</Title>
+					<Text classes={styles.text}>Zmień dane swojego profilu.</Text>
 					<form className={styles.form}>
 						<Input
 							classes={styles.input}
@@ -88,6 +88,17 @@ const Settings = () => {
 							isValid={form.lastName.isValid}
 							valueChangeHandler={upadateFormHandler}
 							label='Nazwisko'
+						/>
+						<Input
+							classes={styles.input}
+							id='phone'
+							name='phone'
+							type='phone'
+							value={form.phone.value}
+							errorMessage={form.phone.errorMessage}
+							isValid={form.phone.isValid}
+							valueChangeHandler={upadateFormHandler}
+							label='Numer telefonu'
 						/>
 						<Input
 							classes={styles.input}
@@ -204,9 +215,10 @@ const Settings = () => {
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
+					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
 						Twoje specjalizacje
 					</Title>
+					<Text classes={styles.text}>Powiedz więcej o sobie.</Text>
 					<form className={styles.form}>
 						<Input
 							classes={styles.input}
@@ -258,53 +270,34 @@ const Settings = () => {
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
-						Twoje konto
+					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
+						Zmień hasło
 					</Title>
+					<Text classes={styles.text}>Po zatwierdzeniu zmian zostaniesz wylogowany z serwisu.</Text>
 					<form className={styles.form}>
 						<Input
-							classes={styles.input}
-							id='email'
-							name='email'
-							type='email'
-							value={profileForm.email.value}
-							errorMessage={profileForm.email.errorMessage}
-							isValid={profileForm.email.isValid}
-							valueChangeHandler={upadateProfileFormHandler}
-							label='E-mail'
-						/>
-						<Input
-							classes={styles.input}
-							id='phone'
-							name='phone'
-							type='phone'
-							value={profileForm.phone.value}
-							errorMessage={profileForm.phone.errorMessage}
-							isValid={profileForm.phone.isValid}
-							valueChangeHandler={upadateProfileFormHandler}
-							label='Numer telefonu'
-						/>
-						<Input
-							classes={styles.input}
+							classes={classNames(styles.input, styles.password)}
 							id='password'
 							name='password'
 							type='password'
-							value={profileForm.password.value}
-							errorMessage={profileForm.password.errorMessage}
-							isValid={profileForm.password.isValid}
-							valueChangeHandler={upadateProfileFormHandler}
+							value={passwordForm.password.value}
+							errorMessage={passwordForm.password.errorMessage}
+							isValid={passwordForm.password.isValid}
+							valueChangeHandler={upadatePasswordFormHandler}
 							label='Nowe hasło'
+							required
 						/>
+						<PasswordValidator password={passwordForm.password.value}/>
 						<div className={styles.formSubmit}>
-							<Button type='submit'>Zapisz zmiany</Button>
+							<Button type='submit' disableButton={!!!passwordForm.password.isValid}>Zapisz zmiany</Button>
 						</div>
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
+					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
 						Usuń konto
 					</Title>
-					<Text>Konto zostanie trwale usunięte!</Text>
+					<Text classes={styles.text}>Konto zostanie trwale usunięte!</Text>
 					<form className={styles.form}>
 						<div className={styles.formSubmit}>
 							<Button type='submit' variant={ButtonVariant.Danger}>

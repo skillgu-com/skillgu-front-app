@@ -13,9 +13,6 @@ import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './RegisterPage.module.scss';
 
-const NUM_REGEX = /\d/;
-const BIG_SIGN_REGEX = /[A-Z]/;
-
 const RegisterPage = () => {
 	const navigate = useNavigate();
 
@@ -46,18 +43,6 @@ const RegisterPage = () => {
 		);
 	};
 
-	const isLong = useMemo(
-		() => form.password.value.length >= 8,
-		[form.password.value]
-	);
-	const hasNum = useMemo(
-		() => NUM_REGEX.test(form.password.value),
-		[form.password.value]
-	);
-	const hasBigSign = useMemo(
-		() => BIG_SIGN_REGEX.test(form.password.value),
-		[form.password.value]
-	);
 
 	return (
 		<JoinScreen
@@ -111,11 +96,7 @@ const RegisterPage = () => {
 						valueChangeHandler={upadateFormHandler}
 						label='Hasło'
 					/>
-					<PasswordValidator
-						isLong={isLong}
-						hasBigSign={hasBigSign}
-						hasNum={hasNum}
-					/>
+					<PasswordValidator password={form.password.value} />
 					<Checkbox
 						id='agreement'
 						name='agreement'

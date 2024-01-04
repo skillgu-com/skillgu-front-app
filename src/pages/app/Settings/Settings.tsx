@@ -9,6 +9,8 @@ import Input, {defaultInput} from '../../../new-components/Input/Input';
 import Button, {ButtonVariant} from '../../../new-components/Button/Button';
 import PasswordValidator from 'src/new-components/PasswordValidator/PasswordValidator';
 import Checkbox from 'src/new-components/Checkbox/Checkbox';
+// Helpers
+import { generateRandomText } from 'src/helpers/generateRandomText';
 // Types
 import {Tag} from 'src/types/tags';
 import {
@@ -45,6 +47,10 @@ const Settings = () => {
 		password: defaultInput,
 	});
 
+	const [removeAccountForm, setRemoveAccountForm] = useState({
+		removeAccount: defaultInput,
+	});
+
 	const upadateFormHandler = (name: string, value: any) => {
 		setForm({...form, [name]: value});
 	};
@@ -57,12 +63,21 @@ const Settings = () => {
 		setPasswordForm({...passwordForm, [name]: value});
 	};
 
+	const upadateRemoveAccountFormHandler = (name: string, value: any) => {
+		setRemoveAccountForm({...removeAccountForm, [name]: value});
+	};
+
+	const textToDeleteAccount = useMemo(() => generateRandomText(20), [])
+
 	return (
 		<>
 			<AppHeader title='Ustawienia użytownika' text='Zarządzaj swoimi danymi.' />
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
+					<Title
+						tag={TitleTag.h2}
+						classes={styles.title}
+						variant={TitleVariant.standard}>
 						Twoje dane
 					</Title>
 					<Text classes={styles.text}>Zmień dane swojego profilu.</Text>
@@ -215,7 +230,10 @@ const Settings = () => {
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
+					<Title
+						tag={TitleTag.h2}
+						classes={styles.title}
+						variant={TitleVariant.standard}>
 						Twoje specjalizacje
 					</Title>
 					<Text classes={styles.text}>Powiedz więcej o sobie.</Text>
@@ -270,10 +288,15 @@ const Settings = () => {
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
+					<Title
+						tag={TitleTag.h2}
+						classes={styles.title}
+						variant={TitleVariant.standard}>
 						Zmień hasło
 					</Title>
-					<Text classes={styles.text}>Po zatwierdzeniu zmian zostaniesz wylogowany z serwisu.</Text>
+					<Text classes={styles.text}>
+						Po zatwierdzeniu zmian zostaniesz wylogowany z serwisu.
+					</Text>
 					<form className={styles.form}>
 						<Input
 							classes={classNames(styles.input, styles.password)}
@@ -287,20 +310,36 @@ const Settings = () => {
 							label='Nowe hasło'
 							required
 						/>
-						<PasswordValidator password={passwordForm.password.value}/>
+						<PasswordValidator password={passwordForm.password.value} />
 						<div className={styles.formSubmit}>
-							<Button type='submit' disableButton={!!!passwordForm.password.isValid}>Zapisz zmiany</Button>
+							<Button type='submit' disableButton={!!!passwordForm.password.isValid}>
+								Zapisz zmiany
+							</Button>
 						</div>
 					</form>
 				</section>
 				<section className={styles.section}>
-					<Title tag={TitleTag.h2} classes={styles.title} variant={TitleVariant.standard}>
+					<Title
+						tag={TitleTag.h2}
+						classes={styles.title}
+						variant={TitleVariant.standard}>
 						Usuń konto
 					</Title>
 					<Text classes={styles.text}>Konto zostanie trwale usunięte!</Text>
 					<form className={styles.form}>
+						<Input
+							classes={classNames(styles.input, styles.inputDelete)}
+							id='removeAccount'
+							name='removeAccount'
+							type='removeAccount'
+							value={removeAccountForm.removeAccount.value}
+							errorMessage={removeAccountForm.removeAccount.errorMessage}
+							isValid={removeAccountForm.removeAccount.isValid}
+							valueChangeHandler={upadateRemoveAccountFormHandler}
+							label={`Aby usunąć konto wpisz: ${textToDeleteAccount}`}
+						/>
 						<div className={styles.formSubmit}>
-							<Button type='submit' variant={ButtonVariant.Danger}>
+							<Button type='submit' variant={ButtonVariant.Danger} disableButton={removeAccountForm.removeAccount.value !== textToDeleteAccount}>
 								Usuń konto
 							</Button>
 						</div>

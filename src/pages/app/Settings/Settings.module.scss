@@ -84,3 +84,9 @@
 		grid-column: 1/2;
 	}
 }
+
+.inputDelete{
+	@media screen and (min-width: $sm) {
+		grid-column: 1/3;
+	}
+}

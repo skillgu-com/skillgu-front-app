@@ -5,7 +5,6 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 // Screens
-import ProjectsMapScreen from './pages/app/MapOfProjectsView';
 import UserProfileScreen from './pages/app/UserProfileScreen';
 import ProjectsSearchScreen from './pages/app/SearchOfProjectsView';
 import HomeScreen from './pages/app/HomeView';
@@ -13,7 +12,6 @@ import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
 import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
 import Settings from './pages/app/Settings';
-import PitchDeckCreatorScreen from './pages/app/CreatorNewProjectView';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
 import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
@@ -57,12 +55,12 @@ const routes = [
 		element: <HomeScreen />,
 		isProtected: true,
 	},
-	{
-		id: 'route05',
-		path: '/create-mentor',
-		element: <PitchDeckCreatorScreen />,
-		isProtected: true,
-	},
+	// {
+	// 	id: 'route05',
+	// 	path: '/create-mentor',
+	// 	element: <PitchDeckCreatorScreen />,
+	// 	isProtected: true,
+	// },
 	{
 		id: 'route06',
 		path: '/search-invest-projects',
@@ -75,12 +73,12 @@ const routes = [
 		element: <SearchBusinessPartner />,
 		isProtected: true,
 	},
-	{
-		id: 'route08',
-		path: '/invest-maps',
-		element: <ProjectsMapScreen />,
-		isProtected: true,
-	},
+	// {
+	// 	id: 'route08',
+	// 	path: '/invest-maps',
+	// 	element: <ProjectsMapScreen />,
+	// 	isProtected: true,
+	// },
 	{
 		id: 'route09',
 		path: '/mentors',

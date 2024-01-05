@@ -47,6 +47,7 @@ const PlansPanel = () => {
                 sessionID: element.sessionID,
                 scheduleID: element.scheduleID
             }));
+
             const updatedSessions = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];
             setSessionFromApi(updatedSessions);
         });

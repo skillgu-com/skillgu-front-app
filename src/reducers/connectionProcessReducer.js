@@ -1,4 +1,3 @@
-
 const initialState = {
     sessionStep: {
         mentorID: '',
@@ -16,6 +15,7 @@ const initialState = {
 const connectionProcessReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'NEXT_STEP_IN_SESSION_CREATION':
+            console.log(action);
             return {
                 ...state,
                 sessionStep: {

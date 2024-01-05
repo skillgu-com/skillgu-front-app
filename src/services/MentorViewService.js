@@ -18,6 +18,5 @@ export const getAllMentorTypes = async () => {
 }
 
 export const getAllFilteredMentors = async (user) => {
-    console.log(user)
     return await axios.post('/api/mentor/filtered-mentors', user);
 }

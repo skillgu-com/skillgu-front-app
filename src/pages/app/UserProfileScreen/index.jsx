@@ -30,10 +30,6 @@ const UserProfileScreen = () => {
         });
     }, []);
 
-
-    console.log(user);
-
-
     return (
         <AppLayout>
             <h1>PROFIL MENTORA KTORY JEST NA LISCIE</h1>

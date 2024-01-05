@@ -42,7 +42,6 @@ const MentorScreen = () => {
         };
         getAllFilteredMentors(user)
             .then((response) => {
-                console.log(response.data)
                 setMentors(response.data); // aktualizacja mentorów z przefiltrowanymi danymi
                 setFilteredMentors(response.data); // aktualizacja przefiltrowanych mentorów
             })

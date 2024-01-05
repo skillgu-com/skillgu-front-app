@@ -24,14 +24,14 @@ const BookPayment = ({changeStepHandler}) => {
 
     useEffect(() => {
         createCheckoutSession(sessionData).then(res => {
+            console.log(sessionData)
             setClientSecret(res.data.clientSecret)
-            console.log(res.data);
+
         });
 
     }, []);
 
     if (!clientSecret) {
-        console.log('Client secret is: '+clientSecret)
         return <div>Loading...</div>; // or some loading indicator
     }
 

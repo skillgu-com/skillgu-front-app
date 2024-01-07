@@ -37,18 +37,92 @@ const Specyfication = () => {
 			<Text classes={styles.text}>Powiedz więcej o sobie.</Text>
 			<form className={styles.form}>
 				<MulitSelect
-        classes={styles.multiSelect}
+					classes={styles.multiSelect}
 					label='Tematy mentoringu'
-          limit={3}
+					limit={3}
 					options={{
-						test: {id: 'test', name: 'test', label: 'testowy temat mentoringu 1', ...defaultInput},
-						test1: {id: 'test1', name: 'test1', label: 'testowy temat mentoringu 2', ...defaultInput},
-						test2: {id: 'test2', name: 'test2', label: 'testowy temat mentoringu 3', ...defaultInput},
-						test3: {id: 'test3', name: 'test3', label: 'testowy temat mentoringu 4', ...defaultInput},
-						test4: {id: 'test4', name: 'test4', label: 'testowy temat mentoringu 5', ...defaultInput},
-						test5: {id: 'test5', name: 'test5', label: 'testowy temat mentoringu 6', ...defaultInput},
+						test: {
+							id: 'test',
+							name: 'test',
+							label: 'testowy temat mentoringu 1',
+							...defaultInput,
+						},
+						test1: {
+							id: 'test1',
+							name: 'test1',
+							label: 'testowy temat mentoringu 2',
+							...defaultInput,
+						},
+						test2: {
+							id: 'test2',
+							name: 'test2',
+							label: 'testowy temat mentoringu 3',
+							...defaultInput,
+						},
+						test3: {
+							id: 'test3',
+							name: 'test3',
+							label: 'testowy temat mentoringu 4',
+							...defaultInput,
+						},
+						test4: {
+							id: 'test4',
+							name: 'test4',
+							label: 'testowy temat mentoringu 5',
+							...defaultInput,
+						},
+						test5: {
+							id: 'test5',
+							name: 'test5',
+							label: 'testowy temat mentoringu 6',
+							...defaultInput,
+						},
 					}}
 					onValueChange={(state: any) => upadateMentorFormHandler('titles', state)}
+				/>
+				<MulitSelect
+					classes={styles.multiSelect}
+					label='Branża'
+					limit={3}
+					options={{
+						test: {
+							id: 'test',
+							name: 'test',
+							label: 'testowa branża 1',
+							...defaultInput,
+						},
+						test1: {
+							id: 'test1',
+							name: 'test1',
+							label: 'testowa branża 2',
+							...defaultInput,
+						},
+						test2: {
+							id: 'test2',
+							name: 'test2',
+							label: 'testowa branża 3',
+							...defaultInput,
+						},
+						test3: {
+							id: 'test3',
+							name: 'test3',
+							label: 'testowa branża 4',
+							...defaultInput,
+						},
+						test4: {
+							id: 'test4',
+							name: 'test4',
+							label: 'testowa branża 5',
+							...defaultInput,
+						},
+						test5: {
+							id: 'test5',
+							name: 'test5',
+							label: 'testowa branża 6',
+							...defaultInput,
+						},
+					}}
+					onValueChange={(state: any) => upadateMentorFormHandler('market', state)}
 				/>
 				<Input
 					classes={styles.input}
@@ -71,17 +145,6 @@ const Specyfication = () => {
 					isValid={mentorForm.services.isValid}
 					valueChangeHandler={upadateMentorFormHandler}
 					label='Usługi'
-				/>
-				<Input
-					classes={styles.input}
-					id='market'
-					name='market'
-					type='text'
-					value={mentorForm.market.value}
-					errorMessage={mentorForm.market.errorMessage}
-					isValid={mentorForm.market.isValid}
-					valueChangeHandler={upadateMentorFormHandler}
-					label='Branża'
 				/>
 				<div className={styles.formSubmit}>
 					<Button type='submit'>Zapisz zmiany</Button>

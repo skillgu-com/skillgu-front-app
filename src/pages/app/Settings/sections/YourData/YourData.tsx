@@ -13,6 +13,7 @@ import {
 	TitleTag,
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
+import ImageUpload from 'src/new-components/ImageUpload/ImageUpload';
 // Styles
 import styles from '../../Settings.module.scss'
 
@@ -46,6 +47,7 @@ const YourData = () => {
     </Title>
     <Text classes={styles.text}>Zmień dane swojego profilu.</Text>
     <form className={styles.form}>
+      <ImageUpload src='https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg' changeHandler={() => null}/>
       <Input
         classes={styles.input}
         id='firstName'

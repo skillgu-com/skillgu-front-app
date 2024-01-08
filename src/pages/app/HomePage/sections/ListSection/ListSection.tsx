@@ -1,5 +1,5 @@
 // Libraries
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {ScrollContainer} from 'react-indiana-drag-scroll';
 // Components
@@ -12,6 +12,8 @@ import {
 } from 'src/new-components/typography/Title/Title';
 // Styles
 import styles from './ListSection.module.scss';
+import {findRelatedUsersBasedOnRole} from "../../../../../services/UserProfileService";
+import {useSelector} from "react-redux";
 
 const ITEMS_PLACEHOLDER = [
 	{
@@ -51,6 +53,22 @@ const ITEMS_PLACEHOLDER = [
 
 const ListSection = () => {
 	const [items, setItems] = useState(ITEMS_PLACEHOLDER);
+	const [users, setUsers] = useState([]);
+
+	useEffect(() => {
+		findRelatedUsersBasedOnRole()
+			.then((res) => {
+				if (res.data.length > 0) {
+					setUsers(res.data);
+				} else {
+					setUsers([]);
+				}
+			})
+			.catch((reason) => {
+				console.error(reason);
+			});
+	}, []);
+
 
 	return (
 		<section className={styles.wrapper}>

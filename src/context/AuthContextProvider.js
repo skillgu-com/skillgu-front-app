@@ -10,6 +10,7 @@ import {
 } from '../services/AuthenticationService';
 import {updateUser} from '../services/UserProfileService';
 import {googleCalendar} from '../services/GoogleService';
+import { parseUserFromJwt } from 'src/helpers/parseUserFromJwt';
 
 export const AuthContext = createContext({
 	//TODO czy to ponizej wyszarzone jest do wywalenia?
@@ -25,6 +26,7 @@ export const AuthContext = createContext({
 		selectedRole
 	) => {},
 	loginGoogle: (prop1, prop2) => {},
+	logout: () => {},
 });
 
 const AuthContextProvider = (props) => {
@@ -32,7 +34,7 @@ const AuthContextProvider = (props) => {
 	const navigate = useNavigate();
 
 	const [token, setToken] = useState('');
-	const [user, setUser] = useState(token ? _parseUserFromJwt(token) : null);
+	const [user, setUser] = useState(token ? parseUserFromJwt(token) : null);
 
 	useEffect(() => {
 		setToken(localStorage.getItem('jwttoken'));
@@ -41,7 +43,7 @@ const AuthContextProvider = (props) => {
 	const login = (email, password) => {
 		loginUser(email, password)
 			.then((res) => {
-				const userData = _parseUserFromJwt(res.data);
+				const userData = parseUserFromJwt(res.data);
 				const userSender = {
 					email: email,
 				};
@@ -67,7 +69,7 @@ const AuthContextProvider = (props) => {
 	const loginGoogle = (response, email) => {
 		loginGoogleUser(response)
 			.then((res) => {
-				const userData = _parseUserFromJwt(res.data.body);
+				const userData = parseUserFromJwt(res.data.body);
 				const userSender = {
 					email: email,
 				};
@@ -143,27 +145,6 @@ const AuthContextProvider = (props) => {
 	return (
 		<AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
 	);
-};
-
-const _parseUserFromJwt = (token) => {
-	if (token) {
-		const base64Url = token.split('.')[1];
-		const base64 = base64Url.replace(/-/g, '+')?.replace(/_/g, '/');
-		const jsonPayload = decodeURIComponent(
-			atob(base64)
-				.split('')
-				.map((c) => {
-					return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-				})
-				?.join('')
-		);
-		const payload = JSON.parse(jsonPayload);
-		return {
-			email: payload.sub,
-			role: payload?.role,
-		};
-	}
-	return null;
 };
 
 export default AuthContextProvider;

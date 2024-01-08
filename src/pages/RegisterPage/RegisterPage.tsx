@@ -1,7 +1,8 @@
 // Libraries
-import React, {useContext, useState, useMemo} from 'react';
-// Context
-import {AuthContext} from '../../context/AuthContextProvider';
+import React, {useState, useMemo} from 'react';
+import {useNavigate} from 'react-router-dom';
+// Helpers
+import {register} from 'src/helpers/register';
 // Components
 import Button from '../../new-components/Button/Button';
 import Checkbox from '../../new-components/Checkbox/Checkbox';
@@ -12,11 +13,8 @@ import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './RegisterPage.module.scss';
 
-const NUM_REGEX = /\d/;
-const BIG_SIGN_REGEX = /[A-Z]/;
-
 const RegisterPage = () => {
-	const context = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
 		firstName: defaultInput,
@@ -35,27 +33,16 @@ const RegisterPage = () => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		context.register(
+		register(
 			form.firstName.value,
 			form.lastName.value,
 			form.email.value,
 			form.password.value,
-			form.agreement.value
+			form.agreement.value,
+			navigate
 		);
 	};
 
-	const isLong = useMemo(
-		() => form.password.value.length >= 8,
-		[form.password.value]
-	);
-	const hasNum = useMemo(
-		() => NUM_REGEX.test(form.password.value),
-		[form.password.value]
-	);
-	const hasBigSign = useMemo(
-		() => BIG_SIGN_REGEX.test(form.password.value),
-		[form.password.value]
-	);
 
 	return (
 		<JoinScreen
@@ -109,11 +96,7 @@ const RegisterPage = () => {
 						valueChangeHandler={upadateFormHandler}
 						label='Hasło'
 					/>
-					<PasswordValidator
-						isLong={isLong}
-						hasBigSign={hasBigSign}
-						hasNum={hasNum}
-					/>
+					<PasswordValidator password={form.password.value} />
 					<Checkbox
 						id='agreement'
 						name='agreement'

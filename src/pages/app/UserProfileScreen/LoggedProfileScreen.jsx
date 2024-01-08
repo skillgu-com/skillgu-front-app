@@ -18,7 +18,7 @@ const LoggedProfileScreen = () => {
 
     const userData = ({
         email: userFromRedux.email,
-        role: userFromRedux?.role[0]
+        role: userFromRedux?.role
     })
 
     useEffect(() => {

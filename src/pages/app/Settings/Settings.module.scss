@@ -1,0 +1,96 @@
+@use '../../../scss/variables' as *;
+
+.wrapper {
+	margin-top: 24px;
+}
+
+.section {
+	padding: 24px 24px 36px;
+	border-radius: 15px;
+	background: $light-color;
+	margin-bottom: 30px;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+
+	&Submit {
+		grid-column: 1/-1;
+		justify-self: end;
+	}
+
+	@media screen and (min-width: $sm) {
+		grid-template-columns: 1fr 1fr;
+
+		:global {
+			.password-validator {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-self: end;
+				margin-bottom: 0;
+				grid-column: span 2;
+
+				li {
+					min-width: max-content;
+				}
+			}
+		}
+	}
+
+	@media screen and (min-width: $xl) {
+		grid-template-columns: 1fr 1fr 1fr;
+
+		:global {
+			.password-validator {
+				padding-left: 42px;
+			}
+		}
+	}
+}
+
+.textarea {
+	grid-column: 1/-1;
+
+	textarea {
+		min-height: clamp(120px, 20vw, 200px);
+	}
+}
+
+.input {
+	&[data-status='success'] {
+		input,
+		textarea {
+			border: 1px solid #eff4f9 !important;
+		}
+	}
+}
+
+.title {
+	margin-bottom: 7px !important;
+}
+
+.text {
+	font-size: 12px;
+	margin: 0 0 23px;
+}
+
+.password{
+	grid-column: 1/3;
+	
+	@media screen and (min-width: $lg) {
+		grid-column: 1/2;
+	}
+}
+
+.inputDelete{
+	@media screen and (min-width: $sm) {
+		grid-column: 1/3;
+	}
+}
+
+.multiSelect{
+  grid-column: 1/-1;
+}

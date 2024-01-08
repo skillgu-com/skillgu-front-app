@@ -1,10 +1,10 @@
 // Libraries
-import React, {useContext, useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import classNames from 'classnames';
 import {jwtDecode} from 'jwt-decode';
 
-import {AuthContext} from '../../context/AuthContextProvider';
 // import {loginGoogleUser} from '../../services/AuthenticationService';
 // Components
 import Button from '../../new-components/Button/Button';
@@ -17,9 +17,11 @@ import Google from '../../assets/icons/Google';
 import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './LoginPage.module.scss';
+import {login, loginGoogle} from 'src/helpers/login';
 
 const LoginPage = () => {
-	const context = useContext(AuthContext);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [remember, setRemember] = useState(false);
 	const [googleLogin, setGoogleLogin] = useState({click: () => {}});
@@ -28,19 +30,19 @@ const LoginPage = () => {
 		password: defaultInput,
 	});
 
-	const updateFormHandler = (name: string, value: any) => {
+	const upadateFormHandler = (name: string, value: any) => {
 		setForm({...form, [name]: value});
 	};
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		context.login(form.email.value, form.password.value);
+		login(form.email.value, form.password.value, dispatch, navigate);
 	};
 
 	const handleGoogleLoginSuccess = (response: any) => {
 		// console.log('Google login success', response.credential);
 		const userObcjet: {email: any} = jwtDecode(response.credential);
-		context?.loginGoogle(response.credential, userObcjet?.email);
+		loginGoogle(userObcjet?.email, response.credential, dispatch, navigate);
 	};
 
 	const handleGoogleLoginFailure = (error: any) => {
@@ -49,8 +51,8 @@ const LoginPage = () => {
 	};
 
 	useEffect(() => {
-		if (!!!window) return;
-		(window.google as any)?.accounts.id.initialize({
+		if (!!!window.google) return;
+		(window.google as any).accounts.id.initialize({
 			client_id:
 				'853231990547-b2o012vethlh2ooccr0fbrl8b9bqqh2g.apps.googleusercontent.com',
 			callback: handleGoogleLoginSuccess,
@@ -63,7 +65,7 @@ const LoginPage = () => {
 			googleLoginButton?.querySelector('div[role=button]')!;
 
 		setGoogleLogin({click: () => googleLoginWrapperButton.click()});
-	}, [window]);
+	}, [window.google]);
 
 	return (
 		<JoinScreen
@@ -80,7 +82,7 @@ const LoginPage = () => {
 						value={form.email.value}
 						errorMessage={form.email.errorMessage}
 						isValid={form.email.isValid}
-						valueChangeHandler={updateFormHandler}
+						valueChangeHandler={upadateFormHandler}
 						label='E-mail'
 					/>
 					<Input
@@ -89,7 +91,7 @@ const LoginPage = () => {
 						type='password'
 						required
 						value={form.password.value}
-						valueChangeHandler={updateFormHandler}
+						valueChangeHandler={upadateFormHandler}
 						label='Hasło'
 					/>
 					<div className={classNames(styles.inline)}>

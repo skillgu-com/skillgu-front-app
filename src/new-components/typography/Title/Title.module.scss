@@ -23,7 +23,7 @@
 	line-height: 1.23em;
 
 	&[data-variant='main'] {
-		@include responsive-title(25px, 40px);
+		@include responsive-title(30px, 36px);
 	}
 	&[data-variant='section'] {
 		margin-bottom: 20px;

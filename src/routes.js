@@ -4,10 +4,12 @@ import {Navigate} from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
+// NEW Screens
+import HomeScreen from './pages/app/HomePage/HomePage';
+import NewSettings from './pages/app/Settings/Settings';
 // Screens
 import UserProfileScreen from './pages/app/UserProfileScreen';
 import ProjectsSearchScreen from './pages/app/SearchOfProjectsView';
-import HomeScreen from './pages/app/HomeView';
 import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
 import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
@@ -54,6 +56,14 @@ const routes = [
 		path: '/home',
 		element: <HomeScreen />,
 		isProtected: true,
+		hasLayout: true,
+	},
+	{
+		id: 'route04',
+		path: '/settings',
+		element: <NewSettings />,
+		isProtected: true,
+		hasLayout: true,
 	},
 	// {
 	// 	id: 'route05',

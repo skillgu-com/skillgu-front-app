@@ -1,5 +1,8 @@
 import axios from "axios";
 
+export const findRelatedUsersBasedOnRole = async () => {
+    return await axios.get('/api/user/related-users');
+}
 
 export const getClientUser = async () => {
 
@@ -16,11 +19,6 @@ export const getAllClientUsers = async () => {
 export const getClientUserUUID = async (uuid) => {
 
     return await axios.get(`/api/user/get-client-user/${uuid}`);
-
-}
-
-export const getAllUsersWithRoles = async () => {
-    return await axios.get('/api/user/users-with-roles');
 
 }
 
@@ -45,5 +43,5 @@ export const updateUser = async (email) => {
 }
 
 export const settingUser = async (userSettingState) => {
-    return await axios.patch('/api/user/setting-user',userSettingState)
+    return await axios.patch('/api/user/setting-user', userSettingState)
 }

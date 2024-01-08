@@ -14,6 +14,7 @@ import {ReactComponent as Search} from '../../../assets/icons/search-money.svg';
 import {ReactComponent as HandMoney} from '../../../assets/icons/hand-money.svg';
 import homeBg from '../../../assets/img/landscape.jpg';
 import {
+    findRelatedUsersBasedOnRole,
     getAllUsersWithRoles
 } from '../../../services/UserProfileService';
 import {useSelector} from 'react-redux';
@@ -81,7 +82,7 @@ const HomeScreen = () => {
     );
 
     useEffect(() => {
-        getAllUsersWithRoles()
+        findRelatedUsersBasedOnRole()
             .then((res) => {
                 console.log(users)
                 if (res.data.length > 0) {

@@ -79,7 +79,7 @@ const UserProfileScreen = () => {
                         )}
                     </article>
                 </section>
-                {user?.role == 'mentor' && (
+                {user?.role !== 'mentor' && (
                     <div className='user-profile__price'>
                         <PlansPanel/>
                     </div>

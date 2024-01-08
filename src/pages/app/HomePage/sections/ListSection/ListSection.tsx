@@ -53,12 +53,14 @@ const ITEMS_PLACEHOLDER = [
 
 const ListSection = () => {
 	const [items, setItems] = useState(ITEMS_PLACEHOLDER);
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState<IUsersRelatedResponse[]>([]);
+
 
 	useEffect(() => {
 		findRelatedUsersBasedOnRole()
 			.then((res) => {
 				if (res.data.length > 0) {
+					console.log(res.data)
 					setUsers(res.data);
 				} else {
 					setUsers([]);
@@ -96,16 +98,16 @@ const ListSection = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{items.map((item) => (
-							<tr key={item.id}>
-								<td>{item.name}</td>
-								<td>{item.date}</td>
-								<td>{item.kind}</td>
+						{users.map((element) => (
+							<tr key={element.id}>
+								<td>{element.firstName}</td>
+								<td>{element.startDate}</td>
+								<td>{element.sessionType}</td>
 								<td>
-									<Tag text={item.type} />
+									<Tag text={element.meetingType} />
 								</td>
 								<td>
-									<Tag {...item.status} />
+									<Tag text={element.sessionStatus} />
 								</td>
 							</tr>
 						))}

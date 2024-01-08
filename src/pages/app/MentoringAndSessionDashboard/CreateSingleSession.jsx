@@ -24,6 +24,7 @@ const CreateSingleSession = (props) => {
     };
 
     const handleSessionType = (event) => {
+        console.log('TO TESTUJE: '+event.target.value)
         const selectedValue = event.target.value;
         setSessionTypeValues(selectedValue);
     };
@@ -47,14 +48,15 @@ const CreateSingleSession = (props) => {
     useEffect(() => {
         getSessionTypes()
             .then(res => {
-                const sessionArray = Object?.entries(res.data).map(([key, value]) => value);
+                console.log(res.data);
+                const sessionArray = Object.entries(res.data).map(([key, value]) => ({ id: key, name: value }));
                 setSessionTypes(sessionArray);
-
             })
             .catch(reason => {
-                console.error("something goes wrong.")
-            })
+                console.error("something goes wrong.", reason);
+            });
     }, []);
+
 
 
     const handleSubmit = (event) => {
@@ -118,12 +120,12 @@ const CreateSingleSession = (props) => {
                                 inputProps={{'aria-label': 'Without label'}}
                                 value={sessionTypeValues}
                                 onChange={handleSessionType}>
-                                <MenuItem value={1} disabled>
+                                <MenuItem value="" disabled>
                                     Wybierz typ spotkania
                                 </MenuItem>
-                                {sessionTypes?.map((element, index) => (
-                                    <MenuItem key={index} value={index}>
-                                        {element}
+                                {sessionTypes?.map((element) => (
+                                    <MenuItem key={element.id} value={element.id}>
+                                        {element.name}
                                     </MenuItem>
                                 ))}
                             </Select>

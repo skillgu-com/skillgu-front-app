@@ -16,7 +16,7 @@ const Tag = (props: TagProps) => {
 	const {text, bgColor = '#EFF4F9', onRemoveHandler} = props;
 	return (
 		<Text as='span' classes={styles.wrapper} style={{backgroundColor: bgColor}}>
-			{text} <button type='button' onClick={onRemoveHandler}>x</button>
+			{text} {!!onRemoveHandler && <button type='button' onClick={onRemoveHandler}>x</button>}
 		</Text>
 	);
 };

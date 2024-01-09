@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 // Selectors
-import {getRole} from 'src/redux/selectors/authSelectors';
+import {getEmail, getRole} from 'src/redux/selectors/authSelectors';
 // Components
 import {Title} from 'src/new-components/typography';
 import MiniUserCard from 'src/new-components/Cards/MiniUserCard/MiniUserCard';
@@ -38,8 +38,10 @@ const USERS_PLACEHOLDER = [
 
 const ProfileSection = () => {
 	const role = useSelector(getRole);
-
+	const email = useSelector(getEmail);
 	const [usersList, setUsersList] = useState(USERS_PLACEHOLDER);
+
+	console.log(email)
 
 	return (
 		<section className={styles.wrapper}>
@@ -54,7 +56,7 @@ const ProfileSection = () => {
 					classes={styles.userName}
 					tag={TitleTag.h2}
 					variant={TitleVariant.standard}>
-					Jan Kowalski
+					{email}
 				</Title>
 				<h3 className={styles.userPosition}>UI/UX Design</h3>
 				<div className={styles.userAttributes}>

@@ -14,6 +14,7 @@ import {
 import styles from './ListSection.module.scss';
 import {findRelatedUsersBasedOnRole} from "../../../../../services/UserProfileService";
 import {useSelector} from "react-redux";
+import {getRole} from "../../../../../redux/selectors/authSelectors";
 
 const ITEMS_PLACEHOLDER = [
 	{
@@ -52,15 +53,15 @@ const ITEMS_PLACEHOLDER = [
 ];
 
 const ListSection = () => {
-	const [items, setItems] = useState(ITEMS_PLACEHOLDER);
 	const [users, setUsers] = useState<IUsersRelatedResponse[]>([]);
+    const role = useSelector(getRole);
+    console.log(role)
 
 
-	useEffect(() => {
+    useEffect(() => {
 		findRelatedUsersBasedOnRole()
 			.then((res) => {
 				if (res.data.length > 0) {
-					console.log(res.data)
 					setUsers(res.data);
 				} else {
 					setUsers([]);
@@ -72,50 +73,51 @@ const ListSection = () => {
 	}, []);
 
 
-	return (
-		<section className={styles.wrapper}>
-			<div className={styles.header}>
-				<div>
-					<Title
-						classes={styles.headerTitle}
-						tag={TitleTag.h2}
-						variant={TitleVariant.standard}>
-						Moi Mentorzy
-					</Title>
-					<Text classes={styles.headerText}>Dokumentacja sesji</Text>
-				</div>
-				<Link to='/'>Zobacz więcej</Link>
-			</div>
-			<ScrollContainer className={styles.table}>
-				<table>
-					<thead>
-						<tr>
-							<th>Mentor</th>
-							<th>Data</th>
-							<th>Nazwa sesji</th>
-							<th>Typ sesji</th>
-							<th>Status</th>
-						</tr>
-					</thead>
-					<tbody>
-						{users.map((element) => (
-							<tr key={element.id}>
-								<td>{element.firstName}</td>
-								<td>{element.startDate}</td>
-								<td>{element.sessionType}</td>
-								<td>
-									<Tag text={element.meetingType} />
-								</td>
-								<td>
-									<Tag text={element.sessionStatus} />
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</ScrollContainer>
-		</section>
-	);
+    return (
+        <section className={styles.wrapper}>
+            <div className={styles.header}>
+                <div>
+                    <Title
+                        classes={styles.headerTitle}
+                        tag={TitleTag.h2}
+                        variant={TitleVariant.standard}>
+                        {role === 'S' ? 'Moi Mentorzy' : 'Moi Studenci'}
+                    </Title>
+                    <Text classes={styles.headerText}>Dokumentacja sesji</Text>
+                </div>
+                <Link to='/'>Zobacz więcej</Link>
+            </div>
+            <ScrollContainer className={styles.table}>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>{role === 'S' ? 'Mentor' : 'Student'}</th>
+                        <th>Data</th>
+                        <th>Nazwa sesji</th>
+                        <th>Typ sesji</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map((element) => (
+                        <tr key={element.id}>
+                            <td>{element.firstName}</td>
+                            <td>{element.startDate}</td>
+                            <td>{element.sessionType}</td>
+                            <td>
+                                <Tag text={element.meetingType} />
+                            </td>
+                            <td>
+                                <Tag text={element.sessionStatus} />
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </ScrollContainer>
+        </section>
+    );
+
 };
 
 export default ListSection;

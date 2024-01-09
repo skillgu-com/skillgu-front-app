@@ -92,8 +92,8 @@ const ListSection = () => {
 						<tr>
 							<th>Mentor</th>
 							<th>Data</th>
-							<th>Rodzaj</th>
-							<th>Typ</th>
+							<th>Nazwa sesji</th>
+							<th>Typ sesji</th>
 							<th>Status</th>
 						</tr>
 					</thead>

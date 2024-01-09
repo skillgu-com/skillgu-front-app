@@ -18,7 +18,7 @@ import styles from '../../Settings.module.scss';
 const Specyfication = () => {
 	const [mentorForm, setMentorForm] = useState({
 		titles: defaultInput,
-		skills: defaultInput,
+		skills: {...defaultInput, value: [] as string[]},
 		services: defaultInput,
 		market: defaultInput,
 	});
@@ -26,6 +26,11 @@ const Specyfication = () => {
 	const upadateMentorFormHandler = (name: string, value: any) => {
 		setMentorForm({...mentorForm, [name]: value});
 	};
+
+	const submitHandler = (e: any) => {
+		e.preventDefault()
+	}
+
 	return (
 		<section className={styles.section}>
 			<Title
@@ -35,7 +40,7 @@ const Specyfication = () => {
 				Twoje specjalizacje
 			</Title>
 			<Text classes={styles.text}>Powiedz więcej o sobie.</Text>
-			<form className={styles.form}>
+			<form className={styles.form} onSubmit={submitHandler}>
 				<MulitSelect
 					classes={styles.multiSelect}
 					label='Tematy mentoringu'
@@ -128,7 +133,7 @@ const Specyfication = () => {
 					classes={styles.input}
 					id='skills'
 					name='skills'
-					type='text'
+					type='multi'
 					value={mentorForm.skills.value}
 					errorMessage={mentorForm.skills.errorMessage}
 					isValid={mentorForm.skills.isValid}

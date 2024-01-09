@@ -6,15 +6,17 @@ import {Text} from '../typography';
 import styles from './Tag.module.scss';
 
 interface TagProps {
+	id?: string;
 	text: string;
 	bgColor?: string;
+	onRemoveHandler?: () => void
 }
 
 const Tag = (props: TagProps) => {
-	const {text, bgColor = '#EFF4F9'} = props;
+	const {text, bgColor = '#EFF4F9', onRemoveHandler} = props;
 	return (
 		<Text as='span' classes={styles.wrapper} style={{backgroundColor: bgColor}}>
-			{text}
+			{text} <button type='button' onClick={onRemoveHandler}>x</button>
 		</Text>
 	);
 };

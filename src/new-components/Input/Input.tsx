@@ -1,6 +1,8 @@
 // Libraries
 import React, {useEffect, useState, ChangeEvent} from 'react';
 import classNames from 'classnames';
+// Components
+import Chip from '../Tag/Tag';
 // Helpers
 import validation from '../../helpers/improovedValidation';
 // Styles
@@ -13,7 +15,7 @@ interface InputProps {
 	label: string;
 	as?: 'input' | 'textarea';
 	required?: boolean;
-	value: string;
+	value: string | string[];
 	errorMessage?: string;
 	placeholder?: string;
 	isValid?: boolean;
@@ -45,13 +47,37 @@ const Input = (props: InputProps) => {
 	const Tag = as;
 
 	const [touched, setTouched] = useState(false);
+	const [currentChip, setCurrentChip] = useState('');
+	const [chip, setChip] = useState<{id: string; text: string}[]>([]);
 
 	const changeHandler = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		const errorMessage = validation(touched, e.target.value, name, required);
+		if (type === 'multi') {
+			setCurrentChip(e.target.value);
+		} else {
+			const errorMessage = validation(touched, e.target.value, name, required);
+			valueChangeHandler(name, {
+				value: e.target.value,
+				errorMessage,
+				isValid: errorMessage === '' && touched,
+			});
+		}
+	};
+
+	const handleEnterPressHandler = (e: any) => {
+		if (type !== 'multi' || e.key !== 'Enter' || currentChip.trim().length === 0)
+			return;
+
+		const newChips = [
+			...chip,
+			{id: Math.random().toString(36), text: currentChip},
+		];
+
+		setChip(newChips);
+		setCurrentChip('');
 		valueChangeHandler(name, {
-			value: e.target.value,
+			value: newChips,
 			errorMessage,
 			isValid: errorMessage === '' && touched,
 		});
@@ -83,12 +109,32 @@ const Input = (props: InputProps) => {
 					className={styles.inputField}
 					type={as === 'textarea' ? undefined : type}
 					onChange={changeHandler}
-					value={value}
+					value={type === 'multi' ? currentChip : value}
 					required={required}
 					placeholder={placeholder}
 					autoComplete='true'
 					onBlur={() => setTouched(true)}
+					onKeyDown={handleEnterPressHandler}
 				/>
+				{type === 'multi' && (
+					<div className={styles.chips}>
+						{chip.map((item) => (
+							<Chip
+								key={item.id}
+								{...item}
+								onRemoveHandler={() => {
+									const filteredChips = chip.filter(({id}) => id !== item.id)
+									setChip(filteredChips);
+									valueChangeHandler(name, {
+										value: filteredChips,
+										errorMessage,
+										isValid: errorMessage === '' && touched,
+									});
+								}}
+							/>
+						))}
+					</div>
+				)}
 			</label>
 			{/* <span className={styles.inputError}>{errorMessage}</span> */}
 		</div>

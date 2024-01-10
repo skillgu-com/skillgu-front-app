@@ -13,7 +13,7 @@
 
 .form {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: 100%;
 	gap: 24px;
 
 	&Submit {
@@ -22,7 +22,7 @@
 	}
 
 	@media screen and (min-width: $sm) {
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(2, calc((100% - 24px) / 2));
 
 		:global {
 			.password-validator {
@@ -41,7 +41,7 @@
 	}
 
 	@media screen and (min-width: $xl) {
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: repeat(3, calc((100% - 48px) / 3));
 
 		:global {
 			.password-validator {

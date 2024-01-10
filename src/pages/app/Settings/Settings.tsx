@@ -5,7 +5,7 @@ import AppHeader from 'src/new-components/AppHeader/AppHeader';
 import Container from 'src/new-components/Container/Container';
 // Sections
 import DeleteAccount from './sections/DeleteAccount/DeleteAccount';
-import Specyfication from './sections/Specyfication/Specyfication';
+import Specification from './sections/Specyfication/Specification';
 import ChangePassword from './sections/ChangePassword/ChangePassword';
 import YourData from './sections/YourData/YourData';
 // Types
@@ -19,7 +19,7 @@ const Settings = () => {
 			<AppHeader title='Ustawienia użytownika' text='Zarządzaj swoimi danymi.' />
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<YourData />
-				<Specyfication />
+				<Specification />
 				<ChangePassword />
 				<DeleteAccount />
 			</Container>

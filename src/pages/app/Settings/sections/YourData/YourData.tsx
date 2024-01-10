@@ -30,11 +30,11 @@ const YourData = () => {
 		x: defaultInput,
 		www: defaultInput,
 		description: defaultInput,
-		highlited: {...defaultInput, value: false},
+		highlighted: {...defaultInput, value: false},
 		hidden: {...defaultInput, value: false},
 	});
 
-  const upadateFormHandler = (name: string, value: any) => {
+  const updateFormHandler = (name: string, value: any) => {
 		setForm({...form, [name]: value});
 	};
   return (
@@ -56,7 +56,7 @@ const YourData = () => {
         value={form.firstName.value}
         errorMessage={form.firstName.errorMessage}
         isValid={form.firstName.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Imię'
       />
       <Input
@@ -67,7 +67,7 @@ const YourData = () => {
         value={form.lastName.value}
         errorMessage={form.lastName.errorMessage}
         isValid={form.lastName.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Nazwisko'
       />
       <Input
@@ -78,7 +78,7 @@ const YourData = () => {
         value={form.phone.value}
         errorMessage={form.phone.errorMessage}
         isValid={form.phone.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Numer telefonu'
       />
       <Input
@@ -89,7 +89,7 @@ const YourData = () => {
         value={form.position.value}
         errorMessage={form.position.errorMessage}
         isValid={form.position.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Stanowisko'
       />
       <Input
@@ -100,7 +100,7 @@ const YourData = () => {
         value={form.location.value}
         errorMessage={form.location.errorMessage}
         isValid={form.location.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Loklizacja'
       />
       <Input
@@ -111,7 +111,7 @@ const YourData = () => {
         value={form.description.value}
         errorMessage={form.description.errorMessage}
         isValid={form.description.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Opis'
       />
       <Input
@@ -122,7 +122,7 @@ const YourData = () => {
         value={form.linkedin.value}
         errorMessage={form.linkedin.errorMessage}
         isValid={form.linkedin.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Linked In'
       />
       <Input
@@ -133,7 +133,7 @@ const YourData = () => {
         value={form.facebook.value}
         errorMessage={form.facebook.errorMessage}
         isValid={form.facebook.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Facebook'
       />
       <Input
@@ -144,7 +144,7 @@ const YourData = () => {
         value={form.x.value}
         errorMessage={form.x.errorMessage}
         isValid={form.x.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='X'
       />
       <Input
@@ -155,7 +155,7 @@ const YourData = () => {
         value={form.instagram.value}
         errorMessage={form.instagram.errorMessage}
         isValid={form.instagram.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Instagram'
       />
       <Input
@@ -166,7 +166,7 @@ const YourData = () => {
         value={form.www.value}
         errorMessage={form.www.errorMessage}
         isValid={form.www.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Strona internetowa'
       />
       <div></div>
@@ -174,10 +174,10 @@ const YourData = () => {
         classes={styles.input}
         id='highlited'
         name='highlited'
-        value={form.highlited.value}
-        errorMessage={form.highlited.errorMessage}
-        isValid={form.highlited.isValid}
-        valueChangeHandler={upadateFormHandler}
+        value={form.highlighted.value}
+        errorMessage={form.highlighted.errorMessage}
+        isValid={form.highlighted.isValid}
+        valueChangeHandler={updateFormHandler}
         label='Chcę być promowany'
       />
       <Checkbox
@@ -187,7 +187,7 @@ const YourData = () => {
         value={form.hidden.value}
         errorMessage={form.hidden.errorMessage}
         isValid={form.hidden.isValid}
-        valueChangeHandler={upadateFormHandler}
+        valueChangeHandler={updateFormHandler}
         label='Ukryj mnie przed innymi mentorami'
       />
       <div className={styles.formSubmit}>

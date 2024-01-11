@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {TextField, MenuItem, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-    getAllCategories,
+    getAllMentorCategories,
     getAllMentorTypes,
     getAllSessionTypes,
     getAllSkills
@@ -24,7 +24,7 @@ const MentorFilters = ({onFilterChange}) => {
         getAllSkills().then((res) => {
             setSkill(res.data);
         });
-        getAllCategories().then((res) => {
+        getAllMentorCategories().then((res) => {
             setCategory(res.data);
         });
         getAllSessionTypes().then((res) => {

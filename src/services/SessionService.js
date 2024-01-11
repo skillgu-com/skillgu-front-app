@@ -8,3 +8,8 @@ export const createSession = async (sessionDescription, sessionTypeValues, sessi
         selectedSchedule: selectedSchedule,
     });
 }
+
+export const getSessionNumber = async () => {
+    return await axios.get('/api/session/get-session-number')
+}
+

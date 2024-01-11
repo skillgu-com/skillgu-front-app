@@ -5,7 +5,7 @@ export const getAllSkills = async () => {
     return await axios.get('/api/mentor/get-all-skills');
 }
 
-export const getAllCategories = async () => {
+export const getAllMentorCategories = async () => {
     return await axios.get('/api/mentor/get-all-category');
 }
 

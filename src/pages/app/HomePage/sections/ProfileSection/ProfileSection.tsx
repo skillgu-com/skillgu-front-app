@@ -14,6 +14,8 @@ import {
 // Styles
 import styles from './ProfileSection.module.scss';
 import Tag from 'src/new-components/Tag/Tag';
+import {getAllMentorCategories} from "../../../../../services/MentorViewService";
+import {getSessionNumber} from "../../../../../services/SessionService";
 
 const USERS_PLACEHOLDER = [
 	{
@@ -40,8 +42,14 @@ const ProfileSection = () => {
 	const role = useSelector(getRole);
 	const email = useSelector(getEmail);
 	const [usersList, setUsersList] = useState(USERS_PLACEHOLDER);
+	const[sessionNumber, setSessionNumber] = useState(0);
 
-	console.log(email)
+
+	useState(() => {
+		getSessionNumber().then((res) => {
+			setSessionNumber(res?.data)
+		})
+	})
 
 	return (
 		<section className={styles.wrapper}>
@@ -61,7 +69,7 @@ const ProfileSection = () => {
 				<h3 className={styles.userPosition}>UI/UX Design</h3>
 				<div className={styles.userAttributes}>
 					<h4 className={styles.userAttributesItem}>
-						17<small>Sesji</small>
+						{sessionNumber}<small>Sesji</small>
 					</h4>
 					{role === 'M' && (
 						<>

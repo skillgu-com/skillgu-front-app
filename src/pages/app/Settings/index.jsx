@@ -22,7 +22,7 @@ import CustomButton, {buttonTypes, buttonColors} from '../../../component/Custom
 // Images
 import forest from '../../../assets/img/forest.png';
 import {MuiChipsInput} from "mui-chips-input";
-import {getAllCategories} from "../../../services/MentorViewService";
+import {getAllMentorCategories} from "../../../services/MentorViewService";
 
 const Settings = () => {
     const userSetting = useSelector((state) => state.userSetting.userSettingStep);
@@ -38,7 +38,7 @@ const Settings = () => {
 
 
     useState(() => {
-        getAllCategories().then((res) => {
+        getAllMentorCategories().then((res) => {
             setCategory(res.data)
         })
     })

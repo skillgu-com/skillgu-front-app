@@ -3,6 +3,7 @@ import React from 'react';
 // Components
 import {Title, Text} from 'src/new-components/typography';
 import Tag from 'src/new-components/Tag/Tag';
+import Button, {ButtonTag} from 'src/new-components/Button/Button';
 // Styles
 import styles from './MentorCardDescription.module.scss';
 // Types
@@ -12,6 +13,7 @@ import {
 } from 'src/new-components/typography/Title/Title';
 
 interface MentorCardDescriptionProps {
+	userID: string;
 	fullName: string;
 	position: string;
 	contactOptions: string[];
@@ -20,7 +22,8 @@ interface MentorCardDescriptionProps {
 }
 
 const MentorCardDescription = (props: MentorCardDescriptionProps) => {
-	const {fullName, position, contactOptions, descritpion, skills} = props;
+	const {userID, fullName, position, contactOptions, descritpion, skills} =
+		props;
 
 	return (
 		<div className={styles.wrapper}>
@@ -54,6 +57,12 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 					<Tag key={skill.slice(0, 3) + index} text={skill} bgColor='#EFF4F9' />
 				))}
 			</ul>
+			<Button
+				as={ButtonTag.InternalLink}
+				href={`/profile/${userID}`}
+				classes={styles.button}>
+				Zobacz profil
+			</Button>
 		</div>
 	);
 };

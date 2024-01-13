@@ -1,49 +1,89 @@
 @use '../../../../../scss/variables' as *;
 
 .wrapper {
-  .userName {
-    text-align: center;
-    margin-top: 26px;
-  
-    small {
-      display: block;
-      margin-top: 11px;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 22px;
-    }
-  }
-  
-  .contact {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    border-top: 1.5px solid #eff4f9;
-    border-bottom: 1.5px solid #eff4f9;
-  
-    li {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.14px;
-    }
-  }
-  
-  .smallTitle{
-    margin-top: 30px;
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-  
-  .smallText{
-    font-size: 14px;
-  }
-  
-  .skills{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-}
+	.userName {
+		text-align: center;
+		margin-top: 26px;
 
+		small {
+			display: block;
+			margin-top: 11px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 22px;
+		}
+	}
+
+	.contact {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 20px;
+		border-top: 1.5px solid #eff4f9;
+		border-bottom: 1.5px solid #eff4f9;
+
+		li {
+			font-size: 14px;
+			font-weight: 600;
+			letter-spacing: 0.14px;
+		}
+	}
+
+	.smallTitle {
+		margin-top: 30px;
+		font-size: 14px;
+		margin-bottom: 15px;
+	}
+
+	.smallText {
+		font-size: 14px;
+	}
+
+	.skills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.button {
+		display: none;
+	}
+
+	@media screen and (min-width: $lg) {
+		grid-area: description;
+		padding-left: 40px;
+		border-left: 1.5px solid #eff4f9;
+
+		.userName {
+			text-align: left;
+			margin-top: 0;
+
+			small {
+				margin-top: 6px;
+			}
+		}
+
+    .skills{
+      width: calc(100% - 195px);
+    }
+
+		.button {
+      display: block;
+      position: absolute;
+      right: 40px;
+      bottom: 30px;
+			max-width: max-content;
+      margin-left: auto;
+			padding: 16px 32px;
+			font-size: 16px !important;
+			font-weight: 600;
+			text-decoration: none;
+		}
+
+		.contact {
+			justify-content: flex-start;
+			padding: 11px 0;
+		}
+	}
+}

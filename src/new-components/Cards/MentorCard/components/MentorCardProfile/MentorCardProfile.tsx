@@ -20,7 +20,7 @@ const MentorCardProfile = (props: MentorCardProfileProps) => {
 	const {profileImg, reviews, reviewsAmount, location, timeZone} = props;
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			<div className={styles.image}>
 				<img src={profileImg} alt='Zdjęcie profilowe' />
 			</div>
@@ -30,7 +30,7 @@ const MentorCardProfile = (props: MentorCardProfileProps) => {
 			</Text>
 			<Text classes={styles.location}><PinSvg/>{location}</Text>
 			<Text classes={styles.timeZone}>{timeZone}</Text>
-		</>
+		</div>
 	);
 };
 

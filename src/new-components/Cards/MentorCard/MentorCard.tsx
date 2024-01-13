@@ -6,7 +6,7 @@ import MentorCardProfile from './components/MentorCardProfile/MentorCardProfile'
 import Tag from 'src/new-components/Tag/Tag';
 import Button, {ButtonTag} from 'src/new-components/Button/Button';
 // Styles
-import styles from './MentorCard.module.scss'
+import styles from './MentorCard.module.scss';
 
 interface MentorCardProps {
 	userID: string;
@@ -25,8 +25,8 @@ interface MentorCardProps {
 	categories: string[];
 	location: string;
 	timeZone: string;
-	socialMedia: any
-	languages: string[]
+	socialMedia: any;
+	languages: string[];
 }
 
 const MentorCard = (props: MentorCardProps) => {
@@ -47,12 +47,14 @@ const MentorCard = (props: MentorCardProps) => {
 		timeZone,
 		quickResponder,
 		categories,
-		socialMedia
+		socialMedia,
 	} = props;
 
 	return (
 		<div className={styles.wrapper}>
-			<Tag classes={styles.tag} bgColor='#ECF7F2' text='Szybko odpowiada'/>
+			{quickResponder && (
+				<Tag classes={styles.tag} bgColor='#ECF7F2' text='Szybko odpowiada' />
+			)}
 			<MentorCardProfile
 				profileImg={profileImg}
 				reviews={reviews}
@@ -61,6 +63,7 @@ const MentorCard = (props: MentorCardProps) => {
 				timeZone={timeZone}
 			/>
 			<MentorCardDescription
+				userID={userID}
 				fullName={fullName}
 				position={position}
 				contactOptions={contactOptions}
@@ -68,7 +71,12 @@ const MentorCard = (props: MentorCardProps) => {
 				skills={skills}
 			/>
 			<MentorCardPrice price={price} logoUrl={logoUrl} companyName={companyName} />
-			<Button as={ButtonTag.InternalLink} href={`/profile/${userID}`} classes={styles.button}>Zobacz profil</Button>
+			<Button
+				as={ButtonTag.InternalLink}
+				href={`/profile/${userID}`}
+				classes={styles.button}>
+				Zobacz profil
+			</Button>
 		</div>
 	);
 };

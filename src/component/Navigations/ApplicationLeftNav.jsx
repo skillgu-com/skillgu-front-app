@@ -22,7 +22,7 @@ const ApplicationLeftNav = () => {
 		},
 		{
 			label: 'Znajdź mentora',
-			redirectUrl: '/mentors',
+			redirectUrl: '/search-mentors',
 			allowedRoles: ['STUDENT'],
 		},
 

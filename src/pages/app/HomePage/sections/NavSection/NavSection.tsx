@@ -26,7 +26,7 @@ const NavSection = () => {
 						text: 'Kalendarz',
 					},
 					{
-						link: '/mentors',
+						link: '/search-mentors',
 						icon: <Find />,
 						text: 'Znajdź mentora',
 					},

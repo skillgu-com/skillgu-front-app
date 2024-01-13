@@ -1,4 +1,15 @@
+// Libraries
 import React from 'react';
+// Components
+import {Title, Text} from 'src/new-components/typography';
+import Tag from 'src/new-components/Tag/Tag';
+// Styles
+import styles from './MentorCardDescription.module.scss';
+// Types
+import {
+	TitleTag,
+	TitleVariant,
+} from 'src/new-components/typography/Title/Title';
 
 interface MentorCardDescriptionProps {
 	fullName: string;
@@ -12,14 +23,37 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 	const {fullName, position, contactOptions, descritpion, skills} = props;
 
 	return (
-		<div>
-			<div>
+		<div className={styles.wrapper}>
+			<Title
+				tag={TitleTag.h3}
+				variant={TitleVariant.standard}
+				classes={styles.userName}>
 				{fullName}
-				{position}
-			</div>
-			<div>{contactOptions}</div>
-			<div>{descritpion}</div>
-			<div>{skills}</div>
+				<small>{position}</small>
+			</Title>
+			<ul className={styles.contact}>
+				{contactOptions.map((option, index) => (
+					<li key={option.slice(0, 3) + index}>{option}</li>
+				))}
+			</ul>
+			<Title
+				tag={TitleTag.h4}
+				variant={TitleVariant.standard}
+				classes={styles.smallTitle}>
+				Opis
+			</Title>
+			<Text classes={styles.smallText}>{descritpion}</Text>
+			<Title
+				tag={TitleTag.h4}
+				variant={TitleVariant.standard}
+				classes={styles.smallTitle}>
+				Umiejętności:
+			</Title>
+			<ul className={styles.skills}>
+				{skills.map((skill, index) => (
+					<Tag key={skill.slice(0, 3) + index} text={skill} bgColor='#EFF4F9' />
+				))}
+			</ul>
 		</div>
 	);
 };

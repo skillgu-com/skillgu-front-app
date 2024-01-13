@@ -21,7 +21,7 @@ const SearchMentors = () => {
 				reviewsAmount={12}
 				companyName='Google'
 				description='Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie. Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie...'
-				logoUrl=''
+				logoUrl='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_640.png'
 				skills={['Leadership', 'Resume CV review', 'Strategy Career']}
 				price={230}
 				location='Warszawa'

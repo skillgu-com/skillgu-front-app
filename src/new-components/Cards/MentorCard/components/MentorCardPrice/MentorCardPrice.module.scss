@@ -1,0 +1,24 @@
+@use '../../../../../scss/variables' as *;
+
+.wrapper {
+	margin-top: 40px;
+
+  .logo {
+    margin-bottom: 30px;
+    padding: 20px 20px 14px;
+    border-top: 1.5px solid #eff4f9;
+    border-bottom: 1.5px solid #eff4f9;
+    
+    img{
+      height: 36px;
+    }
+  }
+  
+  .price {
+    margin-bottom: 40px;
+    
+    strong{
+      font-size: 30px;
+    }
+  }
+}

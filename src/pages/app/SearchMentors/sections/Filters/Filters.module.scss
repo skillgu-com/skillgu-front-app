@@ -2,6 +2,35 @@
 
 .wrapper {
 	margin-top: 40px;
+
+	.select {
+		margin-top: 30px;
+		:global {
+			.multi-select__title {
+				font-weight: 600;
+			}
+			.multi-select__checkbox {
+				grid-column: span 3;
+			}
+
+			@media screen and (min-width: $sm) {
+				.multi-select__options {
+					grid-template-columns: repeat(4, 1fr);
+				}
+
+				.multi-select__checkbox {
+					grid-column: span 1;
+				}
+			}
+		}
+	}
+
+	.button {
+		margin-left: auto;
+		margin-top: 40px;
+		padding: 16px 32px;
+		font-weight: 600;
+	}
 }
 
 .search {
@@ -81,7 +110,7 @@
 	font-weight: 600;
 	text-decoration-line: underline;
 	cursor: pointer;
-	
+
 	@media screen and (min-width: $lg) {
 		margin-top: 10px;
 	}

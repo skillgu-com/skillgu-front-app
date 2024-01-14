@@ -5,6 +5,8 @@ import Container from 'src/new-components/Container/Container';
 import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
 import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
+import Modal from 'src/new-components/Modal/Modal';
+import MulitSelect from 'src/new-components/MultiSelect/MulitSelect';
 // Assets
 import FilterSvg from 'src/assets/icons/FilterSvg';
 import SearchSvg from 'src/assets/icons/SearchSvg';
@@ -20,8 +22,10 @@ import {
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
 import Select from 'src/new-components/Select/Select';
+import {defaultInput} from 'src/new-components/Input/Input';
 
 const Filters = () => {
+	const [filtersModal, setFiltersModal] = useState(false);
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 	};
@@ -74,11 +78,63 @@ const Filters = () => {
 					id='skills'
 					label='Umiejętności'
 				/>
-				<button className={styles.more}>
+				<button
+					className={styles.more}
+					onClick={() => {
+						setFiltersModal(true);
+					}}>
 					Więcej filtrów <FilterSvg />
 				</button>
 				<button className={styles.clear}>Wyczyść filtry</button>
 			</div>
+			{filtersModal && (
+				<Modal
+					closeHandler={() => {
+						setFiltersModal(false);
+					}}
+					title='Więcej filtrów wyszukiwania'>
+					<MulitSelect
+						limit={4}
+						classes={styles.select}
+						options={{
+							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+							test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+						}}
+						label='Grupa mentorów'
+						onValueChange={() => {}}
+					/>
+					<MulitSelect
+						limit={4}
+						classes={styles.select}
+						options={{
+							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+							test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+						}}
+						label='Strefa czasowa'
+						onValueChange={() => {}}
+					/>
+					<MulitSelect
+						limit={4}
+						classes={styles.select}
+						options={{
+							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+							test4: {id: 'test4', name: 'test4', label: 'IT', ...defaultInput},
+						}}
+						label='Język'
+						onValueChange={() => {}}
+					/>
+					<Button classes={styles.button}>Wyszukaj</Button>
+				</Modal>
+			)}
 		</Container>
 	);
 };

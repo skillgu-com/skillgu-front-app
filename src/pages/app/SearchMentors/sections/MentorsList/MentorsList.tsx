@@ -3,16 +3,19 @@ import React, {useEffect, useState} from 'react';
 // Components
 import Container from 'src/new-components/Container/Container';
 import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
-import { Title } from 'src/new-components/typography';
+import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
 // API
 import {getAllMentors} from 'src/services/UserProfileService';
 import {getAllFilteredMentors} from 'src/services/MentorViewService';
 // Styles
-import styles from './MentorsList.module.scss'
+import styles from './MentorsList.module.scss';
 // Types
 import {Tag} from 'src/types/tags';
-import { TitleTag, TitleVariant } from 'src/new-components/typography/Title/Title';
+import {
+	TitleTag,
+	TitleVariant,
+} from 'src/new-components/typography/Title/Title';
 
 const MENTORS_PLACEHOLDER = [
 	{
@@ -77,7 +80,7 @@ const MentorsList = () => {
 					<MentorCard key={item.userID} {...item} />
 				))}
 			</div>
-      <Button classes={styles.loadMore}>Załaduj więcej</Button>
+			<Button classes={styles.loadMore}>Załaduj więcej</Button>
 		</Container>
 	);
 };

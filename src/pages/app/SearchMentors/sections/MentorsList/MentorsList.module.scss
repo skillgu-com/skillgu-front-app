@@ -1,13 +1,19 @@
-.wrapper{
-  margin-top: 40px;
+@use '../../../../../scss/variables' as *;
+
+.wrapper {
+	margin-top: 40px;
+
+	@media screen and (min-width: $lg) {
+		margin-top: 60px;
+	}
 }
 
-.mentorsList{
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+.mentorsList {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 }
 
-.loadMore{
-  margin: 40px auto 10px;
+.loadMore {
+	margin: 40px auto 10px;
 }

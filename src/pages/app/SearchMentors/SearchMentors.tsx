@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from 'src/new-components/AppHeader/AppHeader';
 // Components
 import MentorsList from './sections/MentorsList/MentorsList';
+import Filters from './sections/Filters/Filters';
 // API
 import {getAllMentors} from 'src/services/UserProfileService';
 import {getAllFilteredMentors} from 'src/services/MentorViewService';
@@ -68,6 +69,7 @@ const SearchMentors = () => {
 				title='Znajdź mentora'
 				text='Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania.'
 			/>
+			<Filters />
 			<MentorsList />
 		</>
 	);

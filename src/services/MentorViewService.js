@@ -6,17 +6,21 @@ export const getAllSkills = async () => {
 }
 
 export const getAllMentorCategories = async () => {
-    return await axios.get('/api/mentor/get-all-category');
+    return await axios.get('/api/mentor/get-all-mentor-category');
 }
 
 export const getAllSessionTypes = async () => {
     return await axios.get('/api/mentor/get-all-session-type');
 }
 
-export const getAllMentorTypes = async () => {
-    return await axios.get('/api/mentor/get-all-mentor-type');
+export const getAllMentoringTopics = async () => {
+    return await axios.get('/api/mentor/get-all-mentoring-topics');
 }
 
 export const getAllFilteredMentors = async (user) => {
     return await axios.post('/api/mentor/filtered-mentors', user);
+}
+
+export const getAllMentorServices = async () => {
+    return await axios.get('/api/mentor/get-all-mentor-services');
 }

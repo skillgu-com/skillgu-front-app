@@ -11,14 +11,16 @@ import {TitleTag, TitleVariant,} from 'src/new-components/typography/Title/Title
 // Styles
 import styles from '../../Settings.module.scss';
 import {
-    getAllMentorCategories, getAllMentorTypes, getAllSessionTypes, getAllSkills,
+    getAllMentorCategories, getAllMentoringTopics, getAllMentorServices, getAllSkills,
 } from "../../../../../services/MentorViewService";
+import {getAllUserData} from "../../../../../services/UserProfileService";
 
 interface AllData {
     skills: any[];
-    categories: any[];
-    sessionTypes: any[];
-    mentorTypes: any[];
+    mentorCategories: any[];
+    mentoringTopics: any[];
+    mentorServices: any[];
+
 }
 
 const Specification = () => {
@@ -28,16 +30,12 @@ const Specification = () => {
         services: defaultInput,
         skills: {...defaultInput, value: [] as string[]}
     });
-    // const [skills, setSkills] = useState([]);
-    // const [categories, setCategories] = useState([]);
-    // const [sessionTypes, setSessionTypes] = useState([]);
-    // const [mentorTypes, setMentorTypes] = useState([]);
-    //
+
     const [allData, setAllData] = useState<AllData>({
         skills: [],
-        categories: [],
-        sessionTypes: [],
-        mentorTypes: []
+        mentorCategories: [],
+        mentoringTopics: [],
+        mentorServices: []
     });
 
     const updateMentorFormHandler = (name: string, value: any) => {
@@ -48,38 +46,47 @@ const Specification = () => {
         Promise.all([
             getAllSkills(),
             getAllMentorCategories(),
-            getAllSessionTypes(),
-            getAllMentorTypes()
-        ]).then(([skillsRes, categoriesRes, sessionTypesRes, mentorTypesRes]) => {
+            getAllMentoringTopics(),
+            getAllMentorServices(),
+            getAllUserData()
+        ]).then(([skillsRes, categoriesRes, mentorTypesRes, mentorServicesRes]) => {
             const transformedSkills = skillsRes.data.map((skill: string, index: number) => ({
                 id: `skill-${index}`,
                 label: skill,
                 ...defaultInput
             }));
-            const transformedCategories = categoriesRes.data.map((category: string, index: number) => ({
+            const transformedMentorCategories = categoriesRes.data.map((category: string, index: number) => ({
                 id: `category-${index}`,
                 label: category,
                 ...defaultInput
             }));
-            const transformedSessionTypes = sessionTypesRes.data.map((sessionType: string, index: number) => ({
-                id: `sessionType-${index}`,
-                label: sessionType,
-                ...defaultInput
-            }));
-            const transformedMentorTypes = mentorTypesRes.data.map((mentorType: string, index: number) => ({
+
+            const transformedMentoringTopics = mentorTypesRes.data.map((mentorType: string, index: number) => ({
                 id: `mentorType-${index}`,
                 label: mentorType,
                 ...defaultInput
             }));
+            const transformedMentorServices = mentorServicesRes.data.map((mentorService: string, index: number) => ({
+                id: `services-${index}`,
+                label: mentorService,
+                ...defaultInput
+            }));
+
 
             setAllData({
                 skills: transformedSkills,
-                categories: transformedCategories,
-                sessionTypes: transformedSessionTypes,
-                mentorTypes: transformedMentorTypes
+                mentorCategories: transformedMentorCategories,
+                mentoringTopics: transformedMentoringTopics,
+                mentorServices: transformedMentorServices
             });
         });
+
+        getAllUserData().then((res) => {
+            console.log(res.data);
+        })
+
     }, []);
+
 
     const submitHandler = (e: any) => {
         e.preventDefault()
@@ -100,15 +107,13 @@ const Specification = () => {
                     classes={styles.multiSelect}
                     label='Tematy Mentoringu'
                     limit={3}
-                    options={{
-
-                    }}
+                    options={{}}
                     onValueChange={(state: any) => updateMentorFormHandler('mentorTopics', state)}
                 />
 
                 <MulitSelect
                     classes={styles.multiSelect}
-                    label='Kategorie Mentoringu'
+                    label='Moja kategoria'
                     limit={3}
                     options={{
                         test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
@@ -119,9 +124,7 @@ const Specification = () => {
                     classes={styles.multiSelect}
                     label='Usługi'
                     limit={3}
-                    options={{
-
-                    }}
+                    options={{}}
                     onValueChange={(state: any) => updateMentorFormHandler('services', state)}
                 />
                 <Input

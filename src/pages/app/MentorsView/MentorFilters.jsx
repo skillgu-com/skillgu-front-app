@@ -3,21 +3,23 @@ import {TextField, MenuItem, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {
     getAllMentorCategories,
-    getAllMentorTypes,
+    getAllMentoringTopics,
     getAllSessionTypes,
     getAllSkills
 } from "../../../services/MentorViewService";
 
 const MentorFilters = ({onFilterChange}) => {
     const [skill, setSkill] = useState([]);
-    const [category, setCategory] = useState([]);
+    const [mentorCategoryGroup, setMentorCategoryGroup] = useState([]);
     const [sessionType, setSessionType] = useState([]);
-    const [mentorType, setMentorTypes] = useState([]);
+    const [mentoringTopics, setMentoringTopics] = useState([]);
 
     const [selectedSkill, setSelectedSkill] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSessionType, setSelectedSessionType] = useState('');
     const [selectedMentorType, setSelectedMentorTypes] = useState('');
+    const [selectedMentoringTopics, setSelectedMentoringTopics] = useState('');
+    const [selectedMentorCategoryGroup, setSelectedMentorCategoryGroup] = useState('');
 
 
     useEffect(() => {
@@ -25,20 +27,22 @@ const MentorFilters = ({onFilterChange}) => {
             setSkill(res.data);
         });
         getAllMentorCategories().then((res) => {
-            setCategory(res.data);
+            setMentorCategoryGroup(res.data);
         });
-        getAllSessionTypes().then((res) => {
-            setSessionType(res.data);
-        });
-        getAllMentorTypes().then((res) => {
-            setMentorTypes(res.data);
+        // getAllSessionTypes().then((res) => {
+        //     console.log(res.data)
+        //     setSessionType(res.data);
+        // });
+        getAllMentoringTopics().then((res) => {
+            setMentoringTopics(res.data);
         });
 
 
     }, []);
 
-    const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
+
+    const handleMentoringTopics = (event) => {
+        setSelectedMentoringTopics(event.target.value);
         onFilterChange({skill: selectedSkill, category: event.target.value});
     };
 
@@ -47,16 +51,21 @@ const MentorFilters = ({onFilterChange}) => {
         onFilterChange({skill: event.target.value, category: selectedCategory});
     };
 
-    const handleSessionTypes = (event) => {
-        setSelectedSessionType(event.target.value);
+    const handleMentorCategoryGroup = (event) => {
+        setSelectedMentorCategoryGroup(event.target.value);
         onFilterChange({skill: selectedSkill, category: selectedCategory, sessionType: event.target.value});
     };
 
-    const handleMentorTypes = (event) => {
-        const newMentorType = event.target.value;
-        setSelectedMentorTypes(newMentorType);
-        onFilterChange({skill: selectedSkill, category: selectedCategory, sessionType: selectedSessionType, mentorType: newMentorType});
-    };
+    // const handleMentorTypes = (event) => {
+    //     const newMentorType = event.target.value;
+    //     setSelectedMentorTypes(newMentorType);
+    //     onFilterChange({
+    //         skill: selectedSkill,
+    //         mentorCategoryGroup: selectedCategory,
+    //         sessionType: selectedSessionType,
+    //         mentorType: newMentorType
+    //     });
+    // };
 
 
     return (
@@ -80,14 +89,13 @@ const MentorFilters = ({onFilterChange}) => {
                 <MenuItem value={1}>Domyślne</MenuItem>
             </TextField>
             <TextField
-                id='category'
+                id='topics'
                 select
                 label='Tematy Mentoringu'
-                value={selectedCategory}
-                onChange={handleCategoryChange}
-            >
-                {category?.map(element => (
-                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
+                value={selectedMentoringTopics}
+                onChange={handleMentoringTopics}>
+                {mentoringTopics?.map(element => (
+                    <MenuItem key={element.id} value={element.name}>{element.name}</MenuItem>
                 ))}
             </TextField>
             <TextField
@@ -97,25 +105,26 @@ const MentorFilters = ({onFilterChange}) => {
                 value={selectedSkill}
                 onChange={handleSkillChange}>
                 {skill?.map(element => (
-                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
+                    <MenuItem key={element.id} value={element.name}>{element.name}</MenuItem>
                 ))}
             </TextField>
-            <TextField id='topics'
-                       select label='Typy sesji'
-                       value={selectedSessionType}
-                       onChange={handleSessionTypes}>
-                {sessionType?.map(element => (
-                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
+            <TextField id='mentorcategory'
+                       select
+                       label='Grupy mentorów'
+                       value={selectedMentorCategoryGroup}
+                       onChange={handleMentorCategoryGroup}>
+                {mentorCategoryGroup?.map(element => (
+                    <MenuItem key={element.id} value={element.name}>{element.name}</MenuItem>
                 ))}
             </TextField>
-            <TextField id='mentorTypes'
-                       select label='Typy mentorów'
-                       value={selectedMentorType}
-                       onChange={handleMentorTypes}>
-                {mentorType?.map(element => (
-                    <MenuItem key={element.uuid} value={element}>{element}</MenuItem>
-                ))}
-            </TextField>
+            {/*<TextField id='mentorTypes'*/}
+            {/*           select label='Typy mentorów'*/}
+            {/*           value={selectedMentorType}*/}
+            {/*           onChange={handleMentorTypes}>*/}
+            {/*    {mentorType?.map(element => (*/}
+            {/*        <MenuItem key={element.uuid} value={element}>{element}</MenuItem>*/}
+            {/*    ))}*/}
+            {/*</TextField>*/}
             <TextField id='price' select label='Stawka' defaultValue={1}>
                 <MenuItem value={1}>500 zł</MenuItem>
             </TextField>

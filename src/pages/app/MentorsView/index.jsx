@@ -26,10 +26,10 @@ const MentorScreen = () => {
     }, []);
 
     useEffect(() => {
-        const filtered = mentors.filter(mentor =>
-            selectedCategory === '' || mentor.category.includes(selectedCategory)
-        );
-        setFilteredMentors(filtered);
+        // const filtered = mentors.filter(mentor =>
+        //     selectedCategory === '' || mentor.category.includes(selectedCategory)
+        // );
+        // setFilteredMentors(filtered);
     }, [selectedCategory, mentors]);
 
 
@@ -40,14 +40,14 @@ const MentorScreen = () => {
             sessionType: filterCriteria.sessionType,
             mentorType: filterCriteria?.mentorType,
         };
-        getAllFilteredMentors(user)
-            .then((response) => {
-                setMentors(response.data); // aktualizacja mentorów z przefiltrowanymi danymi
-                setFilteredMentors(response.data); // aktualizacja przefiltrowanych mentorów
-            })
-            .catch((error) => {
-                throw new Error(error.message);
-            });
+        // getAllFilteredMentors(user)
+        //     .then((response) => {
+        //         setMentors(response.data); // aktualizacja mentorów z przefiltrowanymi danymi
+        //         setFilteredMentors(response.data); // aktualizacja przefiltrowanych mentorów
+        //     })
+        //     .catch((error) => {
+        //         throw new Error(error.message);
+        //     });
     }, [filterCriteria]); // nasłuchiwanie zmian w filterCriteria
 
 

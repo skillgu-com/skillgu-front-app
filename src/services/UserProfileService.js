@@ -42,3 +42,7 @@ export const updateUser = async (email) => {
 export const settingUser = async (userSettingState) => {
     return await axios.patch('/api/user/setting-user', userSettingState)
 }
+
+export const getAllUserData = async () => {
+    return await axios.get('/api/mentor/setting/get-all-mentor-data');
+}

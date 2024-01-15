@@ -49,8 +49,7 @@ const CreateSingleSession = (props) => {
         getSessionTypes()
             .then(res => {
                 console.log(res.data);
-                const sessionArray = Object.entries(res.data).map(([key, value]) => ({ id: key, name: value }));
-                setSessionTypes(sessionArray);
+                setSessionTypes(res.data);
             })
             .catch(reason => {
                 console.error("something goes wrong.", reason);

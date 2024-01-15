@@ -13,7 +13,7 @@ import styles from '../../Settings.module.scss';
 import {
     getAllMentorCategories, getAllMentoringTopics, getAllMentorServices, getAllSkills,
 } from "../../../../../services/MentorViewService";
-import {getAllUserData} from "../../../../../services/UserProfileService";
+import {fetchAllUserData} from "../../../../../services/UserProfileService";
 
 interface AllData {
     skills: any[];
@@ -48,7 +48,7 @@ const Specification = () => {
             getAllMentorCategories(),
             getAllMentoringTopics(),
             getAllMentorServices(),
-            getAllUserData()
+            fetchAllUserData()
         ]).then(([skillsRes, categoriesRes, mentorTypesRes, mentorServicesRes]) => {
             const transformedSkills = skillsRes.data.map((skill: string, index: number) => ({
                 id: `skill-${index}`,
@@ -73,6 +73,7 @@ const Specification = () => {
             }));
 
 
+
             setAllData({
                 skills: transformedSkills,
                 mentorCategories: transformedMentorCategories,
@@ -81,7 +82,7 @@ const Specification = () => {
             });
         });
 
-        getAllUserData().then((res) => {
+        getAllMentoringTopics().then((res) => {
             console.log(res.data);
         })
 

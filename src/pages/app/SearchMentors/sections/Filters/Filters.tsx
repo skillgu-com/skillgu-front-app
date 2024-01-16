@@ -34,7 +34,6 @@ const Filters = () => {
 	});
 
 	const upadateFormHandler = (name: string, value: any) => {
-		console.log(value);
 		setForm({...form, [name]: value});
 	};
 

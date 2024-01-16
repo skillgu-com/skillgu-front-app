@@ -29,12 +29,14 @@ const RangeInput = (props: RangeInputProps) => {
 
 	const changeHandler = (name: string, value: any) => {
 		if (name.includes('max')) {
+			if(+value.value > maxValue || +value.value < currentMinValue || +value.value < minValue) return
 			valueChangeHandler(id, {
 				value: [currentMinValue, +value.value],
 				errorMessage: undefined,
 				isValid: true,
 			});
 		} else if (name.includes('min')) {
+			if(+value.value < minValue || +value.value > maxValue || +value.value > currentMaxValue) return
 			valueChangeHandler(id, {
 				value: [+value.value, currentMaxValue],
 				errorMessage: undefined,
@@ -47,12 +49,6 @@ const RangeInput = (props: RangeInputProps) => {
 				isValid: true,
 			});
 		}
-
-		valueChangeHandler(id, {
-			value: value,
-			errorMessage: undefined,
-			isValid: true,
-		});
 	};
 
 	return (
@@ -73,7 +69,7 @@ const RangeInput = (props: RangeInputProps) => {
 					label=''
 					type='number'
 					value={currentMinValue}
-					valueChangeHandler={(name: any, value) => changeHandler(name, value)}
+					valueChangeHandler={(name: any, value) => changeHandler('min', value)}
 				/>
 				<span>-</span>
 				<Input
@@ -83,7 +79,7 @@ const RangeInput = (props: RangeInputProps) => {
 					label=''
 					type='number'
 					value={currentMaxValue}
-					valueChangeHandler={(name: any, value) => changeHandler(name, value)}
+					valueChangeHandler={(name: any, value) => changeHandler('max', value)}
 				/>
 				<span>zł</span>
 			</div>

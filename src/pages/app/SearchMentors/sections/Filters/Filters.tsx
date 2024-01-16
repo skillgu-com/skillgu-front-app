@@ -7,6 +7,7 @@ import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
 import Modal from 'src/new-components/Modal/Modal';
 import MulitSelect from 'src/new-components/MultiSelect/MulitSelect';
+import RangeInput from 'src/new-components/RangeInput/RangeInput';
 // Assets
 import FilterSvg from 'src/assets/icons/FilterSvg';
 import SearchSvg from 'src/assets/icons/SearchSvg';
@@ -26,6 +27,17 @@ import {defaultInput} from 'src/new-components/Input/Input';
 
 const Filters = () => {
 	const [filtersModal, setFiltersModal] = useState(false);
+
+	const [form, setForm] = useState({
+		price: {...defaultInput, value: [0, 100]},
+		password: defaultInput,
+	});
+
+	const upadateFormHandler = (name: string, value: any) => {
+		console.log(value);
+		setForm({...form, [name]: value});
+	};
+
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 	};
@@ -131,6 +143,15 @@ const Filters = () => {
 						}}
 						label='Język'
 						onValueChange={() => {}}
+					/>
+					<RangeInput
+						id='price'
+						label='Stawka'
+						minValue={0}
+						maxValue={100}
+						currentMinValue={form.price.value[0]}
+						currentMaxValue={form.price.value[1]}
+						valueChangeHandler={upadateFormHandler}
 					/>
 					<Button classes={styles.button}>Wyszukaj</Button>
 				</Modal>

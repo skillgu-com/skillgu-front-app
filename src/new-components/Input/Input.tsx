@@ -15,7 +15,7 @@ interface InputProps {
     label: string;
     as?: 'input' | 'textarea';
     required?: boolean;
-    value: string | string[];
+    value: string | string[] | number;
     errorMessage?: string;
     placeholder?: string;
     isValid?: boolean;

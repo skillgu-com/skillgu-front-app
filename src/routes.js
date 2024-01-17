@@ -1,19 +1,18 @@
 // Libraries
 import {Navigate} from 'react-router-dom';
-// Pages
+// NEW Screens
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
-// NEW Screens
 import HomeScreen from './pages/app/HomePage/HomePage';
-import NewSettings from './pages/app/Settings/Settings';
+import Settings from './pages/app/Settings/Settings';
+import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 // Screens
 import UserProfileScreen from './pages/app/UserProfileScreen';
 import ProjectsSearchScreen from './pages/app/SearchOfProjectsView';
 import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
 import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
-import Settings from './pages/app/Settings';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
 import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
@@ -61,9 +60,16 @@ const routes = [
 	{
 		id: 'route04',
 		path: '/settings',
-		element: <NewSettings />,
+		element: <Settings />,
 		isProtected: true,
 		hasLayout: true,
+	},
+	{
+		id: 'route09n',
+		path: '/search-mentors',
+		element: <SearchMentors />,
+		hasLayout: true,
+		isProtected: true,
 	},
 	// {
 	// 	id: 'route05',
@@ -141,12 +147,6 @@ const routes = [
 		id: 'route17',
 		path: '/underconstruction',
 		element: <Underconstruction />,
-	},
-	{
-		id: 'route18',
-		path: '/user-setup',
-		element: <Settings />,
-		isProtected: true,
 	},
 	{
 		id: 'route19',

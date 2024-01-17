@@ -17,8 +17,9 @@ const MentorScreen = () => {
     useEffect(() => {
         getAllMentors()
             .then((response) => {
-                setMentors(response.data);
-                setFilteredMentors(response.data);
+                console.log(response.data)
+                // setMentors(response.data);
+                // setFilteredMentors(response.data);
             })
             .catch((error) => {
                 throw new Error(error.message);

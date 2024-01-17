@@ -66,9 +66,23 @@ const MENTORS_PLACEHOLDER = [
 	},
 ];
 
+
+
+
 const MentorsList = () => {
-	const [mentors, setMentors] = useState(MENTORS_PLACEHOLDER);
+	const [mentors, setMentors] = useState([]);
 	const [filteredMentors, setFilteredMentors] = useState([]);
+	const [test, setTest] = useState([]);
+	useEffect(() => {
+		getAllMentors()
+			.then((response) => {
+				setMentors(response.data)
+			})
+			.catch((error) => {
+				throw new Error(error.message);
+			});
+	}, []);
+
 
 	return (
 		<Container as={Tag.Section} classes={styles.wrapper}>
@@ -76,7 +90,7 @@ const MentorsList = () => {
 				Wyniki wyszukiwania
 			</Title>
 			<div className={styles.mentorsList}>
-				{mentors.map((item) => (
+				{mentors?.map((item:any) => (
 					<MentorCard key={item.userID} {...item} />
 				))}
 			</div>

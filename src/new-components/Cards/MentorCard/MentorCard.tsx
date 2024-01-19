@@ -15,7 +15,7 @@ interface MentorCardProps {
     firstName: string;
     lastName: string;
     profileImg: string;
-    jobPosition: string;
+    jobPosition: { id: number; name: string }[];
     contactOptions: string[];
     reviews: number;
     reviewsAmount: number;

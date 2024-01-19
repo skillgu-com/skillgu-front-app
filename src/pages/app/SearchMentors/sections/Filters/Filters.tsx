@@ -29,6 +29,36 @@ const Filters = () => {
 	const [filtersModal, setFiltersModal] = useState(false);
 
 	const [form, setForm] = useState({
+		mentorGroup: {
+			...defaultInput,
+			value: {
+				test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+				test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+				test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+				test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+				test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+			},
+		},
+		languages: {
+			...defaultInput,
+			value: {
+				test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+				test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+				test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+				test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+				test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+			},
+		},
+		timeZone: {
+			...defaultInput,
+			value: {
+				test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
+				test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
+				test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
+				test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+				test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
+			},
+		},
 		price: {...defaultInput, value: [0, 100]},
 		password: defaultInput,
 	});
@@ -60,7 +90,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={() => {}}
+					valueChangeHandler={upadateFormHandler}
 					name='sort'
 					id='sort'
 					label='Sortowanie'
@@ -72,7 +102,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={() => {}}
+					valueChangeHandler={upadateFormHandler}
 					name='categories'
 					id='categories'
 					label='Kategorie'
@@ -84,7 +114,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={() => {}}
+					valueChangeHandler={upadateFormHandler}
 					name='skills'
 					id='skills'
 					label='Umiejętności'
@@ -105,43 +135,28 @@ const Filters = () => {
 					}}
 					title='Więcej filtrów wyszukiwania'>
 					<MulitSelect
+						name='mentorGroup'
 						limit={4}
 						classes={styles.select}
-						options={{
-							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
-							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
-							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
-							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
-							test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
-						}}
+						value={form.mentorGroup.value}
 						label='Grupa mentorów'
-						onValueChange={() => {}}
+						onValueChange={upadateFormHandler}
 					/>
 					<MulitSelect
+						name='timeZone'
 						limit={4}
 						classes={styles.select}
-						options={{
-							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
-							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
-							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
-							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
-							test4: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
-						}}
+						value={form.timeZone.value}
 						label='Strefa czasowa'
-						onValueChange={() => {}}
+						onValueChange={upadateFormHandler}
 					/>
 					<MulitSelect
+						name='languages'
 						limit={4}
 						classes={styles.select}
-						options={{
-							test: {id: 'test', name: 'test', label: 'IT', ...defaultInput},
-							test1: {id: 'test1', name: 'test1', label: 'IT', ...defaultInput},
-							test2: {id: 'test2', name: 'test2', label: 'IT', ...defaultInput},
-							test3: {id: 'test3', name: 'test3', label: 'IT', ...defaultInput},
-							test4: {id: 'test4', name: 'test4', label: 'IT', ...defaultInput},
-						}}
+						value={form.languages.value}
 						label='Język'
-						onValueChange={() => {}}
+						onValueChange={upadateFormHandler}
 					/>
 					<RangeInput
 						id='price'

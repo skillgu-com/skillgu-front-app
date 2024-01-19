@@ -9,16 +9,17 @@ import styles from './MulitSelect.module.scss';
 
 interface MultiSelectProps {
 	classes?: string;
-	options: any;
+	name: string;
+	value: any;
 	label: string;
-	onValueChange: (state: any) => any;
+	onValueChange: (name: string, value: any) => any;
 	limit?: number;
 }
 
 const MulitSelect = (props: MultiSelectProps) => {
-	const {label, onValueChange, limit, options, classes} = props;
+	const {label, onValueChange, limit, value, classes, name} = props;
 	const [currentLimit, setCurrentLimit] = useState<number | undefined>(limit);
-	const [selected, setSelected] = useState<any>(options);
+	const [selected, setSelected] = useState<any>(value);
 
 	const updateStateHandler = (id: string) => {
 		const newState = {
@@ -26,7 +27,7 @@ const MulitSelect = (props: MultiSelectProps) => {
 			[id]: {...selected[id], value: !selected[id].value},
 		};
 		setSelected(newState);
-		onValueChange(newState);
+		onValueChange(name, {value: newState, errorMessage: '', touched: true});
 	};
 
 	return (
@@ -35,19 +36,19 @@ const MulitSelect = (props: MultiSelectProps) => {
 				{label}
 			</Text>
 			<div className={classNames(styles.options, 'multi-select__options')}>
-				{Object.keys(options)
+				{Object.keys(value)
 					.slice(0, currentLimit)
 					.map((key) => (
 						<Checkbox
 							classes='multi-select__checkbox'
-							key={options[key].id}
-							id={options[key].id}
-							name={options[key].name}
-							value={selected[options[key].id].value}
-							errorMessage={selected[options[key].id].errorMessage}
-							isValid={selected[options[key].id].isValid}
+							key={value[key].id}
+							id={value[key].id}
+							name={value[key].name}
+							value={selected[value[key].id].value}
+							errorMessage={selected[value[key].id].errorMessage}
+							isValid={selected[value[key].id].isValid}
 							valueChangeHandler={updateStateHandler}
-							label={options[key].label}
+							label={value[key].label}
 						/>
 					))}
 			</div>

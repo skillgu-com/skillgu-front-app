@@ -1,21 +1,24 @@
 // Libraries
 import React from 'react';
+import classNames from 'classnames';
 // Icons
 import Pen from '../../assets/icons/Pen';
 // Styles
 import styles from './ImageUpload.module.scss';
+// Types
+import { Common } from 'src/types/main';
 
-interface ImageUploadProps {
+interface ImageUploadProps extends Common{
 	src: string;
 	changeHandler: (url: string) => any;
 }
 
 const ImageUpload = (props: ImageUploadProps) => {
-	const {src, changeHandler} = props;
+	const {src, changeHandler, classes} = props;
 
 	return (
-		<div className={styles.profileImage}>
-			<div className={styles.profileImageImage}>
+		<div className={classNames(styles.profileImage, classes)}>
+			<div className={classNames(styles.profileImageImage, 'profile-image__preview')}>
 				<img src={src} alt='Zdjęcie profilowe' />
 			</div>
 			<label className={styles.profileImageInput}>

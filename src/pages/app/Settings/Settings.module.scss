@@ -22,7 +22,8 @@
 	}
 
 	.companyLogo {
-		border-radius: 0;
+		border-radius: 7px;
+		border: 1px solid $gray-color;
 		width: 100%;
 
 		img{
@@ -33,7 +34,7 @@
 			border-radius: 0;
 
 			span svg{
-				height: 30px;
+				height: 20px;
 			}
 		}
 	}

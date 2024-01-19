@@ -11,16 +11,16 @@ const CloseSvg = () => {
 			<path
 				d='M13.5652 1L1 11.9736'
 				stroke='#252B42'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.5'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 			<path
 				d='M13.5652 11.9736L7.86615 6.99644L1 1'
 				stroke='#252B42'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.5'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 		</svg>
 	);

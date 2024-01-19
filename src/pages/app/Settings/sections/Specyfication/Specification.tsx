@@ -123,7 +123,7 @@ const Specification = () => {
 
 			<form className={styles.form} onSubmit={submitHandler}>
 				<ImageUpload
-                classes={styles.companyLogo}
+					classes={styles.companyLogo}
 					src='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_640.png'
 					changeHandler={() => null}
 				/>
@@ -138,30 +138,29 @@ const Specification = () => {
 					label='Nazwa firmy'
 				/>
 				<MulitSelect
+					name='mentorTopics'
 					classes={styles.multiSelect}
 					label='Tematy Mentoringu'
 					limit={3}
-					options={{}}
-					onValueChange={(state: any) =>
-						updateMentorFormHandler('mentorTopics', state)
-					}
+					value={{}}
+					onValueChange={updateMentorFormHandler}
 				/>
 
 				<MulitSelect
 					classes={styles.multiSelect}
+					name='mentorCategory'
 					label='Moja kategoria'
 					limit={3}
-					options={{}}
-					onValueChange={(state: any) =>
-						updateMentorFormHandler('mentorCategory', state)
-					}
+					value={{}}
+					onValueChange={updateMentorFormHandler}
 				/>
 				<MulitSelect
 					classes={styles.multiSelect}
 					label='Usługi'
+					name='services'
 					limit={3}
-					options={{}}
-					onValueChange={(state: any) => updateMentorFormHandler('services', state)}
+					value={{}}
+					onValueChange={updateMentorFormHandler}
 				/>
 				<Input
 					classes={styles.input}

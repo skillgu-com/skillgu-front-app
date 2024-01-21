@@ -55,7 +55,6 @@ const Specification = () => {
 			getAllMentorCategories(),
 			getAllMentoringTopics(),
 			getAllMentorServices(),
-			//TODO w zlym miejscu
 			fetchAllUserData(),
 		]).then(([skillsRes, mentorCategories, mentorTopics, mentorServices]) => {
 			const transformedSkills = skillsRes.data.map(
@@ -103,9 +102,6 @@ const Specification = () => {
 			});
 		});
 
-		fetchAllUserData().then((res) => {
-			console.log(res.data);
-		});
 	}, []);
 
 	const submitHandler = (e: any) => {

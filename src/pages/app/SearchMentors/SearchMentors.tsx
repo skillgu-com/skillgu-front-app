@@ -66,7 +66,7 @@ const SearchMentors = () => {
 	return (
 		<>
 			<AppHeader
-				title='Znajdź mentora'
+				title='Znajdź mentora '
 				text='Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania.'
 			/>
 			<Filters />

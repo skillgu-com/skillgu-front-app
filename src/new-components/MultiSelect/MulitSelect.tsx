@@ -26,6 +26,7 @@ const MulitSelect = (props: MultiSelectProps) => {
 			...selected,
 			[id]: {...selected[id], value: !selected[id].value},
 		};
+
 		setSelected(newState);
 		onValueChange(name, {value: newState, errorMessage: '', touched: true});
 	};
@@ -44,22 +45,20 @@ const MulitSelect = (props: MultiSelectProps) => {
 							key={value[key].id}
 							id={value[key].id}
 							name={value[key].name}
-							value={selected[value[key].id].value}
-							errorMessage={selected[value[key].id].errorMessage}
-							isValid={selected[value[key].id].isValid}
-							valueChangeHandler={updateStateHandler}
+							value={selected[value[key].id]?.value}
+							errorMessage={selected[value[key].id]?.errorMessage}
+							isValid={selected[value[key].id]?.isValid}
+							valueChangeHandler={() => updateStateHandler(value[key].id)}
 							label={value[key].label}
 						/>
 					))}
 			</div>
-			{!!currentLimit && (
-				<button
-					className={styles.more}
-					type='button'
-					onClick={() => setCurrentLimit(undefined)}>
-					Pokaż więcej
-				</button>
-			)}
+			<button
+				className={styles.more}
+				type='button'
+				onClick={() => setCurrentLimit(currentLimit ? undefined : limit)}>
+				{currentLimit ? 'Pokaż więcej' : 'Pokaż mniej'}
+			</button>
 		</div>
 	);
 };

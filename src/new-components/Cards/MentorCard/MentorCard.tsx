@@ -66,7 +66,6 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
     } = props;
 
 
-    console.log(props)
 
 
     return (

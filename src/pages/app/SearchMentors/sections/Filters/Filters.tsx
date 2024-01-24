@@ -63,7 +63,8 @@ const Filters = () => {
 		password: defaultInput,
 	});
 
-	const upadateFormHandler = (name: string, value: any) => {
+	const updateFormHandler = (name: string, value: any) => {
+		console.log('jestem tutaj:!')
 		setForm({...form, [name]: value});
 	};
 
@@ -90,7 +91,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={upadateFormHandler}
+					valueChangeHandler={updateFormHandler}
 					name='sort'
 					id='sort'
 					label='Sortowanie'
@@ -102,7 +103,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={upadateFormHandler}
+					valueChangeHandler={updateFormHandler}
 					name='categories'
 					id='categories'
 					label='Kategorie'
@@ -114,7 +115,7 @@ const Filters = () => {
 						{value: 'next', label: 'Kolejna'},
 					]}
 					value={'alphabet'}
-					valueChangeHandler={upadateFormHandler}
+					valueChangeHandler={updateFormHandler}
 					name='skills'
 					id='skills'
 					label='Umiejętności'
@@ -140,7 +141,7 @@ const Filters = () => {
 						classes={styles.select}
 						value={form.mentorGroup.value}
 						label='Grupa mentorów'
-						onValueChange={upadateFormHandler}
+						onValueChange={updateFormHandler}
 					/>
 					<MulitSelect
 						name='timeZone'
@@ -148,7 +149,7 @@ const Filters = () => {
 						classes={styles.select}
 						value={form.timeZone.value}
 						label='Strefa czasowa'
-						onValueChange={upadateFormHandler}
+						onValueChange={updateFormHandler}
 					/>
 					<MulitSelect
 						name='languages'
@@ -156,7 +157,7 @@ const Filters = () => {
 						classes={styles.select}
 						value={form.languages.value}
 						label='Język'
-						onValueChange={upadateFormHandler}
+						onValueChange={updateFormHandler}
 					/>
 					<RangeInput
 						id='price'
@@ -165,7 +166,7 @@ const Filters = () => {
 						maxValue={100}
 						currentMinValue={form.price.value[0]}
 						currentMaxValue={form.price.value[1]}
-						valueChangeHandler={upadateFormHandler}
+						valueChangeHandler={updateFormHandler}
 					/>
 					<Button classes={styles.button}>Wyszukaj</Button>
 				</Modal>

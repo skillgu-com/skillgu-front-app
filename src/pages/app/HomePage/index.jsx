@@ -84,7 +84,6 @@ const HomeScreen = () => {
     useEffect(() => {
         findRelatedUsersBasedOnRole()
             .then((res) => {
-                console.log(users)
                 if (res.data.length > 0) {
                     setUsers(res.data);
                 } else {

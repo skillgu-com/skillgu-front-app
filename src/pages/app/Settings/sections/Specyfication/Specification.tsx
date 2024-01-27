@@ -23,6 +23,8 @@ import styles from '../../Settings.module.scss';
 
 import ImageUpload from 'src/new-components/ImageUpload/ImageUpload';
 import classNames from 'classnames';
+import {UserData} from '../../Settings';
+import {useResolvedPath} from 'react-router-dom';
 
 interface AllData {
 	skills: any[];
@@ -31,7 +33,7 @@ interface AllData {
 	mentorServices: any[];
 }
 
-const Specification = (props: {default: any}) => {
+const Specification = (props: {default: any; userData: UserData}) => {
 	const [mentorForm, setMentorForm] = useState({
 		mentorTopics: props.default.topics,
 		mentorCategory: props.default.categories,
@@ -47,6 +49,33 @@ const Specification = (props: {default: any}) => {
 	const submitHandler = (e: any) => {
 		e.preventDefault();
 	};
+console.log(props.userData);
+	useEffect(() => {
+		let services = mentorForm.services.value;
+		props.userData.services?.map(({id}) => {
+			services[id].value = true;
+		});
+		let skills = mentorForm.skills.value;
+		props.userData.skill?.map(({id}) => {
+			skills[id].value = true;
+		});
+		// let mentorCategory = mentorForm.mentorCategory.value;
+		// props.userData.mentorCategory?.map(({id}) => {
+		// 	mentorCategory[id].value = true;
+		// });
+		let mentorTopics = mentorForm.mentorTopics.value;
+		props.userData.mentorTopics?.map(({id}) => {
+			mentorTopics[id].value = true;
+		});
+
+		setMentorForm({
+			...mentorForm,
+			services: {...mentorForm.services, value: services},
+			skills: {...mentorForm.skills, value: skills},
+			mentorTopics: {...mentorForm.mentorTopics, value: mentorTopics},
+			// mentorCategory: {...mentorForm.mentorCategory, value: mentorCategory},
+		});
+	}, [props.userData]);
 
 	return (
 		<section className={styles.section}>

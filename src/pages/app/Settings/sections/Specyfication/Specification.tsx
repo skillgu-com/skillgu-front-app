@@ -27,7 +27,6 @@ import {UserData} from '../../Settings';
 import {useResolvedPath} from 'react-router-dom';
 
 interface AllData {
-	skills: any[];
 	mentorCategories: any[];
 	mentoringTopics: any[];
 	mentorServices: any[];
@@ -39,7 +38,7 @@ const Specification = (props: {default: any; userData: UserData}) => {
 		mentorCategory: props.default.categories,
 		companyName: defaultInput,
 		services: props.default.services,
-		skills: props.default.skills,
+		skills: {...defaultInput, value: [] as any},
 	});
 
 	const updateMentorFormHandler = (name: string, value: any) => {
@@ -49,16 +48,12 @@ const Specification = (props: {default: any; userData: UserData}) => {
 	const submitHandler = (e: any) => {
 		e.preventDefault();
 	};
-console.log(props.userData);
 	useEffect(() => {
 		let services = mentorForm.services.value;
 		props.userData.services?.map(({id}) => {
 			services[id].value = true;
 		});
-		let skills = mentorForm.skills.value;
-		props.userData.skill?.map(({id}) => {
-			skills[id].value = true;
-		});
+
 		// let mentorCategory = mentorForm.mentorCategory.value;
 		// props.userData.mentorCategory?.map(({id}) => {
 		// 	mentorCategory[id].value = true;
@@ -71,7 +66,7 @@ console.log(props.userData);
 		setMentorForm({
 			...mentorForm,
 			services: {...mentorForm.services, value: services},
-			skills: {...mentorForm.skills, value: skills},
+			skills: {...mentorForm.skills, value: props.userData.skill},
 			mentorTopics: {...mentorForm.mentorTopics, value: mentorTopics},
 			// mentorCategory: {...mentorForm.mentorCategory, value: mentorCategory},
 		});

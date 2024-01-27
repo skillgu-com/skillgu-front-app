@@ -15,7 +15,7 @@ interface InputProps {
 	label: string;
 	as?: 'input' | 'textarea';
 	required?: boolean;
-	value: string | string[] | number | {id: string; text: string}[];
+	value: string | string[] | number | {id: string; name: string}[];
 	errorMessage?: string;
 	placeholder?: string;
 	isValid?: boolean;
@@ -48,8 +48,8 @@ const Input = (props: InputProps) => {
 
 	const [touched, setTouched] = useState(false);
 	const [currentChip, setCurrentChip] = useState('');
-	const [chip, setChip] = useState<{id: string; text: string}[]>(
-		value as {id: string; text: string}[]
+	const [chip, setChip] = useState<{id: string; name: string}[]>(
+		value as {id: string; name: string}[]
 	);
 
 	const changeHandler = (
@@ -73,7 +73,7 @@ const Input = (props: InputProps) => {
 
 		const newChips = [
 			...chip,
-			{id: Math.random().toString(36), text: currentChip},
+			{id: Math.random().toString(36), name: currentChip},
 		];
 
 		setChip(newChips);
@@ -95,6 +95,11 @@ const Input = (props: InputProps) => {
 			isValid: errorMessage === '',
 		});
 	}, [touched]);
+
+	useEffect(() => {
+		if (type !== 'multi') return;
+		setChip(value as {id: string; name: string}[]);
+	}, [type, value]);
 
 	return (
 		<div
@@ -122,7 +127,7 @@ const Input = (props: InputProps) => {
 				/>
 				{type === 'multi' && (
 					<div className={styles.chips}>
-						{chip.map((item) => (
+						{chip?.map((item) => (
 							<Chip
 								key={item.id}
 								{...item}

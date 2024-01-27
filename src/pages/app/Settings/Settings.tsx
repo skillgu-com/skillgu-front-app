@@ -79,16 +79,10 @@ const Settings = () => {
 
 	useEffect(() => {
 		Promise.all([
-			getAllSkills(),
 			getAllMentorCategories(),
 			getAllMentoringTopics(),
 			getAllMentorServices(),
-		]).then(([skillsRes, mentorCategories, mentorTopics, mentorServices]) => {
-			let transformedSkills: any = [];
-			skillsRes.data.map((category: {id: string; name: string}) => {
-				transformedSkills.push({id: category?.id, text: category?.name});
-			});
-
+		]).then(([mentorCategories, mentorTopics, mentorServices]) => {
 			let transformedMentorCategories: any = {};
 			mentorCategories.data.map((item: {id: string; name: string}) => {
 				transformedMentorCategories[item?.id] = {
@@ -120,10 +114,6 @@ const Settings = () => {
 			});
 
 			setMentorForm({
-				skills: {
-					...defaultInput,
-					value: transformedSkills,
-				},
 				categories: {
 					...defaultInput,
 					value: transformedMentorCategories,

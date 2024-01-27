@@ -13,7 +13,12 @@ import FilterSvg from 'src/assets/icons/FilterSvg';
 import SearchSvg from 'src/assets/icons/SearchSvg';
 // API
 import {getAllMentors} from 'src/services/UserProfileService';
-import {getAllFilteredMentors, getAllMentorCategories} from 'src/services/MentorViewService';
+import {
+    getAllFilteredMentors,
+    getAllMentorCategories,
+    getAllMentoringTopics, getAllMentorServices,
+    getAllSkills
+} from 'src/services/MentorViewService';
 // Styles
 import styles from './Filters.module.scss';
 // Types
@@ -24,70 +29,160 @@ import {
 } from 'src/new-components/typography/Title/Title';
 import Select from 'src/new-components/Select/Select';
 import {defaultInput} from 'src/new-components/Input/Input';
+import CheckboxGroup from "../../../../../new-components/MultiSelect/CheckBoxGroup";
 
-interface BackendItem {
+interface Skill {
     id: number;
     name: string;
 }
 
-interface TransformedItem {
-    id: string;
+interface Topic {
+    id: number;
     name: string;
-    label: string;
-    // Dodaj tutaj inne pola, które masz w defaultInput
 }
 
-type TransformedData = {
-    [key: string]: TransformedItem;
-};
+interface FormData {
+    skills: string[];
+    mentorTopics: string[];
+    mentorGroup: string[];
+    // Tutaj możesz dodać więcej pól, jeśli są potrzebne
+}
+
+
 const Filters = () => {
     const [filtersModal, setFiltersModal] = useState(false);
+    const [mentorForm, setMentorForm] = useState<any>();
+    const [selectedSkill, setSelectedSkill] = useState('');
+    const [allSkillDB, setAllSkillDB] = useState<Skill[]>([]);
+    const [allTopicDB, setAllTopicDB] = useState<Topic[]>([]);
+    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+    const [selectMentorTopic, setSelectMentorTopic] = useState<string[]>([]);
 
-    const transformBackendData = (backendData: BackendItem[]): TransformedData => {
-        const transformedData: TransformedData = {};
+    const [formData, setFormData] = useState<FormData>({
+        skills: [],
+        mentorTopics: [],
+        mentorGroup: [],
 
-        backendData.forEach(item => {
-            transformedData[item.id.toString()] = {
-                id: item.id.toString(),
-                name: item.name,
-                label: item.name,
-                ...defaultInput
-            };
-        });
-
-        return transformedData;
-    };
+        // Inicjalizacja innych pól
+    });
 
     useEffect(() => {
-        getAllMentorCategories().then(res => {
-            const transformedData = transformBackendData(res.data);
-            setForm(prevForm => ({
-                ...prevForm,
-                mentorGroup: {
-                    ...prevForm.mentorGroup,
-                    value: transformedData
-                }
-            }));
-        }).catch(error => {
-            console.error("Błąd podczas ładowania kategorii mentorów:", error);
+        console.log(formData)
+    })
+
+
+    useEffect(() => {
+        getAllSkills().then((res) => {
+            setAllSkillDB(res.data);
+        })
+    }, []);
+
+    useEffect(() => {
+        getAllMentoringTopics().then((res) => {
+            setAllTopicDB(res.data);
+        })
+    }, []);
+
+    const allSkills = allSkillDB.map(element => ({
+        value: element.id,
+        label: element.name
+    }));
+    const allTopics = allTopicDB.map(element => ({
+        value: element.id,
+        label: element.name
+    }));
+
+    const resetFilters = () => {
+        formData.skills = [];
+        setSelectedSkills([]); // Resetuje wybrane umiejętności
+        // Tutaj możesz również dodać logikę resetowania innych filtrów
+    };
+
+
+    useEffect(() => {
+        Promise.all([
+            getAllSkills(),
+            getAllMentorCategories(),
+            getAllMentoringTopics(),
+            getAllMentorServices(),
+        ]).then(([skillsRes, mentorCategories, mentorTopics, mentorServices]) => {
+            let transformedSkills: any = [];
+            skillsRes.data.map((category: { id: string; name: string }) => {
+                transformedSkills.push({id: category?.id, text: category?.name});
+            });
+
+            let transformedMentorCategories: any = {};
+            mentorCategories.data.map((item: { id: string; name: string }) => {
+                transformedMentorCategories[item?.id] = {
+                    id: item?.id,
+                    label: item?.name,
+                    ...defaultInput,
+                    value: false,
+                };
+            });
+
+            let transformedMentoringTopics: any = {};
+            mentorTopics.data.map((item: { id: string; name: string }) => {
+                transformedMentoringTopics[item?.id] = {
+                    id: item?.id,
+                    label: item?.name,
+                    ...defaultInput,
+                    value: false,
+                };
+            });
+
+            let transformedMentorServices: any = {};
+            mentorServices.data.map((item: { id: string; name: string }) => {
+                transformedMentorServices[item?.id] = {
+                    id: item?.id,
+                    label: item?.name,
+                    ...defaultInput,
+                    value: false,
+                };
+            });
+
+
+            setMentorForm({
+                skills: {
+                    ...defaultInput,
+                    value: transformedSkills,
+                },
+                categories: {
+                    ...defaultInput,
+                    value: transformedMentorCategories,
+                },
+                topics: {
+                    ...defaultInput,
+                    value: transformedMentoringTopics,
+                },
+                services: {
+                    ...defaultInput,
+                    value: transformedMentorServices,
+                },
+            });
         });
     }, []);
 
-    const [form, setForm] = useState({
-        mentorGroup: {
-            ...defaultInput,
-            value: {}
-        },
-        // inne pola...
-    });
-
     const updateFormHandler = (name: string, value: any) => {
-        setForm({...form, [name]: value});
+        setMentorForm({...mentorForm, [name]: value});
     };
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
     };
+
+    const handleSkillsChange = (selectedValues: string[]) => {
+        setFormData(prev => ({...prev, skills: selectedValues}));
+    };
+
+    const handleMentorTopic = (selectedValues: string[]) => {
+        setFormData(prev => ({...prev, mentorTopics: selectedValues}));
+    };
+
+    const handleMentorGroup = (selectedValues: string[]) => {
+        setFormData(prev => ({...prev, mentorGroup: selectedValues}));
+    };
+
 
     return (
         <Container as={Tag.Section} classes={styles.wrapper}>
@@ -113,30 +208,20 @@ const Filters = () => {
                     id='sort'
                     label='Sortowanie'
                 />
-                <Select
-                    options={[
-                        {value: 'alphabet', label: 'Alfabetycznie'},
-                        {value: 'increase', label: 'Rosnąco'},
-                        {value: 'next', label: 'Kolejna'},
-                    ]}
-                    value={'alphabet'}
-                    valueChangeHandler={updateFormHandler}
-                    name='categories'
-                    id='categories'
-                    label='Kategorie'
+                <CheckboxGroup
+                    options={allTopics}
+                    onSelectedValuesChange={handleMentorTopic}
+                    resetFilters={resetFilters}
+                    label='Tematy mentoringu'
                 />
-                <Select
-                    options={[
-                        {value: 'alphabet', label: 'Alfabetycznie'},
-                        {value: 'increase', label: 'Rosnąco'},
-                        {value: 'next', label: 'Kolejna'},
-                    ]}
-                    value={'alphabet'}
-                    valueChangeHandler={updateFormHandler}
-                    name='skills'
-                    id='skills'
-                    label='Umiejętności'
+                <CheckboxGroup
+                    options={allSkills}
+                    label="Wybierz umiejętności"
+                    onSelectedValuesChange={handleSkillsChange}
+                    resetFilters={resetFilters}
+
                 />
+
                 <button
                     className={styles.more}
                     onClick={() => {
@@ -144,7 +229,10 @@ const Filters = () => {
                     }}>
                     Więcej filtrów <FilterSvg/>
                 </button>
-                <button className={styles.clear}>Wyczyść filtry</button>
+                <button className={styles.clear}
+                        onClick={resetFilters}>
+                    Wyczyść filtry
+                </button>
             </div>
             {filtersModal && (
                 <Modal
@@ -156,15 +244,16 @@ const Filters = () => {
                         name='mentorGroup'
                         limit={4}
                         classes={styles.select}
-                        value={form.mentorGroup.value}
+                        value={mentorForm.categories.value}
                         label='Grupa mentorów'
+                        onSelectedValuesChange={handleMentorGroup}
                         onValueChange={updateFormHandler}
                     />
                     {/*<MulitSelect*/}
                     {/*    name='timeZone'*/}
                     {/*    limit={4}*/}
                     {/*    classes={styles.select}*/}
-                    {/*    value={form.timeZone.value}*/}
+                    {/*    value={mentorForm.timeZone.value}*/}
                     {/*    label='Strefa czasowa'*/}
                     {/*    onValueChange={updateFormHandler}*/}
                     {/*/>*/}

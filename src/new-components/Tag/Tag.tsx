@@ -9,16 +9,16 @@ import styles from './Tag.module.scss';
 import { Common } from 'src/types/main';
 
 interface TagProps extends Common{
-	text: string;
+	name: string;
 	bgColor?: string;
 	onRemoveHandler?: () => void
 }
 
 const Tag = (props: TagProps) => {
-	const {text, bgColor = '#EFF4F9', onRemoveHandler, classes} = props;
+	const {name, bgColor = '#EFF4F9', onRemoveHandler, classes} = props;
 	return (
 		<Text as='span' classes={classNames(styles.wrapper, classes)} style={{backgroundColor: bgColor}}>
-			{text} {!!onRemoveHandler && <button type='button' onClick={onRemoveHandler}>X</button>}
+			{name} {!!onRemoveHandler && <button type='button' onClick={onRemoveHandler}>X</button>}
 		</Text>
 	);
 };

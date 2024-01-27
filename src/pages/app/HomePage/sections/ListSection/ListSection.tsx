@@ -105,10 +105,10 @@ const ListSection = () => {
                             <td>{element.startDate}</td>
                             <td>{element.sessionType}</td>
                             <td>
-                                <Tag text={element.meetingType} />
+                                <Tag name={element.meetingType} />
                             </td>
                             <td>
-                                <Tag text={element.sessionStatus} />
+                                <Tag name={element.sessionStatus} />
                             </td>
                         </tr>
                     ))}

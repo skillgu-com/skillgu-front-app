@@ -63,7 +63,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
             </Title>
             <ul className={styles.skills}>
                 {skills?.map((skill, index) => (
-                    <Tag key={skill.id + index} text={skill.name} bgColor='#EFF4F9'/>
+                    <Tag key={skill.id + index} name={skill.name} bgColor='#EFF4F9'/>
                 ))}
             </ul>
             <Button

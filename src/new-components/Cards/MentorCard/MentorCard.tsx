@@ -71,7 +71,7 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
     return (
         <div className={styles.wrapper}>
             {quickResponder && (
-                <Tag classes={styles.tag} bgColor='#ECF7F2' text='Szybko odpowiada'/>
+                <Tag classes={styles.tag} bgColor='#ECF7F2' name='Szybko odpowiada'/>
             )}
             <MentorCardProfile
                 profileImg={'https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg'}

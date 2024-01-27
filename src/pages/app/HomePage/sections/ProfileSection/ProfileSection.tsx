@@ -95,8 +95,8 @@ const ProfileSection = () => {
 				Tagi
 			</Title>
 			<div className={styles.tags}>
-				<Tag text='Mobile App' />
-				<Tag text='Landing Page' />
+				<Tag name='Mobile App' />
+				<Tag name='Landing Page' />
 			</div>
 		</section>
 	);

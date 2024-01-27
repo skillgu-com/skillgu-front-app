@@ -145,7 +145,9 @@ const Settings = () => {
 			<AppHeader title='Ustawienia użytownika' text='Zarządzaj swoimi danymi.' />
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<YourData userData={userData} />
-				{isMentor && !!mentorForm && <Specification default={mentorForm} />}
+				{isMentor && !!mentorForm && !!userData && (
+					<Specification default={mentorForm} userData={userData} />
+				)}
 				<ChangePassword />
 				<DeleteAccount />
 			</Container>

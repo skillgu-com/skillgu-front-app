@@ -17,12 +17,7 @@ import {fetchAllUserData} from 'src/services/UserProfileService';
 import {Tag} from 'src/types/tags';
 // Styles
 import styles from './Settings.module.scss';
-import {
-	getAllMentorCategories,
-	getAllMentorServices,
-	getAllMentoringTopics,
-	getAllSkills,
-} from 'src/services/MentorViewService';
+import {getAllMentorCategories, getAllMentoringTopics, getAllMentorServices} from 'src/services/MentorViewService';
 
 export interface UserData {
 	userID: number;
@@ -40,6 +35,7 @@ export interface UserData {
 	instagramURL: string | null;
 	facebookURL: string | null;
 	websiteURL: string | null;
+	youtube: string | null;
 	timeZone: string;
 	language: {
 		id: number;
@@ -85,8 +81,9 @@ const Settings = () => {
 		]).then(([mentorCategories, mentorTopics, mentorServices]) => {
 			let transformedMentorCategories: any = {};
 			mentorCategories.data.map((item: {id: string; name: string}) => {
+				const newId = parseInt(item?.id) + 1;
 				transformedMentorCategories[item?.id] = {
-					id: item?.id,
+					id: newId,
 					label: item?.name,
 					...defaultInput,
 					value: false,
@@ -95,8 +92,9 @@ const Settings = () => {
 
 			let transformedMentoringTopics: any = {};
 			mentorTopics.data.map((item: {id: string; name: string}) => {
+				const newId = parseInt(item?.id) + 1;
 				transformedMentoringTopics[item?.id] = {
-					id: item?.id,
+					id: newId,
 					label: item?.name,
 					...defaultInput,
 					value: false,
@@ -105,8 +103,9 @@ const Settings = () => {
 
 			let transformedMentorServices: any = {};
 			mentorServices.data.map((item: {id: string; name: string}) => {
+				const newId = parseInt(item?.id) + 1;
 				transformedMentorServices[item?.id] = {
-					id: item?.id,
+					id: newId,
 					label: item?.name,
 					...defaultInput,
 					value: false,

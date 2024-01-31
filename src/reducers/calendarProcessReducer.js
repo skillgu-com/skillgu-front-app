@@ -14,7 +14,6 @@ const initialState = {
 const calendarProcessReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'CALENDAR_GOOGLE_CREATION':
-            console.log('CALENDAR_GOOGLE_CREATION')
             return {
                 ...state,
                 calendarStep: {

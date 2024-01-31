@@ -1,56 +1,66 @@
+
 const initialState = {
     userSettingStep: {
-        profileImage: '',
-        category: '',
-        hobby: '',
         firstName: '',
         lastName: '',
-        id: '',
-        oldEmail: '',
-        newEmail: '',
+        phone: '',
         jobPosition: '',
         location: '',
-        descriptionAboutMe: '',
-        phone: '',
-        facebookURL: '',
-        instagramURL: '',
-        twitterURL: '',
-        linkedInURL: '',
-        youtubeURL: '',
-        timeZone: '',
-        skill:''
+        linkedin: '',
+        instagram: '',
+        facebook: '',
+        youtube: '',
+        x: '',
+        www: '',
+        description: '',
+        highlighted: false,
+        hidden: false,
+        skill: [],
+        mentorCategory: [],
+        services: [],
+        mentorTopics:[]
+
     }
 }
 
 const userSettingReducer = (state = initialState, action) => {
     switch (action.type) {
-
-        case 'STEP_FIRST_USER_SETTING':
+        case 'YOUR_DATA_USER_SETTING':
             return {
                 ...state,
                 userSettingStep: {
+                    id: action.payload.id,
                     profileImage: action.payload.profileImage,
-                    category: action.payload.category,
                     hobby: action.payload.hobby,
                     firstName: action.payload.firstName,
                     lastName: action.payload.lastName,
-                    id: action.payload.id,
                     oldEmail: action.payload.oldEmail,
                     newEmail: action.payload.newEmail,
-                    jobPosition: action.payload.jobPosition,
                     location: action.payload.location,
-                    descriptionAboutMe: action.payload.descriptionAboutMe,
+                    description: action.payload.description,
                     phone: action.payload.phone,
-                    facebookURL: action.payload.facebookURL,
-                    instagramURL: action.payload.instagramURL,
-                    twitterURL: action.payload.twitterURL,
-                    linkedInURL: action.payload.linkedInURL,
-                    youtubeURL: action.payload.youtubeURL,
+                    facebookURL: action.payload.facebook,
+                    instagramURL: action.payload.instagram,
+                    x: action.payload.x,
+                    linkedInURL: action.payload.linkedin,
+                    youtubeURL: action.payload.youtube,
                     timeZone: action.payload.timeZone,
-                    skill: action.payload.skill
+                    jobPosition: action.payload.jobPosition,
+
                 },
             };
-
+        case 'SPECIFICATION_USER_SETTING':
+            // console.log('SPECIFICATION_USER_SETTING')
+            // console.log(action)
+            return {
+                ...state,
+                userSettingStep: {
+                    skill: action.payload.skill,
+                    mentorCategory: action.payload.mentorCategory,
+                    services: action.payload.services,
+                    mentorTopics: action.payload.mentorTopics,
+                }
+            }
         default:
             return state;
     }

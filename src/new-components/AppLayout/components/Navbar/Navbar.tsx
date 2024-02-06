@@ -63,7 +63,7 @@ const Navbar = () => {
 					</Link>
 					<Link className={styles.navbarMenuItem} to='/'>
 						<Wallet />
-						Rozliczenia
+						Subskrypcje
 					</Link>
 				</div>
 				<div>

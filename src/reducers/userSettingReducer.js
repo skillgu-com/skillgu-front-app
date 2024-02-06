@@ -50,8 +50,6 @@ const userSettingReducer = (state = initialState, action) => {
                 },
             };
         case 'SPECIFICATION_USER_SETTING':
-            // console.log('SPECIFICATION_USER_SETTING')
-            // console.log(action)
             return {
                 ...state,
                 userSettingStep: {

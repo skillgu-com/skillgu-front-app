@@ -11,8 +11,8 @@ const AccountSettlement = () => {
 	return (
 		<AppLayout>
 			<HeroHeader
-				title='Rozliczenia'
-				image={<img src={mount} alt='rozliczenia' />}
+				title='Subskrypcje'
+				image={<img src={mount} alt='subskrypcje' />}
 			/>
 			<section>
 				<h2 className='app__title'>Bieżące subskrypcje</h2>

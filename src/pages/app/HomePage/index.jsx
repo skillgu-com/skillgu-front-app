@@ -52,7 +52,7 @@ const navigation = [
 
     {
         id: 5,
-        title: 'Rozliczenia',
+        title: 'Subskrypcje',
         link: '/account-settlements',
         icon: <HandMoney/>,
         allowedRoles: ['STUDENT', 'MENTOR'],

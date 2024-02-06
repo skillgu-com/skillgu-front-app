@@ -65,7 +65,7 @@ const NavSection = () => {
 					{
 						link: '/account-view',
 						icon: <Payment />,
-						text: 'Rozliczenia',
+						text: 'Subsrkybcje',
 					},
 			  ];
 

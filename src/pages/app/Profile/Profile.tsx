@@ -5,6 +5,7 @@ import MentorProfile from './MentorProfile/MentorProfile';
 import Container from 'src/new-components/Container/Container';
 import MentorCardPrice from 'src/new-components/Cards/MentorCard/components/MentorCardPrice/MentorCardPrice';
 import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
+import PlanSelect from 'src/new-components/PlanSelect/PlanSelect';
 // Types
 import {Tag} from 'src/types/tags';
 import MentorCardDescription from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
@@ -13,7 +14,7 @@ import styles from './Profile.module.scss';
 
 const Profile = () => {
 	return (
-		<Container as={Tag.Section}>
+		<Container as={Tag.Section} classes={styles.wrapper}>
 			<MentorProfile
 				cardProfile={{
 					profileImg:
@@ -32,6 +33,7 @@ const Profile = () => {
 					{id: 4, name: 'Intensywna praca'},
 				]}
 			/>
+			<PlanSelect/>
 			<div className={styles.mobileDescription}>
 				<MentorCardDescription
 					classes={styles.mobileDescriptionText}
@@ -51,7 +53,7 @@ const Profile = () => {
 					languages={['Polish']}
 					socialMedia={{}}
 				/>
-				<MentorCardPrice price={350} logoUrl='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_1280.png' companyName='Google' />
+				<MentorCardPrice price={250} logoUrl='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_1280.png' companyName='Google' />
 			</div>
 			<MentorCard
 				profileImg='https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg'

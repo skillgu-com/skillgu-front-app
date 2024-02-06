@@ -1,0 +1,48 @@
+@use '../../../../scss/variables' as *;
+
+.wrapper {
+	display: flex;
+	border-bottom: 1px solid #D8D8D8;
+  background-color: $light-color;
+
+	> * {
+		flex: 1;
+	}
+}
+
+.button {
+  position: relative;
+	padding: 11px 11px 9px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 26px;
+	text-align: center;
+	color: #aaa;
+  background-color: transparent;
+  transition:  color .24s;
+  cursor: pointer;
+
+  &:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2.5px;
+    border-radius: 6px;
+    background-color: $primary-color;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: opacity .24s;
+  }
+
+	&Selected {
+		color: $dark-color;
+    opacity: 1;
+
+    &::before{
+      opacity: 1;
+    }
+	}
+}

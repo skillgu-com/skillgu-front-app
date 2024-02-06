@@ -4,12 +4,12 @@ import classNames from 'classnames';
 // Helpers
 import validation from '../../helpers/improovedValidation';
 // Styles
-import styles from './Checkbox.module.scss'
+import styles from './Checkbox.module.scss';
 
 interface CheckboxProps {
 	id: string;
 	name: string;
-	label: string;
+	label: React.ReactNode;
 	type?: 'checkbox' | 'radio';
 	required?: boolean;
 	value: boolean;
@@ -44,7 +44,8 @@ const Checkbox = (props: CheckboxProps) => {
 	return (
 		<label
 			className={classNames(styles.checkbox, classes)}
-			data-is-error={!!errorMessage}>
+			data-is-error={!!errorMessage}
+			data-is-radio={type === 'radio'}>
 			<input
 				id={id}
 				name={name}

@@ -1,0 +1,11 @@
+@use '../../scss/variables' as *;
+
+.wrapper{
+  background-color: $light-color;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.content{
+  padding: 16px 16px 31px;
+}

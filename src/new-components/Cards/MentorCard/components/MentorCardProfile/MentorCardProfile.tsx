@@ -8,7 +8,7 @@ import PinSvg from 'src/assets/icons/PinSvg';
 // Styles
 import styles from './MentorCardProfile.module.scss';
 
-interface MentorCardProfileProps {
+export interface MentorCardProfileProps {
 	profileImg: string;
 	reviews: number;
 	reviewsAmount: number;

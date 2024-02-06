@@ -7,12 +7,11 @@ import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 import HomeScreen from './pages/app/HomePage/HomePage';
 import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
+import Profile from './pages/app/Profile/Profile';
 // Screens
 import UserProfileScreen from './pages/app/UserProfileScreen';
-import ProjectsSearchScreen from './pages/app/SearchOfProjectsView';
 import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
-import SearchBusinessPartner from './pages/app/SearchBusinessPartner';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
 import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
@@ -25,9 +24,9 @@ import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import LoggedProfileScreen from './pages/app/UserProfileScreen/LoggedProfileScreen';
 import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
-import CreateMentorPlan from "./pages/app/MentoringAndSessionDashboard/CreateMentorPlan";
-import CreateSingleSession from "./pages/app/MentoringAndSessionDashboard/CreateSingleSession";
-import BookSuccess from "./pages/app/BookSessionView/views/BookSuccess";
+import CreateMentorPlan from './pages/app/MentoringAndSessionDashboard/CreateMentorPlan';
+import CreateSingleSession from './pages/app/MentoringAndSessionDashboard/CreateSingleSession';
+import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
 
 const routes = [
 	{
@@ -78,24 +77,6 @@ const routes = [
 	// 	isProtected: true,
 	// },
 	{
-		id: 'route06',
-		path: '/search-invest-projects',
-		element: <ProjectsSearchScreen />,
-		isProtected: true,
-	},
-	{
-		id: 'route07',
-		path: '/search-business-partner',
-		element: <SearchBusinessPartner />,
-		isProtected: true,
-	},
-	// {
-	// 	id: 'route08',
-	// 	path: '/invest-maps',
-	// 	element: <ProjectsMapScreen />,
-	// 	isProtected: true,
-	// },
-	{
 		id: 'route09',
 		path: '/mentors',
 		element: <MentorScreen />,
@@ -104,7 +85,8 @@ const routes = [
 	{
 		id: 'route10',
 		path: '/user-profile',
-		element: <LoggedProfileScreen />,
+		element: <Profile />,
+		hasSimpleLayout: true,
 		isProtected: true,
 	},
 	{
@@ -214,8 +196,6 @@ const routes = [
 		element: <BookSuccess />,
 		isProtected: true,
 	},
-
-
 ];
 
 export default routes;

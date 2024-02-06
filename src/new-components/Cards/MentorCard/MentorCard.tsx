@@ -16,18 +16,18 @@ interface MentorCardProps {
     lastName: string;
     profileImg: string;
     jobPosition: { id: number; name: string }[];
-    contactOptions: string[];
+    contactOptions?: string[];
     reviews: number;
     reviewsAmount: number;
     companyName: string;
     description: string;
     logoUrl: string;
     skill: { id: number; name: string }[];
-    price: number;
+    price?: number;
     location: string;
     timeZone: string;
     quickResponder: boolean;
-    categories: string[];
+    categories: { id: number; name: string }[];
     services: { id: number; name: string }[];
     mentorTopics?: any[];
     socialMedia: {
@@ -38,7 +38,8 @@ interface MentorCardProps {
         websiteURL?: string;
         xurl?: string;
     };
-    languages?: { id: number; name: string }[];
+    languages?: string[];
+    isExtended?: boolean
 }
 
 const MentorCard: React.FC<MentorCardProps> = (props) => {
@@ -63,13 +64,14 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         mentorTopics,
         socialMedia,
         languages,
+        isExtended
     } = props;
 
 
 
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} data-is-extended={isExtended}>
             {quickResponder && (
                 <Tag classes={styles.tag} bgColor='#ECF7F2' name='Szybko odpowiada'/>
             )}
@@ -87,6 +89,10 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
                 services={services}
                 description={description}
                 skills={skill}
+                isExtended={isExtended}
+                categories={categories}
+                languages={languages}
+                socialMedia={socialMedia}
             />
             <MentorCardPrice price={250}
                              logoUrl={'https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_640.png'}

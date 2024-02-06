@@ -23,6 +23,11 @@
 		font-weight: 600;
 	}
 	
+	&[data-is-extended='true']{
+		@media screen and (max-width: calc($lg - 1px)) {
+			display: none;
+		}
+	}
 
 	@media screen and (min-width: $lg) {
 		grid-template-columns: max-content 1fr;

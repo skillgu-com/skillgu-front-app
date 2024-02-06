@@ -1,10 +1,10 @@
 // Libraries
-import {Dispatch} from 'react';
+import {Dispatch, useEffect} from 'react';
 import {NavigateFunction} from 'react-router-dom';
 // Service
 import {loginGoogleUser, loginUser} from '../services/AuthenticationService';
 import {parseUserFromJwt} from './parseUserFromJwt';
-import {updateUser} from '../services/UserProfileService';
+import {fetchUserIDByEmail} from '../services/UserProfileService';
 
 export const login = (
 	email: string,
@@ -18,10 +18,7 @@ export const login = (
 
 			if (!!!userData) return;
 
-			const userSender = {
-				email: email,
-			};
-			updateUser(userSender).then((idResponse) => {
+			fetchUserIDByEmail(email).then((idResponse) => {
 				dispatch({
 					type: 'LOGIN',
 					payload: {
@@ -37,7 +34,10 @@ export const login = (
 		.catch((err) => {
 			console.log(err);
 		});
+
+
 };
+
 
 export const loginGoogle = (
 	email: string,
@@ -52,7 +52,7 @@ export const loginGoogle = (
 			const userSender = {
 				email: email,
 			};
-			updateUser(userSender).then((idResponse) => {
+			fetchUserIDByEmail(userSender).then((idResponse) => {
 				dispatch({
 					type: 'LOGIN-GOOGLE_SUCCESS',
 					payload: {
@@ -75,3 +75,5 @@ export const logout = (dispatch: Dispatch<any>, navigate: NavigateFunction) => {
 	dispatch({type: 'LOGOUT'});
 	navigate('/login');
 };
+
+

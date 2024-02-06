@@ -8,7 +8,7 @@ import {
 	loginUser,
 	registerAccount,
 } from '../services/AuthenticationService';
-import {updateUser} from '../services/UserProfileService';
+import {fetchUserIDByEmail} from '../services/UserProfileService';
 import {googleCalendar} from '../services/GoogleService';
 import { parseUserFromJwt } from 'src/helpers/parseUserFromJwt';
 
@@ -29,6 +29,14 @@ export const AuthContext = createContext({
 	logout: () => {},
 });
 
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
+// TODO AuthContextProvider do wyrzucenia, poniewaz duplikuje sie z login.ts !!!!!!!!!!!!!!!
 const AuthContextProvider = (props) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -47,7 +55,7 @@ const AuthContextProvider = (props) => {
 				const userSender = {
 					email: email,
 				};
-				updateUser(userSender).then((idResponse) => {
+				fetchUserIDByEmail(email).then((idResponse) => {
 					dispatch({
 						type: 'LOGIN',
 						payload: {
@@ -73,7 +81,7 @@ const AuthContextProvider = (props) => {
 				const userSender = {
 					email: email,
 				};
-				updateUser(userSender).then((idResponse) => {
+				fetchUserIDByEmail(userSender).then((idResponse) => {
 					dispatch({
 						type: 'LOGIN-GOOGLE_SUCCESS',
 						payload: {

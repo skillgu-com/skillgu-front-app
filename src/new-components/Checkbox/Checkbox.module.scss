@@ -34,6 +34,24 @@
 		}
 	}
 
+	&[data-is-radio='true']{
+		.checkboxLabel{
+			&:before{
+				border-radius: 50%;
+			}
+
+			&:after{
+				content: '';
+				top: 4px;
+				transform: translateY(0);
+				width: 12px;
+				height: 12px;
+				border-radius: 50%;
+				background-color: $primary-color;
+			}
+		}
+	}
+
 	&Field {
 		display: none;
 		width: 0;

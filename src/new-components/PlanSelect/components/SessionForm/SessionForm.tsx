@@ -1,8 +1,8 @@
 // Libraries
 import React, {FormEvent, useState} from 'react';
 // Components
-import Checkbox from 'src/component/Checkbox';
-import Button, { ButtonVariant } from 'src/new-components/Button/Button';
+import Checkbox from 'src/new-components/Checkbox/Checkbox';
+import Button, {ButtonVariant} from 'src/new-components/Button/Button';
 // Styles
 import styles from './SessionForm.module.scss';
 
@@ -18,27 +18,41 @@ const SessionForm = (props: SessionFormProps) => {
 
 	const udateSessionHandler = (id: string) => setSession(id);
 
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault()
-  }
+	const submitHandler = (e: FormEvent) => {
+		e.preventDefault();
+	};
 
 	return (
 		<form onSubmit={submitHandler}>
 			{sessions.map((item: any) => (
-				<Checkbox
-					classes={styles.input}
-					id='highlited'
-					name='highlited'
-					type='radio'
-					value={session === item.id}
-					errorMessage={''}
-					isValid={true}
-					valueChangeHandler={() => udateSessionHandler(item.id)}
-					label={item.label}
-				/>
+				<div key={item.id}>
+					<Checkbox
+						classes={styles.input}
+						id='highlited'
+						name='highlited'
+						type='radio'
+						value={session === item.id}
+						errorMessage={''}
+						isValid={true}
+						valueChangeHandler={() => udateSessionHandler(item.id)}
+						label={
+							<span className={styles.label}>
+								<strong>{item.name}</strong>
+								<small>
+									{item.time} minut / {item.price} zł
+								</small>
+							</span>
+						}
+					/>
+				</div>
 			))}
-			<Button type='submit'>Umów spotkanie</Button>
-			<Button type='button' variant={ButtonVariant.Outline} onClick={openModalHandler}>Zobacz wszystkie sesje</Button>
+			<Button  classes={styles.button}type='submit'>Umów spotkanie</Button>
+			<Button classes={styles.button}
+				type='button'
+				variant={ButtonVariant.Outline}
+				onClick={openModalHandler}>
+				Zobacz wszystkie sesje
+			</Button>
 		</form>
 	);
 };

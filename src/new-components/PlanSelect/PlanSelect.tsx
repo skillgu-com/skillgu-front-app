@@ -24,14 +24,24 @@ const PlanSelect = () => {
 
 	return (
 		<>
-			<div className={styles.wrapper}>
-				<Bookmarks changeTypeHandler={changeTypeHandler} currentType={planType} />
-				<div className={styles.content}>
-				{planType === PlanTypes.Session?	<SessionForm
-						sessions={[{id: '01', label: <>test</>}]}
-						openModalHandler={() => toggleModalHandler(true)}
-					/> : <></>}
-					<SessionDescription />
+			<div>
+				<h4 className={styles.title}>Wybierz plan:</h4>
+				<div className={styles.wrapper}>
+					<Bookmarks changeTypeHandler={changeTypeHandler} currentType={planType} />
+					<div className={styles.content}>
+						{planType === PlanTypes.Session ? (
+							<SessionForm
+								sessions={[
+									{id: '01', name: 'Konsultacja z ekspertem', time: 60, price: 250},
+									{id: '02', name: 'Wspólne programowanie', time: 60, price: 250},
+								]}
+								openModalHandler={() => toggleModalHandler(true)}
+							/>
+						) : (
+							<></>
+						)}
+						<SessionDescription />
+					</div>
 				</div>
 			</div>
 			{showModal && (

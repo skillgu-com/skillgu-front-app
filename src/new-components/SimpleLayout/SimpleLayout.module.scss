@@ -3,6 +3,12 @@
 .header {
 	background-color: $secondary-color;
 
+	:global {
+		.container {
+			max-width: calc($xl + 200px);
+		}
+	}
+
 	&Top {
 		padding: 29px 0;
 	}
@@ -41,18 +47,18 @@
 			background-color: transparent;
 		}
 
-    &Button{
-      color: $light-color;
+		&Button {
+			color: $light-color;
 
-      &:before{
-        border-left: 2px solid $light-color;
-			border-bottom: 2px solid $light-color;
-      }
-    }
+			&:before {
+				border-left: 2px solid $light-color;
+				border-bottom: 2px solid $light-color;
+			}
+		}
 	}
 }
 
 .main {
 	background-color: $gray-color;
-  padding-bottom: 32px;
+	padding-bottom: 32px;
 }

@@ -1,20 +1,35 @@
 @use '../../scss/variables' as *;
 
-.wrapper{
-  background-color: $light-color;
-  border-radius: 15px;
-  overflow: hidden;
+.container {
+	grid-column: 1/-1;
+	margin: 30px 0 20px;
+
+	@media screen and (min-width: $lg) {
+		grid-column: 2/3;
+		grid-row: 1/2;
+		margin: -32px 0 0;
+	}
 }
 
-.content{
-  padding: 16px 16px 31px;
+.wrapper {
+	background-color: $light-color;
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.content {
+	padding: 16px 16px 31px;
 }
 
 .title {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 22px;
-  text-transform: uppercase;
-  color: $dark-color;
+	text-transform: uppercase;
+	color: $secondary-color;
+
+	@media screen and (min-width: $lg) {
+    color: $light-color;
+	}
 }

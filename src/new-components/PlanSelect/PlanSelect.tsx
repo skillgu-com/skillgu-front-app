@@ -2,7 +2,6 @@
 import React, {useState} from 'react';
 // Components
 import Bookmarks from './components/Bookmarks/Bookmarks';
-import Modal from '../Modal/Modal';
 import SessionDescription from './components/SessionDescription/SessionDescription';
 import SessionForm from './components/SessionForm/SessionForm';
 // Styles
@@ -13,18 +12,20 @@ export enum PlanTypes {
 	Mentoring = 'Mentoring',
 }
 
-const PlanSelect = () => {
+interface PlanSelectProps {
+	toggleModalHandler: (isOpen: boolean) => void;
+}
+
+const PlanSelect = (props: PlanSelectProps) => {
+	const {toggleModalHandler} = props;
+
 	const [planType, setPlanType] = useState(PlanTypes.Session);
-	const [showModal, setShowModal] = useState(false);
 
 	const changeTypeHandler = (type: PlanTypes) => setPlanType(type);
 
-	const toggleModalHandler = (value?: boolean) =>
-		setShowModal(value ?? !showModal);
-
 	return (
 		<>
-			<div>
+			<div className={styles.container}>
 				<h4 className={styles.title}>Wybierz plan:</h4>
 				<div className={styles.wrapper}>
 					<Bookmarks changeTypeHandler={changeTypeHandler} currentType={planType} />
@@ -44,11 +45,6 @@ const PlanSelect = () => {
 					</div>
 				</div>
 			</div>
-			{showModal && (
-				<Modal
-					title='Wszystkie dostępne sesje'
-					closeHandler={() => toggleModalHandler(false)}></Modal>
-			)}
 		</>
 	);
 };

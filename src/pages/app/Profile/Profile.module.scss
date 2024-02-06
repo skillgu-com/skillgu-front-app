@@ -6,8 +6,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	grid-column: 1/-1;
 
-	&Text{
+	&Text {
 		margin-bottom: -40px;
 	}
 
@@ -16,13 +17,15 @@
 	}
 }
 
-.wrapper{
-	:global{
-		.container{
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-		}
-	}
+.content {
+	display: grid;
+	grid-template-columns: 3fr minmax(auto, 257px);
+	column-gap: 26px;
 }
 
+@media screen and (min-width: $lg) {
+	.content{
+		transform: translateY(-70px);
+		margin-left: 70px;
+	}
+}

@@ -112,7 +112,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 					</Title>
 					<ul className={styles.skills}>
 						{languages?.map((language) => (
-							<div className={styles.flag}>
+							<div className={styles.flag} key={language}>
 								<ReactCountryFlag countryCode={language} svg title={language} />
 							</div>
 						))}
@@ -129,7 +129,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 							| 'facebookURL'
 							| 'websiteURL'
 							| 'youtube';
-						return <SocialLink link={socialMedia[item] as string} type={item} />;
+						return <SocialLink key={social} link={socialMedia[item] as string} type={item} />;
 					})}
 				</div>
 			)}

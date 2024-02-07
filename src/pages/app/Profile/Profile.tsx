@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 // Components
 import MentorProfile from './MentorProfile/MentorProfile';
 import Container from 'src/new-components/Container/Container';
@@ -7,6 +7,7 @@ import MentorCardPrice from 'src/new-components/Cards/MentorCard/components/Ment
 import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
 import PlanSelect from 'src/new-components/PlanSelect/PlanSelect';
 import Modal from 'src/new-components/Modal/Modal';
+import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
 // Types
 import {Tag} from 'src/types/tags';
 import MentorCardDescription from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
@@ -18,7 +19,7 @@ const Profile = () => {
 
 	const toggleModalHandler = (value?: boolean) =>
 		setShowModal(value ?? !showModal);
-		
+
 	return (
 		<>
 			<Container as={Tag.Section} classes={styles.wrapper}>
@@ -63,7 +64,7 @@ const Profile = () => {
 								linkedInURL: 'linkedin.com/in/jak',
 								youtubeURL: 'youtube.com/@piotrmazur',
 								instagramURL: 'instagram.com/jak',
-								websiteURL: 'piotrmazur.pl'
+								websiteURL: 'piotrmazur.pl',
 							}}
 						/>
 						<MentorCardPrice
@@ -100,7 +101,7 @@ const Profile = () => {
 							linkedInURL: 'linkedin.com/in/jak',
 							youtubeURL: 'youtube.com/@piotrmazur',
 							instagramURL: 'instagram.com/jak',
-							websiteURL: 'piotrmazur.pl'
+							websiteURL: 'piotrmazur.pl',
 						}}
 					/>
 				</div>
@@ -108,7 +109,9 @@ const Profile = () => {
 			{showModal && (
 				<Modal
 					title='Wszystkie dostępne sesje'
-					closeHandler={() => toggleModalHandler(false)}></Modal>
+					closeHandler={() => toggleModalHandler(false)}>
+					<SessionCard title='Konsultacja z ekspertem' time={60} price={250} description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...' />
+				</Modal>
 			)}
 		</>
 	);

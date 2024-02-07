@@ -53,7 +53,7 @@ const SocialLink = (props: SocialLinkProps) => {
 	}, [type]);
 
 	return (
-		<Link to={link} className={styles.link}>
+		<a href={link} target='_blank' rel='noreferrer' className={styles.link}>
 			<span className={styles.title}>
 				{icon} {text}
 			</span>
@@ -61,7 +61,7 @@ const SocialLink = (props: SocialLinkProps) => {
 				{link.slice(0, 19)}
 				{link.length > 19 && '...'} <Source />
 			</span>
-		</Link>
+		</a>
 	);
 };
 

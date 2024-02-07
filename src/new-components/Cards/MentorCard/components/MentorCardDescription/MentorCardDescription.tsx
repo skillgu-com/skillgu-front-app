@@ -1,9 +1,11 @@
 // Libraries
 import React from 'react';
+import ReactCountryFlag from 'react-country-flag';
 // Components
 import {Title, Text} from 'src/new-components/typography';
 import Tag from 'src/new-components/Tag/Tag';
 import Button, {ButtonTag} from 'src/new-components/Button/Button';
+import SocialLink from 'src/new-components/SocialLink/SocialLink';
 // Styles
 import styles from './MentorCardDescription.module.scss';
 // Types
@@ -46,11 +48,13 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 		categories,
 		languages,
 		socialMedia,
-		classes
+		classes,
 	} = props;
 
 	return (
-		<div className={classNames(styles.wrapper, classes)} data-is-extended={isExtended}>
+		<div
+			className={classNames(styles.wrapper, classes)}
+			data-is-extended={isExtended}>
 			<Title
 				tag={TitleTag.h3}
 				variant={TitleVariant.standard}
@@ -99,7 +103,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 				</>
 			)}
 			{isExtended && languages && (
-				<>
+				<div className={styles.languages}>
 					<Title
 						tag={TitleTag.h4}
 						variant={TitleVariant.standard}
@@ -108,13 +112,26 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 					</Title>
 					<ul className={styles.skills}>
 						{languages?.map((language) => (
-							<Tag key={language} name={language} bgColor='#EFF4F9' />
+							<div className={styles.flag}>
+								<ReactCountryFlag countryCode={language} svg title={language} />
+							</div>
 						))}
 					</ul>
-				</>
+				</div>
 			)}
-			{isExtended && !socialMedia && (
-				<div className={socialMedia}>Social media</div>
+			{isExtended && !!socialMedia && (
+				<div className={styles.socialMedia}>
+					{Object.keys(socialMedia).map((social) => {
+						const item = social as
+							| 'linkedInURL'
+							| 'youtubeURL'
+							| 'instagramURL'
+							| 'facebookURL'
+							| 'websiteURL'
+							| 'youtube';
+						return <SocialLink link={socialMedia[item] as string} type={item} />;
+					})}
+				</div>
 			)}
 			<Button
 				as={ButtonTag.InternalLink}

@@ -1,3 +1,5 @@
+@use '../../../../scss/variables' as *;
+
 .label {
 	margin-bottom: 27px;
 
@@ -21,4 +23,13 @@
 	line-height: 24px;
 	width: 100%;
 	margin-bottom: 17px;
+
+	@media screen and (min-width: $lg) {
+		padding: 5px 10px;
+		margin-bottom: 13px;
+
+		&[data-variant='outline']{
+			padding: 3px 10px;
+		}
+	}
 }

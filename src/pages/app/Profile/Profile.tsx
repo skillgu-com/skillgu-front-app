@@ -58,8 +58,13 @@ const Profile = () => {
 							skills={[{id: 1, name: 'Test'}]}
 							isExtended={true}
 							categories={[{id: 1, name: 'Test'}]}
-							languages={['Polish']}
-							socialMedia={{}}
+							languages={['PL']}
+							socialMedia={{
+								linkedInURL: 'linkedin.com/in/jak',
+								youtubeURL: 'youtube.com/@piotrmazur',
+								instagramURL: 'instagram.com/jak',
+								websiteURL: 'piotrmazur.pl'
+							}}
 						/>
 						<MentorCardPrice
 							price={250}
@@ -86,12 +91,17 @@ const Profile = () => {
 						firstName='Piotr'
 						lastName='Mazur'
 						jobPosition={[{id: 1, name: 'Product manager key advisor'}]}
-						description='Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie. Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie...'
+						description='Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie. Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie'
 						skill={[{id: 1, name: 'Test'}]}
 						isExtended={true}
 						categories={[{id: 1, name: 'Test'}]}
-						languages={['Polish']}
-						socialMedia={{}}
+						languages={['PL']}
+						socialMedia={{
+							linkedInURL: 'linkedin.com/in/jak',
+							youtubeURL: 'youtube.com/@piotrmazur',
+							instagramURL: 'instagram.com/jak',
+							websiteURL: 'piotrmazur.pl'
+						}}
 					/>
 				</div>
 			</Container>

@@ -24,7 +24,6 @@ const MentorsList = () => {
 	useEffect(() => {
 		getAllMentors()
 			.then((response) => {
-				console.log(response.data)
 				setMentors(response.data)
 			})
 			.catch((error) => {

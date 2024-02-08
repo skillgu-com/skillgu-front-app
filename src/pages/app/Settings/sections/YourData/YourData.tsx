@@ -148,7 +148,7 @@ const YourData = (props: YourDataProps) => {
                     errorMessage={form.location.errorMessage}
                     isValid={form.location.isValid}
                     valueChangeHandler={updateFormHandler}
-                    label='Loklizacja'
+                    label='Lokalizacja'
                 />
                 <Input
                     classes={classNames(styles.input, styles.textarea)}

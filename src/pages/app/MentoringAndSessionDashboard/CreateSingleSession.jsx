@@ -24,7 +24,6 @@ const CreateSingleSession = (props) => {
     };
 
     const handleSessionType = (event) => {
-        console.log('TO TESTUJE: '+event.target.value)
         const selectedValue = event.target.value;
         setSessionTypeValues(selectedValue);
     };

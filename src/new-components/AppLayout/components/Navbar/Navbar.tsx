@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 // Components
 import Container from '../../../Container/Container';
@@ -27,6 +27,8 @@ const Navbar = () => {
 
 	const [isExpanded, setIsExpanded] = useState(false);
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
+	const userFromRedux = useSelector((state:any) => state.auth.user);
+
 
 	return (
 		<Container
@@ -53,7 +55,7 @@ const Navbar = () => {
 						<Home />
 						Home
 					</Link>
-					<Link className={styles.navbarMenuItem} to='/user-profile'>
+					<Link className={styles.navbarMenuItem} to={`/user-profile/${userFromRedux?.id}`}>
 						<Doc />
 						Profil
 					</Link>

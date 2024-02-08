@@ -1,5 +1,5 @@
 // Libraries
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // Components
 import MentorProfile from './MentorProfile/MentorProfile';
 import Container from 'src/new-components/Container/Container';
@@ -13,9 +13,30 @@ import {Tag} from 'src/types/tags';
 import MentorCardDescription from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
 // Styles
 import styles from './Profile.module.scss';
+import {useSelector} from "react-redux";
+import {fetchAllUserData} from "../../../services/UserProfileService";
+import {UserData} from "../Settings/Settings";
 
 const Profile = () => {
+	const userFromRedux = useSelector((state:any) => state.auth.user);
+	const [userData, setUserData] = useState<UserData>({} as UserData);
+
+
 	const [showModal, setShowModal] = useState(false);
+
+	useEffect(() => {
+		fetchAllUserData().then((res) => setUserData(res.data as UserData));
+	}, []);
+
+
+	//
+	// useEffect(() => {
+	// 	fetchAllUserData().then((res)=>{
+	// 		console.log(res.data)
+	// 	});
+	// }, []);
+
+	console.log(userFromRedux)
 
 	const toggleModalHandler = (value?: boolean) =>
 		setShowModal(value ?? !showModal);
@@ -28,12 +49,12 @@ const Profile = () => {
 						cardProfile={{
 							profileImg:
 								'https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg',
-							reviews: 2,
-							reviewsAmount: 3,
+							reviews: 1,
+							reviewsAmount: 1,
 							location: 'Poznań',
 							timeZone: 'Poland (- 05:00 UTC)',
 						}}
-						fullName='Piotr Mazur'
+						fullName='Piotr Mazur TEST TEST'
 						position='Product manager key advisor'
 						services={[
 							{id: 1, name: 'Mentoring'},
@@ -42,20 +63,22 @@ const Profile = () => {
 							{id: 4, name: 'Intensywna praca'},
 						]}
 					/>
-					<PlanSelect toggleModalHandler={toggleModalHandler} />
+					{userFromRedux.role === 'M' && (
+						<PlanSelect toggleModalHandler={toggleModalHandler} />
+					)}
 					<div className={styles.mobileDescription}>
 						<MentorCardDescription
 							classes={styles.mobileDescriptionText}
 							userID={1}
 							fullName='Piotr Mazur'
-							jobPosition={[{id: 1, name: 'Product manager key advisor'}]}
+							jobPosition={[{id: 1, name: 'Product manager key advisor TEST'}]}
 							services={[
 								{id: 1, name: 'Mentoring'},
 								{id: 2, name: 'Praca z zadaniami'},
 								{id: 3, name: 'Weekandowe spotkania'},
 								{id: 4, name: 'Intensywna praca'},
 							]}
-							description='Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie. Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie...'
+							description='MentorCardDescription'
 							skills={[{id: 1, name: 'Test'}]}
 							isExtended={true}
 							categories={[{id: 1, name: 'Test'}]}
@@ -67,11 +90,14 @@ const Profile = () => {
 								websiteURL: 'piotrmazur.pl',
 							}}
 						/>
-						<MentorCardPrice
-							price={250}
-							logoUrl='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_1280.png'
-							companyName='Google'
-						/>
+						{userFromRedux.role === 'M' && (
+							<MentorCardPrice
+								price={500}
+								logoUrl='https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_1280.png'
+								companyName='Google'
+							/>
+						)}
+
 					</div>
 					<MentorCard
 						profileImg='https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg'
@@ -79,7 +105,7 @@ const Profile = () => {
 						companyName=''
 						reviews={2}
 						reviewsAmount={3}
-						location='Poznań'
+						location= 'Poznań'
 						timeZone='Poland (- 05:00 UTC)'
 						services={[
 							{id: 1, name: 'Mentoring'},
@@ -89,13 +115,13 @@ const Profile = () => {
 						]}
 						userID={1}
 						quickResponder={true}
-						firstName='Piotr'
-						lastName='Mazur'
+						firstName='Andrzej'
+						lastName='Kowalski'
 						jobPosition={[{id: 1, name: 'Product manager key advisor'}]}
-						description='Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie. Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego i przyspieszając jego rozwój w danej dziedzinie'
-						skill={[{id: 1, name: 'Test'}]}
+						description={userData.description}
+						skill={userData.skill}
 						isExtended={true}
-						categories={[{id: 1, name: 'Test'}]}
+						categories={userData.mentorTopics}
 						languages={['PL']}
 						socialMedia={{
 							linkedInURL: 'linkedin.com/in/jak',
@@ -110,7 +136,8 @@ const Profile = () => {
 				<Modal
 					title='Wszystkie dostępne sesje'
 					closeHandler={() => toggleModalHandler(false)}>
-					<SessionCard title='Konsultacja z ekspertem' time={60} price={250} description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...' />
+					<SessionCard title='Konsultacja z ekspertem' time={60} price={500} description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...' />
+					<SessionCard title='Wspólne programowanie' time={60} price={500} description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...' />
 				</Modal>
 			)}
 		</>

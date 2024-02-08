@@ -84,7 +84,7 @@ const routes = [
 	},
 	{
 		id: 'route10',
-		path: '/user-profile',
+		path: '/user-profile/:userID',
 		element: <Profile />,
 		hasSimpleLayout: true,
 		isProtected: true,

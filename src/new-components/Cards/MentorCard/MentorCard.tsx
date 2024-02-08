@@ -8,6 +8,8 @@ import Button, {ButtonTag} from 'src/new-components/Button/Button';
 // Styles
 import styles from './MentorCard.module.scss';
 import {getAllMentors} from "../../../services/UserProfileService";
+import {useSelector} from "react-redux";
+import PlanSelect from "../../PlanSelect/PlanSelect";
 
 
 interface MentorCardProps {
@@ -66,8 +68,7 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         languages,
         isExtended
     } = props;
-
-
+    const userFromRedux = useSelector((state: any) => state.auth.user);
 
 
     return (
@@ -94,9 +95,12 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
                 languages={languages}
                 socialMedia={socialMedia}
             />
-            <MentorCardPrice price={250}
+
+            <MentorCardPrice price={500}
                              logoUrl={'https://cdn.pixabay.com/photo/2015/10/31/12/54/google-1015751_640.png'}
                              companyName={'Google'}/>
+
+
             <Button
                 as={ButtonTag.InternalLink}
                 href={`/profile/${userID}`}

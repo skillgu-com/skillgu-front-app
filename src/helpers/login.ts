@@ -12,6 +12,7 @@ export const login = (
 	dispatch: Dispatch<any>,
 	navigate: NavigateFunction
 ) => {
+
 	loginUser(email, password)
 		.then((res) => {
 			const userData = parseUserFromJwt(res.data);
@@ -49,10 +50,8 @@ export const loginGoogle = (
 		.then((res) => {
 			const userData = parseUserFromJwt(res.data.body);
 			if (!!!userData) return;
-			const userSender = {
-				email: email,
-			};
-			fetchUserIDByEmail(userSender).then((idResponse) => {
+
+			fetchUserIDByEmail(userData.email).then((idResponse) => {
 				dispatch({
 					type: 'LOGIN-GOOGLE_SUCCESS',
 					payload: {

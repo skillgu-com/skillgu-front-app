@@ -15,67 +15,67 @@ import Find from 'src/assets/icons/Find';
 import styles from './NavSection.module.scss';
 
 const NavSection = () => {
-	const role = useSelector(getRole);
+    const role = useSelector(getRole);
 
-	const navList =
-		role === 'S'
-			? [
-					{
-						link: '/calendar-view',
-						icon: <Calendar />,
-						text: 'Kalendarz',
-					},
-					{
-						link: '/search-mentors',
-						icon: <Find />,
-						text: 'Znajdź mentora',
-					},
-					{
-						link: '/raports',
-						icon: <Raports />,
-						text: 'Raporty',
-					},
-					{
-						link: '/messages',
-						icon: <Message />,
-						text: 'Wiadomości',
-					},
-			  ]
-			: [
-					{
-						link: '/calendar-view',
-						icon: <Calendar />,
-						text: 'Kalendarz',
-					},
-					{
-						link: '/create-session',
-						icon: <Meet />,
-						text: 'Tworzenie spotkań',
-					},
-					{
-						link: '/raports',
-						icon: <Raports />,
-						text: 'Raporty',
-					},
-					{
-						link: '/messages',
-						icon: <Message />,
-						text: 'Wiadomości',
-					},
-					{
-						link: '/account-view',
-						icon: <Payment />,
-						text: 'Subsrkybcje',
-					},
-			  ];
+    const navList =
+        role === 'S'
+            ? [
+                {
+                    link: '/calendar-view',
+                    icon: <Calendar/>,
+                    text: 'Kalendarz',
+                },
+                {
+                    link: '/search-mentors',
+                    icon: <Find/>,
+                    text: 'Znajdź mentora',
+                },
+                {
+                    link: '/raports',
+                    icon: <Raports/>,
+                    text: 'Raporty',
+                },
+                {
+                    link: '/messages',
+                    icon: <Message/>,
+                    text: 'Wiadomości',
+                },
+            ]
+            : [
+                {
+                    link: '/calendar-view',
+                    icon: <Calendar/>,
+                    text: 'Kalendarz',
+                },
+                {
+                    link: '/create-session',
+                    icon: <Meet/>,
+                    text: 'Tworzenie spotkań',
+                },
+                {
+                    link: '/raports',
+                    icon: <Raports/>,
+                    text: 'Raporty',
+                },
+                {
+                    link: '/messages',
+                    icon: <Message/>,
+                    text: 'Wiadomości',
+                },
+                {
+                    link: '/account-view',
+                    icon: <Payment/>,
+                    text: 'Subsrkybcje',
+                },
+            ];
 
-	return (
-		<section className={styles.wrapper}>
-			{navList.map((item) => (
-				<NavCard {...item} key={item.text} />
-			))}
-		</section>
-	);
+    return (
+        <section className={styles.wrapper}>
+            {navList.map((item) => (
+                <NavCard {...item} key={item.text}/>
+            ))}
+        </section>
+    );
 };
 
 export default NavSection;

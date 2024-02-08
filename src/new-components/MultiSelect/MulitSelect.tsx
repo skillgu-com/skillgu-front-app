@@ -14,8 +14,6 @@ interface MultiSelectProps {
 	label: string;
 	onValueChange: (name: string, value: any) => any;
 	limit?: number;
-	onSelectedValuesChange?: (selectedValues: string[]) => void;
-
 }
 
 const MulitSelect = (props: MultiSelectProps) => {
@@ -31,7 +29,6 @@ const MulitSelect = (props: MultiSelectProps) => {
 
 		setSelected(newState);
 		onValueChange(name, {value: newState, errorMessage: '', touched: true});
-
 	};
 
 	return (

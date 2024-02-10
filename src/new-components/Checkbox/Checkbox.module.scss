@@ -24,23 +24,23 @@
 		&:after {
 			position: absolute;
 			content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="9" viewBox="0 0 17 13" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8311 1.17017C15.6057 0.943278 15.2405 0.943278 15.0152 1.17017L5.6633 10.5962L1.98487 6.88864C1.75962 6.66155 1.39428 6.66155 1.16892 6.88864C0.943692 7.11572 0.943692 7.48389 1.16892 7.71098L5.25538 11.8296C5.48051 12.0567 5.84597 12.0569 6.0712 11.8296L15.8311 1.99269C16.0563 1.76542 16.0563 1.39725 15.8311 1.17017Z" fill="%23252B42" stroke="%23252B42"/></svg>');
-			top: 50%;
+			top: 4px;
 			left: 4px;
+			max-height: 20px;
 			font-size: 10px;
 			color: $dark-color;
-			transform: translateY(-50%);
 			opacity: 0;
 			transition: opacity 0.24s;
 		}
 	}
 
-	&[data-is-radio='true']{
-		.checkboxLabel{
-			&:before{
+	&[data-is-radio='true'] {
+		.checkboxLabel {
+			&:before {
 				border-radius: 50%;
 			}
 
-			&:after{
+			&:after {
 				content: '';
 				top: 4px;
 				transform: translateY(0);

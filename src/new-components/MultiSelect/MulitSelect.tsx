@@ -7,19 +7,18 @@ import Checkbox from '../Checkbox/Checkbox';
 // Styles
 import styles from './MulitSelect.module.scss';
 
-interface MultiSelectProps {
+export interface MultiSelectProps {
 	classes?: string;
 	name: string;
 	value: any;
 	label: string;
 	onValueChange: (name: string, value: any) => any;
 	limit?: number;
-	onSelectedValuesChange?: (selectedValues: string[]) => void;
-
+	isSelect?: boolean
 }
 
 const MulitSelect = (props: MultiSelectProps) => {
-	const {label, onValueChange, limit, value, classes, name} = props;
+	const {label, onValueChange, limit, value, classes, name, isSelect} = props;
 	const [currentLimit, setCurrentLimit] = useState<number | undefined>(limit);
 	const [selected, setSelected] = useState<any>(value);
 
@@ -31,14 +30,13 @@ const MulitSelect = (props: MultiSelectProps) => {
 
 		setSelected(newState);
 		onValueChange(name, {value: newState, errorMessage: '', touched: true});
-
 	};
 
 	return (
 		<div className={classNames(classes, 'multi-select')}>
-			<Text classes={classNames(styles.label, 'multi-select__title')}>
+			{!isSelect && <Text classes={classNames(styles.label, 'multi-select__title')}>
 				{label}
-			</Text>
+			</Text>}
 			<div className={classNames(styles.options, 'multi-select__options')}>
 				{Object.keys(value)
 					.slice(0, currentLimit)
@@ -56,12 +54,12 @@ const MulitSelect = (props: MultiSelectProps) => {
 						/>
 					))}
 			</div>
-			<button
+		{!!limit &&	<button
 				className={styles.more}
 				type='button'
 				onClick={() => setCurrentLimit(currentLimit ? undefined : limit)}>
 				{currentLimit ? 'Pokaż więcej' : 'Pokaż mniej'}
-			</button>
+			</button>}
 		</div>
 	);
 };

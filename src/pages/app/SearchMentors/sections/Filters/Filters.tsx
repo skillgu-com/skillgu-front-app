@@ -2,19 +2,15 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 // Components
 import Container from 'src/new-components/Container/Container';
-import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
 import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
 import Modal from 'src/new-components/Modal/Modal';
 import MulitSelect from 'src/new-components/MultiSelect/MulitSelect';
-import RangeInput from 'src/new-components/RangeInput/RangeInput';
 // Assets
 import FilterSvg from 'src/assets/icons/FilterSvg';
 import SearchSvg from 'src/assets/icons/SearchSvg';
 // API
-import {getAllMentors} from 'src/services/UserProfileService';
 import {
-	getAllFilteredMentors,
 	getAllMentorCategories,
 	getAllMentoringTopics,
 	getAllMentorServices,
@@ -30,12 +26,11 @@ import {
 } from 'src/new-components/typography/Title/Title';
 import Select from 'src/new-components/Select/Select';
 import {defaultInput} from 'src/new-components/Input/Input';
-import CheckboxGroup from '../../../../../new-components/MultiSelect/CheckBoxGroup';
+import CheckboxSelect from 'src/new-components/CheckboxSelect/CheckboxSelect';
 
 const Filters = () => {
 	const [filtersModal, setFiltersModal] = useState(false);
 	const [mentorForm, setMentorForm] = useState<any>();
-	const [topicsOptions, setTopicsOptions] = useState();
 
 	useEffect(() => {
 		Promise.all([
@@ -59,12 +54,14 @@ const Filters = () => {
 				};
 			});
 
-			const transformedMentoringTopics: any = [];
+			let transformedMentoringTopics: any = {};
 			mentorTopics.data.map((item: {id: string; name: string}) => {
-				transformedMentoringTopics.push({
+				transformedMentoringTopics[item?.id] = {
+					id: item?.id,
 					label: item?.name,
-					value: item?.id,
-				});
+					...defaultInput,
+					value: false,
+				};
 			});
 
 			let transformedMentorServices: any = {};
@@ -77,8 +74,6 @@ const Filters = () => {
 				};
 			});
 
-			setTopicsOptions(transformedMentoringTopics)
-
 			setMentorForm({
 				skills: {
 					...defaultInput,
@@ -90,7 +85,11 @@ const Filters = () => {
 				},
 				topics: {
 					...defaultInput,
-					value: []
+					value: transformedMentoringTopics,
+				},
+				sort: {
+					...defaultInput,
+					value: [],
 				},
 				services: {
 					...defaultInput,
@@ -108,7 +107,7 @@ const Filters = () => {
 		e.preventDefault();
 	};
 
-    console.log(mentorForm);
+	console.log(mentorForm);
 
 	return (
 		<Container as={Tag.Section} classes={styles.wrapper}>
@@ -128,24 +127,29 @@ const Filters = () => {
 						{value: 'increase', label: 'Rosnąco'},
 						{value: 'next', label: 'Kolejna'},
 					]}
-					value={'alphabet'}
+					value={mentorForm?.sort?.value}
 					valueChangeHandler={updateFormHandler}
 					name='sort'
 					id='sort'
 					label='Sortowanie'
 				/>
 
-				{mentorForm?.topics.value && (
-					<Select
-						options={topicsOptions}
-						value={mentorForm.topics.value}
-						isMulti={true}
-						valueChangeHandler={updateFormHandler}
-						name='topics'
-						id='topics'
-						label='Kategorie'
-					/>
-				)}
+				<CheckboxSelect
+					name='categories'
+					selectClasses={styles.topicsSelect}
+					classes={styles.select}
+					value={mentorForm?.categories.value}
+					label='Kategorie'
+					onValueChange={updateFormHandler}
+				/>
+
+				<CheckboxSelect
+					name='topics'
+					classes={styles.select}
+					value={mentorForm?.topics.value}
+					label='Umiejętności'
+					onValueChange={updateFormHandler}
+				/>
 
 				<button className={styles.more} onClick={() => setFiltersModal(true)}>
 					Więcej filtrów <FilterSvg />

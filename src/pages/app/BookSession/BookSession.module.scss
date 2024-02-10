@@ -1,0 +1,14 @@
+@use '../../../scss/variables' as *;
+
+.content {
+	display: grid;
+	grid-template-columns: 3fr minmax(auto, 257px);
+	column-gap: 26px;
+}
+
+@media screen and (min-width: $lg) {
+	.content{
+		transform: translateY(-70px);
+		margin-left: 70px;
+	}
+}

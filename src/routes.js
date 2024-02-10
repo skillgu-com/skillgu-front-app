@@ -8,6 +8,7 @@ import HomeScreen from './pages/app/HomePage/HomePage';
 import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import Profile from './pages/app/Profile/Profile';
+import BookSession from './pages/app/BookSession/BookSession';
 // Screens
 import HelpScreen from './pages/app/HelpView';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
@@ -81,11 +82,18 @@ const routes = [
 		isProtected: true,
 	},
 	{
-		id: 'route13',
-		path: '/session-details/:id/book',
-		element: <BookSessionScreen />,
+		id: 'route11',
+		path: '/session-book/:id',
+		element: <BookSession />,
+		hasSimpleLayout: true,
 		isProtected: true,
 	},
+	// {
+	// 	id: 'route13',
+	// 	path: '/session-details/:id/book',
+	// 	element: <BookSessionScreen />,
+	// 	isProtected: true,
+	// },
 	{
 		id: 'route14',
 		path: '/session-details/:mentorID',

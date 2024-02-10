@@ -47,7 +47,7 @@ const MentoringForm = (props: MentoringFormProps) => {
 				{currentOption.price} <span>zł</span> <small>/miesiąc</small>
 			</h3>
 			<p className={styles.description}>{currentOption.description}</p>
-			<PlanScope elements={currentOption.scope} />
+			<PlanScope title='Plan obejmuje:' elements={currentOption.scope} />
 			<Button type='submit' classes={styles.button}>
 				Wybierz
 			</Button>

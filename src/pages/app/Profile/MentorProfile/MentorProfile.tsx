@@ -9,18 +9,21 @@ import Tag from 'src/new-components/Tag/Tag';
 import styles from './MentorProfile.module.scss';
 
 interface MentorProfileProps {
+	quickResponse?: boolean;
 	cardProfile: MentorCardProfileProps;
 	fullName: string;
 	position: string;
-	services: { id: number; name: string }[];
+	services: {id: number; name: string}[];
 }
 
 const MentorProfile = (props: MentorProfileProps) => {
-	const {cardProfile, fullName, position, services} = props;
+	const {cardProfile, fullName, position, services, quickResponse} = props;
 
 	return (
 		<div className={styles.wrapper}>
-			<Tag name='Szybko odpowiada' bgColor='#ECF7F2' classes={styles.tag} />
+			{quickResponse && (
+				<Tag name='Szybko odpowiada' bgColor='#ECF7F2' classes={styles.tag} />
+			)}
 			<MentorCardProfile {...cardProfile} />
 			<h2 className={styles.userName}>{fullName}</h2>
 			<h3 className={styles.userPosition}>{position}</h3>

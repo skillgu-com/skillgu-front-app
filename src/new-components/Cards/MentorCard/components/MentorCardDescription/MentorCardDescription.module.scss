@@ -130,6 +130,12 @@
 		}
 	}
 
+	&[data-is-extended='true'] {
+		.skills {
+			width: 100%;
+		}
+	}
+
 	@media screen and (max-width: calc($lg - 1px)) {
 		&[data-is-extended='true'] {
 			border-radius: 15px;

@@ -55,7 +55,7 @@ const Navbar = () => {
 						<Home />
 						Home
 					</Link>
-					<Link className={styles.navbarMenuItem} to={`/user-profile/${userFromRedux?.id}`}>
+					<Link className={styles.navbarMenuItem} to={'/logged-user-profile'}>
 						<Doc />
 						Profil
 					</Link>

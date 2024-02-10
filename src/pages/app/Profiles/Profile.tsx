@@ -15,10 +15,10 @@ import MentorCardDescription
 // Styles
 import styles from './Profile.module.scss';
 import {useSelector} from "react-redux";
-import {fetchAllUserData} from "../../../services/UserProfileService";
 import {UserData} from "../Settings/Settings";
 import {useParams} from "react-router-dom";
 import {getMeetingPlanPanelSchedule} from "../../../services/MeetingCreatorService";
+import {getMentorProfileByID} from "../../../services/MentorViewService";
 
 const SESSIONS_PLACEHOLDER_ARRAY: any = [];
 
@@ -35,9 +35,16 @@ const Profile = () => {
 
     const [showModal, setShowModal] = useState(false);
 
+    // useEffect(() => {
+    //     fetchAllUserData().then((res) => setUserData(res.data as UserData));
+    // }, []);
+
+
     useEffect(() => {
-        fetchAllUserData().then((res) => setUserData(res.data as UserData));
+        getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
     }, []);
+
+
 
 
     useEffect(() => {
@@ -85,9 +92,9 @@ const Profile = () => {
                             {id: 4, name: 'Intensywna praca'},
                         ]}
                     />
-                    {userFromRedux.role === 'M' && (
+                    {/*{userFromRedux.role === 'M' && (*/}
                         <PlanSelect toggleModalHandler={toggleModalHandler}/>
-                    )}
+                    {/*)}*/}
                     <div className={styles.mobileDescription}>
                         <MentorCardDescription
                             classes={styles.mobileDescriptionText}

@@ -135,7 +135,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
 			)}
 			<Button
 				as={ButtonTag.InternalLink}
-				href={`/profile/${userID}`}
+				href={`/user-profile/${userID}`}
 				classes={styles.button}>
 				Zobacz profil
 			</Button>

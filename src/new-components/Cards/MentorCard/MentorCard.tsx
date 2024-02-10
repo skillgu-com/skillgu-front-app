@@ -103,7 +103,7 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
 
             <Button
                 as={ButtonTag.InternalLink}
-                href={`/profile/${userID}`}
+                href={`/user-profile/${userID}`}
                 classes={styles.button}>
                 Zobacz profil
             </Button>

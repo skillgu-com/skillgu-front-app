@@ -1,0 +1,31 @@
+@use '../../../../scss/variables' as *;
+
+.mobileDescription {
+	background-color: $light-color;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	grid-column: 1/-1;
+
+	&Text {
+		margin-bottom: -40px;
+	}
+
+	@media screen and (min-width: $lg) {
+		display: none;
+	}
+}
+
+.content {
+	display: grid;
+	grid-template-columns: 3fr minmax(auto, 257px);
+	column-gap: 26px;
+}
+
+@media screen and (min-width: $lg) {
+	.content{
+		transform: translateY(-70px);
+		margin-left: 70px;
+	}
+}

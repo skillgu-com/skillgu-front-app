@@ -9,8 +9,6 @@ import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import Profile from './pages/app/Profile/Profile';
 // Screens
-import UserProfileScreen from './pages/app/UserProfileScreen';
-import MentorScreen from './pages/app/MentorsView';
 import HelpScreen from './pages/app/HelpView';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
 import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
@@ -21,7 +19,6 @@ import MentoringAndSessionDashboard from './pages/app/MentoringAndSessionDashboa
 import MeetingSchedule from './pages/app/MeetingScheduleView/MeetingSchedule';
 import AccountView from './pages/app/AccountView/AccountView';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
-import LoggedProfileScreen from './pages/app/UserProfileScreen/LoggedProfileScreen';
 import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
 import CreateMentorPlan from './pages/app/MentoringAndSessionDashboard/CreateMentorPlan';
@@ -77,28 +74,10 @@ const routes = [
 	// 	isProtected: true,
 	// },
 	{
-		id: 'route09',
-		path: '/mentors',
-		element: <MentorScreen />,
-		isProtected: true,
-	},
-	{
 		id: 'route10',
 		path: '/user-profile/:userID',
 		element: <Profile />,
 		hasSimpleLayout: true,
-		isProtected: true,
-	},
-	{
-		id: 'route11',
-		path: '/user-profile/:userID',
-		element: <UserProfileScreen />,
-		isProtected: true,
-	},
-	{
-		id: 'route12',
-		path: '/mentor-profile/:userID',
-		element: <UserProfileScreen />,
 		isProtected: true,
 	},
 	{

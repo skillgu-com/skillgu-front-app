@@ -7,7 +7,7 @@ import Button, {ButtonVariant} from 'src/new-components/Button/Button';
 import styles from './SessionForm.module.scss';
 
 interface SessionFormProps {
-	sessions: any; // Unknown type probably array of objects type of objcet also unknon
+	sessions: any; // Unknown type probably array of objects type of object also unknown
 	openModalHandler: () => void;
 }
 
@@ -16,7 +16,7 @@ const SessionForm = (props: SessionFormProps) => {
 
 	const [session, setSession] = useState(sessions[0].id);
 
-	const udateSessionHandler = (id: string) => setSession(id);
+	const updateSessionHandler = (id: string) => setSession(id);
 
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
@@ -34,7 +34,7 @@ const SessionForm = (props: SessionFormProps) => {
 						value={session === item.id}
 						errorMessage={''}
 						isValid={true}
-						valueChangeHandler={() => udateSessionHandler(item.id)}
+						valueChangeHandler={() => updateSessionHandler(item.id)}
 						label={
 							<span className={styles.label}>
 								<strong>{item.name}</strong>

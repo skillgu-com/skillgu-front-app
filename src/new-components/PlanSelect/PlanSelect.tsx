@@ -83,6 +83,30 @@ const PlanSelect = (props: PlanSelectProps) => {
 											</>,
 										],
 									},
+									{
+										id: 'mentoring03',
+										name: 'Pro+',
+										price: 200,
+										description:
+											'Dzielę się wiedzą, umiejętnościami i/lub doświadczeniem, wspierając tym samym swojego podopiecznego rozwój ',
+										scope: [
+											<>
+												<strong>4 sesje </strong>mentoringowe na miesiąc (60 minut każda).
+											</>,
+											<>
+												<strong>Nieograniczony dostęp do pytań i odpowiedzi </strong>przez
+												czat.
+											</>,
+											<>
+												<strong>Odpowiedzi</strong> na Twoje zapytania
+												<strong>w ciągu 24 godzin lub szybciej.</strong>
+											</>,
+											<>
+												<strong>Bezpośrednie wsparcie praktyczne</strong> w realizacji
+												Twoich projektów.
+											</>,
+										],
+									},
 								]}
 							/>
 						)}

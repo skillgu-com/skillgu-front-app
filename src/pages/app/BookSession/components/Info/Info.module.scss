@@ -83,6 +83,7 @@
 
   @media screen and (min-width: $lg) {
     grid-column: 2/3;
+		grid-row: 1/2;
 
     .profile{
       width: 88px;

@@ -12,7 +12,7 @@ interface InputProps {
 	id: string;
 	type?: string;
 	name: string;
-	label: string;
+	label?: string;
 	as?: 'input' | 'textarea';
 	required?: boolean;
 	value: string | string[] | number | {id: string; name: string}[];
@@ -106,10 +106,12 @@ const Input = (props: InputProps) => {
 			className={classNames(styles.input, classes)}
 			data-status={!!errorMessage ? 'error' : isValid ? 'success' : ''}>
 			<label className={styles.inputLabel}>
-				<span className={styles.inputLabelText}>
-					{label}
-					{required && ' *'}
-				</span>
+				{label && (
+					<span className={styles.inputLabelText}>
+						{label}
+						{required && ' *'}
+					</span>
+				)}
 				<Tag
 					id={id}
 					name={name}

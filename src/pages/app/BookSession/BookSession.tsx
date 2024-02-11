@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 // Components
 import Container from 'src/new-components/Container/Container';
 import Info from './components/Info/Info';
+import BookForm from './components/BookForm/BookForm';
 // Types
 import {Tag} from 'src/types/tags';
 // Styles
@@ -25,6 +26,7 @@ const BookSession = () => {
 						imageUrl='https://cdn.pixabay.com/photo/2024/01/10/16/22/man-8499961_1280.jpg'
 						sessionTitle='Konsultacja'
 					/>
+					<BookForm/>
 				</div>
 			</Container>
 		</>

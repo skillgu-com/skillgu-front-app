@@ -1,0 +1,34 @@
+@use '../../../../../scss/variables' as *;
+
+.wrapper {
+	padding: 19px 19px 47px;
+	grid-column: 1/-1;
+	border-radius: 15px;
+	background-color: $light-color;
+
+	.button {
+		padding: 9px;
+		margin-bottom: 50px;
+		width: 100%;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+
+	.title {
+    margin: 40px 0 14px;
+		font-size: 14px;
+		line-height: 17px;
+	}
+
+	@media screen and (min-width: $lg) {
+		.button {
+			max-width: 295px;
+		}
+	}
+
+	@media screen and (min-width: $lg) {
+		grid-column: 1/2;
+		grid-row: 1/3;
+	}
+}

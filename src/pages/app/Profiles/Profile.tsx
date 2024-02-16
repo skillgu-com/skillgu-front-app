@@ -35,9 +35,6 @@ const Profile = () => {
 
     const [showModal, setShowModal] = useState(false);
 
-    // useEffect(() => {
-    //     fetchAllUserData().then((res) => setUserData(res.data as UserData));
-    // }, []);
 
 
     useEffect(() => {
@@ -45,10 +42,8 @@ const Profile = () => {
     }, []);
 
 
-
-
     useEffect(() => {
-        getMeetingPlanPanelSchedule(userFromRedux.id).then((res) => {
+        getMeetingPlanPanelSchedule(userID).then((res) => {
             const sessionFromApi = res.data.map((element: any) => ({
                 id: element.sessionType,
                 minutes: element.sessionTime,
@@ -65,7 +60,8 @@ const Profile = () => {
         });
     }, []);
 
-    console.log('I`m checking session from api ', sessionFromApi);
+    console.log('znalezion mentor to: ', userData)
+
 
     const toggleModalHandler = (value?: boolean) =>
         setShowModal(value ?? !showModal);
@@ -83,7 +79,7 @@ const Profile = () => {
                             location: 'Poznań',
                             timeZone: 'Poland (- 05:00 UTC)',
                         }}
-                        fullName='Piotr Mazur TEST TEST'
+                        fullName= {userData?.firstName}
                         position='Product manager key advisor'
                         services={[
                             {id: 1, name: 'Mentoring'},
@@ -92,14 +88,15 @@ const Profile = () => {
                             {id: 4, name: 'Intensywna praca'},
                         ]}
                     />
-                    {/*{userFromRedux.role === 'M' && (*/}
-                        <PlanSelect toggleModalHandler={toggleModalHandler}/>
-                    {/*)}*/}
+                    {userFromRedux.role === 'S' && (
+                    <PlanSelect toggleModalHandler={toggleModalHandler}/>
+                    )}
+
                     <div className={styles.mobileDescription}>
                         <MentorCardDescription
                             classes={styles.mobileDescriptionText}
                             userID={1}
-                            fullName='Piotr Mazur'
+                            fullName= {userData?.firstName}
                             jobPosition={[{id: 1, name: 'Product manager key advisor TEST'}]}
                             services={[
                                 {id: 1, name: 'Mentoring'},
@@ -144,11 +141,11 @@ const Profile = () => {
                         ]}
                         userID={1}
                         quickResponder={true}
-                        firstName='Andrzej'
-                        lastName='Kowalski'
-                        jobPosition={[{id: 1, name: 'Product manager key advisor'}]}
-                        description={userData.description}
-                        skill={userData.skill}
+                        firstName={userData?.firstName}
+                        lastName={userData?.lastName}
+                        jobPosition={userData?.jobPosition}
+                        description={userData?.description}
+                        skill={userData?.skill}
                         isExtended={true}
                         categories={userData.mentorTopics}
                         languages={['PL']}
@@ -165,14 +162,16 @@ const Profile = () => {
                 <Modal
                     title='Wszystkie dostępne sesje'
                     closeHandler={() => toggleModalHandler(false)}>
-                    <SessionCard title='Konsultacja z ekspertem' time={60} price={500}
+                    <SessionCard title='Konsultacja z ekspertem ' time={60} price={500}
                                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'/>
                     <SessionCard title='Wspólne programowanie' time={60} price={500}
                                  description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'/>
                 </Modal>
             )}
         </>
+
     );
+
 };
 
 export default Profile;

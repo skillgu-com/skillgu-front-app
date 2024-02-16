@@ -19,8 +19,7 @@ import {
 
 const MentorsList = () => {
 	const [mentors, setMentors] = useState([]);
-	const [filteredMentors, setFilteredMentors] = useState([]);
-	const [test, setTest] = useState([]);
+
 	useEffect(() => {
 		getAllMentors()
 			.then((response) => {
@@ -30,6 +29,7 @@ const MentorsList = () => {
 				throw new Error(error.message);
 			});
 	}, []);
+
 
 
 	return (

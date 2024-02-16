@@ -19,6 +19,7 @@ import styles from '../../Settings.module.scss';
 // Types
 import {UserData} from '../../Settings';
 import {useDispatch, useSelector} from "react-redux";
+import {settingUser} from "../../../../../services/UserProfileService";
 
 interface YourDataProps {
     userData: UserData;
@@ -29,6 +30,7 @@ const YourData = (props: YourDataProps) => {
     const dispatch = useDispatch();
     const userSetting = useSelector((state: any) => state.userSetting.userSettingStep);
 
+    // console.log(userSetting)
 
     const [form, setForm] = useState({
         firstName: defaultInput,
@@ -48,34 +50,39 @@ const YourData = (props: YourDataProps) => {
     });
 
 
-
     const updateFormHandler = (name: string, value: any) => {
         setForm({...form, [name]: value});
         dispatch({
             type: 'YOUR_DATA_USER_SETTING',
             payload: {
-                id: form.firstName,
-                firstName: form.firstName,
-                lastName: form.lastName,
-                phone: form.phone,
-                jobPosition: form.jobPosition,
-                location: form.location,
-                linkedin: form.linkedin,
-                instagram: form.instagram,
-                facebookURL: form.facebook,
-                youtube: form.youtube,
-                description: form.description,
-                x: form.x,
-                www: form.www
+                id:userData.userID,
+                firstName: form.firstName.value,
+                lastName: form.lastName.value,
+                phone: form.phone.value,
+                jobPosition: form.jobPosition.value,
+                location: form.location.value,
+                linkedin: form.linkedin.value,
+                instagram: form.instagram.value,
+                facebook: form.facebook.value,
+                youtube: form.youtube.value,
+                description: form.description.value,
+                x: form.x.value,
+                www: form.www.value
             }
         })
     };
 
+
+
     const handleSubmit = async (e: any) => {
-        e.preventDefault();
         console.log(userSetting)
+        e.preventDefault();
+        settingUser(userSetting).then(r => {
+
+        })
 
     };
+
 
     return (
         <section className={styles.section}>
@@ -96,7 +103,7 @@ const YourData = (props: YourDataProps) => {
                     id='firstName'
                     name='firstName'
                     type='text'
-                    placeholder={userData.firstName}
+                    placeholder={userSetting.firstName}
                     value={form.firstName.value}
                     errorMessage={form.firstName.errorMessage}
                     isValid={form.firstName.isValid}
@@ -108,7 +115,7 @@ const YourData = (props: YourDataProps) => {
                     id='lastName'
                     name='lastName'
                     type='text'
-                    placeholder={userData.lastName}
+                    placeholder={userSetting.lastName}
                     value={form.lastName.value}
                     errorMessage={form.lastName.errorMessage}
                     isValid={form.lastName.isValid}
@@ -256,7 +263,7 @@ const YourData = (props: YourDataProps) => {
                     label='Ukryj mnie przed innymi mentorami'
                 />
                 <div className={styles.formSubmit}>
-                    <Button type='submit' >Zapisz zmiany</Button>
+                    <Button type='submit'>Zapisz zmiany</Button>
                 </div>
             </form>
         </section>

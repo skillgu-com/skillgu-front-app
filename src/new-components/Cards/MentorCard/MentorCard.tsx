@@ -32,13 +32,14 @@ interface MentorCardProps {
     categories: { id: number; name: string }[];
     services: { id: number; name: string }[];
     mentorTopics?: any[];
-    socialMedia: {
-        linkedInURL?: string;
-        youtubeURL?: string;
-        instagramURL?: string;
-        facebookURL?: string;
-        websiteURL?: string;
-        xurl?: string;
+    linkedin?: string
+     socialMedia: {
+        linkedInURL?: string | null
+        youtubeURL?: string | null;
+        instagramURL?: string | null;
+        facebookURL?: string | null;
+        websiteURL?: string | null;
+        xurl?: string | null;
     };
     languages?: string[];
     isExtended?: boolean
@@ -66,13 +67,16 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         mentorTopics,
         socialMedia,
         languages,
-        isExtended
+        isExtended,
+
     } = props;
     const userFromRedux = useSelector((state: any) => state.auth.user);
 
 
     return (
+
         <div className={styles.wrapper} data-is-extended={isExtended}>
+
             {quickResponder && (
                 <Tag classes={styles.tag} bgColor='#ECF7F2' name='Szybko odpowiada'/>
             )}

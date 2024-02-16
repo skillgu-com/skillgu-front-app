@@ -55,8 +55,6 @@ const ITEMS_PLACEHOLDER = [
 const ListSection = () => {
 	const [users, setUsers] = useState<IUsersRelatedResponse[]>([]);
     const role = useSelector(getRole);
-    console.log(role)
-
 
     useEffect(() => {
 		findRelatedUsersBasedOnRole()

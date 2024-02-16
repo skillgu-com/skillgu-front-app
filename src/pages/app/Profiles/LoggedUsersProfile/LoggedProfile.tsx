@@ -16,53 +16,24 @@ import styles from './LoggedProfile.module.scss';
 import {useSelector} from "react-redux";
 import {UserData} from "../../Settings/Settings";
 import {useParams} from "react-router-dom";
-import {fetchAllUserData} from "../../../../services/UserProfileService";
+import {fetchAllUserData, fetchUserIDByEmail} from "../../../../services/UserProfileService";
 import {getMeetingPlanPanelSchedule} from "../../../../services/MeetingCreatorService";
 import LoggedMentorProfile from "./LoggedMentorProfile/LoggedMentorProfile";
 
 
-const SESSIONS_PLACEHOLDER_ARRAY: any = [];
-
 const LoggedProfile = () => {
 
     const userFromRedux = useSelector((state: any) => state.auth.user);
-    const [userData, setUserData] = useState<UserData>({} as UserData);
 
-    const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
-    const [currentSession, setCurrentSession] = useState([]);
-    const [sessionFromApi, setSessionFromApi] = useState([]);
-
 
     const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        fetchAllUserData().then((res) => setUserData(res.data as UserData));
-    }, []);
-
-
-    useEffect(() => {
-        getMeetingPlanPanelSchedule(userFromRedux.id).then((res) => {
-            const sessionFromApi = res.data.map((element: any) => ({
-                id: element.sessionType,
-                minutes: element.sessionTime,
-                price: element.sessionPrice,
-                description: element.description,
-                mentorID: element.mentorID,
-                sessionTypeID: element.sessionTypeID,
-                sessionID: element.sessionID,
-                scheduleID: element.scheduleID
-            }));
-
-            const updatedSessions: any = [...SESSIONS_PLACEHOLDER_ARRAY, ...sessionFromApi];
-            setSessionFromApi(updatedSessions);
-        });
-    }, []);
-
-    console.log('I`m checking session from api ', sessionFromApi);
 
     const toggleModalHandler = (value?: boolean) =>
         setShowModal(value ?? !showModal);
+
+
 
     return (
         <>
@@ -107,10 +78,10 @@ const LoggedProfile = () => {
                             categories={[{id: 1, name: 'Test'}]}
                             languages={['PL']}
                             socialMedia={{
-                                linkedInURL: 'linkedin.com/in/jak',
-                                youtubeURL: 'youtube.com/@piotrmazur',
-                                instagramURL: 'instagram.com/jak',
-                                websiteURL: 'piotrmazur.pl',
+                                linkedInURL: 'userFromRedux?.linkedInURL',
+                                youtubeURL: 'userFromRedux?.youtubeURL',
+                                instagramURL:' userFromRedux?.instagramURL',
+                                websiteURL: 'userFromRedux?.websiteURL',
                             }}
                         />
                         {userFromRedux.role === 'M' && (
@@ -138,19 +109,21 @@ const LoggedProfile = () => {
                         ]}
                         userID={1}
                         quickResponder={true}
-                        firstName='Andrzej'
-                        lastName='Kowalski'
-                        jobPosition={[{id: 1, name: 'Product manager key advisor'}]}
-                        description={userData.description}
-                        skill={userData.skill}
+                        firstName={userFromRedux?.firstName}
+                        lastName={userFromRedux?.lastName}
+                        jobPosition={[{id: 1, name: 'Product manager key advisor TEST'}]}
+
+                        // jobPosition={userFromRedux?.jobPosition}
+                        description={userFromRedux?.description}
+                        skill={userFromRedux?.skill}
                         isExtended={true}
-                        categories={userData.mentorTopics}
+                        categories={userFromRedux?.mentorTopics}
                         languages={['PL']}
                         socialMedia={{
-                            linkedInURL: 'linkedin.com/in/jak',
-                            youtubeURL: 'youtube.com/@piotrmazur',
-                            instagramURL: 'instagram.com/jak',
-                            websiteURL: 'piotrmazur.pl',
+                            linkedInURL: 'userFromRedux?.linkedInURL',
+                            youtubeURL: 'userFromRedux?.youtubeURL',
+                            instagramURL:' userFromRedux?.instagramURL',
+                            websiteURL: 'userFromRedux?.websiteURL',
                         }}
                     />
                 </div>

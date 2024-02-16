@@ -6,8 +6,19 @@
 	border-radius: 15px;
 	background-color: $light-color;
 
+	.formSection {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px 27px;
+
+		> * {
+			grid-column: span 2;
+		}
+	}
+
 	.button {
 		padding: 9px;
+		margin-top: 19px;
 		margin-bottom: 50px;
 		width: 100%;
 		font-size: 14px;
@@ -16,19 +27,27 @@
 	}
 
 	.title {
-    margin: 40px 0 14px;
+		margin: 40px 0 14px;
 		font-size: 14px;
 		line-height: 17px;
 	}
 
-	@media screen and (min-width: $lg) {
-		.button {
-			max-width: 295px;
+	@media screen and (min-width: $md) {
+		.formSection {
+			gap: 20px 27px;
+	
+			> * {
+				grid-column: span 1;
+			}
 		}
 	}
 
 	@media screen and (min-width: $lg) {
 		grid-column: 1/2;
 		grid-row: 1/3;
+
+		.button {
+			max-width: 295px;
+		}
 	}
 }

@@ -43,7 +43,7 @@ const YourData = (props: YourDataProps) => {
         www: defaultInput,
         youtube: defaultInput,
         description: defaultInput,
-        highlighted: {...defaultInput, value: false},
+        highlited: {...defaultInput, value: false},
         hidden: {...defaultInput, value: false},
     });
 
@@ -239,9 +239,9 @@ const YourData = (props: YourDataProps) => {
                     classes={styles.input}
                     id='highlited'
                     name='highlited'
-                    value={form.highlighted.value}
-                    errorMessage={form.highlighted.errorMessage}
-                    isValid={form.highlighted.isValid}
+                    value={form.highlited.value}
+                    errorMessage={form.highlited.errorMessage}
+                    isValid={form.highlited.isValid}
                     valueChangeHandler={updateFormHandler}
                     label='Chcę być promowany'
                 />

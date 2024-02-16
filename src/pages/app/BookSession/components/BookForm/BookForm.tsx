@@ -2,12 +2,14 @@
 import React, {FormEvent, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
+import classNames from 'classnames';
 // Components
 import Input, {defaultInput} from 'src/new-components/Input/Input';
 import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
 import FAQ from 'src/new-components/FAQ/Accordion';
 import Checkbox from 'src/new-components/Checkbox/Checkbox';
+import Team from '../Team/Team';
 // Styles
 import styles from './BookForm.module.scss';
 // Types
@@ -15,7 +17,6 @@ import {
 	TitleTag,
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
-import classNames from 'classnames';
 
 const localizer = momentLocalizer(moment);
 
@@ -82,7 +83,9 @@ const BookForm = () => {
 							return (
 								<p className={styles.header}>
 									<span>{date.toLocaleDateString('pl-PL', {weekday: 'short'})}</span>
-									<small>{date.getDate()} {date.toLocaleString('default', {month: 'long'})}</small>
+									<small>
+										{date.getDate()} {date.toLocaleString('default', {month: 'long'})}
+									</small>
 								</p>
 							);
 						},
@@ -108,7 +111,8 @@ const BookForm = () => {
 				<Input
 					id='topic'
 					name='topic'
-					type='textarea'
+					as='textarea'
+					classes={styles.textarea}
 					placeholder={'Opisz swój problem...'}
 					value={form.topic.value}
 					errorMessage={form.topic.errorMessage}
@@ -161,46 +165,18 @@ const BookForm = () => {
 					variant={TitleVariant.standard}>
 					Zaproś zespół
 				</Title>
-				<div className={styles.formSection}>
-					<Input
-						id='email'
-						name='email'
-						type='email'
-						placeholder={'E-mail'}
-						value={form.email.value}
-						errorMessage={form.email.errorMessage}
-						isValid={form.email.isValid}
-						valueChangeHandler={updateFormHandler}
-					/>
-					<Input
-						id='nip'
-						name='nip'
-						type='nip'
-						placeholder={'NIP'}
-						value={form.nip.value}
-						errorMessage={form.nip.errorMessage}
-						isValid={form.nip.isValid}
-						valueChangeHandler={updateFormHandler}
-					/>
-					<Input
-						id='phone'
-						name='phone'
-						type='phone'
-						placeholder={'Nr telefornu'}
-						value={form.phone.value}
-						errorMessage={form.phone.errorMessage}
-						isValid={form.phone.isValid}
-						valueChangeHandler={updateFormHandler}
-					/>
-				</div>
+				<Team limit={3} updateFormHandler={updateFormHandler} />
+
 				<Checkbox
 					id='policy'
 					name='policy'
+					classes={styles.checkbox}
 					value={form.policy.value}
 					errorMessage={form.policy.errorMessage}
 					isValid={form.policy.isValid}
 					valueChangeHandler={updateFormHandler}
-					label='Treść zgody'
+					label='Wyrażam zgodę na przetwarzanie moich danych osobowych w zakresie [tutaj zakres przetwarzania 
+						danych] przez [dane administratora danych osobowych: nazwa, imię, nazwisko, adres] w celu [cel przetwarzania danych osobowych].'
 				/>
 				<Button type='submit' classes={styles.button}>
 					Przejdź do płatności

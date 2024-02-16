@@ -15,6 +15,7 @@ import {
 	TitleTag,
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
+import classNames from 'classnames';
 
 const localizer = momentLocalizer(moment);
 
@@ -22,6 +23,8 @@ const BookForm = () => {
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 	};
+
+	const [currentEvent, setCurrentEvent] = useState<null | number>(null);
 
 	const [form, setForm] = useState({
 		topic: defaultInput,
@@ -38,13 +41,35 @@ const BookForm = () => {
 	return (
 		<section className={styles.wrapper}>
 			<form onSubmit={submitHandler}>
+				<Title
+					classes={classNames(styles.title, styles.titleMt0)}
+					tag={TitleTag.h3}
+					variant={TitleVariant.standard}>
+					Termin
+				</Title>
 				<Calendar
 					localizer={localizer}
 					view='week'
+					onView={() => null}
+					className={styles.calendar}
 					events={[
 						{
 							id: 0,
-							title: 'Rozmowa ekspercka',
+							title: new Date().getHours(),
+							allDay: true,
+							start: new Date(),
+							end: new Date(),
+						},
+						{
+							id: 1,
+							title: new Date().getHours(),
+							allDay: true,
+							start: new Date(),
+							end: new Date(),
+						},
+						{
+							id: 2,
+							title: new Date().getHours(),
 							allDay: true,
 							start: new Date(),
 							end: new Date(),
@@ -52,7 +77,27 @@ const BookForm = () => {
 					]}
 					startAccessor='start'
 					endAccessor='end'
-					style={{height: 500}}
+					components={{
+						header: ({date}) => {
+							return (
+								<p className={styles.header}>
+									<span>{date.toLocaleDateString('pl-PL', {weekday: 'short'})}</span>
+									<small>{date.getDate()} {date.toLocaleString('default', {month: 'long'})}</small>
+								</p>
+							);
+						},
+						eventWrapper: ({event}) => {
+							return (
+								<button
+									data-is-current={event.id === currentEvent}
+									className={styles.hour}
+									onClick={() => setCurrentEvent(event.id)}>
+									{event.start.getHours()}:{event.start.getMinutes()}
+								</button>
+							);
+						},
+						dateCellWrapper: () => <div className={styles.day}></div>,
+					}}
 				/>
 				<Title
 					classes={styles.title}

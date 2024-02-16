@@ -8,7 +8,6 @@ import YouTube from 'src/assets/icons/social-media/YouTube';
 import Source from 'src/assets/icons/Source';
 // Styles
 import styles from './SocialLink.module.scss';
-import {Link} from 'react-router-dom';
 
 interface SocialLinkProps {
 	link: string;

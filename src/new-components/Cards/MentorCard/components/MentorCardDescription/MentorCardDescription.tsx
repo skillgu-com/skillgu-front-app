@@ -128,7 +128,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
                             | 'instagramURL'
                             | 'facebookURL'
                             | 'websiteURL'
-                        return <SocialLink key={social} link={socialMedia[item] as string} type={item}/>;
+                        return !!socialMedia[item] && <SocialLink key={social} link={socialMedia[item] as string} type={item}/>;
                     })}
                 </div>
             )}

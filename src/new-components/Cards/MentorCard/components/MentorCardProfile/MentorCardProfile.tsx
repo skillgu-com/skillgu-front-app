@@ -10,10 +10,10 @@ import styles from './MentorCardProfile.module.scss';
 
 export interface MentorCardProfileProps {
 	profileImg: string;
-	reviews: number;
-	reviewsAmount: number;
-	location: string;
-	timeZone: string;
+	reviews?: number;
+	reviewsAmount?: number;
+	location?: string;
+	timeZone?: string;
 }
 
 const MentorCardProfile = (props: MentorCardProfileProps) => {

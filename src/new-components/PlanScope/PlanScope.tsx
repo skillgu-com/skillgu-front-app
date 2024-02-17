@@ -8,11 +8,13 @@ import {TitleTag, TitleVariant} from '../typography/Title/Title';
 import styles from './PlanScope.module.scss';
 
 interface PlanScopeProps {
-	elements: React.ReactNode[];
+	title: string;
+	elements?: React.ReactNode[] | string;
+	interactiveElement?: React.ReactNode;
 }
 
 const PlanScope = (props: PlanScopeProps) => {
-	const {elements} = props;
+	const {elements, title, interactiveElement} = props;
 
 	return (
 		<div className={styles.wrapper}>
@@ -20,13 +22,19 @@ const PlanScope = (props: PlanScopeProps) => {
 				tag={TitleTag.h4}
 				variant={TitleVariant.standard}
 				classes={styles.title}>
-				Plan obejmuje:
+				{title}
 			</Title>
-			<ul className={styles.list}>
-				{elements.map((item, index) => (
-					<li key={index}><span>{item}</span></li>
-				))}
-			</ul>
+			{typeof elements === 'string' || interactiveElement ? (
+				elements ?? interactiveElement
+			) : (
+				<ul className={styles.list}>
+					{elements?.map((item, index) => (
+						<li key={index}>
+							<span>{item}</span>
+						</li>
+					))}
+				</ul>
+			)}
 		</div>
 	);
 };

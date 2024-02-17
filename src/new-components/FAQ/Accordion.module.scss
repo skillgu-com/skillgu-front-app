@@ -1,0 +1,11 @@
+@use '../../scss/variables' as *;
+
+.wrapper {
+	.title {
+		margin-bottom: 28px;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 17px;
+		color: $secondary-color;
+	}
+}

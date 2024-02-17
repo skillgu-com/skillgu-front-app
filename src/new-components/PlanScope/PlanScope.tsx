@@ -9,11 +9,12 @@ import styles from './PlanScope.module.scss';
 
 interface PlanScopeProps {
 	title: string;
-	elements: React.ReactNode[] | string;
+	elements?: React.ReactNode[] | string;
+	interactiveElement?: React.ReactNode;
 }
 
 const PlanScope = (props: PlanScopeProps) => {
-	const {elements, title} = props;
+	const {elements, title, interactiveElement} = props;
 
 	return (
 		<div className={styles.wrapper}>
@@ -23,8 +24,8 @@ const PlanScope = (props: PlanScopeProps) => {
 				classes={styles.title}>
 				{title}
 			</Title>
-			{typeof elements === 'string' ? (
-				elements
+			{typeof elements === 'string' || interactiveElement ? (
+				elements ?? interactiveElement
 			) : (
 				<ul className={styles.list}>
 					{elements?.map((item, index) => (

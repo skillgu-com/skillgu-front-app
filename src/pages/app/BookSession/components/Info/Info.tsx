@@ -12,7 +12,7 @@ interface InfoProps {
 	sessionTitle: string;
 	price: number;
 	time: number;
-	descripiton: string;
+	descripiton: string | React.ReactNode;
 	term?: Date;
 }
 
@@ -51,7 +51,7 @@ const Info = (props: InfoProps) => {
 					</>
 				)}
 			</div>
-			<PlanScope title='Opis sesji:' elements={descripiton} />
+			<PlanScope title='Opis sesji:' interactiveElement={descripiton} />
 		</section>
 	);
 };

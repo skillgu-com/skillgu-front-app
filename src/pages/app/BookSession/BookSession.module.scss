@@ -6,8 +6,16 @@
 	gap: 20px 26px;
 }
 
+.button {
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 16px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
 @media screen and (min-width: $lg) {
-	.content{
+	.content {
 		transform: translateY(-70px);
 		margin-left: 70px;
 	}

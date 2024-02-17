@@ -45,8 +45,8 @@ const Team = (props: TeamProps) => {
 	};
 
 	const removePersonHandler = (key: string) => {
-		const newValue = guestsData.value
-		delete newValue[key]
+		const newValue = guestsData.value;
+		delete newValue[key];
 		updateFormHandler('guests', {
 			value: newValue,
 		});
@@ -71,6 +71,7 @@ const Team = (props: TeamProps) => {
 				<div className={styles.formSection} key={key}>
 					{index !== 0 && (
 						<button
+							type='button'
 							className={classNames(stylesTeam.button, stylesTeam.removeButton)}
 							onClick={() => removePersonHandler(key)}>
 							-Usuń osobę
@@ -110,7 +111,10 @@ const Team = (props: TeamProps) => {
 				</div>
 			))}
 			{currentAmount < limit && (
-				<button className={stylesTeam.button} onClick={addPersonHandler}>
+				<button
+					className={stylesTeam.button}
+					onClick={addPersonHandler}
+					type='button'>
 					+Dodaj kolejną osobę
 				</button>
 			)}

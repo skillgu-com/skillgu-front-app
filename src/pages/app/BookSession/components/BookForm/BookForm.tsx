@@ -25,7 +25,7 @@ interface BookFormProps {
 const localizer = momentLocalizer(moment);
 
 const BookForm = (props: BookFormProps) => {
-	const {id} = useParams()
+	const {id} = useParams();
 	const {selectTermHandler} = props;
 	const navigate = useNavigate();
 
@@ -37,6 +37,7 @@ const BookForm = (props: BookFormProps) => {
 	const [currentEvent, setCurrentEvent] = useState<null | number>(null);
 
 	const [form, setForm] = useState({
+		term: defaultInput,
 		topic: defaultInput,
 		email: defaultInput,
 		nip: defaultInput,
@@ -112,6 +113,7 @@ const BookForm = (props: BookFormProps) => {
 									onClick={() => {
 										setCurrentEvent(event.id);
 										selectTermHandler(event.start);
+										updateFormHandler('term', event.start);
 									}}>
 									{event.start.getHours()}:{event.start.getMinutes()}
 								</button>

@@ -9,3 +9,9 @@
   color: $link-color;
   cursor: pointer;
 }
+
+.removeButton{
+  grid-column: 1/-1!important;
+  text-align-last: left;
+  margin: 16px 0 0;
+}

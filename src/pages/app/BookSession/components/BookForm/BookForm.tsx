@@ -32,6 +32,7 @@ const BookForm = () => {
 		email: defaultInput,
 		nip: defaultInput,
 		phone: defaultInput,
+		guests: {...defaultInput, value: {guest0: {name: defaultInput, email: defaultInput, message: defaultInput}}},
 		policy: {...defaultInput, value: false},
 	});
 
@@ -165,7 +166,7 @@ const BookForm = () => {
 					variant={TitleVariant.standard}>
 					Zaproś zespół
 				</Title>
-				<Team limit={3} updateFormHandler={updateFormHandler} />
+				<Team limit={3} updateFormHandler={updateFormHandler} guestsData={form.guests} />
 
 				<Checkbox
 					id='policy'

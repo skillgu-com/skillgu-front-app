@@ -1,5 +1,5 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 // Components
 import Container from 'src/new-components/Container/Container';
 import MentorCardPrice from 'src/new-components/Cards/MentorCard/components/MentorCardPrice/MentorCardPrice';
@@ -9,17 +9,11 @@ import Modal from 'src/new-components/Modal/Modal';
 import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
 // Types
 import {Tag} from 'src/types/tags';
-import MentorCardDescription from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
+import MentorCardDescription
+	from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
 // Styles
 import styles from './LoggedProfile.module.scss';
 import {useSelector} from 'react-redux';
-import {UserData} from '../../Settings/Settings';
-import {useParams} from 'react-router-dom';
-import {
-	fetchAllUserData,
-	fetchUserIDByEmail,
-} from '../../../../services/UserProfileService';
-import {getMeetingPlanPanelSchedule} from '../../../../services/MeetingCreatorService';
 import LoggedMentorProfile from './LoggedMentorProfile/LoggedMentorProfile';
 
 const LoggedProfile = () => {
@@ -28,6 +22,7 @@ const LoggedProfile = () => {
 	const [currentTab, setCurrentTab] = useState('mentorship');
 
 	const [showModal, setShowModal] = useState(false);
+
 
 	const toggleModalHandler = (value?: boolean) =>
 		setShowModal(value ?? !showModal);
@@ -107,7 +102,7 @@ const LoggedProfile = () => {
 						quickResponder={true}
 						firstName={userFromRedux?.firstName}
 						lastName={userFromRedux?.lastName}
-						jobPosition={[{id: 1, name: 'Product manager key advisor TEST'}]}
+						jobPosition={[{id: 1, name: 'Product manager key advisor TEST dsds'}]}
 						// jobPosition={userFromRedux?.jobPosition}
 						description={userFromRedux?.description}
 						skill={userFromRedux?.skill}

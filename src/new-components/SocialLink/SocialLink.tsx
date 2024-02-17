@@ -42,10 +42,10 @@ const SocialLink = (props: SocialLinkProps) => {
 			case 'linkedInURL':
 				return 'Linkedin';
 			case 'instagramURL':
-				return 'Youtube';
+				return 'Instagram';
 			case 'youtubeURL':
 			case 'youtube':
-				return 'Instagram';
+				return 'youtube';
 			default:
 				return 'Strona www';
 		}

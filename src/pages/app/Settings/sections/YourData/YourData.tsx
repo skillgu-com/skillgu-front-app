@@ -30,7 +30,6 @@ const YourData = (props: YourDataProps) => {
     const dispatch = useDispatch();
     const userSetting = useSelector((state: any) => state.userSetting.userSettingStep);
 
-    // console.log(userSetting)
 
     const [form, setForm] = useState({
         firstName: defaultInput,

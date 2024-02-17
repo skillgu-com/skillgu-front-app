@@ -24,22 +24,20 @@ const HomePage = () => {
 
 	useEffect(() => {
 		fetchAllUserData().then((res) => {
+			// console.log(res?.data.skill)
 			dispatch({
 				type: 'FETCH_ALL_USER_DATA',
 				payload: {
 					firstName:res?.data.firstName,
-					lastName:res?.data.lastName
-					// linkedInURL: res?.data.linkedInURL,
-					// youtubeURL: res?.data.youtubeURL,
-					// instagramURL: res?.data.instagramURL,
-					// facebookURL: res?.data.facebookURL,
-					// websiteURL: res?.data.websiteURL,
-					// youtube: res?.data.youtube,
-					// description: res?.data.description,
-					// firstName: res?.data.firstName,
-					// lastName: res?.data.lastName,
-					// jobPosition: res?.data.jobPosition,
-					// skill: res?.data.payload.skill
+					lastName:res?.data.lastName,
+					linkedInURL: res?.data.linkedInURL,
+					youtubeURL: res?.data.youtubeURL,
+					instagramURL: res?.data.instagramURL,
+					facebookURL: res?.data.facebookURL,
+					websiteURL: res?.data.websiteURL,
+					description: res?.data.description,
+					skill: res?.data.skill,
+					jobPosition: res?.data.jobPosition,
 				},
 			});
 		}).catch((error) => {
@@ -47,9 +45,6 @@ const HomePage = () => {
 		});
 	}, [dispatch]);
 
-
-
-	console.log(userFromRedux)
 
 
 	return (

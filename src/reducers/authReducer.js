@@ -21,7 +21,7 @@ const initialState = {
         youtube:  null,
         timeZone: null,
         jobPosition: null,
-        // skill: []
+        skill: []
     },
 };
 
@@ -72,14 +72,14 @@ const authReducer = (state = initialState, action) => {
                     ...state.user,
                     firstName: action?.payload.firstName,
                     lastName: action?.payload.lastName,
-                    // jobPosition: action?.payload.jobPosition,
-                    // linkedInURL: action?.payload.linkedInURL,
-                    // youtubeURL: action?.payload.youtubeURL,
-                    // instagramURL: action?.payload.instagramURL,
-                    // facebookURL: action?.payload.facebookURL,
-                    // websiteURL: action?.payload.websiteURL,
-                    // description:action?.payload.description,
-                    // skill: action?.payload.skill
+                    jobPosition: action?.payload.jobPosition,
+                    linkedInURL: action?.payload.linkedInURL,
+                    youtubeURL: action?.payload.youtubeURL,
+                    instagramURL: action?.payload.instagramURL,
+                    facebookURL: action?.payload.facebookURL,
+                    websiteURL: action?.payload.websiteURL,
+                    description:action?.payload.description,
+                    skill: action?.payload.skill
                 },
             };
         default:

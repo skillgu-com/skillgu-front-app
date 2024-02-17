@@ -7,8 +7,8 @@ import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 import HomeScreen from './pages/app/HomePage/HomePage';
 import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
-import Profile from './pages/app/Profile/Profile';
 import BookSession from './pages/app/BookSession/BookSession';
+import Profile from './pages/app/Profiles/Profile';
 // Screens
 import HelpScreen from './pages/app/HelpView';
 import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';

@@ -84,7 +84,7 @@ const Profile = () => {
 							{id: 4, name: 'Intensywna praca'},
 						]}
 					/>
-					{userFromRedux.role === 'M' && (
+					{userFromRedux.role === 'S' && (
 						<PlanSelect toggleModalHandler={toggleModalHandler} />
 					)}
 					<div className={styles.mobileDescription}>

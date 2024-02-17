@@ -1,6 +1,5 @@
 import React from 'react';
 // Components
-import MentorProfile from 'src/pages/app/Profile/MentorProfile/MentorProfile';
 import PlanScope from 'src/new-components/PlanScope/PlanScope';
 // Styles
 import styles from './Info.module.scss';

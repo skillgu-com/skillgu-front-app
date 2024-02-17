@@ -13,25 +13,25 @@ interface TeamProps {
 
 const Team = (props: TeamProps) => {
 	const {updateFormHandler} = props;
-	
+
 	return (
 		<div>
 			<div className={styles.formSection}>
 				<Input
-					id='email'
-					name='email'
-					type='email'
-					placeholder={'E-mail'}
+					id='fullName'
+					name='fullName'
+					type='fullName'
+					placeholder={'Imię i nazwisko'}
 					value={''}
 					// errorMessage={form.email.errorMessage}
 					// isValid={form.email.isValid}
 					valueChangeHandler={updateFormHandler}
 				/>
 				<Input
-					id='nip'
-					name='nip'
-					type='nip'
-					placeholder={'NIP'}
+					id='email'
+					name='email'
+					type='email'
+					placeholder={'E-mail'}
 					value={''}
 					// errorMessage={form.nip.errorMessage}
 					// isValid={form.nip.isValid}

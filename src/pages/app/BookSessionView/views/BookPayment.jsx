@@ -26,7 +26,6 @@ const BookPayment = ({changeStepHandler}) => {
         createCheckoutSession(sessionData).then(res => {
             console.log(sessionData)
             setClientSecret(res.data.clientSecret)
-
         });
 
     }, []);

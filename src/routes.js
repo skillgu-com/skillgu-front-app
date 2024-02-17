@@ -88,18 +88,25 @@ const routes = [
 		hasSimpleLayout: true,
 		isProtected: true,
 	},
+	{
+		id: 'route11',
+		path: '/session-book/:id/payment',
+		element: <BookSession payment/>,
+		hasSimpleLayout: true,
+		isProtected: true,
+	},
 	// {
 	// 	id: 'route13',
 	// 	path: '/session-details/:id/book',
 	// 	element: <BookSessionScreen />,
 	// 	isProtected: true,
 	// },
-	{
-		id: 'route14',
-		path: '/session-details/:mentorID',
-		element: <SessionDetailsScreen />,
-		isProtected: true,
-	},
+	// {
+	// 	id: 'route14',
+	// 	path: '/session-details/:mentorID',
+	// 	element: <SessionDetailsScreen />,
+	// 	isProtected: true,
+	// },
 	{
 		id: 'route15',
 		path: '/business-partner',

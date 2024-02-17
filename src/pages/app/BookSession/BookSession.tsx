@@ -5,14 +5,20 @@ import {useParams} from 'react-router-dom';
 import Container from 'src/new-components/Container/Container';
 import Info from './components/Info/Info';
 import BookForm from './components/BookForm/BookForm';
+import Payment from './components/Payment/Payment';
+import Modal from 'src/new-components/Modal/Modal';
+import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
 // Types
 import {Tag} from 'src/types/tags';
 // Styles
 import styles from './BookSession.module.scss';
-import Modal from 'src/new-components/Modal/Modal';
-import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
 
-const BookSession = () => {
+interface BookSessionProps {
+	payment?: boolean;
+}
+
+const BookSession = (props: BookSessionProps) => {
+	const {payment} = props;
 	const {id} = useParams();
 	const [term, setTerm] = useState<Date | undefined>(undefined);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +39,9 @@ const BookSession = () => {
 								{
 									'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident est ipsum sed temporibus, iste adipisci esse amet explicabo impedit qui in aspernatur. Animi vel aliquid eius hic tempora eos voluptatem!'
 								}{' '}
-								<button className={styles.button} onClick={() => setIsModalOpen(true)}>Czytaj wiecej</button>
+								<button className={styles.button} onClick={() => setIsModalOpen(true)}>
+									Czytaj wiecej
+								</button>
 							</>
 						}
 						price={250}
@@ -42,7 +50,11 @@ const BookSession = () => {
 						sessionTitle='Konsultacja'
 						term={term}
 					/>
-					<BookForm selectTermHandler={selectTermHandler} />
+					{!payment ? (
+						<BookForm selectTermHandler={selectTermHandler} />
+					) : (
+						<Payment />
+					)}
 				</div>
 			</Container>
 			{isModalOpen && (

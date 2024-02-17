@@ -3,6 +3,7 @@ import React, {FormEvent, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import classNames from 'classnames';
+import {useNavigate, useParams} from 'react-router-dom';
 // Components
 import Input, {defaultInput} from 'src/new-components/Input/Input';
 import {Title} from 'src/new-components/typography';
@@ -19,16 +20,18 @@ import {
 } from 'src/new-components/typography/Title/Title';
 
 interface BookFormProps {
-	selectTermHandler: (term: Date) => void
+	selectTermHandler: (term: Date) => void;
 }
-
 const localizer = momentLocalizer(moment);
 
 const BookForm = (props: BookFormProps) => {
-	const {selectTermHandler} = props
+	const {id} = useParams()
+	const {selectTermHandler} = props;
+	const navigate = useNavigate();
 
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
+		navigate(`/session-book/${id}/payment`);
 	};
 
 	const [currentEvent, setCurrentEvent] = useState<null | number>(null);
@@ -38,7 +41,12 @@ const BookForm = (props: BookFormProps) => {
 		email: defaultInput,
 		nip: defaultInput,
 		phone: defaultInput,
-		guests: {...defaultInput, value: {guest0: {name: defaultInput, email: defaultInput, message: defaultInput}}},
+		guests: {
+			...defaultInput,
+			value: {
+				guest0: {name: defaultInput, email: defaultInput, message: defaultInput},
+			},
+		},
 		policy: {...defaultInput, value: false},
 	});
 
@@ -101,7 +109,10 @@ const BookForm = (props: BookFormProps) => {
 								<button
 									data-is-current={event.id === currentEvent}
 									className={styles.hour}
-									onClick={() =>{ setCurrentEvent(event.id); selectTermHandler(event.start)}}>
+									onClick={() => {
+										setCurrentEvent(event.id);
+										selectTermHandler(event.start);
+									}}>
 									{event.start.getHours()}:{event.start.getMinutes()}
 								</button>
 							);
@@ -172,7 +183,11 @@ const BookForm = (props: BookFormProps) => {
 					variant={TitleVariant.standard}>
 					Zaproś zespół
 				</Title>
-				<Team limit={3} updateFormHandler={updateFormHandler} guestsData={form.guests} />
+				<Team
+					limit={3}
+					updateFormHandler={updateFormHandler}
+					guestsData={form.guests}
+				/>
 
 				<Checkbox
 					id='policy'

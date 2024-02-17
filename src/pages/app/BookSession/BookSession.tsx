@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 // Components
 import Container from 'src/new-components/Container/Container';
@@ -12,6 +12,11 @@ import styles from './BookSession.module.scss';
 
 const BookSession = () => {
 	const {id} = useParams();
+	const [term, setTerm] = useState<Date | undefined>(undefined);
+
+	const selectTermHandler = (term: Date) => {
+		setTerm(term);
+	};
 
 	return (
 		<>
@@ -25,8 +30,9 @@ const BookSession = () => {
 						time={60}
 						imageUrl='https://cdn.pixabay.com/photo/2024/01/10/16/22/man-8499961_1280.jpg'
 						sessionTitle='Konsultacja'
+						term={term}
 					/>
-					<BookForm/>
+					<BookForm selectTermHandler={selectTermHandler} />
 				</div>
 			</Container>
 		</>

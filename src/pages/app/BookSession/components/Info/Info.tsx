@@ -13,11 +13,20 @@ interface InfoProps {
 	price: number;
 	time: number;
 	descripiton: string;
+	term?: Date;
 }
 
 const Info = (props: InfoProps) => {
-	const {fullName, position, imageUrl, sessionTitle, price, time, descripiton} =
-		props;
+	const {
+		fullName,
+		position,
+		imageUrl,
+		sessionTitle,
+		price,
+		time,
+		descripiton,
+		term,
+	} = props;
 
 	return (
 		<section className={styles.wrapper}>
@@ -33,6 +42,14 @@ const Info = (props: InfoProps) => {
 				<p className={styles.price}>
 					{price} <span>zł</span> <small>z VAT</small>
 				</p>
+				{term && (
+					<>
+						<p className={styles.payment}>Termin:</p>
+						<p className={styles.term}>
+							<span>{term.toLocaleDateString('pl-PL')}</span> <span>godz: {term.toLocaleTimeString('pl-PL',{ hour: "2-digit", minute: "2-digit" })}</span>
+						</p>
+					</>
+				)}
 			</div>
 			<PlanScope title='Opis sesji:' elements={descripiton} />
 		</section>

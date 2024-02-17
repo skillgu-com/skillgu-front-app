@@ -65,7 +65,7 @@
 	}
 
 	.price {
-    margin-bottom: 22px;
+		margin-bottom: 22px;
 		font-size: 20px;
 		font-weight: 700;
 		line-height: 24px;
@@ -81,17 +81,34 @@
 		}
 	}
 
-  @media screen and (min-width: $lg) {
-    grid-column: 2/3;
+	.term {
+		display: flex;
+		gap: 9px;
+		margin-bottom: 30px;
+
+		span {
+			display: block;
+			padding: 4px 10px;
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 17px;
+			border-radius: 30px;
+			text-align: left;
+			border: 1px solid $primary-color;
+		}
+	}
+
+	@media screen and (min-width: $lg) {
+		grid-column: 2/3;
 		grid-row: 1/2;
 
-    .profile{
-      width: 88px;
-      height: 88px;
-    }
+		.profile {
+			width: 88px;
+			height: 88px;
+		}
 
-    .name{
-      margin: 11px 0 4px;
-    }
-  }
+		.name {
+			margin: 11px 0 4px;
+		}
+	}
 }

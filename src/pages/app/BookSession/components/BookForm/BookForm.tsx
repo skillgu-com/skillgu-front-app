@@ -18,9 +18,15 @@ import {
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
 
+interface BookFormProps {
+	selectTermHandler: (term: Date) => void
+}
+
 const localizer = momentLocalizer(moment);
 
-const BookForm = () => {
+const BookForm = (props: BookFormProps) => {
+	const {selectTermHandler} = props
+
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 	};
@@ -95,7 +101,7 @@ const BookForm = () => {
 								<button
 									data-is-current={event.id === currentEvent}
 									className={styles.hour}
-									onClick={() => setCurrentEvent(event.id)}>
+									onClick={() =>{ setCurrentEvent(event.id); selectTermHandler(event.start)}}>
 									{event.start.getHours()}:{event.start.getMinutes()}
 								</button>
 							);

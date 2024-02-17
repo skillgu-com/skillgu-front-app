@@ -1,5 +1,5 @@
 // Libraries
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -18,6 +18,7 @@ import {
 	TitleTag,
 	TitleVariant,
 } from 'src/new-components/typography/Title/Title';
+import {getAllMentorCalendarEvents} from 'src/services/CalendarService';
 
 interface BookFormProps {
 	selectTermHandler: (term: Date) => void;
@@ -28,13 +29,54 @@ const BookForm = (props: BookFormProps) => {
 	const {id} = useParams();
 	const {selectTermHandler} = props;
 	const navigate = useNavigate();
-
-	const submitHandler = (e: FormEvent) => {
-		e.preventDefault();
-		navigate(`/session-book/${id}/payment`);
-	};
-
+	
 	const [currentEvent, setCurrentEvent] = useState<null | number>(null);
+	const [combinedData, setCombinedData] = useState<any>([]);
+
+	useEffect(() => {
+		id &&
+			getAllMentorCalendarEvents(id).then((res) => {
+				const dataFromApi = res.data;
+				const data: any = [];
+
+				function getDateRange(startDate: Date, endDate: Date) {
+					const dateRange = [];
+					const currentDate = new Date(startDate);
+
+					while (currentDate <= endDate) {
+						dateRange.push(new Date(currentDate));
+						currentDate.setDate(currentDate.getDate() + 1);
+					}
+
+					return dateRange;
+				}
+
+				dataFromApi.forEach((item: any, index: number) => {
+					const startDate = new Date(item.scheduleStartDay);
+					const endDate = new Date(item.scheduleEndDay);
+					const dateRange = getDateRange(startDate, endDate);
+
+					dateRange.forEach((date, subIndex) => {
+						const hoursForDay = item.weekAvailabilityResponses.map(
+							(element: any) => ({
+								id: element.weekAvailabilityId,
+								fromTime: element.fromTime,
+								toTime: element.toTime,
+								weekDay: element.weekDay.replace('time', ''),
+							})
+						);
+
+						data.push({
+							id: `${index + 1}-${subIndex + 1}`,
+							date,
+							hours: hoursForDay,
+						});
+					});
+				});
+
+				setCombinedData(data);
+			});
+	}, [id]);
 
 	const [form, setForm] = useState({
 		term: defaultInput,
@@ -53,6 +95,11 @@ const BookForm = (props: BookFormProps) => {
 
 	const updateFormHandler = (name: string, value: any) => {
 		setForm({...form, [name]: value});
+	};
+
+	const submitHandler = (e: FormEvent) => {
+		e.preventDefault();
+		navigate(`/session-book/${id}/payment`);
 	};
 
 	return (

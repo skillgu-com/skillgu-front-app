@@ -27,6 +27,7 @@ const BookSession = (props: BookSessionProps) => {
 		setTerm(term);
 	};
 
+
 	return (
 		<>
 			<Container as={Tag.Section}>

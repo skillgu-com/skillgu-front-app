@@ -8,9 +8,11 @@ import MentoringForm from './components/MentoringForm/MentoringForm';
 // Styles
 import styles from './PlanSelect.module.scss';
 import {getSessionTypes} from "../../services/KeyValuesService";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchMentorSession} from "../../services/SessionService";
 import {useParams} from "react-router-dom";
+import {fetchUserIDByEmail} from "../../services/UserProfileService";
+import sessionReducer from "../../reducers/sessionProcessReducer";
 
 export enum PlanTypes {
     Session = 'Session',
@@ -29,24 +31,31 @@ interface PlanSelectProps {
 }
 
 const PlanSelect = (props: PlanSelectProps) => {
+    const dispatch = useDispatch();
     const {toggleModalHandler} = props;
     const id = useParams();
 
+
     const [sessionPlanSelect, setSessionPlanSelect] = useState<Session[]>([]);
+
+
 
     const [planType, setPlanType] = useState(PlanTypes.Session);
 
     useEffect(() => {
         fetchMentorSession(id?.userID).then(res => {
-            const formattedSessions: Session[] = res?.data.map((element: { id: number; name: string; sessionTime: number; sessionPrice: number }) => ({
+            const formattedSessions = res?.data.map((element: { id: { toString: () => any; }; name: any; sessionTime: any; sessionPrice: any; }) => ({
                 id: element?.id.toString(),
                 name: element.name,
                 time: element.sessionTime,
                 price: element.sessionPrice,
             }));
+
             setSessionPlanSelect(formattedSessions);
+
         });
-    }, [id?.userID]);
+    }, [id?.userID, dispatch]);
+
 
     const changeTypeHandler = (type: PlanTypes) => setPlanType(type);
 

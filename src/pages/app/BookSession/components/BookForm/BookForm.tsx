@@ -19,6 +19,9 @@ import {
     TitleVariant,
 } from 'src/new-components/typography/Title/Title';
 import {getAllMentorCalendarEvents} from 'src/services/CalendarService';
+import {useSelector} from "react-redux";
+import {RootState} from "@reduxjs/toolkit/query";
+
 
 interface BookFormProps {
     selectTermHandler: (term: Date) => void;
@@ -34,12 +37,24 @@ const BookForm = (props: BookFormProps) => {
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
     const [combinedData, setCombinedData] = useState<any>([]);
 
+    const sessionProcess = useSelector((state: any) => state.sess.sessionState);
+
+
+    console.log(sessionProcess);
+
+    const mentorSessionRequest = {
+        mentorID: sessionProcess.mentorID,
+        sessionID: sessionProcess.sessionID
+    }
+
     useEffect(() => {
         id &&
-        getAllMentorCalendarEvents(id).then((res) => {
+        getAllMentorCalendarEvents(mentorSessionRequest).then((res) => {
             const dataFromApi = res.data;
             const data: any = [];
 
+
+            console.log(res.data)
 
             function getDateRange(startDate: Date, endDate: Date) {
                 const dateRange = [];
@@ -79,7 +94,6 @@ const BookForm = (props: BookFormProps) => {
             setCombinedData(data);
         });
     }, [id]);
-
 
 
     const [form, setForm] = useState({

@@ -20,7 +20,6 @@ const BookSessionScreen = () => {
 	useEffect(() => {
 	    getClientUserUUID(id).then(response => {
 	            setUser(response.data)
-	            console.log(response.data)
 	        })
 	    }, []
 	);

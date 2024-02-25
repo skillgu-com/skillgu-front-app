@@ -14,7 +14,7 @@ import MentorCardDescription
     from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
 // Styles
 import styles from './Profile.module.scss';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {UserData} from '../Settings/Settings';
 import {useParams} from 'react-router-dom';
 import {getMeetingPlanPanelSchedule} from '../../../services/MeetingCreatorService';
@@ -25,6 +25,8 @@ const SESSIONS_PLACEHOLDER_ARRAY: any = [];
 const Profile = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const [userData, setUserData] = useState<UserData>({} as UserData);
+    const dispatch = useDispatch();
+
 
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
@@ -37,6 +39,15 @@ const Profile = () => {
     useEffect(() => {
         getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
     }, []);
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_SESSIONS_MENTOR_ID',
+            payload: {
+                mentorID: userID,
+            },
+        });
+    })
 
 
     // useEffect(() => {
@@ -77,7 +88,7 @@ const Profile = () => {
                             location: 'Poznań',
                             timeZone: 'Poland (- 05:00 UTC)',
                         }}
-                        fullName={userData?.firstName+' '+userData?.lastName}
+                        fullName={userData?.firstName + ' ' + userData?.lastName}
                         position='Product manager key advisor'
                         services={[
                             {id: 1, name: 'Mentoring'},
@@ -93,7 +104,7 @@ const Profile = () => {
                         <MentorCardDescription
                             classes={styles.mobileDescriptionText}
                             userID={1}
-                            fullName={userData?.firstName+' '+userData?.lastName}
+                            fullName={userData?.firstName + ' ' + userData?.lastName}
                             jobPosition={userData?.jobPosition}
                             services={userData?.services}
                             description={userData?.description}
@@ -102,7 +113,7 @@ const Profile = () => {
                             categories={userData?.mentorTopics}
                             languages={['PL']}
                             socialMedia={{
-                                linkedInURL:userData?.linkedInURL,
+                                linkedInURL: userData?.linkedInURL,
                                 youtubeURL: userData?.youtubeURL,
                                 instagramURL: userData?.instagramURL,
                                 websiteURL: userData?.websiteURL,
@@ -136,7 +147,7 @@ const Profile = () => {
                         categories={userData?.mentorTopics}
                         languages={['PL']}
                         socialMedia={{
-                            linkedInURL:userData?.linkedInURL,
+                            linkedInURL: userData?.linkedInURL,
                             youtubeURL: userData?.youtubeURL,
                             instagramURL: userData?.instagramURL,
                             websiteURL: userData?.websiteURL,

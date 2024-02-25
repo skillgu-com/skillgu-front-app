@@ -11,6 +11,7 @@ import {useSelector} from 'react-redux';
 import {getAllScheduleMeetingTimeDetails} from '../../../../services/MeetingCreatorService';
 import {Link, useParams} from 'react-router-dom';
 import {getAllMentorCalendarEvents} from "../../../../services/CalendarService";
+import sessionReducer from "../../../../reducers/sessionProcessReducer";
 
 const DATES_PLACEHOLDER = [
     {
@@ -34,6 +35,9 @@ const BookForm = ({changeStepBookHandler}) => {
     const [hour, setHour] = useState(null);
     const [message, setMessage] = useState('');
     const userFromRedux = useSelector((state) => state.connectionProcess.sessionStep);
+
+
+
 
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [combinedData, setCombinedData] = useState([]); // Dodaj deklarację useState

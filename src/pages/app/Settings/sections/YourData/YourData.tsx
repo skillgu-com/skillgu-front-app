@@ -26,9 +26,15 @@ interface YourDataProps {
 }
 
 const YourData = (props: YourDataProps) => {
+
+    // console.log("I`am in YourData now!");
+
+
     const {userData} = props;
     const dispatch = useDispatch();
     const userSetting = useSelector((state: any) => state.userSetting.userSettingStep);
+
+    // console.log(userSetting);
 
 
     const [form, setForm] = useState({
@@ -51,6 +57,7 @@ const YourData = (props: YourDataProps) => {
 
     const updateFormHandler = (name: string, value: any) => {
         setForm({...form, [name]: value});
+
         dispatch({
             type: 'YOUR_DATA_USER_SETTING',
             payload: {
@@ -74,7 +81,6 @@ const YourData = (props: YourDataProps) => {
 
 
     const handleSubmit = async (e: any) => {
-        console.log(userSetting)
         e.preventDefault();
         settingUser(userSetting).then(r => {
 

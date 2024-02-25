@@ -8,9 +8,6 @@ export const getScheduleMeetingById = async () => {
     return await axios.get('/api/meeting/get-schedule-meeting-by-id', {});
 }
 
-export const getScheduleNames = async () => {
-    return await axios.get('/api/meeting/get-all-schedule-meeting-names');
-}
 
 export const getMeetingPlanPanelSchedule = async (userID) => {
     return await axios.get(`/api/meeting/get-meeting-plan-panel-schedule?userID=${userID}`);

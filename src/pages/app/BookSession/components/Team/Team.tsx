@@ -74,7 +74,7 @@ const Team = (props: TeamProps) => {
 							type='button'
 							className={classNames(stylesTeam.button, stylesTeam.removeButton)}
 							onClick={() => removePersonHandler(key)}>
-							-Usuń osobę
+							Usuń osobę
 						</button>
 					)}
 					<Input
@@ -115,7 +115,7 @@ const Team = (props: TeamProps) => {
 					className={stylesTeam.button}
 					onClick={addPersonHandler}
 					type='button'>
-					+Dodaj kolejną osobę
+					+ Dodaj kolejną osobę
 				</button>
 			)}
 		</div>

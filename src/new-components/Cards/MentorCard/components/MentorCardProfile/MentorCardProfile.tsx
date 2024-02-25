@@ -12,7 +12,7 @@ export interface MentorCardProfileProps {
 	profileImg: string;
 	reviews?: number;
 	reviewsAmount?: number;
-	location?: string;
+	location?: string | null;
 	timeZone?: string;
 }
 

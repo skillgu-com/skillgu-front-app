@@ -19,7 +19,7 @@ interface BookSessionProps {
 
 const BookSession = (props: BookSessionProps) => {
 	const {payment} = props;
-	const {id} = useParams();
+	// const {id} = useParams();
 	const [term, setTerm] = useState<Date | undefined>(undefined);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 

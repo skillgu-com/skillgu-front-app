@@ -11,8 +11,6 @@ import BookSession from './pages/app/BookSession/BookSession';
 import Profile from './pages/app/Profiles/Profile';
 // Screens
 import HelpScreen from './pages/app/HelpView';
-import SessionDetailsScreen from './pages/app/SesionDetailsScreen/SessionDetailsScreen';
-import BookSessionScreen from './pages/app/BookSessionView/BookSessionScreen';
 import Raports from './pages/app/Raports/Raports';
 import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
@@ -25,6 +23,7 @@ import SchedulesView from './pages/app/SchedulesView';
 import CreateMentorPlan from './pages/app/MentoringAndSessionDashboard/CreateMentorPlan';
 import CreateSingleSession from './pages/app/MentoringAndSessionDashboard/CreateSingleSession';
 import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
+// import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 
 const routes = [
 	{
@@ -188,6 +187,13 @@ const routes = [
 		id: 'route29',
 		path: '/book-success',
 		element: <BookSuccess />,
+		isProtected: true,
+	},
+	{
+		id: 'route30',
+		path: '/logged-user-profile',
+		element: <Profile/>,
+		hasSimpleLayout: true,
 		isProtected: true,
 	},
 ];

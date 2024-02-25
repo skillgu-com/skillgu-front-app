@@ -40,6 +40,7 @@ const BookForm = (props: BookFormProps) => {
             const dataFromApi = res.data;
             const data: any = [];
 
+
             function getDateRange(startDate: Date, endDate: Date) {
                 const dateRange = [];
                 const currentDate = new Date(startDate);
@@ -78,6 +79,8 @@ const BookForm = (props: BookFormProps) => {
             setCombinedData(data);
         });
     }, [id]);
+
+
 
     const [form, setForm] = useState({
         term: defaultInput,
@@ -147,6 +150,20 @@ const BookForm = (props: BookFormProps) => {
                             start: new Date(),
                             end: new Date(),
                         },
+                        {
+                            id: 3,
+                            title: new Date().getHours(),
+                            allDay: true,
+                            start: new Date(),
+                            end: new Date(),
+                        },
+                        {
+                            id: 4,
+                            title: new Date().getHours(),
+                            allDay: true,
+                            start: new Date(),
+                            end: new Date(),
+                        },
                     ]}
                     startAccessor='start'
                     endAccessor='end'
@@ -189,7 +206,7 @@ const BookForm = (props: BookFormProps) => {
                     name='topic'
                     as='textarea'
                     classes={styles.textarea}
-                    placeholder={'Opisz swój problem...'}
+                    placeholder={'Napisz do mnie...'}
                     value={form.topic.value}
                     errorMessage={form.topic.errorMessage}
                     isValid={form.topic.isValid}
@@ -227,7 +244,7 @@ const BookForm = (props: BookFormProps) => {
                         id='phone'
                         name='phone'
                         type='phone'
-                        placeholder={'Nr telefornu'}
+                        placeholder={'Telefon'}
                         value={form.phone.value}
                         errorMessage={form.phone.errorMessage}
                         isValid={form.phone.isValid}
@@ -274,6 +291,12 @@ const BookForm = (props: BookFormProps) => {
                     {
                         id: '02',
                         title: 'Czy mogę zmienić swoje hasło?',
+                        description:
+                            'Tak, zmiana hasła jest możliwa w każdej chwili. Aby to zrobić, zaloguj się na swoje konto, a następnie przejdź do sekcji „Ustawienia konta” lub „Moje konto”. Znajdziesz tam opcję „Zmień hasło”. Kliknij w nią i postępuj zgodnie z instrukcjami, aby ustawić nowe hasło. Zalecamy wybór silnego hasła, które zawiera kombinację liter, cyfr i symboli, aby zwiększyć bezpieczeństwo Twojego konta.',
+                    },
+                    {
+                        id: '03',
+                        title: 'Ile mogę dodać osób do spotkania?',
                         description:
                             'Tak, zmiana hasła jest możliwa w każdej chwili. Aby to zrobić, zaloguj się na swoje konto, a następnie przejdź do sekcji „Ustawienia konta” lub „Moje konto”. Znajdziesz tam opcję „Zmień hasło”. Kliknij w nią i postępuj zgodnie z instrukcjami, aby ustawić nowe hasło. Zalecamy wybór silnego hasła, które zawiera kombinację liter, cyfr i symboli, aby zwiększyć bezpieczeństwo Twojego konta.',
                     },

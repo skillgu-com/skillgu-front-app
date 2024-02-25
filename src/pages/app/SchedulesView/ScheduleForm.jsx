@@ -319,13 +319,15 @@ const ScheduleForm = () => {
             Saturday: getDayHours('Saturday'),
             Sunday: getDayHours('Sunday'),
         };
+        console.log(currentState);
+        console.log(weekTimes)
 
         createScheduleMeeting(currentState, weekTimes);
     };
 
     return (
         <section>
-            <h2 className='app__title'>Dodaj nowy harmonogram</h2>
+            <h2 className='app__title'>Dodaj nowy harmonogram HERE!</h2>
 
             <form className='schedule-form' onSubmit={submitHandler}>
                 <Box sx={{width: '100%'}}>

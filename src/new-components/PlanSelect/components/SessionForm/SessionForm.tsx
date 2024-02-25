@@ -5,6 +5,7 @@ import Checkbox from 'src/new-components/Checkbox/Checkbox';
 import Button, {ButtonVariant} from 'src/new-components/Button/Button';
 // Styles
 import styles from './SessionForm.module.scss';
+import {useNavigate, useParams} from "react-router-dom";
 
 interface SessionFormProps {
 	sessions: any; // Unknown type probably array of objects type of object also unknown
@@ -12,13 +13,18 @@ interface SessionFormProps {
 }
 
 const SessionForm = (props: SessionFormProps) => {
+	const navigate = useNavigate();
+
 	const {sessions, openModalHandler} = props;
 
-	const [session, setSession] = useState(sessions[0].id);
+	const [session, setSession] = useState(sessions[0]?.id);
 
 	const updateSessionHandler = (id: string) => setSession(id);
 
+	const id = useParams();
+
 	const submitHandler = (e: FormEvent) => {
+		navigate(`/session-book/${id?.userID}`);
 		e.preventDefault();
 	};
 

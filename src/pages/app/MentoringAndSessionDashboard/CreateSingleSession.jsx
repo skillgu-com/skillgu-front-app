@@ -3,21 +3,30 @@ import CustomButton, {buttonColors, buttonTypes} from "../../../component/Custom
 import {FormControl, FormLabel, Grid, MenuItem, Select, TextField} from '@mui/material';
 import HeroHeader from "../../../component/HeroHeader";
 import {createSession} from "../../../services/SessionService";
-import {getScheduleNames} from "../../../services/MeetingCreatorService";
 import {getSessionTypes} from "../../../services/KeyValuesService";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {fetchAllSchedules} from "../../../services/ScheduleService";
 
 
 const CreateSingleSession = (props) => {
-    const [sessionDescription, setSessionDescription] = useState("");
     const [sessionTypes, setSessionTypes] = useState([]);
-    const [sessionTypeValues, setSessionTypeValues] = useState(1);
-    const [sessionPrice, setSessionPrice] = useState('');
+    // const [sessionTypeValues, setSessionTypeValues] = useState(1);
     const [scheduleNames, setScheduleNames] = useState([]);
-    const [selectedSchedule, setSelectedSchedule] = useState('');
+    // const [selectedSchedule, setSelectedSchedule] = useState('');
+
+
+    const [sessionName, setSessionName] = useState('');
+    const [sessionPrice, setSessionPrice] = useState(0);
+    const [sessionID, setSessionID] = useState(0);
+    const [scheduleID, setScheduleID] = useState(0);
+    const [sessionDescription, setSessionDescription] = useState('');
     const navigate = useNavigate();
 
+    const handleSessionName = (event) => {
+        const sessionName = event.target.value;
+        setSessionName(sessionName);
+    };
 
     const handleSessionDescription = (event) => {
         setSessionDescription(event.target.value);
@@ -25,41 +34,35 @@ const CreateSingleSession = (props) => {
 
     const handleSessionType = (event) => {
         const selectedValue = event.target.value;
-        setSessionTypeValues(selectedValue);
+        setSessionID(selectedValue);
     };
 
     const handleSessionPrice = (event) => {
         const newSessionPrice = event.target.value;
         setSessionPrice(newSessionPrice);
     };
-    const handleScheduleNames = (event) => {
+    const handleScheduleType = (event) => {
         const selectedValue = event.target.value;
-        setSelectedSchedule(selectedValue);
+        setScheduleID(selectedValue);
     };
 
     useEffect(() => {
-        getScheduleNames().then(res => {
+        fetchAllSchedules().then(res => {
             setScheduleNames(res.data);
         })
     }, []);
 
 
     useEffect(() => {
-        getSessionTypes()
-            .then(res => {
-                console.log(res.data);
-                setSessionTypes(res.data);
-            })
-            .catch(reason => {
-                console.error("something goes wrong.", reason);
-            });
+        getSessionTypes().then(res => {
+            setSessionTypes(res.data);
+        })
     }, []);
-
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        createSession(sessionDescription, sessionTypeValues, sessionPrice, selectedSchedule).then(
+        createSession(sessionName, sessionPrice, sessionID, scheduleID,sessionDescription).then(
             navigate('/home')
         );
     };
@@ -85,8 +88,8 @@ const CreateSingleSession = (props) => {
                             id='name'
                             placeholder='Nazwa sesji'
                             autoFocus
-                            // value={userSettingState.firstName.value}
-                            // onChange={changeFirstName}
+                            value={sessionName}
+                            onChange={handleSessionName}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -116,7 +119,7 @@ const CreateSingleSession = (props) => {
                                 required
                                 displayEmpty
                                 inputProps={{'aria-label': 'Without label'}}
-                                value={sessionTypeValues}
+                                value={sessionID}
                                 onChange={handleSessionType}>
                                 <MenuItem value="" disabled>
                                     Wybierz typ spotkania
@@ -140,14 +143,14 @@ const CreateSingleSession = (props) => {
                                 required
                                 displayEmpty
                                 inputProps={{'aria-label': 'Without label'}}
-                                value={selectedSchedule}
-                                onChange={handleScheduleNames}>
-                                <MenuItem value={0} disabled>
+                                value={scheduleID}
+                                onChange={handleScheduleType}>
+                                <MenuItem value="" disabled>
                                     Wybierz harmonogram
                                 </MenuItem>
-                                {scheduleNames?.map((element, index) => (
-                                    <MenuItem key={index} value={element}>
-                                        {element}
+                                {scheduleNames?.map((element) => (
+                                    <MenuItem key={element.id} value={element.id}>
+                                        {element.name}
                                     </MenuItem>
                                 ))}
                             </Select>

@@ -31,15 +31,21 @@ const Payment = () => {
 				elements={[
 					{
 						id: '01',
-						title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit?',
+						title: 'Jak mogę się zarejestrować na stronie?',
 						description:
-							' Fugiat tempore, iure deleniti corrupti reiciendis obcaecati quibusdam eligendi. Debitis laudantium numquam aut repellendus, culpa esse! Non blanditiis aut nisi labore voluptas.',
+							'Aby się zarejestrować, kliknij przycisk „Zarejestruj się” znajdujący się w prawym górnym rogu strony głównej. Następnie wypełnij formularz rejestracyjny swoimi danymi, takimi jak adres e-mail i hasło, i postępuj zgodnie z instrukcjami weryfikacji. Po zakończeniu procesu rejestracji otrzymasz e-mail z linkiem aktywacyjnym. Kliknij w link, aby aktywować swoje konto.',
 					},
 					{
 						id: '02',
-						title: 'test 2',
+						title: 'Czy mogę zmienić swoje hasło?',
 						description:
-							'assdad dsafmsd,gmls dkfjgnsjdnfklgjskfgj skjg lskj ;lgfjks lkfdjgh ksfjhgls kfdjhg lsdfgjkhskdfhgslkugreojhsdlk jfhv kdfhvkkkflsl dj gljlsjl',
+							'Tak, zmiana hasła jest możliwa w każdej chwili. Aby to zrobić, zaloguj się na swoje konto, a następnie przejdź do sekcji „Ustawienia konta” lub „Moje konto”. Znajdziesz tam opcję „Zmień hasło”. Kliknij w nią i postępuj zgodnie z instrukcjami, aby ustawić nowe hasło. Zalecamy wybór silnego hasła, które zawiera kombinację liter, cyfr i symboli, aby zwiększyć bezpieczeństwo Twojego konta.',
+					},
+					{
+						id: '03',
+						title: 'Jak odstąpić od płatności?',
+						description:
+							'Tak, zmiana hasła jest możliwa w każdej chwili. Aby to zrobić, zaloguj się na swoje konto, a następnie przejdź do sekcji „Ustawienia konta” lub „Moje konto”. Znajdziesz tam opcję „Zmień hasło”. Kliknij w nią i postępuj zgodnie z instrukcjami, aby ustawić nowe hasło. Zalecamy wybór silnego hasła, które zawiera kombinację liter, cyfr i symboli, aby zwiększyć bezpieczeństwo Twojego konta.',
 					},
 				]}
 			/>

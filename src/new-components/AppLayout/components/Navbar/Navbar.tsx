@@ -29,7 +29,6 @@ const Navbar = () => {
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
 	const userFromRedux = useSelector((state:any) => state.auth.user);
 
-
 	return (
 		<Container
 			as={Tag.Nav}

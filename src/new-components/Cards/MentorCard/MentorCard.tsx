@@ -26,7 +26,7 @@ interface MentorCardProps {
     logoUrl: string;
     skill: { id: number; name: string }[];
     price?: number;
-    location: string;
+    location: string | null;
     timeZone: string;
     quickResponder: boolean;
     categories: { id: number; name: string }[];
@@ -70,8 +70,6 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         isExtended,
 
     } = props;
-    const userFromRedux = useSelector((state: any) => state.auth.user);
-
 
     return (
 

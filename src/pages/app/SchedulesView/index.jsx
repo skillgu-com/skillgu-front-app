@@ -58,11 +58,13 @@ const PLACEHOLDER_TABLE = {
 
 const SchedulesView = () => {
 	const [schedules, setSchedules] = useState([]);
-	useEffect(() => {
-		getAllSchedulesMeeting().then((response) => {
-			setSchedules(response.data);
-		});
-	}, []);
+
+	//TODO to zwracalo nad nowym harmonogramem liste juz wczesniej dodanych harmonogramow. Wywalalo nullem dlatego zakomentowane.
+	// useEffect(() => {
+	// 	getAllSchedulesMeeting().then((response) => {
+	// 		setSchedules(response.data);
+	// 	});
+	// }, []);
 
 	return (
 		<AppLayout>

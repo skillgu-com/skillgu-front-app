@@ -6,6 +6,6 @@ export const getAllCalendarEvents = async () => {
 }
 
 export const getAllMentorCalendarEvents = async (mentorID) => {
-    return await axios.get(`/api/calendar/get-all-mentor-events?mentorID=${mentorID}`);
+    return await axios.get(`/api/calendar/get-all-mentor-events-test?mentorID=${mentorID}`);
 }
 

@@ -11,7 +11,6 @@ const initialState = {
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_SESSIONS_MENTOR_ID':
-            console.log(action);
             return {
                 ...state,
                 sessionState: {
@@ -27,6 +26,7 @@ const sessionReducer = (state = initialState, action) => {
                     name: action.payload.name,
                     time: action.payload.time,
                     price: action.payload.price,
+                    description: action.payload.description,
                 }
             }
         default:

@@ -44,11 +44,12 @@ const PlanSelect = (props: PlanSelectProps) => {
 
     useEffect(() => {
         fetchMentorSession(id?.userID).then(res => {
-            const formattedSessions = res?.data.map((element: { id: { toString: () => any; }; name: any; sessionTime: any; sessionPrice: any; }) => ({
+            const formattedSessions = res?.data.map((element: { id: { toString: () => any; }; name: any; sessionTime: any; sessionPrice: any; description: any, meetTime: any}) => ({
                 id: element?.id.toString(),
-                name: element.name,
-                time: element.sessionTime,
-                price: element.sessionPrice,
+                name: element?.name,
+                price: element?.sessionPrice,
+                description: element?.description,
+                meetTime: element?.meetTime
             }));
 
             setSessionPlanSelect(formattedSessions);

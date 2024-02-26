@@ -17,5 +17,5 @@ export const getSessionNumber = async () => {
 
 
 export const fetchMentorSession = async (userID) => {
-    return await axios.get(`/api/1.0/fetch-mentor-sessions`, { params: { userID } });
+    return await axios.get(`/api/1.0/mentor-sessions`, { params: { userID } });
 }

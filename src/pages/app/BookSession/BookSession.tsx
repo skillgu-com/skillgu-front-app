@@ -12,6 +12,7 @@ import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
 import {Tag} from 'src/types/tags';
 // Styles
 import styles from './BookSession.module.scss';
+import {useSelector} from "react-redux";
 
 interface BookSessionProps {
 	payment?: boolean;
@@ -27,6 +28,9 @@ const BookSession = (props: BookSessionProps) => {
 		setTerm(term);
 	};
 
+	const sessionProcess = useSelector((state: any) => state.sess.sessionState);
+	console.log('szukamy description !!',sessionProcess?.description)
+
 
 	return (
 		<>
@@ -37,18 +41,16 @@ const BookSession = (props: BookSessionProps) => {
 						position='Tester oprogramowania'
 						descripiton={
 							<>
-								{
-									'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident est ipsum sed temporibus, iste adipisci esse amet explicabo impedit qui in aspernatur. Animi vel aliquid eius hic tempora eos voluptatem!'
-								}{' '}
+								{sessionProcess?.description}{' '}
 								<button className={styles.button} onClick={() => setIsModalOpen(true)}>
 									Czytaj wiecej
 								</button>
 							</>
 						}
-						price={250}
-						time={60}
+						price={sessionProcess?.price}
+						time={sessionProcess?.time}
 						imageUrl='https://cdn.pixabay.com/photo/2024/01/10/16/22/man-8499961_1280.jpg'
-						sessionTitle='Konsultacja'
+						sessionTitle={sessionProcess?.name}
 						term={term}
 					/>
 					{!payment ? (

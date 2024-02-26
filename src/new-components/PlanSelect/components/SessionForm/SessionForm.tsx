@@ -23,24 +23,30 @@ const SessionForm = (props: SessionFormProps) => {
     const id = useParams();
 
 
+    console.log('terarz ttaj ', sessions)
+
     const submitHandler = (e: FormEvent) => {
         const selectedSession = sessions.find((item: { id: any; }) => item.id === session);
+
         if (selectedSession) {
             dispatch({
                 type: 'SET_SESSIONS_UPDATE',
                 payload: {
                     sessionID: selectedSession?.id,
                     name: selectedSession?.name,
-                    time: selectedSession?.time,
+                    time: selectedSession?.meetTime,
                     price: selectedSession?.price,
+                    description: selectedSession?.description,
+
                 },
             });
 
             navigate(`/session-book/${id?.userID}`);
             e.preventDefault();
-        }
-        ;
+        };
     }
+
+
 
     return (
         <form onSubmit={submitHandler}>
@@ -59,7 +65,7 @@ const SessionForm = (props: SessionFormProps) => {
                             <span className={styles.label}>
 								<strong>{item.name}</strong>
 								<small>
-									{item.time} minut / {item.price} zł
+									{item.meetTime} minut / {item.price} zł
 								</small>
 							</span>
                         }

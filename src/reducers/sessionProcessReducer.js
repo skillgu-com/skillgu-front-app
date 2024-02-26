@@ -15,6 +15,11 @@ const sessionReducer = (state = initialState, action) => {
                 ...state,
                 sessionState: {
                     mentorID: action.payload.mentorID,
+                    sessionID: action.payload.sessionID,
+                    name: action.payload.name,
+                    time: action.payload.time,
+                    price: action.payload.price,
+                    description: action.payload.description,
                 }
             }
         case 'SET_SESSIONS_UPDATE':

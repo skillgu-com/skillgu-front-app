@@ -20,7 +20,6 @@ interface BookSessionProps {
 
 const BookSession = (props: BookSessionProps) => {
 	const {payment} = props;
-	// const {id} = useParams();
 	const [term, setTerm] = useState<Date | undefined>(undefined);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,7 +28,6 @@ const BookSession = (props: BookSessionProps) => {
 	};
 
 	const sessionProcess = useSelector((state: any) => state.sess.sessionState);
-	console.log('szukamy description !!',sessionProcess?.description)
 
 
 	return (
@@ -65,7 +63,7 @@ const BookSession = (props: BookSessionProps) => {
 					title='Wszystkie dostępne sesje'
 					closeHandler={() => setIsModalOpen(false)}>
 					<SessionCard
-						title='Konsultacja z ekspertem'
+						title='Konsultacja z eksperte TEST'
 						time={60}
 						price={500}
 						description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'

@@ -22,9 +22,6 @@ const SessionForm = (props: SessionFormProps) => {
     const updateSessionHandler = (id: string) => setSession(id);
     const id = useParams();
 
-
-    console.log('terarz ttaj ', sessions)
-
     const submitHandler = (e: FormEvent) => {
         const selectedSession = sessions.find((item: { id: any; }) => item.id === session);
 

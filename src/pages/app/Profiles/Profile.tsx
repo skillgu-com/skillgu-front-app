@@ -19,9 +19,23 @@ import {UserData} from '../Settings/Settings';
 import {useParams} from 'react-router-dom';
 import {getMeetingPlanPanelSchedule} from '../../../services/MeetingCreatorService';
 import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {fetchMentorSession} from "../../../services/SessionService";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 const SESSIONS_PLACEHOLDER_ARRAY: any = [];
+interface SessionData {
+    id: number;
+    name: string;
+    sessionTime: number;
+    sessionPrice: number;
+    description: string;
+    meetTime: any;
+}
 
+interface PlanSelectProps {
+    sessions: SessionData[];
+    toggleModalHandler: () => void; // Zakładam, że toggleModalHandler jest funkcją bez parametrów
+}
 const Profile = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const [userData, setUserData] = useState<UserData>({} as UserData);
@@ -32,6 +46,7 @@ const Profile = () => {
     const [currentTab, setCurrentTab] = useState('mentorship');
     const [currentSession, setCurrentSession] = useState([]);
     const [sessionFromApi, setSessionFromApi] = useState([]);
+    const [fetchMentorSessions, setFetchMentorSessions] = useState<SessionData[]>([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -40,36 +55,30 @@ const Profile = () => {
         getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
     }, []);
 
-    useEffect(() => {
-        dispatch({
-            type: 'SET_SESSIONS_MENTOR_ID',
-            payload: {
-                mentorID: userID,
-            },
-        });
-    })
-
-
     // useEffect(() => {
-    //     getMeetingPlanPanelSchedule(userFromRedux.id).then((res) => {
-    //         const sessionFromApi = res.data.map((element: any) => ({
-    //             id: element.sessionType,
-    //             minutes: element.sessionTime,
-    //             price: element.sessionPrice,
-    //             description: element.description,
-    //             mentorID: element.mentorID,
-    //             sessionTypeID: element.sessionTypeID,
-    //             sessionID: element.sessionID,
-    //             scheduleID: element.scheduleID,
-    //         }));
-    //
-    //         const updatedSessions: any = [
-    //             ...SESSIONS_PLACEHOLDER_ARRAY,
-    //             ...sessionFromApi,
-    //         ];
-    //         setSessionFromApi(updatedSessions);
+    //     dispatch({
+    //         type: 'SET_SESSIONS_MENTOR_ID',
+    //         payload: {
+    //             mentorID: userID,
+    //         },
     //     });
-    // }, []);
+    // })
+
+    useEffect(() => {
+        fetchMentorSession(userID).then(res => {
+            const formattedSessions = res?.data.map((element: SessionData) => ({
+                id: element?.id.toString(),
+                name: element?.name,
+                sessionPrice: element?.sessionPrice,
+                description: element?.description,
+                meetTime: element?.meetTime
+            }));
+
+            setFetchMentorSessions(formattedSessions);
+
+        });
+    }, []);
+
 
 
     const toggleModalHandler = (value?: boolean) =>
@@ -98,7 +107,10 @@ const Profile = () => {
                         ]}
                     />
                     {userFromRedux.role === 'S' && (
-                        <PlanSelect toggleModalHandler={toggleModalHandler}/>
+                        <PlanSelect
+                            sessions={fetchMentorSessions}
+                            toggleModalHandler={toggleModalHandler}
+                        />
                     )}
                     <div className={styles.mobileDescription}>
                         <MentorCardDescription
@@ -159,18 +171,15 @@ const Profile = () => {
                 <Modal
                     title='Wszystkie dostępne sesje'
                     closeHandler={() => toggleModalHandler(false)}>
-                    <SessionCard
-                        title='Konsultacja z ekspertem'
-                        time={60}
-                        price={500}
-                        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'
-                    />
-                    <SessionCard
-                        title='Wspólne programowanie'
-                        time={60}
-                        price={500}
-                        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'
-                    />
+                    {fetchMentorSessions.map(element  => (
+                        <SessionCard
+                            key={element?.id}
+                            title={element?.name}
+                            time={element?.meetTime}
+                            price={element?.sessionPrice}
+                            description={element?.description}
+                        />
+                    ))}
                 </Modal>
             )}
         </>

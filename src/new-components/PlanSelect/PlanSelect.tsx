@@ -7,55 +7,40 @@ import SessionForm from './components/SessionForm/SessionForm';
 import MentoringForm from './components/MentoringForm/MentoringForm';
 // Styles
 import styles from './PlanSelect.module.scss';
-import {getSessionTypes} from "../../services/KeyValuesService";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchMentorSession} from "../../services/SessionService";
+import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-import {fetchUserIDByEmail} from "../../services/UserProfileService";
-import sessionReducer from "../../reducers/sessionProcessReducer";
 
 export enum PlanTypes {
     Session = 'Session',
     Mentoring = 'Mentoring',
 }
 
-interface Session {
+interface SessionData {
     id: number;
     name: string;
-    time: number; // lub string, jeśli oczekujesz czasu w innym formacie
-    price: number; // lub string, jeśli ceny są formatowane jako tekst
+    sessionTime: number;
+    sessionPrice: number;
+    description: string;
+    meetTime: any;
 }
 
 interface PlanSelectProps {
+    sessions: SessionData[];
     toggleModalHandler: (isOpen: boolean) => void;
 }
 
-const PlanSelect = (props: PlanSelectProps) => {
+const PlanSelect: React.FC<PlanSelectProps> = ({ sessions, toggleModalHandler }) => {
+    const [planType, setPlanType] = useState(PlanTypes.Session);
     const dispatch = useDispatch();
-    const {toggleModalHandler} = props;
     const id = useParams();
 
 
-    const [sessionPlanSelect, setSessionPlanSelect] = useState<Session[]>([]);
+    const [sessionPlanSelect, setSessionPlanSelect] = useState<SessionData[]>([]);
 
 
-
-    const [planType, setPlanType] = useState(PlanTypes.Session);
-
-    useEffect(() => {
-        fetchMentorSession(id?.userID).then(res => {
-            const formattedSessions = res?.data.map((element: { id: { toString: () => any; }; name: any; sessionTime: any; sessionPrice: any; description: any, meetTime: any}) => ({
-                id: element?.id.toString(),
-                name: element?.name,
-                price: element?.sessionPrice,
-                description: element?.description,
-                meetTime: element?.meetTime
-            }));
-
-            setSessionPlanSelect(formattedSessions);
-
-        });
-    }, [id?.userID, dispatch]);
+    useEffect(()=>{
+        setSessionPlanSelect(sessions);
+    })
 
 
     const changeTypeHandler = (type: PlanTypes) => setPlanType(type);

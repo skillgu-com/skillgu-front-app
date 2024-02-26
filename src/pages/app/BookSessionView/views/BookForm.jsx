@@ -10,7 +10,7 @@ import DayRadio from './components/DayRadio';
 import {useSelector} from 'react-redux';
 import {getAllScheduleMeetingTimeDetails} from '../../../../services/MeetingCreatorService';
 import {Link, useParams} from 'react-router-dom';
-import {getAllMentorCalendarEvents} from "../../../../services/CalendarService";
+import {fetchCalendarSession} from "../../../../services/CalendarService";
 import sessionReducer from "../../../../reducers/sessionProcessReducer";
 
 const DATES_PLACEHOLDER = [
@@ -44,7 +44,7 @@ const BookForm = ({changeStepBookHandler}) => {
 
     useEffect(() => {
         userFromRedux.sessionID &&
-        getAllMentorCalendarEvents(userFromRedux.mentorID).then((res) => {
+        fetchCalendarSession(userFromRedux.mentorID).then((res) => {
             const dataFromApi = res.data;
             const combinedData = [];
 

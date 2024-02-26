@@ -18,7 +18,7 @@ import {
     TitleTag,
     TitleVariant,
 } from 'src/new-components/typography/Title/Title';
-import {getAllMentorCalendarEvents} from 'src/services/CalendarService';
+import {fetchCalendarSession} from 'src/services/CalendarService';
 import {useSelector} from "react-redux";
 import {RootState} from "@reduxjs/toolkit/query";
 
@@ -40,8 +40,6 @@ const BookForm = (props: BookFormProps) => {
     const sessionProcess = useSelector((state: any) => state.sess.sessionState);
 
 
-    console.log(sessionProcess);
-
     const mentorSessionRequest = {
         mentorID: sessionProcess.mentorID,
         sessionID: sessionProcess.sessionID
@@ -49,7 +47,7 @@ const BookForm = (props: BookFormProps) => {
 
     useEffect(() => {
         id &&
-        getAllMentorCalendarEvents(mentorSessionRequest).then((res) => {
+        fetchCalendarSession(mentorSessionRequest).then((res) => {
             const dataFromApi = res.data;
             const data: any = [];
 

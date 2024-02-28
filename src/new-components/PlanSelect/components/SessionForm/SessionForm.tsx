@@ -22,6 +22,7 @@ const SessionForm = (props: SessionFormProps) => {
     const updateSessionHandler = (id: string) => setSession(id);
     const id = useParams();
 
+
     const submitHandler = (e: FormEvent) => {
         const selectedSession = sessions.find((item: { id: any; }) => item.id === session);
 
@@ -32,7 +33,7 @@ const SessionForm = (props: SessionFormProps) => {
                     sessionID: selectedSession?.id,
                     name: selectedSession?.name,
                     time: selectedSession?.meetTime,
-                    price: selectedSession?.price,
+                    sessionPrice: selectedSession?.sessionPrice,
                     description: selectedSession?.description,
 
                 },
@@ -42,8 +43,6 @@ const SessionForm = (props: SessionFormProps) => {
             e.preventDefault();
         };
     }
-
-
 
     return (
         <form onSubmit={submitHandler}>
@@ -62,7 +61,7 @@ const SessionForm = (props: SessionFormProps) => {
                             <span className={styles.label}>
 								<strong>{item.name}</strong>
 								<small>
-									{item.meetTime} minut / {item.price} zł
+									{item.meetTime} minut / {item.sessionPrice} zł
 								</small>
 							</span>
                         }

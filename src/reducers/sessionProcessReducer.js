@@ -4,7 +4,7 @@ const initialState = {
         sessionID: null,
         name: null,
         time: null,
-        price: null,
+        sessionPrice: null,
     }
 };
 
@@ -18,7 +18,7 @@ const sessionReducer = (state = initialState, action) => {
                     sessionID: action.payload.sessionID,
                     name: action.payload.name,
                     time: action.payload.time,
-                    price: action.payload.price,
+                    sessionPrice: action.payload.sessionPrice,
                     description: action.payload.description,
                 }
             }
@@ -30,7 +30,7 @@ const sessionReducer = (state = initialState, action) => {
                     sessionID: action.payload.sessionID,
                     name: action.payload.name,
                     time: action.payload.time,
-                    price: action.payload.price,
+                    sessionPrice: action.payload.sessionPrice,
                     description: action.payload.description,
                 }
             }

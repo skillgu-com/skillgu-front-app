@@ -1,5 +1,5 @@
 // Libraries
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {Dispatch, FormEvent, useEffect, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -14,13 +14,10 @@ import Team from '../Team/Team';
 // Styles
 import styles from './BookForm.module.scss';
 // Types
-import {
-    TitleTag,
-    TitleVariant,
-} from 'src/new-components/typography/Title/Title';
+import {TitleTag, TitleVariant,} from 'src/new-components/typography/Title/Title';
 import {fetchCalendarSession} from 'src/services/CalendarService';
-import {useSelector} from "react-redux";
-import {RootState} from "@reduxjs/toolkit/query";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserIDByEmail} from "../../../../../services/UserProfileService";
 
 
 interface BookFormProps {
@@ -30,6 +27,7 @@ interface BookFormProps {
 const localizer = momentLocalizer(moment);
 
 const BookForm = (props: BookFormProps) => {
+    var dispatch = useDispatch();
     const {id} = useParams();
     const {selectTermHandler} = props;
     const navigate = useNavigate();
@@ -38,6 +36,21 @@ const BookForm = (props: BookFormProps) => {
     const [combinedData, setCombinedData] = useState<any>([]);
 
     const sessionProcess = useSelector((state: any) => state.sess.sessionState);
+
+
+
+    useEffect(()=>  {
+        dispatch({
+            type: 'SET_BOOK_SESSION',
+            payload: {
+                mentorID: sessionProcess?.mentorID,
+                sessionTypeID: sessionProcess?.sessionID,
+                sessionName: sessionProcess?.name,
+                sessionPrice: sessionProcess?.sessionPrice,
+                calendarEventId: currentEvent
+            },
+        });
+    });
 
 
     const mentorSessionRequest = {
@@ -51,8 +64,6 @@ const BookForm = (props: BookFormProps) => {
             const dataFromApi = res.data;
             const data: any = [];
 
-
-            console.log(res.data)
 
             function getDateRange(startDate: Date, endDate: Date) {
                 const dateRange = [];
@@ -109,21 +120,21 @@ const BookForm = (props: BookFormProps) => {
         policy: {...defaultInput, value: false},
     });
 
-    const updateFormHandler = (name: string, value: any) => {
-        setForm({...form, [name]: value});
-    };
-
-    const sessionData = {
-        mentorID: 1,
-        sessionTypeID: 2,
-        sessionName: 'test',
-        sessionPrice: '234',
-
-    }
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
-        navigate(`/session-book/${sessionData}/payment`);
+        navigate(`/session-book/${sessionProcess?.sessionID}/payment`);
+
+    };
+
+    useEffect(() => {
+        if (currentEvent !== null) {
+            updateFormHandler('term', new Date());
+        }
+    }, [currentEvent]);
+
+    const updateFormHandler = (name: string, value: any) => {
+        setForm({...form, [name]: value});
     };
 
     return (

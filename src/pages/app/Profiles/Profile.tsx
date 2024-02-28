@@ -22,7 +22,6 @@ import {getMentorProfileByID} from "../../../services/MentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
 import {forEach} from "react-bootstrap/ElementChildren";
 
-const SESSIONS_PLACEHOLDER_ARRAY: any = [];
 interface SessionData {
     id: number;
     name: string;
@@ -55,15 +54,6 @@ const Profile = () => {
         getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
     }, []);
 
-    // useEffect(() => {
-    //     dispatch({
-    //         type: 'SET_SESSIONS_MENTOR_ID',
-    //         payload: {
-    //             mentorID: userID,
-    //         },
-    //     });
-    // })
-
     useEffect(() => {
         fetchMentorSession(userID).then(res => {
             const formattedSessions = res?.data.map((element: SessionData) => ({
@@ -73,12 +63,9 @@ const Profile = () => {
                 description: element?.description,
                 meetTime: element?.meetTime
             }));
-
             setFetchMentorSessions(formattedSessions);
-
         });
     }, []);
-
 
 
     const toggleModalHandler = (value?: boolean) =>

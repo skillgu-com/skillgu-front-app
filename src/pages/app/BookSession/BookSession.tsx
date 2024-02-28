@@ -1,6 +1,6 @@
 // Libraries
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 // Components
 import Container from 'src/new-components/Container/Container';
 import Info from './components/Info/Info';
@@ -29,7 +29,6 @@ const BookSession = (props: BookSessionProps) => {
 
 	const sessionProcess = useSelector((state: any) => state.sess.sessionState);
 
-
 	return (
 		<>
 			<Container as={Tag.Section}>
@@ -45,7 +44,7 @@ const BookSession = (props: BookSessionProps) => {
 								</button>
 							</>
 						}
-						price={sessionProcess?.price}
+						price={sessionProcess?.sessionPrice}
 						time={sessionProcess?.time}
 						imageUrl='https://cdn.pixabay.com/photo/2024/01/10/16/22/man-8499961_1280.jpg'
 						sessionTitle={sessionProcess?.name}

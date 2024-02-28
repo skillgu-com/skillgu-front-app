@@ -9,13 +9,18 @@ import FAQ from 'src/new-components/FAQ/Accordion';
 // Styles
 import styles from '../BookForm/BookForm.module.scss';
 import {createCheckoutSession} from 'src/services/PaymentService';
+import {useSelector} from "react-redux";
 
 const Payment = () => {
 	const stripe = useStripe();
 	const [clientSecret, setClientSecret] = useState('');
+	const sessionData = useSelector((state: any) => state.book.bookSessionState);
+
+
+console.log(sessionData)
 
 	useEffect(() => {
-		createCheckoutSession({}).then((res) => {
+		createCheckoutSession(sessionData).then((res) => {
 			setClientSecret(res.data.clientSecret);
 		});
 	}, []);

@@ -1,4 +1,5 @@
 @use '../../../../../scss/variables' as *;
+@use '../../../../../scss/mixins' as *;
 
 .wrapper {
 	padding: 19px 19px 47px;
@@ -39,7 +40,6 @@
 	.calendar {
 		position: relative;
 		overflow: auto;
-		max-height: 270px;
 		:global {
 			.rbc-toolbar {
 				position: absolute;
@@ -138,7 +138,12 @@
 			}
 
 			.rbc-allday-cell {
+				position: relative;
 				padding-top: 15px;
+				max-height: 200px;
+				overflow-x: hidden;
+				overflow-y: auto;
+				@include hide-scrollbar;
 			}
 		}
 

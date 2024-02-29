@@ -194,6 +194,11 @@
 			cursor: pointer;
 			transition: background-color 0.24s, color 0.24s;
 
+			&:disabled{
+				text-decoration: line-through;
+				pointer-events: none;
+			}
+
 			&:hover,
 			&[data-is-current='true'] {
 				background-color: $primary-color;

@@ -35,6 +35,10 @@ interface CalendarEvent {
 	allDay: false;
 }
 
+interface ExtendedEvent extends CalendarEvent {
+	available: boolean;
+}
+
 const BookForm = (props: BookFormProps) => {
 	var dispatch = useDispatch();
 	const {id} = useParams();
@@ -85,6 +89,7 @@ const BookForm = (props: BookFormProps) => {
 							allDay: true,
 							start: startDateTime,
 							end: endDateTime,
+							available: item.available,
 						};
 						events.push(event);
 					});
@@ -157,8 +162,11 @@ const BookForm = (props: BookFormProps) => {
 							);
 						},
 						eventWrapper: ({event}) => {
+							const {available} = event as ExtendedEvent;
+
 							return (
 								<button
+									disabled={!available}
 									data-is-current={event.id === currentEvent}
 									className={styles.hour}
 									onClick={() => {

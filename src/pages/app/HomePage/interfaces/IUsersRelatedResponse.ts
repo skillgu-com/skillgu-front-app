@@ -2,7 +2,7 @@ interface IUsersRelatedResponse {
     id: number;
     firstName: string;
     lastName: string;
-    startDate: string;
+    startTime: string;
     endDate: string;
     meetingType: string;
     sessionStatus: string;

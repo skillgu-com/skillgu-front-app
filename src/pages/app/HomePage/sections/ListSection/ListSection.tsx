@@ -60,6 +60,7 @@ const ListSection = () => {
 		findRelatedUsersBasedOnRole()
 			.then((res) => {
 				if (res.data.length > 0) {
+					console.log(res.data)
 					setUsers(res.data);
 				} else {
 					setUsers([]);
@@ -100,7 +101,7 @@ const ListSection = () => {
                     {users.map((element) => (
                         <tr key={element.id}>
                             <td>{element.firstName}</td>
-                            <td>{element.startDate}</td>
+                            <td>{element.startTime.slice(0, 10)}</td>
                             <td>{element.sessionType}</td>
                             <td>
                                 <Tag name={element.meetingType} />

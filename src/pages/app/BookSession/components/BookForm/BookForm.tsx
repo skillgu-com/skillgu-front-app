@@ -1,5 +1,5 @@
 // Libraries
-import React, {Dispatch, FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -17,7 +17,6 @@ import styles from './BookForm.module.scss';
 import {TitleTag, TitleVariant,} from 'src/new-components/typography/Title/Title';
 import {fetchCalendarSession} from 'src/services/CalendarService';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUserIDByEmail} from "../../../../../services/UserProfileService";
 
 
 interface BookFormProps {
@@ -26,6 +25,14 @@ interface BookFormProps {
 
 const localizer = momentLocalizer(moment);
 
+interface CalendarEvent {
+    id: number;
+    start: Date;
+    end: Date;
+    title: string,
+    allDay: false
+}
+
 const BookForm = (props: BookFormProps) => {
     var dispatch = useDispatch();
     const {id} = useParams();
@@ -33,13 +40,12 @@ const BookForm = (props: BookFormProps) => {
     const navigate = useNavigate();
 
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
-    const [combinedData, setCombinedData] = useState<any>([]);
+    const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);
 
     const sessionProcess = useSelector((state: any) => state.sess.sessionState);
 
 
-
-    useEffect(()=>  {
+    useEffect(() => {
         dispatch({
             type: 'SET_BOOK_SESSION',
             payload: {
@@ -60,49 +66,33 @@ const BookForm = (props: BookFormProps) => {
 
     useEffect(() => {
         id &&
-        fetchCalendarSession(mentorSessionRequest).then((res) => {
-            const dataFromApi = res.data;
-            const data: any = [];
+        fetchCalendarSession(mentorSessionRequest)
+            .then((res) => {
+                const dataFromApi = res.data;
+                const events: any[] = [];
 
+                dataFromApi.forEach((item: any, index: number) => {
+                    const startDateTime = new Date(item.sessionDate + 'T' + item.hour);
+                    const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
 
-            function getDateRange(startDate: Date, endDate: Date) {
-                const dateRange = [];
-                const currentDate = new Date(startDate);
-
-                while (currentDate <= endDate) {
-                    dateRange.push(new Date(currentDate));
-                    currentDate.setDate(currentDate.getDate() + 1);
-                }
-
-                return dateRange;
-            }
-
-            dataFromApi.forEach((item: any, index: number) => {
-                const startDate = new Date(item.scheduleStartDay);
-                const endDate = new Date(item.scheduleEndDay);
-                const dateRange = getDateRange(startDate, endDate);
-
-                dateRange.forEach((date, subIndex) => {
-                    const hoursForDay = item.weekAvailabilityResponses.map(
-                        (element: any) => ({
-                            id: element.weekAvailabilityId,
-                            fromTime: element.fromTime,
-                            toTime: element.toTime,
-                            weekDay: element.weekDay.replace('time', ''),
-                        })
-                    );
-
-                    data.push({
-                        id: `${index + 1}-${subIndex + 1}`,
-                        date,
-                        hours: hoursForDay,
-                    });
+                    const event = {
+                        id: index,
+                        title: startDateTime.getHours() + ':' + (startDateTime.getMinutes()<10?'0':'') + startDateTime.getMinutes(),
+                        allDay: true,
+                        start: startDateTime,
+                        end: endDateTime,
+                    };
+                    events.push(event);
                 });
-            });
 
-            setCombinedData(data);
-        });
+                setCombinedData(events);
+            })
+            .catch((error) => {
+                console.error('Błąd podczas pobierania danych z serwera:', error);
+            });
     }, [id]);
+
+    console.log(combinedData);
 
 
     const [form, setForm] = useState({
@@ -137,6 +127,7 @@ const BookForm = (props: BookFormProps) => {
         setForm({...form, [name]: value});
     };
 
+
     return (
         <section className={styles.wrapper}>
             <form onSubmit={submitHandler}>
@@ -151,43 +142,8 @@ const BookForm = (props: BookFormProps) => {
                     view='week'
                     onView={() => null}
                     className={styles.calendar}
-                    events={[
-                        {
-                            id: 0,
-                            title: new Date().getHours(),
-                            allDay: true,
-                            start: new Date(),
-                            end: new Date(),
-                        },
-                        {
-                            id: 1,
-                            title: new Date().getHours(),
-                            allDay: true,
-                            start: new Date(),
-                            end: new Date(),
-                        },
-                        {
-                            id: 2,
-                            title: new Date().getHours(),
-                            allDay: true,
-                            start: new Date(),
-                            end: new Date(),
-                        },
-                        {
-                            id: 3,
-                            title: new Date().getHours(),
-                            allDay: true,
-                            start: new Date(),
-                            end: new Date(),
-                        },
-                        {
-                            id: 4,
-                            title: new Date().getHours(),
-                            allDay: true,
-                            start: new Date(),
-                            end: new Date(),
-                        },
-                    ]}
+                    events={combinedData} // Przekazujemy listę przetworzonych wydarzeń
+
                     startAccessor='start'
                     endAccessor='end'
                     components={{

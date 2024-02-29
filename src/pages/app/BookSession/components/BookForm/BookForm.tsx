@@ -75,6 +75,7 @@ const BookForm = (props: BookFormProps) => {
 					const dataFromApi = res.data;
 					const events: any[] = [];
 
+
 					dataFromApi.forEach((item: any, index: number) => {
 						const startDateTime = new Date(item.sessionDate + 'T' + item.hour);
 						const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
@@ -101,7 +102,7 @@ const BookForm = (props: BookFormProps) => {
 				});
 	}, [id]);
 
-	console.log(combinedData);
+	// console.log(combinedData);
 
 	const [form, setForm] = useState({
 		term: defaultInput,
@@ -130,8 +131,10 @@ const BookForm = (props: BookFormProps) => {
 	}, [currentEvent]);
 
 	const updateFormHandler = (name: string, value: any) => {
+		// console.log(currentEvent, combinedData,)
 		setForm({...form, [name]: value});
 	};
+	console.log(currentEvent)
 
 	return (
 		<section className={styles.wrapper}>
@@ -147,7 +150,7 @@ const BookForm = (props: BookFormProps) => {
 					view='week'
 					onView={() => null}
 					className={styles.calendar}
-					events={combinedData} // Przekazujemy listę przetworzonych wydarzeń
+					events={combinedData}
 					startAccessor='start'
 					endAccessor='end'
 					components={{

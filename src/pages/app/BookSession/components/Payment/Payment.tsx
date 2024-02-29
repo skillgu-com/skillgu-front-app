@@ -17,7 +17,7 @@ const Payment = () => {
 	const sessionData = useSelector((state: any) => state.book.bookSessionState);
 
 
-console.log(sessionData)
+console.log("tutaj sprawdzam",sessionData)
 
 	useEffect(() => {
 		createCheckoutSession(sessionData).then((res) => {

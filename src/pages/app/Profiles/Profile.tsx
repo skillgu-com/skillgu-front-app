@@ -22,31 +22,27 @@ import {getMentorProfileByID} from "../../../services/MentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
 import {forEach} from "react-bootstrap/ElementChildren";
 
-interface SessionData {
+interface SessionDataFromAPI {
     id: number;
     name: string;
     sessionTime: number;
     sessionPrice: number;
     description: string;
     meetTime: any;
+    mentorID: number;
 }
 
 interface PlanSelectProps {
-    sessions: SessionData[];
-    toggleModalHandler: () => void; // Zakładam, że toggleModalHandler jest funkcją bez parametrów
+    sessions: SessionDataFromAPI[];
+    toggleModalHandler: () => void;
 }
 const Profile = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const [userData, setUserData] = useState<UserData>({} as UserData);
     const dispatch = useDispatch();
-
-
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
-    const [currentSession, setCurrentSession] = useState([]);
-    const [sessionFromApi, setSessionFromApi] = useState([]);
-    const [fetchMentorSessions, setFetchMentorSessions] = useState<SessionData[]>([]);
-
+    const [fetchMentorSessions, setFetchMentorSessions] = useState<SessionDataFromAPI[]>([]);
     const [showModal, setShowModal] = useState(false);
 
 
@@ -54,14 +50,25 @@ const Profile = () => {
         getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
     }, []);
 
+
+    /**
+     * Fetching from api all mentor sessions
+     *  Example:
+     * - description: "Coaching rozwoju kariery"
+     * - id:"1"
+     * - meetTime:60
+     * - name:"Coaching Rozwoju Kariery"
+     * - sessionPrice:350
+     */
     useEffect(() => {
         fetchMentorSession(userID).then(res => {
-            const formattedSessions = res?.data.map((element: SessionData) => ({
-                id: element?.id.toString(),
-                name: element?.name,
-                sessionPrice: element?.sessionPrice,
-                description: element?.description,
-                meetTime: element?.meetTime
+            const formattedSessions = res?.data.map((elementFromAPI: SessionDataFromAPI) => ({
+                sessionID: elementFromAPI?.id,
+                name: elementFromAPI?.name,
+                sessionPrice: elementFromAPI?.sessionPrice,
+                description: elementFromAPI?.description,
+                meetTime: elementFromAPI?.meetTime,
+                mentorID: Number(userID)
             }));
             setFetchMentorSessions(formattedSessions);
         });

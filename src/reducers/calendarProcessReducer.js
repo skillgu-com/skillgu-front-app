@@ -1,31 +1,12 @@
 const initialState = {
-    calendarStep: {
-        eventName: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        startTime: '',
-        endTime: '',
-        timeZone: ''
+    sessionState: 0,};
 
-    }
-}
-
-const calendarProcessReducer = (state = initialState, action) => {
+const sessionIDReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'CALENDAR_GOOGLE_CREATION':
+        case 'UPDATE_SESSION_ID':
             return {
                 ...state,
-                calendarStep: {
-                    eventName: action.payload.eventName,
-                    location: action.payload.location,
-                    startDate: action.payload.startDate,
-                    endDate: action.payload.endDate,
-                    startTime: action.payload.startTime,
-                    endTime: action.payload.endTime,
-                    timeZone: action.payload.timeZone
-
-                },
+                sessionState: action.payload.sessionID,
             };
 
         default:
@@ -33,6 +14,4 @@ const calendarProcessReducer = (state = initialState, action) => {
     }
 };
 
-
-export default calendarProcessReducer;
-
+export default sessionIDReducer; 

@@ -14,17 +14,15 @@ import ListSection from './sections/ListSection/ListSection';
 import {Tag} from 'src/types/tags';
 // Styles
 import styles from './HomePage.module.scss';
-import {fetchAllUserData, fetchUserIDByEmail} from "../../../services/UserProfileService";
+import {fetchAllUserData} from "../../../services/UserProfileService";
 
 const HomePage = () => {
 	const role = useSelector(getRole);
 	const dispatch = useDispatch();
-	const userFromRedux = useSelector((state: any) => state.auth.user);
 
 
 	useEffect(() => {
 		fetchAllUserData().then((res) => {
-			// console.log(res?.data.skill)
 			dispatch({
 				type: 'FETCH_ALL_USER_DATA',
 				payload: {

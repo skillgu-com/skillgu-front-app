@@ -11,7 +11,6 @@ import {useSelector} from 'react-redux';
 import {getAllScheduleMeetingTimeDetails} from '../../../../services/MeetingCreatorService';
 import {Link, useParams} from 'react-router-dom';
 import {fetchCalendarSession} from "../../../../services/CalendarService";
-import sessionReducer from "../../../../reducers/sessionProcessReducer";
 
 const DATES_PLACEHOLDER = [
     {

@@ -9,7 +9,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
 interface SessionFormProps {
-    sessions: any; // Unknown type probably array of objects type of object also unknown
+    sessions: any;
     openModalHandler: () => void;
 }
 
@@ -19,26 +19,32 @@ const SessionForm = (props: SessionFormProps) => {
     const {sessions, openModalHandler} = props;
     const [session, setSession] = useState(sessions[0]?.id);
 
-    const updateSessionHandler = (id: string) => setSession(id);
+    const updateSessionHandler = (sessionID: number) => setSession(sessionID);
     const id = useParams();
 
 
     const submitHandler = (e: FormEvent) => {
-        const selectedSession = sessions.find((item: { id: any; }) => item.id === session);
+        const selectedSession = sessions.find((item: any) => item.sessionID === session);
 
         if (selectedSession) {
             dispatch({
-                type: 'SET_SESSIONS_UPDATE',
+                type: 'SET_SESSION_IN_FORM',
                 payload: {
-                    sessionID: selectedSession?.id,
+                    sessionID: selectedSession?.sessionID,
                     name: selectedSession?.name,
                     time: selectedSession?.meetTime,
                     sessionPrice: selectedSession?.sessionPrice,
                     description: selectedSession?.description,
+                    mentorID: selectedSession.mentorID
+                },
+            });
+            dispatch({
+                type: 'UPDATE_SESSION_ID',
+                payload: {
+                    sessionID: selectedSession?.sessionID,
 
                 },
             });
-
             navigate(`/session-book/${id?.userID}`);
             e.preventDefault();
         };
@@ -47,16 +53,16 @@ const SessionForm = (props: SessionFormProps) => {
     return (
         <form onSubmit={submitHandler}>
             {sessions.map((item: any) => (
-                <div key={item.id}>
+                <div key={item.sessionID}>
                     <Checkbox
                         classes={styles.input}
                         id='highlited'
                         name='highlited'
                         type='radio'
-                        value={session === item.id}
+                        value={session === item.sessionID}
                         errorMessage={''}
                         isValid={true}
-                        valueChangeHandler={() => updateSessionHandler(item.id)}
+                        valueChangeHandler={() => updateSessionHandler(item.sessionID)}
                         label={
                             <span className={styles.label}>
 								<strong>{item.name}</strong>

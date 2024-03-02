@@ -3,19 +3,16 @@ import {combineReducers} from 'redux';
 import authReducer from "./authReducer";
 import connectionProcessReducer from "./connectionProcessReducer";
 import userSettingReducer from "./userSettingReducer";
-import calendarProcessReducer from "./calendarProcessReducer";
-import sessionReducer from "./sessionProcessReducer";
-import {useSelector} from "react-redux";
 import bookSessionReducer from "./bookSessionProcessReducer";
+import sessionIDReducer from "./calendarProcessReducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
     connectionProcess: connectionProcessReducer,
     userSetting: userSettingReducer,
-    calendar: calendarProcessReducer,
-    sess: sessionReducer,
-    book: bookSessionReducer
+    book: bookSessionReducer,
+    sessionIDStep: sessionIDReducer,
     // Add other reducers if you have them
 });
 

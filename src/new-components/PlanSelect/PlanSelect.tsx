@@ -22,6 +22,7 @@ interface SessionData {
     sessionPrice: number;
     description: string;
     meetTime: any;
+    mentorID: number;
 }
 
 interface PlanSelectProps {
@@ -31,17 +32,12 @@ interface PlanSelectProps {
 
 const PlanSelect: React.FC<PlanSelectProps> = ({ sessions, toggleModalHandler }) => {
     const [planType, setPlanType] = useState(PlanTypes.Session);
-    const dispatch = useDispatch();
-    const id = useParams();
-
-
     const [sessionPlanSelect, setSessionPlanSelect] = useState<SessionData[]>([]);
 
 
     useEffect(()=>{
         setSessionPlanSelect(sessions);
     })
-
 
 
     const changeTypeHandler = (type: PlanTypes) => setPlanType(type);

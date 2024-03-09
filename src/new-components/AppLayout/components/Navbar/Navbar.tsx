@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 // Components
 import Container from '../../../Container/Container';
 import Notifications from '../Notifications/Notifications';
@@ -25,10 +26,38 @@ import styles from './Navbar.module.scss';
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const {pathname} = useLocation();
 
 	const [isExpanded, setIsExpanded] = useState(false);
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
 	const userFromRedux = useSelector((state: any) => state.auth.user);
+
+	const menuItems = [
+		{
+			id: 'home',
+			label: 'Strona główna',
+			link: '/home',
+			icon: <Home />,
+		},
+		{
+			id: 'profile',
+			label: 'Profil',
+			link: '/logged-user-profile',
+			icon: <Doc />,
+		},
+		{
+			id: 'settings',
+			label: 'Ustawienia',
+			link: '/settings',
+			icon: <Settings />,
+		},
+		// {
+		// 	id: 'subscriptions',
+		// 	label: 'Subskrypcje',
+		// 	link: '/',
+		// 	icon: <Wallet />,
+		// },
+	];
 
 	return (
 		<Container
@@ -54,22 +83,16 @@ const Navbar = () => {
 			</div>
 			<div className={styles.navbarMenu}>
 				<div>
-					<Link className={styles.navbarMenuItem} to='/home'>
-						<Home />
-						Strona główna
-					</Link>
-					<Link className={styles.navbarMenuItem} to={'/logged-user-profile'}>
-						<Doc />
-						Profil
-					</Link>
-					<Link className={styles.navbarMenuItem} to='/settings'>
-						<Settings />
-						Ustawienia
-					</Link>
-					<Link className={styles.navbarMenuItem} to='/'>
-						<Wallet />
-						Subskrypcje
-					</Link>
+					{menuItems.map((item) => (
+						<Link
+							key={item.id}
+							className={styles.navbarMenuItem}
+							data-is-current={pathname.includes(item.link)}
+							to={item.link}>
+							{item.icon}
+							{item.label}
+						</Link>
+					))}
 				</div>
 				<div className={styles.utils}>
 					<Link className={styles.navbarMenuItem} to='/help'>

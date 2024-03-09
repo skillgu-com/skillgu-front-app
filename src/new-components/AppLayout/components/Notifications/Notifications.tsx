@@ -16,10 +16,10 @@ const Notifications = () => {
 	const [isVisible, setIsVisible] = useState(false);
 
 	return (
-		<Container as={Tag.Div} classes={styles.wrapper}>
+		<div className={styles.wrapper}>
 			<button className={styles.button} onClick={() => setIsVisible(!isVisible)}>
 				<NotificationsSvg />
-				{nots.length > 0 && <span className={styles.counter}>{nots.length}</span>}
+				{nots.length > 0 && <span className={styles.counter}></span>}
 			</button>
 			{nots.length > 0 && (
 				<div className={styles.notifications} data-is-visible={isVisible}>
@@ -53,7 +53,7 @@ const Notifications = () => {
 					))}
 				</div>
 			)}
-		</Container>
+		</div>
 	);
 };
 

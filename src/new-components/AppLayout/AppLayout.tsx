@@ -14,7 +14,6 @@ const AppLayout = (props: Common) => {
 		<>
 			<Navbar />
 			<div className={styles.content}>
-				<Notifications />
 				{children}
 			</div>
 		</>

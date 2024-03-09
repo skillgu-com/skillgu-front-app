@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 // Components
 import Container from '../../../Container/Container';
+import Notifications from '../Notifications/Notifications';
 // Helpers
 import {logout} from 'src/helpers/login';
 // Types
@@ -27,7 +28,7 @@ const Navbar = () => {
 
 	const [isExpanded, setIsExpanded] = useState(false);
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
-	const userFromRedux = useSelector((state:any) => state.auth.user);
+	const userFromRedux = useSelector((state: any) => state.auth.user);
 
 	return (
 		<Container
@@ -41,18 +42,21 @@ const Navbar = () => {
 				onClick={() => setIsExpanded(false)}>
 				<Logo />
 			</Link>
-			<button
-				onClick={toggleExpandHandler}
-				className={styles.navbarButton}
-				aria-label='menu'>
-				<span></span>
-				<span></span>
-			</button>
+			<div className={styles.mobile}>
+				<Notifications />
+				<button
+					onClick={toggleExpandHandler}
+					className={styles.navbarButton}
+					aria-label='menu'>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
 			<div className={styles.navbarMenu}>
 				<div>
-					<Link className={styles.navbarMenuItem} data-highlited='true' to='/home'>
+					<Link className={styles.navbarMenuItem} to='/home'>
 						<Home />
-						Home
+						Strona główna
 					</Link>
 					<Link className={styles.navbarMenuItem} to={'/logged-user-profile'}>
 						<Doc />
@@ -67,8 +71,7 @@ const Navbar = () => {
 						Subskrypcje
 					</Link>
 				</div>
-				<div>
-					<div className={styles.navbarMenuSpace}></div>
+				<div className={styles.utils}>
 					<Link className={styles.navbarMenuItem} to='/help'>
 						<Help />
 						Pomoc

@@ -3,11 +3,6 @@
 .wrapper {
 	display: inline-block;
 	position: relative;
-
-	@media screen and (min-width: $lg) {
-		height: 0;
-		transform: translateY(100%);
-	}
 }
 
 .button {

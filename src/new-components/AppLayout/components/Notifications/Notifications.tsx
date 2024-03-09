@@ -1,11 +1,7 @@
 // Libraries
 import React, {useState} from 'react';
-// Components
-import Container from 'src/new-components/Container/Container';
 // Icons
 import NotificationsSvg from 'src/assets/icons/NotificationsSvg';
-// Types
-import {Tag} from 'src/types/tags';
 // Styles
 import styles from './Notifications.module.scss';
 

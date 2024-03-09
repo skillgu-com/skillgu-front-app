@@ -17,7 +17,7 @@ import Logo from '../../../../assets/icons/Logo';
 import Doc from '../../../../assets/icons/Doc';
 import Home from '../../../../assets/icons/Home';
 import Settings from '../../../../assets/icons/Settings';
-import Wallet from '../../../../assets/icons/Wallet';
+import CreateSchedules from '../../../../assets/icons/CreateSchedules';
 import Help from '../../../../assets/icons/Help';
 import Logout from '../../../../assets/icons/Logout';
 // Styles
@@ -44,6 +44,12 @@ const Navbar = () => {
 			label: 'Profil',
 			link: '/logged-user-profile',
 			icon: <Doc />,
+		},
+		{
+			id: 'schedules',
+			label: 'Tworzenie spotkań',
+			link: '/schedules',
+			icon: <CreateSchedules />,
 		},
 		{
 			id: 'settings',

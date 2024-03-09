@@ -1,7 +1,6 @@
 const path = require("path");
 module.exports = {
   webpack: {
-
     alias: {
        "@newComponents": path.join(path.resolve(__dirname, "./src/new-components")),
        "@typography": path.join(path.resolve(__dirname, "./src/new-components/typography")),

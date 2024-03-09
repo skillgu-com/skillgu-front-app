@@ -48,7 +48,7 @@ const NavSection = () => {
                     text: 'Kalendarz',
                 },
                 {
-                    link: '/create-session',
+                    link: '/schedules',
                     icon: <Meet/>,
                     text: 'Tworzenie spotkań',
                 },

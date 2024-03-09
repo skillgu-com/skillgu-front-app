@@ -53,6 +53,7 @@ const BookForm = (props: BookFormProps) => {
     const sessionIDFromRedux = useSelector((state: any) => state.sessionIDStep.sessionState);
 
     useEffect(() => {
+        console.log(currentEvent)
         dispatch({
             type: 'UPDATE_BOOK_FORM',
             payload: {
@@ -73,9 +74,8 @@ const BookForm = (props: BookFormProps) => {
                 dataFromApi.forEach((item: any, index: number) => {
                     const startDateTime = new Date(item.sessionDate + 'T' + item.hour);
                     const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
-
                     const event = {
-                        id: index + 1,
+                        id: item.calendarEventId,
                         title:
                             startDateTime.getHours() +
                             ':' +

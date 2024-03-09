@@ -18,9 +18,9 @@ export const loginUser = async (email, password) => {
         });
 }
 
-export const loginGoogleUser = async (response) => {
+export const loginGoogleUser = async (token) => {
     return await axios
         .post('api/auth/google-login', {
-            tokenId: response
+            tokenId: token
         });
 }

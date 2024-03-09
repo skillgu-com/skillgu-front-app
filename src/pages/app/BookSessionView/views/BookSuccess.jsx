@@ -9,7 +9,6 @@ const BookSuccess = () => {
     const bookSession = useSelector((state) => state.book.bookSessionState);
 
 
-
     // Przekształć datę term na obiekt Date
     const termDate = new Date(sessionData?.term);
 

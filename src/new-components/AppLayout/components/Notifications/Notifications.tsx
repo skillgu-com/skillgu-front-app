@@ -1,11 +1,7 @@
 // Libraries
 import React, {useState} from 'react';
-// Components
-import Container from 'src/new-components/Container/Container';
 // Icons
 import NotificationsSvg from 'src/assets/icons/NotificationsSvg';
-// Types
-import {Tag} from 'src/types/tags';
 // Styles
 import styles from './Notifications.module.scss';
 
@@ -16,10 +12,10 @@ const Notifications = () => {
 	const [isVisible, setIsVisible] = useState(false);
 
 	return (
-		<Container as={Tag.Div} classes={styles.wrapper}>
+		<div className={styles.wrapper}>
 			<button className={styles.button} onClick={() => setIsVisible(!isVisible)}>
 				<NotificationsSvg />
-				{nots.length > 0 && <span className={styles.counter}>{nots.length}</span>}
+				{nots.length > 0 && <span className={styles.counter}></span>}
 			</button>
 			{nots.length > 0 && (
 				<div className={styles.notifications} data-is-visible={isVisible}>
@@ -53,7 +49,7 @@ const Notifications = () => {
 					))}
 				</div>
 			)}
-		</Container>
+		</div>
 	);
 };
 

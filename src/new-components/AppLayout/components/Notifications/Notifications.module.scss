@@ -1,21 +1,8 @@
 @use '../../../../scss/variables' as *;
 
 .wrapper {
-	padding-top: 24px;
-	
-	:global {
-		.container {
-			position: relative;
-			z-index: 9;
-			display: flex;
-			justify-content: flex-end;
-		}
-	}
-
-	@media screen and (min-width: $lg) {
-		height: 0;
-		transform: translateY(100%);
-	}
+	display: inline-block;
+	position: relative;
 }
 
 .button {
@@ -23,10 +10,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 48px;
-	height: 48px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
-	background-color: $light-color;
+	background-color: $gray-color;
 	cursor: pointer;
 
 	svg {
@@ -36,20 +23,19 @@
 
 .counter {
 	position: absolute;
-	bottom: 0;
+	top: 0;
 	right: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 22px;
-	height: 22px;
+	width: 12px;
+	height: 12px;
 	font-size: 16px;
 	font-weight: 600;
 	color: $light-color;
 	line-height: 1em;
-	background-color: $danger-color;
+	background-color: $success-color;
 	border-radius: 50%;
-	transform: translateY(50%);
 }
 
 .notifications {
@@ -62,7 +48,7 @@
 	padding: 20px 20px 14px 17px;
 	border-radius: 8px;
 	background-color: $light-color;
-	transform: translateY(calc(100% + 23px)) translateX(-10px);
+	transform: translateY(calc(100% + 10px)) translateX(-4px);
 	filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.14));
 	opacity: 0;
 	visibility: hidden;

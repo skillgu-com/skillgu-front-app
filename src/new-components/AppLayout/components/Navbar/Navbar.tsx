@@ -4,8 +4,10 @@ import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 // Components
 import Container from '../../../Container/Container';
+import Notifications from '../Notifications/Notifications';
 // Helpers
 import {logout} from 'src/helpers/login';
 // Types
@@ -15,7 +17,7 @@ import Logo from '../../../../assets/icons/Logo';
 import Doc from '../../../../assets/icons/Doc';
 import Home from '../../../../assets/icons/Home';
 import Settings from '../../../../assets/icons/Settings';
-import Wallet from '../../../../assets/icons/Wallet';
+import CreateSchedules from '../../../../assets/icons/CreateSchedules';
 import Help from '../../../../assets/icons/Help';
 import Logout from '../../../../assets/icons/Logout';
 // Styles
@@ -24,10 +26,44 @@ import styles from './Navbar.module.scss';
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const {pathname} = useLocation();
 
 	const [isExpanded, setIsExpanded] = useState(false);
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
-	const userFromRedux = useSelector((state:any) => state.auth.user);
+	const userFromRedux = useSelector((state: any) => state.auth.user);
+
+	const menuItems = [
+		{
+			id: 'home',
+			label: 'Strona główna',
+			link: '/home',
+			icon: <Home />,
+		},
+		{
+			id: 'profile',
+			label: 'Profil',
+			link: '/logged-user-profile',
+			icon: <Doc />,
+		},
+		{
+			id: 'schedules',
+			label: 'Tworzenie spotkań',
+			link: '/schedules',
+			icon: <CreateSchedules />,
+		},
+		{
+			id: 'settings',
+			label: 'Ustawienia',
+			link: '/settings',
+			icon: <Settings />,
+		},
+		// {
+		// 	id: 'subscriptions',
+		// 	label: 'Subskrypcje',
+		// 	link: '/',
+		// 	icon: <Wallet />,
+		// },
+	];
 
 	return (
 		<Container
@@ -41,34 +77,30 @@ const Navbar = () => {
 				onClick={() => setIsExpanded(false)}>
 				<Logo />
 			</Link>
-			<button
-				onClick={toggleExpandHandler}
-				className={styles.navbarButton}
-				aria-label='menu'>
-				<span></span>
-				<span></span>
-			</button>
+			<div className={styles.mobile}>
+				<Notifications />
+				<button
+					onClick={toggleExpandHandler}
+					className={styles.navbarButton}
+					aria-label='menu'>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
 			<div className={styles.navbarMenu}>
 				<div>
-					<Link className={styles.navbarMenuItem} data-highlited='true' to='/home'>
-						<Home />
-						Home
-					</Link>
-					<Link className={styles.navbarMenuItem} to={'/logged-user-profile'}>
-						<Doc />
-						Profil
-					</Link>
-					<Link className={styles.navbarMenuItem} to='/settings'>
-						<Settings />
-						Ustawienia
-					</Link>
-					<Link className={styles.navbarMenuItem} to='/'>
-						<Wallet />
-						Subskrypcje
-					</Link>
+					{menuItems.map((item) => (
+						<Link
+							key={item.id}
+							className={styles.navbarMenuItem}
+							data-is-current={pathname.includes(item.link)}
+							to={item.link}>
+							{item.icon}
+							{item.label}
+						</Link>
+					))}
 				</div>
-				<div>
-					<div className={styles.navbarMenuSpace}></div>
+				<div className={styles.utils}>
 					<Link className={styles.navbarMenuItem} to='/help'>
 						<Help />
 						Pomoc

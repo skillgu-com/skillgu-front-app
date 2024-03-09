@@ -99,15 +99,15 @@
 		/* Completeness */
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */,
-		// "paths": {
-		// 	"@newComponents/*": ["src/new-components/*"],
-		// 	"@typography/*": ["src/new-components/typography/*"],
-		// 	"@customTypes/*": ["src/types/*"],
-		// 	"@styles/*": ["src/scss/*"],
-		// 	// "@hooks/*": ["src/utils/hooks/*"],
-		// 	"@icons/*": ["src/assets/icons/*"],
-		// 	"@images/*": ["src/assets/img/*"]
-		// }
+		"paths": {
+			"@newComponents/*": ["src/new-components/*"],
+			"@typography/*": ["src/new-components/typography/*"],
+			"@customTypes/*": ["src/types/*"],
+			"@styles/*": ["src/scss/*"],
+			// "@hooks/*": ["src/utils/hooks/*"],
+			"@icons/*": ["src/assets/icons/*"],
+			"@images/*": ["src/assets/img/*"]
+		}
 	},
 	"include": [
 		"./src/**/*",

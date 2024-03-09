@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 // Components
 import Options from './components/Options/Options';
 // Icons
@@ -6,18 +7,17 @@ import Money from './components/icons/Money';
 import Calendar from './components/icons/Calendar';
 import Timer from './components/icons/Timer';
 import Person from './components/icons/Person';
+import Pencil from 'src/pages/app/Schedules/components/icons/Pencil';
+import Trash from 'src/pages/app/Schedules/components/icons/Trash';
 // Styles
 import styles from './ShceduleCard.module.scss';
-// Types
-import { Option } from './components/Options/Options';
-
 export interface ScheduleCardProps {
 	id: string;
 	dateStart: Date;
 	dateEnd: Date;
 	time: number;
 	title: string;
-  options: Option[]
+	removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
 	schedule?: {
 		type: 'individual' | 'group';
 		created: Date;
@@ -33,13 +33,33 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 	if (!!!props.schedule && !!!props.session)
 		throw new Error('One of parameters schedule or session is required!');
 
-	const {id, dateStart, dateEnd, time, title, schedule, session, options} = props;
+	const {id, dateStart, dateEnd, time, title, schedule, session, removeItem} = props;
+
+	const navigate = useNavigate();
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>{title}</h3>
-        <Options options={options}/>
+				<Options
+					options={[
+						{
+							icon: <Pencil />,
+							text: 'Edytuj',
+							onClick: () => {
+								navigate(`/schedules/edit/${id}`);
+							},
+						},
+						{
+							icon: <Trash />,
+							text: 'Usuń',
+							onClick: () => {
+								!!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules')
+								// setSchedules(schedules?.filter((item) => item.id !== id))
+							},
+						},
+					]}
+				/>
 			</div>
 			{!!schedule && (
 				<>
@@ -69,7 +89,8 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 				)}
 				{dateStart && dateEnd && (
 					<p>
-						<Calendar /> {dateStart.toLocaleDateString()} - {dateEnd.toLocaleDateString()}
+						<Calendar /> {dateStart.toLocaleDateString()} -{' '}
+						{dateEnd.toLocaleDateString()}
 					</p>
 				)}
 				{time && (

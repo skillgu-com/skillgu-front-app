@@ -1,4 +1,5 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 // Sections
 import Empty from './components/Empty/Empty';
 import Container from '@newComponents/Container/Container';
@@ -22,62 +23,55 @@ import scheduleStyles from './Schedules.module.scss';
 import {Option} from '@newComponents/Cards/ScheduleCard/components/Options/Options';
 
 const SchedulesView = () => {
-	const schedulesOptions = (id: string): Option[] => [
-		{
-			icon: <Pencil/>,
-			text: 'Edytuj',
-			onClick: () => {
-				console.log(id);
-			},
-		},
-		{
-			icon: <Trash/>,
-			text: 'Usuń',
-			onClick: () => {
-				console.log(id);
-			},
-		},
-	];
-	const sessionsOptions: Option[] = [];
+	const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
+	const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
 
-	const [schedules, setSchedules] = useState<ScheduleCardProps[]>([
-		{
-			id: '01',
-			title: 'Test',
-			dateStart: new Date(),
-			dateEnd: new Date(),
-			time: 60,
-			schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-			options: schedulesOptions('01'),
+	const removeItem = useCallback(
+		(id: string, arrayType: 'schedules' | 'sessions') => {
+			arrayType === 'schedules'
+				? setSchedules(schedules.filter((item) => item.id !== id))
+				: setSessions(sessions.filter((item) => item.id !== id));
 		},
-		{
-			id: '02',
-			title: 'Test',
-			dateStart: new Date(),
-			dateEnd: new Date(),
-			time: 60,
-			schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-			options: schedulesOptions('02'),
-		},
-	]);
-	const [sessions, setSessions] = useState<ScheduleCardProps[]>([
-		{
-			id: '01',
-			title: 'Test',
-			dateStart: new Date(),
-			dateEnd: new Date(),
-			time: 60,
-			options: sessionsOptions,
-			session: {
-				price: 250,
-				description:
-					'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
+		[schedules, sessions]
+	);
+
+	useEffect(() => {
+		setSchedules([
+			{
+				id: '01',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
 			},
-		},
-	]);
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+			},
+		]);
+		setSessions([
+			{
+				id: '01',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				session: {
+					price: 250,
+					description:
+						'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
+				},
+			},
+		]);
+	}, []);
 
 	const currentView = useMemo(() => {
-		if (!!!schedules.length)
+		if (!!!schedules?.length)
 			return (
 				<Empty
 					title='Harmonogram spotkań'
@@ -103,7 +97,7 @@ const SchedulesView = () => {
 					</header>
 					<div>
 						{schedules.map((item) => (
-							<ScheduleCard {...item} />
+							<ScheduleCard removeItem={removeItem} {...item} />
 						))}
 					</div>
 				</Container>
@@ -112,7 +106,7 @@ const SchedulesView = () => {
 						<Title tag={TitleTag.h2} variant={TitleVariant.section}>
 							Sesje
 						</Title>
-						{!!sessions.length && (
+						{!!sessions?.length && (
 							<Button
 								as={ButtonTag.InternalLink}
 								variant={ButtonVariant.Outline}
@@ -122,7 +116,7 @@ const SchedulesView = () => {
 							</Button>
 						)}
 					</header>
-					{!!!sessions.length ? (
+					{!!!sessions?.length ? (
 						<Empty
 							text='Dodałeś właśnie swój pierwszy harmonogram! 
 					Utwórz teraz nową sesję'
@@ -132,7 +126,7 @@ const SchedulesView = () => {
 					) : (
 						<div>
 							{sessions.map((item) => (
-								<ScheduleCard {...item} />
+								<ScheduleCard removeItem={removeItem} {...item} />
 							))}
 						</div>
 					)}

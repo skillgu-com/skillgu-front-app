@@ -1,0 +1,77 @@
+@use '@styles/variables' as *;
+
+.wrapper {
+	border: 1px solid $gray-color;
+	padding: 24px;
+	border-radius: 8px;
+
+	.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+		margin-bottom: 8px;
+	}
+
+	.title {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+
+	> p {
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 18px;
+		margin-bottom: 8px;
+
+		&[data-is-assigned='true'] {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			color: $success-color;
+
+			&:before {
+				content: '';
+				display: block;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background-color: $success-color;
+			}
+		}
+
+		&[data-is-assigned='false'] {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			color: $danger-color;
+
+			&:before {
+				content: '';
+				display: block;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background-color: $danger-color;
+			}
+		}
+	}
+
+	.bottom {
+		border-top: 1px dashed $gray-color;
+		margin-left: -25px;
+		margin-right: -25px;
+		padding: 24px 24px 0;
+		margin-top: 16px;
+		display: flex;
+		justify-content: space-between;
+
+		p {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 3px;
+			color: #8e9abb;
+		}
+	}
+}

@@ -2,10 +2,13 @@
 
 .wrapper {
 	display: none;
+
 	@media screen and (min-width: $md) {
 		display: block;
 		background-color: $light-color;
 		padding: 16px 0;
+		border-bottom: 1px solid $gray-color;
+
 		:global {
 			.container {
 				display: flex;

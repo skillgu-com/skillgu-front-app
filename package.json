@@ -53,6 +53,7 @@
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "craco eject",
+		"start:prod": "env-cmd -f .env.production craco start",
 		"production": "REACT_APP_BASE_URL=$(cat .env.production | xargs) craco start"
 	},
 	"eslintConfig": {
@@ -74,10 +75,11 @@
 		]
 	},
 	"devDependencies": {
+		"@craco/craco": "^7.1.0",
 		"@types/react-big-calendar": "^1.8.8",
 		"axios": "^0.27.2",
+		"env-cmd": "^10.1.0",
 		"react-app-rewired": "^2.2.1",
-		"sass": "^1.53.0",
-		"@craco/craco": "^7.1.0"
+		"sass": "^1.53.0"
 	}
 }

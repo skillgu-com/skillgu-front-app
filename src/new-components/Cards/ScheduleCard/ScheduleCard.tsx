@@ -55,7 +55,6 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 							text: 'Usuń',
 							onClick: () => {
 								!!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules')
-								// setSchedules(schedules?.filter((item) => item.id !== id))
 							},
 						},
 					]}

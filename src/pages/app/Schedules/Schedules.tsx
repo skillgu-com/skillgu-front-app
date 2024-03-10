@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 // Sections
 import Empty from './components/Empty/Empty';
 import Container from '@newComponents/Container/Container';
@@ -8,8 +7,6 @@ import Button from '@newComponents/Button/Button';
 // Icons
 import Add from '@icons/Add';
 import Sessions from '@icons/Sessions';
-import Trash from './components/icons/Trash';
-import Pencil from './components/icons/Pencil';
 // Types
 import {Tag} from '@customTypes/tags';
 import {TitleTag, TitleVariant} from '@newComponents/typography/Title/Title';
@@ -20,7 +17,6 @@ import ScheduleCard, {
 // Styles
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
-import {Option} from '@newComponents/Cards/ScheduleCard/components/Options/Options';
 
 const SchedulesView = () => {
 	const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);

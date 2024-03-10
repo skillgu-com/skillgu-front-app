@@ -47,7 +47,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 							icon: <Pencil />,
 							text: 'Edytuj',
 							onClick: () => {
-								navigate(`/schedules/edit/${id}`);
+								navigate(!!session ? `/schedules/edit-session/${id}` : `/schedules/edit-schedule/${id}`);
 							},
 						},
 						{

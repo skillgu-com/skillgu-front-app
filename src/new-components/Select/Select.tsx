@@ -15,15 +15,17 @@ interface SelectProps {
 	valueChangeHandler: (name: string, value: any) => void;
 	classes?: string;
 	isMulti?: boolean;
+	spanLabel?: string;
 }
 
 const Select = (props: SelectProps) => {
-	const {options, value, classes, label, valueChangeHandler, name, isMulti} =
+	const {options, value, classes, label, valueChangeHandler, name, isMulti, spanLabel} =
 		props;
 
 	return (
 		<div className={classNames(styles.select, inputStyles.input, classes)}>
-			<label className={inputStyles.inputLabel}>
+			<span className={styles.text}>{spanLabel}</span>
+			<label className={inputStyles.selectLabel}>
 				<ReactSelect
 					isMulti={isMulti}
 					options={options}

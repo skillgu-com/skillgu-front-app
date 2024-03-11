@@ -1,0 +1,28 @@
+@use '@styles/variables' as *;
+
+.wrapper{
+  background-color: $light-color;
+  min-height: max-content;
+  height: calc(100vh - 73px);
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &Button{
+      margin-top: 10px;
+    }
+  }
+
+  @media screen and (min-width: $md) {
+    .form{
+      gap: 24px;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid $gray-color;
+      max-width: $sm;
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@use '@styles/variables' as *;
+
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px 46px;
+
+	.time {
+		flex: 2 0 100px;
+		width: 100%;
+
+    &Wrapper{
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 30px 1fr 1fr 30px;
+    }
+	}
+}
+
+.inputFrom{
+  grid-column: 2/3;
+}
+.inputTo{
+  grid-column: 3/4;
+}

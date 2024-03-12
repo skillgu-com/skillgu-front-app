@@ -8,6 +8,22 @@
 	padding-top: 40px;
 }
 
-.container{
+.container {
 	background-color: $light-color;
+
+	.list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 32px 20px;
+
+		> * {
+			flex: 1 0 300px;
+		}
+
+		@media screen and (min-width: $lg) {
+			> * {
+				max-width: 336px;
+			}
+		}
+	}
 }

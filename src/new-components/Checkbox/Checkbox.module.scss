@@ -76,3 +76,48 @@
 		}
 	}
 }
+
+.slide {
+	.checkboxLabel {
+		&:before,
+		&:after {
+			display: none;
+		}
+	}
+
+	&Field {
+		position: relative;
+		display: block;
+		width: 34px;
+		height: 20px;
+		border-radius: 20px;
+		background-color: #e2e9fc;
+		transition: background-color 0.24s;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 3px;
+			display: block;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background-color: $light-color;
+			transform: translateY(-50%);
+			transition: transform 0.24s;
+		}
+	}
+
+	.checkboxField:checked {
+		+ .checkboxLabel {
+			.slideField {
+				background-color: $success-color;
+
+				&:before {
+					transform: translateY(-50%) translateX(100%);
+				}
+			}
+		}
+	}
+}

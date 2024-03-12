@@ -91,7 +91,7 @@ const SchedulesView = () => {
 							Dodaj <Add />
 						</Button>
 					</header>
-					<div>
+					<div className={scheduleStyles.list}>
 						{schedules.map((item) => (
 							<ScheduleCard removeItem={removeItem} {...item} />
 						))}
@@ -120,7 +120,7 @@ const SchedulesView = () => {
 							icon={<Sessions />}
 						/>
 					) : (
-						<div>
+						<div className={scheduleStyles.list}>
 							{sessions.map((item) => (
 								<ScheduleCard removeItem={removeItem} {...item} />
 							))}

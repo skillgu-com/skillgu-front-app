@@ -1,5 +1,26 @@
 @use '@styles/variables' as *;
 
-.wrapper{
-  background-color: $light-color;
+.fieldText {
+	display: block;
+	color: $dark-color;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 150%;
+	margin-bottom: 19px;
+}
+
+.date{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: center;
+
+	.fieldText{
+		margin-bottom: 0;
+	}
+
+	&Input{
+		flex: 1;
+		min-width: unset;
+	}
 }

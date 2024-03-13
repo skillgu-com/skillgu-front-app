@@ -69,7 +69,7 @@ const ProfileSection = () => {
 				<h3 className={styles.userPosition}>UI/UX Design</h3>
 				<div className={styles.userAttributes}>
 					<h4 className={styles.userAttributesItem}>
-						{sessionNumber}<small>Sesji</small>
+						{sessionNumber ?? 0}<small>Sesji</small>
 					</h4>
 					{role === 'M' && (
 						<>

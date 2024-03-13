@@ -1,4 +1,5 @@
-@use '../../scss/variables' as *;
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
 
 .input {
 	&Label {
@@ -13,6 +14,7 @@
 	}
 
 	&Field {
+		@include roboto;
 		width: 100%;
 		border-radius: 6px;
 		border: 1px solid $gray-color;
@@ -22,7 +24,7 @@
 		font-size: 16px;
 		font-weight: 400;
 		outline: transparent;
-		resize: vertical;
+		resize: none;
 	}
 
 	&Error {
@@ -58,8 +60,7 @@ textarea.inputField {
 	min-height: clamp(180px, 20vw, 274px);
 }
 
-
-.chips{
+.chips {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;

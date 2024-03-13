@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 // Sections
 import Empty from './components/Empty/Empty';
 import Container from '@newComponents/Container/Container';
@@ -11,16 +11,63 @@ import Sessions from '@icons/Sessions';
 import {Tag} from '@customTypes/tags';
 import {TitleTag, TitleVariant} from '@newComponents/typography/Title/Title';
 import {ButtonTag, ButtonVariant} from '@newComponents/Button/Button';
+import ScheduleCard, {
+	ScheduleCardProps,
+} from '@newComponents/Cards/ScheduleCard/ScheduleCard';
 // Styles
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 
 const SchedulesView = () => {
-	const [schedules, setSchedules] = useState([]);
-	const [sessions, setSessions] = useState([]);
+	const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
+	const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
+
+	const removeItem = useCallback(
+		(id: string, arrayType: 'schedules' | 'sessions') => {
+			arrayType === 'schedules'
+				? setSchedules(schedules.filter((item) => item.id !== id))
+				: setSessions(sessions.filter((item) => item.id !== id));
+		},
+		[schedules, sessions]
+	);
+
+	useEffect(() => {
+		setSchedules([
+			{
+				id: '01',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
+			},
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+			},
+		]);
+		setSessions([
+			{
+				id: '01',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				session: {
+					price: 250,
+					description:
+						'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
+				},
+			},
+		]);
+	}, []);
 
 	const currentView = useMemo(() => {
-		if (!!!schedules.length)
+		if (!!!schedules?.length)
 			return (
 				<Empty
 					title='Harmonogram spotkań'
@@ -31,7 +78,7 @@ const SchedulesView = () => {
 
 		return (
 			<>
-				<Container as={Tag.Section}>
+				<Container as={Tag.Section} classes={scheduleStyles.container}>
 					<header className={scheduleStyles.header}>
 						<Title tag={TitleTag.h2} variant={TitleVariant.section}>
 							Harmonogramy
@@ -44,13 +91,18 @@ const SchedulesView = () => {
 							Dodaj <Add />
 						</Button>
 					</header>
+					<div className={scheduleStyles.list}>
+						{schedules.map((item) => (
+							<ScheduleCard removeItem={removeItem} {...item} />
+						))}
+					</div>
 				</Container>
-				<Container as={Tag.Section}>
+				<Container as={Tag.Section} classes={scheduleStyles.container}>
 					<header className={scheduleStyles.header}>
 						<Title tag={TitleTag.h2} variant={TitleVariant.section}>
 							Sesje
 						</Title>
-						{!!sessions.length && (
+						{!!sessions?.length && (
 							<Button
 								as={ButtonTag.InternalLink}
 								variant={ButtonVariant.Outline}
@@ -60,7 +112,7 @@ const SchedulesView = () => {
 							</Button>
 						)}
 					</header>
-					{!!!sessions.length ? (
+					{!!!sessions?.length ? (
 						<Empty
 							text='Dodałeś właśnie swój pierwszy harmonogram! 
 					Utwórz teraz nową sesję'
@@ -68,7 +120,11 @@ const SchedulesView = () => {
 							icon={<Sessions />}
 						/>
 					) : (
-						<></>
+						<div className={scheduleStyles.list}>
+							{sessions.map((item) => (
+								<ScheduleCard removeItem={removeItem} {...item} />
+							))}
+						</div>
 					)}
 				</Container>
 			</>

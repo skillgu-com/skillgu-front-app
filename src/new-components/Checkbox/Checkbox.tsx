@@ -17,6 +17,7 @@ interface CheckboxProps {
 	isValid?: boolean;
 	valueChangeHandler: (name: string, value: any) => void;
 	classes?: string;
+	slide?: boolean;
 }
 
 const Checkbox = (props: CheckboxProps) => {
@@ -30,6 +31,7 @@ const Checkbox = (props: CheckboxProps) => {
 		errorMessage,
 		valueChangeHandler,
 		classes,
+		slide,
 	} = props;
 
 	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +45,7 @@ const Checkbox = (props: CheckboxProps) => {
 
 	return (
 		<label
-			className={classNames(styles.checkbox, classes)}
+			className={classNames(styles.checkbox, classes, {[styles.slide]: slide})}
 			data-is-error={!!errorMessage}
 			data-is-radio={type === 'radio'}>
 			<input
@@ -56,6 +58,7 @@ const Checkbox = (props: CheckboxProps) => {
 				required={required}
 			/>
 			<span className={styles.checkboxLabel}>
+				{slide && <span className={styles.slideField} />}
 				{label}
 				{required && ' *'}
 			</span>

@@ -10,6 +10,8 @@ import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import BookSession from './pages/app/BookSession/BookSession';
 import Profile from './pages/app/Profiles/Profile';
 import Schedules from './pages/app/Schedules/Schedules';
+import ScheduleForm from './pages/app/Schedules/screens/ScheduleForm/ScheduleForm';
+import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
 // Screens
 import HelpScreen from './pages/app/HelpView';
 import Raports from './pages/app/Raports/Raports';
@@ -91,14 +93,42 @@ const routes = [
 	{
 		id: 'route11',
 		path: '/session-book/:id/payment',
-		element: <BookSession payment/>,
+		element: <BookSession payment />,
 		hasSimpleLayout: true,
 		isProtected: true,
 	},
 	{
 		id: 'route11',
 		path: '/schedules',
-		element: <Schedules/>,
+		element: <Schedules />,
+		hasLayout: true,
+		isProtected: true,
+	},
+	{
+		id: 'route11',
+		path: '/schedules/add-schedule',
+		element: <ScheduleForm />,
+		hasLayout: true,
+		isProtected: true,
+	},
+	{
+		id: 'route11',
+		path: '/schedules/edit-schedule/:id',
+		element: <ScheduleForm />,
+		hasLayout: true,
+		isProtected: true,
+	},
+	{
+		id: 'route11',
+		path: '/schedules/add-session',
+		element: <SessionForm />,
+		hasLayout: true,
+		isProtected: true,
+	},
+	{
+		id: 'route11',
+		path: '/schedules/edit-session/:id',
+		element: <SessionForm />,
 		hasLayout: true,
 		isProtected: true,
 	},
@@ -200,7 +230,7 @@ const routes = [
 	{
 		id: 'route30',
 		path: '/logged-user-profile',
-		element: <Profile/>,
+		element: <Profile />,
 		hasSimpleLayout: true,
 		isProtected: true,
 	},

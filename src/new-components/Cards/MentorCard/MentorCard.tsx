@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 // Components
 import MentorCardDescription from './components/MentorCardDescription/MentorCardDescription';
 import MentorCardPrice from './components/MentorCardPrice/MentorCardPrice';
@@ -7,9 +7,6 @@ import Tag from 'src/new-components/Tag/Tag';
 import Button, {ButtonTag} from 'src/new-components/Button/Button';
 // Styles
 import styles from './MentorCard.module.scss';
-import {getAllMentors} from "../../../services/UserProfileService";
-import {useSelector} from "react-redux";
-import PlanSelect from "../../PlanSelect/PlanSelect";
 
 
 interface MentorCardProps {
@@ -70,6 +67,8 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         isExtended,
 
     } = props;
+
+    console.log('TUTAJ SPRAWDZAM PROPSY: ',props)
 
     return (
 

@@ -73,6 +73,7 @@ const WeekTime = (props: WeekTime) => {
 	return (
 		<div className={styles.wrapper}>
 			<Checkbox
+				classes={styles.checkbox}
 				id='resign'
 				name='resign'
 				value={true}
@@ -85,7 +86,8 @@ const WeekTime = (props: WeekTime) => {
 					return (
 						<div key={timeId} className={styles.timeWrapper}>
 							{timeId !== '0' && (
-								<button className={styles.actionButton}
+								<button
+									className={styles.actionButton}
 									onClick={() => {
 										const newTime = time;
 										delete newTime[timeId];
@@ -110,16 +112,19 @@ const WeekTime = (props: WeekTime) => {
 								value={time[timeId]?.to}
 								onChange={(e) => setToTime(e, +timeId)}
 							/>
-							{index + 1 === currentTimes.length && (!!time[timeId]?.from && time[timeId]?.to) && (
-								<button className={styles.actionButton}
-									onClick={() => {
-										const newIndex = timeIndex + 1;
-										setTimeIndex(newIndex);
-										setTime({...time, [newIndex]: {from: '', to: ''}});
-									}}>
-									<Add />
-								</button>
-							)}
+							{index + 1 === currentTimes.length &&
+								!!time[timeId]?.from &&
+								time[timeId]?.to && (
+									<button
+										className={styles.actionButton}
+										onClick={() => {
+											const newIndex = timeIndex + 1;
+											setTimeIndex(newIndex);
+											setTime({...time, [newIndex]: {from: '', to: ''}});
+										}}>
+										<Add />
+									</button>
+								)}
 						</div>
 					);
 				})}

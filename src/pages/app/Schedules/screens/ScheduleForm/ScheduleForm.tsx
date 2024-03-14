@@ -20,10 +20,33 @@ const ScheduleForm = () => {
 		dateFrom: defaultInput,
 		dateTo: defaultInput,
 		resign: {...defaultInput, value: false},
+		type: {value: 'individual'},
 		time: {value: 30},
 	});
 
 	const updateFormHandler = (name: string, value: any) => {
+		if (name === 'dateFrom') {
+			const fromDate = new Date(value.value).getTime();
+			const toDate = new Date(form.dateTo.value).getTime();
+
+			if (fromDate >= toDate)
+				return setForm({
+					...form,
+					[name]: {...value, errorMessage: 'Nieprawidłowa data!'},
+				});
+		}
+
+		if (name === 'dateTo') {
+			const fromDate = new Date(form.dateTo.value).getTime();
+			const toDate = new Date(value.value).getTime();
+
+			if (fromDate > toDate)
+				return setForm({
+					...form,
+					[name]: {...value, errorMessage: 'Nieprawidłowa data!'},
+				});
+		}
+
 		setForm({...form, [name]: value});
 	};
 
@@ -46,8 +69,11 @@ const ScheduleForm = () => {
 					valueChangeHandler={updateFormHandler}
 					label='Nazwa'
 				/>
-				<Time value={form.time.value} updateFormHandler={updateFormHandler} />
-				<MeetingType />
+				<Time value={form.time.value} valueChangeHandler={updateFormHandler} />
+				<MeetingType
+					value={form.type.value}
+					updateFormHandler={updateFormHandler}
+				/>
 				<Checkbox
 					id='resign'
 					name='resign'

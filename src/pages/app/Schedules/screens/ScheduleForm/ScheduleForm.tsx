@@ -109,7 +109,13 @@ const ScheduleForm = () => {
 						/>
 					</div>
 				</div>
-				<WeekTime />
+				<WeekTime day='Pn' />
+				<WeekTime day='Wt' />
+				<WeekTime day='Śr' />
+				<WeekTime day='Czw' />
+				<WeekTime day='Pt' />
+				<WeekTime day='Sb' />
+				<WeekTime day='Nd' />
 
 				<Button classes={styles.formButton} fullWidth type='submit'>
 					Zapisz zmiany

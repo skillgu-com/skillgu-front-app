@@ -8,7 +8,13 @@ import Trash from '../icons/Trash';
 // Styles
 import styles from './WeekTime.module.scss';
 
-const WeekTime = () => {
+interface WeekTime {
+	day: string;
+}
+
+const WeekTime = (props: WeekTime) => {
+	const {day} = props;
+
 	const [time, setTime] = useState<any>({0: {from: '', to: ''}});
 	const [timeIndex, setTimeIndex] = useState(0);
 	const [error, setError] = useState('');
@@ -52,8 +58,6 @@ const WeekTime = () => {
 
 		const isError = hourValidation(index, toTime);
 
-		console.log(isError);
-
 		if (toTime < fromTime || isError) {
 			setError('Nieprawidłowe godziny!');
 		} else if (error !== '') {
@@ -74,14 +78,14 @@ const WeekTime = () => {
 				value={true}
 				valueChangeHandler={() => {}}
 				slide
-				label='Pn'
+				label={day}
 			/>
 			<div className={styles.time}>
 				{currentTimes.map((timeId, index) => {
 					return (
 						<div key={timeId} className={styles.timeWrapper}>
 							{timeId !== '0' && (
-								<button
+								<button className={styles.actionButton}
 									onClick={() => {
 										const newTime = time;
 										delete newTime[timeId];
@@ -106,8 +110,8 @@ const WeekTime = () => {
 								value={time[timeId]?.to}
 								onChange={(e) => setToTime(e, +timeId)}
 							/>
-							{index + 1 === currentTimes.length && (
-								<button
+							{index + 1 === currentTimes.length && (!!time[timeId]?.from && time[timeId]?.to) && (
+								<button className={styles.actionButton}
 									onClick={() => {
 										const newIndex = timeIndex + 1;
 										setTimeIndex(newIndex);
@@ -119,7 +123,7 @@ const WeekTime = () => {
 						</div>
 					);
 				})}
-				{!!error && <p>{error}</p>}
+				{!!error && <p className={styles.error}>{error}</p>}
 			</div>
 		</div>
 	);

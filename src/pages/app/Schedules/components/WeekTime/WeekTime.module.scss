@@ -4,22 +4,46 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px 46px;
-
+  
 	.time {
-		flex: 2 0 100px;
+    flex: 2 0 100px;
 		width: 100%;
-
-    &Wrapper{
+    
+		&Wrapper {
       display: grid;
-      gap: 16px;
-      grid-template-columns: 30px 1fr 1fr 30px;
-    }
+			gap: 16px;
+      margin-bottom: 10px;
+			grid-template-columns: 30px 1fr 1fr 30px;
+		}
 	}
 }
 
-.inputFrom{
-  grid-column: 2/3;
+.inputFrom {
+	grid-column: 2/3;
 }
-.inputTo{
-  grid-column: 3/4;
+
+.inputTo {
+	grid-column: 3/4;
+}
+
+.inputFrom,
+.inputTo {
+	border-radius: 6px;
+	border: 1px solid #f8f8fb;
+	background: #fff;
+	font-size: 16px;
+	padding: 15px 23px;
+}
+
+.error {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 16px;
+	color: $danger-color;
+}
+
+.actionButton{
+  background-color: transparent;
+  cursor: pointer;
+  padding: 15px;
 }

@@ -7,24 +7,24 @@ import styles from './Time.module.scss';
 
 interface TimeProps {
 	value: number;
-	updateFormHandler: (name: string, value: any) => void;
+	valueChangeHandler: (name: string, value: any) => void;
 }
 
 const TIME_STEP = 15;
 
 const Time = (props: TimeProps) => {
-	const {value, updateFormHandler} = props;
+	const {value, valueChangeHandler} = props;
 
 	const time = {
 		increase: () => {
 			const newTime = value + TIME_STEP;
 			if (newTime > 120) return;
-			updateFormHandler('time', {value: newTime});
+			valueChangeHandler('time', {value: newTime});
 		},
 		decrease: () => {
 			const newTime = value - TIME_STEP;
 			if (newTime < 15) return;
-			updateFormHandler('time', {value: newTime});
+			valueChangeHandler('time', {value: newTime});
 		},
 		disabledIncrease: value === 120,
 		disabledDecrease: value === 15,

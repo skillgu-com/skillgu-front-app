@@ -7,7 +7,6 @@ import {Title} from 'src/new-components/typography';
 import Button from 'src/new-components/Button/Button';
 // API
 import {getAllMentors} from 'src/services/UserProfileService';
-import {getAllFilteredMentors} from 'src/services/MentorViewService';
 // Styles
 import styles from './MentorsList.module.scss';
 // Types
@@ -32,6 +31,8 @@ const MentorsList = () => {
 
 
 
+
+	console.log(mentors[0])
 	return (
 		<Container as={Tag.Section} classes={styles.wrapper}>
 			<Title tag={TitleTag.h2} variant={TitleVariant.standard}>

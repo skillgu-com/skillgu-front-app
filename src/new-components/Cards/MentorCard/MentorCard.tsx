@@ -22,6 +22,7 @@ interface MentorCardProps {
     description: string;
     logoUrl: string;
     skill: { id: number; name: string }[];
+    skills?: string[];
     price?: number;
     location: string | null;
     timeZone: string;
@@ -30,7 +31,7 @@ interface MentorCardProps {
     services: { id: number; name: string }[];
     mentorTopics?: any[];
     linkedin?: string
-     socialMedia: {
+    socialMedia: {
         linkedInURL?: string | null
         youtubeURL?: string | null;
         instagramURL?: string | null;
@@ -65,10 +66,11 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         socialMedia,
         languages,
         isExtended,
+        skills
 
     } = props;
 
-    console.log('TUTAJ SPRAWDZAM PROPSY: ',props)
+
 
     return (
 
@@ -91,6 +93,7 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
                 services={services}
                 description={description}
                 skills={skill}
+                skillersTEST={skills}
                 isExtended={isExtended}
                 categories={categories}
                 languages={languages}

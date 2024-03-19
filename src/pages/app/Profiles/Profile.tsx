@@ -14,13 +14,11 @@ import MentorCardDescription
     from 'src/new-components/Cards/MentorCard/components/MentorCardDescription/MentorCardDescription';
 // Styles
 import styles from './Profile.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {UserData} from '../Settings/Settings';
 import {useParams} from 'react-router-dom';
-import {getMeetingPlanPanelSchedule} from '../../../services/MeetingCreatorService';
 import {getMentorProfileByID} from "../../../services/MentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 interface SessionDataFromAPI {
     id: number;
@@ -36,10 +34,10 @@ interface PlanSelectProps {
     sessions: SessionDataFromAPI[];
     toggleModalHandler: () => void;
 }
+
 const Profile = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const [userData, setUserData] = useState<UserData>({} as UserData);
-    const dispatch = useDispatch();
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
     const [fetchMentorSessions, setFetchMentorSessions] = useState<SessionDataFromAPI[]>([]);
@@ -47,19 +45,13 @@ const Profile = () => {
 
 
     useEffect(() => {
-        getMentorProfileByID(userID).then((res) => setUserData(res.data as UserData));
+        getMentorProfileByID(userID).then((res) => {
+            setUserData(res.data as UserData)
+                });
     }, []);
 
 
-    /**
-     * Fetching from api all mentor sessions
-     *  Example:
-     * - description: "Coaching rozwoju kariery"
-     * - id:"1"
-     * - meetTime:60
-     * - name:"Coaching Rozwoju Kariery"
-     * - sessionPrice:350
-     */
+
     useEffect(() => {
         fetchMentorSession(userID).then(res => {
             const formattedSessions = res?.data.map((elementFromAPI: SessionDataFromAPI) => ({
@@ -70,36 +62,41 @@ const Profile = () => {
                 meetTime: elementFromAPI?.meetTime,
                 mentorID: Number(userID)
             }));
+
             setFetchMentorSessions(formattedSessions);
+            console.log(formattedSessions)
         });
     }, []);
+
+
 
 
     const toggleModalHandler = (value?: boolean) =>
         setShowModal(value ?? !showModal);
 
+
     return (
         <>
             <Container as={Tag.Section}>
                 <div className={styles.content}>
-                    <MentorProfile
-                        cardProfile={{
-                            profileImg:
-                                'https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg',
-                            reviews: 1,
-                            reviewsAmount: 1,
-                            location: 'Poznań',
-                            timeZone: 'Poland (- 05:00 UTC)',
-                        }}
-                        fullName={userData?.firstName + ' ' + userData?.lastName}
-                        position='Product manager key advisor'
-                        services={[
-                            {id: 1, name: 'Mentoring'},
-                            {id: 2, name: 'Praca z zadaniami'},
-                            {id: 3, name: 'Weekandowe spotkania'},
-                            {id: 4, name: 'Intensywna praca'},
-                        ]}
-                    />
+                    {/*<MentorProfile*/}
+                    {/*    cardProfile={{*/}
+                    {/*        profileImg:*/}
+                    {/*            'https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg',*/}
+                    {/*        reviews: 1,*/}
+                    {/*        reviewsAmount: 1,*/}
+                    {/*        location: 'Poznań',*/}
+                    {/*        timeZone: 'Poland (- 05:00 UTC)',*/}
+                    {/*    }}*/}
+                    {/*    fullName={'userData?.firstName + userData?.lastName'}*/}
+                    {/*    position='Product manager key advisor'*/}
+                    {/*    services={[*/}
+                    {/*        {id: 1, name: 'Mentoring'},*/}
+                    {/*        {id: 2, name: 'Praca z zadaniami'},*/}
+                    {/*        {id: 3, name: 'Weekandowe spotkania'},*/}
+                    {/*        {id: 4, name: 'Intensywna praca'},*/}
+                    {/*    ]}*/}
+                    {/*/>*/}
                     {userFromRedux.role === 'S' && (
                         <PlanSelect
                             sessions={fetchMentorSessions}
@@ -107,24 +104,25 @@ const Profile = () => {
                         />
                     )}
                     <div className={styles.mobileDescription}>
-                        <MentorCardDescription
-                            classes={styles.mobileDescriptionText}
-                            userID={1}
-                            fullName={userData?.firstName + ' ' + userData?.lastName}
-                            jobPosition={userData?.jobPosition}
-                            services={userData?.services}
-                            description={userData?.description}
-                            skills={[{id: 1, name: 'Test'}]}
-                            isExtended={true}
-                            categories={userData?.mentorTopics}
-                            languages={['PL']}
-                            socialMedia={{
-                                linkedInURL: userData?.linkedInURL,
-                                youtubeURL: userData?.youtubeURL,
-                                instagramURL: userData?.instagramURL,
-                                websiteURL: userData?.websiteURL,
-                            }}
-                        />
+                        {/*<MentorCardDescription*/}
+                        {/*    classes={styles.mobileDescriptionText}*/}
+                        {/*    userID={1}*/}
+                        {/*    fullName={'JEZUS'}*/}
+                        {/*    // fullName={userData?.firstName + ' ' + userData?.lastName}*/}
+                        {/*    jobPosition={userData?.jobPosition}*/}
+                        {/*    services={userData?.services}*/}
+                        {/*    description={userData?.description}*/}
+                        {/*    skills={[{id: 1, name: 'Test'}]}*/}
+                        {/*    isExtended={true}*/}
+                        {/*    categories={userData?.mentorTopics}*/}
+                        {/*    languages={['PL']}*/}
+                        {/*    socialMedia={{*/}
+                        {/*        linkedInURL: userData?.linkedInURL,*/}
+                        {/*        youtubeURL: userData?.youtubeURL,*/}
+                        {/*        instagramURL: userData?.instagramURL,*/}
+                        {/*        websiteURL: userData?.websiteURL,*/}
+                        {/*    }}*/}
+                        {/*/>*/}
                         {userFromRedux.role === 'M' && (
                             <MentorCardPrice
                                 price={500}
@@ -133,6 +131,7 @@ const Profile = () => {
                             />
                         )}
                     </div>
+
                     <MentorCard
                         profileImg='https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg'
                         logoUrl=''
@@ -165,7 +164,7 @@ const Profile = () => {
                 <Modal
                     title='Wszystkie dostępne sesje'
                     closeHandler={() => toggleModalHandler(false)}>
-                    {fetchMentorSessions.map(element  => (
+                    {fetchMentorSessions.map(element => (
                         <SessionCard
                             key={element?.id}
                             title={element?.name}

@@ -1,73 +1,62 @@
-import React, {ChangeEvent, useMemo, useState} from 'react';
-// Components
-import Checkbox from '@newComponents/Checkbox/Checkbox';
-import Input from '@newComponents/Input/Input';
-// Icons
-import Add from '@icons/Add';
-import Trash from '../icons/Trash';
-// Styles
-import styles from './WeekTime.module.scss';
+// WeekTime.tsx
 
-interface WeekTime {
+import React, {ChangeEvent, useState} from 'react';
+import Checkbox from '@newComponents/Checkbox/Checkbox';
+import styles from './WeekTime.module.scss';
+import Add from "@icons/Add";
+import Trash from "../icons/Trash";
+
+interface WeekTimeProps {
 	day: string;
+	updateTimes: (times: any[]) => void;
 }
 
-const WeekTime = (props: WeekTime) => {
-	const {day} = props;
-
-	const [time, setTime] = useState<any>({0: {from: '', to: ''}});
-	const [timeIndex, setTimeIndex] = useState(0);
+const WeekTime = ({day, updateTimes}: WeekTimeProps) => {
+	const [times, setTimes] = useState<any[]>([{from: '', to: ''}]);
 	const [error, setError] = useState('');
 
-	const currentTimes = useMemo(() => Object.keys(time), [time]);
-
-	const hourValidation = (index: number, currentTime: number) =>
-		currentTimes
-			.map((timeId) => {
-				if (+timeId === index) return false;
-				if (!!!time[timeId].from || !!!time[timeId].to) return true;
-
-				const otherFromTime = new Date(`01/01/2011 ${time[timeId].from}`).getTime();
-				const otherToTime = new Date(`01/01/2011 ${time[timeId].to}`).getTime();
-
-				return otherFromTime <= currentTime && otherToTime >= currentTime;
-			})
-			.some((el) => el === true);
-
-	const setFromTime = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-		const toTime = new Date(`01/01/2011 ${time[index].to}`).getTime();
-		const fromTime = new Date(`01/01/2011 ${e.target.value}`).getTime();
-
-		const isError = hourValidation(index, fromTime);
-
-		if (toTime > fromTime || isError) {
-			setError('Nieprawidłowe godziny!');
-		} else if (error !== '') {
-			setError('');
-		}
-
-		setTime({
-			...time,
-			[index]: {...time[index], from: e.target.value},
-		});
+	const hourValidation = (fromTime: string, toTime: string): boolean => {
+		// Implementuj walidację godzin
+		return false;
 	};
 
-	const setToTime = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-		const toTime = new Date(`01/01/2011 ${e.target.value}`).getTime();
-		const fromTime = new Date(`01/01/2011 ${time[index].from}`).getTime();
+	const addTimeSlot = () => {
+		setTimes([...times, {from: '', to: ''}]);
+	};
 
-		const isError = hourValidation(index, toTime);
+	const removeTimeSlot = (index: number) => {
+		const newTimes = [...times];
+		newTimes.splice(index, 1);
+		setTimes(newTimes);
+	};
 
-		if (toTime < fromTime || isError) {
+	const handleTimeValidation = (index: number, fromTime: string, toTime: string) => {
+		if (hourValidation(fromTime, toTime)) {
 			setError('Nieprawidłowe godziny!');
-		} else if (error !== '') {
-			setError('');
+			return false;
 		}
+		setError('');
+		return true;
+	};
 
-		setTime({
-			...time,
-			[index]: {...time[index], to: e.target.value},
-		});
+	const handleTimeFromChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+		const newFromTime = e.target.value;
+		const newTimes = [...times];
+		newTimes[index].from = newFromTime;
+		if (handleTimeValidation(index, newFromTime, newTimes[index].to)) {
+			setTimes(newTimes);
+			updateTimes(newTimes); // Aktualizuj czasy w komponencie nadrzędnym
+		}
+	};
+
+	const handleTimeToChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+		const newToTime = e.target.value;
+		const newTimes = [...times];
+		newTimes[index].to = newToTime;
+		if (handleTimeValidation(index, newTimes[index].from, newToTime)) {
+			setTimes(newTimes);
+			updateTimes(newTimes); // Aktualizuj czasy w komponencie nadrzędnym
+		}
 	};
 
 	return (
@@ -82,53 +71,39 @@ const WeekTime = (props: WeekTime) => {
 				label={day}
 			/>
 			<div className={styles.time}>
-				{currentTimes.map((timeId, index) => {
-					return (
-						<div key={timeId} className={styles.timeWrapper}>
-							{timeId !== '0' && (
-								<button
-									className={styles.actionButton}
-									onClick={() => {
-										const newTime = time;
-										delete newTime[timeId];
-										setTime({...newTime});
-									}}>
-									<Trash />
-								</button>
-							)}
-							<input
-								className={styles.inputFrom}
-								id='timeFrom'
-								name='timeFrom'
-								type='time'
-								value={time[timeId]?.from}
-								onChange={(e) => setFromTime(e, +timeId)}
-							/>
-							<input
-								className={styles.inputTo}
-								id='timeTo'
-								name='timeTo'
-								type='time'
-								value={time[timeId]?.to}
-								onChange={(e) => setToTime(e, +timeId)}
-							/>
-							{index + 1 === currentTimes.length &&
-								!!time[timeId]?.from &&
-								time[timeId]?.to && (
-									<button
-										className={styles.actionButton}
-										onClick={() => {
-											const newIndex = timeIndex + 1;
-											setTimeIndex(newIndex);
-											setTime({...time, [newIndex]: {from: '', to: ''}});
-										}}>
-										<Add />
-									</button>
-								)}
-						</div>
-					);
-				})}
-				{!!error && <p className={styles.error}>{error}</p>}
+				{times.map((time, index) => (
+					<div key={index} className={styles.timeWrapper}>
+						{index !== 0 && (
+							<button
+								className={styles.actionButton}
+								onClick={() => removeTimeSlot(index)}
+							>
+								<Trash />
+							</button>
+						)}
+						<input
+							className={styles.inputFrom}
+							type='time'
+							value={time.from}
+							onChange={(e) => handleTimeFromChange(e, index)}
+						/>
+						<input
+							className={styles.inputTo}
+							type='time'
+							value={time.to}
+							onChange={(e) => handleTimeToChange(e, index)}
+						/>
+						{index === times.length - 1 && (
+							<button
+								className={styles.actionButton}
+								onClick={addTimeSlot}
+							>
+								<Add />
+							</button>
+						)}
+					</div>
+				))}
+				{error && <p className={styles.error}>{error}</p>}
 			</div>
 		</div>
 	);

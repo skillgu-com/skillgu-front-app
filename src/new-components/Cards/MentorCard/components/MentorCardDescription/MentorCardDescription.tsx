@@ -23,8 +23,6 @@ interface MentorCardDescriptionProps extends Common {
     services: { id: number; name: string }[];
     description: string;
     skills: { id: number; name: string }[];
-    skillersTEST?: string[];
-
     isExtended?: boolean;
     categories?: { id: number; name: string }[];
     languages?: string[];
@@ -50,11 +48,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
         languages,
         socialMedia,
         classes,
-        skillersTEST
     } = props;
-
-
-
 
     return (
         <div
@@ -88,8 +82,8 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
                 Umiejętności:
             </Title>
             <ul className={styles.skills}>
-                {skillersTEST?.map((skill, index) => (
-                    <Tag key={index} name={skill} bgColor='#EFF4F9'/>
+                {skills?.map((skill) => (
+                    <Tag key={skill.id} name={skill.name} bgColor='#EFF4F9' />
                 ))}
             </ul>
             {isExtended && categories && (
@@ -141,7 +135,7 @@ const MentorCardDescription = (props: MentorCardDescriptionProps) => {
                 as={ButtonTag.InternalLink}
                 href={`/user-profile/${userID}`}
                 classes={styles.button}>
-                Zobacz profil
+                Zobacz profil tutaj
             </Button>
         </div>
     );

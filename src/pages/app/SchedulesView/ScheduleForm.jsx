@@ -319,8 +319,6 @@ const ScheduleForm = () => {
             Saturday: getDayHours('Saturday'),
             Sunday: getDayHours('Sunday'),
         };
-        console.log(currentState);
-        console.log(weekTimes)
 
         createScheduleMeeting(currentState, weekTimes);
     };

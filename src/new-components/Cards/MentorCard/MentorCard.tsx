@@ -22,7 +22,6 @@ interface MentorCardProps {
     description: string;
     logoUrl: string;
     skill: { id: number; name: string }[];
-    skills?: string[];
     price?: number;
     location: string | null;
     timeZone: string;
@@ -48,28 +47,21 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
         userID,
         firstName,
         lastName,
-        profileImg,
         jobPosition,
         reviews,
         reviewsAmount,
-        companyName,
         description,
-        logoUrl,
-        skill,
-        price,
         location,
         timeZone,
         quickResponder,
         categories,
         services,
-        mentorTopics,
         socialMedia,
         languages,
         isExtended,
-        skills
+        skill
 
     } = props;
-
 
 
     return (
@@ -93,7 +85,6 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
                 services={services}
                 description={description}
                 skills={skill}
-                skillersTEST={skills}
                 isExtended={isExtended}
                 categories={categories}
                 languages={languages}

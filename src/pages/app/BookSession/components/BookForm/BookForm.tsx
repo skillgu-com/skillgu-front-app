@@ -53,7 +53,6 @@ const BookForm = (props: BookFormProps) => {
     const sessionIDFromRedux = useSelector((state: any) => state.sessionIDStep.sessionState);
 
     useEffect(() => {
-        console.log(currentEvent)
         dispatch({
             type: 'UPDATE_BOOK_FORM',
             payload: {
@@ -62,6 +61,8 @@ const BookForm = (props: BookFormProps) => {
             },
         });
     },);
+
+
 
     useEffect(() => {
         id &&
@@ -87,14 +88,16 @@ const BookForm = (props: BookFormProps) => {
                         available: item.available,
                     };
                     events.push(event);
-                });
+                    console.log(events)
 
+                });
                 setCombinedData(events);
             })
             .catch((error) => {
                 console.error('Błąd podczas pobierania danych z serwera:', error);
             });
     }, [id]);
+
 
 
     const [form, setForm] = useState({

@@ -18,8 +18,6 @@ interface SessionCardProps {
 const SessionCard = (props: SessionCardProps) => {
     const {title, price, time, description} = props
 
-    // console.log('sprawdzam props: ', props)
-
     return (
         <div className={styles.wrapper}>
             <Title tag={TitleTag.h4} variant={TitleVariant.standard} classes={styles.title}>{title} <small>{time} minut

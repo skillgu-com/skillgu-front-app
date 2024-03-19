@@ -12,40 +12,39 @@ import styles from './MentorsList.module.scss';
 // Types
 import {Tag} from 'src/types/tags';
 import {
-	TitleTag,
-	TitleVariant,
+    TitleTag,
+    TitleVariant,
 } from 'src/new-components/typography/Title/Title';
 
 const MentorsList = () => {
-	const [mentors, setMentors] = useState([]);
+    const [mentors, setMentors] = useState([]);
 
-	useEffect(() => {
-		getAllMentors()
-			.then((response) => {
-				setMentors(response.data)
-			})
-			.catch((error) => {
-				throw new Error(error.message);
-			});
-	}, []);
-
-
+    useEffect(() => {
+        getAllMentors()
+            .then((response) => {
+                setMentors(response.data)
+            })
+            .catch((error) => {
+                throw new Error(error.message);
+            });
+    }, []);
 
 
-	console.log(mentors[0])
-	return (
-		<Container as={Tag.Section} classes={styles.wrapper}>
-			<Title tag={TitleTag.h2} variant={TitleVariant.standard}>
-				Wyniki wyszukiwania
-			</Title>
-			<div className={styles.mentorsList}>
-				{mentors?.map((item:any) => (
-					<MentorCard key={item.userID} {...item} />
-				))}
-			</div>
-			<Button classes={styles.loadMore}>Załaduj więcej</Button>
-		</Container>
-	);
+
+
+    return (
+        <Container as={Tag.Section} classes={styles.wrapper}>
+            <Title tag={TitleTag.h2} variant={TitleVariant.standard}>
+                Wyniki wyszukiwania
+            </Title>
+            <div className={styles.mentorsList}>
+                {mentors?.map((item: any) => (
+                    <MentorCard key={item.userID} {...item} />
+                ))}
+            </div>
+            <Button classes={styles.loadMore}>Załaduj więcej</Button>
+        </Container>
+    );
 };
 
 export default MentorsList;

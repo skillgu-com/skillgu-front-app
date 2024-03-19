@@ -38,6 +38,8 @@ const Hours = (props) => {
 			{value: '08:00', errorMessage: '', isValid: undefined},
 			{value: '16:00', errorMessage: '', isValid: undefined}
 		);
+
+		console.log()
 	};
 
 	const removeHours = (index) => updateHours(index, undefined, undefined, true);

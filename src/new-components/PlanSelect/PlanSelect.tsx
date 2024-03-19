@@ -40,6 +40,8 @@ const PlanSelect: React.FC<PlanSelectProps> = ({ sessions, toggleModalHandler })
     })
 
 
+
+
     const changeTypeHandler = (type: PlanTypes) => setPlanType(type);
 
     return (

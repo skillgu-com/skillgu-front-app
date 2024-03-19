@@ -23,6 +23,7 @@ const SessionForm = (props: SessionFormProps) => {
     const id = useParams();
 
 
+
     const submitHandler = (e: FormEvent) => {
         const selectedSession = sessions.find((item: any) => item.sessionID === session);
 

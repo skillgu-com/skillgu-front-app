@@ -35,7 +35,6 @@ interface Schedule {
 const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
-    const [scheduleNames, setScheduleNames] = useState([]);
 
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
@@ -48,14 +47,12 @@ const SchedulesView = () => {
 
     useEffect(() => {
         fetchAllSchedules().then(res => {
-            setScheduleNames(res.data);
-            console.log(res.data
-            )
+            setSchedules(mapSchedulesToComponentFormat(res.data));
+
         });
     }, []);
 
 
-    // TODO better think it over
     function mapSchedulesToComponentFormat(schedules: ScheduleCardProps[]) {
         return schedules.map(element => ({
             id: element.id,
@@ -70,38 +67,37 @@ const SchedulesView = () => {
             }
         }));
     }
-    const formattedSchedules = mapSchedulesToComponentFormat(scheduleNames);
 
 
     useEffect(() => {
-        setSchedules(formattedSchedules);
+        // setSchedules(formattedSchedules);
 
         // setSchedules([
 
-            // {
-            //     id: '01',
-            //     title: 'Test',
-            //     dateStart: new Date(),
-            //     dateEnd: new Date(),
-            //     time: 60,
-            //     schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-            // },
-            // {
-            //     id: '02',
-            //     title: 'Test',
-            //     dateStart: new Date(),
-            //     dateEnd: new Date(),
-            //     time: 60,
-            //     schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-            // },
-            // {
-            //     id: '02',
-            //     title: 'Test',
-            //     dateStart: new Date(),
-            //     dateEnd: new Date(),
-            //     time: 60,
-            //     schedule: {type: 'group', created: new Date(), assignedSessions: 12},
-            // },
+        // {
+        //     id: '01',
+        //     title: 'Test',
+        //     dateStart: new Date(),
+        //     dateEnd: new Date(),
+        //     time: 60,
+        //     schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
+        // },
+        // {
+        //     id: '02',
+        //     title: 'Test',
+        //     dateStart: new Date(),
+        //     dateEnd: new Date(),
+        //     time: 60,
+        //     schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+        // },
+        // {
+        //     id: '02',
+        //     title: 'Test',
+        //     dateStart: new Date(),
+        //     dateEnd: new Date(),
+        //     time: 60,
+        //     schedule: {type: 'group', created: new Date(), assignedSessions: 12},
+        // },
         // ]);
         setSessions([
             {

@@ -22,7 +22,16 @@ const ScheduleForm = () => {
 		resign: {...defaultInput, value: false},
 		type: {value: 'individual'},
 		time: {value: 30},
+		monday: {...defaultInput, value: false},
+		tuesday: {...defaultInput, value: false},
+		wednesday: {...defaultInput, value: false},
+		thursday: {...defaultInput, value: false},
+		friday: {...defaultInput, value: false},
+		saturday: {...defaultInput, value: false},
+		sunday: {...defaultInput, value: false},
 	});
+
+	console.log(form.monday);
 
 	const updateFormHandler = (name: string, value: any) => {
 		if (name === 'dateFrom') {
@@ -109,13 +118,55 @@ const ScheduleForm = () => {
 						/>
 					</div>
 				</div>
-				<WeekTime day='Pn' meetingTime={form.time.value} />
-				<WeekTime day='Wt' meetingTime={form.time.value} />
-				<WeekTime day='Śr' meetingTime={form.time.value} />
-				<WeekTime day='Czw'meetingTime={form.time.value}  />
-				<WeekTime day='Pt' meetingTime={form.time.value} />
-				<WeekTime day='Sb' meetingTime={form.time.value} />
-				<WeekTime day='Nd' meetingTime={form.time.value} />
+				<WeekTime
+					day='Pn'
+					name={'monday'}
+					value={form.monday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Wt'
+					name={'tuesday'}
+					value={form.tuesday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Śr'
+					name={'wednesday'}
+					value={form.wednesday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Czw'
+					name={'thursday'}
+					value={form.thursday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Pt'
+					name={'friday'}
+					value={form.friday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Sb'
+					name={'saturday'}
+					value={form.saturday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
+				<WeekTime
+					day='Nd'
+					name={'sunday'}
+					value={form.sunday.value}
+					meetingTime={form.time.value}
+					valueChangeHandler={updateFormHandler}
+				/>
 
 				<Button classes={styles.formButton} fullWidth type='submit'>
 					Zapisz zmiany

@@ -1,7 +1,13 @@
-import React, {ChangeEvent, useCallback, useMemo, useState} from 'react';
+import React, {
+	ChangeEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 // Components
 import Checkbox from '@newComponents/Checkbox/Checkbox';
-import Input from '@newComponents/Input/Input';
+import Input, {defaultInput} from '@newComponents/Input/Input';
 // Icons
 import Add from '@icons/Add';
 import Trash from '../icons/Trash';
@@ -10,15 +16,29 @@ import styles from './WeekTime.module.scss';
 
 interface WeekTimeProps {
 	day: string;
+	value: any;
+	name: string;
+	valueChangeHandler: (name: string, value: any) => void;
 	meetingTime: number;
 }
 
 const WeekTime = (props: WeekTimeProps) => {
-	const {day, meetingTime} = props;
+	const {day, meetingTime, valueChangeHandler, name, value} = props;
 
+	const [checkbox, setCheckbox] = useState({...defaultInput, value: false});
 	const [time, setTime] = useState<any>({0: {from: '', to: ''}});
 	const [timeIndex, setTimeIndex] = useState(0);
 	const [error, setError] = useState('');
+
+	const changeCheckboxHandler = (_name: string, value: any) => {
+		setCheckbox(value);
+
+		if (!value.value) {
+			valueChangeHandler(name, {errorMessage: '', isValid: true, value: false});
+		} else {
+			valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
+		}
+	};
 
 	const timeDifference = (from: number, to: number): number =>
 		(to - from) / 1000 / 60;
@@ -125,14 +145,18 @@ const WeekTime = (props: WeekTimeProps) => {
 		setTime({...time, [newIndex]: {from: '', to: ''}});
 	}, [currentTimes, error, timeIndex, time, meetingTime]);
 
+	useEffect(() => {
+		valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
+	}, [name, time]);
+
 	return (
 		<div className={styles.wrapper}>
 			<Checkbox
 				classes={styles.checkbox}
-				id='resign'
-				name='resign'
-				value={true}
-				valueChangeHandler={() => {}}
+				id='isActive'
+				name='isActive'
+				value={checkbox.value}
+				valueChangeHandler={changeCheckboxHandler}
 				slide
 				label={day}
 			/>
@@ -143,6 +167,7 @@ const WeekTime = (props: WeekTimeProps) => {
 							{timeId !== '0' && (
 								<button
 									className={styles.actionButton}
+									disabled={!!!value}
 									onClick={() => {
 										const newTime = time;
 										delete newTime[timeId];
@@ -156,6 +181,7 @@ const WeekTime = (props: WeekTimeProps) => {
 								id='timeFrom'
 								name='timeFrom'
 								type='time'
+								disabled={!!!value}
 								value={time[timeId]?.from}
 								onChange={(e) => setFromTime(e, +timeId)}
 							/>
@@ -164,13 +190,17 @@ const WeekTime = (props: WeekTimeProps) => {
 								id='timeTo'
 								name='timeTo'
 								type='time'
+								disabled={!!!value}
 								value={time[timeId]?.to}
 								onChange={(e) => setToTime(e, +timeId)}
 							/>
 							{index + 1 === currentTimes.length &&
 								!!time[timeId]?.from &&
 								time[timeId]?.to && (
-									<button className={styles.actionButton} onClick={addTimesRangeHandler}>
+									<button
+										disabled={!!!value}
+										className={styles.actionButton}
+										onClick={addTimesRangeHandler}>
 										<Add />
 									</button>
 								)}

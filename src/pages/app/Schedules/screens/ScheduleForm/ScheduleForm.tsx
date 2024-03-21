@@ -1,10 +1,10 @@
 import React, {FormEvent, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 // Components
 import {NavTitle} from '@newComponents/typography';
 import Container from '@newComponents/Container/Container';
 import Input, {defaultInput} from '@newComponents/Input/Input';
 import Button from '@newComponents/Button/Button';
-import Time from '../../components/Time/Time';
 import MeetingType from '../../components/MeetingType/MeetingType';
 import Checkbox from '@newComponents/Checkbox/Checkbox';
 import WeekTime from '../../components/WeekTime/WeekTime';
@@ -13,6 +13,7 @@ import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './ScheduleForm.module.scss';
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
+import StepInput from '@newComponents/StepInput/StepInput';
 
 const ScheduleForm = () => {
 	const [form, setForm] = useState({
@@ -21,7 +22,8 @@ const ScheduleForm = () => {
 		dateTo: defaultInput,
 		resign: {...defaultInput, value: false},
 		type: {value: 'individual'},
-		time: {value: 30},
+		time: {...defaultInput, value: 30},
+		groupAmount: {...defaultInput, value: 1},
 		monday: {...defaultInput, value: false},
 		tuesday: {...defaultInput, value: false},
 		wednesday: {...defaultInput, value: false},
@@ -31,7 +33,7 @@ const ScheduleForm = () => {
 		sunday: {...defaultInput, value: false},
 	});
 
-	console.log(form.monday);
+	const navigate = useNavigate();
 
 	const updateFormHandler = (name: string, value: any) => {
 		if (name === 'dateFrom') {
@@ -61,6 +63,8 @@ const ScheduleForm = () => {
 
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
+
+		navigate('/schedules');
 	};
 
 	return (
@@ -78,11 +82,31 @@ const ScheduleForm = () => {
 					valueChangeHandler={updateFormHandler}
 					label='Nazwa'
 				/>
-				<Time value={form.time.value} valueChangeHandler={updateFormHandler} />
+				<StepInput
+					minValue={15}
+					maxValue={120}
+					step={15}
+					name='time'
+					measure='min'
+					value={form.time.value}
+					label='Długość spotkania'
+					valueChangeHandler={updateFormHandler}
+				/>
 				<MeetingType
 					value={form.type.value}
 					updateFormHandler={updateFormHandler}
 				/>
+				{form.type.value === 'group' && (
+					<StepInput
+						minValue={1}
+						maxValue={5}
+						step={1}
+						name='groupAmount'
+						value={form.groupAmount.value}
+						label='Ilość uczestników'
+						valueChangeHandler={updateFormHandler}
+					/>
+				)}
 				<Checkbox
 					id='resign'
 					name='resign'
@@ -91,7 +115,6 @@ const ScheduleForm = () => {
 					slide
 					label='Możliwość odwołania spotkania przez klienta'
 				/>
-
 				<div>
 					<span className={styles.fieldText}>Okres obowiązywania</span>
 					<div className={styles.date}>

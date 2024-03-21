@@ -93,7 +93,7 @@ const SchedulesView = () => {
 					</header>
 					<div className={scheduleStyles.list}>
 						{schedules.map((item) => (
-							<ScheduleCard removeItem={removeItem} {...item} />
+							<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
 						))}
 					</div>
 				</Container>
@@ -122,7 +122,7 @@ const SchedulesView = () => {
 					) : (
 						<div className={scheduleStyles.list}>
 							{sessions.map((item) => (
-								<ScheduleCard removeItem={removeItem} {...item} />
+								<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
 							))}
 						</div>
 					)}

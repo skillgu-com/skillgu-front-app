@@ -146,8 +146,9 @@ const WeekTime = (props: WeekTimeProps) => {
 	}, [currentTimes, error, timeIndex, time, meetingTime]);
 
 	useEffect(() => {
-		valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
-	}, [name, time]);
+		if (checkbox.value)
+			valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
+	}, [name, time, checkbox.value]);
 
 	return (
 		<div className={styles.wrapper}>
@@ -166,6 +167,7 @@ const WeekTime = (props: WeekTimeProps) => {
 						<div key={timeId} className={styles.timeWrapper}>
 							{timeId !== '0' && (
 								<button
+									type='button'
 									className={styles.actionButton}
 									disabled={!!!value}
 									onClick={() => {
@@ -198,6 +200,7 @@ const WeekTime = (props: WeekTimeProps) => {
 								!!time[timeId]?.from &&
 								time[timeId]?.to && (
 									<button
+										type='button'
 										disabled={!!!value}
 										className={styles.actionButton}
 										onClick={addTimesRangeHandler}>

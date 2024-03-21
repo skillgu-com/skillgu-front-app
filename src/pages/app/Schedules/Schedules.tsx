@@ -17,10 +17,25 @@ import ScheduleCard, {
 // Styles
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
+import {fetchAllSchedules} from "../../../services/ScheduleService";
+
+interface Schedule {
+    id: string;
+    name: string;
+    scheduleStartDay: string;
+    scheduleEndDay: string;
+    meetTime: number;
+    schedule: {
+        type: 'individual' | 'group';
+        created: Date;
+        assignedSessions: number;
+    };
+}
 
 const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
+    const [scheduleNames, setScheduleNames] = useState([]);
 
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
@@ -32,39 +47,69 @@ const SchedulesView = () => {
     );
 
     useEffect(() => {
-        setSchedules([
-            {
-                id: '01',
-                title: 'Test',
-                dateStart: new Date(),
-                dateEnd: new Date(),
-                time: 60,
-                schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-            },
-            {
-                id: '02',
-                title: 'Test',
-                dateStart: new Date(),
-                dateEnd: new Date(),
-                time: 60,
-                schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-            },
-            {
-                id: '02',
-                title: 'Test',
-                dateStart: new Date(),
-                dateEnd: new Date(),
-                time: 60,
-                schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-            },
-        ]);
+        fetchAllSchedules().then(res => {
+            setScheduleNames(res.data);
+            console.log(res.data
+            )
+        });
+    }, []);
+
+
+    // TODO better think it over
+    function mapSchedulesToComponentFormat(schedules: ScheduleCardProps[]) {
+        return schedules.map(element => ({
+            id: element.id,
+            dateStart: new Date(),
+            dateEnd: new Date(),
+            meetTime: element.meetTime,
+            name: element.name,
+            schedule: {
+                type: element.schedule?.type || 'individual',
+                created: element.schedule?.created || new Date(),
+                assignedSessions: element.schedule?.assignedSessions || 1
+            }
+        }));
+    }
+    const formattedSchedules = mapSchedulesToComponentFormat(scheduleNames);
+
+
+    useEffect(() => {
+        setSchedules(formattedSchedules);
+
+        // setSchedules([
+
+            // {
+            //     id: '01',
+            //     title: 'Test',
+            //     dateStart: new Date(),
+            //     dateEnd: new Date(),
+            //     time: 60,
+            //     schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
+            // },
+            // {
+            //     id: '02',
+            //     title: 'Test',
+            //     dateStart: new Date(),
+            //     dateEnd: new Date(),
+            //     time: 60,
+            //     schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+            // },
+            // {
+            //     id: '02',
+            //     title: 'Test',
+            //     dateStart: new Date(),
+            //     dateEnd: new Date(),
+            //     time: 60,
+            //     schedule: {type: 'group', created: new Date(), assignedSessions: 12},
+            // },
+        // ]);
         setSessions([
             {
                 id: '01',
-                title: 'Test',
+                name: 'Test',
                 dateStart: new Date(),
                 dateEnd: new Date(),
-                time: 60,
+                meetTime: 60,
                 session: {
                     price: 250,
                     description:
@@ -73,10 +118,10 @@ const SchedulesView = () => {
             },
             {
                 id: '01',
-                title: 'Test',
+                name: 'Test',
                 dateStart: new Date(),
                 dateEnd: new Date(),
-                time: 60,
+                meetTime: 60,
                 session: {
                     price: 250,
                     description:
@@ -96,6 +141,7 @@ const SchedulesView = () => {
                     button={{text: 'Nowy harmonogram', link: '/schedules/add-schedule'}}
                 />
             );
+
 
         return (
             <>

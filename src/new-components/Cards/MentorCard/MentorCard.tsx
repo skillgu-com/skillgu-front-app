@@ -63,6 +63,8 @@ const MentorCard: React.FC<MentorCardProps> = (props) => {
 
     } = props;
 
+    console.log('Tutaj jesst caly mentor: ',props)
+
 
     return (
 

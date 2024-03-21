@@ -11,16 +11,16 @@ const Add = () => {
 			<path
 				d='M1 7H13'
 				stroke='#FF6A3D'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.5'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 			<path
 				d='M7 13V1'
 				stroke='#FF6A3D'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.5'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 		</svg>
 	);

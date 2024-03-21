@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 // Styles
-import styles from './NavTitle.module.scss'
+import styles from './NavTitle.module.scss';
 
 const NavTitle = (props: {children: React.ReactNode}) => {
-  const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	return (
 		<h2 className={styles.title}>
@@ -18,18 +18,18 @@ const NavTitle = (props: {children: React.ReactNode}) => {
 					<path
 						d='M9.57 5.93005L3.5 12.0001L9.57 18.0701'
 						stroke='#8E9ABB'
-						stroke-width='1.5'
-						stroke-miterlimit='10'
-						stroke-linecap='round'
-						stroke-linejoin='round'
+						strokeWidth='1.5'
+						strokeMiterlimit='10'
+						strokeLinecap='round'
+						strokeLinejoin='round'
 					/>
 					<path
 						d='M20.5 12H3.67004'
 						stroke='#8E9ABB'
-						stroke-width='1.5'
-						stroke-miterlimit='10'
-						stroke-linecap='round'
-						stroke-linejoin='round'
+						strokeWidth='1.5'
+						strokeMiterlimit='10'
+						strokeLinecap='round'
+						strokeLinejoin='round'
 					/>
 				</svg>
 			</button>

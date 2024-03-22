@@ -17,6 +17,7 @@ export interface ScheduleCardProps {
 	dateEnd: Date;
 	meetTime: number;
 	name: string;
+	scheduleName: string;
 	removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
 	schedule?: {
 		type: 'individual' | 'group';

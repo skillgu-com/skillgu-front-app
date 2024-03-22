@@ -64,7 +64,6 @@ const Profile = () => {
             }));
 
             setFetchMentorSessions(formattedSessions);
-            console.log(formattedSessions)
         });
     }, []);
 

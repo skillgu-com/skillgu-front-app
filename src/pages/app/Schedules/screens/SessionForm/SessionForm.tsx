@@ -10,14 +10,16 @@ import {Tag} from '@customTypes/tags';
 import styles from './SessionForm.module.scss';
 import Select from '@newComponents/Select/Select';
 import {fetchAllSchedules} from "../../../../../services/ScheduleService";
+import {createSession, getSessionTypes} from "../../../../../services/SessionService";
 
 const SessionForm = () => {
     const [scheduleNames, setScheduleNames] = useState([]);
+    const [sessionTypes, setSessionTypes] = useState([]);
     const [form, setForm] = useState({
         name: defaultInput,
         price: defaultInput,
         description: defaultInput,
-        type: defaultInput,
+        sessionTypeId: defaultInput,
         schedule: defaultInput,
     });
 
@@ -26,18 +28,30 @@ const SessionForm = () => {
     };
 
     const submitHandler = (e: FormEvent) => {
+        createSession(form);
         e.preventDefault()
     }
+
 
     useEffect(() => {
         fetchAllSchedules().then(res => {
             setScheduleNames(res.data);
         })
+        getSessionTypes().then(res => {
+            setSessionTypes(res.data);
+        })
     }, []);
 
-    const schedules = scheduleNames.map((element: { id: any; name: any; }) => ({
+    const sessionType = sessionTypes.map((element: { id: any; name: any; }) => ({
         value: element.id,
         label: element.name
+    }));
+
+
+
+    const schedules = scheduleNames.map((element: { id: any; scheduleName: any; }) => ({
+        value: element.id,
+        label: element.scheduleName
     }));
 
 
@@ -45,7 +59,7 @@ const SessionForm = () => {
     return (
         <Container as={Tag.Section} classes={styles.wrapper}>
             <NavTitle>Szczegóły sesji</NavTitle>
-            <form className={styles.form} onClick={submitHandler}>
+            <form className={styles.form} onSubmit={submitHandler}>
                 <Input
                     id='name'
                     name='name'
@@ -69,11 +83,11 @@ const SessionForm = () => {
                     label='Cena za sesję [zł]'
                 />
                 <Select
-                    options={[{value: 'test', label: 'Technical call'}]}
-                    value={form?.type?.value}
+                    options={sessionType}
+                    value={form?.sessionTypeId?.value}
                     valueChangeHandler={updateFormHandler}
-                    name='type'
-                    id='type'
+                    name='sessionTypeId'
+                    id='sessionTypeId'
                     label='Sortowanie'
                     spanLabel='Typ spotkania'
                 />

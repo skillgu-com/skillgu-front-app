@@ -70,8 +70,6 @@ const ScheduleForm = () => {
 
     const submitHandler = (e: any) => {
         e.preventDefault();
-
-
         createScheduleMeeting(form).then(()=> {
 
         })

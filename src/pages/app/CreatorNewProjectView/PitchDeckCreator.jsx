@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import {useEffect} from 'react';
 import StepOne from "./FormSteps/StepOne";
-import {getKeyValues} from "../../../services/KeyValuesService";
 import StepTwo from "./FormSteps/StepTwo";
 import StepThree from "./FormSteps/StepThree";
 import StepFour from "./FormSteps/StepFour";

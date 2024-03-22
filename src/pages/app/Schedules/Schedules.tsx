@@ -18,23 +18,12 @@ import ScheduleCard, {
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {fetchAllSchedules} from "../../../services/ScheduleService";
-
-interface Schedule {
-    id: string;
-    name: string;
-    scheduleStartDay: string;
-    scheduleEndDay: string;
-    meetTime: number;
-    schedule: {
-        type: 'individual' | 'group';
-        created: Date;
-        assignedSessions: number;
-    };
-}
+import {fetchMentorSession} from "../../../services/SessionService";
 
 const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
+
 
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
@@ -47,85 +36,42 @@ const SchedulesView = () => {
 
     useEffect(() => {
         fetchAllSchedules().then(res => {
-            setSchedules(mapSchedulesToComponentFormat(res.data));
+            console.log(res.data)
+            const formatSchedules = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+
+                id: elementFromAPI.id,
+                dateStart: new Date(),
+                dateEnd: new Date(),
+                meetTime: elementFromAPI.meetTime,
+                name: elementFromAPI?.scheduleName,
+                schedule: {
+                    type: elementFromAPI.schedule?.type || 'individual',
+                    created: elementFromAPI.schedule?.created || new Date(),
+                    assignedSessions: elementFromAPI.schedule?.assignedSessions ?? 0
+                }
+            }));
+            // console.log(formatSchedules)
+
+            setSchedules(formatSchedules);
 
         });
     }, []);
 
-
-    function mapSchedulesToComponentFormat(schedules: ScheduleCardProps[]) {
-        return schedules.map(element => ({
-            id: element.id,
-            dateStart: new Date(),
-            dateEnd: new Date(),
-            meetTime: element.meetTime,
-            name: element.name,
-            schedule: {
-                type: element.schedule?.type || 'individual',
-                created: element.schedule?.created || new Date(),
-                assignedSessions: element.schedule?.assignedSessions || 1
-            }
-        }));
-    }
-
-
     useEffect(() => {
-        // setSchedules(formattedSchedules);
-
-        // setSchedules([
-
-        // {
-        //     id: '01',
-        //     title: 'Test',
-        //     dateStart: new Date(),
-        //     dateEnd: new Date(),
-        //     time: 60,
-        //     schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-        // },
-        // {
-        //     id: '02',
-        //     title: 'Test',
-        //     dateStart: new Date(),
-        //     dateEnd: new Date(),
-        //     time: 60,
-        //     schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-        // },
-        // {
-        //     id: '02',
-        //     title: 'Test',
-        //     dateStart: new Date(),
-        //     dateEnd: new Date(),
-        //     time: 60,
-        //     schedule: {type: 'group', created: new Date(), assignedSessions: 12},
-        // },
-        // ]);
-        setSessions([
-            {
-                id: '01',
-                name: 'Test',
+        fetchMentorSession(1).then(res => {
+            const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+                id: elementFromAPI?.id,
                 dateStart: new Date(),
                 dateEnd: new Date(),
-                meetTime: 60,
+                name: elementFromAPI?.name,
+                meetTime: elementFromAPI?.meetTime,
                 session: {
-                    price: 250,
-                    description:
-                        'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
+                    price: elementFromAPI?.session?.price,
+                    description: elementFromAPI?.session?.description,
                 },
-            },
-            {
-                id: '01',
-                name: 'Test',
-                dateStart: new Date(),
-                dateEnd: new Date(),
-                meetTime: 60,
-                session: {
-                    price: 250,
-                    description:
-                        'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
-                },
-            },
-
-        ]);
+            }));
+            setSessions(formattedSessions);
+        });
     }, []);
 
     const currentView = useMemo(() => {
@@ -137,7 +83,6 @@ const SchedulesView = () => {
                     button={{text: 'Nowy harmonogram', link: '/schedules/add-schedule'}}
                 />
             );
-
 
         return (
             <>

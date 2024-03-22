@@ -3,7 +3,6 @@ import CustomButton, {buttonColors, buttonTypes} from "../../../component/Custom
 import {FormControl, FormLabel, Grid, MenuItem, Select, TextField} from '@mui/material';
 import HeroHeader from "../../../component/HeroHeader";
 import {createSession} from "../../../services/SessionService";
-import {getSessionTypes} from "../../../services/KeyValuesService";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {fetchAllSchedules} from "../../../services/ScheduleService";
@@ -52,12 +51,6 @@ const CreateSingleSession = (props) => {
         })
     }, []);
 
-
-    useEffect(() => {
-        getSessionTypes().then(res => {
-            setSessionTypes(res.data);
-        })
-    }, []);
 
 
     const handleSubmit = (event) => {

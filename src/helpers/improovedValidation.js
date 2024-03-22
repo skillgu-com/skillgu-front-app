@@ -15,6 +15,8 @@ const validation = (inputTouched, inputValue, inputName, required) => {
 			case 'LastName':
 			case 'company':
 				return inputValue.trim().length < 2 ? 'Pole musi przekraczać 2 znaki.' : '';
+			case 'price':
+				return inputValue <= 0 ? 'Podana cena jest nieprawidłowa' : '';
 			case 'message':
 				return inputValue.trim().length < 30
 					? 'Wiadomość musi przekraczać 30 znaków.'

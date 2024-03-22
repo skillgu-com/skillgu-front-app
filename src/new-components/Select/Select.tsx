@@ -34,7 +34,6 @@ const Select = (props: SelectProps) => {
 					value={value}
 					getOptionLabel={(option: any) => option?.label}
 					onChange={(newValue: any) => {
-						console.log(newValue);
 						valueChangeHandler(name, newValue.value);
 					}}
 				/>

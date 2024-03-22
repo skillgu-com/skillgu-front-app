@@ -78,55 +78,57 @@ const SchedulesView = () => {
 
 		return (
 			<>
-				<Container as={Tag.Section} classes={scheduleStyles.container}>
-					<header className={scheduleStyles.header}>
-						<Title tag={TitleTag.h2} variant={TitleVariant.section}>
-							Harmonogramy
-						</Title>
-						<Button
-							as={ButtonTag.InternalLink}
-							variant={ButtonVariant.Outline}
-							href='/schedules/add-schedule'
-							classes={styles.button}>
-							Dodaj <Add />
-						</Button>
-					</header>
-					<div className={scheduleStyles.list}>
-						{schedules.map((item) => (
-							<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
-						))}
-					</div>
-				</Container>
-				<Container as={Tag.Section} classes={scheduleStyles.container}>
-					<header className={scheduleStyles.header}>
-						<Title tag={TitleTag.h2} variant={TitleVariant.section}>
-							Sesje
-						</Title>
-						{!!sessions?.length && (
+				<main className={scheduleStyles.main}>
+					<Container as={Tag.Section} classes={scheduleStyles.container}>
+						<header className={scheduleStyles.header}>
+							<Title tag={TitleTag.h2} variant={TitleVariant.section}>
+								Harmonogramy
+							</Title>
 							<Button
 								as={ButtonTag.InternalLink}
 								variant={ButtonVariant.Outline}
-								href='/schedules/add-session'
+								href='/schedules/add-schedule'
 								classes={styles.button}>
 								Dodaj <Add />
 							</Button>
-						)}
-					</header>
-					{!!!sessions?.length ? (
-						<Empty
-							text='Dodałeś właśnie swój pierwszy harmonogram! 
-					Utwórz teraz nową sesję'
-							button={{text: 'Nowa sesja', link: '/schedules/add-session'}}
-							icon={<Sessions />}
-						/>
-					) : (
+						</header>
 						<div className={scheduleStyles.list}>
-							{sessions.map((item) => (
+							{schedules.map((item) => (
 								<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
 							))}
 						</div>
-					)}
-				</Container>
+					</Container>
+					<Container as={Tag.Section} classes={scheduleStyles.container}>
+						<header className={scheduleStyles.header}>
+							<Title tag={TitleTag.h2} variant={TitleVariant.section}>
+								Sesje
+							</Title>
+							{!!sessions?.length && (
+								<Button
+									as={ButtonTag.InternalLink}
+									variant={ButtonVariant.Outline}
+									href='/schedules/add-session'
+									classes={styles.button}>
+									Dodaj <Add />
+								</Button>
+							)}
+						</header>
+						{!!!sessions?.length ? (
+							<Empty
+								text='Dodałeś właśnie swój pierwszy harmonogram! 
+					Utwórz teraz nową sesję'
+								button={{text: 'Nowa sesja', link: '/schedules/add-session'}}
+								icon={<Sessions />}
+							/>
+						) : (
+							<div className={scheduleStyles.list}>
+								{sessions.map((item) => (
+									<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
+								))}
+							</div>
+						)}
+					</Container>
+				</main>
 			</>
 		);
 	}, [schedules, sessions]);

@@ -59,7 +59,6 @@ const Input = (props: InputProps) => {
 			setCurrentChip(e.target.value);
 		} else {
 			const errorMessage = validation(touched, e.target.value, name, required);
-			console.log(errorMessage);
 			valueChangeHandler(name, {
 				value: e.target.value,
 				errorMessage,

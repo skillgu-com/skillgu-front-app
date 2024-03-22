@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Components
 import {NavTitle} from '@newComponents/typography';
@@ -40,7 +40,7 @@ const ScheduleForm = () => {
 			const fromDate = new Date(value.value).getTime();
 			const toDate = new Date(form.dateTo.value).getTime();
 
-			if (fromDate >= toDate)
+			if (fromDate >= toDate || !!!fromDate)
 				return setForm({
 					...form,
 					[name]: {...value, errorMessage: 'Nieprawidłowa data!'},
@@ -51,7 +51,7 @@ const ScheduleForm = () => {
 			const fromDate = new Date(form.dateTo.value).getTime();
 			const toDate = new Date(value.value).getTime();
 
-			if (fromDate > toDate)
+			if (fromDate > toDate || !!!toDate)
 				return setForm({
 					...form,
 					[name]: {...value, errorMessage: 'Nieprawidłowa data!'},
@@ -67,6 +67,35 @@ const ScheduleForm = () => {
 		navigate('/schedules');
 	};
 
+	const disabled = useMemo(() => {
+		if (
+			(!!form.monday.value && !form.monday.isValid) ||			
+			(!!form.tuesday.value && !form.tuesday.isValid) ||
+			(!!form.wednesday.value && !form.wednesday.isValid) ||
+			(!!form.thursday.value && !form.thursday.isValid) ||
+			(!!form.friday.value && !form.friday.isValid) ||
+			(!!form.saturday.value && !form.saturday.isValid) ||
+			(!!form.sunday.value && !form.sunday.isValid)
+		)
+			return true;
+
+		if (
+			form.name.isValid &&
+			form.dateFrom.isValid &&
+			form.dateTo.isValid &&
+			(form.monday.value ||
+				form.wednesday.value ||
+				form.thursday.value ||
+				form.tuesday.value ||
+				form.friday.value ||
+				form.saturday.value ||
+				form.sunday.value)
+		)
+			return false;
+
+		return true;
+	}, [form]);
+
 	return (
 		<Container as={Tag.Section} classes={stylesSessions.wrapper}>
 			<NavTitle>Szczegóły harmonogramu</NavTitle>
@@ -75,6 +104,7 @@ const ScheduleForm = () => {
 					id='name'
 					name='name'
 					type='text'
+					required
 					placeholder={'nazwa harmonogramu'}
 					value={form.name.value}
 					errorMessage={form.name.errorMessage}
@@ -123,6 +153,7 @@ const ScheduleForm = () => {
 							id='dateFrom'
 							name='dateFrom'
 							type='date'
+							required
 							value={form.dateFrom.value}
 							errorMessage={form.dateFrom.errorMessage}
 							isValid={form.dateFrom.isValid}
@@ -134,6 +165,7 @@ const ScheduleForm = () => {
 							id='dateTo'
 							name='dateTo'
 							type='date'
+							required
 							value={form.dateTo.value}
 							errorMessage={form.dateTo.errorMessage}
 							isValid={form.dateTo.isValid}
@@ -191,7 +223,11 @@ const ScheduleForm = () => {
 					valueChangeHandler={updateFormHandler}
 				/>
 
-				<Button classes={styles.formButton} fullWidth type='submit'>
+				<Button
+					classes={styles.formButton}
+					fullWidth
+					type='submit'
+					disableButton={disabled}>
 					Zapisz zmiany
 				</Button>
 			</form>

@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 // Components
 import Checkbox from '@newComponents/Checkbox/Checkbox';
-import Input, {defaultInput} from '@newComponents/Input/Input';
+import {defaultInput} from '@newComponents/Input/Input';
 // Icons
 import Add from '@icons/Add';
 import Trash from '../icons/Trash';
@@ -35,8 +35,6 @@ const WeekTime = (props: WeekTimeProps) => {
 
 		if (!value.value) {
 			valueChangeHandler(name, {errorMessage: '', isValid: true, value: false});
-		} else {
-			valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
 		}
 	};
 
@@ -146,8 +144,20 @@ const WeekTime = (props: WeekTimeProps) => {
 	}, [currentTimes, error, timeIndex, time, meetingTime]);
 
 	useEffect(() => {
-		if (checkbox.value)
-			valueChangeHandler(name, {errorMessage: '', isValid: true, value: time});
+		if (checkbox.value) {
+			let error = '';
+			Object.keys(time).map((index) => {
+				if (!!!time[index].to || !!!time[index].from) {
+					error = 'Nieprawidłowe godziny!';
+					setError('Nieprawidłowe godziny!');
+				}
+			});
+			valueChangeHandler(name, {
+				errorMessage: error,
+				isValid: !!!error,
+				value: time,
+			});
+		}
 	}, [name, time, checkbox.value]);
 
 	return (

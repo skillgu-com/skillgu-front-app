@@ -15,17 +15,36 @@
 
 .container {
 	.list {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
 		gap: 32px 20px;
+		margin-top: 32px;
 
 		> * {
-			flex: 1 0 300px;
+			grid-column: 1/-1;
+		}
+		
+		@media screen and (min-width: $sm) {
+			> * {
+				grid-column: span 3;
+			}
+		}
+		
+		@media screen and (min-width: $md) {
+			> * {
+				grid-column: 1/-1;
+			}
 		}
 
 		@media screen and (min-width: $lg) {
 			> * {
-				max-width: 336px;
+				grid-column: span 3;
+			}
+		}
+
+		@media screen and (min-width: $xl) {
+			> * {
+				grid-column: span 2;
 			}
 		}
 	}

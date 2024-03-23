@@ -17,6 +17,8 @@ import ScheduleCard, {
 // Styles
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
+import {fetchMentorSession} from "../../../services/SessionService";
+import {fetchAllSchedules} from "../../../services/ScheduleService";
 
 const SchedulesView = () => {
 	const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
@@ -32,39 +34,77 @@ const SchedulesView = () => {
 	);
 
 	useEffect(() => {
-		setSchedules([
-			{
-				id: '01',
-				title: 'Test',
+		fetchAllSchedules().then(res => {
+
+			const formatSchedules = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+				id: elementFromAPI.id,
 				dateStart: new Date(),
 				dateEnd: new Date(),
-				time: 60,
-				schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-			},
-			{
-				id: '02',
-				title: 'Test',
-				dateStart: new Date(),
-				dateEnd: new Date(),
-				time: 60,
-				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-			},
-		]);
-		setSessions([
-			{
-				id: '01',
-				title: 'Test',
-				dateStart: new Date(),
-				dateEnd: new Date(),
-				time: 60,
-				session: {
-					price: 250,
-					description:
-						'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
-				},
-			},
-		]);
+				meetTime: elementFromAPI.meetTime,
+				scheduleName: elementFromAPI?.scheduleName,
+				schedule: {
+					type: elementFromAPI.schedule?.type || 'individual',
+					created: elementFromAPI.schedule?.created || new Date(),
+					assignedSessions: elementFromAPI.schedule?.assignedSessions ?? 0
+				}
+			}));
+			setSchedules(formatSchedules);
+			console.log(formatSchedules)
+
+		});
 	}, []);
+
+	// useEffect(() => {
+	// 	fetchMentorSession(1).then(res => {
+	// 		const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+	// 			id: elementFromAPI?.id,
+	// 			dateStart: new Date(),
+	// 			dateEnd: new Date(),
+	// 			name: elementFromAPI?.sessionName,
+	// 			meetTime: elementFromAPI?.meetTime,
+	// 			session: {
+	// 				price: elementFromAPI?.session?.price,
+	// 				description: elementFromAPI?.session?.description,
+	// 			},
+	// 		}));
+	// 		setSessions(formattedSessions);
+	// 	});
+	// }, []);
+
+	// useEffect(() => {
+	// 	setSchedules([
+	// 		{
+	// 			id: '01',
+	// 			title: 'Test',
+	// 			dateStart: new Date(),
+	// 			dateEnd: new Date(),
+	// 			meetTime: 60,
+	// 			schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
+	// 		},
+	// 		{
+	// 			id: '02',
+	// 			title: 'Test',
+	// 			dateStart: new Date(),
+	// 			dateEnd: new Date(),
+	// 			time: 60,
+	// 			schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+	// 		},
+	// 	]);
+	// 	setSessions([
+	// 		{
+	// 			id: '01',
+	// 			title: 'Test',
+	// 			dateStart: new Date(),
+	// 			dateEnd: new Date(),
+	// 			time: 60,
+	// 			session: {
+	// 				price: 250,
+	// 				description:
+	// 					'Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow union align.',
+	// 			},
+	// 		},
+	// 	]);
+	// }, []);
 
 	const currentView = useMemo(() => {
 		if (!!!schedules?.length)

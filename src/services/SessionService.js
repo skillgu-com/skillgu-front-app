@@ -1,13 +1,14 @@
 import axios from "axios";
 
-export const createSession = async (sessionName, sessionPrice, sessionID, scheduleID,sessionDescription) => {
+export const createSession = async (session) => {
+    console.log(session)
 
     return await axios.post('/api/1.0/session', {
-        sessionName: sessionName,
-        sessionPrice: sessionPrice,
-        sessionID: sessionID,
-        scheduleID: scheduleID,
-        sessionDescription: sessionDescription
+        sessionName: session?.sessionName,
+        sessionPrice: session?.sessionPrice,
+        sessionID: session?.sessionID,
+        scheduleID: session?.scheduleID,
+        sessionDescription: session?.sessionDescription
     });
 }
 

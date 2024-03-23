@@ -15,8 +15,9 @@ export interface ScheduleCardProps {
 	id: string;
 	dateStart: Date;
 	dateEnd: Date;
-	time: number;
+	meetTime: number;
 	title: string;
+	scheduleName: string;
 	removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
 	schedule?: {
 		type: 'individual' | 'group';
@@ -33,14 +34,14 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 	if (!!!props.schedule && !!!props.session)
 		throw new Error('One of parameters schedule or session is required!');
 
-	const {id, dateStart, dateEnd, time, title, schedule, session, removeItem} = props;
+	const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, removeItem} = props;
 
 	const navigate = useNavigate();
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<h3 className={styles.title}>{title}</h3>
+				<h3 className={styles.title}>{scheduleName}</h3>
 				<Options
 					options={[
 						{
@@ -92,10 +93,10 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 						{dateEnd.toLocaleDateString()}
 					</p>
 				)}
-				{time && (
+				{meetTime && (
 					<p>
 						<Timer />
-						{time} min
+						{meetTime} min
 					</p>
 				)}
 			</div>

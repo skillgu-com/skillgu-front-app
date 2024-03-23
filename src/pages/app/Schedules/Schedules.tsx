@@ -1,9 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 // Sections
 import Empty from './components/Empty/Empty';
+// Components
 import Container from '@newComponents/Container/Container';
 import {Title} from '@newComponents/typography';
 import Button from '@newComponents/Button/Button';
+import Pagination from '@newComponents/Pagination/Pagination';
 // Icons
 import Add from '@icons/Add';
 import Sessions from '@icons/Sessions';
@@ -40,6 +42,38 @@ const SchedulesView = () => {
 				dateEnd: new Date(),
 				time: 60,
 				schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
+			},
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+			},
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+			},
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
+			},
+			{
+				id: '02',
+				title: 'Test',
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				time: 60,
+				schedule: {type: 'group', created: new Date(), assignedSessions: 0},
 			},
 			{
 				id: '02',
@@ -97,6 +131,7 @@ const SchedulesView = () => {
 								<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
 							))}
 						</div>
+						<Pagination name='Schedules' maxPage={20}/>
 					</Container>
 					<Container as={Tag.Section} classes={scheduleStyles.container}>
 						<header className={scheduleStyles.header}>
@@ -127,6 +162,7 @@ const SchedulesView = () => {
 								))}
 							</div>
 						)}
+						<Pagination name='Sessions' maxPage={3}/>
 					</Container>
 				</main>
 			</>

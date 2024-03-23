@@ -14,7 +14,7 @@ import {Tag} from '@customTypes/tags';
 import styles from './ScheduleForm.module.scss';
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
 import StepInput from '@newComponents/StepInput/StepInput';
-import {createSession} from "../../../../../services/SessionService";
+import {createScheduleMeeting} from "../../../../../services/ScheduleService";
 
 const ScheduleForm = () => {
     const [form, setForm] = useState({
@@ -64,7 +64,7 @@ const ScheduleForm = () => {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
-        createSession(form).then(() => {
+        createScheduleMeeting(form).then(() => {
             navigate('/schedules');
         })
 

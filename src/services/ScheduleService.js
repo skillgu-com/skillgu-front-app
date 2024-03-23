@@ -1,22 +1,21 @@
 import axios from "axios";
 
-export const createScheduleMeeting = async (currentState) => {
-    const {name, dateFrom, dateTo, resign, type, time, ...days} = currentState;
-
-    const weekTimes = {};
-
-    Object.keys(days).forEach((day) => {
-        // Sprawdzamy, czy dzień zawiera zakresy czasowe
-        if (Array.isArray(days[day]) && days[day].length > 0) {
-            // Tworzymy listę zakresów czasowych
-            const timeIntervals = days[day].map((element) => ({
-                from: { time: element.from },
-                to: { time: element.to }
+function extractTimeIntervalsFromDays(days, weekTimes) {
+    Object.keys(days).forEach((element) => {
+        if (days[element].value && typeof days[element].value === 'object' && Object.keys(days[element].value).length > 0) {
+            weekTimes[element] = Object.values(days[element].value).map((day) => ({
+                from: {time: day.from},
+                to: {time: day.to}
             }));
-            // Dodajemy dzień i odpowiadającą mu listę zakresów czasowych do mapy
-            weekTimes[day] = timeIntervals;
         }
     });
+}
+
+export const createScheduleMeeting = async (currentState) => {
+    const {name, dateFrom, dateTo, resign, type, time, ...days} = currentState;
+    const weekTimes = {};
+
+    extractTimeIntervalsFromDays(days, weekTimes);
 
     return await axios.post('/api/1.0/schedule', {
         scheduleName: name.value,

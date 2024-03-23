@@ -40,11 +40,11 @@
 			transition: background-color 0.24s;
 
 			&:hover {
-				background-color: $gray-color;
+				background-color: $new-gray-color;
 			}
 
 			&:not(:last-child) {
-				border-bottom: 1px dashed $gray-color;
+				border-bottom: 1px dashed $new-gray-color;
 			}
 		}
 	}

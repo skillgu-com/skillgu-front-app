@@ -1,13 +1,14 @@
 import axios from "axios";
 
-export const createSession = async (form) => {
-    console.log(form)
+export const createSession = async (session) => {
+    console.log(session)
+
     return await axios.post('/api/1.0/session', {
-        sessionName: form.name?.value,
-        sessionPrice: form.price?.value,
-        sessionID: form.sessionTypeId,
-        scheduleID: form.schedule,
-        sessionDescription: form.description?.value
+        sessionName: session?.sessionName,
+        sessionPrice: session?.sessionPrice,
+        sessionID: session?.sessionID,
+        scheduleID: session?.scheduleID,
+        sessionDescription: session?.sessionDescription
     });
 }
 
@@ -17,9 +18,5 @@ export const getSessionNumber = async () => {
 
 
 export const fetchMentorSession = async (userID) => {
-    return await axios.get(`/api/1.0/mentor-sessions`, {params: {userID}});
-}
-
-export const getSessionTypes = async () => {
-    return await axios.get('/api/session-types/get-all')
+    return await axios.get(`/api/1.0/mentor-sessions`, { params: { userID } });
 }

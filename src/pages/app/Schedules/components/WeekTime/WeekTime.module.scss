@@ -62,4 +62,8 @@
 	background-color: transparent;
 	cursor: pointer;
 	padding: 5px;
+
+	&:disabled{
+		opacity: .5;
+	}
 }

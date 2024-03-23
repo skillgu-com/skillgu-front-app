@@ -11,9 +11,9 @@ const Minus = () => {
 			<path
 				d='M1 1H11'
 				stroke='#E2E9FC'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.5'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 		</svg>
 	);

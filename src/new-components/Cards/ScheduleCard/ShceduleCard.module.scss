@@ -1,7 +1,7 @@
 @use '@styles/variables' as *;
 
 .wrapper {
-	border: 1px solid $gray-color;
+	border: 1px solid $new-gray-color;
 	padding: 24px;
 	border-radius: 8px;
 
@@ -23,6 +23,7 @@
 		font-weight: 500;
 		line-height: 18px;
 		margin-bottom: 8px;
+		color: #8e9abb;
 
 		&[data-is-assigned='true'] {
 			display: flex;
@@ -58,7 +59,7 @@
 	}
 
 	.bottom {
-		border-top: 1px dashed $gray-color;
+		border-top: 1px dashed $new-gray-color;
 		margin-left: -25px;
 		margin-right: -25px;
 		padding: 24px 24px 0;

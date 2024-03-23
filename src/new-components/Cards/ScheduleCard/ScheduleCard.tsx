@@ -16,14 +16,13 @@ export interface ScheduleCardProps {
 	dateStart: Date;
 	dateEnd: Date;
 	meetTime: number;
-	name: string;
+	title: string;
 	scheduleName: string;
 	removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
 	schedule?: {
 		type: 'individual' | 'group';
 		created: Date;
 		assignedSessions: number;
-
 	};
 	session?: {
 		description: string;
@@ -35,14 +34,14 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 	if (!!!props.schedule && !!!props.session)
 		throw new Error('One of parameters schedule or session is required!');
 
-	const {id, dateStart, dateEnd, meetTime, name, schedule, session, removeItem} = props;
+	const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, removeItem} = props;
 
 	const navigate = useNavigate();
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<h3 className={styles.title}>{name}</h3>
+				<h3 className={styles.title}>{scheduleName}</h3>
 				<Options
 					options={[
 						{

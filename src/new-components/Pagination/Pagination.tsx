@@ -46,7 +46,7 @@ const Pagination = (props: PaginationProps) => {
 				data-hidden={currentPage === 1}
 				disabled={currentPage === 1}
 				className={styles.sideButton}>
-				Prev
+				Poprzednia
 			</button>
 			<div className={styles.mobilePages}>
 				Strona {currentPage} z {maxPage}
@@ -112,7 +112,7 @@ const Pagination = (props: PaginationProps) => {
 				data-hidden={currentPage === maxPage}
 				disabled={currentPage === maxPage}
 				className={styles.sideButton}>
-				Next
+				Następna
 			</button>
 		</div>
 	);

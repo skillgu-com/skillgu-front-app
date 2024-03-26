@@ -54,7 +54,7 @@ const SessionForm = () => {
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
 
-        // console.log(form)
+        console.log(form)
         createSession(form).then(() => {
             navigate('/schedules');
         })

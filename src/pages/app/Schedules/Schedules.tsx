@@ -51,96 +51,104 @@ const SchedulesView = () => {
                 }
             }));
             setSchedules(formatSchedules);
-            console.log(formatSchedules)
 
         });
     }, []);
 
     useEffect(() => {
+        fetchMentorSession(1).then((res) => {
+
+        })
+    })
+
+    useEffect(() => {
         fetchMentorSession(1).then(res => {
-            const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+            const formattedSessions = res?.data.map((elementFromAPI: any) => ({
                 id: elementFromAPI?.id,
+                scheduleName:elementFromAPI?.name,
                 dateStart: new Date(),
                 dateEnd: new Date(),
-                name: 'test',
                 meetTime: elementFromAPI?.meetTime,
                 session: {
-                    price: elementFromAPI?.session?.price,
-                    description: elementFromAPI?.session?.description,
+                    description: elementFromAPI?.description,
+                    sessionPrice: elementFromAPI?.sessionPrice,
+                    meetTime: 'elementFromAPI?.meetTime',
                 },
             }));
+
             setSessions(formattedSessions);
+
         });
     }, []);
 
-	const currentView = useMemo(() => {
-		if (!!!schedules?.length)
-			return (
-				<Empty
-					title='Harmonogram spotkań'
-					text='Aby dodać sesję, najpierw ustal choć 1 harmonogram'
-					button={{text: 'Nowy harmonogram', link: '/schedules/add-schedule'}}
-				/>
-			);
+    const currentView = useMemo(() => {
+        if (!!!schedules?.length)
+            return (
+                <Empty
+                    title='Harmonogram spotkań'
+                    text='Aby dodać sesję, najpierw ustal choć 1 harmonogram'
+                    button={{text: 'Nowy harmonogram', link: '/schedules/add-schedule'}}
+                />
+            );
 
-		return (
-			<>
-				<main className={scheduleStyles.main}>
-					<Container as={Tag.Section} classes={scheduleStyles.container}>
-						<header className={scheduleStyles.header}>
-							<Title tag={TitleTag.h2} variant={TitleVariant.section}>
-								Harmonogramy
-							</Title>
-							<Button
-								as={ButtonTag.InternalLink}
-								variant={ButtonVariant.Outline}
-								href='/schedules/add-schedule'
-								classes={styles.button}>
-								Dodaj <Add />
-							</Button>
-						</header>
-						<div className={scheduleStyles.list}>
-							{schedules.map((item) => (
-								<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
-							))}
-						</div>
-						<Pagination name='Schedules' maxPage={20}/>
-					</Container>
-					<Container as={Tag.Section} classes={scheduleStyles.container}>
-						<header className={scheduleStyles.header}>
-							<Title tag={TitleTag.h2} variant={TitleVariant.section}>
-								Sesje
-							</Title>
-							{!!sessions?.length && (
-								<Button
-									as={ButtonTag.InternalLink}
-									variant={ButtonVariant.Outline}
-									href='/schedules/add-session'
-									classes={styles.button}>
-									Dodaj <Add />
-								</Button>
-							)}
-						</header>
-						{!!!sessions?.length ? (
-							<Empty
-								text='Dodałeś właśnie swój pierwszy harmonogram! 
+        return (
+            <>
+                <main className={scheduleStyles.main}>
+                    <Container as={Tag.Section} classes={scheduleStyles.container}>
+                        <header className={scheduleStyles.header}>
+                            <Title tag={TitleTag.h2} variant={TitleVariant.section}>
+                                Harmonogramy
+                            </Title>
+                            <Button
+                                as={ButtonTag.InternalLink}
+                                variant={ButtonVariant.Outline}
+                                href='/schedules/add-schedule'
+                                classes={styles.button}>
+                                Dodaj <Add/>
+                            </Button>
+                        </header>
+                        <div className={scheduleStyles.list}>
+                            {schedules.map((item) => (
+                                <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
+                            ))}
+                        </div>
+                        <Pagination name='Schedules' maxPage={20}/>
+                    </Container>
+                    <Container as={Tag.Section} classes={scheduleStyles.container}>
+                        <header className={scheduleStyles.header}>
+                            <Title tag={TitleTag.h2} variant={TitleVariant.section}>
+                                Sesje
+                            </Title>
+                            {!!sessions?.length && (
+                                <Button
+                                    as={ButtonTag.InternalLink}
+                                    variant={ButtonVariant.Outline}
+                                    href='/schedules/add-session'
+                                    classes={styles.button}>
+                                    Dodaj <Add/>
+                                </Button>
+                            )}
+                        </header>
+                        {!!!sessions?.length ? (
+                            <Empty
+                                text='Dodałeś właśnie swój pierwszy harmonogram!
 					Utwórz teraz nową sesję'
-								button={{text: 'Nowa sesja', link: '/schedules/add-session'}}
-								icon={<Sessions />}
-							/>
-						) : (
-							<div className={scheduleStyles.list}>
-								{sessions.map((item) => (
-									<ScheduleCard key={item.id} removeItem={removeItem} {...item} />
-								))}
-							</div>
-						)}
-						<Pagination name='Sessions' maxPage={3}/>
-					</Container>
-				</main>
-			</>
-		);
-	}, [schedules, sessions]);
+                                button={{text: 'Nowa sesja', link: '/schedules/add-session'}}
+                                icon={<Sessions/>}
+                            />
+                        ) : (
+                            <div className={scheduleStyles.list}>
+                                {sessions.map((item) => (
+                                    <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
+                                ))}
+                            </div>
+                        )}
+                        <Pagination name='Sessions' maxPage={3}/>
+                    </Container>
+                </main>
+            </>
+        );
+    }, [schedules, sessions]);
 
     return <>{currentView}</>;
 };

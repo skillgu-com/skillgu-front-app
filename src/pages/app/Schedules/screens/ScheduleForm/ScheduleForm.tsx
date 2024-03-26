@@ -1,4 +1,4 @@
-import React, {FormEvent, useMemo, useState} from 'react';
+import React, {FormEvent, useCallback, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Components
 import {NavTitle} from '@newComponents/typography';
@@ -36,7 +36,7 @@ const ScheduleForm = () => {
 
     const navigate = useNavigate();
 
-    const updateFormHandler = (name: string, value: any) => {
+    const updateFormHandler = useCallback((name: string, value: any) => {
         if (name === 'dateFrom') {
             const fromDate = new Date(value.value).getTime();
             const toDate = new Date(form.dateTo.value).getTime();
@@ -49,7 +49,7 @@ const ScheduleForm = () => {
         }
 
         if (name === 'dateTo') {
-            const fromDate = new Date(form.dateTo.value).getTime();
+            const fromDate = new Date(form.dateFrom.value).getTime();
             const toDate = new Date(value.value).getTime();
 
             if (fromDate > toDate || !!!toDate)
@@ -60,7 +60,7 @@ const ScheduleForm = () => {
         }
 
         setForm({...form, [name]: value});
-    };
+    }, [form]);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();

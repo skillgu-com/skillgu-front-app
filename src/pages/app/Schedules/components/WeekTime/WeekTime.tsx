@@ -54,14 +54,19 @@ const WeekTime = (props: WeekTimeProps) => {
 	const currentTimes = useMemo(() => Object.keys(time), [time]);
 
 	const hourValidation = useCallback(
-		(index: number, currentTime: number) =>
+		(index: number, currentTime: number, type: 'to' | 'from') =>
 			currentTimes
 				.map((timeId) => {
 					if (+timeId === index) return false;
 					if (!!!time[timeId].from || !!!time[timeId].to) return true;
-					const {toTime, fromTime} = getTimeRange(time[timeId].from, time[index].to);
+					const {toTime: to, fromTime: from} = getTimeRange(
+						time[index].from,
+						time[index].to
+					);
+					const toTime = type === 'to' ? currentTime : to;
+					const fromTime = type === 'from' ? currentTime : from;
 
-					if (toTime - fromTime < meetingTime) {
+					if (timeDifference(fromTime, toTime) < meetingTime) {
 						setError('Nieprawidłowe godziny!');
 						return true;
 					}
@@ -81,7 +86,7 @@ const WeekTime = (props: WeekTimeProps) => {
 		(e: ChangeEvent<HTMLInputElement>, index: number) => {
 			const {toTime, fromTime} = getTimeRange(e.target.value, time[index].to);
 
-			const isError = hourValidation(index, fromTime);
+			const isError = hourValidation(index, fromTime, 'from');
 
 			if (
 				toTime < fromTime ||
@@ -105,7 +110,7 @@ const WeekTime = (props: WeekTimeProps) => {
 		(e: ChangeEvent<HTMLInputElement>, index: number) => {
 			const {toTime, fromTime} = getTimeRange(time[index].from, e.target.value);
 
-			const isError = hourValidation(index, toTime);
+			const isError = hourValidation(index, toTime, 'to');
 
 			if (
 				toTime < fromTime ||
@@ -220,7 +225,7 @@ const WeekTime = (props: WeekTimeProps) => {
 						</div>
 					);
 				})}
-				{!!error && <p className={styles.error}>{error}</p>}
+				{!!error && checkbox.value && <p className={styles.error}>{error}</p>}
 			</div>
 		</div>
 	);

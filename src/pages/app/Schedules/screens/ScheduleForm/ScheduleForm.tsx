@@ -72,7 +72,6 @@ const ScheduleForm = () => {
 		});
 	};
 
-    console.log(form.monday);
 	const disabled = useMemo(() => {
         if (
 			form.monday.value === false &&

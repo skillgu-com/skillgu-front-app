@@ -45,12 +45,13 @@
 		"react-select": "^5.8.0",
 		"redux": "^4.2.1",
 		"redux-persist": "^6.0.0",
+		"serve": "^14.2.1",
 		"styled-components": "5.3.5",
 		"typescript": "^4.0.2",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start": "craco start",
+		"start": "if [ \"$NODE_ENV\" = \"production\" ]; then serve -s build; else craco start; fi",
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "craco eject",

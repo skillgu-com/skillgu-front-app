@@ -54,15 +54,21 @@ const WeekTime = (props: WeekTimeProps) => {
 	const currentTimes = useMemo(() => Object.keys(time), [time]);
 
 	const hourValidation = useCallback(
-		(index: number, currentTime: number, type: 'to' | 'from') =>
+		(currentRowId: number, currentTime: number, type: 'to' | 'from') =>
 			currentTimes
 				.map((timeId) => {
-					if (+timeId === index) return false;
-					if (!!!time[timeId].from || !!!time[timeId].to) return true;
+					if (+timeId === currentRowId) return false; // Omit validation
+
+					const otherFromTime = time[timeId].from
+					const otherToTime = time[timeId].to
+
+					if (!!!otherFromTime || !!!otherToTime) return true; // If any of this value not exist it cause error field can't be empty
+
 					const {toTime: to, fromTime: from} = getTimeRange(
-						time[index].from,
-						time[index].to
+						time[currentRowId].from,
+						time[currentRowId].to
 					);
+					
 					const toTime = type === 'to' ? currentTime : to;
 					const fromTime = type === 'from' ? currentTime : from;
 
@@ -71,12 +77,12 @@ const WeekTime = (props: WeekTimeProps) => {
 						return true;
 					}
 
-					const otherFromTime = new Date(
-						`01/01/2011 ${time[timeId].from}`
+					const otherFrom = new Date(
+						`01/01/2011 ${otherFromTime}`
 					).getTime();
-					const otherToTime = new Date(`01/01/2011 ${time[timeId].to}`).getTime();
+					const otherTo = new Date(`01/01/2011 ${otherToTime}`).getTime();
 
-					return otherFromTime <= currentTime && otherToTime >= currentTime;
+					return otherFrom <= currentTime && otherTo >= currentTime;
 				})
 				.some((el) => el === true),
 		[currentTimes, meetingTime, time]

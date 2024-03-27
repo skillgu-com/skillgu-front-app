@@ -1,7 +1,9 @@
 // Library
 import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-//Styles
+// Assets
+import Arrow from '@icons/Arrow';
+// Styles
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
@@ -46,7 +48,8 @@ const Pagination = (props: PaginationProps) => {
 				data-hidden={currentPage === 1}
 				disabled={currentPage === 1}
 				className={styles.sideButton}>
-				Poprzednia
+				<Arrow />
+				<span>Poprzednia</span>
 			</button>
 			<div className={styles.mobilePages}>
 				Strona {currentPage} z {maxPage}
@@ -112,7 +115,7 @@ const Pagination = (props: PaginationProps) => {
 				data-hidden={currentPage === maxPage}
 				disabled={currentPage === maxPage}
 				className={styles.sideButton}>
-				Następna
+				<span>Następna</span> <Arrow />
 			</button>
 		</div>
 	);

@@ -13,6 +13,18 @@
 	padding-top: 40px;
 }
 
+.modalText {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 28.8px;
+	text-align: left;
+
+	span {
+		font-weight: 600;
+		color: $primary-color;
+	}
+}
+
 .container {
 	.list {
 		display: grid;
@@ -23,13 +35,7 @@
 		> * {
 			grid-column: 1/-1;
 		}
-		
-		@media screen and (min-width: $sm) {
-			> * {
-				grid-column: span 3;
-			}
-		}
-		
+
 		@media screen and (min-width: $md) {
 			> * {
 				grid-column: 1/-1;
@@ -42,7 +48,7 @@
 			}
 		}
 
-		@media screen and (min-width: $xl) {
+		@media screen and (min-width: $xxl) {
 			> * {
 				grid-column: span 2;
 			}

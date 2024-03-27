@@ -6,6 +6,7 @@ import Container from '@newComponents/Container/Container';
 import {Title} from '@newComponents/typography';
 import Button from '@newComponents/Button/Button';
 import Pagination from '@newComponents/Pagination/Pagination';
+import Modal from '@newComponents/Modal/Modal';
 // Icons
 import Add from '@icons/Add';
 import Sessions from '@icons/Sessions';
@@ -25,20 +26,22 @@ import {fetchAllSchedules} from '../../../services/ScheduleService';
 const SchedulesView = () => {
 	const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
 	const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
 	const removeItem = useCallback(
 		(id: string, arrayType: 'schedules' | 'sessions') => {
-			arrayType === 'schedules'
-				? setSchedules(schedules.filter((item) => item.id !== id))
-				: setSessions(sessions.filter((item) => item.id !== id));
+			if (arrayType === 'schedules') {
+				setIsModalOpen(true);
+				// setSchedules(schedules.filter((item) => item.id !== id));
+			} else {
+				setSessions(sessions.filter((item) => item.id !== id));
+			}
 		},
 		[schedules, sessions]
 	);
 
 	useEffect(() => {
 		fetchAllSchedules().then((res) => {
-			console.log(res);
-
 			const formatSchedules = res?.data.map(
 				(elementFromAPI: ScheduleCardProps) => ({
 					id: elementFromAPI.id,
@@ -149,7 +152,19 @@ const SchedulesView = () => {
 		);
 	}, [schedules, sessions]);
 
-	return <>{currentView}</>;
+	return (
+		<>
+			{currentView}
+			{isModalOpen && (
+				<Modal title='' closeHandler={() => setIsModalOpen(false)}>
+					<Title tag={TitleTag.h2} variant={TitleVariant.section}>
+						Nie możesz usunąć harmonogramu
+					</Title>
+					<p className={scheduleStyles.modalText}>Nie można usunąć harmonogramu, ponieważ jest on przypisany do <span>tej sesji.</span></p>
+				</Modal>
+			)}
+		</>
+	);
 };
 
 export default SchedulesView;

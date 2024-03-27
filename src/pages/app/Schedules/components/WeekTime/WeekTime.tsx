@@ -30,14 +30,6 @@ const WeekTime = (props: WeekTimeProps) => {
 	const [timeIndex, setTimeIndex] = useState(0);
 	const [error, setError] = useState('');
 
-	const changeCheckboxHandler = (_name: string, value: any) => {
-		setCheckbox(value);
-
-		if (!value.value) {
-			valueChangeHandler(name, {errorMessage: '', isValid: true, value: false});
-		}
-	};
-
 	const timeDifference = (from: number, to: number): number =>
 		(to - from) / 1000 / 60;
 
@@ -63,17 +55,19 @@ const WeekTime = (props: WeekTimeProps) => {
 							time[timeId].to
 						);
 
-						if (timeDifference(fromTime, toTime) < meetingTime) {
+						const isInvalid = timeDifference(fromTime, toTime) < meetingTime;
+
+						if (isInvalid) {
 							setError('Nieprawidłowe godziny!');
-							return true;
+						} else {
+							setError('');
 						}
-						
-						setError('');
-						return false;
+
+						return isInvalid;
 					}
 
-					if (currentTime === undefined) throw new Error('CurrentTime is Required!')
-					
+					if (currentTime === undefined) throw new Error('CurrentTime is Required!');
+
 					if (+timeId === currentRowId) return false; // Omit validation
 
 					const otherFromTime = time[timeId].from;
@@ -171,23 +165,53 @@ const WeekTime = (props: WeekTimeProps) => {
 
 	useEffect(() => {
 		if (checkbox.value) {
-			let error = '';
+			let err = error;
 			Object.keys(time).map((index) => {
 				if (!!!time[index].to || !!!time[index].from) {
-					error = 'Nieprawidłowe godziny!';
+					err = 'Nieprawidłowe godziny!';
 					setError('Nieprawidłowe godziny!');
 				}
 			});
 			valueChangeHandler(name, {
-				errorMessage: error,
-				isValid: !!!error,
+				errorMessage: err,
+				isValid: !!!err,
 				value: time,
 			});
 		}
-	}, [name, time, checkbox.value]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [name, time, error]);
+
+	const changeCheckboxHandler = (_name: string, value: any) => {
+		setCheckbox(value);
+
+		if (value.value === true) {
+			const isError = hourValidation(null);
+
+			valueChangeHandler(name, {
+				errorMessage: isError ? 'Nieprawidłowe godziny!' : '',
+				isValid: !isError,
+				value: time,
+			});
+		} else {
+			valueChangeHandler(name, {
+				errorMessage: '',
+				isValid: true,
+				value: false,
+			});
+		}
+	};
 
 	useEffect(() => {
-		hourValidation(null);
+		if (checkbox.value) {
+			const isError = hourValidation(null);
+
+			valueChangeHandler(name, {
+				errorMessage: isError ? 'Nieprawidłowe godziny!' : '',
+				isValid: !isError,
+				value: time,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [meetingTime]);
 
 	return (

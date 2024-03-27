@@ -1,9 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 // Sections
 import Empty from './components/Empty/Empty';
+// Components
 import Container from '@newComponents/Container/Container';
 import {Title} from '@newComponents/typography';
 import Button from '@newComponents/Button/Button';
+import Pagination from '@newComponents/Pagination/Pagination';
 // Icons
 import Add from '@icons/Add';
 import Sessions from '@icons/Sessions';
@@ -49,66 +51,35 @@ const SchedulesView = () => {
                 }
             }));
             setSchedules(formatSchedules);
-            console.log(formatSchedules)
 
         });
     }, []);
 
     useEffect(() => {
+        fetchMentorSession(1).then((res) => {
+
+        })
+    })
+
+    useEffect(() => {
         fetchMentorSession(1).then(res => {
-            const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
+            const formattedSessions = res?.data.map((elementFromAPI: any) => ({
                 id: elementFromAPI?.id,
+                scheduleName:elementFromAPI?.name,
                 dateStart: new Date(),
                 dateEnd: new Date(),
-                name: 'test',
                 meetTime: elementFromAPI?.meetTime,
                 session: {
-                    price: elementFromAPI?.session?.price,
-                    description: elementFromAPI?.session?.description,
+                    description: elementFromAPI?.description,
+                    sessionPrice: elementFromAPI?.sessionPrice,
+                    meetTime: 'elementFromAPI?.meetTime',
                 },
             }));
+
             setSessions(formattedSessions);
+
         });
     }, []);
-
-
-        // useEffect(() => {
-        // 	setSchedules([
-        // 		{
-        // 			id: '01',
-        // 			title: 'Test',
-        // 			dateStart: new Date(),
-        // 			dateEnd: new Date(),
-        // 			meetTime: 60,
-        // 			schedule: {type: 'individual', created: new Date(), assignedSessions: 1},
-        // 		},
-        // 		{
-        // 			id: '02',
-        // 			title: 'Test',
-        // 			dateStart: new Date(),
-        // 			dateEnd: new Date(),
-        // 			time: 60,
-        // 			schedule: {type: 'group', created: new Date(), assignedSessions: 0},
-        // 		},
-        // 	]);
-    //     setSessions([
-    //         {
-    //             id: 1,
-    //             dateStart: new Date(),
-    //             dateEnd: new Date(),
-    //             name: 'test',
-    //             meetTime: elementFromAPI?.meetTime,
-    //             session: {
-    //                 price: elementFromAPI?.session?.price,
-    //                 description: elementFromAPI?.session?.description,
-    //             },
-    //         })
-    // )
-    //     ;
-    // ])
-    //     ;
-    // }, []);
-
 
     const currentView = useMemo(() => {
         if (!!!schedules?.length)
@@ -141,6 +112,7 @@ const SchedulesView = () => {
                                 <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
                             ))}
                         </div>
+                        <Pagination name='Schedules' maxPage={20}/>
                     </Container>
                     <Container as={Tag.Section} classes={scheduleStyles.container}>
                         <header className={scheduleStyles.header}>
@@ -171,6 +143,7 @@ const SchedulesView = () => {
                                 ))}
                             </div>
                         )}
+                        <Pagination name='Sessions' maxPage={3}/>
                     </Container>
                 </main>
             </>

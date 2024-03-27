@@ -54,13 +54,30 @@ const WeekTime = (props: WeekTimeProps) => {
 	const currentTimes = useMemo(() => Object.keys(time), [time]);
 
 	const hourValidation = useCallback(
-		(currentRowId: number, currentTime: number, type: 'to' | 'from') =>
+		(currentRowId: number | null, currentTime?: number, type?: 'to' | 'from') =>
 			currentTimes
 				.map((timeId) => {
+					if (currentRowId === null) {
+						const {toTime, fromTime} = getTimeRange(
+							time[timeId].from,
+							time[timeId].to
+						);
+
+						if (timeDifference(fromTime, toTime) < meetingTime) {
+							setError('Nieprawidłowe godziny!');
+							return true;
+						}
+						
+						setError('');
+						return false;
+					}
+
+					if (currentTime === undefined) throw new Error('CurrentTime is Required!')
+					
 					if (+timeId === currentRowId) return false; // Omit validation
 
-					const otherFromTime = time[timeId].from
-					const otherToTime = time[timeId].to
+					const otherFromTime = time[timeId].from;
+					const otherToTime = time[timeId].to;
 
 					if (!!!otherFromTime || !!!otherToTime) return true; // If any of this value not exist it cause error field can't be empty
 
@@ -68,7 +85,7 @@ const WeekTime = (props: WeekTimeProps) => {
 						time[currentRowId].from,
 						time[currentRowId].to
 					);
-					
+
 					const toTime = type === 'to' ? currentTime : to;
 					const fromTime = type === 'from' ? currentTime : from;
 
@@ -77,9 +94,7 @@ const WeekTime = (props: WeekTimeProps) => {
 						return true;
 					}
 
-					const otherFrom = new Date(
-						`01/01/2011 ${otherFromTime}`
-					).getTime();
+					const otherFrom = new Date(`01/01/2011 ${otherFromTime}`).getTime();
 					const otherTo = new Date(`01/01/2011 ${otherToTime}`).getTime();
 
 					return otherFrom <= currentTime && otherTo >= currentTime;
@@ -170,6 +185,10 @@ const WeekTime = (props: WeekTimeProps) => {
 			});
 		}
 	}, [name, time, checkbox.value]);
+
+	useEffect(() => {
+		hourValidation(null);
+	}, [meetingTime]);
 
 	return (
 		<div className={styles.wrapper}>

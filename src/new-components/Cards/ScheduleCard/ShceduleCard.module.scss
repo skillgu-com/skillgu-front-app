@@ -6,10 +6,18 @@
 	border-radius: 8px;
 
 	.header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
 		margin-bottom: 8px;
+
+		> div {
+			position: absolute;
+			top: 0;
+			right: 0;
+			transform: translateX(20px) translateY(-20px);
+		}
 	}
 
 	.title {

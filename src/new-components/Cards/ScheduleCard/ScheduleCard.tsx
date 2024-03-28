@@ -38,8 +38,6 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     if (!!!props.schedule && !!!props.session)
         throw new Error('One of parameters schedule or session is required!');
 
-    console.log(props)
-
     const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, removeItem} = props;
 
     const navigate = useNavigate();

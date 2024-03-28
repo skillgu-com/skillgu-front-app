@@ -37,8 +37,6 @@ const SchedulesView = () => {
 
     useEffect(() => {
         fetchAllSchedules().then(res => {
-            console.log(res);
-
             const formatSchedules = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
                 id: elementFromAPI.id,
                 dateStart: new Date(),

@@ -22,6 +22,8 @@ import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
 import {deleteSchedule, fetchAllSchedules} from '../../../services/ScheduleService';
+import {parseISO} from "date-fns";
+
 
 const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
@@ -43,7 +45,7 @@ const SchedulesView = () => {
                     });
                 }
             } else {
-                deleteSession(id).then(()=>{
+                deleteSession(id).then(() => {
                     setSessions(sessions.filter((item) => item.id !== id));
                 })
             }
@@ -51,17 +53,19 @@ const SchedulesView = () => {
         [schedules, sessions]
     );
 
+
     useEffect(() => {
         fetchAllSchedules().then((res) => {
             const formatSchedules = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
                     id: elementFromAPI.id,
-                    dateStart: new Date(),
-                    dateEnd: new Date(),
+                    dateStart: new Date(elementFromAPI?.scheduleStartDay),
+                    dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI.meetTime,
                     scheduleName: elementFromAPI?.scheduleName,
+                    participant: elementFromAPI?.participant,
                     schedule: {
-                        type: elementFromAPI.schedule?.type || 'individual',
+                        type: elementFromAPI?.type,
                         created: elementFromAPI.schedule?.created || new Date(),
                         assignedSession: elementFromAPI.assignedSession ?? 0,
 
@@ -76,12 +80,14 @@ const SchedulesView = () => {
 
     useEffect(() => {
         fetchMentorSession(1).then((res) => {
+            console.log(res.data)
             const formattedSessions = res?.data.map((elementFromAPI: any) => ({
                 id: elementFromAPI?.id,
-                scheduleName: elementFromAPI?.name,
-                dateStart: new Date(),
-                dateEnd: new Date(),
+                scheduleName: elementFromAPI?.scheduleName,
+                dateStart: new Date(elementFromAPI?.scheduleStartDay),
+                dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                 meetTime: elementFromAPI?.meetTime,
+                sessionName: elementFromAPI?.sessionType,
                 session: {
                     description: elementFromAPI?.description,
                     sessionPrice: elementFromAPI?.sessionPrice,
@@ -92,8 +98,7 @@ const SchedulesView = () => {
         });
     }, []);
 
-    // console.log('tutaj jest sesja: ', sessions)
-    // console.log('tutaj są harmonogramy: ', schedules)
+    // console.log(sessions)
 
 
     const currentView = useMemo(() => {

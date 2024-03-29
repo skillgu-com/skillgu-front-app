@@ -12,11 +12,13 @@ function extractTimeIntervalsFromDays(days, weekTimes) {
 }
 
 export const createScheduleMeeting = async (currentState) => {
-    const {name, dateFrom, dateTo, resign, type, time, ...days} = currentState;
+    const {name, dateFrom, dateTo, resign, type, time, groupAmount, ...days} = currentState;
     const weekTimes = {};
 
     extractTimeIntervalsFromDays(days, weekTimes);
-
+    if (type.value === 'individual') {
+        groupAmount.value = 0;
+    }
     return await axios.post('/api/1.0/schedule', {
         scheduleName: name.value,
         scheduleStartDay: dateFrom.value,
@@ -24,7 +26,8 @@ export const createScheduleMeeting = async (currentState) => {
         meetTime: time.value,
         resign: resign.value,
         type: type.value,
-        weekTimes: weekTimes
+        weekTimes: weekTimes,
+        participant: groupAmount.value
     });
 };
 

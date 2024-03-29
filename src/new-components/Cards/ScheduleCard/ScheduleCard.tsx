@@ -16,11 +16,18 @@ export interface ScheduleCardProps {
     id: string;
     dateStart: Date;
     dateEnd: Date;
+    scheduleStartDay: string;
+    scheduleEndDay: string
     meetTime: number;
     title: string;
     scheduleName: string;
+    sessionName: string;
     removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
     assignedSession: number;
+    type: string;
+    participant: number;
+    sessionType: string;
+
     schedule?: {
         type: 'individual' | 'group';
         created: Date;
@@ -39,7 +46,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     if (!!!props.schedule && !!!props.session)
         throw new Error('One of parameters schedule or session is required!');
 
-    const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, removeItem} = props;
+    const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, sessionName, removeItem} = props;
 
     const navigate = useNavigate();
 
@@ -55,7 +62,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                <h3 className={styles.title}>{scheduleName}</h3>
+                <h3 className={styles.title}>{schedule ? scheduleName : sessionName}</h3>
                 <Options
                     options={[
                         {
@@ -85,7 +92,11 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         }`}
                 </p>
             )}
-            {!!session && <p>{session.description}</p>}
+            {!!session && (
+                <>
+                    <p>{session.description}</p>
+                </>
+            )}
 
             <div className={styles.bottom}>
                 {schedule?.type && (
@@ -98,10 +109,15 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         <Money/> {session.sessionPrice} zł
                     </p>
                 )}
-                {dateStart && dateEnd && (
+                {!!session && (
+                    <>
+                        <p> {scheduleName}</p>
+                    </>
+                )}
+
+                {!session && dateStart && dateEnd && (
                     <p>
-                        <Calendar/> {dateStart.toLocaleDateString()} -{' '}
-                        {dateEnd.toLocaleDateString()}
+                        <Calendar/> {dateStart.toLocaleDateString()} - {dateEnd.toLocaleDateString()}
                     </p>
                 )}
                 {meetTime && (

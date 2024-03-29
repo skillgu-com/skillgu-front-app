@@ -68,8 +68,7 @@ const ScheduleForm = () => {
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         createScheduleMeeting(form).then((res) => {
-            // navigate('/schedules');
-            // console.log("odpowiedz z serwera: ", res);
+            navigate('/schedules');
         }).catch(error => {
             console.error('Error creating schedule meeting:', error.response);
 

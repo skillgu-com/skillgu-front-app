@@ -31,3 +31,12 @@ export const createScheduleMeeting = async (currentState) => {
 export const fetchAllSchedules = async () => {
     return await axios.get('/api/1.0/schedule/fetch-all');
 }
+
+export const deleteSchedule = async (scheduleId) => {
+    try {
+        const response = await axios.delete(`/api/1.0/schedule/delete/${scheduleId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to delete schedule');
+    }
+};

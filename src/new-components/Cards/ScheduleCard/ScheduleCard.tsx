@@ -20,10 +20,11 @@ export interface ScheduleCardProps {
     title: string;
     scheduleName: string;
     removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
+    assignedSession: number;
     schedule?: {
         type: 'individual' | 'group';
         created: Date;
-        assignedSessions: number;
+        assignedSession: number;
     };
     session?: {
         name: string;
@@ -42,6 +43,15 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 
     const navigate = useNavigate();
 
+    const handleEditClick = () => {
+        console.log('Edycja')
+        navigate(!!session ? `/schedules/edit-session/${id}` : `/schedules/edit-schedule/${id}`);
+    };
+
+    const handleDeleteClick = () => {
+        !!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules');
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -51,16 +61,12 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         {
                             icon: <Pencil/>,
                             text: 'Edytuj',
-                            onClick: () => {
-                                navigate(!!session ? `/schedules/edit-session/${id}` : `/schedules/edit-schedule/${id}`);
-                            },
+                            onClick: handleEditClick,
                         },
                         {
                             icon: <Trash/>,
                             text: 'Usuń',
-                            onClick: () => {
-                                !!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules')
-                            },
+                            onClick: handleDeleteClick,
                         },
                     ]}
                 />
@@ -71,11 +77,11 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                 </>
             )}
             {!!schedule && (
-                <p data-is-assigned={schedule.assignedSessions !== 0}>
-                    {schedule.assignedSessions === 0
+                <p data-is-assigned={schedule.assignedSession !== 0}>
+                    {schedule.assignedSession === 0
                         ? 'Brak przypisanej sesji!'
-                        : `Używany w ${schedule.assignedSessions} ${
-                            schedule.assignedSessions === 1 ? 'sesji' : 'sesjach'
+                        : `Używany w ${schedule.assignedSession} ${
+                            schedule.assignedSession === 1 ? 'sesji' : 'sesjach'
                         }`}
                 </p>
             )}

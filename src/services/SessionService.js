@@ -21,3 +21,7 @@ export const fetchMentorSession = async (userID) => {
 export const getSessionTypes = async () => {
     return await axios.get('/api/session-types/get-all')
 }
+
+export const deleteSession = async (sessionID) => {
+    return await axios.post(`/api/1.0/session/delete?sessionID=${sessionID}`);
+};

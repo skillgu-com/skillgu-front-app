@@ -17,7 +17,7 @@ export enum PlanTypes {
 
 interface SessionData {
     id: number;
-    name: string;
+    sessionType: string;
     sessionTime: number;
     sessionPrice: number;
     description: string;

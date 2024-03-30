@@ -88,8 +88,6 @@ const BookForm = (props: BookFormProps) => {
                         available: item.available,
                     };
                     events.push(event);
-                    console.log(events)
-
                 });
                 setCombinedData(events);
             })

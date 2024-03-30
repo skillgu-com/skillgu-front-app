@@ -22,7 +22,7 @@ import {fetchMentorSession} from "../../../services/SessionService";
 
 interface SessionDataFromAPI {
     id: number;
-    name: string;
+    sessionType: string;
     sessionTime: number;
     sessionPrice: number;
     description: string;
@@ -54,9 +54,10 @@ const Profile = () => {
 
     useEffect(() => {
         fetchMentorSession(userID).then(res => {
+            console.log(res.data)
             const formattedSessions = res?.data.map((elementFromAPI: SessionDataFromAPI) => ({
                 sessionID: elementFromAPI?.id,
-                name: elementFromAPI?.name,
+                sessionType: elementFromAPI?.sessionType,
                 sessionPrice: elementFromAPI?.sessionPrice,
                 description: elementFromAPI?.description,
                 meetTime: elementFromAPI?.meetTime,
@@ -166,7 +167,7 @@ const Profile = () => {
                     {fetchMentorSessions.map(element => (
                         <SessionCard
                             key={element?.id}
-                            title={element?.name}
+                            title={element?.sessionType}
                             time={element?.meetTime}
                             price={element?.sessionPrice}
                             description={element?.description}

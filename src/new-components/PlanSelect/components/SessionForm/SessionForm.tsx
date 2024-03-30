@@ -26,13 +26,12 @@ const SessionForm = (props: SessionFormProps) => {
 
     const submitHandler = (e: FormEvent) => {
         const selectedSession = sessions.find((item: any) => item.sessionID === session);
-
         if (selectedSession) {
             dispatch({
                 type: 'SET_SESSION_IN_FORM',
                 payload: {
                     sessionID: selectedSession?.sessionID,
-                    name: selectedSession?.name,
+                    name: selectedSession?.sessionType,
                     time: selectedSession?.meetTime,
                     sessionPrice: selectedSession?.sessionPrice,
                     description: selectedSession?.description,
@@ -66,7 +65,7 @@ const SessionForm = (props: SessionFormProps) => {
                         valueChangeHandler={() => updateSessionHandler(item.sessionID)}
                         label={
                             <span className={styles.label}>
-								<strong>{item.name}</strong>
+								<strong>{item.sessionType}</strong>
 								<small>
 									{item.meetTime} minut / {item.sessionPrice} zł
 								</small>

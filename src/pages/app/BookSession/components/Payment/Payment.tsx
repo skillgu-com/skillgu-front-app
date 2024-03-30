@@ -11,7 +11,7 @@ const Payment = () => {
     const [clientSecret, setClientSecret] = useState('');
     const bookSession = useSelector((state: any) => state.book.bookSessionState);
 
-    console.log(bookSession)
+    console.log('BOOK SESSION: ',bookSession)
 
     useEffect(() => {
         createCheckoutSession(bookSession).then((res) => {

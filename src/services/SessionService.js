@@ -4,7 +4,7 @@ export const createSession = async (session) => {
     return await axios.post('/api/1.0/session', {
         sessionName: session?.name.value,
         sessionPrice: session?.price.value,
-        sessionID: session?.type,
+        sessionType: session?.type,
         scheduleID: session?.schedule,
         sessionDescription: session?.message.value
     });

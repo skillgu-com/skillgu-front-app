@@ -21,7 +21,7 @@ export interface ScheduleCardProps {
     meetTime: number;
     title: string;
     scheduleName: string;
-    sessionName: string;
+    sessionTypeName: string;
     removeItem?: (id: string, arrayType: 'schedules' | 'sessions') => void;
     assignedSession: number;
     type: string;
@@ -46,7 +46,9 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     if (!!!props.schedule && !!!props.session)
         throw new Error('One of parameters schedule or session is required!');
 
-    const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, sessionName, removeItem} = props;
+    const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, sessionTypeName, removeItem} = props;
+
+    // console.log(props)
 
     const navigate = useNavigate();
 
@@ -62,7 +64,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                <h3 className={styles.title}>{schedule ? scheduleName : sessionName}</h3>
+                <h3 className={styles.title}>{schedule ? scheduleName : sessionTypeName}</h3>
                 <Options
                     options={[
                         {
@@ -109,11 +111,11 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         <Money/> {session.sessionPrice} zł
                     </p>
                 )}
-                {!!session && (
+                {/*{session && (*/}
                     <>
-                        <p> {scheduleName}</p>
+                        <p> Przypisany do: {''}</p>
                     </>
-                )}
+                {/*)}*/}
 
                 {!session && dateStart && dateEnd && (
                     <p>

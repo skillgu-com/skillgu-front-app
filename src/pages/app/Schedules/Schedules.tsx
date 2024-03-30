@@ -87,7 +87,7 @@ const SchedulesView = () => {
                 dateStart: new Date(elementFromAPI?.scheduleStartDay),
                 dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                 meetTime: elementFromAPI?.meetTime,
-                sessionName: elementFromAPI?.sessionType,
+                sessionTypeName: elementFromAPI?.sessionType,
                 session: {
                     description: elementFromAPI?.description,
                     sessionPrice: elementFromAPI?.sessionPrice,
@@ -98,7 +98,7 @@ const SchedulesView = () => {
         });
     }, []);
 
-    // console.log(sessions)
+    console.log(sessions)
 
 
     const currentView = useMemo(() => {

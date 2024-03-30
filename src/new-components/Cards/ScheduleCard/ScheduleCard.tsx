@@ -27,11 +27,16 @@ export interface ScheduleCardProps {
     type: string;
     participant: number;
     sessionType: string;
+    description: string;
+    sessionPrice: number;
+    sessionName: string
 
     schedule?: {
         type: 'individual' | 'group';
         created: Date;
         assignedSession: number;
+        scheduleName: string,
+        participant: number
     };
     session?: {
         name: string;
@@ -39,6 +44,8 @@ export interface ScheduleCardProps {
         sessionPrice: number;
         sessionName: string
         meetTime: number
+        sessionTypeName: string;
+        scheduleName: string;
     };
 }
 
@@ -48,7 +55,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 
     const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, sessionTypeName, removeItem} = props;
 
-    // console.log(props)
+    console.log(props)
 
     const navigate = useNavigate();
 
@@ -64,7 +71,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                <h3 className={styles.title}>{schedule ? scheduleName : sessionTypeName}</h3>
+                <h3 className={styles.title}>{schedule ? schedule?.scheduleName : session?.sessionTypeName}</h3>
                 <Options
                     options={[
                         {
@@ -111,11 +118,12 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         <Money/> {session.sessionPrice} zł
                     </p>
                 )}
-                {/*{session && (*/}
+                {session && (
                     <>
-                        <p> Przypisany do: {''}</p>
+                        {/*<p>{session.scheduleName}</p>*/}
+                        <p> Przypisany do: {session.scheduleName}</p>
                     </>
-                {/*)}*/}
+                )}
 
                 {!session && dateStart && dateEnd && (
                     <p>

@@ -62,12 +62,13 @@ const SchedulesView = () => {
                     dateStart: new Date(elementFromAPI?.scheduleStartDay),
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI.meetTime,
-                    scheduleName: elementFromAPI?.scheduleName,
                     participant: elementFromAPI?.participant,
                     schedule: {
                         type: elementFromAPI?.type,
                         created: elementFromAPI.schedule?.created || new Date(),
                         assignedSession: elementFromAPI.assignedSession ?? 0,
+                        scheduleName: elementFromAPI?.scheduleName,
+                        participant: elementFromAPI?.participant,
 
 
                     },
@@ -80,26 +81,23 @@ const SchedulesView = () => {
 
     useEffect(() => {
         fetchMentorSession(1).then((res) => {
-            console.log(res.data)
-            const formattedSessions = res?.data.map((elementFromAPI: any) => ({
+            const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
                 id: elementFromAPI?.id,
-                scheduleName: elementFromAPI?.scheduleName,
                 dateStart: new Date(elementFromAPI?.scheduleStartDay),
                 dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                 meetTime: elementFromAPI?.meetTime,
-                sessionTypeName: elementFromAPI?.sessionType,
                 session: {
                     description: elementFromAPI?.description,
                     sessionPrice: elementFromAPI?.sessionPrice,
-                    meetTime: 'elementFromAPI?.meetTime',
+                    meetTime: elementFromAPI?.meetTime,
+                    sessionName: elementFromAPI?.sessionName,
+                    sessionTypeName: elementFromAPI?.sessionType,
+                    scheduleName: elementFromAPI?.scheduleName || 'brak pyrzpisanego harmonogramu',
                 },
             }));
             setSessions(formattedSessions);
         });
     }, []);
-
-    console.log(sessions)
-
 
     const currentView = useMemo(() => {
         if (!!!schedules?.length)

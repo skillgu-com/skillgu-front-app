@@ -22,7 +22,6 @@ import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
 import {deleteSchedule, fetchAllSchedules} from '../../../services/ScheduleService';
-import {parseISO} from "date-fns";
 
 
 const SchedulesView = () => {

@@ -35,9 +35,10 @@ export const fetchAllSchedules = async () => {
     return await axios.get('/api/1.0/schedule/fetch-all');
 }
 
-export const deleteSchedule = async (scheduleId) => {
+export const deleteSchedule = async (scheduleID) => {
+    console.log('scheduleID do usuniecia to: ', scheduleID)
     try {
-        const response = await axios.delete(`/api/1.0/schedule/delete/${scheduleId}`);
+        const response = await axios.post(`/api/1.0/schedule/delete?scheduleID=${scheduleID}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to delete schedule');

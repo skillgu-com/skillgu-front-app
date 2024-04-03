@@ -55,7 +55,6 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 
     const {id, dateStart, dateEnd, meetTime, scheduleName, schedule, session, sessionTypeName, removeItem} = props;
 
-    console.log(props)
 
     const navigate = useNavigate();
 

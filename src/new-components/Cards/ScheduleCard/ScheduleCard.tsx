@@ -120,7 +120,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                 {session && (
                     <>
                         {/*<p>{session.scheduleName}</p>*/}
-                        <p> Przypisany do: {session.scheduleName}</p>
+                        <p> Nazwa sesji: Nowe spotkania</p>
                     </>
                 )}
 

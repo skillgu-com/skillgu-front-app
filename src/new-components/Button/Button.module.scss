@@ -37,7 +37,8 @@
 	&[data-variant='outline'] {
 		background-color: transparent;
 		color: $primary-color;
-		border: 2px solid $primary-color;
+		font-weight: 500;
+		border: 1px solid $primary-color;
 
 		&:hover {
 			background-color: $primary-color;

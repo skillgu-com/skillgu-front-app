@@ -6,6 +6,14 @@ import validation from '../../helpers/improovedValidation';
 // Styles
 import styles from './Checkbox.module.scss';
 
+export type CheckboxValueCb = {
+	value: boolean
+	errorMessage?: string
+	isValid: boolean
+}
+
+export type CheckboxValueChangeHandler = (name: string, value: CheckboxValueCb) => void;
+
 interface CheckboxProps {
 	id: string;
 	name: string;
@@ -15,7 +23,7 @@ interface CheckboxProps {
 	value: boolean;
 	errorMessage?: string;
 	isValid?: boolean;
-	valueChangeHandler: (name: string, value: any) => void;
+	valueChangeHandler: CheckboxValueChangeHandler
 	classes?: string;
 	slide?: boolean;
 }

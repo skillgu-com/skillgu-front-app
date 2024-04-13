@@ -9,7 +9,7 @@ import styles from './Select.module.scss';
 interface SelectProps {
 	id: string;
 	name: string;
-	options: any;
+	options: any // { value: string, label: string }[];
 	value: string;
 	label: string;
 	valueChangeHandler: (name: string, value: any) => void;
@@ -24,7 +24,7 @@ const Select = (props: SelectProps) => {
 
 	return (
 		<div className={classNames(styles.select, inputStyles.input, classes)}>
-			<span className={styles.text}>{spanLabel}</span>
+			{spanLabel && <span className={styles.text}>{spanLabel}</span>}
 			<label className={inputStyles.selectLabel}>
 				<ReactSelect
 					isMulti={isMulti}

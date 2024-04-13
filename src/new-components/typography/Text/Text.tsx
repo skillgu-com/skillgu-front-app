@@ -9,10 +9,11 @@ interface TextProps extends Common {
 	as?: 'p' | 'span';
 	color?: FontColors;
 	style?: React.CSSProperties
+	onClick?: React.MouseEventHandler
 }
 
-const Text = ({children, classes, as: Tag = 'p', color, style}: TextProps) => (
-	<Tag className={classNames(styles.text, classes)} data-color={color} style={style}>
+const Text = ({children, classes, as: Tag = 'p', color, style, onClick}: TextProps) => (
+	<Tag onClick={onClick} className={classNames(styles.text, classes)} data-color={color} style={style}>
 		{children}
 	</Tag>
 );

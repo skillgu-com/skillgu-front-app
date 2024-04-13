@@ -1,0 +1,96 @@
+{
+    "categories": [
+        { 
+            "label": "Frontend 1",
+            "value": "frontend_1"
+        },
+        { 
+            "label": "Frontend 2",
+            "value": "frontend_2"
+        },
+        { 
+            "label": "Frontend 3",
+            "value": "frontend_3"
+        },
+        { 
+            "label": "Frontend 4",
+            "value": "frontend_4"
+        },
+        { 
+            "label": "Frontend 5",
+            "value": "frontend_5"
+        },
+        { 
+            "label": "Frontend 6",
+            "value": "frontend_6"
+        },
+        { 
+            "label": "Frontend 7",
+            "value": "frontend_7"
+        },
+        { 
+            "label": "Frontend 8",
+            "value": "frontend_8"
+        },
+        { 
+            "label": "Frontend 9",
+            "value": "frontend_9"
+        }
+    ],
+    "skills": [
+        { 
+            "label": "Figma",
+            "value": "figma"
+        },
+        { 
+            "label": "Photoshop",
+            "value": "photoshop"
+        },
+        { 
+            "label": "Canva",
+            "value": "canva"
+        },
+        { 
+            "label": "Excel",
+            "value": "excel"
+        },
+        { 
+            "label": "Skill 5",
+            "value": "skill_5"
+        },
+        { 
+            "label": "Skill 6",
+            "value": "skill_6"
+        },
+        { 
+            "label": "Skill 7",
+            "value": "skill_7"
+        },
+        { 
+            "label": "Skill 8",
+            "value": "skill_8"
+        },
+        { 
+            "label": "Skill 9",
+            "value": "skill_9"
+        }
+    ],
+    "services": [
+        { 
+            "label": "Service 1",
+            "value": "service_5"
+        },
+        { 
+            "label": "Service 2",
+            "value": "service_6"
+        },
+        { 
+            "label": "Service 3",
+            "value": "service_7"
+        },
+        { 
+            "label": "Service 4",
+            "value": "service_8"
+        }
+    ]
+}

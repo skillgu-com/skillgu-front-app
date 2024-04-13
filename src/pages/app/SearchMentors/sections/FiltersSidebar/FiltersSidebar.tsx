@@ -10,13 +10,13 @@ import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
 
 type FiltersSidebarProps = {
   terms: Terms;
-  filtersSelected: FiltersSelected;
+  filters: FiltersSelected;
   handleChange: (filters: Partial<FiltersSelected>) => void;
 };
-
+ 
 export const FiltersSidebar = ({
   terms,
-  filtersSelected,
+  filters,
   handleChange,
 }: FiltersSidebarProps) => {
   return (
@@ -25,8 +25,8 @@ export const FiltersSidebar = ({
         <FiltersRange
           min={0}
           max={299}
-          valueMin={filtersSelected.priceMin}
-          valueMax={filtersSelected.priceMax}
+          valueMin={filters.priceMin}
+          valueMax={filters.priceMax}
           handleChange={(min: number, max: number) => {
             handleChange({
               priceMin: min,
@@ -40,7 +40,7 @@ export const FiltersSidebar = ({
           name="categories"
           startedRows={5}
           options={terms.categories}
-          selected={filtersSelected.categories}
+          selected={filters.categories}
           handleChange={(name: FilterName, selected: Option[]) => {
             handleChange({
               [name]: selected,
@@ -53,7 +53,7 @@ export const FiltersSidebar = ({
           name="skills"
           startedRows={5}
           options={terms.skills}
-          selected={filtersSelected.skills}
+          selected={filters.skills}
           handleChange={(name: FilterName, selected: Option[]) => {
             handleChange({
               [name]: selected,
@@ -66,7 +66,7 @@ export const FiltersSidebar = ({
           name="services"
           startedRows={5}
           options={terms.services}
-          selected={filtersSelected.services}
+          selected={filters.services}
           handleChange={(name: FilterName, selected: Option[]) => {
             handleChange({
               [name]: selected,

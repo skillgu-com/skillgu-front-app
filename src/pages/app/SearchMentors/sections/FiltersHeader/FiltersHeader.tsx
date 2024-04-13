@@ -96,33 +96,37 @@ export const FiltersHeader = ({
             handleRemove={handleRemovePrice}
           />
 
-          <FilterTag variant="clear" text="Wyczyść filtry" handleClick={handleClearFilters} />
+          <FilterTag
+            variant="clear"
+            text="Wyczyść filtry"
+            handleClick={handleClearFilters}
+          />
         </div>
-        {!error && !pending ? (
-          <div className={styles.resultsSummaryRow}>
-            <span className={styles.text}>
-              {!pending && (
-                <>
-                  Wyświetlam {displayed} z {total} mentorów
-                </>
-              )}
-            </span>
-            <div className={styles.inlineRow}>
-              <span className={styles.text}>Sortuj od</span>
-              <Select
-                id="sort"
-                name="sortingOption"
-                options={sortOptions}
-                value={filters.sort}
-                label={selectedSortOption.label}
-                valueChangeHandler={(_: string, value: string) => {
-                  handleChangeSortOption(value as SortOption);
-                }}
-                isMulti={false}
-              />
-            </div>
+
+        <div className={styles.resultsSummaryRow}>
+          <span className={styles.text}>
+            {!pending && (
+              <>
+                Wyświetlam {displayed} z {total} mentorów
+              </>
+            )}
+          </span>
+          <div className={styles.inlineRow}>
+            <span className={styles.text}>Sortuj od</span>
+            <Select
+              id="sort"
+              name="sortingOption"
+              options={sortOptions}
+              value={filters.sort}
+              label={selectedSortOption.label}
+              valueChangeHandler={(_: string, value: string) => {
+                handleChangeSortOption(value as SortOption);
+              }}
+              isMulti={false}
+              classes={styles.select}
+            />
           </div>
-        ) : null}
+        </div>
       </div>
     </Container>
   );

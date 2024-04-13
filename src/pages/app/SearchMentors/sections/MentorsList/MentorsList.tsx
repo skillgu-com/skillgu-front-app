@@ -41,7 +41,7 @@ export const MentorsList = ({
   return (
     <Container as={Tag.Section} classes={styles.wrapper}>
       <div className={styles.mentorsList}>
-        {mentors?.map((item: any) => (
+        {!pending && mentors?.map((item: any) => (
           <MentorListingCard
             key={item.id}
             avatar_url={item.avatar_url}

@@ -145,8 +145,9 @@
 	.reviewsLg { 
 		display: none;
 		flex: 1;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: flex-end;
+		flex-wrap: wrap;
 
 		@media (min-width: $lg) {
 			display: flex;

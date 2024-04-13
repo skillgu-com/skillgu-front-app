@@ -96,13 +96,15 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
         </div>
       </div>
       <div className={styles.body}>
-        <Title
-          tag={TitleTag.h3}
-          variant={TitleVariant.standard}
-          classes={styles.title}
-        >
-          {title}
-        </Title>
+        <a href={link} className={styles.link}>
+          <Title
+            tag={TitleTag.h3}
+            variant={TitleVariant.standard}
+            classes={styles.title}
+          >
+            {title}
+          </Title>
+        </a>
         <Title
           tag={TitleTag.h4}
           variant={TitleVariant.standard}

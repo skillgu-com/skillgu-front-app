@@ -1,50 +1,74 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
+import React from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 // Components
-import Container from 'src/new-components/Container/Container';
-import MentorCard from 'src/new-components/Cards/MentorCard/MentorCard';
-import {Title} from 'src/new-components/typography';
-import Button from 'src/new-components/Button/Button';
-// API
-import {getAllMentors} from 'src/services/UserProfileService';
-// Styles
-import styles from './MentorsList.module.scss';
-// Types
-import {Tag} from 'src/types/tags';
+import Container from "src/new-components/Container/Container";
 import {
-    TitleTag,
-    TitleVariant,
-} from 'src/new-components/typography/Title/Title';
+  MentorListingCard,
+  MentorListingCardSkeleton,
+} from "@newComponents/Cards/MentorListingCard";
+// Styles
+import styles from "./MentorsList.module.scss";
+// Types
+import { Tag } from "src/types/tags";
+// Utils
+import { buildMentorLink } from "../../utils";
+import { Mentor } from "@customTypes/mentor";
 
-const MentorsList = () => {
-    const [mentors, setMentors] = useState([]);
-
-    useEffect(() => {
-        getAllMentors()
-            .then((response) => {
-                setMentors(response.data)
-            })
-            .catch((error) => {
-                throw new Error(error.message);
-            });
-    }, []);
-
-
-
-
-    return (
-        <Container as={Tag.Section} classes={styles.wrapper}>
-            <Title tag={TitleTag.h2} variant={TitleVariant.standard}>
-                Wyniki wyszukiwania
-            </Title>
-            <div className={styles.mentorsList}>
-                {mentors?.map((item: any) => (
-                    <MentorCard key={item.userID} {...item} />
-                ))}
-            </div>
-            <Button classes={styles.loadMore}>Załaduj więcej</Button>
-        </Container>
-    );
+type Props = {
+  error?: string;
+  hasNextPage: boolean;
+  mentors: Mentor[];
+  pending: boolean;
+  handleLoadMore: () => void;
 };
 
-export default MentorsList;
+export const MentorsList = ({
+  error,
+  hasNextPage,
+  mentors,
+  pending,
+  handleLoadMore,
+}: Props) => {
+  const [sentryRef] = useInfiniteScroll({
+    loading: pending,
+    hasNextPage,
+    onLoadMore: handleLoadMore,
+    disabled: !!error,
+    rootMargin: "0px 0px 400px 0px",
+  });
+
+  return (
+    <Container as={Tag.Section} classes={styles.wrapper}>
+      <div className={styles.mentorsList}>
+        {mentors?.map((item: any) => (
+          <MentorListingCard
+            key={item.id}
+            avatar_url={item.avatar_url}
+            description={item.description}
+            fullName={item.name}
+            id={item.id}
+            link={buildMentorLink(item)}
+            price={`${item.price}zł/h`}
+            profession={item.profession}
+            reviewsAvgRate={String(item.reviewsAvgRate)}
+            reviewsCount={String(item.reviewsCount)}
+            special={item.special}
+            tags={item.tags}
+            title={item.title}
+          />
+        ))}
+        {!error && (pending || hasNextPage) ? (
+          <div ref={pending ? undefined : sentryRef}>
+            <MentorListingCardSkeleton />
+          </div>
+        ) : null}
+        {error && (
+          <div className={styles.errorMsg}>
+            <p>{error}</p>
+          </div> 
+        )}
+      </div>
+    </Container>
+  );
+};

@@ -1,0 +1,209 @@
+@use "../../../scss/variables" as *;
+
+.wrapper {
+	position: relative;
+	display: grid;
+	justify-items: center;
+	grid-template-columns: 1fr;
+	background-color: $light-color;
+	border-radius: 15px;
+	padding: 16px 20px;
+	border: 1px solid $colour-base-400;
+
+	@media (min-width: $md) {
+		padding: 24px;
+	}
+
+	.header {
+		width: 100%;
+	}
+
+	.user {
+		display: flex;
+		gap: 12px;
+		align-items: center;
+		justify-content: flex-start;
+
+		.avatar {
+			border-radius: 50%;
+			display: block;
+			height: 54px;
+			object-fit: cover;
+			overflow: hidden;
+			width: 54px;
+		}
+
+		.userHeader {
+
+		}
+	}	
+
+	.link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.name,
+	.price,
+	.profession,
+	.special,
+	.tag,
+	.title {
+		font-family: $font-family-montserrat;
+		margin: 0;
+	}
+
+	.special {
+		color: $success-color;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 21.6px;
+		display: none;
+		padding: 4px 16px;
+
+		@media (min-width: $lg) {
+			display: block;
+		}
+	}
+
+	.name {
+		font-size: map-get($font-size, xs);
+		font-weight: 600;
+	}
+
+	.profession {
+		color: #8E9ABB;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 21.6px;
+	}
+
+	.description {
+		color: #8E9ABB;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 21.6px;
+
+		@media (min-width: $md) {
+			font-size: 14px;
+			line-height: 25.2px;
+		}
+	}
+
+	.title {
+		color: $secondary-color;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 28.8px;
+
+		@media (min-width: $md) {
+			font-size: 20px;
+			line-height: 26px;
+		}
+	}
+
+	.price {
+		color: $secondary-color;
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 26px;
+	}
+
+	.userNameRow {
+		display: flex;
+		gap: 16px;
+		align-items: center;
+		justify-content: flex-start; 
+	}
+
+	.reviewsLg,
+	.reviews {
+		display: flex;
+		gap: 12px;
+
+		span {
+			color: $secondary-color;
+			font-size: 12px;
+			font-weight: 500;
+			line-height: 21.6px;
+		}
+
+		.stars {
+			display: flex;
+			gap: 4px;
+		}
+	}
+
+	.reviews {
+		display: flex;
+
+		@media (min-width: $lg) {
+			display: none;
+		}
+	}
+
+	.reviewsLg { 
+		display: none;
+		flex: 1;
+		align-items: flex-end;
+		justify-content: flex-end;
+
+		@media (min-width: $lg) {
+			display: flex;
+		}
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+
+		.tag {
+			color: $primary-color;
+			background-color: #fff7f5;
+			font-family: $font-family-montserrat;
+			font-size: map-get($font-size, xxs);
+			font-weight: 600;
+			line-height: 21.6px;
+			text-align: left;
+			border-radius: 24px;
+			padding: 8px 16px;
+
+			&.clickable:hover {
+				background-color: $primary-color;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin: 16px 0 24px;
+		width: 100%;
+
+		@media (min-width: $md) {
+			margin: 24px 0 24px;
+			gap: 16px;
+		}
+	}
+
+	.footer {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+
+		.price {
+			align-self: flex-end;
+		}
+
+		@media (min-width: $md) {
+			align-items: center;
+
+			.price {
+				align-self: unset;
+			}
+		}
+	}
+}

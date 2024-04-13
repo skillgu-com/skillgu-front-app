@@ -2,10 +2,11 @@
 
 .wrapper {
     display: none;
-    max-width: 170px;
-    grid-area: sidebar;
+    min-width: 170px;
+    max-width: 205px;
+    flex: 1;
 
-    @media (min-width: $lg) {
+    @media (min-width: $xl) {
         display: flex; 
         flex-direction: column;
         gap: 32px;

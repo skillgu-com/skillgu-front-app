@@ -3,10 +3,10 @@ import {
     FilterName,
     FiltersSelected,
     Option,
+    Terms,
   } from "@customTypes/mentor";
 import styles from "./FiltersSidebar.module.scss";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
-import { Terms } from "@customTypes/mentor";
 
 type FiltersSidebarProps = {
   terms: Terms;

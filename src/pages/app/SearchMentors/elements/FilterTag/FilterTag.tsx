@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./FiltersHeader.module.scss";
+import styles from "./FilterTag.module.scss";
 import clx from "classnames";
 import CloseSmallSvg from "@icons/CloseSmallSvg";
 

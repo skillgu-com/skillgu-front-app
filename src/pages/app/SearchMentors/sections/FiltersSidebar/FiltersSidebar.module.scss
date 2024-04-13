@@ -1,0 +1,13 @@
+@use '../../../../../scss/variables' as *;
+
+.wrapper {
+    display: none;
+    max-width: 170px;
+    grid-area: sidebar;
+
+    @media (min-width: $lg) {
+        display: flex; 
+        flex-direction: column;
+        gap: 32px;
+    }
+}

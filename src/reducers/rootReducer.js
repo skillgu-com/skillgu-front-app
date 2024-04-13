@@ -6,6 +6,7 @@ import userSettingReducer from "./userSettingReducer";
 import bookSessionReducer from "./bookSessionProcessReducer";
 import sessionIDReducer from "./calendarProcessReducer";
 import { termsReducer } from './terms';
+import { mentorsReducer } from './mentors';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     book: bookSessionReducer,
     sessionIDStep: sessionIDReducer,
     terms: termsReducer,
+    mentors: mentorsReducer,
     // Add other reducers if you have them
 });
 

@@ -1,0 +1,19 @@
+@use '../../../../../scss/variables' as *;
+
+.checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.btnMore {
+    color: $primary-color;
+    font-size: 14px;
+    line-height: 25.2px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.checkboxes + .btnMore {
+    margin-top: 16px;
+}

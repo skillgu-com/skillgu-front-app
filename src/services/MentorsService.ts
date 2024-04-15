@@ -14,12 +14,9 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
             filters: filters || null
         };
 
-        // console.log('wybrane filtry: ',filters)
-        // console.log('filterMentorToSend ',filterMentorToSend)
-
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
-        // console.log('jestem jeszcze w metodzie fetch i czekam na odpowiedz ', response.data)
 
+        console.log('z backendu: ', response.data)
         return response.data;
     } catch (error) {
         console.error('Error fetching mentors:', error);

@@ -1,96 +1,118 @@
 {
-    "categories": [
-        { 
-            "label": "Frontend 1",
-            "value": "frontend_1"
-        },
-        { 
-            "label": "Frontend 2",
-            "value": "frontend_2"
-        },
-        { 
-            "label": "Frontend 3",
-            "value": "frontend_3"
-        },
-        { 
-            "label": "Frontend 4",
-            "value": "frontend_4"
-        },
-        { 
-            "label": "Frontend 5",
-            "value": "frontend_5"
-        },
-        { 
-            "label": "Frontend 6",
-            "value": "frontend_6"
-        },
-        { 
-            "label": "Frontend 7",
-            "value": "frontend_7"
-        },
-        { 
-            "label": "Frontend 8",
-            "value": "frontend_8"
-        },
-        { 
-            "label": "Frontend 9",
-            "value": "frontend_9"
-        }
-    ],
-    "skills": [
-        { 
-            "label": "Figma",
-            "value": "figma"
-        },
-        { 
-            "label": "Photoshop",
-            "value": "photoshop"
-        },
-        { 
-            "label": "Canva",
-            "value": "canva"
-        },
-        { 
-            "label": "Excel",
-            "value": "excel"
-        },
-        { 
-            "label": "Skill 5",
-            "value": "skill_5"
-        },
-        { 
-            "label": "Skill 6",
-            "value": "skill_6"
-        },
-        { 
-            "label": "Skill 7",
-            "value": "skill_7"
-        },
-        { 
-            "label": "Skill 8",
-            "value": "skill_8"
-        },
-        { 
-            "label": "Skill 9",
-            "value": "skill_9"
-        }
-    ],
-    "services": [
-        { 
-            "label": "Service 1",
-            "value": "service_5"
-        },
-        { 
-            "label": "Service 2",
-            "value": "service_6"
-        },
-        { 
-            "label": "Service 3",
-            "value": "service_7"
-        },
-        { 
-            "label": "Service 4",
-            "value": "service_8"
-        }
-    ]
+  "categories": [
+    {
+      "label": "Biznes",
+      "value": "frontend_1"
+    },
+    {
+      "label": "IT",
+      "value": "frontend_2"
+    },
+    {
+      "label": "Marketing",
+      "value": "frontend_3"
+    },
+    {
+      "label": "UI & UX",
+      "value": "frontend_4"
+    },
+    {
+      "label": "Rozwój",
+      "value": "frontend_5"
+    }
+  ],
+  "skills": [
+    {
+      "label": "Figma",
+      "value": "figma"
+    },
+    {
+      "label": "Photoshop",
+      "value": "photoshop"
+    },
+    {
+      "label": "Canva",
+      "value": "canva"
+    },
+    {
+      "label": "Excel",
+      "value": "excel"
+    },
+    {
+      "label": "Java",
+      "value": "skill_5"
+    },
+    {
+      "label": "ORACLE",
+      "value": "skill_6"
+    },
+    {
+      "label": "JIRA",
+      "value": "skill_7"
+    },
+    {
+      "label": "INTELIJ",
+      "value": "skill_8"
+    },
+    {
+      "label": "Rozwiązywanie problemów",
+      "value": "skill_9"
+    }
+  ],
+  "services": [
+    {
+      "label": "Regularne spotkania",
+      "value": "service_5"
+    },
+    {
+      "label": "Praca z Zadaniami",
+      "value": "service_6"
+    },
+    {
+      "label": "Weekendowe Spotkania",
+      "value": "service_7"
+    },
+    {
+      "label": "Tylko Sesje",
+      "value": "service_8"
+    },
+    {
+      "label": "Intensywna Praca",
+      "value": "service_9"
+    },
+    {
+      "label": "Chat",
+      "value": "service_10"
+    },
+    {
+      "label": "Mentoring Grupowy",
+      "value": "service_11"
+    },
+    {
+      "label": "Warsztaty Tematyczne",
+      "value": "service_12"
+    }
+  ],
+  "topics": [
+    {
+      "label": "Programowanie",
+      "value": "service_5"
+    },
+    {
+      "label": "Konsultacja z Ekspertem",
+      "value": "service_6"
+    },
+    {
+      "label": "IT Development",
+      "value": "service_7"
+    },
+    {
+      "label": "Mentoring w IT",
+      "value": "service_8"
+    },
+    {
+      "label": "Zmiana Pracy",
+      "value": "service_9"
+    }
+  ]
 }

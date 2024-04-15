@@ -47,13 +47,10 @@ const SearchMentors = () => {
         payload: { error: "", pending: true, },
       })
       try {
-        const { total, mentors } = await fetchMentors(
-          page,
-          PAGE_SIZE,
-          filters
-        );
+        const { total, mentors } = await fetchMentors(page, PAGE_SIZE, filters);
+
         // @TODO: remove promise
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // await new Promise(resolve => setTimeout(resolve, 1000));
         dispatchMentors({
           type: "UPDATE_RESULTS",
           payload: { mentors, total },
@@ -180,17 +177,23 @@ const SearchMentors = () => {
 
   const toggleFiltersSidebar = useCallback(() => setPopupOpen((s) => !s), []);
 
-  const handleLoadMore = () => {
-    // @TODO: remove set timeout
-    setTimeout(
-      () =>
+  // const handleLoadMore = () => {
+  //   // @TODO: remove set timeout
+  //   setTimeout(
+  //     () =>
+  //       dispatchMentors({
+  //         type: "UPDATE_PAGE",
+  //         payload: { page: state.page + 1 },
+  //       }),
+  //     1000
+  //   );
+  // };
+    const handleLoadMore = () => {
         dispatchMentors({
-          type: "UPDATE_PAGE",
-          payload: { page: state.page + 1 },
-        }),
-      1000
-    );
-  };
+            type: "UPDATE_PAGE",
+            payload: { page: state.page + 1 },
+        });
+    };
 
   const handleChangeFilter = useCallback(
     (changed: Partial<FiltersSelected>) => {

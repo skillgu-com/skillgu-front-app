@@ -10,6 +10,7 @@ export const mentorsInitialState: MentorsState = {
     categories: [],
     skills: [],
     services: [],
+    topics:[],
     phrase: "",
     sort: "rateDESC",
   },

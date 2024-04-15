@@ -91,6 +91,14 @@ export const FiltersHeader = ({
             />
           ))}
 
+          {filters.topics.map((opt, i) => (
+              <FilterTag
+                  key={`${i}-${opt.value}-${opt.label}`}
+                  text={opt.label}
+                  handleRemove={() => handleRemoveFilter("topics", opt)}
+              />
+          ))}
+
           <FilterTag
             text={`$${filters.priceMin} - $${filters.priceMax}`}
             handleRemove={handleRemovePrice}

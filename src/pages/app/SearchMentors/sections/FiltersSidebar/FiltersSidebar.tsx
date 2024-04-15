@@ -74,6 +74,19 @@ export const FiltersSidebar = ({
           }}
         />
       </FiltersGroup>
+        <FiltersGroup title="Tematy">
+            <FiltersCheckboxes
+                name="topics"
+                startedRows={5}
+                options={terms.topics}
+                selected={filters.topics}
+                handleChange={(name: FilterName, selected: Option[]) => {
+                    handleChange({
+                        [name]: selected,
+                    })
+                }}
+            />
+        </FiltersGroup>
     </div>
   );
 };

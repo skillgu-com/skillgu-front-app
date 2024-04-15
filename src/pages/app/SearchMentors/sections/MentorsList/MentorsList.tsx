@@ -38,6 +38,7 @@ export const MentorsList = ({
     rootMargin: "0px 0px 400px 0px",
   });
 
+
   return (
     <Container as={Tag.Section} classes={styles.wrapper}>
       <div className={styles.mentorsList}>

@@ -6,4 +6,5 @@ export const termsInitialState: Terms = {
   categories: [],
   skills: [],
   services: [],
+  topics:[]
 };

@@ -10,6 +10,8 @@ export type FilterName =
 
 export type SortOption = 'rateASC' | 'rateDESC' | 'priceASC' | 'priceDESC'
 
+export type SpecialVariant = 'success'|'warning'|'error'
+
 export type Option = {
     value: string;
     label: string;
@@ -44,17 +46,18 @@ export type FiltersSelected = {
 }
 
 export type Mentor = {
-    id: string
     avatar_url: string
+    description: string
+    id: string
     name: string
+    price: number
     profession: string
-    special: string
     reviewsAvgRate: number
     reviewsCount: number
-    description: string
+    special: string
+    specialVariant: SpecialVariant
     tags: string[]
     title: string;
-    price: number
 }
 
 export type FilterTag = {

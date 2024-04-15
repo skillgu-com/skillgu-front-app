@@ -54,12 +54,26 @@
 	}
 
 	.special {
-		color: $success-color;
+		color: $secondary-color;
 		font-size: 12px;
 		font-weight: 600;
 		line-height: 21.6px;
 		display: none;
 		padding: 4px 16px;
+		background-color: #F7FDF8;
+		border-radius: 24px;
+
+		&__success {
+			color: $success-color;
+		}
+
+		&__error {
+			color: $danger-color;
+		}
+
+		&__warning {
+			color: $primary-color;
+		}
 
 		@media (min-width: $lg) {
 			display: block;
@@ -160,8 +174,8 @@
 		gap: 16px;
 
 		.tag {
-			color: $primary-color;
-			background-color: #fff7f5;
+			color: $colour-base-800;
+			background-color: $colour-base-200;
 			font-family: $font-family-montserrat;
 			font-size: map-get($font-size, xxs);
 			font-weight: 600;

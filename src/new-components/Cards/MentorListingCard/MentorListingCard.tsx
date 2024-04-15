@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import AnimateHeight from "react-animate-height";
 // Components
 import Tag from "src/new-components/Tag/Tag";
 // Styles
@@ -23,9 +24,12 @@ interface MentorListingCardProps {
   specialVariant: SpecialVariant;
   tags: string[];
   title: string;
+  tagsDisplay?: number;
+  initialDescriptionHeight?: number|'auto';
 }
 
-const TAGS_DISPLAY = 4;
+const DEFAULT_TAGS_DISPLAY = 4;
+const DEFAULT_DESCRIPTION_HEIGHT = 50;
 
 export const MentorListingCard: React.FC<MentorListingCardProps> = ({
   avatar_url,
@@ -40,11 +44,23 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
   specialVariant,
   tags,
   title,
+  tagsDisplay = DEFAULT_TAGS_DISPLAY,
+  initialDescriptionHeight = DEFAULT_DESCRIPTION_HEIGHT,
 }) => {
-  const [extended, setExtended] = useState<boolean>(false);
-  const toggle = useCallback(() => setExtended((s) => !s), []);
+  const [tagsExpanded, setTagsExpanded] = useState<boolean>(false);
+  const toggleTagsExpanded = useCallback(() => setTagsExpanded((s) => !s), []);
+  const hiddenTags = tags.length - tagsDisplay;
 
-  const hiddenTags = tags.length - TAGS_DISPLAY;
+  const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
+    initialDescriptionHeight
+  );
+  const toggleDescriptionExpanded = useCallback(
+    () =>
+      setDescriptionHeight((h) =>
+        h === initialDescriptionHeight ? "auto" : initialDescriptionHeight
+      ),
+    []
+  );
 
   return (
     <div className={styles.wrapper}>
@@ -110,22 +126,48 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
             {title}
           </Title>
         </a>
-        <Title
-          tag={TitleTag.h4}
-          variant={TitleVariant.standard}
-          classes={styles.description}
-        >
-          {description}
-        </Title>
+        <div className={styles.descriptionWrapper}>
+          <AnimateHeight
+            id="description"
+            duration={500}
+            height={descriptionHeight}
+            animateOpacity={true}
+            contentClassName={clx(styles.animateDescriptionContent, {
+              [styles.animateDescriptionContentExpanded]:
+                descriptionHeight !== initialDescriptionHeight,
+            })}
+          >
+            <Title
+              tag={TitleTag.h4}
+              variant={TitleVariant.standard}
+              classes={styles.description}
+            >
+              {description}
+            </Title>
+          </AnimateHeight>
+          {initialDescriptionHeight !== 'auto' ? ( 
+            <button
+              className={styles.moreBtn}
+              onClick={toggleDescriptionExpanded}
+              type="button"
+              aria-controls="example-panel"
+              aria-expanded={descriptionHeight !== initialDescriptionHeight}
+            >
+              {descriptionHeight === initialDescriptionHeight
+                ? "Pokaż więcej"
+                : "Pokaż mniej"}
+            </button>
+          ) : null}
+        </div>
       </div>
       <div className={styles.footer}>
         <ul className={styles.tags}>
-          {tags?.slice(0, extended ? undefined : 4).map((tag) => (
+          {tags?.slice(0, tagsExpanded ? undefined : 4).map((tag) => (
             <Tag key={tag} classes={styles.tag} name={tag} bgColor="" />
           ))}
-          {hiddenTags > 0 && !extended ? (
+          {hiddenTags > 0 && !tagsExpanded ? (
             <Tag
-              onClick={toggle}
+              onClick={toggleTagsExpanded}
               classes={clx(styles.tag, styles.clickable)}
               name={`+${hiddenTags}`}
               bgColor=""

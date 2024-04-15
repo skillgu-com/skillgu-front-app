@@ -221,4 +221,46 @@
 			}
 		}
 	}
+
+	.moreBtn {
+		background-color: transparent;
+		border: none;
+		color: $primary-color;
+		cursor: pointer;
+		display: block;
+		font-family: $font-family-montserrat;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 21.6px;
+		margin-top: 8px;
+		text-align: left;
+	}
+
+	.descriptionWrapper {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.animateDescriptionContent {
+		position: relative;
+		transition: 0.5s;
+
+		&::after {
+			position: absolute;
+			background-image: linear-gradient(to top, rgb(255, 255, 255) calc(100% - 30px), rgba(255, 255, 255, 0));
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: calc(100% - 20px);
+			content: '';
+			transition: 0.5s;
+			opacity: 1;
+		}
+
+		&.animateDescriptionContentExpanded::after {
+			opacity: 0;
+			transition: 0.5s;
+			// background-image: linear-gradient(to top, rgb(255, 255, 255, 0) calc(100% - 30px), rgba(255, 255, 255, 0));
+		}
+	}
 }

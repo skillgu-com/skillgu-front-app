@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import AnimateHeight from "react-animate-height";
 // Components
 import Tag from "src/new-components/Tag/Tag";
@@ -25,7 +25,7 @@ interface MentorListingCardProps {
   tags: string[];
   title: string;
   tagsDisplay?: number;
-  initialDescriptionHeight?: number|'auto';
+  initialDescriptionHeight?: number | "auto";
 }
 
 const DEFAULT_TAGS_DISPLAY = 4;
@@ -62,22 +62,37 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
     []
   );
 
+  const descMoreRef = useRef<HTMLButtonElement>(null);
+  const tagMoreRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      const clickOnDescMore =
+        descMoreRef.current &&
+        descMoreRef.current.contains(event.target as Node);
+      const clickOnTagsMore =
+        tagMoreRef.current && tagMoreRef.current.contains(event.target as Node);
+      if (clickOnDescMore || clickOnTagsMore) {
+        event.preventDefault();
+      }
+    },
+    []
+  );
+
   return (
-    <div className={styles.wrapper}>
+    <a className={styles.wrapper} href={link} onClick={handleClick}>
       <div className={styles.header}>
         <div className={styles.user}>
           <img src={avatar_url} alt={fullName} className={styles.avatar} />
           <div className={styles.userHeader}>
             <div className={styles.userNameRow}>
-              <a href={link} className={styles.link}>
-                <Title
-                  tag={TitleTag.h3}
-                  variant={TitleVariant.standard}
-                  classes={styles.name}
-                >
-                  {fullName}
-                </Title>
-              </a>
+              <Title
+                tag={TitleTag.h3}
+                variant={TitleVariant.standard}
+                classes={styles.name}
+              >
+                {fullName}
+              </Title>
               <div className={styles.reviews}>
                 <div className={styles.stars}>
                   <StarSvg />
@@ -117,15 +132,13 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
         </div>
       </div>
       <div className={styles.body}>
-        <a href={link} className={styles.link}>
-          <Title
-            tag={TitleTag.h3}
-            variant={TitleVariant.standard}
-            classes={styles.title}
-          >
-            {title}
-          </Title>
-        </a>
+        <Title
+          tag={TitleTag.h3}
+          variant={TitleVariant.standard}
+          classes={styles.title}
+        >
+          {title}
+        </Title>
         <div className={styles.descriptionWrapper}>
           <AnimateHeight
             id="description"
@@ -145,13 +158,14 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
               {description}
             </Title>
           </AnimateHeight>
-          {initialDescriptionHeight !== 'auto' ? ( 
+          {initialDescriptionHeight !== "auto" ? (
             <button
               className={styles.moreBtn}
               onClick={toggleDescriptionExpanded}
               type="button"
               aria-controls="example-panel"
               aria-expanded={descriptionHeight !== initialDescriptionHeight}
+              ref={descMoreRef}
             >
               {descriptionHeight === initialDescriptionHeight
                 ? "Pokaż więcej"
@@ -166,12 +180,14 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
             <Tag key={tag} classes={styles.tag} name={tag} bgColor="" />
           ))}
           {hiddenTags > 0 && !tagsExpanded ? (
-            <Tag
-              onClick={toggleTagsExpanded}
-              classes={clx(styles.tag, styles.clickable)}
-              name={`+${hiddenTags}`}
-              bgColor=""
-            />
+            <div ref={tagMoreRef}>
+              <Tag
+                onClick={toggleTagsExpanded}
+                classes={clx(styles.tag, styles.clickable)}
+                name={`+${hiddenTags}`}
+                bgColor=""
+              />
+            </div>
           ) : null}
         </ul>
         {price && (
@@ -184,6 +200,6 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
           </Title>
         )}
       </div>
-    </div>
+    </a>
   );
 };

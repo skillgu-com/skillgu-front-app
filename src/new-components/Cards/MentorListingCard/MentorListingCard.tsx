@@ -22,7 +22,7 @@ interface MentorListingCardProps {
   reviewsCount: string;
   special: string;
   specialVariant: SpecialVariant;
-  tags: string[];
+  skills: string[];
   title: string;
   tagsDisplay?: number;
   initialDescriptionHeight?: number | "auto";
@@ -42,14 +42,14 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
   reviewsCount,
   special,
   specialVariant,
-  tags,
+  skills,
   title,
   tagsDisplay = DEFAULT_TAGS_DISPLAY,
   initialDescriptionHeight = DEFAULT_DESCRIPTION_HEIGHT,
 }) => {
   const [tagsExpanded, setTagsExpanded] = useState<boolean>(false);
   const toggleTagsExpanded = useCallback(() => setTagsExpanded((s) => !s), []);
-  const hiddenTags = tags.length - tagsDisplay;
+  const hiddenTags = skills.length - tagsDisplay;
 
   const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
     initialDescriptionHeight
@@ -176,7 +176,7 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
       </div>
       <div className={styles.footer}>
         <ul className={styles.tags}>
-          {tags?.slice(0, tagsExpanded ? undefined : 4).map((tag) => (
+          {skills?.slice(0, tagsExpanded ? undefined : 4).map((tag) => (
             <Tag key={tag} classes={styles.tag} name={tag} bgColor="" />
           ))}
           {hiddenTags > 0 && !tagsExpanded ? (

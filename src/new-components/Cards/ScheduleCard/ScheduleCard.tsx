@@ -89,7 +89,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 				<div className={styles.top}>
 					<div className={styles.header}>
 						<h3 className={styles.title}>
-							{schedule ? schedule?.scheduleName : session?.sessionName}
+							{schedule ? schedule?.scheduleName : session?.sessionTypeName}
 						</h3>
 
 						<Options

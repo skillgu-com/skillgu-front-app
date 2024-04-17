@@ -56,7 +56,7 @@ export const MentorsList = ({
             reviewsCount={String(item.reviewsCount)}
             special={item.special}
             specialVariant={item.specialVariant}
-            tags={item.tags}
+            skills={item.skills}
             title={item.title}
           />
         ))}

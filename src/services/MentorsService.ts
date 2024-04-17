@@ -16,7 +16,7 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
 
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 
-        console.log('z backendu: ', response.data)
+        // console.log('z backendu: ', response.data)
         return response.data;
     } catch (error) {
         console.error('Error fetching mentors:', error);
@@ -24,13 +24,13 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
     }
 };
 
-// export const fetchMentors = async (
+//     export const fetchMentors = async (
 //     take: number,
 //     skip: number,
 //     filters?: FiltersSelected
-// ): Promise<ResponseData> => {
-//     // @TODO: call to backend, add filters
+//     ): Promise<ResponseData> => {
+//     @TODO: call to backend, add filters
 //     const response = await fetch("/search-mentor-results-mocked.json");
 //     const data = await response.json();
 //     return data as ResponseData;
-// };
+//     };

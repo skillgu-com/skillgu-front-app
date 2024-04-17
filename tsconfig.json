@@ -121,7 +121,8 @@
 		"src/**/*.png",
 		"src/**/*.jpg",
 		"src/**/*.mov",
-		"src/**/*.webm"
+		"src/**/*.webm",
+		"src/**/*.svg"
 	],
 	"exclude": ["node_modules"]
 }

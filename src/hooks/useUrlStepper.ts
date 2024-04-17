@@ -2,12 +2,13 @@ import {useSearchParams} from "react-router-dom";
 import {useMemo} from "react";
 
 type UseUrlStepperConfig = {
-    stepLimit: number;
+    stepLimit?: number;
     defaultStep?: string;
     paramsKey?: string;
 };
 
-const validateAction = (newStep: number, stepLimit: number): boolean => {
+const validateAction = (newStep: number, stepLimit?: number): boolean => {
+    if(!stepLimit && stepLimit !== 0) return true;
     if(newStep < 0 || newStep > stepLimit) {
         if(process.env.NODE_ENV !== 'production') throw new Error(`Step must be between 0 and stepLimit (${stepLimit})`);
         return false;
@@ -15,8 +16,8 @@ const validateAction = (newStep: number, stepLimit: number): boolean => {
     return true;
 }
 
-const useUrlStepper = (config: UseUrlStepperConfig) => {
-    const { stepLimit, defaultStep = '0', paramsKey = 'step' } = config;
+const useUrlStepper = (config?: UseUrlStepperConfig) => {
+    const { stepLimit, defaultStep = '0', paramsKey = 'step' } = config || {};
 
     const [params, setParams] = useSearchParams({[paramsKey]: defaultStep});
     const step = useMemo(() => parseInt(params.get(paramsKey) || defaultStep), [params]);

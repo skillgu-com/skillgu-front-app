@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import AsideTileLayout from "@newComponents/AsideTileLayout/AsideTileLayout";
 import theme from "../../../styles/theme";
 import useUrlStepper from "../../../hooks/useUrlStepper";
@@ -34,11 +34,9 @@ const RegisterMentorView = () => {
     // TODO move ThemeProvider higher in components tree
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth={'xl'} >
                 <AsideTileLayout asideContent={<RegisterMentorStepperNavigation/>}>
                     {resolveStepView(step)}
                 </AsideTileLayout>
-            </Container>
         </ThemeProvider>
     );
 };

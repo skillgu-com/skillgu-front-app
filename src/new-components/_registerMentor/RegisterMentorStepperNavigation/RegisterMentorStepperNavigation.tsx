@@ -33,31 +33,31 @@ const navigationContent: NavigationContentT[] = [
     },
     {
         id: 2,
-        title: 'Weryfikacja adresu e-mail',
-        shorthand: 'E‑mail',
-        subtitle: 'Wejdź do swojej skrzynki e-mail, aby zweryfikować konto',
-        icon: <EnvelopeIcon/>
-    },
-    {
-        id: 3,
         title: 'Informacje o sobie',
         shorthand: 'Informacje o sobie',
         subtitle: 'Uzupełnij informacje o sobie',
         icon: <UserIcon/>
     },
     {
-        id: 4,
+        id: 3,
         title: 'Informacje profilu',
         shorthand: 'Informacje profilu',
         subtitle: 'Uzupełnij swój profil, by przyciągnąć uwagę',
         icon: <EditIcon/>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Portfolio',
         shorthand: 'Portfolio',
         subtitle: 'Uzupełnij swoje portfolio o linki',
         icon: <LinkIcon/>
+    },
+    {
+        id: 5,
+        title: 'Zweryfikuj swoje konto',
+        shorthand: 'Weryfikacja',
+        subtitle: 'Wejdź do swojej skrzynki e-mail, aby zweryfikować konto',
+        icon: <EnvelopeIcon/>
     },
 ]
 

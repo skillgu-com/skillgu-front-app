@@ -1,0 +1,45 @@
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import Typography from "@mui/material/Typography";
+import {StyledFeedback} from "@newComponents/_form/InputFeedback/InputFeedback.styles";
+import React from "react";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import exhaustiveGuard from "../../../helpers/exhaustiveGuard";
+
+export type FeedbackProps = {
+    message: string;
+    severity: 'error' | 'success';
+}
+
+const resolveIcon = (severity: FeedbackProps['severity']) => {
+    switch (severity) {
+        case 'error':
+            return <CancelOutlinedIcon fontSize='large' color='error'/>
+        case 'success':
+            return <CheckCircleOutlinedIcon fontSize='large' color='success'/>
+        default:
+            exhaustiveGuard(severity)
+    }
+}
+
+const resolveColor = (severity: FeedbackProps['severity']) => {
+    switch (severity) {
+        case 'error':
+            return 'error.main'
+        case 'success':
+            return 'success.main'
+        default:
+            exhaustiveGuard(severity)
+    }
+}
+
+
+const InputFeedback: React.FC<FeedbackProps> = ({message, severity}) => (
+    <StyledFeedback>
+        {resolveIcon(severity)}
+        <Typography color={resolveColor(severity)} variant='body2'>
+            {message}
+        </Typography>
+    </StyledFeedback>
+);
+
+export default InputFeedback;

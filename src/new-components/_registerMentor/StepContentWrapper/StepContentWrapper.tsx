@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, ButtonProps, Card} from "@mui/material";
+import {Button, ButtonProps} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {StyledCard, StyledStepper} from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper.styles";
 import classNames from "classnames";
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const StepContentWrapper: React.FC<Props> = ({
-    children,
+     children,
      additionalActionComponent,
      ctaProps,
      ctaLabel = 'Przejdz do następnego kroku',

@@ -27,4 +27,5 @@ export const StyledAside = muiStyled('aside')(({theme}) => ({
 
 export const StyledMain = muiStyled('main')(({theme}) => ({
     padding: theme.spacing(7),
+    overflowX: 'auto'
 }));

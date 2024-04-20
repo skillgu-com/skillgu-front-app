@@ -60,6 +60,12 @@ const palette: PaletteOptions = {
         light: '#303669',
         contrastText: '#ffffff',
     },
+    error: {
+      main: '#e72749',
+    },
+    success: {
+        main: '#34c759',
+    },
     text: {
         primary: '#242b61',
     },

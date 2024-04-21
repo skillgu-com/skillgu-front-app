@@ -3,13 +3,15 @@ import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrappe
 import Typography from "@mui/material/Typography";
 import TextLink from "@newComponents/TextLink/TextLink";
 import paths from "../../../paths";
-import {useForm} from "react-hook-form";
-import FormInputText, {Feedback} from "@newComponents/_form/FormInputText/FormInputText";
-import {RegisterFormInput} from "../../../services/mentor/registerMentor.types";
+import {SubmitHandler, useForm} from "react-hook-form";
+import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+import {RegisterFormInput} from "@customTypes/mentorRegister";
 import emailCheckService from "../../../services/emailCheck/emailCheck.service";
 import {BIG_SIGN_REGEX, NUM_REGEX} from "../../../helpers/improovedValidation";
 import {Grid} from "@mui/material";
 import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
+import useRegisterMentorContext from "../../../context/RegisterMentorContext";
+import {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
 
 
 const GoToLogin = () => (
@@ -21,6 +23,8 @@ const GoToLogin = () => (
 const formId = 'RegisterFormInput'
 
 const RegisterMentorStep1 = () => {
+    const { registerMentorDispatch } = useRegisterMentorContext();
+
     const {control, formState, handleSubmit, watch} = useForm<RegisterFormInput>({
         defaultValues: {
             firstName: '',
@@ -31,13 +35,16 @@ const RegisterMentorStep1 = () => {
         },
     });
 
-    const goToNextStep = () => {
-        console.log('goToNextStep')
+    const goToNextStep: SubmitHandler<RegisterFormInput> = (formData) => {
+        registerMentorDispatch({
+            type: 'COMMIT_REGISTER_INFO',
+            payload: formData,
+        })
     };
 
     // TODO consider to create a custom hook for feedback logic
     const passwordValue = watch("password");
-    const passwordFeedback: Feedback[] | undefined = useMemo(() => {
+    const passwordFeedback: InputFeedbackProps[] | undefined = useMemo(() => {
         if (!passwordValue) return undefined;
         return [
             {

@@ -1,13 +1,27 @@
-import {MergedRegisterFormInput, RegisterMentorDTO} from "./registerMentor.types";
+import {RegisterMentorDTO} from "./registerMentor.types";
 import axios from "axios";
+import {MergedRegisterFormInput} from "@customTypes/mentorRegister";
 
 const parseDataForAPI = (inputData: MergedRegisterFormInput): RegisterMentorDTO => {
-    return inputData;
+    return {
+        ...inputData,
+        personalWebsite: inputData.personalWebsite || null,
+        linkedin: inputData.linkedin || null,
+        twitter: inputData.twitter || null,
+        github: inputData.github || null,
+        dribble: inputData.dribble || null,
+        behance: inputData.behance || null,
+    };
 }
 
 // TODO consider common error handler for services
-const registerMentorService = (inputData: MergedRegisterFormInput) => {
-    return axios.post('EP/here', parseDataForAPI(inputData));
+const registerMentorService = async (inputData: MergedRegisterFormInput) => {
+    try {
+        const response = await axios.post<{ userId: '123' }>('EP/here', parseDataForAPI(inputData));
+        return { success: true, data: response.data }
+    } catch (e) {
+        return { success: false, error: e }
+    }
 }
 
 export default registerMentorService;

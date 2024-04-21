@@ -21,11 +21,17 @@ export const StyledAside = muiStyled('aside')(({theme}) => ({
 
     [theme.breakpoints.down('md')]: {
         borderRadius: 0,
-        padding: theme.spacing(5, 2, 3, 2),
+        padding: theme.spacing(5, 0, 3, 0),
     }
 }));
 
 export const StyledMain = muiStyled('main')(({theme}) => ({
     padding: theme.spacing(7),
-    overflowX: 'auto'
+    overflowX: 'auto',
+    alignSelf: 'center',
+
+
+    [theme.breakpoints.down('md')]: {
+        padding: 0,
+    }
 }));

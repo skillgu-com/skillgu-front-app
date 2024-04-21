@@ -8,13 +8,8 @@ import {Checkbox, CheckboxProps, Collapse, FormControlLabel} from "@mui/material
 import {
     StyledFeedbackWrapper, StyledInputWrapper,
 } from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox.styles";
-import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
+import InputFeedback, {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
 import Typography from "@mui/material/Typography";
-
-export type Feedback = {
-    message: string;
-    severity: 'error' | 'success';
-}
 
 interface Props<T extends FieldValues> {
     label: string;
@@ -26,15 +21,15 @@ interface Props<T extends FieldValues> {
 }
 
 const FormInputCheckbox = <T extends FieldValues>({
-                                                      control,
-                                                      name,
-                                                      inputProps,
-                                                      controllerProps,
-                                                      label,
-                                                      formState
-                                                  }: Props<T>) => {
+    control,
+    name,
+    inputProps,
+    controllerProps,
+    label,
+    formState
+}: Props<T>) => {
 
-    const feedback: Feedback[] = useMemo(() => {
+    const feedback: InputFeedbackProps[] = useMemo(() => {
         const error = formState.errors[name]
         if (!error) return [];
         return [{message: error.message as string, severity: 'error'}];

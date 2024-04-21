@@ -7,6 +7,9 @@ const elementsSpacing = 8;
 export const StyledContainer = muiStyled('div')(({theme}) => ({
     display: 'grid',
     gridGap: theme.spacing(5),
+    [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(0, 2),
+    }
 }));
 
 export const StyledList = muiStyled('ul')(({theme}) => ({
@@ -17,6 +20,7 @@ export const StyledList = muiStyled('ul')(({theme}) => ({
     [theme.breakpoints.down('md')]: {
         display: 'flex',
         overflowX: 'hidden',
+        padding: theme.spacing(0, 4),
     },
 }));
 

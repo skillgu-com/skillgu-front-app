@@ -20,7 +20,7 @@ interface Props<T extends FieldValues> {
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
 }
 
-const FormInputText = <T extends FieldValues>({
+const FormAutocomplete = <T extends FieldValues>({
   control,
   name,
   customFeedback,
@@ -57,4 +57,4 @@ const FormInputText = <T extends FieldValues>({
     )
 }
 
-export default FormInputText;
+export default FormAutocomplete;

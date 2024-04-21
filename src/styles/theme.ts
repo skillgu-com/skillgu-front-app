@@ -166,6 +166,16 @@ const components: Components<Omit<Theme, "components">> = {
             },
         },
     },
+    MuiOutlinedInput: {
+        styleOverrides: {
+            root: {
+              borderRadius: '10px'
+            },
+            notchedOutline: {
+                borderColor: palette.base["40"],
+            }
+        }
+    }
 }
 
 const theme = createTheme({

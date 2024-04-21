@@ -5,7 +5,6 @@ import {ReactComponent as LinkIcon} from '@icons/svg/link.svg';
 import {ReactComponent as UserIcon} from '@icons/svg/user.svg';
 import {ReactComponent as TeacherIcon} from '@icons/svg/teacher.svg';
 import {ReactComponent as SkillGuruLogo} from '@icons/svg/logo_skillguru.svg';
-import useUrlStepper from "../../../hooks/useUrlStepper";
 import {
     StyledContainer,
     StyledNode,
@@ -14,6 +13,7 @@ import {
 } from "@newComponents/_registerMentor/RegisterMentorStepperNavigation/RegisterMentorStepperNavigation.styles";
 import Typography from "@mui/material/Typography";
 import {Theme, useMediaQuery} from "@mui/material";
+import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 
 type NavigationContentT = {
     title: string;
@@ -25,35 +25,35 @@ type NavigationContentT = {
 
 const navigationContent: NavigationContentT[] = [
     {
-        id: 1,
+        id: 0,
         title: 'Rejestracja',
         shorthand: 'Rejestracja',
         subtitle: 'Uzupełnij swoje dane, aby zarejestrować się jako mentor',
         icon: <TeacherIcon/>
     },
     {
-        id: 2,
+        id: 1,
         title: 'Informacje o sobie',
         shorthand: 'Informacje o sobie',
         subtitle: 'Uzupełnij informacje o sobie',
         icon: <UserIcon/>
     },
     {
-        id: 3,
+        id: 2,
         title: 'Informacje profilu',
         shorthand: 'Informacje profilu',
         subtitle: 'Uzupełnij swój profil, by przyciągnąć uwagę',
         icon: <EditIcon/>
     },
     {
-        id: 4,
+        id: 3,
         title: 'Portfolio',
         shorthand: 'Portfolio',
         subtitle: 'Uzupełnij swoje portfolio o linki',
         icon: <LinkIcon/>
     },
     {
-        id: 5,
+        id: 4,
         title: 'Zweryfikuj swoje konto',
         shorthand: 'Weryfikacja',
         subtitle: 'Wejdź do swojej skrzynki e-mail, aby zweryfikować konto',
@@ -62,22 +62,22 @@ const navigationContent: NavigationContentT[] = [
 ]
 
 const RegisterMentorStepperNavigation = () => {
-    const {step  } = useUrlStepper();
+    const { registerMentorState } = useRegisterMentorContext();
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.down('md'));
 
-    const refsTable = useRef<Record<number,HTMLElement | null>>({});
+    const refsObject = useRef<Record<number,HTMLElement | null>>({});
 
     useEffect(() => {
-        const elementToScroll = refsTable.current[step];
+        const elementToScroll = refsObject.current[registerMentorState.step];
         if(isMD && !!elementToScroll) elementToScroll.scrollIntoView({inline: "center", behavior: 'smooth'})
-    }, [step, isMD])
+    }, [registerMentorState.step, isMD])
 
     return (
         <StyledContainer>
             <SkillGuruLogo/>
             <StyledList>
                 {navigationContent.map(({id, subtitle, icon, title, shorthand}) => (
-                    <StyledNode ref={ref => refsTable.current[id] = ref} active={id === step} key={id}>
+                    <StyledNode ref={ref => refsObject.current[id] = ref} active={id === registerMentorState.step} key={id}>
                         <StyledIcon>{icon}</StyledIcon>
                         <Typography color='secondary.contrastText' variant={isMD ? 'buttonSm' : 'buttonLg'}>{isMD ? shorthand : title}</Typography>
                         {!isMD && <Typography color='secondary.contrastText' variant='caption'>{subtitle}</Typography>}

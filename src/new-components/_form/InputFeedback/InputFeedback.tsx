@@ -5,12 +5,12 @@ import React from "react";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import exhaustiveGuard from "../../../helpers/exhaustiveGuard";
 
-export type FeedbackProps = {
+export type InputFeedbackProps = {
     message: string;
     severity: 'error' | 'success';
 }
 
-const resolveIcon = (severity: FeedbackProps['severity']) => {
+const resolveIcon = (severity: InputFeedbackProps['severity']) => {
     switch (severity) {
         case 'error':
             return <CancelOutlinedIcon fontSize='large' color='error'/>
@@ -21,7 +21,7 @@ const resolveIcon = (severity: FeedbackProps['severity']) => {
     }
 }
 
-const resolveColor = (severity: FeedbackProps['severity']) => {
+const resolveColor = (severity: InputFeedbackProps['severity']) => {
     switch (severity) {
         case 'error':
             return 'error.main'
@@ -33,7 +33,7 @@ const resolveColor = (severity: FeedbackProps['severity']) => {
 }
 
 
-const InputFeedback: React.FC<FeedbackProps> = ({message, severity}) => (
+const InputFeedback: React.FC<InputFeedbackProps> = ({message, severity}) => (
     <StyledFeedback>
         {resolveIcon(severity)}
         <Typography color={resolveColor(severity)} variant='body2'>

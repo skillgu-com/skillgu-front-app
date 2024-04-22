@@ -14,9 +14,9 @@ export type AboutFormInput = {
 };
 
 export type ProfileFormInput = {
-    profilePhoto: File | null,
+    profilePhoto: File[] | null,
     bio: string,
-    skills: string[],
+    skills: {label: string, value: string}[],
 };
 
 export type PortfolioFormInput = {

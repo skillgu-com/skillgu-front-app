@@ -1,6 +1,6 @@
-import {Option} from "@newComponents/_form/FormInputSelect/FormInputSelect";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
-const languagesSelectOptions: Option[] = [
+const languagesSelectOptions: DropdownOption[] = [
     {label: 'Polski', value: 'pl'},
     {label: 'Angielski', value: 'en'},
     {label: 'Hiszpański', value: 'es'},

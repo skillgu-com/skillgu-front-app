@@ -1,5 +1,7 @@
+import React from 'react';
 import {Components, createTheme, PaletteOptions, Theme} from "@mui/material";
 import {TypographyOptions} from "@mui/material/styles/createTypography";
+import CloseIcon from '@mui/icons-material/Close';
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -76,6 +78,11 @@ const palette: PaletteOptions = {
         "60": "#8E9ABB",
         "80": "#56658F",
         "100": "#000000",
+    },
+    grey: {
+        "100": "#F9FAFB",
+        "200": "#F3F4F6",
+        "300": "#F2F4F8",
     }
 };
 
@@ -173,6 +180,21 @@ const components: Components<Omit<Theme, "components">> = {
             },
             notchedOutline: {
                 borderColor: palette.base["40"],
+            }
+        }
+    },
+    MuiChip: {
+        defaultProps: {
+            deleteIcon: <CloseIcon fontSize='small' />
+        },
+        styleOverrides: {
+            label: {
+                fontSize: typography.caption?.fontSize,
+                fontWeight: typography.caption?.fontWeight,
+                padding: '20px',
+            },
+            deleteIcon: {
+                background: 'none'
             }
         }
     }

@@ -10,24 +10,19 @@ import Typography from "@mui/material/Typography";
 import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
 import {SelectInputProps} from "@mui/material/Select/SelectInput";
 import MenuItem from "@mui/material/MenuItem";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 export type Feedback = {
     message: string;
     severity: 'error' | 'success';
 }
 
-export type Option<OptionMetadataT = undefined> = {
-    value: string | number;
-    label: string;
-    metadata?: OptionMetadataT;
-};
-
 interface Props<T extends FieldValues, OptionMetadataT> {
     label: string;
     name: Path<T>;
     control: Control<T>;
     formState: FormState<T>;
-    options: Option<OptionMetadataT>[];
+    options: DropdownOption<OptionMetadataT>[];
     customFeedback?: Feedback[];
     inputProps?: SelectInputProps;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;

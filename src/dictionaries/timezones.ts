@@ -1,6 +1,6 @@
-import {Option} from "@newComponents/_form/FormInputSelect/FormInputSelect";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
-const timezonesSelectOptions: Option[] = [
+const timezonesSelectOptions: DropdownOption[] = [
     {label: 'UTC−12:00', value: 720},
     {label: 'UTC−11:00', value: 660},
     {label: 'UTC−10:00', value: 600},

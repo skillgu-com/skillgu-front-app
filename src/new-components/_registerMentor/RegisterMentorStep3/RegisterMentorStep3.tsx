@@ -5,10 +5,10 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import Typography from "@mui/material/Typography";
-import FormAutocomplete from "@newComponents/_form/FormAutocomplete/FormAutocomplete";
-import {Grid} from "@mui/material";
+import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
 import Box from "@mui/material/Box";
-import FormUploadPicture from "@newComponents/_form/FormUploadPicture/FormUploadPicture";
+import ProfilePictureEditor from "@newComponents/ProfilePictureEditor/ProfilePictureEditor";
+import getAvailableSkillsService from "../../../services/skills/getAvailableSkills.service";
 
 const formId = 'ProfileFormInput'
 
@@ -17,13 +17,28 @@ const maxBioCharacters = 500;
 const RegisterMentorStep3 = () => {
     const {registerMentorDispatch} = useRegisterMentorContext();
 
-    const {control, formState, handleSubmit, watch} = useForm<ProfileFormInput>({
+    const {control, formState, handleSubmit, watch, resetField} = useForm<ProfileFormInput>({
         defaultValues: {
             profilePhoto: null,
             bio: '',
             skills: [],
         },
     });
+
+    const goToNextStep: SubmitHandler<ProfileFormInput> = (formData) => {
+        console.log(formData)
+        registerMentorDispatch({
+            type: 'COMMIT_PROFILE_INFO',
+            payload: formData,
+        })
+    };
+
+    const profilePhoto = watch('profilePhoto');
+    const imageFile = useMemo(() => {
+        if(profilePhoto) return profilePhoto[0];
+        return null;
+    }, [profilePhoto]);
+    const onRemoveProfilePhoto = () => resetField('profilePhoto')
 
     const bioValue = watch('bio');
     const remainingCharacters = useMemo(() => {
@@ -32,12 +47,6 @@ const RegisterMentorStep3 = () => {
         return count > 0 ? `Pozostało ${count} znaków` : `Przekroczyłeś limit znaków o ${-count}`;
     }, [bioValue])
 
-    const goToNextStep: SubmitHandler<ProfileFormInput> = (formData) => {
-        registerMentorDispatch({
-            type: 'COMMIT_PROFILE_INFO',
-            payload: formData,
-        })
-    };
 
     return (
         <StepContentWrapper
@@ -51,11 +60,17 @@ const RegisterMentorStep3 = () => {
             }}
         >
             <form id={formId} onSubmit={handleSubmit(goToNextStep)}>
-                <FormUploadPicture<ProfileFormInput>
+                <ProfilePictureEditor<ProfileFormInput>
                     control={control}
-                    formState={formState}
                     name='profilePhoto'
-                    label='Zdjęcie profilowe'
+                    formState={formState}
+                    imageFile={imageFile}
+                    onRemove={onRemoveProfilePhoto}
+                    controllerProps={{
+                        rules: {
+                            required: 'Zdjęcie profilowe jest wymagane',
+                        }
+                    }}
                 />
                 <FormInputText<ProfileFormInput>
                     inputProps={{multiline: true, rows: 4}}
@@ -75,11 +90,13 @@ const RegisterMentorStep3 = () => {
                 />
                 <Typography variant='caption' color='base.60'>{remainingCharacters}</Typography>
                 <Box sx={{mt: 2}}>
-                    <FormAutocomplete<ProfileFormInput>
+                    <FormAutocompleteDynamic<ProfileFormInput>
                         control={control}
                         formState={formState}
                         name='skills'
                         label='Umiejętności'
+                        controllerProps={{ rules: {required: 'Dodaj przynajmniej jedną umiejętność'}}}
+                        getOptions={getAvailableSkillsService}
                     />
                 </Box>
             </form>

@@ -8,9 +8,18 @@ export const StyledContainer = muiStyled('div')(({theme}) => ({
     display: 'grid',
     gridGap: theme.spacing(5),
     [theme.breakpoints.down('md')]: {
-        padding: theme.spacing(0, 2),
+        padding: theme.spacing(0),
+        '& svg': {
+
+        }
     }
 }));
+
+export const StyledIconWrapper = muiStyled('div')(({theme}) => ({
+    [theme.breakpoints.down('md')]: {
+                padding: theme.spacing(0, 2),
+    }
+}))
 
 export const StyledList = muiStyled('ul')(({theme}) => ({
     display: 'grid',

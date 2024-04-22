@@ -9,7 +9,7 @@ import {
     StyledContainer,
     StyledNode,
     StyledList,
-    StyledIcon
+    StyledIcon, StyledIconWrapper
 } from "@newComponents/_registerMentor/RegisterMentorStepperNavigation/RegisterMentorStepperNavigation.styles";
 import Typography from "@mui/material/Typography";
 import {Theme, useMediaQuery} from "@mui/material";
@@ -62,24 +62,28 @@ const navigationContent: NavigationContentT[] = [
 ]
 
 const RegisterMentorStepperNavigation = () => {
-    const { registerMentorState } = useRegisterMentorContext();
+    const {registerMentorState} = useRegisterMentorContext();
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.down('md'));
 
-    const refsObject = useRef<Record<number,HTMLElement | null>>({});
+    const refsObject = useRef<Record<number, HTMLElement | null>>({});
 
     useEffect(() => {
         const elementToScroll = refsObject.current[registerMentorState.step];
-        if(isMD && !!elementToScroll) elementToScroll.scrollIntoView({inline: "center", behavior: 'smooth'})
+        if (isMD && !!elementToScroll) elementToScroll.scrollIntoView({inline: "center", behavior: 'smooth'})
     }, [registerMentorState.step, isMD])
 
     return (
         <StyledContainer>
-            <SkillGuruLogo/>
+            <StyledIconWrapper>
+                <SkillGuruLogo/>
+            </StyledIconWrapper>
             <StyledList>
                 {navigationContent.map(({id, subtitle, icon, title, shorthand}) => (
-                    <StyledNode ref={ref => refsObject.current[id] = ref} active={id === registerMentorState.step} key={id}>
+                    <StyledNode ref={ref => refsObject.current[id] = ref} active={id === registerMentorState.step}
+                                key={id}>
                         <StyledIcon>{icon}</StyledIcon>
-                        <Typography color='secondary.contrastText' variant={isMD ? 'buttonSm' : 'buttonLg'}>{isMD ? shorthand : title}</Typography>
+                        <Typography color='secondary.contrastText'
+                                    variant={isMD ? 'buttonSm' : 'buttonLg'}>{isMD ? shorthand : title}</Typography>
                         {!isMD && <Typography color='secondary.contrastText' variant='caption'>{subtitle}</Typography>}
                     </StyledNode>
                 ))}

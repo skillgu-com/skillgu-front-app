@@ -62,7 +62,7 @@
 		"test": "craco test",
 		"eject": "craco eject",
 		"start:prod": "env-cmd -f .env.production craco start",
-		"production": "craco start REACT_APP_BASE_URL=http://185.25.148.129"
+		"production": "REACT_APP_BASE_URL=$(cat .env.production | xargs) craco start"
 	},
 	"eslintConfig": {
 		"extends": [

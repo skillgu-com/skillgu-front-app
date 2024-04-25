@@ -14,10 +14,9 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
             filters: filters || null
         };
 
-        // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mentor/filtered-mentors`, filterMentorToSend);
-        const response = await fetch('/search-mentor-results-mocked.json');
-        const responseData = await response.json()
-        const { total, mentors } = responseData
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mentor/filtered-mentors`, filterMentorToSend);
+
+        const { total, mentors } = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
 
         return { total, mentors: filteredMentors }
@@ -26,14 +25,3 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
         throw error;
     }
 };
-
-//     export const fetchMentors = async (
-//     take: number,
-//     skip: number,
-//     filters?: FiltersSelected
-//     ): Promise<ResponseData> => {
-//     @TODO: call to backend, add filters
-//     const response = await fetch("/search-mentor-results-mocked.json");
-//     const data = await response.json();
-//     return data as ResponseData;
-//     };

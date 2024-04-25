@@ -18,9 +18,12 @@ const parseDataForAPI = (inputData: MergedRegisterFormInput): RegisterMentorDTO 
 const registerMentorService = async (inputData: MergedRegisterFormInput) => {
     try {
         const response = await axios.post<{ userId: '123' }>('/api/auth/mentor/register', parseDataForAPI(inputData));
-        return { success: true, data: response.data }
+
+        console.log(response);
+
+        return {success: true, data: response.data}
     } catch (e) {
-        return { success: false, error: e }
+        return {success: false, error: e}
     }
 }
 

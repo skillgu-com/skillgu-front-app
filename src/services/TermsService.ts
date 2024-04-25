@@ -11,8 +11,5 @@ import axios from "axios";
 export const fetchTerms = async () : Promise<Terms> => {
     // const response = await fetch('/api/terms/fetch-all');
     const response = await axios.get('/api/terms/fetch-all');
-
-
-    console.log('fetchingTerms...', response.data)
     return response.data;
 }

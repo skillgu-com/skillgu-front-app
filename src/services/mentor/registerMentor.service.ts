@@ -17,7 +17,7 @@ const parseDataForAPI = (inputData: MergedRegisterFormInput): RegisterMentorDTO 
 // TODO consider common error handler for services
 const registerMentorService = async (inputData: MergedRegisterFormInput) => {
     try {
-        const response = await axios.post<{ userId: '123' }>('/api/auth/mentor/register', parseDataForAPI(inputData));
+        const response = await axios.post('/api/auth/mentor/register', parseDataForAPI(inputData));
 
         console.log(response);
 

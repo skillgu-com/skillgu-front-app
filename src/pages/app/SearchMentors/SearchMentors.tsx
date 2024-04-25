@@ -1,10 +1,5 @@
 // Libraries
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 // Components
 import AppHeader from "src/new-components/AppHeader/AppHeader";
 import {
@@ -18,10 +13,7 @@ import Container from "@newComponents/Container/Container";
 import { SortOption } from "@customTypes/mentor";
 import { Tag } from "src/types/tags";
 // Variables
-import {
-  PAGE_SIZE,
-  SEARCH_DELAY,
-} from "./config";
+import { PAGE_SIZE, SEARCH_DELAY } from "./config";
 // Utils
 import { termsReducer } from "src/reducers/terms";
 import { fetchTerms } from "src/services/TermsService";
@@ -40,70 +32,52 @@ const SearchMentors = () => {
   );
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
 
-  const search = useCallback(
-    async (page: number, filters: FiltersSelected) => {
-      dispatchMentors({
-        type: "UPDATE_REQUEST_STATE",
-        payload: { error: "", pending: true, },
-      })
-      try {
-        const { total, mentors } = await fetchMentors(page, PAGE_SIZE, filters);
-
-        // @TODO: remove promise
-        // await new Promise(resolve => setTimeout(resolve, 1000));
-        dispatchMentors({
-          type: "UPDATE_RESULTS",
-          payload: { mentors, total },
-        })
-        dispatchMentors({
-          type: "UPDATE_REQUEST_STATE",
-          payload: { error: "", pending: false, },
-        })
-       } catch (e) {
-        dispatchMentors({
-          type: "UPDATE_REQUEST_STATE",
-          payload: { error: "Wystąpił błąd podczas pobierania danych.", pending: false, },
-        })
-       }
-    },
-    []
-  );
-
   const searchMore = useCallback(
     async (page: number, filters: FiltersSelected) => {
       try {
-        const { mentors } = await fetchMentors(
-          page,
+        dispatchMentors({
+          type: "UPDATE_REQUEST_STATE",
+          payload: { error: "", pending: true },
+        });
+        const { mentors, total } = await fetchMentors(
           PAGE_SIZE,
+          (page - 1) * PAGE_SIZE,
           filters
         );
         dispatchMentors({
-          type: "ADD_RESULTS",
-          payload: { mentors },
-        })
-       } catch (e) {
+          type: page === 1 ? "UPDATE_RESULTS" : "ADD_RESULTS",
+          payload: {
+            mentors,
+            total,
+          },
+        });
         dispatchMentors({
           type: "UPDATE_REQUEST_STATE",
-          payload: { error: "Wystąpił błąd podczas pobierania danych.", pending: false, },
-        })
-       }
+          payload: { error: "", pending: false },
+        });
+      } catch (e) {
+        dispatchMentors({
+          type: "UPDATE_REQUEST_STATE",
+          payload: {
+            error: "Wystąpił błąd podczas pobierania danych.",
+            pending: false,
+          },
+        });
+      }
     },
     []
   );
 
   useEffect(() => {
+    dispatchMentors({
+      type: "UPDATE_REQUEST_STATE",
+      payload: { error: "", pending: true },
+    });
     const timeoutId = setTimeout(() => {
       searchMore(state.page, state.filters);
     }, SEARCH_DELAY);
     return () => clearTimeout(timeoutId);
   }, [searchMore, state.filters, state.page]);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      search(1, state.filters);
-    }, SEARCH_DELAY);
-    return () => clearTimeout(timeoutId);
-  }, [search, state.filters]);
 
   useEffect(() => {
     const run = async () => {
@@ -125,6 +99,17 @@ const SearchMentors = () => {
       type: "UPDATE_FILTERS",
       payload: { filters: mentorsInitialState.filters },
     });
+    dispatchMentors({
+      type: "UPDATE_RESULTS",
+      payload: {
+        mentors: [],
+        total: 0,
+      },
+    });
+    dispatchMentors({
+      type: "UPDATE_PAGE",
+      payload: { page: 1 },
+    });
   }, []);
 
   const handleRemovePrice = useCallback(() => {
@@ -136,6 +121,17 @@ const SearchMentors = () => {
           priceMax: mentorsInitialState.filters.priceMax,
         },
       },
+    });
+    dispatchMentors({
+      type: "UPDATE_RESULTS",
+      payload: {
+        mentors: [],
+        total: 0,
+      },
+    });
+    dispatchMentors({
+      type: "UPDATE_PAGE",
+      payload: { page: 1 },
     });
   }, []);
 
@@ -161,6 +157,17 @@ const SearchMentors = () => {
         type: "UPDATE_FILTERS",
         payload: { filters: initial },
       });
+      dispatchMentors({
+        type: "UPDATE_RESULTS",
+        payload: {
+          mentors: [],
+          total: 0,
+        },
+      });
+      dispatchMentors({
+        type: "UPDATE_PAGE",
+        payload: { page: 1 },
+      });
     },
     [state.filters]
   );
@@ -170,6 +177,13 @@ const SearchMentors = () => {
       dispatchMentors({
         type: "UPDATE_FILTERS",
         payload: { filters: { phrase: e.target.value } },
+      });
+      dispatchMentors({
+        type: "UPDATE_RESULTS",
+        payload: {
+          mentors: [],
+          total: 0,
+        },
       });
     },
     []
@@ -188,18 +202,29 @@ const SearchMentors = () => {
   //     1000
   //   );
   // };
-    const handleLoadMore = () => {
-        dispatchMentors({
-            type: "UPDATE_PAGE",
-            payload: { page: state.page + 1 },
-        });
-    };
+  const handleLoadMore = () => {
+      dispatchMentors({
+          type: "UPDATE_PAGE",
+          payload: { page: state.page + 1 },
+      });
+  };
 
   const handleChangeFilter = useCallback(
     (changed: Partial<FiltersSelected>) => {
       dispatchMentors({
         type: "UPDATE_FILTERS",
         payload: { filters: changed },
+      });
+      dispatchMentors({
+        type: "UPDATE_RESULTS",
+        payload: {
+          mentors: [],
+          total: 0,
+        },
+      });
+      dispatchMentors({
+        type: "UPDATE_PAGE",
+        payload: { page: 1 },
       });
     },
     []

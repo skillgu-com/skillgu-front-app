@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { Option, FilterName } from "@customTypes/mentor";
-import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
 import Checkbox, { type CheckboxValueCb } from "src/new-components/Checkbox/Checkbox";
 import styles from './FiltersCheckboxes.module.scss'
 
@@ -16,9 +15,10 @@ export const FiltersCheckboxes = ({
   name,
   options,
   selected,
+  startedRows,
   handleChange,
 }: FiltersCheckboxesProps) => {
-  const partialyHide = options.length - (FILTERS_CHECKBOXES_ROWS_LIMIT - 1);
+  const partialyHide = Math.max(options.length - (startedRows - 1), 0);
   const displayAll = partialyHide > 0;
   const [isExpanded, setIsExpanded] = useState<boolean>(displayAll);
   const onToggle = useCallback(() => {
@@ -42,7 +42,7 @@ export const FiltersCheckboxes = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.checkboxes}>
-        {options.slice(0, isExpanded ? options.length : 5).map((opt, i) => (
+        {options.slice(0, isExpanded ? options.length : startedRows - 1).map((opt, i) => (
           <Checkbox
             key={`${opt.value}-${i}`}
             id={name}

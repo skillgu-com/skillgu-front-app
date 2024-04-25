@@ -29,6 +29,7 @@ export const mentorsReducer = (
       return {
         ...state,
         mentors: [...state.mentors, ...(action.payload.mentors || [])],
+        total: action.payload.total || state.total,
       };
     case "UPDATE_RESULTS":
       return {

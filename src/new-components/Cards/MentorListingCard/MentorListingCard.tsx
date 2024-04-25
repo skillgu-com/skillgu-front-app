@@ -30,6 +30,7 @@ interface MentorListingCardProps {
 
 const DEFAULT_TAGS_DISPLAY = 4;
 const DEFAULT_DESCRIPTION_HEIGHT = 50;
+const DESC_EXPAND_LENGTH = 90;
 
 export const MentorListingCard: React.FC<MentorListingCardProps> = ({
   avatar_url,
@@ -140,38 +141,52 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
           {title}
         </Title>
         <div className={styles.descriptionWrapper}>
-          <AnimateHeight
-            id="description"
-            duration={500}
-            height={descriptionHeight}
-            animateOpacity={true}
-            contentClassName={clx(styles.animateDescriptionContent, {
-              [styles.animateDescriptionContentExpanded]:
-                descriptionHeight !== initialDescriptionHeight,
-            })}
-          >
-            <Title
-              tag={TitleTag.h4}
-              variant={TitleVariant.standard}
-              classes={styles.description}
-            >
-              {description}
-            </Title>
-          </AnimateHeight>
-          {initialDescriptionHeight !== "auto" ? (
-            <button
-              className={styles.moreBtn}
-              onClick={toggleDescriptionExpanded}
-              type="button"
-              aria-controls="example-panel"
-              aria-expanded={descriptionHeight !== initialDescriptionHeight}
-              ref={descMoreRef}
-            >
-              {descriptionHeight === initialDescriptionHeight
-                ? "Pokaż więcej"
-                : "Pokaż mniej"}
-            </button>
-          ) : null}
+          {description.length > DESC_EXPAND_LENGTH ? (
+            <>
+              <AnimateHeight
+                id="description"
+                duration={500}
+                height={descriptionHeight}
+                animateOpacity={true}
+                contentClassName={clx(styles.animateDescriptionContent, {
+                  [styles.animateDescriptionContentExpanded]:
+                    descriptionHeight !== initialDescriptionHeight,
+                })}
+              >
+                <Title
+                  tag={TitleTag.h4}
+                  variant={TitleVariant.standard}
+                  classes={styles.description}
+                >
+                  {description}
+                </Title>
+              </AnimateHeight>
+              {initialDescriptionHeight !== "auto" ? (
+                <button
+                  className={styles.moreBtn}
+                  onClick={toggleDescriptionExpanded}
+                  type="button"
+                  aria-controls="example-panel"
+                  aria-expanded={descriptionHeight !== initialDescriptionHeight}
+                  ref={descMoreRef}
+                >
+                  {descriptionHeight === initialDescriptionHeight
+                    ? "Pokaż więcej"
+                    : "Pokaż mniej"}
+                </button>
+              ) : null}
+            </>
+          ) : (
+            <>
+              <Title
+                tag={TitleTag.h4}
+                variant={TitleVariant.standard}
+                classes={styles.description}
+              >
+                {description}
+              </Title>
+            </>
+          )}
         </div>
       </div>
       <div className={styles.footer}>

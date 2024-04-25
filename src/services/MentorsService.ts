@@ -14,10 +14,13 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
             filters: filters || null
         };
 
-        const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
+        // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mentor/filtered-mentors`, filterMentorToSend);
+        const response = await fetch('/search-mentor-results-mocked.json');
+        const responseData = await response.json()
+        const { total, mentors } = responseData
+        const filteredMentors = mentors.slice(skip, skip + take);
 
-        // console.log('z backendu: ', response.data)
-        return response.data;
+        return { total, mentors: filteredMentors }
     } catch (error) {
         console.error('Error fetching mentors:', error);
         throw error;

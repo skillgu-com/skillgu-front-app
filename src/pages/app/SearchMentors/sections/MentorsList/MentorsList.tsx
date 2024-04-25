@@ -38,11 +38,10 @@ export const MentorsList = ({
     rootMargin: "0px 0px 400px 0px",
   });
 
-
   return (
     <Container as={Tag.Section} classes={styles.wrapper}>
       <div className={styles.mentorsList}>
-        {!pending && mentors?.map((item: any) => (
+        {mentors?.map((item: any) => (
           <MentorListingCard
             key={item.id}
             avatar_url={item.avatar_url}

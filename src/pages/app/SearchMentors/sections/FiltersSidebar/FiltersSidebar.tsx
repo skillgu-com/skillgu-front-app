@@ -7,6 +7,7 @@ import {
   } from "@customTypes/mentor";
 import styles from "./FiltersSidebar.module.scss";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
+import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
 
 type FiltersSidebarProps = {
   terms: Terms;
@@ -38,7 +39,7 @@ export const FiltersSidebar = ({
       <FiltersGroup title="Kategoria">
         <FiltersCheckboxes
           name="categories"
-          startedRows={5}
+          startedRows={FILTERS_CHECKBOXES_ROWS_LIMIT}
           options={terms.categories}
           selected={filters.categories}
           handleChange={(name: FilterName, selected: Option[]) => {
@@ -51,7 +52,7 @@ export const FiltersSidebar = ({
       <FiltersGroup title="Umiejętności">
         <FiltersCheckboxes
           name="skills"
-          startedRows={5}
+          startedRows={FILTERS_CHECKBOXES_ROWS_LIMIT}
           options={terms.skills}
           selected={filters.skills}
           handleChange={(name: FilterName, selected: Option[]) => {
@@ -64,7 +65,7 @@ export const FiltersSidebar = ({
       <FiltersGroup title="Usługi">
         <FiltersCheckboxes
           name="services"
-          startedRows={5}
+          startedRows={FILTERS_CHECKBOXES_ROWS_LIMIT}
           options={terms.services}
           selected={filters.services}
           handleChange={(name: FilterName, selected: Option[]) => {
@@ -77,7 +78,7 @@ export const FiltersSidebar = ({
         <FiltersGroup title="Tematy">
             <FiltersCheckboxes
                 name="topics"
-                startedRows={5}
+                startedRows={FILTERS_CHECKBOXES_ROWS_LIMIT}
                 options={terms.topics}
                 selected={filters.topics}
                 handleChange={(name: FilterName, selected: Option[]) => {

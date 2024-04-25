@@ -1,5 +1,5 @@
 {
-  "total": 100,
+  "total": 13,
   "mentors": [
     {
       "id": "1",
@@ -11,7 +11,7 @@
       "reviewsAvgRate": 5,
       "reviewsCount": 10,
       "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
-      "tags": [
+      "skills": [
         "Figma",
         "UX Design",
         "UI Design",
@@ -33,7 +33,7 @@
       "reviewsAvgRate": 5,
       "reviewsCount": 10,
       "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
-      "tags": [
+      "skills": [
         "Figma",
         "UX Design",
         "UI Design",
@@ -55,7 +55,227 @@
       "reviewsAvgRate": 5,
       "reviewsCount": 10,
       "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
-      "tags": [
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "4",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 4 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "5",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 5 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "6",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 6 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "7",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 7 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "8",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 8 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "9",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 9 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "10",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 10 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "11",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 11 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "12",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 12 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
+        "Figma",
+        "UX Design",
+        "UI Design",
+        "Design Thinking",
+        "Tag 1",
+        "Tag 2",
+        "Tag 3"
+      ],
+      "price": 50,
+      "title": "Nauczę Cię dizajnować jak PRO"
+    },
+    {
+      "id": "13",
+      "avatar_url": "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+      "name": "Anna 13 Stokrotka",
+      "profession": "UX/UI Designer w Google",
+      "special": "Niezweryfikowany",
+      "specialVariant": "warning",
+      "reviewsAvgRate": 5,
+      "reviewsCount": 10,
+      "description": "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+      "skills": [
         "Figma",
         "UX Design",
         "UI Design",

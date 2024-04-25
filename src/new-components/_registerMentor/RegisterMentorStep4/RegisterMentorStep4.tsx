@@ -25,7 +25,6 @@ const RegisterMentorStep4 = () => {
     const createUserAndGoToNextStep: SubmitHandler<PortfolioFormInput> = async (formData) => {
         const {success, error, data} = await registerMentorService({...registerMentorState.formData, ...formData})
 
-        console.log(formData)
         registerMentorDispatch({
             type: 'COMMIT_PORTFOLIO_INFO',
             payload: formData,

@@ -35,5 +35,9 @@ export type VerificationFormInput = {
     num4: string,
 };
 
+export type RegisterMentorResponse = {
+    userId: string,
+};
+
 // That's how we use data on FE
 export type MergedRegisterFormInput = RegisterFormInput & AboutFormInput & ProfileFormInput & PortfolioFormInput;

@@ -9,7 +9,7 @@ const parseDataForAPI = (inputData: VerificationFormInput, userId: string): Veri
 // TODO consider common error handler for services
 const verifyEmailAddressService = async (inputData: VerificationFormInput, userId: string) => {
     try {
-        const response = await axios.post('EP/here', parseDataForAPI(inputData, userId));
+        const response = await axios.post('/api/auth/mentor/verify-email-address', parseDataForAPI(inputData, userId));
         return { success: true, data: response.data }
     } catch (e) {
         return { success: false, error: e }

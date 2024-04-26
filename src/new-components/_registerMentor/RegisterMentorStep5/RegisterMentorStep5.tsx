@@ -47,6 +47,7 @@ const validateSingleInput = (event: InputEvent, actionOnValidInput: () => void):
 const RegisterMentorStep5 = () => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
+
     const [isLoading, setIsLoading] = useState(false)
 
     const {control, formState, handleSubmit, setFocus} = useForm<VerificationFormInput>({
@@ -58,10 +59,11 @@ const RegisterMentorStep5 = () => {
         },
     });
 
+
     const verifyCode: SubmitHandler<VerificationFormInput> = async (formData) => {
         if (registerMentorState.userId) {
             setIsLoading(true);
-            await verifyEmailAddressService(formData, registerMentorState.userId)
+            await verifyEmailAddressService(formData, registerMentorState?.userId)
             // after successful verification
             // registerMentorDispatch({type: 'FLUSH_STATE'});
             setIsLoading(false);

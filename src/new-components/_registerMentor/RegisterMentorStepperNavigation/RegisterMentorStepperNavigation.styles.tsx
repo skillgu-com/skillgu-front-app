@@ -33,13 +33,14 @@ export const StyledList = muiStyled('ul')(({theme}) => ({
     },
 }));
 
-export const StyledNode = muiStyled('li')<{ active: boolean }>(({theme, active}) => ({
+export const StyledNode = muiStyled('li')<{ active: boolean, clickable: boolean }>(({theme, active, clickable}) => ({
     display: 'grid',
     gridTemplateColumns: '48px auto',
     gap: theme.spacing(0, 3),
     alignItems: 'start',
     position: 'relative',
     wordBreak: 'keep-all',
+    cursor: clickable ? 'pointer' : 'auto',
 
     '& div, & span': {
         opacity: active ? 1 : 0.6,

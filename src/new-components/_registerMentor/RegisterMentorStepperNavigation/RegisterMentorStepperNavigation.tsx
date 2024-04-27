@@ -62,7 +62,7 @@ const navigationContent: NavigationContentT[] = [
 ]
 
 const RegisterMentorStepperNavigation = () => {
-    const {registerMentorState} = useRegisterMentorContext();
+    const {registerMentorState, registerMentorDispatch} = useRegisterMentorContext();
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.down('md'));
 
     const refsObject = useRef<Record<number, HTMLElement | null>>({});
@@ -72,6 +72,10 @@ const RegisterMentorStepperNavigation = () => {
         if (isMD && !!elementToScroll) elementToScroll.scrollIntoView({inline: "center", behavior: 'smooth'})
     }, [registerMentorState.step, isMD])
 
+    const goToStep = (newStep: number) => {
+        if(newStep <= registerMentorState.maxVisitedStep) registerMentorDispatch({ type: "GO_TO_STEP", payload: newStep })
+    }
+
     return (
         <StyledContainer>
             <StyledIconWrapper>
@@ -79,8 +83,12 @@ const RegisterMentorStepperNavigation = () => {
             </StyledIconWrapper>
             <StyledList>
                 {navigationContent.map(({id, subtitle, icon, title, shorthand}) => (
-                    <StyledNode ref={ref => refsObject.current[id] = ref} active={id === registerMentorState.step}
-                                key={id}>
+                    <StyledNode
+                        clickable={id <= registerMentorState.maxVisitedStep}
+                        onClick={() => goToStep(id)}
+                        ref={ref => refsObject.current[id] = ref} active={id === registerMentorState.step}
+                        key={id}
+                    >
                         <StyledIcon>{icon}</StyledIcon>
                         <Typography color='secondary.contrastText'
                                     variant={isMD ? 'buttonSm' : 'buttonLg'}>{isMD ? shorthand : title}</Typography>

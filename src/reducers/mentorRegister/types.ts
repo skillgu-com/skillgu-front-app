@@ -8,6 +8,7 @@ import {
 
 export type MentorRegisterReducerState = {
     step: number,
+    maxVisitedStep: number,
     userId: string | null,
     formData: MergedRegisterFormInput
 };
@@ -35,4 +36,8 @@ export type MentorRegisterReducerAction =
     | {
     type: 'SET_USER_ID';
     payload: string;
-};
+}
+    | {
+    type: 'GO_TO_STEP';
+    payload: number;
+}

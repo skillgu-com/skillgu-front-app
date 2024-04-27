@@ -17,14 +17,14 @@ const detectLanguage = () => {
 }
 
 const RegisterMentorStep2 = () => {
-    const {registerMentorDispatch} = useRegisterMentorContext();
+    const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
     const {control, formState, handleSubmit} = useForm<AboutFormInput>({
         defaultValues: {
-            profession: '',
-            company: '',
-            timezone: new Date().getTimezoneOffset(),
-            language: detectLanguage()
+            profession: registerMentorState.formData.profession || '',
+            company: registerMentorState.formData.company || '',
+            timezone: registerMentorState.formData.timezone || new Date().getTimezoneOffset(),
+            language: registerMentorState.formData.language || detectLanguage()
         },
     });
 

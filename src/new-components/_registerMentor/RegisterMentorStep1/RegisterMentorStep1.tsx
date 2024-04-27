@@ -1,9 +1,9 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
 import Typography from "@mui/material/Typography";
 import TextLink from "@newComponents/TextLink/TextLink";
 import paths from "../../../paths";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm, UseFormSetValue} from "react-hook-form";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {RegisterFormInput} from "@customTypes/mentorRegister";
 import emailCheckService from "../../../services/emailCheck/emailCheck.service";
@@ -12,6 +12,7 @@ import {Grid} from "@mui/material";
 import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
+import {MentorRegisterReducerState} from "../../../reducers/mentorRegister/types";
 
 
 const GoToLogin = () => (
@@ -20,18 +21,18 @@ const GoToLogin = () => (
     </Typography>
 );
 
-const formId = 'RegisterFormInput'
+const formId = 'RegisterFormInput';
 
 const RegisterMentorStep1 = () => {
-    const { registerMentorDispatch } = useRegisterMentorContext();
+    const {registerMentorState, registerMentorDispatch} = useRegisterMentorContext();
 
-    const {control, formState, handleSubmit, watch} = useForm<RegisterFormInput>({
+    const {control, formState, handleSubmit, watch, setValue} = useForm<RegisterFormInput>({
         defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            acceptRules: false,
+            firstName: registerMentorState.formData.firstName || '',
+            lastName: registerMentorState.formData.lastName || '',
+            email: registerMentorState.formData.email || '',
+            password: registerMentorState.formData.password || '',
+            acceptRules: registerMentorState.formData.acceptRules || false,
         },
     });
 

@@ -2,6 +2,7 @@ import {MentorRegisterReducerState} from "./types";
 
 const mentorRegisterInitialState: MentorRegisterReducerState =  {
     step: 0,
+    maxVisitedStep: 0,
     userId: null,
     formData: {
         email: "",

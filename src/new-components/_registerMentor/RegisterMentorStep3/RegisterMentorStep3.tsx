@@ -15,13 +15,13 @@ const formId = 'ProfileFormInput'
 const maxBioCharacters = 500;
 
 const RegisterMentorStep3 = () => {
-    const {registerMentorDispatch} = useRegisterMentorContext();
+    const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
     const {control, formState, handleSubmit, watch, resetField} = useForm<ProfileFormInput>({
         defaultValues: {
-            profilePhoto: null,
-            bio: '',
-            skills: [],
+            profilePhoto: registerMentorState.formData.profilePhoto || null,
+            bio: registerMentorState.formData.bio || '',
+            skills: registerMentorState.formData.skills || [],
         },
     });
 

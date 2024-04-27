@@ -13,12 +13,12 @@ const RegisterMentorStep4 = () => {
 
     const {control, formState, handleSubmit} = useForm<PortfolioFormInput>({
         defaultValues: {
-            personalWebsite: '',
-            linkedin: '',
-            twitter: '',
-            github: '',
-            dribble: '',
-            behance: '',
+            personalWebsite: registerMentorState.formData.personalWebsite || '',
+            linkedin: registerMentorState.formData.linkedin || '',
+            twitter: registerMentorState.formData.twitter || '',
+            github: registerMentorState.formData.github || '',
+            dribble: registerMentorState.formData.dribble || '',
+            behance: registerMentorState.formData.behance || '',
         },
     });
 

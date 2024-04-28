@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
 import {PortfolioFormInput} from "@customTypes/registerFlow";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -25,24 +25,19 @@ const RegisterStep4 = () => {
     const createUserAndGoToNextStep: SubmitHandler<PortfolioFormInput> = async (formData) => {
         const {success, error, data} = await registerMentorService({...registerMentorState.formData, ...formData})
 
+        if (!success) console.error(error)
+        if (data) {
+            registerMentorDispatch({
+                type: 'SET_USER_ID',
+                payload: data,
+            })
+            registerMentorDispatch({
+                type: 'COMMIT_PORTFOLIO_INFO',
+                payload: formData,
+            })
+        }
 
     };
-
-        // TODO handle error for user
-        // if (!success) console.error(error)
-        //
-        // if (data) {
-        //     registerMentorDispatch({
-        //         type: 'SET_USER_ID',
-        //         payload: data.userId
-        //     })
-    //         registerMentorDispatch({
-    //             type: 'COMMIT_PORTFOLIO_INFO',
-    //             payload: formData,
-    //         })
-    //     }
-    //
-    // };
 
     return (
         <StepContentWrapper

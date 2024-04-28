@@ -26,7 +26,6 @@ const RegisterStep3 = () => {
     });
 
     const goToNextStep: SubmitHandler<ProfileFormInput> = (formData) => {
-        console.log(formData)
         registerMentorDispatch({
             type: 'COMMIT_PROFILE_INFO',
             payload: formData,

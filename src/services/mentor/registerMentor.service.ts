@@ -17,14 +17,12 @@ const parseDataForAPI = (inputData: MergedRegisterMentorFormInput): RegisterMent
 // TODO consider common error handler for services
 const registerMentorService = async (inputData: MergedRegisterMentorFormInput) => {
     try {
-        const response = await axios.post<{ userId: '123' }>('/api/auth/mentor/register', parseDataForAPI(inputData));
-
-        console.log(response);
-
+        const response = await axios.post<string>('/api/auth/mentor/register', parseDataForAPI(inputData));
         return {success: true, data: response.data}
     } catch (e) {
         return {success: false, error: e}
     }
 }
+
 
 export default registerMentorService;

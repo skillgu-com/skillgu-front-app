@@ -1,16 +1,16 @@
 import {
     AboutFormInput,
-    MergedRegisterFormInput,
+    MergedRegisterMentorFormInput,
     PortfolioFormInput,
     ProfileFormInput,
     RegisterFormInput
-} from "@customTypes/mentorRegister";
+} from "@customTypes/registerFlow";
 
 export type MentorRegisterReducerState = {
     step: number,
     maxVisitedStep: number,
     userId: string | null,
-    formData: MergedRegisterFormInput
+    formData: MergedRegisterMentorFormInput
 };
 
 export type MentorRegisterReducerAction =

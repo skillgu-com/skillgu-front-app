@@ -36,4 +36,7 @@ export type VerificationFormInput = {
 };
 
 // That's how we use data on FE
-export type MergedRegisterFormInput = RegisterFormInput & AboutFormInput & ProfileFormInput & PortfolioFormInput;
+export type MergedRegisterMentorFormInput = RegisterFormInput & AboutFormInput & ProfileFormInput & PortfolioFormInput;
+
+export type MergedRegisterMenteeFormInput = RegisterFormInput;
+

@@ -1,6 +1,6 @@
 import React from 'react';
-import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
-import {AboutFormInput} from "@customTypes/mentorRegister";
+import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
+import {AboutFormInput} from "@customTypes/registerFlow";
 import {SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
@@ -16,7 +16,7 @@ const detectLanguage = () => {
     return language.split('-')[0];
 }
 
-const RegisterMentorStep2 = () => {
+const RegisterStep2 = () => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
     const {control, formState, handleSubmit} = useForm<AboutFormInput>({
@@ -84,4 +84,4 @@ const RegisterMentorStep2 = () => {
     )
 }
 
-export default RegisterMentorStep2;
+export default RegisterStep2;

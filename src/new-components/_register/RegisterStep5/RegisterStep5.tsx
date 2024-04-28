@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
-import {VerificationFormInput} from "@customTypes/mentorRegister";
+import React, {FC, useMemo, useState} from 'react';
+import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
+import {VerificationFormInput} from "@customTypes/registerFlow";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import Typography from "@mui/material/Typography";
@@ -8,8 +8,9 @@ import {Button, Collapse, TextField} from "@mui/material";
 import verifyEmailAddressService from "../../../services/verifyEmailAddress/verifyEmailAddress.service";
 import {
     StyledInputsWrapper, StyledFallbackWrapper
-} from "@newComponents/_registerMentor/RegisterMentorStep5/RegisterMentorStep5.styles";
+} from "@newComponents/_register/RegisterStep5/RegisterStep5.styles";
 import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
+import useRegisterMenteeContext from "../../../context/RegisterMenteeContext";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -44,8 +45,23 @@ const validateSingleInput = (event: InputEvent, actionOnValidInput: () => void):
     return event;
 }
 
-const RegisterMentorStep5 = () => {
+
+type Props = {
+    isMentor: boolean,
+}
+
+const RegisterStep5: FC<Props> = ({isMentor}) => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
+    const {registerMenteeState, registerMenteeDispatch} = useRegisterMenteeContext();
+
+    const {stateSource, stateDispatcher} = useMemo(() => {
+        if (isMentor) {
+            return {stateSource: registerMentorState, stateDispatcher: registerMentorDispatch}
+        } else {
+            return {stateSource: registerMenteeState, stateDispatcher: registerMenteeDispatch}
+        }
+    }, [isMentor, registerMentorState, registerMenteeState, registerMenteeDispatch, registerMentorDispatch])
+
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -59,11 +75,11 @@ const RegisterMentorStep5 = () => {
     });
 
     const verifyCode: SubmitHandler<VerificationFormInput> = async (formData) => {
-        if (registerMentorState.userId) {
+        if (stateSource.userId) {
             setIsLoading(true);
-            await verifyEmailAddressService(formData, registerMentorState.userId)
+            await verifyEmailAddressService(formData, stateSource.userId)
             // after successful verification
-            // registerMentorDispatch({type: 'FLUSH_STATE'});
+            // stateDispatcher({type: 'FLUSH_STATE'});
             setIsLoading(false);
         }
         //     TODO handle error
@@ -143,10 +159,10 @@ const RegisterMentorStep5 = () => {
                         />}
                     />
                     <StyledFallbackWrapper>
-                    <Collapse in={!formState.isValid && formState.isSubmitted}>
-                        <InputFeedback message={'Podaj cały wymagany kod'} severity='error'/>
-                    </Collapse>
-                        </StyledFallbackWrapper>
+                        <Collapse in={!formState.isValid && formState.isSubmitted}>
+                            <InputFeedback message={'Podaj cały wymagany kod'} severity='error'/>
+                        </Collapse>
+                    </StyledFallbackWrapper>
                 </StyledInputsWrapper>
 
             </form>
@@ -154,4 +170,4 @@ const RegisterMentorStep5 = () => {
     )
 }
 
-export default RegisterMentorStep5;
+export default RegisterStep5;

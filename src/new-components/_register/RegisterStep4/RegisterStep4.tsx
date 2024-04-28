@@ -1,6 +1,6 @@
-import React from 'react';
-import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
-import {PortfolioFormInput} from "@customTypes/mentorRegister";
+import React, {FC} from 'react';
+import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
+import {PortfolioFormInput} from "@customTypes/registerFlow";
 import {SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
@@ -8,7 +8,7 @@ import registerMentorService from "../../../services/mentor/registerMentor.servi
 
 const formId = 'PortfolioFormInput'
 
-const RegisterMentorStep4 = () => {
+const RegisterStep4 = () => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
     const {control, formState, handleSubmit} = useForm<PortfolioFormInput>({
@@ -25,10 +25,7 @@ const RegisterMentorStep4 = () => {
     const createUserAndGoToNextStep: SubmitHandler<PortfolioFormInput> = async (formData) => {
         const {success, error, data} = await registerMentorService({...registerMentorState.formData, ...formData})
 
-        registerMentorDispatch({
-            type: 'COMMIT_PORTFOLIO_INFO',
-            payload: formData,
-        })
+
     };
 
         // TODO handle error for user
@@ -107,4 +104,4 @@ const RegisterMentorStep4 = () => {
     )
 }
 
-export default RegisterMentorStep4;
+export default RegisterStep4;

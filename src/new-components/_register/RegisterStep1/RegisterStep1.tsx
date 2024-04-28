@@ -1,19 +1,25 @@
-import React, {useEffect, useMemo} from 'react';
-import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
+import React, {FC, useEffect, useMemo} from 'react';
+import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
 import Typography from "@mui/material/Typography";
 import TextLink from "@newComponents/TextLink/TextLink";
 import paths from "../../../paths";
 import {SubmitHandler, useForm, UseFormSetValue} from "react-hook-form";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
-import {RegisterFormInput} from "@customTypes/mentorRegister";
+import {RegisterFormInput} from "@customTypes/registerFlow";
 import emailCheckService from "../../../services/emailCheck/emailCheck.service";
 import {BIG_SIGN_REGEX, NUM_REGEX} from "../../../helpers/improovedValidation";
 import {Grid} from "@mui/material";
 import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
+import useRegisterMenteeContext from "../../../context/RegisterMenteeContext";
 import {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
-import {MentorRegisterReducerState} from "../../../reducers/mentorRegister/types";
+import registerMentorService from "../../../services/mentor/registerMentor.service";
+import registerMenteeService from "../../../services/mentee/registerMentee.service";
 
+type Props = {
+    title: string,
+    isMentor: boolean,
+}
 
 const GoToLogin = () => (
     <Typography textAlign='center' variant='body2'>Masz już konto?{' '}
@@ -23,24 +29,46 @@ const GoToLogin = () => (
 
 const formId = 'RegisterFormInput';
 
-const RegisterMentorStep1 = () => {
+const RegisterStep1: FC<Props> = ({title, isMentor}) => {
     const {registerMentorState, registerMentorDispatch} = useRegisterMentorContext();
+    const {registerMenteeState, registerMenteeDispatch} = useRegisterMenteeContext();
 
-    const {control, formState, handleSubmit, watch, setValue} = useForm<RegisterFormInput>({
+    const dataSource = useMemo(() => {
+        return isMentor ? registerMentorState.formData : registerMenteeState.formData
+    }, [isMentor, registerMentorState, registerMenteeState])
+
+    const {control, formState, handleSubmit, watch} = useForm<RegisterFormInput>({
         defaultValues: {
-            firstName: registerMentorState.formData.firstName || '',
-            lastName: registerMentorState.formData.lastName || '',
-            email: registerMentorState.formData.email || '',
-            password: registerMentorState.formData.password || '',
-            acceptRules: registerMentorState.formData.acceptRules || false,
+            firstName: dataSource.firstName || '',
+            lastName: dataSource.lastName || '',
+            email: dataSource.email || '',
+            password: dataSource.password || '',
+            acceptRules: dataSource.acceptRules || false,
         },
     });
 
-    const goToNextStep: SubmitHandler<RegisterFormInput> = (formData) => {
-        registerMentorDispatch({
-            type: 'COMMIT_REGISTER_INFO',
-            payload: formData,
-        })
+    const goToNextStep: SubmitHandler<RegisterFormInput> = async (formData) => {
+        if (isMentor) {
+            registerMentorDispatch({
+                type: 'COMMIT_REGISTER_INFO',
+                payload: formData,
+            })
+        } else {
+            const {success, error, data} = await registerMenteeService(formData);
+            // TODO handle error
+            if(data) {
+                registerMenteeDispatch({
+                    type: 'COMMIT_REGISTER_INFO',
+                    payload: formData,
+                })
+                registerMenteeDispatch({
+                    type: 'SET_USER_ID',
+                    payload: data.userId
+                })
+            }
+
+        }
+
     };
 
     // TODO consider to create a custom hook for feedback logic
@@ -71,7 +99,7 @@ const RegisterMentorStep1 = () => {
                 disabled: (!formState.isValid || !isPasswordValid) && formState.isSubmitted,
                 form: formId
             }}
-            title={'Zarejestruj sie jako mentor'}
+            title={title}
             additionalActionComponent={<GoToLogin/>}
         >
             <form id={formId} onSubmit={handleSubmit(goToNextStep)}>
@@ -103,7 +131,7 @@ const RegisterMentorStep1 = () => {
                     label='Email'
                     name='email'
                     control={control}
-                    inputProps={{placeholder: 'adres@email.com'}}
+                    inputProps={{placeholder: 'adres@email.com', type: 'email'}}
                     controllerProps={{
                         rules: {
                             required: 'Email jest wymagany',
@@ -137,4 +165,4 @@ const RegisterMentorStep1 = () => {
     )
 }
 
-export default RegisterMentorStep1;
+export default RegisterStep1;

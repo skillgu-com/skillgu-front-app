@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
-import StepContentWrapper from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper";
-import {ProfileFormInput} from "@customTypes/mentorRegister";
+import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
+import {ProfileFormInput} from "@customTypes/registerFlow";
 import {SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
@@ -14,7 +14,7 @@ const formId = 'ProfileFormInput'
 
 const maxBioCharacters = 500;
 
-const RegisterMentorStep3 = () => {
+const RegisterStep3 = () => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
 
     const {control, formState, handleSubmit, watch, resetField} = useForm<ProfileFormInput>({
@@ -104,4 +104,4 @@ const RegisterMentorStep3 = () => {
     )
 }
 
-export default RegisterMentorStep3;
+export default RegisterStep3;

@@ -1,6 +1,6 @@
 import {VerifyEmailAddressDTO} from "./verifyEmailAddress.types";
 import axios from "axios";
-import {VerificationFormInput} from "@customTypes/mentorRegister";
+import {VerificationFormInput} from "@customTypes/registerFlow";
 
 const parseDataForAPI = (inputData: VerificationFormInput, userId: string): VerifyEmailAddressDTO => {
     return { userId, code: Object.values(inputData).join('')};

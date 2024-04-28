@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, ButtonProps} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {StyledCard, StyledStepper} from "@newComponents/_registerMentor/StepContentWrapper/StepContentWrapper.styles";
+import {StyledCard, StyledStepper} from "@newComponents/_register/StepContentWrapper/StepContentWrapper.styles";
 import classNames from "classnames";
 
 type Props = {

@@ -2,7 +2,6 @@ import React from 'react';
 // Libraries
 import {Navigate} from 'react-router-dom';
 // NEW Screens
-import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 import HomeScreen from './pages/app/HomePage/HomePage';
@@ -13,6 +12,8 @@ import Profile from './pages/app/Profiles/Profile';
 import Schedules from './pages/app/Schedules/Schedules';
 import ScheduleForm from './pages/app/Schedules/screens/ScheduleForm/ScheduleForm';
 import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
+import RegisterMentorView from "./pages/app/RegisterMentorView/RegisterMentorView";
+import RegisterMenteeView from "./pages/app/RegisterMenteeView/RegisterMenteeView";
 // Screens
 import HelpScreen from './pages/app/HelpView';
 import Raports from './pages/app/Raports/Raports';
@@ -29,7 +30,6 @@ import CreateSingleSession from './pages/app/MentoringAndSessionDashboard/Create
 import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
 import paths, {PathValue} from "./paths";
 import {ReactNode} from "react";
-import RegisterMentorView from "./pages/app/RegisterMentorView/RegisterMentorView";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 
 type Route = {
@@ -56,11 +56,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         // id: 'route029',
         path: paths.remindPassword,
         element: <RemindPasswordPage />,
-    },
-    {
-        // id: 'route03',
-        path: paths.register,
-        element: <RegisterPage />,
     },
     {
         // id: 'route04',
@@ -248,9 +243,12 @@ const routesRaw: Omit<Route, 'id'>[] = [
         isProtected: true,
     },
     {
-        // id: 'route31',
         path: paths.registerMentor,
         element: <RegisterMentorView />,
+    },
+    {
+        path: paths.registerMentee,
+        element: <RegisterMenteeView/>,
     },
 ];
 

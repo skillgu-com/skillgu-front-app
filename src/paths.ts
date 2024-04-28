@@ -3,6 +3,8 @@ const paths = {
     root: '/',
     login: '/login',
     remindPassword: '/remind-password',
+    setNewPassword: '/set-new-password',
+    passwordChangeSuccess: '/password-changed',
     register: '/register',
     home: '/home',
     settings: '/settings',

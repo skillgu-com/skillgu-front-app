@@ -12,8 +12,8 @@ import Profile from './pages/app/Profiles/Profile';
 import Schedules from './pages/app/Schedules/Schedules';
 import ScheduleForm from './pages/app/Schedules/screens/ScheduleForm/ScheduleForm';
 import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
-import RegisterMentorView from "./pages/app/RegisterMentorView/RegisterMentorView";
-import RegisterMenteeView from "./pages/app/RegisterMenteeView/RegisterMenteeView";
+import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
+import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
 import HelpScreen from './pages/app/HelpView';
 import Raports from './pages/app/Raports/Raports';
@@ -50,12 +50,19 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         // id: 'route02',
         path: paths.login,
-        element: <LoginPage />,
+        element: null,
     },
     {
-        // id: 'route029',
         path: paths.remindPassword,
-        element: <RemindPasswordPage />,
+        element: null,
+    },
+    {
+        path: paths.setNewPassword,
+        element: null,
+    },
+    {
+        path: paths.passwordChangeSuccess,
+        element: null,
     },
     {
         // id: 'route04',

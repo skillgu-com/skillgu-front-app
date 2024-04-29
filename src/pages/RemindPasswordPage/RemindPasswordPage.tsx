@@ -11,6 +11,7 @@ import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './RemindPasswordPage.module.scss';
 
+// TODO DEPRECATED
 const RemindPasswordPage = () => {
 	const [form, setForm] = useState({
 		email: defaultInput,

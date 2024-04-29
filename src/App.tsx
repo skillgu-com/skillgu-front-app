@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, ReactNode} from 'react';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
@@ -10,18 +10,31 @@ import AuthContextProvider from './context/AuthContextProvider';
 import routes from './routes';
 import theme from "./styles/theme";
 import {CssBaseline, ThemeProvider} from "@mui/material";
+import {LayoutVersion} from "@customTypes/layoutVersion";
+import exhaustiveGuard from "./helpers/exhaustiveGuard";
+import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
+import paths from "./paths";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+const stripeKey = process.env.REACT_APP_STRIPE_KEY;
+if(!stripeKey) throw new Error('Stripe key not provided, check environment variables');
+const stripePromise = loadStripe(stripeKey);
+
+const resolveLayout = (children: ReactNode, layoutVersion: LayoutVersion): ReactNode => {
+    switch (layoutVersion) {
+        case 'none':
+            return <>{children}</>;
+        case 'simple':
+            return <SimpleLayout>{children}</SimpleLayout>;
+        case 'auth':
+            return <AuthLayout>{children}</AuthLayout>;
+        case 'default':
+            return <AppLayout>{children}</AppLayout>;
+        default:
+            exhaustiveGuard(layoutVersion);
+    }
+}
 
 function App() {
-    const screen = (hasLayout, hasSimpleLayout, element) =>
-        !!hasLayout ? (
-            <AppLayout>{element}</AppLayout>
-        ) : !!hasSimpleLayout ? (
-            <SimpleLayout>{element}</SimpleLayout>
-        ) : (
-            <>{element}</>
-        );
 
     return (
         <ThemeProvider theme={theme}>
@@ -31,17 +44,17 @@ function App() {
                     <Elements stripe={stripePromise}>
                         <Routes>
                             {routes.map(
-                                ({isProtected, hasSimpleLayout, path, element, id, hasLayout}) => (
+                                ({isProtected, path, element, id, layoutVersion}) => (
                                     <Route
                                         key={id}
                                         path={path}
                                         element={
                                             isProtected ? (
                                                 <ProtectedRoute>
-                                                    {screen(hasLayout, hasSimpleLayout, element)}
+                                                    {resolveLayout(element, layoutVersion)}
                                                 </ProtectedRoute>
                                             ) : (
-                                                screen(hasLayout, hasSimpleLayout, element)
+                                                resolveLayout(element, layoutVersion)
                                             )
                                         }
                                     />
@@ -55,10 +68,11 @@ function App() {
     );
 }
 
-const ProtectedRoute = (props) => {
+const ProtectedRoute: FC<{ children: ReactNode }> = ({ children}) => {
     const isAuthenticated = !!localStorage.getItem('jwttoken');
 
-    return isAuthenticated ? props.children : <Navigate to='/login' replace/>;
+    if(!isAuthenticated) return <Navigate to={paths.login} replace/>
+    return <>{children}</>
 };
 
 export default App;

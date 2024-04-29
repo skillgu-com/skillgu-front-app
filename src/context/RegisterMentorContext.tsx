@@ -4,7 +4,7 @@ import mentorRegisterInitialState from "../reducers/mentorRegister/constants";
 import mentorRegisterReducer from "../reducers/mentorRegister/mentorRegisterReducer";
 import {MentorRegisterReducerAction} from "../reducers/mentorRegister/types";
 
-import AsideTileLayout from "@newComponents/AsideTileLayout/AsideTileLayout";
+import AsideTileLayout from "@newComponents/_layouts/AsideTileLayout/AsideTileLayout";
 import RegisterStepperNavigation, {
     NavigationContentT
 } from "@newComponents/_register/RegisterStepperNavigation/RegisterStepperNavigation";

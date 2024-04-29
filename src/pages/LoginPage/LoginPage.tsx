@@ -19,6 +19,8 @@ import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 import styles from './LoginPage.module.scss';
 import {login, loginGoogle} from 'src/helpers/login';
 
+// TODO DEPRECATED
+
 const LoginPage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();

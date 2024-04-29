@@ -1,9 +1,9 @@
 import React from 'react';
+import paths, {PathValue} from "./paths";
+import {ReactNode} from "react";
 // Libraries
 import {Navigate} from 'react-router-dom';
 // NEW Screens
-import LoginPage from './pages/LoginPage/LoginPage';
-import RemindPasswordPage from './pages/RemindPasswordPage/RemindPasswordPage';
 import HomeScreen from './pages/app/HomePage/HomePage';
 import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
@@ -28,61 +28,64 @@ import SchedulesView from './pages/app/SchedulesView';
 import CreateMentorPlan from './pages/app/MentoringAndSessionDashboard/CreateMentorPlan';
 import CreateSingleSession from './pages/app/MentoringAndSessionDashboard/CreateSingleSession';
 import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
-import paths, {PathValue} from "./paths";
-import {ReactNode} from "react";
+
+import RemindPasswordView from "./pages/unauthorized/RemindPasswordView/RemindPasswordView";
+import LoginView from "./pages/unauthorized/LoginView/LoginView";
+import PasswordChangeSuccessView from "./pages/unauthorized/PasswordChangeSuccessView/PasswordChangeSuccessView";
+import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
+import {LayoutVersion} from "@customTypes/layoutVersion";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 
 type Route = {
     id: string;
     path: PathValue | string; // TODO remove string when all paths are moved to paths.ts;
     element: ReactNode;
-    hasLayout?: boolean;
     isProtected?: boolean;
-    hasSimpleLayout?: boolean;
+    layoutVersion: LayoutVersion;
 };
 
 const routesRaw: Omit<Route, 'id'>[] = [
     {
-        // id: 'route01',
         path: paths.root,
         element: <Navigate to='/home' />,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route02',
         path: paths.login,
-        element: null,
+        element: <LoginView />,
+        layoutVersion: 'auth',
     },
     {
         path: paths.remindPassword,
-        element: null,
+        element: <RemindPasswordView />,
+        layoutVersion: 'auth',
     },
     {
         path: paths.setNewPassword,
-        element: null,
+        element: <SetNewPasswordView />,
+        layoutVersion: 'auth',
     },
     {
         path: paths.passwordChangeSuccess,
-        element: null,
+        element: <PasswordChangeSuccessView />,
+        layoutVersion: 'auth',
     },
     {
-        // id: 'route04',
         path: paths.home,
         element: <HomeScreen />,
         isProtected: true,
-        hasLayout: true,
+        layoutVersion: 'default',
     },
     {
-        // id: 'route04',
         path: paths.settings,
         element: <Settings />,
         isProtected: true,
-        hasLayout: true,
+        layoutVersion: 'default',
     },
     {
-        // id: 'route09n',
         path: paths.searchMentors,
         element: <SearchMentors />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     // {
@@ -92,59 +95,51 @@ const routesRaw: Omit<Route, 'id'>[] = [
     // 	isProtected: true,
     // },
     {
-        // id: 'route10',
         path: paths.userProfile,
         element: <Profile />,
-        hasSimpleLayout: true,
+        layoutVersion: 'simple',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.sessionBook,
         element: <BookSession />,
-        hasSimpleLayout: true,
+        layoutVersion: 'simple',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.sessionBookPayment,
         element: <BookSession payment />,
-        hasSimpleLayout: true,
+        layoutVersion: 'simple',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.schedules,
         element: <Schedules />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.schedulesAddSchedule,
         element: <ScheduleForm />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.schedulesEditSchedule,
         element: <ScheduleForm />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.schedulesAddSession,
         element: <SessionForm />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     {
-        // id: 'route11',
         path: paths.schedulesEditSession,
         element: <SessionForm />,
-        hasLayout: true,
+        layoutVersion: 'default',
         isProtected: true,
     },
     // {
@@ -160,102 +155,103 @@ const routesRaw: Omit<Route, 'id'>[] = [
     // 	isProtected: true,
     // },
     {
-        // id: 'route15',
         path: paths.businessPartner,
         element: <Underconstruction />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route16',
         path: paths.help,
         element: <HelpScreen />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route17',
         path: paths.underConstruction,
         element: <Underconstruction />,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route19',
         path: paths.calendar,
         element: <CalendarView />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route20',
         path: paths.sessionsMentoring,
         element: <MentoringAndSessionDashboard />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route21',
         path: paths.scheduleMeeting,
         element: <MeetingSchedule />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route22',
         path: paths.accountView,
         element: <AccountView />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route23',
         path: paths.createMentoring,
         element: <CreateMentorPlan />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route24',
         path: paths.createSession,
         element: <CreateSingleSession />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route25',
         path: paths.reports,
         element: <Raports />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route26',
         path: paths.accountSettlements,
         element: <AccountSettlement />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route27',
         path: paths.messages,
         element: <MessagesView />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route28',
         path: paths.schedules,
         element: <SchedulesView />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route29',
         path: paths.bookSuccess,
         element: <BookSuccess />,
         isProtected: true,
+        layoutVersion: 'none',
     },
     {
-        // id: 'route30',
         path: paths.loggedUserProfile,
         element: <Profile />,
-        hasSimpleLayout: true,
+        layoutVersion: 'simple',
         isProtected: true,
     },
     {
         path: paths.registerMentor,
         element: <RegisterMentorView />,
+        layoutVersion: 'none',
     },
     {
         path: paths.registerMentee,
         element: <RegisterMenteeView/>,
+        layoutVersion: 'none',
     },
 ];
 

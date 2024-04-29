@@ -1,5 +1,5 @@
 import React from "react";
-import {StyledMain, StyledContainer, StyledAside} from "@newComponents/AsideTileLayout/AsideTileLayout.styles";
+import {StyledMain, StyledContainer, StyledAside} from "@newComponents/_layouts/AsideTileLayout/AsideTileLayout.styles";
 import {Container, Theme, useMediaQuery} from "@mui/material";
 
 type Props = {

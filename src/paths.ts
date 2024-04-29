@@ -1,10 +1,11 @@
 // Desc: Paths used in React Router
 const paths = {
     root: '/',
-    login: '/login',
-    remindPassword: '/remind-password',
-    setNewPassword: '/set-new-password',
-    passwordChangeSuccess: '/password-changed',
+    authLayout: '/auth',
+    login: '/auth/login',
+    remindPassword: '/auth/remind-password',
+    setNewPassword: '/auth/set-new-password',
+    passwordChangeSuccess: '/auth/password-changed',
     register: '/register',
     home: '/home',
     settings: '/settings',

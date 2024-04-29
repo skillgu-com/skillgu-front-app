@@ -3,7 +3,7 @@ import {createContext, useReducer} from "react";
 import mentorRegisterReducer from "../reducers/mentorRegister/mentorRegisterReducer";
 import RegisterStep1 from "@newComponents/_register/RegisterStep1/RegisterStep1";
 import RegisterStep5 from "@newComponents/_register/RegisterStep5/RegisterStep5";
-import AsideTileLayout from "@newComponents/AsideTileLayout/AsideTileLayout";
+import AsideTileLayout from "@newComponents/_layouts/AsideTileLayout/AsideTileLayout";
 import RegisterStepperNavigation
     , {NavigationContentT} from "@newComponents/_register/RegisterStepperNavigation/RegisterStepperNavigation";
 import menteeRegisterInitialState from "../reducers/menteeRegister/constants";

@@ -200,6 +200,13 @@ const components: Components<Omit<Theme, "components">> = {
                 background: 'none'
             }
         }
+    },
+    MuiTab: {
+        styleOverrides: {
+            root: {
+                fontSize: '14px',
+            }
+        }
     }
 }
 

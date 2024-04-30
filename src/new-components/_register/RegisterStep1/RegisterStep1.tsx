@@ -2,7 +2,7 @@ import React, {FC, useEffect, useMemo} from 'react';
 import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
 import Typography from "@mui/material/Typography";
 import TextLink from "@newComponents/TextLink/TextLink";
-import paths from "../../../paths";
+import paths, {pathAnchors} from "../../../paths";
 import {SubmitHandler, useForm, UseFormSetValue} from "react-hook-form";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {RegisterFormInput} from "@customTypes/registerFlow";
@@ -15,15 +15,21 @@ import useRegisterMenteeContext from "../../../context/RegisterMenteeContext";
 import {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
 import registerMentorService from "../../../services/mentor/registerMentor.service";
 import registerMenteeService from "../../../services/mentee/registerMentee.service";
+import usePasswordValidation from "../../../hooks/usePasswordValidation";
 
 type Props = {
     title: string,
     isMentor: boolean,
 }
 
-const GoToLogin = () => (
+const GoToLogin = ({isMentor}: {isMentor: boolean}) => (
     <Typography textAlign='center' variant='body2'>Masz już konto?{' '}
-        <TextLink typographyProps={{variant: 'body2'}} linkProps={{to: paths.login}}>Zaloguj się</TextLink>
+        <TextLink
+            typographyProps={{variant: 'body2'}}
+            linkProps={{to: { path: paths.login, hash: isMentor ? pathAnchors.loginView.mentor : pathAnchors.loginView.mentee }}}
+        >
+            Zaloguj się
+        </TextLink>
     </Typography>
 );
 
@@ -71,26 +77,8 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
 
     };
 
-    // TODO consider to create a custom hook for feedback logic
     const passwordValue = watch("password");
-    const passwordFeedback: InputFeedbackProps[] | undefined = useMemo(() => {
-        if (!passwordValue) return undefined;
-        return [
-            {
-                message: 'Hasło musi mieć co najmniej 8 znaków',
-                severity: passwordValue.length >= 8 ? 'success' : 'error'
-            },
-            {
-                message: 'Hasło musi zawierać co najmniej 1 liczbę',
-                severity: NUM_REGEX.test(passwordValue) ? 'success' : 'error'
-            },
-            {
-                message: 'Hasło musi zawierać co najmniej 1 dużą literę',
-                severity: BIG_SIGN_REGEX.test(passwordValue) ? 'success' : 'error'
-            },
-        ]
-    }, [passwordValue]);
-    const isPasswordValid = useMemo(() => passwordFeedback?.every(feedback => feedback.severity === 'success'), [passwordFeedback]);
+    const { passwordFeedback, isPasswordValid } = usePasswordValidation(passwordValue);
 
     return (
         <StepContentWrapper
@@ -100,9 +88,9 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                 form: formId
             }}
             title={title}
-            additionalActionComponent={<GoToLogin/>}
+            additionalActionComponent={<GoToLogin isMentor={isMentor} />}
         >
-            <form id={formId} onSubmit={handleSubmit(goToNextStep)}>
+            <form noValidate id={formId} onSubmit={handleSubmit(goToNextStep)}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <FormInputText<RegisterFormInput>
@@ -115,7 +103,6 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-
                         <FormInputText<RegisterFormInput>
                             formState={formState}
                             label='Nazwisko'
@@ -154,6 +141,7 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                     customFeedback={passwordFeedback}
                 />
                 <FormInputCheckbox<RegisterFormInput>
+                    inputProps={{ color: 'secondary' }}
                     control={control}
                     formState={formState}
                     label='Akceptuję regulamin'

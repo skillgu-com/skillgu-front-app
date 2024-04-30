@@ -17,7 +17,7 @@ import Google from '../../assets/icons/Google';
 import JoinScreen from '../../screens/JoinScreen/JoinScreen';
 // Styles
 import styles from './LoginPage.module.scss';
-import {login, loginGoogle} from 'src/helpers/login';
+import { loginGoogle} from 'src/helpers/login';
 
 // TODO DEPRECATED
 
@@ -38,7 +38,7 @@ const LoginPage = () => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		login(form.email.value, form.password.value, dispatch, navigate);
+		// login(form.email.value, form.password.value, dispatch, navigate);
 	};
 
 	const handleGoogleLoginSuccess = (response: any) => {

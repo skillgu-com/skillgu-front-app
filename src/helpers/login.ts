@@ -6,38 +6,36 @@ import {loginGoogleUser, loginUser} from '../services/AuthenticationService';
 import {parseUserFromJwt} from './parseUserFromJwt';
 import {fetchUserIDByEmail} from '../services/UserProfileService';
 
-export const login = (
-    email: string,
-    password: string,
-    dispatch: Dispatch<any>,
-    navigate: NavigateFunction
-) => {
+type LoginUserByEmailReturn = Promise<
+    | { success: true, userData: ReturnType<typeof parseUserFromJwt> & { id: string } }
+    | { success: false, errorMessage: string }
+>
 
-    loginUser(email, password)
-        .then((res) => {
-            const userData = parseUserFromJwt(res.data);
+export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginUserByEmailReturn => {
+    // TODO MENTEE
+    // co z rememberMe?
+    try {
+        const {data: userJWT} = await loginUser(email, password);
+        const userData = parseUserFromJwt(userJWT);
 
-            if (!!!userData) return;
+        if (!userData) throw Error('Dane logowania są niepoprawne');
 
-            fetchUserIDByEmail(email).then((idResponse) => {
-                dispatch({
-                    type: 'LOGIN',
-                    payload: {
-                        id: idResponse?.data,
-                        email: userData?.email,
-                        role: userData?.role[0],
-                    },
-                });
-            });
-            localStorage.setItem('jwttoken', res.data);
-            navigate('/home');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        const {data: userId} = await fetchUserIDByEmail(email)
 
+        localStorage.setItem('jwttoken', userJWT);
+        return {
+            success: true,
+            userData: {
+                id: userId,
+                email: userData?.email,
+                role: userData?.role[0],
+            }
+        };
 
-};
+    } catch (err) {
+        return { success: false, errorMessage: typeof err === 'string' ? err : 'Wystąpił problem z zalogowaniem' };
+    }
+}
 
 export const loginGoogle = async (email: string, token: string, dispatch: Dispatch<any>, navigate: NavigateFunction) => {
     try {

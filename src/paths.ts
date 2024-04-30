@@ -1,11 +1,18 @@
+export const pathAnchors = {
+  loginView: {
+      mentor: 'mentor',
+      mentee: 'mentee',
+  }
+};
+
 // Desc: Paths used in React Router
 const paths = {
     root: '/',
     authLayout: '/auth',
     login: '/auth/login',
     remindPassword: '/auth/remind-password',
-    setNewPassword: '/auth/set-new-password',
-    passwordChangeSuccess: '/auth/password-changed',
+    setNewPassword: '/auth/set-new-password/:userToken/:changeToken',
+    passwordResetLinkSent: '/auth/reset-link-sent',
     register: '/register',
     home: '/home',
     settings: '/settings',

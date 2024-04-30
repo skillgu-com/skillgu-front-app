@@ -31,7 +31,7 @@ import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
 
 import RemindPasswordView from "./pages/unauthorized/RemindPasswordView/RemindPasswordView";
 import LoginView from "./pages/unauthorized/LoginView/LoginView";
-import PasswordChangeSuccessView from "./pages/unauthorized/PasswordChangeSuccessView/PasswordChangeSuccessView";
+import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSentView/PasswordResetLinkSentView";
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
@@ -66,8 +66,8 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'auth',
     },
     {
-        path: paths.passwordChangeSuccess,
-        element: <PasswordChangeSuccessView />,
+        path: paths.passwordResetLinkSent,
+        element: <PasswordResetLinkSentView />,
         layoutVersion: 'auth',
     },
     {

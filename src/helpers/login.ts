@@ -15,7 +15,7 @@ type LoginReturn = Promise<SuccessResponse | ErrorResponse>;
 const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMsg: string): LoginReturn => {
     const userData = parseUserFromJwt(userJWT);
 
-    if (!userData) return { success: false, errorMessage: errorMsg };
+    if (!userData) return {success: false, errorMessage: errorMsg};
 
     const {data: userId} = await fetchUserIDByEmail(email)
 
@@ -44,7 +44,7 @@ export const loginUserByEmail = async (email: string, password: string, remember
 
 export const loginUserByGoogle = async (email: string, token: string): LoginReturn => {
     try {
-        const {data: userJWT} = await loginGoogleUser(token);
+        const {data: {body: userJWT}} = await loginGoogleUser(token);
         return getStoreAndReturnUserData(userJWT, email, 'Nie udało się zalogować przez Google');
     } catch (err) {
         return {

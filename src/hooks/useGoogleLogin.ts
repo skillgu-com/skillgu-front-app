@@ -19,7 +19,6 @@ const useGoogleLogin = (buttonRef: RefObject<HTMLElement>) => {
 
     const [googleService, setGoogleService] = useState({click: googleLoginFallback});
 
-
     const onGoogleLogin = () => googleService.click();
 
     const handleGoogleLoginSuccess = async ({credential: token}: { credential: string }) => {

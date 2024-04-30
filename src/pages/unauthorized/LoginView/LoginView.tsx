@@ -120,7 +120,7 @@ const LoginView = () => {
                 >
                     Zaloguj się
                 </Button>
-                <Collapse in={hashValue === pathAnchors.loginView.mentee}>
+                <Collapse in={hashValue !== pathAnchors.loginView.mentor}>
                     <Button
                         sx={{
                             width: '100%',

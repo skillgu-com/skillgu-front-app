@@ -29,4 +29,8 @@ export const StyledCard = muiStyled('div')(({theme}) => ({
     border: `1px solid ${theme.palette.base['20']}`,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.base['0'],
+
+    [theme.breakpoints.down('sm')]: {
+        border: 'none',
+    },
 }));

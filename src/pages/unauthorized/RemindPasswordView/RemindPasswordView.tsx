@@ -31,7 +31,7 @@ const RemindPasswordView = () => {
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{display: 'grid', gap: 2}}>
                 <Typography variant='h2' textAlign='center'>Zapomniałem hasła</Typography>
-                <Typography variant='caption'>
+                <Typography variant='caption' sx={{ marginTop: 1, marginBottom: 1}}>
                     Podaj nam swój adres e-mail, a my wyślemy Ci link do zresetowania hasła.
                 </Typography>
                 <FormInputText<RemindPasswordFormInput>

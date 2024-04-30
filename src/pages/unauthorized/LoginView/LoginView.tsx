@@ -99,7 +99,10 @@ const LoginView = () => {
                     control={control}
                     formState={formState}
                 />
-                <TextLink typographyProps={{variant: 'body2'}} linkProps={{to: paths.remindPassword}}>
+                <TextLink
+                    typographyProps={{variant: 'body2', sx: {marginTop: '3px'}}}
+                    linkProps={{to: paths.remindPassword}}
+                >
                     Zapomniałem hasła
                 </TextLink>
             </Box>
@@ -109,8 +112,12 @@ const LoginView = () => {
                 </Typography>
             </Collapse>
             <Box sx={{display: 'grid', marginTop: 3}}>
-                <Button disabled={!formState.isValid && formState.isSubmitted} sx={{marginBottom: 3}} type='submit'
-                        variant='contained'>
+                <Button
+                    disabled={!formState.isValid && formState.isSubmitted}
+                    sx={{marginBottom: 3}}
+                    type='submit'
+                    variant='contained'
+                >
                     Zaloguj się
                 </Button>
                 <Collapse in={hashValue === pathAnchors.loginView.mentee}>

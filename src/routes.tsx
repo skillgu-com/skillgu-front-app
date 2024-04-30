@@ -51,6 +51,11 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'none',
     },
     {
+        path: paths.authLayout,
+        element: <LoginView />,
+        layoutVersion: 'auth',
+    },
+    {
         path: paths.login,
         element: <LoginView />,
         layoutVersion: 'auth',

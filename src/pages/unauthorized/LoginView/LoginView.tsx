@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
@@ -12,6 +12,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {loginUserByEmail} from "../../../helpers/login";
 import {useDispatch} from "react-redux";
+import {ReactComponent as GoogleIcon} from '../../../assets/icons/svg/google.svg'
+import useGoogleLogin from "../../../hooks/useGoogleLogin";
 
 type LoginFormInput = {
     email: string;
@@ -53,9 +55,10 @@ const LoginView = () => {
         } else {
             setGlobalError(response.errorMessage);
         }
-    }
+    };
 
-    // TODO GOOOOOOGLE
+    const googleButtonRef = useRef<HTMLDivElement>(null);
+    const {onGoogleLogin} = useGoogleLogin(googleButtonRef);
 
     return (
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -106,11 +109,28 @@ const LoginView = () => {
                 </Typography>
             </Collapse>
             <Box sx={{display: 'grid', marginTop: 3}}>
-                <Button disabled={!formState.isValid && formState.isSubmitted} sx={{marginBottom: 3}} type='submit' variant='contained'>
+                <Button disabled={!formState.isValid && formState.isSubmitted} sx={{marginBottom: 3}} type='submit'
+                        variant='contained'>
                     Zaloguj się
                 </Button>
                 <Collapse in={hashValue === pathAnchors.loginView.mentee}>
-                    <Button sx={{width: '100%', marginBottom: 3}} type='submit' variant='outlined'>Google</Button>
+                    <Button
+                        sx={{
+                            width: '100%',
+                            marginBottom: 3,
+                            display: 'flex',
+                            gap: 2,
+                            borderRadius: '8px',
+                            borderColor: 'base.40'
+                        }}
+                        color={'secondary'}
+                        variant='outlined'
+                        onClick={onGoogleLogin}
+                    >
+                        <GoogleIcon/>
+                        Google
+                    </Button>
+                    <Box sx={{visibility: 'hidden', display: 'none'}} ref={googleButtonRef}></Box>
                 </Collapse>
                 <Typography variant='body2' textAlign='center'>Nie masz jeszcze konta?{' '}
                     <TextLink

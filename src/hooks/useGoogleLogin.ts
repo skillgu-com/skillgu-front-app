@@ -33,7 +33,7 @@ const useGoogleLogin = (buttonRef: RefObject<HTMLElement>) => {
                     payload: {
                         id: response.userData.id,
                         email: response.userData.email,
-                        role: response.userData.role.role[0],
+                        role: response.userData.role[0],
                     },
                 });
                 navigate(paths.home);

@@ -7,6 +7,7 @@ declare module '@mui/material/styles' {
     interface Palette {
         base: {
             "0": string,
+            "10": string,
             "20": string,
             "40": string,
             "60": string,
@@ -18,6 +19,7 @@ declare module '@mui/material/styles' {
     interface PaletteOptions {
         base: {
             "0": string,
+            "10": string,
             "20": string,
             "40": string,
             "60": string,
@@ -73,6 +75,7 @@ const palette: PaletteOptions = {
     },
     base: {
         "0": "#ffffff",
+        "10": "#FCFCFC",
         "20": "#F8F8F8",
         "40": "#E2E9FC",
         "60": "#8E9ABB",
@@ -195,6 +198,13 @@ const components: Components<Omit<Theme, "components">> = {
             },
             deleteIcon: {
                 background: 'none'
+            }
+        }
+    },
+    MuiTab: {
+        styleOverrides: {
+            root: {
+                fontSize: '14px',
             }
         }
     }

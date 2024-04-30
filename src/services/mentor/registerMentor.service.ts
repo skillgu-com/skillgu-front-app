@@ -1,8 +1,8 @@
 import {RegisterMentorDTO} from "./registerMentor.types";
 import axios from "axios";
-import {MergedRegisterFormInput, RegisterMentorResponse} from "@customTypes/mentorRegister";
+import {MergedRegisterMentorFormInput} from "@customTypes/registerFlow";
 
-const parseDataForAPI = (inputData: MergedRegisterFormInput): RegisterMentorDTO => {
+const parseDataForAPI = (inputData: MergedRegisterMentorFormInput): RegisterMentorDTO => {
     return {
         ...inputData,
         personalWebsite: inputData.personalWebsite || null,
@@ -15,7 +15,7 @@ const parseDataForAPI = (inputData: MergedRegisterFormInput): RegisterMentorDTO 
 }
 
 // TODO consider common error handler for services
-const registerMentorService = async (inputData: MergedRegisterFormInput) => {
+const registerMentorService = async (inputData: MergedRegisterMentorFormInput) => {
     try {
         const response = await axios.post<string>('/api/auth/mentor/register', parseDataForAPI(inputData));
         return {success: true, data: response.data}

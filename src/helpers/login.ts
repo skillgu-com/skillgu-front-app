@@ -6,61 +6,51 @@ import {loginGoogleUser, loginUser} from '../services/AuthenticationService';
 import {parseUserFromJwt} from './parseUserFromJwt';
 import {fetchUserIDByEmail} from '../services/UserProfileService';
 
-export const login = (
-    email: string,
-    password: string,
-    dispatch: Dispatch<any>,
-    navigate: NavigateFunction
-) => {
+type SuccessResponse = { success: true, userData: ReturnType<typeof parseUserFromJwt> & { id: string } };
+type ErrorResponse = { success: false, errorMessage: string };
 
-    loginUser(email, password)
-        .then((res) => {
-            const userData = parseUserFromJwt(res.data);
-
-            if (!!!userData) return;
-
-            fetchUserIDByEmail(email).then((idResponse) => {
-                dispatch({
-                    type: 'LOGIN',
-                    payload: {
-                        id: idResponse?.data,
-                        email: userData?.email,
-                        role: userData?.role[0],
-                    },
-                });
-            });
-            localStorage.setItem('jwttoken', res.data);
-            navigate('/home');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+type LoginReturn = Promise<SuccessResponse | ErrorResponse>;
 
 
-};
+const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMsg: string): Promise<SuccessResponse> => {
+    const userData = parseUserFromJwt(userJWT);
 
-export const loginGoogle = async (email: string, token: string, dispatch: Dispatch<any>, navigate: NavigateFunction) => {
-    try {
-        const res = await loginGoogleUser(token);
-        const userData = parseUserFromJwt(res.data.body);
-        if (!userData) {
-            return;
+    if (!userData) throw Error(errorMsg);
+
+    const {data: userId} = await fetchUserIDByEmail(email)
+
+    localStorage.setItem('jwttoken', userJWT);
+    return {
+        success: true,
+        userData: {
+            id: userId,
+            email: userData?.email,
+            role: userData?.role[0],
         }
+    };
+}
 
-        const idResponse = await fetchUserIDByEmail(userData.email);
-        dispatch({
-            type: 'LOGIN-GOOGLE_SUCCESS',
-            payload: {
-                id: idResponse?.data,
-                email: userData.email,
-                role: userData.role[0],
-            },
-        });
 
-        localStorage.setItem('jwttoken', res.data.body);
-        navigate('/home');
+export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginReturn => {
+    // TODO MENTEE
+    // co z rememberMe?
+    try {
+        const {data: userJWT} = await loginUser(email, password);
+        return getStoreAndReturnUserData(userJWT, email, 'Dane logowania są niepoprawne');
     } catch (err) {
-        console.error(err);
+        return {success: false, errorMessage: typeof err === 'string' ? err : 'Wystąpił problem z zalogowaniem'};
+    }
+}
+
+export const loginUserByGoogle = async (email: string, token: string): LoginReturn => {
+    try {
+        const {data: userJWT} = await loginGoogleUser(token);
+        return getStoreAndReturnUserData(userJWT, email, 'Nie udało się zalogować przez Google');
+    } catch (err) {
+        return {
+            success: false,
+            errorMessage: typeof err === 'string' ? err : 'Wystąpił problem z zalogowaniem przez Google'
+        };
     }
 };
 

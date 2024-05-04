@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 @mixin roboto {
 	font-family: "Montserrat", sans-serif;
 }
@@ -15,4 +17,38 @@
 	&::-webkit-scrollbar {
 		display: none;
 	}
+}
+
+@mixin media-sm-and-up {
+	@media (min-width: $sm) {
+		@content;
+	}
+}
+
+@mixin media-md-and-up {
+	@media (min-width: $md) {
+		@content;
+	}
+}
+
+@mixin media-lg-and-up {
+	@media (min-width: $lg) {
+		@content;
+	}
+}
+
+@mixin media-xl-and-up {
+	@media (min-width: $xl) {
+		@content;
+	}
+}
+
+@mixin media-xxl-and-up {
+	@media (min-width: $xxl) {
+		@content;
+	}
+}
+
+@function pxToRem($pxValue, $baseFontSize: 10) {
+	@return #{$pxValue / $baseFontSize}rem;
 }

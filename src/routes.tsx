@@ -93,12 +93,7 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'default',
         isProtected: true,
     },
-    // {
-    // // 	id: 'route05',
-    // 	path: '/create-mentor',
-    // 	element: <PitchDeckCreatorScreen />,
-    // 	isProtected: true,
-    // },
+
     {
         path: paths.userProfile,
         element: <Profile />,
@@ -147,18 +142,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'default',
         isProtected: true,
     },
-    // {
-    // // 	id: 'route13',
-    // 	path: '/session-details/:id/book',
-    // 	element: <BookSessionScreen />,
-    // 	isProtected: true,
-    // },
-    // {
-    // // 	id: 'route14',
-    // 	path: '/session-details/:mentorID',
-    // 	element: <SessionDetailsScreen />,
-    // 	isProtected: true,
-    // },
     {
         path: paths.businessPartner,
         element: <Underconstruction />,

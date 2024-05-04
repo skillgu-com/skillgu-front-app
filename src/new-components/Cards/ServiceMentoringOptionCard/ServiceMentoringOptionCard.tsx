@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ServiceMentoring } from "@customTypes/order";
 import styles from "./ServiceMentoringOptionCard.module.scss";
 import clx from "classnames";
 import { RadioInputIcon } from "@icons/RadioInput";
-import { CrownIcon } from "@icons/Camera copy";
-import { CheckCircleIcon } from "@icons/CheckCircleIcon";
+import { CrownIcon } from "@icons/CrownIcon";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 
 type Props = ServiceMentoring & {

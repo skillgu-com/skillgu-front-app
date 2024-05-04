@@ -1,12 +1,5 @@
-import SocialLink from "@newComponents/SocialLink/SocialLink";
-import classNames from "classnames";
 import React from "react";
 import styles from "./MentorContent.module.scss";
-import LinkedIn from "@icons/social-media/LinkedIn";
-import YouTube from "@icons/social-media/YouTube";
-import { FacebookIcon } from "@icons/social-media/Facebook";
-import Instagram from "@icons/social-media/Instagram";
-import { TwitterIcon } from "@icons/social-media/Twitter";
 import clx from "classnames";
 import {
   LinkedInCircleIcon,

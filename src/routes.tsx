@@ -30,6 +30,7 @@ import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
 import paths, {PathValue} from "./paths";
 import {ReactNode} from "react";
 import RegisterMentorView from "./pages/app/RegisterMentorView/RegisterMentorView";
+import { MentorProfilePage } from './pages/app/MentorProfile';
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 
 type Route = {
@@ -42,6 +43,11 @@ type Route = {
 };
 
 const routesRaw: Omit<Route, 'id'>[] = [
+    {
+        path: paths.mentorProfile,
+        element: <MentorProfilePage />,
+        hasLayout: true,
+    },
     {
         // id: 'route01',
         path: paths.root,

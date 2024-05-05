@@ -18,12 +18,13 @@ import {
     getAllUsersWithRoles
 } from '../../../services/UserProfileService';
 import {useSelector} from 'react-redux';
+import paths from "../../../paths";
 
 const navigation = [
     {
         id: 1,
         title: 'Kalendarz',
-        link: '/calendar-view',
+        link: paths.calendar,
         icon: <HandMoney/>,
         allowedRoles: ['STUDENT', 'MENTOR'],
     },

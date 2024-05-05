@@ -20,8 +20,11 @@ import Settings from '../../../../assets/icons/Settings';
 import CreateSchedules from '../../../../assets/icons/CreateSchedules';
 import Help from '../../../../assets/icons/Help';
 import Logout from '../../../../assets/icons/Logout';
+import {ReactComponent as CalendarIcon} from '../../../../assets/icons/svg/calendar.svg';
+
 // Styles
 import styles from './Navbar.module.scss';
+import paths from "../../../../paths";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -38,6 +41,12 @@ const Navbar = () => {
 			label: 'Strona główna',
 			link: '/home',
 			icon: <Home />,
+		},
+		{
+			id: 'calendar',
+			label: 'Kalendarz',
+			link: paths.calendar,
+			icon: <CalendarIcon />,
 		},
 		{
 			id: 'profile',

@@ -13,6 +13,8 @@
 		"@splidejs/react-splide": "^0.7.8",
 		"@stripe/react-stripe-js": "^2.4.0",
 		"@stripe/stripe-js": "^2.2.2",
+		"@tanstack/react-query": "^5.34.2",
+		"@tanstack/react-query-devtools": "^5.34.2",
 		"@testing-library/jest-dom": "5.16.4",
 		"@testing-library/react": "13.1.1",
 		"@testing-library/user-event": "13.5.0",

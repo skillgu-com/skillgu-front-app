@@ -34,6 +34,8 @@ import LoginView from "./pages/unauthorized/LoginView/LoginView";
 import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSentView/PasswordResetLinkSentView";
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
+import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
+import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 
 type Route = {
@@ -163,7 +165,19 @@ const routesRaw: Omit<Route, 'id'>[] = [
         path: paths.calendar,
         element: <CalendarView />,
         isProtected: true,
-        layoutVersion: 'none',
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.calendarDaily,
+        element: <CalendarDailyView />,
+        isProtected: true,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.rescheduleMeeting,
+        element: <RescheduleMeetingView />,
+        isProtected: true,
+        layoutVersion: 'default',
     },
     {
         path: paths.sessionsMentoring,

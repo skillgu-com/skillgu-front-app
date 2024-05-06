@@ -5,6 +5,7 @@ import {NavigateFunction} from 'react-router-dom';
 import {loginGoogleUser, loginUser} from '../services/AuthenticationService';
 import {parseUserFromJwt} from './parseUserFromJwt';
 import {fetchUserIDByEmail} from '../services/UserProfileService';
+import paths from "../paths";
 
 type SuccessResponse = { success: true, userData: ReturnType<typeof parseUserFromJwt> & { id: string } };
 type ErrorResponse = { success: false, errorMessage: string };
@@ -57,7 +58,7 @@ export const loginUserByGoogle = async (email: string, token: string): LoginRetu
 export const logout = (dispatch: Dispatch<any>, navigate: NavigateFunction) => {
     localStorage.removeItem('jwttoken');
     dispatch({type: 'LOGOUT'});
-    navigate('/login');
+    navigate(paths.login);
 };
 
 

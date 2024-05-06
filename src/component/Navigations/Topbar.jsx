@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../assets/img/logo.svg';
+import paths from "../../paths";
 
 const navList = [
 	// {
@@ -22,7 +23,7 @@ const navList = [
 	{
 		classes: 'nav-list__item-link--login',
 		label: 'Zaloguj się',
-		redirectUrl: '/login',
+		redirectUrl: paths.login,
 	},
 	{
 		classes: 'nav-list__item-link--register',

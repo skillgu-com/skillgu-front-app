@@ -11,6 +11,7 @@ import {
 import {fetchUserIDByEmail} from '../services/UserProfileService';
 import {googleCalendar} from '../services/GoogleService';
 import { parseUserFromJwt } from 'src/helpers/parseUserFromJwt';
+import paths from "../paths";
 
 export const AuthContext = createContext({
 	//TODO czy to ponizej wyszarzone jest do wywalenia?
@@ -115,7 +116,7 @@ const AuthContextProvider = (props) => {
 			agreement,
 		)
 			.then((res) => {
-				navigate('/login');
+				navigate(paths.login);
 			})
 			.catch((err) => {
 				console.log(err);

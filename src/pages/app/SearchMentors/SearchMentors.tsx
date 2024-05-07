@@ -22,7 +22,7 @@ import styles from "./SearchMentors.module.scss";
 import { mentorsReducer } from "src/reducers/mentors";
 import { mentorsInitialState } from "src/reducers/mentors/constants";
 import { FilterName, FiltersSelected, Option } from "@customTypes/mentor";
-import { fetchMentors } from "src/services/MentorsService";
+import { fetchMentors } from "src/services/mentor/fetchMentorServices.service";
 
 const SearchMentors = () => {
   const [terms, dispatchTerms] = useReducer(termsReducer, termsInitialState);

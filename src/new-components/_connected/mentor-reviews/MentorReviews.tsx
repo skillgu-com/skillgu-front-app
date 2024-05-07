@@ -6,8 +6,7 @@ import {
   ReviewSkeleton,
 } from "@newComponents/_grouped/reviews";
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { fetchMentorReviews } from "src/services/MentorsService";
+import { fetchMentorReviews } from "src/services/mentor/fetchMentorServices.service";
 
 type Props = {
   mentorId: string;

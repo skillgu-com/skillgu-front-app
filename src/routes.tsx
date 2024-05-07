@@ -46,6 +46,12 @@ type Route = {
 
 const routesRaw: Omit<Route, 'id'>[] = [
     {
+        path: paths.mentorProfile,
+        element: <MentorProfilePage />,
+        hasLayout: true,
+    },
+    {
+        // id: 'route01',
         path: paths.root,
         element: <Navigate to='/home' />,
         layoutVersion: 'none',

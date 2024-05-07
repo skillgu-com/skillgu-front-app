@@ -1,4 +1,4 @@
-import {FiltersSelected, Mentor} from "@customTypes/mentor";
+import { FiltersSelected, Mentor, Review } from "@customTypes/mentor";
 import axios from "axios";
 
 type ResponseData = {
@@ -26,4 +26,31 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
         console.error('Error fetching mentors:', error);
         throw error;
     }
+};
+
+type FetchMentorReviewsInput = {
+  mentorId: string;
+  take: number;
+  skip: number;
+};
+
+type FetchMentorReviewsData = {
+  total: number;
+  reviews: Review[];
+};
+
+export const fetchMentorReviews = async ({
+  mentorId,
+  take = 10,
+  skip = 0,
+}: FetchMentorReviewsInput): Promise<FetchMentorReviewsData> => {
+  try {
+    const response = await fetch("/mentor-reviews.json");
+    const responseData = await response.json();
+    const { total, reviews } = responseData;
+    return { total, reviews };
+  } catch (error) {
+    console.error("Error fetching mentor reviews:", error);
+    throw error;
+  }
 };

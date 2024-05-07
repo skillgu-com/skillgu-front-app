@@ -1,66 +1,74 @@
 export type FilterName =
-    | "priceMin"
-    | "priceMax"
-    | "categories"
-    | "skills"
-    | "services"
-    | "phrase"
-    | "sort"
-    | "topics"
+  | "priceMin"
+  | "priceMax"
+  | "categories"
+  | "skills"
+  | "services"
+  | "phrase"
+  | "sort"
+  | "topics";
 
-export type SortOption = 'rateASC' | 'rateDESC' | 'priceASC' | 'priceDESC'
+export type SortOption = "rateASC" | "rateDESC" | "priceASC" | "priceDESC";
 
-export type SpecialVariant = 'success'|'warning'|'error'
+export type SpecialVariant = "success" | "warning" | "error";
 
 export type Option = {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 };
 
 export type Terms = {
-    categories: Option[]
-    skills: Option[]
-    services: Option[]
-    topics: Option[]
-}
+  categories: Option[];
+  skills: Option[];
+  services: Option[];
+  topics: Option[];
+};
 
 export type FiltersOptions = {
-    priceMin: number
-    priceMax: number
-    categories: Option[]
-    skills: Option[]
-    services: Option[]
-    topics: Option[]
-
-}
+  priceMin: number;
+  priceMax: number;
+  categories: Option[];
+  skills: Option[];
+  services: Option[];
+  topics: Option[];
+};
 
 export type FiltersSelected = {
-    priceMin: number
-    priceMax: number
-    categories: Option[]
-    skills: Option[]
-    services: Option[]
-    topics: Option[]
-    phrase: string
-    sort: SortOption
-}
+  priceMin: number;
+  priceMax: number;
+  categories: Option[];
+  skills: Option[];
+  services: Option[];
+  topics: Option[];
+  phrase: string;
+  sort: SortOption;
+};
 
 export type Mentor = {
-    avatar_url: string
-    description: string
-    id: string
-    name: string
-    price: number
-    profession: string
-    reviewsAvgRate: number
-    reviewsCount: number
-    special: string
-    specialVariant: SpecialVariant
-    skills: string[]
-    title: string;
-}
+  avatar_url: string;
+  description: string;
+  id: string;
+  name: string;
+  price: number;
+  profession: string;
+  reviewsAvgRate: number;
+  reviewsCount: number;
+  special: string;
+  specialVariant: SpecialVariant;
+  skills: string[];
+  title: string;
+};
 
 export type FilterTag = {
-    name: FilterName
-    displayValue: string
-}
+  name: FilterName;
+  displayValue: string;
+};
+
+export type Review = {
+  id: string;
+  rate: number;
+  title: string;
+  authorName: string;
+  createdAt: string;
+  content: string;
+};

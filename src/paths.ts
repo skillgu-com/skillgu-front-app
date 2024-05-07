@@ -17,7 +17,6 @@ const paths = {
     home: '/home',
     settings: '/settings',
     searchMentors: '/search-mentors',
-    userProfile: '/user-profile/:userID',
     sessionBook: '/session-book/:id',
     sessionBookPayment: '/session-book/:id/payment',
     schedules: '/schedules',

@@ -100,12 +100,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     },
 
     {
-        path: paths.userProfile,
-        element: <Profile />,
-        layoutVersion: 'simple',
-        isProtected: true,
-    },
-    {
         path: paths.sessionBook,
         element: <BookSession />,
         layoutVersion: 'simple',

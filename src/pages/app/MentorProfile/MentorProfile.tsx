@@ -21,6 +21,9 @@ import {
 } from "@customTypes/order";
 import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
+import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {UserData} from "../Settings/Settings";
+import {fetchMentorSession} from "../../../services/SessionService";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -69,6 +72,16 @@ export const MentorProfilePage = () => {
             run();
         }
     }, [mentorId]);
+
+
+    useEffect(() => {
+        getMentorProfileByID(mentorId).then((res) => {
+            // setUserData(res.data as UserData)
+            console.log(res.data)
+        });
+    }, []);
+
+
 
     return (
         <>

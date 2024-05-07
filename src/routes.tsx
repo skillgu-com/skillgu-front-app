@@ -15,7 +15,6 @@ import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
 import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
-import HelpScreen from './pages/app/HelpView';
 import Raports from './pages/app/Raports/Raports';
 import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
@@ -144,12 +143,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.businessPartner,
         element: <Underconstruction />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.help,
-        element: <HelpScreen />,
         isProtected: true,
         layoutVersion: 'none',
     },

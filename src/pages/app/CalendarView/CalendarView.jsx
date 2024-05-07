@@ -1,12 +1,9 @@
 import AppLayout from '../../../component/AppLayout';
-import {useContext, useEffect, useState} from 'react';
-import {AuthContext} from '../../../context/AuthContextProvider';
+import {useEffect} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import Modal from '../../../component/Modal';
 import MeetDetails from './containers/MeetDetails';
-import {googleCalendar, startGoogleAuth} from "../../../services/GoogleService";
-import axios from "axios";
 import {getAllCalendarEvents} from "../../../services/CalendarService";
 import {useSelector} from "react-redux";
 

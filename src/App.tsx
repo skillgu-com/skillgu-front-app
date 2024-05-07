@@ -4,9 +4,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 // Components
 import AppLayout from './new-components/AppLayout/AppLayout';
-import SimpleLayout from './new-components/SimpleLayout/SimpleLayout';
 // Pages
-import AuthContextProvider from './context/AuthContextProvider';
 import routes from './routes';
 import theme from "./styles/theme";
 import {CssBaseline, ThemeProvider} from "@mui/material";
@@ -15,6 +13,8 @@ import exhaustiveGuard from "./helpers/exhaustiveGuard";
 import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
 import paths from "./paths";
 import {SnackbarProvider} from "notistack";
+import SimpleLayout from "@newComponents/SimpleLayout/SimpleLayout";
+import AuthContextProvider from "./context/AuthContextProvider";
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 if (!stripeKey) throw new Error('Stripe key not provided, check environment variables');

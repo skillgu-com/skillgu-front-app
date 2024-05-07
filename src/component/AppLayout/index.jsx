@@ -2,8 +2,6 @@ import React, {useEffect, useMemo} from 'react';
 import {useLocation} from 'react-router-dom';
 
 //Components
-import ApplicationLeftNav from '../Navigations/ApplicationLeftNav';
-import AppTopbar from '../AppTopbar';
 
 const AppLayout = ({children, fluid = false}) => {
 	const location = useLocation();
@@ -27,8 +25,6 @@ const AppLayout = ({children, fluid = false}) => {
 
 	return (
 		<div className='app-layout'>
-			<ApplicationLeftNav />
-			<AppTopbar />
 			<main className='app-layout__view'>
 				<div className='container' data-fluid={fluid}>{children}</div>
 			</main>

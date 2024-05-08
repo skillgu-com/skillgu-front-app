@@ -66,12 +66,7 @@ const Navbar = () => {
 			link: '/settings',
 			icon: <Settings />,
 		},
-		// {
-		// 	id: 'subscriptions',
-		// 	label: 'Subskrypcje',
-		// 	link: '/',
-		// 	icon: <Wallet />,
-		// },
+
 	];
 
 	return (

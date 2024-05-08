@@ -15,7 +15,6 @@ import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
 import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
-import HelpScreen from './pages/app/HelpView';
 import Raports from './pages/app/Raports/Raports';
 import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
@@ -34,6 +33,7 @@ import LoginView from "./pages/unauthorized/LoginView/LoginView";
 import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSentView/PasswordResetLinkSentView";
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
+import {MentorProfilePage} from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
@@ -47,6 +47,11 @@ type Route = {
 };
 
 const routesRaw: Omit<Route, 'id'>[] = [
+    {
+        path: paths.mentorProfile,
+        element: <MentorProfilePage />,
+        layoutVersion: 'default',
+    },
     {
         path: paths.root,
         element: <Navigate to='/home' />,
@@ -97,12 +102,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     },
 
     {
-        path: paths.userProfile,
-        element: <Profile />,
-        layoutVersion: 'simple',
-        isProtected: true,
-    },
-    {
         path: paths.sessionBook,
         element: <BookSession />,
         layoutVersion: 'simple',
@@ -147,12 +146,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.businessPartner,
         element: <Underconstruction />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.help,
-        element: <HelpScreen />,
         isProtected: true,
         layoutVersion: 'none',
     },

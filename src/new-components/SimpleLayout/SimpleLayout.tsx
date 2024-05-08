@@ -5,7 +5,6 @@ import {Link, useNavigate} from 'react-router-dom';
 import Container from '../Container/Container';
 import {Tag} from 'src/types/tags';
 // Icons
-import Logo from '../../assets/icons/Logo';
 // Styles
 import styles from './SimpleLayout.module.scss';
 
@@ -23,7 +22,7 @@ const SimpleLayout = (props: SimpleLayoutProps) => {
 			<Container as={Tag.Header} classes={styles.header}>
 				<div className={styles.headerTop}>
 					<Link to={'/'} className={styles.navbarLogo}>
-						<Logo />
+						{/*<Logo />*/}
 					</Link>
 				</div>
 				<nav className={styles.headerBottom}>

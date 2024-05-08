@@ -1,3 +1,4 @@
+/* old colour tokens */
 $primary-color: #FF6A3D;
 $secondary-color: #252B61;
 $link-color: #1176FF;
@@ -10,13 +11,27 @@ $success-color: #34C759;
 $danger-color: #E17596;
 $yellow-color: #F0DA69;
 
+/* new colour tokens */
+$colour-primary: #252B61;
+$colour-secondary: #FF6A3D;
 $colour-base-000: #FFFFFF;
 $colour-base-200: #F8F8FB;
 $colour-base-400: #E2E9FC;
 $colour-base-600: #8E9ABB;
 $colour-base-800: #56658F;
-
 $colour-error-100: #F51F59;
+
+$font-base: 10px;
+
+/* font family */
+$font-family-montserrat: "Montserrat", sans-serif;
+$font-family-poppins: "Poppins", sans-serif;
+
+/* font weight */
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
 
 $font-size: (
 	xxs: 12px,
@@ -45,6 +60,3 @@ $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
 $duration: 0.25s;
-
-$font-family-montserrat: "Montserrat", sans-serif;
-$font-family-poppins: "Poppins", sans-serif;

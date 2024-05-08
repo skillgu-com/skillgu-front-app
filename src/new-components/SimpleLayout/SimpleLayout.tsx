@@ -5,7 +5,6 @@ import {Link, useNavigate} from 'react-router-dom';
 import Container from '../Container/Container';
 import {Tag} from 'src/types/tags';
 // Icons
-import Logo from '../../assets/icons/Logo';
 // Styles
 import styles from './SimpleLayout.module.scss';
 

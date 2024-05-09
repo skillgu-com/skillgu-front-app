@@ -52,22 +52,6 @@ const Profile = () => {
 
 
 
-    useEffect(() => {
-        fetchMentorSession(userID).then(res => {
-            console.log(res.data)
-            const formattedSessions = res?.data.map((elementFromAPI: SessionDataFromAPI) => ({
-                sessionID: elementFromAPI?.id,
-                sessionType: elementFromAPI?.sessionType,
-                sessionPrice: elementFromAPI?.sessionPrice,
-                description: elementFromAPI?.description,
-                meetTime: elementFromAPI?.meetTime,
-                mentorID: Number(userID)
-            }));
-
-            setFetchMentorSessions(formattedSessions);
-        });
-    }, []);
-
 
 
 

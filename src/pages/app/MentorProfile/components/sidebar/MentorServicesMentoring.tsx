@@ -17,7 +17,7 @@ export const MentorServicesMentoring = ({
   handleSelect,
   handleSubmit,
 }: Props) => {
-  return services.length ? (
+  return  services && services.length ? (
     <>
       <div className={styles.cards}>
         {services.map((s) => (

@@ -4,38 +4,69 @@ import {MentorReviewsConnected} from "@newComponents/_connected";
 import {Tag} from "src/types/tags";
 import {MentorHeader, MentorHeaderWrapper} from "./components";
 import {useParams} from "react-router-dom";
-import {
-    MentorContent,
-    MentorLinks,
-    MentorMainWrapper,
-} from "./components/content";
-import {
-    MentorServices,
-    MentorServicesMentoring,
-    MentorServicesSession,
-} from "./components/sidebar";
-import {
-    ServiceMentoring,
-    ServiceSession,
-    ServiceType,
-} from "@customTypes/order";
+import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
+import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
+import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
 import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import {getMentorProfileByID} from "../../../services/MentorViewService";
-import {UserData} from "../Settings/Settings";
+import {SpecialVariant} from "@customTypes/mentor";
 import {fetchMentorSession} from "../../../services/SessionService";
 
 type Props = {
     isLoggedMentor: boolean;
 };
 
-/**
- *
- */
+export interface MentorData {
+    avatar_url: string;
+    description: string;
+    id: string;
+    firstName: string;
+    lastName: string;
+    price: number;
+    location: string;
+    profession: string;
+    reviewsAvgRate: number;
+    reviewsCount: number;
+    special: string;
+    title: string;
+    intro: string;
+    specialVariant: SpecialVariant;
+    services: {
+        id: number;
+        name: string;
+    }[];
+    skill: {
+        id: number;
+        name: string;
+    }[];
+    mentorTopics: {
+        id: number;
+        name: string;
+    }[];
+    jobPosition: {
+        id: number;
+        name: string;
+    }[];
+    mentorCategory: {
+        id: number;
+        name: string;
+    }[];
+    linkedin: string | null;
+    websiteURL: string | null;
+    youtubeURL: string | null;
+    instagramURL: string | null;
+    xurl: string | null;
+    facebookURL: string | null;
+}
+
+
 export const MentorProfilePage = () => {
     const {id: mentorId} = useParams();
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
+    const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
+
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
     const [loading, setLoading] = useState<boolean>(true);
@@ -76,31 +107,48 @@ export const MentorProfilePage = () => {
 
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
-            // setUserData(res.data as UserData)
-            console.log(res.data)
+            setMentorData(res.data as MentorData)
         });
     }, []);
 
 
+    useEffect(() => {
+        fetchMentorSession(mentorId).then(res => {
+            if (res) {
+                const formattedSessions = res.data.map((elementFromAPI: any) => ({
+                    id: elementFromAPI.id,
+                    sessionType: elementFromAPI.sessionType,
+                    sessionPrice: elementFromAPI.sessionPrice,
+                    description: elementFromAPI.description,
+                    meetTime: elementFromAPI.meetTime,
+                    mentorID: Number(mentorId)
+                }));
+                setOptionsSession(formattedSessions);
+                setLoading(false);
+            }
+        });
+    }, [mentorId]);
+
 
     return (
         <>
+
             <MentorHeaderWrapper>
                 <Container as={Tag.Section}>
                     <MentorHeader
                         avatarUrl="/images/img_avatar.png"
-                        fullname="Anna Stokrotka"
-                        location="Warszawa, Polska (UTC+2)"
-                        profession="UX/UI Designer w Google"
+                        fullname={mentorData?.firstName + ' ' + mentorData?.lastName}
+                        location={mentorData?.location}
+                        profession={mentorData?.jobPosition}
                         company="Google"
                     />
                     <MentorLinks
                         className={styles.onlyMobileFlex}
-                        instagram={"#"}
-                        youtube={"#"}
-                        linkedin={"#"}
-                        twitter={"#"}
-                        facebook={"#"}
+                        instagram={mentorData?.instagramURL ?? "#"}
+                        youtube={mentorData?.youtubeURL ?? "#"}
+                        linkedin={mentorData?.linkedin ?? "#"}
+                        twitter={mentorData?.xurl ?? "#"}
+                        facebook={mentorData?.facebookURL ?? "#"}
                     />
                 </Container>
             </MentorHeaderWrapper>
@@ -109,37 +157,19 @@ export const MentorProfilePage = () => {
                 <MentorMainWrapper>
                     <main>
                         <MentorContent
-                            title="Nauczę Cię dizajnować jak PRO"
-                            contentHtml="
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <br />
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <br />
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-              "
-                            skills={[
-                                "Figma",
-                                "UX Design",
-                                "UI Design",
-                                "Design Thinking",
-                                "Photoshop",
-                            ]}
-                            services={[
-                                "Spotkania weekendowe",
-                                "Praca z zadaniami",
-                                "Mentoring i sesje",
-                                "Jeszcze jakiś tag",
-                            ]}
+                            title={mentorData?.intro}
+                            contentHtml={mentorData?.description}
+                            skills={mentorData?.skill}
+                            services={mentorData?.services}
                         />
                         <MentorLinks
                             isDesktop
                             className={styles.onlyDesktopFlex}
-                            instagram={"#"}
-                            youtube={"#"}
-                            linkedin={"#"}
-                            twitter={"#"}
-                            facebook={"#"}
+                            instagram={mentorData?.instagramURL ?? "#"}
+                            youtube={mentorData?.youtubeURL ?? "#"}
+                            linkedin={mentorData?.linkedin ?? "#"}
+                            twitter={mentorData?.xurl ?? "#"}
+                            facebook={mentorData?.facebookURL ?? "#"}
                         />
                     </main>
                     <aside>
@@ -155,14 +185,14 @@ export const MentorProfilePage = () => {
                                         handleSubmit={handleSubmitMentoring}
                                     />
                                 ) : null}
-                                {tab === "session" ? (
+                                {tab === "session" && optionsSession && optionsSession.length > 0 && (
                                     <MentorServicesSession
                                         services={optionsSession}
                                         selected={selectedSession}
                                         handleSelect={handleSelectSession}
                                         handleSubmit={handleSubmitSession}
                                     />
-                                ) : null}
+                                )}
                             </MentorServices>
                         )}
                     </aside>

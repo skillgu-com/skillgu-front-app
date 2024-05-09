@@ -4,11 +4,16 @@ import styles from "./MentorHeader.module.scss";
 import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
 
+type JobPosition = {
+  id: number;
+  name: string;
+};
+
 type Props = {
   avatarUrl?: string;
   fullname?: string;
   location?: string;
-  profession?: string;
+  profession?: JobPosition[];
   company?: string;
 };
 
@@ -31,9 +36,14 @@ export const MentorHeader = ({
           <div className={styles.main}>
             <h2 className={styles.fullname}>{fullname}</h2>
             <div className={styles.subtitle}>
+              {profession && profession.length ? (
               <span>
-                {profession} w {company}
+                  {profession.map((job: JobPosition, i: number) => (
+                      <li key={job.id} className={styles.skillsTag}>{job.name}</li>
+                  ))} w {company}
               </span>
+              ) : null}
+
               <div className={styles.dot} />
               <span className={styles.location}>
                 <MapMarkIcon /> {location}
@@ -56,9 +66,13 @@ export const MentorHeader = ({
           <div className={styles.main}>
             <h2 className={styles.fullname}>{fullname}</h2>
             <div className={styles.subtitle}>
-              <span>
-                {profession} w {company}
+              {profession && profession.length ? (
+               <span>
+                  {profession.map((job: JobPosition, i: number) => (
+                      <li key={job.id} className={styles.skillsTag}>{job.name}</li>
+                  ))} w {company}
               </span>
+              ) : null}
             </div>
           </div>
         </div>

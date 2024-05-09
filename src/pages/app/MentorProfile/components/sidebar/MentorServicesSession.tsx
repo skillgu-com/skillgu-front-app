@@ -22,6 +22,9 @@ export const MentorServicesSession = ({
 }: Props) => {
 
 
+  console.log('services w MentorServicesSession: ',services)
+
+
   return services.length ? (
     <>
       <div className={styles.cards}>

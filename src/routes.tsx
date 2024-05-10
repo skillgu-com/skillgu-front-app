@@ -141,12 +141,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         isProtected: true,
     },
     {
-        path: paths.businessPartner,
-        element: <Underconstruction />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
         path: paths.underConstruction,
         element: <Underconstruction />,
         layoutVersion: 'none',

@@ -44,13 +44,6 @@ const Profile = () => {
     const [showModal, setShowModal] = useState(false);
 
 
-    useEffect(() => {
-        getMentorProfileByID(userID).then((res) => {
-            setUserData(res.data as UserData)
-                });
-    }, []);
-
-
 
 
 

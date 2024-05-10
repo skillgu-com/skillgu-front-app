@@ -191,17 +191,6 @@ const SearchMentors = () => {
 
   const toggleFiltersSidebar = useCallback(() => setPopupOpen((s) => !s), []);
 
-  // const handleLoadMore = () => {
-  //   // @TODO: remove set timeout
-  //   setTimeout(
-  //     () =>
-  //       dispatchMentors({
-  //         type: "UPDATE_PAGE",
-  //         payload: { page: state.page + 1 },
-  //       }),
-  //     1000
-  //   );
-  // };
   const handleLoadMore = () => {
       dispatchMentors({
           type: "UPDATE_PAGE",

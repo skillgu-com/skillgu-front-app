@@ -60,7 +60,6 @@ export interface MentorData {
     facebookURL: string | null;
 }
 
-
 export const MentorProfilePage = () => {
     const {id: mentorId} = useParams();
 
@@ -90,19 +89,20 @@ export const MentorProfilePage = () => {
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
     const closePopup = () => setPopupSession(null);
 
-    useEffect(() => {
-        const run = async () => {
-            const resp = await fetchMentorServices({mentorId: mentorId || ""});
-            if (resp.success) {
-                setOptionsMentoring(resp.mentoring);
-                setOptionsSession(resp.session);
-            }
-            setLoading(false);
-        };
-        if (mentorId) {
-            run();
-        }
-    }, [mentorId]);
+
+    // useEffect(() => {
+    //     const run = async () => {
+    //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
+    //         if (resp.success) {
+    //             setOptionsMentoring(resp.mentoring);
+    //             setOptionsSession(resp.session);
+    //         }
+    //         setLoading(false);
+    //     };
+    //     if (mentorId) {
+    //         run();
+    //     }
+    // }, [mentorId]);
 
 
     useEffect(() => {
@@ -116,11 +116,11 @@ export const MentorProfilePage = () => {
         fetchMentorSession(mentorId).then(res => {
             if (res) {
                 const formattedSessions = res.data.map((elementFromAPI: any) => ({
-                    id: elementFromAPI.id,
-                    sessionType: elementFromAPI.sessionType,
-                    sessionPrice: elementFromAPI.sessionPrice,
-                    description: elementFromAPI.description,
-                    meetTime: elementFromAPI.meetTime,
+                    id: elementFromAPI?.id,
+                    sessionType: elementFromAPI?.sessionType,
+                    sessionPrice: elementFromAPI?.sessionPrice,
+                    description: elementFromAPI?.description,
+                    meetTime: elementFromAPI?.meetTime,
                     mentorID: Number(mentorId)
                 }));
                 setOptionsSession(formattedSessions);
@@ -128,7 +128,6 @@ export const MentorProfilePage = () => {
             }
         });
     }, [mentorId]);
-
 
     return (
         <>

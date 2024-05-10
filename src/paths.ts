@@ -24,7 +24,6 @@ const paths = {
     schedulesEditSchedule: '/schedules/edit-schedule/:id',
     schedulesAddSession: '/schedules/add-session',
     schedulesEditSession: '/schedules/edit-session/:id',
-    businessPartner: '/business-partner',
     help: '/help',
     underConstruction: '/underconstruction',
     calendar: '/calendar-view',

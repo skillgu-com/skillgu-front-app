@@ -7,7 +7,6 @@
     display: flex;
     gap: 48px;
     flex-direction: column;
-    margin: 48px 0;
 
     aside {
         flex: 458;
@@ -18,8 +17,9 @@
         flex: 566;
     }
 
-    @include media-lg-and-up {
+    @include media-xl-and-up {
         flex-direction: row;
+        margin: 48px 0;
     }
 } 
 
@@ -27,7 +27,11 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding: 24px;
+
+    @include media-lg-and-up {
+        padding: 24px;
+        border: 1px solid $colour-base-400;
+    }
 }
 
 .desktop.linksSection {

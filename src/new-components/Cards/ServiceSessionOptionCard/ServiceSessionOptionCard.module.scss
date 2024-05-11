@@ -9,7 +9,10 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    cursor: pointer;
+
+    &.selectable {
+        cursor: pointer;
+    }
 
     &.selected {
         border-color: $colour-secondary;
@@ -67,4 +70,5 @@
 .detailsBtn {
     @extend %text-reset-button, %text-button-sm;
     color: $colour-secondary;
+    cursor: pointer;
 }

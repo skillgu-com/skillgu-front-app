@@ -35,7 +35,7 @@ export const ServiceMentoringOptionCard = ({
       value={value}
     >
       <div className={styles.rowTitle}>
-        <RadioInputIcon filled={selected} />
+        {handleSelect ? <RadioInputIcon filled={selected} /> : null}
         <h5 className={styles.title}>{title}</h5>
         {variant === "pro" ? <CrownIcon /> : null}
       </div>
@@ -53,8 +53,7 @@ export const ServiceMentoringOptionCard = ({
             {descriptionRows.map((r) => (
               <li>
                 <CheckCircleSolidIcon />
-                <span>
-                {r}</span>
+                <span>{r}</span>
               </li>
             ))}
           </ul>

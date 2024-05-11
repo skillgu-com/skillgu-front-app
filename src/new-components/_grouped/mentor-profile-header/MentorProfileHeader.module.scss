@@ -4,11 +4,8 @@
 @use "../../../scss/font" as *;
 
 .wrapper {
+    min-height: calc(240px - 60px + 160px); /* cover + avatar height */
     margin-bottom: 32px;
-
-    @include media-lg-and-up {
-        margin-bottom: 48px;
-    }
 }
 
 .mobile, .desktop {
@@ -93,6 +90,10 @@
     gap: 4px;
     flex: 1;
     min-width: 270px;
+
+    @include media-lg-and-up {
+        min-height: 100px;
+    }
 }
 
 .subtitle {

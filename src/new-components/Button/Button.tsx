@@ -16,10 +16,12 @@ export enum ButtonTag {
 
 export enum ButtonVariant {
 	Primary = 'primary',
+	PrimaryLight = 'primary-light',
 	Light = 'light',
 	Dark = 'dark',
 	Outline = 'outline',
 	Danger = 'danger',
+	DangerText = 'danger-text',
 }
 
 interface CommonProps extends Common {
@@ -28,6 +30,7 @@ interface CommonProps extends Common {
 	href?: string;
 	variant?: ButtonVariant;
 	disableButton?: boolean
+	size?: 'sm'|'md'|'lg'
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -43,7 +46,8 @@ const Button: React.FC<
 		href,
 		as = ButtonTag.Button,
 		variant = ButtonVariant.Primary,
-		disableButton
+		disableButton,
+		size,
 	} = props;
 
 	const config = useMemo(() => {
@@ -62,7 +66,11 @@ const Button: React.FC<
 			...omitedProps,
 			className: classNames(
 				styles.button,
-				{[styles.buttonFullWidth]: fullWidth},
+				{
+					[styles.buttonFullWidth]: fullWidth,
+					[styles.buttonSm]: size === 'sm',
+					[styles.buttonLg]: size === 'lg',
+				},
 				classes
 			),
 			'data-variant': variant,

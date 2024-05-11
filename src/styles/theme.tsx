@@ -51,7 +51,7 @@ declare module '@mui/material/Typography' {
     }
 }
 
-const palette: PaletteOptions = {
+export const palette: PaletteOptions = {
     primary: {
         dark: '#f44813',
         main: '#ff6a3c',

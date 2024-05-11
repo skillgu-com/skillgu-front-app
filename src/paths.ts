@@ -40,6 +40,7 @@ const paths = {
     registerMentor: '/register-mentor',
     registerMentee: '/register',
     mentorProfile: '/mentor/:id',
+    mentorProfileEdit: '/edit-mentor/:id',
 } as const;
 
 export type PathKey = keyof typeof paths;

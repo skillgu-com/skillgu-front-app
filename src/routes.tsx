@@ -34,6 +34,7 @@ import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSen
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
+import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 
 type Route = {
     id: string;
@@ -47,6 +48,11 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.mentorProfile,
         element: <MentorProfilePage />,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.mentorProfileEdit,
+        element: <MentorProfileEditPage />,
         layoutVersion: 'default',
     },
     {

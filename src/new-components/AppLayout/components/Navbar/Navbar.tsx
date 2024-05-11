@@ -32,6 +32,7 @@ const Navbar = () => {
 	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
 	const userFromRedux = useSelector((state: any) => state.auth.user);
 
+
 	const menuItems = [
 		{
 			id: 'home',
@@ -54,7 +55,7 @@ const Navbar = () => {
 		{
 			id: 'settings',
 			label: 'Ustawienia',
-			link: '/settings',
+			link: `/edit-mentor/${userFromRedux.id}`,
 			icon: <Settings />,
 		},
 

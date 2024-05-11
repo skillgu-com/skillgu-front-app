@@ -21,13 +21,18 @@
 	font-weight: 400;
 	cursor: pointer;
 	transition: background-color 0.24s, color 0.24s;
+	line-height: 180%;	
 
 	&Sm {
 		padding: 8px 30px;	
 	}
 
+	&Md {
+		padding: 10px 30px;
+	}
+
 	&Lg {
-		padding: 12px 30px;	
+		padding: 12px 30px;
 	}
 
 	&FullWidth {

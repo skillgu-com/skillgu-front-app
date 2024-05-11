@@ -25,13 +25,18 @@
 }
 
 .Divider {
-    width: calc(100% + 48px);
+    width: 100%;
     position: relative;
-    left: -24px;
+    left: 0;
     border-top: 1px solid $colour-base-400;
     border-width: 1px;
     border-bottom: none;
     margin: 24px 0;
+
+    @include media-lg-and-up {
+        width: calc(100% + 48px);
+        left: -24px;
+    }
 }
 
 .Title {

@@ -7,10 +7,16 @@
     flex-wrap: wrap;
     gap: 16px;
     justify-content: flex-end;
-    padding: 16px 24px;
+    padding: 32px 24px;
+
+    @include media-lg-and-up {
+        padding: 16px 24px;
+    }
 }
 
 .Content {
+    padding-bottom: 24px;
+
     @include media-lg-and-up {
         padding: 24px;
     }

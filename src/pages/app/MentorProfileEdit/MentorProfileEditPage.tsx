@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Container from "src/new-components/Container/Container";
 import { MentorReviewsConnected } from "@newComponents/_connected";
 import { Tag } from "src/types/tags";
-import { MentorHeader, MentorHeaderWrapper } from "./sections";
 import { useParams } from "react-router-dom";
 import { MentorEditFooter, MentorEditSectionAccount, MentorEditSectionLinks, MentorEditSectionNotifications, MentorEditSectionPersonalData, MentorEditSectionProfile } from "./sections/content";
 import {
@@ -14,6 +13,8 @@ import { fetchMentorServices } from "src/services/mentor/fetchMentorServices.ser
 import styles from "./MentorProfile.module.scss";
 import { getMentorProfileByID } from "../../../services/MentorViewService";
 import { Typography } from "@mui/material";
+import { MentorProfileHeader } from "@newComponents/_grouped";
+import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 
 /**
  *
@@ -68,17 +69,17 @@ export const MentorProfileEditPage = () => {
 
   return (
     <>
-      <MentorHeaderWrapper>
-        <Container as={Tag.Section}>
-          <MentorHeader
-            avatarUrl="/images/img_avatar.png"
-            fullname="Anna Stokrotka"
-            location="Warszawa, Polska (UTC+2)"
-            profession="UX/UI Designer w Google"
-            company="Google"
-          />
-        </Container>
-      </MentorHeaderWrapper>
+      <MentorProfileHeader 
+        avatarUrl="/images/img_avatar.png"
+        btnText='Zobacz profil'
+        btnHref={`/mentor/13`}
+        company="Google"
+        coverUrl="/images/header-banner-bg.jpg"
+        fullname="Anna Stokrotka"
+        langSwitcher={<LangSwitcherConnected />}
+        location="Warszawa, Polska (UTC+2)"
+        profession="UX/UI Designer w Google"
+      />
 
       <Container as={Tag.Section} >
         <MentorEditSectionPersonalData />

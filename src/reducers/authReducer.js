@@ -33,9 +33,9 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuthenticated: true,
                 user: {
-                    id: action.payload.id, // Add new property id
-                    email: action.payload.email, //  Add new property email
-                    role: action.payload.role, // Add new property role
+                    id: action.payload.id,
+                    email: action.payload.email,
+                    role: action.payload.role,
                 },
 
             };

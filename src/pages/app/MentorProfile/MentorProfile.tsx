@@ -82,7 +82,7 @@ export const MentorProfilePage = () => {
   const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
 
   // @TODO: get user id from sesion/jwt
-  const mentorIsLoggedUser = true;
+  const mentorIsLoggedUser = false;
 
   const toggleTab = () =>
     setTab((s) => (s === "mentoring" ? "session" : "mentoring"));

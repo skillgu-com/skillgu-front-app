@@ -34,9 +34,6 @@ const Navbar = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const role = useSelector(getRole);
 
-    console.log('tutaj kutasie')
-    console.log(userFromRedux)
-
     const menuItems = [
         {
             id: 'home',
@@ -47,22 +44,22 @@ const Navbar = () => {
         {
             id: 'profile',
             label: 'Profil',
-            link: `/mentor/${userFromRedux.id}`,
+            link: role === 'M' ? `/mentor/${userFromRedux.id}` : `/student/${userFromRedux.id}`,
             icon: <Doc/>,
         },
-        role !== 'S' && {
+        {
             id: 'schedules',
             label: 'Tworzenie spotkań',
-            link: '/schedules',
+            link: role !== 'S' ? '/schedules' : '',
             icon: <CreateSchedules/>,
         },
         {
             id: 'settings',
             label: 'Ustawienia',
-            link: `/edit-mentor/${userFromRedux.id}`,
+            link: role === 'M' ? `/edit-mentor/${userFromRedux.id}` : `/edit-student/${userFromRedux.id}`,
             icon: <Settings/>,
         },
-    ].filter(Boolean);
+    ].filter(item => item.link !== '');
 
     return (
         <Container

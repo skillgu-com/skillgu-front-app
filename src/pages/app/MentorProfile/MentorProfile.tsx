@@ -121,9 +121,11 @@ export const MentorProfilePage = () => {
   //     }
   // }, [mentorId]);
 
+
   useEffect(() => {
     getMentorProfileByID(mentorId).then((res) => {
       setMentorData(res.data as MentorData);
+      console.log(mentorData)
     });
   }, []);
 

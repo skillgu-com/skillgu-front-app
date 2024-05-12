@@ -35,6 +35,7 @@ import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPa
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
+import { StudentProfilePage } from './pages/app/StudentProfile';
 
 type Route = {
     id: string;
@@ -45,6 +46,11 @@ type Route = {
 };
 
 const routesRaw: Omit<Route, 'id'>[] = [
+    {
+        path: paths.studentProfile,
+        element: <StudentProfilePage />,
+        layoutVersion: 'default',
+    },
     {
         path: paths.mentorProfile,
         element: <MentorProfilePage />,

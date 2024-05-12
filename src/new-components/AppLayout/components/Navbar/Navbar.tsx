@@ -34,6 +34,8 @@ const Navbar = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const role = useSelector(getRole);
 
+    console.log('tutaj kutasie')
+    console.log(userFromRedux)
 
     const menuItems = [
         {

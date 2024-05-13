@@ -222,7 +222,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     },
 ];
 
-// Add id to each route
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route
 const routes = routesRaw.map((route, index) => ({...route, id: `route${index}`}));
 

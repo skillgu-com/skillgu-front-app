@@ -38,7 +38,7 @@ const paths = {
     bookSuccess: '/book-success',
     loggedUserProfile: '/logged-user-profile',
     registerMentor: '/register-mentor',
-    registerMentee: '/register',
+    registerMentee: '/register-mentee',
     mentorProfile: '/mentor/:id',
     mentorProfileEdit: '/edit-mentor/:id',
     studentProfile: '/student/:id',

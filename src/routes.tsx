@@ -15,7 +15,6 @@ import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/Register
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
 import Raports from './pages/app/Raports/Raports';
-import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
 import MentoringAndSessionDashboard from './pages/app/MentoringAndSessionDashboard/MentoringAndSessionDashboard';
 import MeetingSchedule from './pages/app/MeetingScheduleView/MeetingSchedule';
@@ -144,11 +143,7 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'default',
         isProtected: true,
     },
-    {
-        path: paths.underConstruction,
-        element: <Underconstruction />,
-        layoutVersion: 'none',
-    },
+
     {
         path: paths.calendar,
         element: <CalendarView />,

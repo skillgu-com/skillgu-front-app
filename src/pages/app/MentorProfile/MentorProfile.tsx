@@ -107,19 +107,20 @@ export const MentorProfilePage = () => {
   const openPopup = (opt: ServiceSession) => setPopupSession(opt);
   const closePopup = () => setPopupSession(null);
 
-  // useEffect(() => {
-  //     const run = async () => {
-  //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
-  //         if (resp.success) {
-  //             setOptionsMentoring(resp.mentoring);
-  //             setOptionsSession(resp.session);
-  //         }
-  //         setLoading(false);
-  //     };
-  //     if (mentorId) {
-  //         run();
-  //     }
-  // }, [mentorId]);
+  // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
+  useEffect(() => {
+      const run = async () => {
+          const resp = await fetchMentorServices({mentorId: mentorId || ""});
+          if (resp.success) {
+              setOptionsMentoring(resp.mentoring);
+              // setOptionsSession(resp.session);
+          }
+          setLoading(false);
+      };
+      if (mentorId) {
+          run();
+      }
+  }, [mentorId]);
 
 
   useEffect(() => {

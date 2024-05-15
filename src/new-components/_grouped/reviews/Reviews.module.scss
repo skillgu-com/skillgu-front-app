@@ -92,3 +92,8 @@
     justify-content: flex-start;
   }
 }
+
+.msg {
+  @extend %text-button-md;
+  color: $colour-base-600;
+}

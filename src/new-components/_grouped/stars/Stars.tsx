@@ -19,7 +19,7 @@ export const Stars = ({
   return (
     <div className={className}>
       {starArray.map((star, index) => (
-        <StarSvg key={index} filled={star <= rate} />
+        <StarSvg key={index} filled={true} color={star <= rate ? '#FFC728' : '#FFF2CC'} />
       ))}
     </div>
   );

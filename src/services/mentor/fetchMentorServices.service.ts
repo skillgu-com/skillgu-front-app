@@ -16,6 +16,7 @@ type FetchMentorReviewsInput = {
 
 type FetchMentorReviewsData = {
     total: number;
+    avgRate: number
     reviews: Review[];
 };
 
@@ -62,8 +63,8 @@ export const fetchMentorReviews = async ({
     try {
         const response = await fetch("/mentor-reviews.json");
         const responseData = await response.json();
-        const {total, reviews} = responseData;
-        return {total, reviews};
+        const {total, reviews, avgRate } = responseData;
+        return {total, reviews, avgRate };
     } catch (error) {
         console.error("Error fetching mentor reviews:", error);
         throw error;

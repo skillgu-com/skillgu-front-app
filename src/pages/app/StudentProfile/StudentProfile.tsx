@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MentorProfileHeader } from "@newComponents/_grouped";
+import { UserProfileHeader } from "@newComponents/_grouped";
 import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 
 export interface StudentData {
@@ -58,7 +58,7 @@ export const StudentProfilePage = () => {
     {pending ? (
       <p>Pending...</p>
     ) : null}
-    {student ? (<MentorProfileHeader
+    {student ? (<UserProfileHeader
       avatarUrl="/images/img_avatar.png"
       company="Google"
       coverUrl="/images/header-banner-bg.jpg"

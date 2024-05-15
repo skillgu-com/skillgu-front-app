@@ -1,6 +1,6 @@
 import React, {  ReactNode } from "react";
 import clx from "classnames";
-import styles from "./MentorProfileHeader.module.scss";
+import styles from "./UserProfileHeader.module.scss";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
 import { Tag } from "src/types/tags";
 import Container from "src/new-components/Container/Container";
@@ -22,7 +22,7 @@ type Props = {
 
 const DEFAULT_COVER_URL = "/images/header-banner-bg.jpg";
 
-export const MentorProfileHeader = ({
+export const UserProfileHeader = ({
   avatarUrl,
   btnText,
   btnHref,

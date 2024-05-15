@@ -33,6 +33,7 @@ import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { StudentProfilePage } from './pages/app/StudentProfile';
+import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
 
 type Route = {
     id: string;
@@ -43,6 +44,11 @@ type Route = {
 };
 
 const routesRaw: Omit<Route, 'id'>[] = [
+    {
+        path: paths.studentProfileEdit,
+        element: <StudentProfileEditPage />,
+        layoutVersion: 'default',
+    },
     {
         path: paths.studentProfile,
         element: <StudentProfilePage />,

@@ -3,7 +3,7 @@ import Container from "src/new-components/Container/Container";
 import { MentorReviewsConnected } from "@newComponents/_connected";
 import { Tag } from "src/types/tags";
 import { useParams } from "react-router-dom";
-import { MentorEditFooter, MentorEditSectionAccount, MentorEditSectionLinks, MentorEditSectionNotifications, MentorEditSectionPersonalData, MentorEditSectionProfile } from "./sections/content";
+import { MentorEditFooter, MentorEditSectionAccount, MentorEditSectionNotifications, MentorEditSectionPersonalData } from "./sections/content";
 import {
   ServiceMentoring,
   ServiceSession,
@@ -19,7 +19,7 @@ import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/L
 /**
  *
  */
-export const MentorProfileEditPage = () => {
+export const StudentProfileEditPage = () => {
   const { id: mentorId } = useParams();
 
   const [tab, setTab] = useState<ServiceType>("mentoring");
@@ -83,8 +83,6 @@ export const MentorProfileEditPage = () => {
 
       <Container as={Tag.Section} >
         <MentorEditSectionPersonalData />
-        <MentorEditSectionProfile /> 
-        <MentorEditSectionLinks />
         <Typography variant='h2' color='secondary' sx={{ display: 'block', margin: '48px 0 24px' }}>
           Ustawienia konta
         </Typography>

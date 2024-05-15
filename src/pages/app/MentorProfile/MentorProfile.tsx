@@ -21,11 +21,11 @@ import {
 } from "@customTypes/order";
 import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import {getMentorProfileByID} from "../../../services/MentorViewService";
-import {SpecialVariant} from "@customTypes/mentor";
-import {fetchMentorSession} from "../../../services/SessionService";
-import {MentorProfileHeader} from "@newComponents/_grouped";
-import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
+import { getMentorProfileByID } from "../../../services/MentorViewService";
+import { SpecialVariant } from "@customTypes/mentor";
+import { fetchMentorSession } from "../../../services/SessionService";
+import { UserProfileHeader } from "@newComponents/_grouped";
+import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
 
 type Props = {
@@ -147,19 +147,19 @@ export const MentorProfilePage = () => {
         });
     }, [mentorId]);
 
-    return (
-        <>
-            <MentorProfileHeader
-                avatarUrl="/images/img_avatar.png"
-                btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
-                btnHref={mentorIsLoggedUser ? "/edit-mentor/13" : ""}
-                company="Google"
-                coverUrl="/images/header-banner-bg.jpg"
-                fullname={mentorData?.firstName + " " + mentorData?.lastName}
-                langSwitcher={<LangSwitcherConnected/>}
-                location={mentorData?.location}
-                profession={mentorData?.jobPosition}
-            />
+  return (
+    <>
+      <UserProfileHeader
+        avatarUrl="/images/img_avatar.png"
+        btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
+        btnHref={mentorIsLoggedUser ? "/edit-mentor/13" : ""}
+        company="Google"
+        coverUrl="/images/header-banner-bg.jpg"
+        fullname={mentorData?.firstName + " " + mentorData?.lastName}
+        langSwitcher={<LangSwitcherConnected />}
+        location={mentorData?.location}
+        profession={mentorData?.jobPosition?.map((j) => j.name).join(", ")}
+      />
 
             <Container as={Tag.Section}>
                 <MentorLinks

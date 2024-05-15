@@ -15,7 +15,7 @@ type Props = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export const MentorEditSection = ({
+export const UserEditSection = ({
   title,
   subtitle,
   children,

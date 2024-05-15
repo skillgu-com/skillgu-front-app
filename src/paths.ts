@@ -42,6 +42,7 @@ const paths = {
     mentorProfile: '/mentor/:id',
     mentorProfileEdit: '/edit-mentor/:id',
     studentProfile: '/student/:id',
+    studentProfileEdit: '/edit-student/:id',
 } as const;
 
 export type PathKey = keyof typeof paths;

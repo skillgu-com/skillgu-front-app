@@ -1,5 +1,5 @@
 import React from "react";
-import { MentorEditSection } from "../../elements";
+import { UserEditSection } from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
@@ -44,7 +44,7 @@ export const MentorEditSectionLinks = () => {
   };
 
   return (
-    <MentorEditSection
+    <UserEditSection
       title="Kontakt"
       subtitle="Gdzie istniejesz w internecie?"
       onClose={() => {
@@ -91,6 +91,6 @@ export const MentorEditSectionLinks = () => {
           name="youtube"
         />
       </div>
-    </MentorEditSection>
+    </UserEditSection>
   );
 };

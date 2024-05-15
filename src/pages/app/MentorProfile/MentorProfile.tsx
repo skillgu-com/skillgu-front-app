@@ -24,7 +24,7 @@ import styles from "./MentorProfile.module.scss";
 import { getMentorProfileByID } from "../../../services/MentorViewService";
 import { SpecialVariant } from "@customTypes/mentor";
 import { fetchMentorSession } from "../../../services/SessionService";
-import { MentorProfileHeader } from "@newComponents/_grouped";
+import { UserProfileHeader } from "@newComponents/_grouped";
 import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
 
@@ -149,7 +149,7 @@ export const MentorProfilePage = () => {
 
   return (
     <>
-      <MentorProfileHeader
+      <UserProfileHeader
         avatarUrl="/images/img_avatar.png"
         btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
         btnHref={mentorIsLoggedUser ? "/edit-mentor/13" : ""}

@@ -1,5 +1,5 @@
 import React from "react";
-import { MentorEditSection } from "../../elements";
+import { UserEditSection } from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
@@ -54,7 +54,7 @@ export const MentorEditSectionProfile = () => {
   };
 
   return (
-    <MentorEditSection
+    <UserEditSection
       title="Profil"
       subtitle="Zaktualizuj swoje portfolio oraz biografię."
       onClose={() => {
@@ -135,6 +135,6 @@ export const MentorEditSectionProfile = () => {
           ]}
         />
       </div>
-    </MentorEditSection>
+    </UserEditSection>
   );
 };

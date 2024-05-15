@@ -158,7 +158,7 @@ export const MentorProfilePage = () => {
         fullname={mentorData?.firstName + " " + mentorData?.lastName}
         langSwitcher={<LangSwitcherConnected />}
         location={mentorData?.location}
-        profession={mentorData?.jobPosition?.map((j) => j.name).join(", ")}
+        profession={mentorData?.jobPosition}
       />
 
             <Container as={Tag.Section}>

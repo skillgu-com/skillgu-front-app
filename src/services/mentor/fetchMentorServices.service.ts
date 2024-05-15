@@ -38,8 +38,11 @@ export const fetchMentorServices = async (input: Input): Promise<OutputSuccess |
 export const fetchMentors = async (take: number, skip: number, filters?: FiltersSelected): Promise<ResponseData> => {
     try {
         const filterMentorToSend = {
-            take: take.toString(),
+            take: 10,
             skip: skip.toString(),
+
+            // take: take.toString(),
+            // skip: skip.toString(),
             filters: filters || null
         };
 
@@ -47,6 +50,7 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
 
         const {total, mentors} = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
+
 
         return {total, mentors: filteredMentors}
     } catch (error) {

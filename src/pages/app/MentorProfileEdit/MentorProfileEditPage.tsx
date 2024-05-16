@@ -1,97 +1,143 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Container from "src/new-components/Container/Container";
-import { MentorReviewsConnected } from "@newComponents/_connected";
-import { Tag } from "src/types/tags";
-import { useParams } from "react-router-dom";
-import { MentorEditFooter, MentorEditSectionAccount, MentorEditSectionLinks, MentorEditSectionNotifications, MentorEditSectionPersonalData, MentorEditSectionProfile } from "./sections/content";
+import {Tag} from "src/types/tags";
+import {useParams} from "react-router-dom";
 import {
-  ServiceMentoring,
-  ServiceSession,
-  ServiceType,
-} from "@customTypes/order";
-import { fetchMentorServices } from "src/services/mentor/fetchMentorServices.service";
-import styles from "./MentorProfile.module.scss";
-import { getMentorProfileByID } from "../../../services/MentorViewService";
-import { Typography } from "@mui/material";
-import { UserProfileHeader } from "@newComponents/_grouped";
-import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
+    MentorEditFooter,
+    MentorEditSectionAccount,
+    MentorEditSectionLinks,
+    MentorEditSectionNotifications,
+    MentorEditSectionPersonalData,
+    MentorEditSectionProfile
+} from "./sections/content";
+import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
+import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {Typography} from "@mui/material";
+import {UserProfileHeader} from "@newComponents/_grouped";
+import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
+import {SpecialVariant} from "@customTypes/mentor";
 
 /**
  *
  */
+
+export interface MentorData {
+    avatar_url: string;
+    description: string;
+    id: string;
+    firstName: string;
+    lastName: string;
+    price: number;
+    location: string;
+    profession: string;
+    reviewsAvgRate: number;
+    reviewsCount: number;
+    special: string;
+    title: string;
+    intro: string;
+    jobPosition: string;
+    company: string;
+
+    specialVariant: SpecialVariant;
+    services: {
+        id: number;
+        name: string;
+    }[];
+    skill: {
+        id: number;
+        name: string;
+    }[];
+    mentorTopics: {
+        id: number;
+        name: string;
+    }[];
+
+    mentorCategory: {
+        id: number;
+        name: string;
+    }[];
+    linkedin: string | null;
+    websiteURL: string | null;
+    youtubeURL: string | null;
+    instagramURL: string | null;
+    xurl: string | null;
+    facebookURL: string | null;
+}
+
 export const MentorProfileEditPage = () => {
-  const { id: mentorId } = useParams();
+    const {id: mentorId} = useParams();
 
-  const [tab, setTab] = useState<ServiceType>("mentoring");
-  const toggleTab = () =>
-    setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
-  const [loading, setLoading] = useState<boolean>(true);
-  const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
-    []
-  );
-  const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-  const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
-    null
-  );
-  const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-  const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-  const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
-  const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-  const handleSubmitMentoring = (opt: ServiceMentoring) => {
-    console.log("ORDER Mentoring, ", opt);
-  };
-  const handleSubmitSession = (opt: ServiceSession) => {
-    console.log("ORDER Session, ", opt);
-  };
-  const openPopup = (opt: ServiceSession) => setPopupSession(opt);
-  const closePopup = () => setPopupSession(null);
+    const [tab, setTab] = useState<ServiceType>("mentoring");
+    const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
 
-  // useEffect(() => {
-  //     const run = async () => {
-  //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
-  //         if (resp.success) {
-  //             setOptionsMentoring(resp.mentoring);
-  //             setOptionsSession(resp.session);
-  //         }
-  //         setLoading(false);
-  //     };
-  //     if (mentorId) {
-  //         run();
-  //     }
-  // }, [mentorId]);
+    const toggleTab = () =>
+        setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
+    const [loading, setLoading] = useState<boolean>(true);
+    const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
+        []
+    );
+    const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
+    const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
+        null
+    );
+    const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+    const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
+    const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
+    const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+    const handleSubmitMentoring = (opt: ServiceMentoring) => {
+        console.log("ORDER Mentoring, ", opt);
+    };
+    const handleSubmitSession = (opt: ServiceSession) => {
+        console.log("ORDER Session, ", opt);
+    };
+    const openPopup = (opt: ServiceSession) => setPopupSession(opt);
+    const closePopup = () => setPopupSession(null);
 
-  // useEffect(() => {
-  //     getMentorProfileByID(mentorId).then((res) => {
-  //         // setUserData(res.data as UserData)
-  //         console.log(res.data)
-  //     });
-  // }, []);
+    // useEffect(() => {
+    //     const run = async () => {
+    //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
+    //         if (resp.success) {
+    //             setOptionsMentoring(resp.mentoring);
+    //             setOptionsSession(resp.session);
+    //         }
+    //         setLoading(false);
+    //     };
+    //     if (mentorId) {
+    //         run();
+    //     }
+    // }, [mentorId]);
 
-  return (
-    <>
-      <UserProfileHeader 
-        avatarUrl="/images/img_avatar.png"
-        btnText='Zobacz profil'
-        btnHref={`/mentor/13`}
-        company="Google"
-        coverUrl="/images/header-banner-bg.jpg"
-        fullname="Anna Stokrotka"
-        langSwitcher={<LangSwitcherConnected />}
-        location="Warszawa, Polska (UTC+2)"
-        profession="UX/UI Designer w Google"
-      />
+    useEffect(() => {
+        getMentorProfileByID(mentorId).then((res) => {
+            setMentorData(res.data as MentorData)
+        });
+    }, []);
 
-      <Container as={Tag.Section} >
-        <MentorEditSectionPersonalData />
-        <MentorEditSectionProfile /> 
-        <MentorEditSectionLinks />
-        <Typography variant='h2' color='secondary' sx={{ display: 'block', margin: '48px 0 24px' }}>
-          Ustawienia konta
-        </Typography>
-        <MentorEditSectionAccount />
-        <MentorEditSectionNotifications />
-        <MentorEditFooter />
-      </Container>
-    </>
-  );
+    return (
+        <>
+            <UserProfileHeader
+                avatarUrl="/images/img_avatar.png"
+                btnText='Zobacz profil'
+                btnHref={`/mentor/${mentorId}`}
+                company={mentorData?.company}
+                coverUrl="/images/header-banner-bg.jpg"
+                fullname={mentorData?.firstName + " " + mentorData?.lastName}
+                langSwitcher={<LangSwitcherConnected/>}
+                location={mentorData?.location}
+                profession={mentorData?.jobPosition}
+            />
+
+            <Container as={Tag.Section}>
+                <MentorEditSectionPersonalData/>
+                <MentorEditSectionProfile/>
+                <MentorEditSectionLinks/>
+                <Typography variant='h2' color='secondary' sx={{display: 'block', margin: '48px 0 24px'}}>
+                    Ustawienia konta
+                </Typography>
+                <MentorEditSectionAccount/>
+                <MentorEditSectionNotifications/>
+                <MentorEditFooter/>
+            </Container>
+        </>
+    );
 };

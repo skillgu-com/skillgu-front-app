@@ -22,29 +22,29 @@ import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/L
 export const StudentProfileEditPage = () => {
   const { id: mentorId } = useParams();
 
-  const [tab, setTab] = useState<ServiceType>("mentoring");
-  const toggleTab = () =>
-    setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
-  const [loading, setLoading] = useState<boolean>(true);
-  const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
-    []
-  );
-  const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-  const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
-    null
-  );
-  const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-  const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-  const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
-  const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-  const handleSubmitMentoring = (opt: ServiceMentoring) => {
-    console.log("ORDER Mentoring, ", opt);
-  };
-  const handleSubmitSession = (opt: ServiceSession) => {
-    console.log("ORDER Session, ", opt);
-  };
-  const openPopup = (opt: ServiceSession) => setPopupSession(opt);
-  const closePopup = () => setPopupSession(null);
+  // const [tab, setTab] = useState<ServiceType>("mentoring");
+  // const toggleTab = () =>
+  //   setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
+  //   []
+  // );
+  // const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
+  // const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
+  //   null
+  // );
+  // const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+  // const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
+  // const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
+  // const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+  // const handleSubmitMentoring = (opt: ServiceMentoring) => {
+  //   console.log("ORDER Mentoring, ", opt);
+  // };
+  // const handleSubmitSession = (opt: ServiceSession) => {
+  //   console.log("ORDER Session, ", opt);
+  // };
+  // const openPopup = (opt: ServiceSession) => setPopupSession(opt);
+  // const closePopup = () => setPopupSession(null);
 
   // useEffect(() => {
   //     const run = async () => {

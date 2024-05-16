@@ -82,7 +82,7 @@ export const MentorProfilePage = () => {
 
 
     // @TODO: get user id from sesion/jwt
-    const mentorIsLoggedUser = false;
+    const mentorIsLoggedUser = true;
 
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
@@ -126,7 +126,6 @@ export const MentorProfilePage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData);
-            console.log(mentorData)
         });
     }, []);
 
@@ -152,7 +151,7 @@ export const MentorProfilePage = () => {
       <UserProfileHeader
         avatarUrl="/images/img_avatar.png"
         btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
-        btnHref={mentorIsLoggedUser ? "/edit-mentor/13" : ""}
+        btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
         company="Google"
         coverUrl="/images/header-banner-bg.jpg"
         fullname={mentorData?.firstName + " " + mentorData?.lastName}

@@ -39,7 +39,7 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
     try {
         const filterMentorToSend = {
             take: 10,
-            skip: skip.toString(),
+            skip: 10,
 
             // take: take.toString(),
             // skip: skip.toString(),
@@ -51,6 +51,9 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
         const {total, mentors} = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
 
+        console.log('total',total)
+        console.log('response.data',response.data)
+        console.log('filteredMentors',filteredMentors)
 
         return {total, mentors: filteredMentors}
     } catch (error) {

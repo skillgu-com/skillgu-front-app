@@ -46,6 +46,8 @@ export const MentorEditSectionPersonalData = () => {
   const avatarValue = watch('avatarUrl')
   const coverValue = watch('coverUrl')
 
+
+
   return (
     <UserEditSection
       title="Dane osobowe"
@@ -61,6 +63,8 @@ export const MentorEditSectionPersonalData = () => {
           avatarUrl,
           coverUrl,
         } = (e.target as HTMLFormElement).elements as unknown as FormData;
+
+
         console.log("onSubmit", {
           firstname,
           surname,

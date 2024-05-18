@@ -7,7 +7,7 @@ import AppLayout from './new-components/AppLayout/AppLayout';
 // Pages
 import routes from './routes';
 import theme from "./styles/theme";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import exhaustiveGuard from "./helpers/exhaustiveGuard";
 import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
@@ -45,7 +45,6 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
                 <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
-                    <CssBaseline/>
                     <BrowserRouter>
                         <AuthContextProvider>
                             <Elements stripe={stripePromise}>

@@ -8,6 +8,7 @@ module.exports = {
        "@icons": path.join(path.resolve(__dirname, "./src/assets/icons")),
        "@images": path.join(path.resolve(__dirname, "./src/assets/img")),
        "@styles": path.join(path.resolve(__dirname, "./src/scss")),
+       "@services": path.join(path.resolve(__dirname, "./src/services")),
      },
   },
 };

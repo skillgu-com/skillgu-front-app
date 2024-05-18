@@ -106,7 +106,8 @@
 			"@styles/*": ["src/scss/*"],
 			// "@hooks/*": ["src/utils/hooks/*"],
 			"@icons/*": ["src/assets/icons/*"],
-			"@images/*": ["src/assets/img/*"]
+			"@images/*": ["src/assets/img/*"],
+			"@services/*": ["src/services/*"],
 		}
 	},
 	"include": [

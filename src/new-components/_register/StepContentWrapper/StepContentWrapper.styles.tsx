@@ -1,5 +1,4 @@
 import {Card, styled as styledMui} from "@mui/material";
-import {styled as muiStyled} from "@mui/material/styles";
 
 export const StyledCard = styledMui(Card)(({theme}) => ({
     borderRadius: '8px',

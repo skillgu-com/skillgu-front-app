@@ -6,6 +6,7 @@ import {StyledCalendarWrapper} from "./Calendar.styles";
 import CalendarToolbar from "./_components/CalendarToolbar/CalendarToolbar";
 import CalendarHeader from "./_components/CalendarHeader/CalendarHeader";
 import CalendarDateHeader from "./_components/CalendarDateHeader/CalendarDateHeader";
+import CalendarEvent from "./_components/CalendarEvent/CalendarEvent";
 
 const locales = {
     'pl-PL': pl,
@@ -35,14 +36,12 @@ const Calendar: FC<Props> = ({calendarProps}) => {
                 components={{
                     toolbar: CalendarToolbar,
                     header: CalendarHeader,
-                    month: {
-                        dateHeader: CalendarDateHeader
-                    },
+                    month: {dateHeader: CalendarDateHeader},
+                    eventWrapper: CalendarEvent,
                 }}
+                 // In RBC show more logic is messy, so I need to achieve it in other way
+                messages={{showMore: () => ''}}
                 {...calendarProps}
-                // startAccessor='start'
-                // endAccessor='end'
-                // style={{height: 500}}
             />
         </StyledCalendarWrapper>
     )

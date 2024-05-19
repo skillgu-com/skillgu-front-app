@@ -4,10 +4,24 @@ import {lastDayOfMonth, setDate} from "date-fns";
 
 import
     getMentoringSessionsInDatesService
-    from "@services/mentoringSessions/getMentoringSessionsInDates.service";
-import Calendar from "../../../component/Calendar/Calendar";
+    , {
+    getMentoringSessionsInDatesServiceKeyGenerator
+} from "@services/mentoringSessions/getMentoringSessionsInDates.service";
+import Calendar from "@newComponents/Calendar/Calendar";
 import Typography from "@mui/material/Typography";
 import {Container} from "@mui/material";
+import {Event} from "react-big-calendar";
+
+export type MeetingInCalendar = Event & {
+    metadata: {
+        eventInDayNumber: number,
+        eventInDayCount: number,
+        id: string,
+    }
+}
+
+const generateDayKey = (date: Date) => `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+
 
 const CalendarView = () => {
     const [selectedRange, setSelectedRange] = useState({from: new Date(), to: new Date()});
@@ -18,26 +32,43 @@ const CalendarView = () => {
         setSelectedRange({from, to});
     }
 
+    const queryParams = useMemo(() => ({
+        from: selectedRange.from,
+        to: selectedRange.to,
+    }), [selectedRange]);
+
     const {data} = useQuery({
-        queryKey: ['calendarEvents', `from-${selectedRange.from.toString()}`, `to-${selectedRange.to.toString()}`],
-        queryFn: () => getMentoringSessionsInDatesService({
-            from: selectedRange.from,
-            to: selectedRange.to,
-            userId: '1'
-        }),
+        queryKey: getMentoringSessionsInDatesServiceKeyGenerator(queryParams),
+        queryFn: () => getMentoringSessionsInDatesService(queryParams),
     });
 
-    const events = useMemo(() => {
+    const events: MeetingInCalendar[] = useMemo(() => {
         if (!data) return [];
-        return data.map(({id, title, start, end}) => (
-            {
-                id,
+
+        const eventsCount: Record<string, number> = {};
+        const events = data.map(({id, title, start, end}) => {
+            const eventDateKey = generateDayKey(start);
+
+            if (!eventsCount.hasOwnProperty(eventDateKey)) eventsCount[eventDateKey] = 0;
+            else eventsCount[eventDateKey]++;
+
+            return {
                 title,
                 start,
                 end,
                 allDay: true,
-            }
-        ))
+                metadata: {
+                    eventInDayNumber: eventsCount[eventDateKey],
+                    id,
+                }
+            };
+        })
+
+        return events.map((event) => ({
+            ...event,
+            metadata: {...event.metadata, eventInDayCount: eventsCount[generateDayKey(event.start)] + 1},
+        }));
+
     }, [data]);
 
     return (

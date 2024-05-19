@@ -1,7 +1,7 @@
-import {styled as styledMui} from "@mui/material";
+import {alpha, styled as styledMui} from "@mui/material";
 
 export const StyledCalendarWrapper = styledMui('div')<{ cellSize: number }>(({theme, cellSize}) => ({
-    height: `calc(${cellSize}px * 5)`,
+    height: `calc(${cellSize}px * 5 + ${theme.spacing(20)})`,
     position: 'relative',
     borderRadius: 12,
     border: `1px solid ${theme.palette.base["40"]}`,
@@ -18,6 +18,7 @@ export const StyledCalendarWrapper = styledMui('div')<{ cellSize: number }>(({th
         borderLeftColor: theme.palette.base['40'],
     },
     '.rbc-month-row': {
+
         borderTopColor: theme.palette.base['40'],
         borderLeft: `1px solid ${theme.palette.base['40']}`,
         borderRight: `1px solid ${theme.palette.base['40']}`,
@@ -34,6 +35,10 @@ export const StyledCalendarWrapper = styledMui('div')<{ cellSize: number }>(({th
             borderBottomRightRadius: 12,
         }
     },
-
-
+    '.rbc-off-range-bg': {
+        background: 'none',
+    },
+    '.rbc-today': {
+        backgroundColor: alpha(theme.palette.primary.main, 0.05),
+    },
 }))

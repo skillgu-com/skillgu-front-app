@@ -72,6 +72,24 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-04T15:30:00',
             end: '2024-05-04T16:30:00'
         },
+        {
+            id: '10',
+            title: '10 - Rozmowa ekspercka',
+            start: '2024-05-04T15:30:00',
+            end: '2024-05-04T16:30:00'
+        },
+        {
+            id: '10',
+            title: '10 - Rozmowa ekspercka',
+            start: '2024-05-04T15:30:00',
+            end: '2024-05-04T16:30:00'
+        }
+        ,{
+            id: '10',
+            title: '10 - Rozmowa ekspercka',
+            start: '2024-05-04T15:30:00',
+            end: '2024-05-04T16:30:00'
+        }
     ];
     setTimeout(() => resolve(data), 300)
 });
@@ -82,5 +100,9 @@ const getMentoringSessionsInDatesService = async (params: GetMentoringSessionsIn
     const data = await getMock();
     return data.map(parseMentoringSessionInListForFE);
 };
+
+export const getMentoringSessionsInDatesServiceKeyGenerator = (params: GetMentoringSessionsInDatesServiceParams) => {
+    return ['calendarEvents', `from-${params.from.toString()}`, `to-${params.to.toString()}`]
+}
 
 export default getMentoringSessionsInDatesService;

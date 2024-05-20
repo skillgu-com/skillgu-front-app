@@ -21,11 +21,11 @@ import {
 } from "@customTypes/order";
 import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import { getMentorProfileByID } from "../../../services/MentorViewService";
-import { SpecialVariant } from "@customTypes/mentor";
-import { fetchMentorSession } from "../../../services/SessionService";
-import { UserProfileHeader } from "@newComponents/_grouped";
-import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
+import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {SpecialVariant} from "@customTypes/mentor";
+import {fetchMentorSession} from "../../../services/SessionService";
+import {UserProfileHeader} from "@newComponents/_grouped";
+import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
 
 type Props = {
@@ -47,6 +47,7 @@ export interface MentorData {
     title: string;
     intro: string;
     jobPosition: string;
+    profileImage: string;
 
     specialVariant: SpecialVariant;
     services: {
@@ -146,19 +147,21 @@ export const MentorProfilePage = () => {
         });
     }, [mentorId]);
 
-  return (
-    <>
-      <UserProfileHeader
-        avatarUrl="/images/img_avatar.png"
-        btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
-        btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
-        company="Google"
-        coverUrl="/images/header-banner-bg.jpg"
-        fullname={mentorData?.firstName + " " + mentorData?.lastName}
-        langSwitcher={<LangSwitcherConnected />}
-        location={mentorData?.location}
-        profession={mentorData?.jobPosition}
-      />
+    console.log('tutaj teraz testuje!!')
+
+    return (
+        <>
+            <UserProfileHeader
+                avatarUrl={mentorData?.profileImage || 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg'}
+                btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
+                btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
+                company="Google"
+                coverUrl="/images/header-banner-bg.jpg"
+                fullname={mentorData?.firstName + " " + mentorData?.lastName}
+                langSwitcher={<LangSwitcherConnected/>}
+                location={mentorData?.location}
+                profession={mentorData?.jobPosition}
+            />
 
             <Container as={Tag.Section}>
                 <MentorLinks

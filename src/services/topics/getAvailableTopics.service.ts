@@ -1,5 +1,4 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
-import axios from "axios";
 
 
 const mockResponse = (query: string): Promise<DropdownOption[]> => new Promise((resolve) => {

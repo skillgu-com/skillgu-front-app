@@ -16,13 +16,13 @@ import {Tag} from "src/types/tags";
 import {PAGE_SIZE, SEARCH_DELAY} from "./config";
 // Utils
 import {termsReducer} from "src/reducers/terms";
-import {fetchTerms} from "src/services/TermsService";
 import {termsInitialState} from "src/reducers/terms/constants";
 import styles from "./SearchMentors.module.scss";
 import {mentorsReducer} from "src/reducers/mentors";
 import {mentorsInitialState} from "src/reducers/mentors/constants";
 import {FilterName, FiltersSelected, Option} from "@customTypes/mentor";
 import {fetchMentors} from "src/services/mentor/fetchMentorServices.service";
+import {fetchTerms} from "../../../services/terms.service";
 
 const SearchMentors = () => {
     const [terms, dispatchTerms] = useReducer(termsReducer, termsInitialState);

@@ -37,6 +37,7 @@ export interface MentorData {
     intro: string;
     jobPosition: string;
     company: string;
+    profileImage: string;
 
     specialVariant: SpecialVariant;
     services: {
@@ -116,7 +117,7 @@ export const MentorProfileEditPage = () => {
     return (
         <>
             <UserProfileHeader
-                avatarUrl="/images/img_avatar.png"
+                avatarUrl={mentorData?.profileImage || 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg'}
                 btnText='Zobacz profil'
                 btnHref={`/mentor/${mentorId}`}
                 company={mentorData?.company}

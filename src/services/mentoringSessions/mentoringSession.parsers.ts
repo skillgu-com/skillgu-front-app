@@ -27,5 +27,7 @@ export const parseMentoringSessionInListForFE = (data: MentoringSessionInListDTO
         start: new Date(data.start),
         end: new Date(data.end),
         mentor: data.mentor,
+        contact: data.contact,
+        meetingLink: data.meetingLink,
     }
 }

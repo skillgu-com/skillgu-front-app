@@ -28,7 +28,7 @@ const CalendarEvent: FC<EventWrapperProps> = ({event}) => {
 
     if (metadata.eventInDayNumber === maxDisplay) return (
         <Link
-            to={generatePath(paths.calendarDaily, prepareLinkParams(event.start!)) + `?mentoringSessionId:${metadata.id}`}
+            to={generatePath(paths.calendarDaily, prepareLinkParams(event.start!)) + `?mentoringSessionId=${metadata.id}`}
             style={{textDecoration: 'none'}}
         >
             <StyledCalendarEvent color='secondary'>

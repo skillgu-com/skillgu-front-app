@@ -21,6 +21,11 @@ const mentorMock: Mentor = {
     title: 'Doświadczony Menedżer IT',
 }
 
+const contactMock = {
+    mobile: '123 456 789',
+    email: 'email@op.pl'
+}
+
 const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
 
     const data: MentoringSessionInListDTO[] = [
@@ -30,6 +35,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-01T11:30:00',
             end: '2024-05-01T12:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '2',
@@ -37,6 +44,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-02T11:30:00',
             end: '2024-05-02T12:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '3',
@@ -44,6 +53,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-02T13:30:00',
             end: '2024-05-02T14:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
 
         {
@@ -52,6 +63,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-03T10:30:00',
             end: '2024-05-03T11:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '5',
@@ -59,6 +72,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-03T12:30:00',
             end: '2024-05-03T13:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '6',
@@ -66,6 +81,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-03T14:30:00',
             end: '2024-05-03T15:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
 
         {
@@ -74,6 +91,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-04T09:30:00',
             end: '2024-05-04T10:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '8',
@@ -81,6 +100,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-04T10:30:00',
             end: '2024-05-04T11:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '9',
@@ -88,6 +109,8 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-04T12:30:00',
             end: '2024-05-04T14:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
             id: '10',
@@ -95,27 +118,35 @@ const getMock = () => new Promise<MentoringSessionInListDTO[]>((resolve) => {
             start: '2024-05-04T15:30:00',
             end: '2024-05-04T16:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
-            id: '10',
-            title: '10 - Rozmowa ekspercka',
+            id: '11',
+            title: '11 - Rozmowa ekspercka',
             start: '2024-05-04T15:30:00',
             end: '2024-05-04T16:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
-            id: '10',
-            title: '10 - Rozmowa ekspercka',
+            id: '12',
+            title: '12 - Rozmowa ekspercka',
             start: '2024-05-04T15:30:00',
             end: '2024-05-04T16:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         },
         {
-            id: '10',
-            title: '10 - Rozmowa ekspercka',
+            id: '13',
+            title: '13 - Rozmowa ekspercka',
             start: '2024-05-04T15:30:00',
             end: '2024-05-04T16:30:00',
             mentor: mentorMock,
+            contact: contactMock,
+            meetingLink: 'https://meet.google.com/abc-123-xyz'
         }
     ];
     setTimeout(() => resolve(data), 300)

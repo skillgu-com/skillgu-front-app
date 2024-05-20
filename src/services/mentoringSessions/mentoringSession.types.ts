@@ -13,7 +13,7 @@ export type MentoringSessionT = {
     },
 };
 
-export type MentoringSessionInListT = Pick<MentoringSessionT, 'id' | 'start' | 'end' | 'title' | 'mentor'>
+export type MentoringSessionInListT = MentoringSessionT;
 
 export type MentoringSessionDTO = {
     id: string,
@@ -28,6 +28,6 @@ export type MentoringSessionDTO = {
     },
 }
 
-export type MentoringSessionInListDTO = Pick<MentoringSessionDTO, 'id' | 'start' | 'end' | 'title' | 'mentor'>
+export type MentoringSessionInListDTO = MentoringSessionDTO;
 
 

@@ -14,6 +14,8 @@ import MentoringSessionJoinButton
     from "@newComponents/_mentoringMeeting/MentoringSessionJoinButton/MentoringSessionJoinButton";
 import {generatePath, Link} from "react-router-dom";
 import paths from "../../../../paths";
+import MentoringSessionMeetingDetailsHeader
+    from "@newComponents/_mentoringMeeting/MentoringSessionMeetingDetailsHeader/MentoringSessionMeetingDetailsHeader";
 
 type Props = {
     openModal: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -46,9 +48,7 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
         return {
             isLoading: false,
             meetingDetails: {
-                title: data.title,
                 contact: data.contact,
-                id: data.id,
                 mentor: data.mentor,
             }
         }
@@ -77,14 +77,22 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
                             : `${format(data!.start, 'EEEE, do MMMM ⋅ H:mm')} - ${format(data!.end, 'H:mm')}`
                     }
                 </Typography>
+                <MentoringSessionMeetingDetailsHeader
+                    isLoading={isLoading}
+                    title={data?.title}
+                    mentorName={data?.mentor.name}
+                    avatarUrl={data?.mentor.avatar_url}
+                />
+                <Box sx={{ pt: 4}}>
                 <MentoringSessionMeetingDetails {...meetingDetailsProps}/>
+                    </Box>
                 <MentoringSessionJoinButton meetingUrl={data?.meetingLink}/>
                 <Button
-                    sx={{ mt: 2}}
+                    sx={{mt: 2}}
                     disabled={!data}
                     component={Link}
-                    to={generatePath(paths.calendarDaily, prepareLinkParams(data?.start || new Date())) + `?mentoringSessionId:${mentoringSessionId}`}
-                    variant='contained'
+                    to={generatePath(paths.calendarDaily, prepareLinkParams(data?.start || new Date())) + `?mentoringSessionId=${mentoringSessionId}`}
+                    variant='outlined'
                 >
                     Zobacz szczegóły
                 </Button>

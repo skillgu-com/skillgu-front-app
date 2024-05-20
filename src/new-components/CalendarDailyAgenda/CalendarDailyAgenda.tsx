@@ -1,8 +1,9 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {MentoringSessionInListT} from "@services/mentoringSessions/mentoringSession.types";
 import {Box, Skeleton} from "@mui/material";
 import MentoringSessionAcordeonCard
     from "@newComponents/_mentoringMeeting/MentoringSessionAcordeonCard/MentoringSessionAcordeonCard";
+import {useParams, useSearchParams} from "react-router-dom";
 
 type Props = {
     isLoading: boolean;
@@ -16,14 +17,23 @@ const skeletonDimensions = {
 }
 
 const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
-    // TODO get initial state form query params
-    // TODO scroll to event
     const [openEventId, setOpenEventId] = useState<string | null>(null);
-    const onOpenFactory = (eventId: string) => () => setOpenEventId(eventId);
-    const onClose = () => setOpenEventId(null);
+    const onToggleFactory = (eventId: string) => () => {
+        setOpenEventId(prev => prev === eventId ? null : eventId);
+    }
+
+    const [searchParams] = useSearchParams()
+    useEffect(() => {
+        const eventIdToOpen = searchParams.get('mentoringSessionId');
+        if(eventIdToOpen) {
+            setOpenEventId(eventIdToOpen);
+            const element = document.querySelector(`#mentoringSessionId-${eventIdToOpen}`)
+            if(element) element.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+    }, [searchParams]);
 
     return (
-        <Box sx={{ display: 'grid', gap: 3 }}>
+        <Box sx={{ display: 'grid', gap: 3, pt: 3 }}>
             {isLoading
                 ? (
                     <>
@@ -36,8 +46,7 @@ const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
                     events.map((event) =>
                         <MentoringSessionAcordeonCard
                             isOpen={openEventId === event.id}
-                            onOpen={onOpenFactory(event.id)}
-                            onClose={onClose}
+                            onToggle={onToggleFactory(event.id)}
                             {...event}
                         />
                     )

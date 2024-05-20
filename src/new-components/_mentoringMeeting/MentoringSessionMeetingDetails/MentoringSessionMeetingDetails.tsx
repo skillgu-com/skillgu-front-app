@@ -1,32 +1,40 @@
 import React, {FC} from "react";
 import Typography from "@mui/material/Typography";
-import {Avatar, Box, Skeleton} from "@mui/material";
+import {Box, Skeleton} from "@mui/material";
 import {MentoringSessionT} from "@services/mentoringSessions/mentoringSession.types";
 import {ReactComponent as EnvelopeIcon} from '@icons/svg/envelope_dark.svg';
 import {ReactComponent as MobileIcon} from '@icons/svg/mobile_dark.svg';
 
 
 export type Props = {
-    meetingDetails: Pick<MentoringSessionT, 'title' | 'contact' | 'id' | 'mentor'>;
+    meetingDetails: Pick<MentoringSessionT, 'contact' | 'mentor'>;
     isLoading: false;
 } | {
     meetingDetails: undefined;
     isLoading: true;
 }
 
+const iconSx = {
+    backgroundColor: 'base.20',
+    borderRadius: '50%',
+    padding: .5,
+    height: '36px',
+    width: '36px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}
+
 const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) => {
 
     return (
-        <>
-            <Box sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
-                <Avatar sx={{height: 32, width: 32}} src={meetingDetails?.mentor.avatar_url}/>
-                <Typography variant='buttonSm'>{isLoading ? <Skeleton width={120}/> : meetingDetails?.mentor.name}</Typography>
-            </Box>
-            <Typography sx={{pb: 4}} variant='buttonLg'>{isLoading ? <Skeleton/> : meetingDetails?.title}</Typography>
+        <Box sx={{ display: 'grid', gap: 1.5}}>
             <Typography variant='buttonMd'>{isLoading ? <Skeleton/> : meetingDetails?.mentor.name}</Typography>
-            <Box sx={{ display: 'flex', gap: 3, pb: 3}}>
-                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center'}}>
-                    <MobileIcon/>
+            <Box sx={{display: 'flex', gap: 3, pb: 3}}>
+                <Box sx={{display: 'flex', gap: 1.5, alignItems: 'center'}}>
+                    <Box sx={iconSx}>
+                        <MobileIcon/>
+                    </Box>
                     <Typography variant='buttonSm'>
                         {
                             isLoading
@@ -35,8 +43,10 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                         }
                     </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center'}}>
-                    <EnvelopeIcon/>
+                <Box sx={{display: 'flex', gap: 1.5, alignItems: 'center'}}>
+                    <Box sx={iconSx}>
+                        <EnvelopeIcon/>
+                    </Box>
                     <Typography variant='buttonSm'>
                         {
                             isLoading
@@ -46,7 +56,7 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                     </Typography>
                 </Box>
             </Box>
-        </>
+        </Box>
     )
 };
 

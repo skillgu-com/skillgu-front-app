@@ -37,39 +37,38 @@ const Navbar = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const role = useSelector(getRole);
 
-	const menuItems = [
-		{
-			id: 'home',
-			label: 'Strona główna',
-			link: '/home',
-			icon: <Home />,
-		},
-		{
-			id: 'calendar',
-			label: 'Kalendarz',
-			link: paths.calendar,
-			icon: <CalendarIcon />,
-		},
-		{
-			id: 'profile',
-			label: 'Profil',
-			link: '/logged-user-profile',
-			icon: <Doc />,
-		},
-		{
-			id: 'schedules',
-			label: 'Tworzenie spotkań',
-			link: '/schedules',
-			icon: <CreateSchedules />,
-		},
-		{
-			id: 'settings',
-			label: 'Ustawienia',
-			link: '/settings',
-			icon: <Settings />,
-		},
-
-	];
+    const menuItems = [
+        {
+            id: 'home',
+            label: 'Strona główna',
+            link: '/home',
+            icon: <Home/>,
+        },
+        {
+            id: 'calendar',
+            label: 'Kalendarz',
+            link: paths.calendar,
+            icon: <CalendarIcon />,
+        },
+        {
+            id: 'profile',
+            label: 'Profil',
+            link: role === 'M' ? `/mentor/${userFromRedux.id}` : `/student/${userFromRedux.id}`,
+            icon: <Doc/>,
+        },
+        {
+            id: 'schedules',
+            label: 'Tworzenie spotkań',
+            link: role !== 'S' ? '/schedules' : '',
+            icon: <CreateSchedules/>,
+        },
+        {
+            id: 'settings',
+            label: 'Ustawienia',
+            link: role === 'M' ? `/edit-mentor/${userFromRedux.id}` : `/edit-student/${userFromRedux.id}`,
+            icon: <Settings/>,
+        },
+    ].filter(item => item.link !== '');
 
     return (
         <Container

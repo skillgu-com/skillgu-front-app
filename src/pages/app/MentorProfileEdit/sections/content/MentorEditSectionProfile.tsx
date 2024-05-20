@@ -12,6 +12,7 @@ import getAvailableCategoriesService from "src/services/categories/getAvailableC
 import getAvailableTopicsService from "src/services/topics/getAvailableTopics.service";
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
 import {MentorData} from "../../../MentorProfile";
+import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 
 
 export type MentorEditProfileFormInput = {
@@ -146,21 +147,14 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Strefa czasowa"
                     name='timezone'
-                    options={[
-                        {value: '1', label: 'Warszawa, UTC+2'},
-                        {value: '2', label: 'Warszawa, UTC+2'},
-                        {value: '3', label: 'Warszawa, UTC+2'},
-                    ]}
+                    getOptions={getAvailableLanguage}
+
                 />
                 <FormInputSelect<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Język prowadzenia zajęć"
                     name='language'
-                    options={[
-                        {value: '1', label: 'polski'},
-                        {value: '2', label: 'angielski'},
-                        {value: '3', label: 'francuski'},
-                    ]}
+                    getOptions={getAvailableLanguage}
                 />
             </div>
         </UserEditSection>

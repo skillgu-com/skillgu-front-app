@@ -63,22 +63,22 @@ const RegisterStep2 = () => {
                     inputProps={{placeholder: "Google"}}
                     controllerProps={{ rules: { required: 'Frma jest wymagana' }}}
                 />
-                <FormInputSelect<AboutFormInput>
-                    label='Strefa czasowa'
-                    name='timezone'
-                    control={control}
-                    formState={formState}
-                    options={timezonesSelectOptions}
-                    controllerProps={{ rules: { required: 'Strefa czasowa jest wymagana' }}}
-                />
-                <FormInputSelect<AboutFormInput>
-                    label='Język prowadzenia zajęć'
-                    name='language'
-                    control={control}
-                    formState={formState}
-                    options={languagesSelectOptions}
-                    controllerProps={{ rules: { required: 'Język jest wymagany' }}}
-                />
+                {/*<FormInputSelect<AboutFormInput>*/}
+                {/*    label='Strefa czasowa'*/}
+                {/*    name='timezone'*/}
+                {/*    control={control}*/}
+                {/*    formState={formState}*/}
+                {/*    options={timezonesSelectOptions}*/}
+                {/*    controllerProps={{ rules: { required: 'Strefa czasowa jest wymagana' }}}*/}
+                {/*/>*/}
+                {/*<FormInputSelect<AboutFormInput>*/}
+                {/*    label='Język prowadzenia zajęć'*/}
+                {/*    name='language'*/}
+                {/*    control={control}*/}
+                {/*    formState={formState}*/}
+                {/*    options={languagesSelectOptions}*/}
+                {/*    controllerProps={{ rules: { required: 'Język jest wymagany' }}}*/}
+                {/*/>*/}
             </form>
         </StepContentWrapper>
     )

@@ -1,14 +1,18 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
 import axios from "axios";
 
-export const fetchMentorServices = (): Promise<DropdownOption[]> => {
+
+export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
-        axios.get('/api/mentor/get-all-mentor-services')
+        axios.get('/api/mentor/get-all-language')
+
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: any) => ({
-                    label: item.name,
-                    value: item.name
+                    label: item.label,
+                    value: item.value
                 }));
+
+                console.log('response', response.data)
                 resolve(data);
             })
             .catch(error => {
@@ -18,7 +22,7 @@ export const fetchMentorServices = (): Promise<DropdownOption[]> => {
     });
 };
 
-const getAvailableServices = async (): Promise<DropdownOption[]> => {
-    return fetchMentorServices();
+const getAvailableLanguage = async (): Promise<DropdownOption[]> => {
+    return fetchMentorLanguage();
 }
-export default getAvailableServices;
+export default getAvailableLanguage;

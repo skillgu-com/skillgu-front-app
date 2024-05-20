@@ -20,8 +20,11 @@ import Settings from '../../../../assets/icons/Settings';
 import CreateSchedules from '../../../../assets/icons/CreateSchedules';
 import Help from '../../../../assets/icons/Help';
 import Logout from '../../../../assets/icons/Logout';
+import {ReactComponent as CalendarIcon} from '../../../../assets/icons/svg/calendar.svg';
+
 // Styles
 import styles from './Navbar.module.scss';
+import paths from "../../../../paths";
 import {getRole} from "../../../../redux/selectors/authSelectors";
 
 const Navbar = () => {
@@ -34,32 +37,39 @@ const Navbar = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const role = useSelector(getRole);
 
-    const menuItems = [
-        {
-            id: 'home',
-            label: 'Strona główna',
-            link: '/home',
-            icon: <Home/>,
-        },
-        {
-            id: 'profile',
-            label: 'Profil',
-            link: role === 'M' ? `/mentor/${userFromRedux.id}` : `/student/${userFromRedux.id}`,
-            icon: <Doc/>,
-        },
-        {
-            id: 'schedules',
-            label: 'Tworzenie spotkań',
-            link: role !== 'S' ? '/schedules' : '',
-            icon: <CreateSchedules/>,
-        },
-        {
-            id: 'settings',
-            label: 'Ustawienia',
-            link: role === 'M' ? `/edit-mentor/${userFromRedux.id}` : `/edit-student/${userFromRedux.id}`,
-            icon: <Settings/>,
-        },
-    ].filter(item => item.link !== '');
+	const menuItems = [
+		{
+			id: 'home',
+			label: 'Strona główna',
+			link: '/home',
+			icon: <Home />,
+		},
+		{
+			id: 'calendar',
+			label: 'Kalendarz',
+			link: paths.calendar,
+			icon: <CalendarIcon />,
+		},
+		{
+			id: 'profile',
+			label: 'Profil',
+			link: '/logged-user-profile',
+			icon: <Doc />,
+		},
+		{
+			id: 'schedules',
+			label: 'Tworzenie spotkań',
+			link: '/schedules',
+			icon: <CreateSchedules />,
+		},
+		{
+			id: 'settings',
+			label: 'Ustawienia',
+			link: '/settings',
+			icon: <Settings />,
+		},
+
+	];
 
     return (
         <Container

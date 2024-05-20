@@ -13,6 +13,7 @@ import Payment from 'src/assets/icons/Payment';
 import Find from 'src/assets/icons/Find';
 // Styles
 import styles from './NavSection.module.scss';
+import paths from "../../../../../paths";
 
 const NavSection = () => {
     const role = useSelector(getRole);
@@ -21,7 +22,7 @@ const NavSection = () => {
         role === 'S'
             ? [
                 {
-                    link: '/calendar-view',
+                    link: paths.calendar,
                     icon: <Calendar/>,
                     text: 'Kalendarz',
                 },
@@ -43,7 +44,7 @@ const NavSection = () => {
             ]
             : [
                 {
-                    link: '/calendar-view',
+                    link: paths.calendar,
                     icon: <Calendar/>,
                     text: 'Kalendarz',
                 },

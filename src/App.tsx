@@ -7,12 +7,14 @@ import AppLayout from './new-components/AppLayout/AppLayout';
 // Pages
 import routes from './routes';
 import theme from "./styles/theme";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import exhaustiveGuard from "./helpers/exhaustiveGuard";
 import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
 import paths from "./paths";
 import {SnackbarProvider} from "notistack";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import SimpleLayout from "@newComponents/SimpleLayout/SimpleLayout";
 import AuthContextProvider from "./context/AuthContextProvider";
 
@@ -35,39 +37,43 @@ const resolveLayout = (children: ReactNode, layoutVersion: LayoutVersion): React
     }
 }
 
+const queryClient = new QueryClient()
+
 function App() {
 
     return (
-        <ThemeProvider theme={theme}>
-            <SnackbarProvider maxSnack={3} style={{ fontSize: '14px'}}>
-                <CssBaseline/>
-                <BrowserRouter>
-                    <AuthContextProvider>
-                        <Elements stripe={stripePromise}>
-                            <Routes>
-                                {routes.map(
-                                    ({isProtected, path, element, id, layoutVersion}) => (
-                                        <Route
-                                            key={id}
-                                            path={path}
-                                            element={
-                                                isProtected ? (
-                                                    <ProtectedRoute>
-                                                        {resolveLayout(element, layoutVersion)}
-                                                    </ProtectedRoute>
-                                                ) : (
-                                                    resolveLayout(element, layoutVersion)
-                                                )
-                                            }
-                                        />
-                                    )
-                                )}
-                            </Routes>
-                        </Elements>
-                    </AuthContextProvider>
-                </BrowserRouter>
-            </SnackbarProvider>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme}>
+                <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
+                    <BrowserRouter>
+                        <AuthContextProvider>
+                            <Elements stripe={stripePromise}>
+                                <Routes>
+                                    {routes.map(
+                                        ({isProtected, path, element, id, layoutVersion}) => (
+                                            <Route
+                                                key={id}
+                                                path={path}
+                                                element={
+                                                    isProtected ? (
+                                                        <ProtectedRoute>
+                                                            {resolveLayout(element, layoutVersion)}
+                                                        </ProtectedRoute>
+                                                    ) : (
+                                                        resolveLayout(element, layoutVersion)
+                                                    )
+                                                }
+                                            />
+                                        )
+                                    )}
+                                </Routes>
+                            </Elements>
+                        </AuthContextProvider>
+                    </BrowserRouter>
+                </SnackbarProvider>
+            </ThemeProvider>
+            {process.env.REACT_APP_SHOW_RQ_DEVTOOLS && <ReactQueryDevtools initialIsOpen={false}/>}
+        </QueryClientProvider>
     );
 }
 

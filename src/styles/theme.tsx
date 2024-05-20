@@ -14,6 +14,11 @@ declare module '@mui/material/styles' {
             "80": string,
             "100": string,
         };
+        // Other properties are not provided in design system
+        errorBase: {
+            "20": string,
+            "40": string,
+        }
     }
 
     interface PaletteOptions {
@@ -26,6 +31,10 @@ declare module '@mui/material/styles' {
             "80": string,
             "100": string,
         };
+        errorBase: {
+            "20": string,
+            "40": string,
+        }
     }
 
     interface TypographyVariants {
@@ -65,7 +74,7 @@ export const palette: PaletteOptions = {
         contrastText: '#ffffff',
     },
     error: {
-      main: '#e72749',
+        main: '#e72749',
     },
     success: {
         main: '#34c759',
@@ -81,6 +90,10 @@ export const palette: PaletteOptions = {
         "60": "#8E9ABB",
         "80": "#56658F",
         "100": "#000000",
+    },
+    errorBase: {
+        "20": '#f9ebeb',
+        "40": '#f7d9d9',
     },
     grey: {
         "100": "#F9FAFB",
@@ -163,6 +176,24 @@ const components: Components<Omit<Theme, "components">> = {
                 // @ts-ignore
                 color: palette.primary?.contrastText,
             },
+            containedError: {
+                // @ts-ignore
+                color: palette.error.main,
+                background: palette.errorBase['20'],
+
+                '&:hover': {
+                    background: palette.errorBase['40'],
+                }
+            },
+            containedSecondary: {
+                // @ts-ignore
+                color: palette.secondary.main,
+                background: palette.base['20'],
+
+                '&:hover': {
+                    background: palette.base['40'],
+                }
+            },
             root: {
                 textTransform: 'none',
                 borderRadius: '100px',
@@ -179,7 +210,7 @@ const components: Components<Omit<Theme, "components">> = {
     MuiOutlinedInput: {
         styleOverrides: {
             root: {
-              borderRadius: '10px'
+                borderRadius: '10px'
             },
             notchedOutline: {
                 borderColor: palette.base["40"],
@@ -188,7 +219,7 @@ const components: Components<Omit<Theme, "components">> = {
     },
     MuiChip: {
         defaultProps: {
-            deleteIcon: <CloseIcon fontSize='small' />
+            deleteIcon: <CloseIcon fontSize='small'/>
         },
         styleOverrides: {
             label: {

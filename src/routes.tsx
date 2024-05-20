@@ -31,6 +31,9 @@ import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSen
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
+import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
+import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
+// import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { StudentProfilePage } from './pages/app/StudentProfile';
 import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
@@ -154,7 +157,19 @@ const routesRaw: Omit<Route, 'id'>[] = [
         path: paths.calendar,
         element: <CalendarView />,
         isProtected: true,
-        layoutVersion: 'none',
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.calendarDaily,
+        element: <CalendarDailyView />,
+        isProtected: true,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.rescheduleMeeting,
+        element: <RescheduleMeetingView />,
+        isProtected: true,
+        layoutVersion: 'default',
     },
     {
         path: paths.sessionsMentoring,

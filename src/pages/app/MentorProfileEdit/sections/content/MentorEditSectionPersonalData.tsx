@@ -9,6 +9,8 @@ import {getMentorProfileByID} from "../../../../../services/MentorViewService";
 import {MentorData} from "../../../MentorProfile";
 import {useParams} from "react-router-dom";
 
+
+
 export type MentorEditPersonalDataFormInput = {
     firstName: string;
     surname: string;
@@ -30,7 +32,12 @@ type MentorPersonalData = {
     coverUrl: File[];
 };
 
-export const MentorEditSectionPersonalData = () => {
+type Props = {
+    mentorData: MentorData;
+};
+
+
+export const MentorEditSectionPersonalData = ({ mentorData }: Props) => {
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditPersonalDataFormInput>({
             defaultValues: {
@@ -40,6 +47,7 @@ export const MentorEditSectionPersonalData = () => {
                 coverUrl: [],
             },
         });
+
 
     const inputProps = {
         formState: formState,
@@ -51,14 +59,6 @@ export const MentorEditSectionPersonalData = () => {
     const avatarValue = watch('avatarUrl')
     const coverValue = watch('coverUrl')
     const {id: userID} = useParams();
-    const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
-
-
-    useEffect(() => {
-        getMentorProfileByID(userID).then((res) => {
-            setMentorData(res.data as MentorData);
-        });
-    }, []);
 
     const onSubmit = async (data: MentorEditPersonalDataFormInput) => {
         try {
@@ -69,7 +69,6 @@ export const MentorEditSectionPersonalData = () => {
                 coverUrl: coverValue,
             };
             const response = await updateUserPersonalData(mentorPersonalData);
-            // setMentorData(response.data)
             window.location.reload();
 
         } catch (error) {

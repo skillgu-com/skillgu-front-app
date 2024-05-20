@@ -48,6 +48,7 @@ export interface MentorData {
     intro: string;
     jobPosition: string;
     profileImage: string;
+    company: string;
 
     specialVariant: SpecialVariant;
     services: {
@@ -147,7 +148,6 @@ export const MentorProfilePage = () => {
         });
     }, [mentorId]);
 
-    console.log('tutaj teraz testuje!!')
 
     return (
         <>

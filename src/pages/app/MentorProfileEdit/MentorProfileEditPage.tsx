@@ -129,8 +129,8 @@ export const MentorProfileEditPage = () => {
             />
 
             <Container as={Tag.Section}>
-                <MentorEditSectionPersonalData/>
-                <MentorEditSectionProfile/>
+                <MentorEditSectionPersonalData mentorData={mentorData} />
+                <MentorEditSectionProfile  mentorData={mentorData} />
                 <MentorEditSectionLinks/>
                 <Typography variant='h2' color='secondary' sx={{display: 'block', margin: '48px 0 24px'}}>
                     Ustawienia konta

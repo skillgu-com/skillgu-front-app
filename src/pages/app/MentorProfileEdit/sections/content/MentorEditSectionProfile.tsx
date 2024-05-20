@@ -11,6 +11,7 @@ import getAvailableTagsService from "src/services/tags/getAvailableTags.service"
 import getAvailableCategoriesService from "src/services/categories/getAvailableCategories.service";
 import getAvailableTopicsService from "src/services/topics/getAvailableTopics.service";
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
+import {MentorData} from "../../../MentorProfile";
 
 
 export type MentorEditProfileFormInput = {
@@ -26,7 +27,12 @@ export type MentorEditProfileFormInput = {
     topics: [];
 };
 
-export const MentorEditSectionProfile = () => {
+type Props = {
+    mentorData: MentorData;
+};
+
+
+export const MentorEditSectionProfile = ({mentorData}: Props) => {
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
@@ -34,7 +40,7 @@ export const MentorEditSectionProfile = () => {
                 profession: '',
                 company: '',
                 biography: '',
-                skills: [],
+                skills: mentorData?.skill?.map((skill) => skill.name) || [],
                 services: [],
                 timezone: '',
                 language: '',
@@ -64,7 +70,6 @@ export const MentorEditSectionProfile = () => {
                 topics: data.topics,
             };
             const response = await updateUserProfile(mentorEditSection);
-            console.log('mentorEditSection onSubmit', mentorEditSection)
             window.location.reload();
 
         } catch (error) {
@@ -89,31 +94,32 @@ export const MentorEditSectionProfile = () => {
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Nagłówek Twojego profilu"
-                    inputProps={{placeholder: "Wprowadź nagłowek Twojego profilu"}}
+                    inputProps={{placeholder: mentorData?.intro || "Wprowadź nagłowek Twojego profilu"}}
                     name="heading"
                 />
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Zawód"
-                    inputProps={{placeholder: "Wprowadź zawód"}}
+                    inputProps={{placeholder: mentorData?.jobPosition || 'Wprowadź zawód'}}
+
                     name='profession'
                 />
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Firma"
-                    inputProps={{placeholder: "Wprowadź firmę"}}
+                    inputProps={{placeholder: mentorData?.company || "Wprowadź nazwę firmy gdzie pracujesz"}}
                     name='company'
                 />
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Bio"
-
-                    inputProps={{placeholder: "Wprowadź biografię", multiline: true, minRows: 6,}}
+                    inputProps={{placeholder: mentorData?.description || "Wprowadź biografię", multiline: true, minRows: 6,}}
                     name='biography'
                 />
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Umiejętności"
+                    defaultValue={mentorData?.skill?.map((skill) => skill.name) || []}
                     name='skills'
                     getOptions={getAvailableSkillsService}
                 />

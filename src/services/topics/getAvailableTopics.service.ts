@@ -16,4 +16,6 @@ const mockResponse = (query: string): Promise<DropdownOption[]> => new Promise((
 const getAvailableTopicsService = async (query: string, abortController: AbortController): Promise<DropdownOption[]> => {
     return mockResponse(query);
 }
+
+// /get-all-mentoring-topics
 export default getAvailableTopicsService;

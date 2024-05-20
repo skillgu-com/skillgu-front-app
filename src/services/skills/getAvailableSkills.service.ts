@@ -22,7 +22,6 @@ const fetchMentorSkill = (query: string): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
         axios.get('/api/mentor/get-all-skills')
             .then(response => {
-                // Mapowanie odpowiedzi z backendu
                 const data: DropdownOption[] = response.data.map((item: any) => ({
                     label: item.name,
                     value: item.id

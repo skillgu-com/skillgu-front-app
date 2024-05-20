@@ -20,18 +20,21 @@ interface Props<T extends FieldValues> {
     inputProps?: TextFieldProps;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
     getOptions: (query: string, abortController: AbortController) => Promise<readonly DropdownOption[]>;
+    defaultValue?: any; // Dodaj defaultValue
+
 }
 
 const FormAutocompleteDynamic = <T extends FieldValues>({
-    control,
-    name,
-    customFeedback,
-    inputProps,
-    controllerProps,
-    label,
-    formState,
-    getOptions
-}: Props<T>) => {
+                                                            control,
+                                                            name,
+                                                            customFeedback,
+                                                            inputProps,
+                                                            controllerProps,
+                                                            label,
+                                                            formState,
+                                                            getOptions,
+                                                            defaultValue
+                                                        }: Props<T>) => {
 
     const [options, setOptions] = useState<readonly DropdownOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +62,7 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
             <Controller
                 name={name}
                 control={control}
+                defaultValue={defaultValue}
                 render={({field}) => (
                     <Autocomplete
                         filterOptions={(filtered) => filtered}

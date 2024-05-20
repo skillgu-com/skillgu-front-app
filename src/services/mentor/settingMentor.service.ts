@@ -96,6 +96,7 @@ const updateUserPersonalData = async (personalData: MentorPersonalData) => {
 
 
 export const updateUserProfile = async (mentorEditSection: MentorEditProfileFormInput) => {
+    console.log('mentorEditSection', mentorEditSection)
     try {
 
         return await axios.patch<string>('/api/user/setting/profile', mentorEditSection);

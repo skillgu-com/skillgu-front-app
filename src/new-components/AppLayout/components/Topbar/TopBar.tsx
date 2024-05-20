@@ -11,7 +11,6 @@ import {fetchUserImageFile} from "../../../../services/tobBar.service";
 
 const TopBar = () => {
     const user = useSelector((state: any) => state.auth?.user);
-
     const [image, setImage] = useState("");
 
     useEffect(() => {

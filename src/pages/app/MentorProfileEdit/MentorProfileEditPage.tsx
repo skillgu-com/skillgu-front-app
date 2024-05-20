@@ -38,6 +38,7 @@ export interface MentorData {
     jobPosition: string;
     company: string;
     profileImage: string;
+    coverImage: string;
 
     specialVariant: SpecialVariant;
     services: {

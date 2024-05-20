@@ -1,10 +1,9 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
 import axios from "axios";
 
-
-export const fetchMentorCategory = (query: string): Promise<DropdownOption[]> => {
+export const fetchMentorServices = (): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
-        axios.get('/api/mentor/get-all-mentor-category')
+        axios.get('/api/mentor/get-all-mentor-services')
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: any) => ({
                     label: item.name,
@@ -19,7 +18,7 @@ export const fetchMentorCategory = (query: string): Promise<DropdownOption[]> =>
     });
 };
 
-const getAvailableCategoriesService = async (query: string, abortController: AbortController): Promise<DropdownOption[]> => {
-    return fetchMentorCategory(query);
+const getAvailableServices = async (query: string, abortController: AbortController): Promise<DropdownOption[]> => {
+    return fetchMentorServices();
 }
-export default getAvailableCategoriesService;
+export default getAvailableServices;

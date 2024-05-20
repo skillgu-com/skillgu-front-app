@@ -7,7 +7,7 @@ import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynami
 import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
 import getAvailableSkillsService from "src/services/skills/getAvailableSkills.service";
 import FormCheckboxesDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesDynamic";
-import getAvailableTagsService from "src/services/tags/getAvailableTags.service";
+import getAvailableServices from "src/services/services/getAvailableServices";
 import getAvailableCategoriesService from "src/services/categories/getAvailableCategories.service";
 import getAvailableTopicsService from "src/services/topics/getAvailableTopics.service";
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
@@ -86,10 +86,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
             onClose={() => {
                 console.log("onClose");
             }}
-
-            onSubmit={handleSubmit(onSubmit)}
-
-        >
+            onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.Inputs}>
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
@@ -113,7 +110,11 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 <FormInputText<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Bio"
-                    inputProps={{placeholder: mentorData?.description || "Wprowadź biografię", multiline: true, minRows: 6,}}
+                    inputProps={{
+                        placeholder: mentorData?.description || "Wprowadź biografię",
+                        multiline: true,
+                        minRows: 6,
+                    }}
                     name='biography'
                 />
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>
@@ -139,7 +140,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Usługi"
                     name='services'
-                    getOptions={getAvailableTagsService}
+                    getOptions={getAvailableServices}
                 />
                 <FormInputSelect<MentorEditProfileFormInput>
                     {...inputProps}

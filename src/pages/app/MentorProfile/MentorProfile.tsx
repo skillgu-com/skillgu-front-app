@@ -49,7 +49,7 @@ export interface MentorData {
     jobPosition: string;
     profileImage: string;
     company: string;
-
+    coverImage: string;
     specialVariant: SpecialVariant;
     services: {
         id: number;
@@ -156,7 +156,7 @@ export const MentorProfilePage = () => {
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
                 btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
                 company="Google"
-                coverUrl="/images/header-banner-bg.jpg"
+                coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
                 location={mentorData?.location}

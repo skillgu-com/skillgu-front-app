@@ -6,6 +6,12 @@ const area = {
     expandButton: 'expandButton',
 }
 
+const buttonArea = {
+    changeMeetingButton: 'changeMeetingButton',
+cancelMeetingButton: 'cancelMeetingButton',
+joinMeetingButton: 'joinMeetingButton',
+}
+
 export const StyledCard = styledMui('div')(({theme}) => ({
     padding: theme.spacing(3),
     display: 'grid',
@@ -21,6 +27,23 @@ export const StyledCard = styledMui('div')(({theme}) => ({
         gridTemplateAreas: `"${area.timeRange} ${area.expandButton}" "${area.main} ${area.main}"`,
     }
 }))
+
+export const StyledButtonsWrapper = styledMui('div')(({theme}) => ({
+    display: 'grid',
+    gridTemplateColumns: 'auto auto 1fr',
+    alignItems: 'flex-start',
+    justifyItems: 'flex-end',
+    gap: theme.spacing(2),
+    gridTemplateAreas: `"${buttonArea.changeMeetingButton} ${buttonArea.cancelMeetingButton} ${buttonArea.joinMeetingButton}"`,
+
+    '@media (max-width: 1025px)': {
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: 'auto auto auto',
+        gap: theme.spacing(3),
+        gridTemplateAreas: `"${buttonArea.joinMeetingButton}" "${buttonArea.changeMeetingButton}" "${buttonArea.cancelMeetingButton}"`,
+        justifyItems: 'stretch',
+    }
+}));
 
 export const StyledRoundButton = styledMui(ButtonBase)<{ isOpen: boolean }>(({theme, isOpen}) => ({
     padding: theme.spacing(1),

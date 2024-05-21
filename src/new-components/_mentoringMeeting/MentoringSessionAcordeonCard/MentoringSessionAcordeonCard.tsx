@@ -3,6 +3,7 @@ import {MentoringSessionInListT} from "@services/mentoringSessions/mentoringSess
 import Typography from "@mui/material/Typography";
 import {format} from "date-fns";
 import {
+    StyledButtonsWrapper,
     StyledCard, StyledRoundButton
 } from "@newComponents/_mentoringMeeting/MentoringSessionAcordeonCard/MentoringSessionAcordeonCard.styles";
 import {ReactComponent as ChevronIcon} from "../../../assets/icons/svg/chevron_up.svg"
@@ -13,8 +14,6 @@ import MentoringSessionMeetingDetails
     from "@newComponents/_mentoringMeeting/MentoringSessionMeetingDetails/MentoringSessionMeetingDetails";
 import MentoringSessionJoinButton
     from "@newComponents/_mentoringMeeting/MentoringSessionJoinButton/MentoringSessionJoinButton";
-import {generatePath, Link} from "react-router-dom";
-import paths from "../../../paths";
 
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
@@ -57,28 +56,17 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                             meetingDetails={{mentor, contact}}
                         />
                     </Box>
-                    <Box sx={{
-                        display: {sm: 'flex', md: 'grid'},
-
-                        flexDirection: 'column-reverse',
-                        gap: 2,
-                        gridTemplateColumns: '1fr auto',
-                        alignItems: {sm: 'stretch', md: 'flex-start'},
-                    }}>
-                        <Box sx={{
-                            display: {sm: 'grid', md: 'flex'},
-                            alignSelf: {sm: 'stretch', md: 'flex-start'},
-                            gap: 2
-                        }}>
-                            <Button color='secondary' variant='contained'>
-                                Przełóż spotkanie
-                            </Button>
-                            <Button color='error' variant='contained'>
-                                Odwołaj
-                            </Button>
-                        </Box>
+                    <StyledButtonsWrapper>
+                        <Button sx={{ gridArea: 'changeMeetingButton'}} color='secondary' variant='contained'>
+                            Przełóż spotkanie
+                        </Button>
+                        <Button sx={{ gridArea: 'cancelMeetingButton'}} color='error' variant='contained'>
+                            Odwołaj
+                        </Button>
+                        <Box sx={{ gridArea: 'joinMeetingButton'}}>
                         <MentoringSessionJoinButton meetingUrl={meetingLink}/>
-                    </Box>
+                        </Box>
+                    </StyledButtonsWrapper>
                 </Collapse>
             </Box>
             <Box sx={{justifySelf: 'flex-end', gridArea: 'expandButton'}}>

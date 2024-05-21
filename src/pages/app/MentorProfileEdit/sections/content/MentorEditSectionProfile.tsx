@@ -76,9 +76,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
         } catch (error) {
             console.error('Failed to update personal data', error);
         }
-
     };
-
 
     return (
         <UserEditSection
@@ -118,9 +116,13 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     }}
                     name='biography'
                 />
+
+                {/*TODO tutaj na dole chyba zjebalem ? */}
+
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Umiejętności"
+
                     defaultValue={mentorData?.skill?.map((skill) => skill.name) || []}
                     name='skills'
                     getOptions={getAvailableSkillsService}

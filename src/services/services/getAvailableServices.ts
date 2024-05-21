@@ -7,7 +7,7 @@ export const fetchMentorServices = (): Promise<DropdownOption[]> => {
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: any) => ({
                     label: item.name,
-                    value: item.name
+                    value: item.id
                 }));
                 resolve(data);
             })

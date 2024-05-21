@@ -112,6 +112,7 @@ export const MentorProfileEditPage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData)
+            console.log(res.data)
         });
     }, []);
 

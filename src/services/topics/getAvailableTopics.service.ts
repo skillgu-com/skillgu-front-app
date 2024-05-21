@@ -11,7 +11,6 @@ const fetchMentorTopics = (query: string): Promise<DropdownOption[]> => {
                     value: item.id
                 }));
 
-
                 setTimeout(() => {
                     if (!query) {
                         resolve([data[0], data[1]]);

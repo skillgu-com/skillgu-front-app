@@ -38,6 +38,7 @@ export const MentorsList = ({
         rootMargin: "0px 0px 400px 0px",
     });
 
+
     return (
         <Container as={Tag.Section} classes={styles.wrapper}>
             <div className={styles.mentorsList}>
@@ -55,7 +56,7 @@ export const MentorsList = ({
                         reviewsCount={String(item.reviewsCount)}
                         special={item.special}
                         specialVariant={item.specialVariant}
-                        skills={item.skills}
+                        skill={item.skills}
                         title={item.title}
                     />
                 ))}

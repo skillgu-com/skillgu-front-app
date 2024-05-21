@@ -55,7 +55,10 @@ export type Mentor = {
   reviewsCount: number;
   special: string;
   specialVariant: SpecialVariant;
-  skills: string[];
+  skill: {
+    id: number;
+    name: string;
+  }[];
   title: string;
 };
 

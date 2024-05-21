@@ -48,12 +48,11 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
 
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 
+
         const {total, mentors} = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
 
-        console.log('total',total)
-        console.log('response.data',response.data)
-        console.log('filteredMentors',filteredMentors)
+
 
         return {total, mentors: filteredMentors}
     } catch (error) {

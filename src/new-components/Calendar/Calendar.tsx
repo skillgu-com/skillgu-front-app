@@ -7,6 +7,7 @@ import CalendarToolbar from "./_components/CalendarToolbar/CalendarToolbar";
 import CalendarHeader from "./_components/CalendarHeader/CalendarHeader";
 import CalendarDateHeader from "./_components/CalendarDateHeader/CalendarDateHeader";
 import CalendarEvent from "./_components/CalendarEvent/CalendarEvent";
+import {Theme, useMediaQuery} from "@mui/material";
 
 const locales = {
     'pl-PL': pl,
@@ -27,6 +28,7 @@ type Props = {
 const CELL_SIZE = 150
 
 const Calendar: FC<Props> = ({calendarProps}) => {
+
     return (
         <StyledCalendarWrapper cellSize={CELL_SIZE}>
             <BigCalendar

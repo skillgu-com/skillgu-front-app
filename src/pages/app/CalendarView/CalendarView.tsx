@@ -9,7 +9,7 @@ import
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
 import Calendar from "@newComponents/Calendar/Calendar";
 import Typography from "@mui/material/Typography";
-import {Container} from "@mui/material";
+import {Container, Theme, useMediaQuery} from "@mui/material";
 import {Event} from "react-big-calendar";
 
 export type MeetingInCalendar = Event & {
@@ -70,6 +70,8 @@ const CalendarView = () => {
         }));
 
     }, [data]);
+
+    const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.down('md'));
 
     return (
         <Container>

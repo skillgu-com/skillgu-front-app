@@ -22,12 +22,15 @@ import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
 import {deleteSchedule, fetchAllSchedules} from '../../../services/ScheduleService';
+import {useSelector} from "react-redux";
 
 
 const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const userFromRedux = useSelector((state: any) => state.auth.user);
+
 
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
@@ -53,9 +56,9 @@ const SchedulesView = () => {
     );
 
 
+
     useEffect(() => {
         fetchAllSchedules().then((res) => {
-            console.log(res);
             const formatSchedules = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
                     id: elementFromAPI.id,
@@ -80,7 +83,7 @@ const SchedulesView = () => {
 
 
     useEffect(() => {
-        fetchMentorSession(1).then((res) => {
+        fetchMentorSession(userFromRedux.id).then((res) => {
             const formattedSessions = res?.data.map((elementFromAPI: ScheduleCardProps) => ({
                 id: elementFromAPI?.id,
                 dateStart: new Date(elementFromAPI?.scheduleStartDay),

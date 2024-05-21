@@ -1,38 +1,8 @@
 {
-    "session": [
-        {
-            "id": "1298371239012",
-            "title": "Konsultacja z ekspertem",
-            "descriptionHtml": "<p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p>",
-            "price": 6000,
-            "durationMinutes": 30
-        },
-        {
-            "id": "1298373654562312",
-            "title": "Konsultacja _2_ z ekspertem",
-            "descriptionHtml": "<p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p>",
-            "price": 8000,
-            "durationMinutes": 30
-        },
-        {
-            "id": "12944748459012",
-            "title": "Konsultacja _3_ z ekspertem",
-            "descriptionHtml": "<p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p>",
-            "price": 8000,
-            "durationMinutes": 30
-        },
-        {
-            "id": "129893219012",
-            "title": "Konsultacja _4_ z ekspertem",
-            "descriptionHtml": "<p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p><p>Figma ipsum component variant main layer. Arrange arrange reesizing selection ellipse. Union bold content distribute share fill variant rectangle. Duplicate editor device follower share. Union boolean overflow.</p>",
-            "price": 9000,
-            "durationMinutes": 30
-        }
-    ],
     "mentoring": [
         {
             "id": "012337122343",
-            "title": "Plan podstawowy",
+            "title": "Plan podstawowy KING",
             "subtitle": "Rozpocznij lub rozwijaj swoją karierę z moją pomocą.",
             "price": 15000,
             "variant": "",

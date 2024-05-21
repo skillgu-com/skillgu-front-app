@@ -5,7 +5,6 @@ import {ReactNode} from "react";
 import {Navigate} from 'react-router-dom';
 // NEW Screens
 import HomeScreen from './pages/app/HomePage/HomePage';
-import Settings from './pages/app/Settings/Settings';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import BookSession from './pages/app/BookSession/BookSession';
 import Profile from './pages/app/Profiles/Profile';
@@ -16,11 +15,9 @@ import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/Register
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
 import Raports from './pages/app/Raports/Raports';
-import Underconstruction from './pages/Underconstruction';
 import CalendarView from './pages/app/CalendarView/CalendarView';
 import MentoringAndSessionDashboard from './pages/app/MentoringAndSessionDashboard/MentoringAndSessionDashboard';
 import MeetingSchedule from './pages/app/MeetingScheduleView/MeetingSchedule';
-import AccountView from './pages/app/AccountView/AccountView';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
@@ -37,6 +34,9 @@ import {MentorProfilePage} from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 // import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
+import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
+import { StudentProfilePage } from './pages/app/StudentProfile';
+import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
 
 type Route = {
     id: string;
@@ -48,8 +48,23 @@ type Route = {
 
 const routesRaw: Omit<Route, 'id'>[] = [
     {
+        path: paths.studentProfileEdit,
+        element: <StudentProfileEditPage />,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.studentProfile,
+        element: <StudentProfilePage />,
+        layoutVersion: 'default',
+    },
+    {
         path: paths.mentorProfile,
         element: <MentorProfilePage />,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.mentorProfileEdit,
+        element: <MentorProfileEditPage />,
         layoutVersion: 'default',
     },
     {
@@ -85,12 +100,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.home,
         element: <HomeScreen />,
-        isProtected: true,
-        layoutVersion: 'default',
-    },
-    {
-        path: paths.settings,
-        element: <Settings />,
         isProtected: true,
         layoutVersion: 'default',
     },
@@ -143,17 +152,7 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'default',
         isProtected: true,
     },
-    {
-        path: paths.businessPartner,
-        element: <Underconstruction />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.underConstruction,
-        element: <Underconstruction />,
-        layoutVersion: 'none',
-    },
+
     {
         path: paths.calendar,
         element: <CalendarView />,
@@ -181,12 +180,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.scheduleMeeting,
         element: <MeetingSchedule />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.accountView,
-        element: <AccountView />,
         isProtected: true,
         layoutVersion: 'none',
     },
@@ -250,7 +243,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
     },
 ];
 
-// Add id to each route
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route
 const routes = routesRaw.map((route, index) => ({...route, id: `route${index}`}));
 

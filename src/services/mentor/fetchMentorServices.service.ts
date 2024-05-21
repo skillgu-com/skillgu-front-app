@@ -16,6 +16,7 @@ type FetchMentorReviewsInput = {
 
 type FetchMentorReviewsData = {
     total: number;
+    avgRate: number
     reviews: Review[];
 };
 
@@ -37,15 +38,21 @@ export const fetchMentorServices = async (input: Input): Promise<OutputSuccess |
 export const fetchMentors = async (take: number, skip: number, filters?: FiltersSelected): Promise<ResponseData> => {
     try {
         const filterMentorToSend = {
-            take: take.toString(),
-            skip: skip.toString(),
+            take: 10,
+            skip: 10,
+
+            // take: take.toString(),
+            // skip: skip.toString(),
             filters: filters || null
         };
 
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 
+
         const {total, mentors} = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
+
+
 
         return {total, mentors: filteredMentors}
     } catch (error) {
@@ -62,8 +69,8 @@ export const fetchMentorReviews = async ({
     try {
         const response = await fetch("/mentor-reviews.json");
         const responseData = await response.json();
-        const {total, reviews} = responseData;
-        return {total, reviews};
+        const {total, reviews, avgRate } = responseData;
+        return {total, reviews, avgRate };
     } catch (error) {
         console.error("Error fetching mentor reviews:", error);
         throw error;

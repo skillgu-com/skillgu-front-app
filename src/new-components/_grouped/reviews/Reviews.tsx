@@ -15,20 +15,18 @@ export const Reviews = ({
   children,
   className,
   title,
-  total,
-  avgRate,
+  total = 0,
+  avgRate = 0,
 }: Props) => {
   return (
     <div className={clx(styles.reviewsWrapper, className)}>
       {title ? (
         <div className={styles.header}>
           <h3 className={styles.header_title}>{title}</h3>
-          {total ? (
-            <span className={styles.header_subtitle}>
-              <Stars rate={avgRate} total={5} className={styles.stars} />{" "}
-              {`(${total} opinii)`}
-            </span>
-          ) : null}
+          <span className={styles.header_subtitle}>
+            <Stars rate={avgRate} total={5} className={styles.stars} />{" "}
+            {`(${total} opinii)`}
+          </span>
         </div>
       ) : null}
       {children}
@@ -42,4 +40,8 @@ Reviews.List = (props: { children: ReactNode }) => (
 
 Reviews.Footer = (props: { children: ReactNode }) => (
   <div className={styles.footer}>{props.children}</div>
+);
+
+Reviews.Message = (props: { children: ReactNode }) => (
+  <div className={styles.msg}>{props.children}</div>
 );

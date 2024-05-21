@@ -1,19 +1,25 @@
 import {VerifyEmailAddressDTO} from "./verifyEmailAddress.types";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {VerificationFormInput} from "@customTypes/registerFlow";
 
-const parseDataForAPI = (inputData: VerificationFormInput, userId: string): VerifyEmailAddressDTO => {
-    return { userId, code: Object.values(inputData).join('')};
+export interface VerificationResponse {
+    body: {
+        message: string;
+        success: boolean;
+        errorCode: number;
+    };
+    statusCode: string;
+    statusCodeValue: number;
 }
 
-// TODO consider common error handler for services
-const verifyEmailAddressService = async (inputData: VerificationFormInput, userId: string) => {
-    try {
-        const response = await axios.post('/api/auth/mentor/verify-email-address', parseDataForAPI(inputData, userId));
-        return { success: true, data: response.data }
-    } catch (e) {
-        return { success: false, error: e }
-    }
+
+const parseDataForAPI = (inputData: VerificationFormInput, userId: string): VerifyEmailAddressDTO => {
+    return {userId, code: Object.values(inputData).join('')};
+}
+
+const verifyEmailAddressService = async (inputData: VerificationFormInput, userId: string): Promise<VerificationResponse> => {
+    const response: AxiosResponse<VerificationResponse> = await axios.post('/api/auth/mentor/verify-email-address', parseDataForAPI(inputData, userId));
+    return response.data;
 }
 
 export default verifyEmailAddressService;

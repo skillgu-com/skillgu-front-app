@@ -1,16 +1,22 @@
 import React, {FC, useMemo, useState} from 'react';
+import {useNavigate} from 'react-router-dom'
+
 import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
 import {VerificationFormInput} from "@customTypes/registerFlow";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 import Typography from "@mui/material/Typography";
 import {Button, Collapse, TextField} from "@mui/material";
-import verifyEmailAddressService from "../../../services/verifyEmailAddress/verifyEmailAddress.service";
+import verifyEmailAddressService, {
+    VerificationResponse
+} from "../../../services/verifyEmailAddress/verifyEmailAddress.service";
 import {
     StyledInputsWrapper, StyledFallbackWrapper
 } from "@newComponents/_register/RegisterStep5/RegisterStep5.styles";
 import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
 import useRegisterMenteeContext from "../../../context/RegisterMenteeContext";
+import {buildAfterRegisterLin} from "src/pages/app/SearchMentors/utils";
+
 
 type InputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -51,6 +57,7 @@ type Props = {
 }
 
 const RegisterStep5: FC<Props> = ({isMentor}) => {
+    const navigate = useNavigate()
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
     const {registerMenteeState, registerMenteeDispatch} = useRegisterMenteeContext();
 
@@ -61,7 +68,6 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
             return {stateSource: registerMenteeState, stateDispatcher: registerMenteeDispatch}
         }
     }, [isMentor, registerMentorState, registerMenteeState, registerMenteeDispatch, registerMentorDispatch])
-
 
 
     const [isLoading, setIsLoading] = useState(false)
@@ -79,12 +85,23 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
     const verifyCode: SubmitHandler<VerificationFormInput> = async (formData) => {
         if (stateSource.userId) {
             setIsLoading(true);
-            await verifyEmailAddressService(formData, stateSource.userId)
-            // after successful verification
-            // stateDispatcher({type: 'FLUSH_STATE'});
+
+            const verificationResponse: VerificationResponse = await verifyEmailAddressService(formData, stateSource.userId);
+
+            if (verificationResponse.body.success) {
+                stateDispatcher({type: 'FLUSH_STATE'});
+                const linkAfterVerification = buildAfterRegisterLin();
+                navigate(linkAfterVerification);
+            } else {
+                if (verificationResponse.body.errorCode === 401) {
+                } else if (verificationResponse.body.errorCode === 400) {
+                    console.log(verificationResponse.body.message)
+                } else {
+                    console.log(verificationResponse.body.message)
+                }
+            }
             setIsLoading(false);
         }
-        //     TODO handle error
     };
 
     return (

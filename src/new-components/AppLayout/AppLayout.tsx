@@ -2,7 +2,7 @@
 import React from 'react';
 // Components
 import Navbar from './components/Navbar/Navbar';
-import Topbar from './components/Topbar/Topbar';
+import TopBar from './components/Topbar/TopBar';
 // Types
 import {Common} from '../../types/main';
 // Styles
@@ -14,7 +14,7 @@ const AppLayout = (props: Common) => {
 		<>
 			<Navbar />
 			<div className={styles.content}>
-				<Topbar/>
+				<TopBar/>
 				{children}
 			</div>
 		</>

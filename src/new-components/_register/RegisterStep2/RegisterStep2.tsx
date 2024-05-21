@@ -7,6 +7,7 @@ import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
 import timezonesSelectOptions from "../../../dictionaries/timezones";
 import languagesSelectOptions from "../../../dictionaries/languages";
+import getAvailableLanguage from "@services/language/getAvailableLanguage.service";
 
 const formId = 'AboutFormInput'
 
@@ -63,20 +64,20 @@ const RegisterStep2 = () => {
                     inputProps={{placeholder: "Google"}}
                     controllerProps={{ rules: { required: 'Frma jest wymagana' }}}
                 />
-                <FormInputSelect<AboutFormInput>
-                    label='Strefa czasowa'
-                    name='timezone'
-                    control={control}
-                    formState={formState}
-                    options={timezonesSelectOptions}
-                    controllerProps={{ rules: { required: 'Strefa czasowa jest wymagana' }}}
-                />
+                {/*<FormInputSelect<AboutFormInput>*/}
+                {/*    label='Strefa czasowa'*/}
+                {/*    name='timezone'*/}
+                {/*    control={control}*/}
+                {/*    formState={formState}*/}
+                {/*    options={timezonesSelectOptions}*/}
+                {/*    controllerProps={{ rules: { required: 'Strefa czasowa jest wymagana' }}}*/}
+                {/*/>*/}
                 <FormInputSelect<AboutFormInput>
                     label='Język prowadzenia zajęć'
                     name='language'
                     control={control}
                     formState={formState}
-                    options={languagesSelectOptions}
+                    getOptions={getAvailableLanguage}
                     controllerProps={{ rules: { required: 'Język jest wymagany' }}}
                 />
             </form>

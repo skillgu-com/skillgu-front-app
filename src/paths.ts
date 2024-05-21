@@ -24,7 +24,6 @@ const paths = {
     schedulesEditSchedule: '/schedules/edit-schedule/:id',
     schedulesAddSession: '/schedules/add-session',
     schedulesEditSession: '/schedules/edit-session/:id',
-    businessPartner: '/business-partner',
     help: '/help',
     underConstruction: '/underconstruction',
     calendar: '/calendar',
@@ -41,8 +40,11 @@ const paths = {
     bookSuccess: '/book-success',
     loggedUserProfile: '/logged-user-profile',
     registerMentor: '/register-mentor',
-    registerMentee: '/register',
+    registerMentee: '/register-mentee',
     mentorProfile: '/mentor/:id',
+    mentorProfileEdit: '/edit-mentor/:id',
+    studentProfile: '/student/:id',
+    studentProfileEdit: '/edit-student/:id',
 } as const;
 
 export type PathKey = keyof typeof paths;

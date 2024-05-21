@@ -22,7 +22,10 @@ interface MentorListingCardProps {
   reviewsCount: string;
   special: string;
   specialVariant: SpecialVariant;
-  skills: string[];
+  skill: {
+    id: number;
+    name: string;
+  }[];
   title: string;
   tagsDisplay?: number;
   initialDescriptionHeight?: number | "auto";
@@ -43,14 +46,14 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
   reviewsCount,
   special,
   specialVariant,
-  skills,
+  skill,
   title,
   tagsDisplay = DEFAULT_TAGS_DISPLAY,
   initialDescriptionHeight = DEFAULT_DESCRIPTION_HEIGHT,
 }) => {
   const [tagsExpanded, setTagsExpanded] = useState<boolean>(false);
   const toggleTagsExpanded = useCallback(() => setTagsExpanded((s) => !s), []);
-  const hiddenTags = skills.length - tagsDisplay;
+  const hiddenTags = skill.length - tagsDisplay;
 
   const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
     initialDescriptionHeight
@@ -191,18 +194,18 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
       </div>
       <div className={styles.footer}>
         <ul className={styles.tags}>
-          {skills?.slice(0, tagsExpanded ? undefined : 4).map((tag) => (
-            <Tag key={tag} classes={styles.tag} name={tag} bgColor="" />
+          {skill?.slice(0, tagsExpanded ? undefined : 4).map((tag) => (
+              <Tag key={tag.id} classes={styles.tag} name={tag.name} bgColor="" />
           ))}
           {hiddenTags > 0 && !tagsExpanded ? (
-            <div ref={tagMoreRef}>
-              <Tag
-                onClick={toggleTagsExpanded}
-                classes={clx(styles.tag, styles.clickable)}
-                name={`+${hiddenTags}`}
-                bgColor=""
-              />
-            </div>
+              <div ref={tagMoreRef}>
+                <Tag
+                    onClick={toggleTagsExpanded}
+                    classes={clx(styles.tag, styles.clickable)}
+                    name={`+${hiddenTags}`}
+                    bgColor=""
+                />
+              </div>
           ) : null}
         </ul>
         {price && (

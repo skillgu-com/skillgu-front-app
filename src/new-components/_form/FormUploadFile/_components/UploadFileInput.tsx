@@ -9,12 +9,13 @@ import {StyledIcon, StyledUploadArea} from "@newComponents/_form/FormUploadFile/
 export type Props = {
     onChange: (files: File[]) => void;
     disabled?: boolean;
+    name?: string
 };
 
 export const MAX_SIZE = 10; // in MB
 export const MAX_FILES = 1;
 
-const UploadFileInput: FC<Props> = ({onChange, disabled }) => {
+const UploadFileInput: FC<Props> = ({ name, onChange, disabled }) => {
     const onDrop = (newFiles: File[]) => {
         onChange(newFiles);
     };
@@ -49,7 +50,7 @@ const UploadFileInput: FC<Props> = ({onChange, disabled }) => {
 
     return (
         <StyledUploadArea  {...getRootProps()} disabled={!!disabled}>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} name={name} />
             <StyledIcon as={UploadIcon}/>
             <Typography variant='caption' color='primary'>
                 {isDragActive ?

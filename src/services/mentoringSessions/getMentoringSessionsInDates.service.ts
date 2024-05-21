@@ -17,7 +17,10 @@ const mentorMock: Mentor = {
     reviewsCount: 12,
     special: 'Specjalista',
     specialVariant: 'success',
-    skills: ['Zarządzanie zespołami', 'Wdrożenia technologii'],
+    skill: [
+        { id: 1, name: "Zarządzanie zespołami" },
+        { id: 2, name: "Wdrożenia technologii" }
+    ],
     title: 'Doświadczony Menedżer IT',
 }
 

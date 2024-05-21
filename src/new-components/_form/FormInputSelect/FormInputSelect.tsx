@@ -3,7 +3,7 @@ import {
     Path,
     FieldValues, Control, ControllerProps, FormState
 } from "react-hook-form"
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Collapse, Select} from "@mui/material";
 import {StyledFeedbackWrapper, StyledInputWrapper} from "@newComponents/_form/FormInputText/FormInputText.styles";
 import Typography from "@mui/material/Typography";
@@ -17,27 +17,49 @@ export type Feedback = {
     severity: 'error' | 'success';
 }
 
+// Typ dla propsów komponentu
 interface Props<T extends FieldValues, OptionMetadataT> {
     label: string;
     name: Path<T>;
     control: Control<T>;
     formState: FormState<T>;
-    options: DropdownOption<OptionMetadataT>[];
+    getOptions: () => Promise<DropdownOption<OptionMetadataT>[]>;
     customFeedback?: Feedback[];
     inputProps?: SelectInputProps;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
 }
 
+// Komponent FormInputSelect
 const FormInputSelect = <T extends FieldValues, OptionMetadataT = undefined>({
-     control,
-     name,
-     customFeedback,
-     inputProps,
-     controllerProps,
-     label,
-     formState,
-     options
- }: Props<T, OptionMetadataT>) => {
+                                                                                 control,
+                                                                                 name,
+                                                                                 customFeedback,
+                                                                                 inputProps,
+                                                                                 controllerProps,
+                                                                                 label,
+                                                                                 formState,
+                                                                                 getOptions
+                                                                             }: Props<T, OptionMetadataT>) => {
+
+    const [options, setOptions] = useState<DropdownOption<OptionMetadataT>[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+        getOptions().then(data => {
+            if (isMounted) {
+                setOptions(data);
+                setLoading(false);
+            }
+        }).catch(error => {
+            console.error('Error loading options:', error);
+            setLoading(false);
+        });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [getOptions]);
 
     const feedback: Feedback[] = useMemo(() => {
         if (customFeedback) return customFeedback;
@@ -54,7 +76,13 @@ const FormInputSelect = <T extends FieldValues, OptionMetadataT = undefined>({
                 control={control}
                 render={({field: { ref, ...field}}) => (
                     <Select {...field} {...inputProps} inputRef={ref}>
-                        {options.map(({value, label}) => <MenuItem key={`${value}-${label}`} value={value}>{label}</MenuItem>)}
+                        {loading ? (
+                            <MenuItem disabled>Loading...</MenuItem>
+                        ) : (
+                            options.map(({value, label}) => (
+                                <MenuItem key={`${value}-${label}`} value={value}>{label}</MenuItem>
+                            ))
+                        )}
                     </Select>)
                 }
                 {...controllerProps}

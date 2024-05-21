@@ -9,6 +9,7 @@ import {Collapse} from "@mui/material";
 import {StyledFeedbackWrapper, StyledInputWrapper } from "@newComponents/_form/FormInputText/FormInputText.styles";
 import Typography from "@mui/material/Typography";
 import InputFeedback, {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
+import styles from '../styles.module.scss'
 
 interface Props<T extends FieldValues> {
     name: Path<T>;
@@ -39,7 +40,7 @@ const FormInputText = <T extends FieldValues>({
 
     return (
         <StyledInputWrapper>
-            {label && <Typography variant='body2'>{label}</Typography>}
+            {label && <Typography variant='body2' className={styles.Label}>{label}</Typography>}
             <Controller
                 name={name}
                 control={control}

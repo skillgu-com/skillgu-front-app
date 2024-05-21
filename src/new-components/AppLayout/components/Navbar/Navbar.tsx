@@ -25,100 +25,105 @@ import {ReactComponent as CalendarIcon} from '../../../../assets/icons/svg/calen
 // Styles
 import styles from './Navbar.module.scss';
 import paths from "../../../../paths";
+import {getRole} from "../../../../redux/selectors/authSelectors";
 
 const Navbar = () => {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const {pathname} = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {pathname} = useLocation();
 
-	const [isExpanded, setIsExpanded] = useState(false);
-	const toggleExpandHandler = () => setIsExpanded(!isExpanded);
-	const userFromRedux = useSelector((state: any) => state.auth.user);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleExpandHandler = () => setIsExpanded(!isExpanded);
+    const userFromRedux = useSelector((state: any) => state.auth.user);
+    const role = useSelector(getRole);
 
-	const menuItems = [
-		{
-			id: 'home',
-			label: 'Strona główna',
-			link: '/home',
-			icon: <Home />,
-		},
-		{
-			id: 'calendar',
-			label: 'Kalendarz',
-			link: paths.calendar,
-			icon: <CalendarIcon />,
-		},
-		{
-			id: 'profile',
-			label: 'Profil',
-			link: '/logged-user-profile',
-			icon: <Doc />,
-		},
-		{
-			id: 'schedules',
-			label: 'Tworzenie spotkań',
-			link: '/schedules',
-			icon: <CreateSchedules />,
-		},
-		{
-			id: 'settings',
-			label: 'Ustawienia',
-			link: '/settings',
-			icon: <Settings />,
-		},
+    const menuItems = [
+        {
+            id: 'home',
+            label: 'Strona główna',
+            link: '/home',
+            icon: <Home/>,
+        },
+        {
+            id: 'calendar',
+            label: 'Kalendarz',
+            link: paths.calendar,
+            icon: <CalendarIcon />,
+        },
+        {
+            id: 'profile',
+            label: 'Profil',
+            link: role === 'M' ? `/mentor/${userFromRedux.id}` : `/student/${userFromRedux.id}`,
+            icon: <Doc/>,
+        },
+        {
+            id: 'schedules',
+            label: 'Tworzenie spotkań',
+            link: role !== 'S' ? '/schedules' : '',
+            icon: <CreateSchedules/>,
+        },
+        {
+            id: 'settings',
+            label: 'Ustawienia',
+            link: role === 'M' ? `/edit-mentor/${userFromRedux.id}` : `/edit-student/${userFromRedux.id}`,
+            icon: <Settings/>,
+        },
+    ].filter(item => item.link !== '');
 
-	];
-
-	return (
-		<Container
-			as={Tag.Nav}
-			classes={classNames(styles.navbar, {
-				[styles.navbarExpanded]: isExpanded,
-			})}>
-			<Link
-				to={'/'}
-				className={styles.navbarLogo}
-				onClick={() => setIsExpanded(false)}>
-				<Logo />
-			</Link>
-			<div className={styles.mobile}>
-				<Notifications />
-				<button
-					onClick={toggleExpandHandler}
-					className={styles.navbarButton}
-					aria-label='menu'>
-					<span></span>
-					<span></span>
-				</button>
-			</div>
-			<div className={styles.navbarMenu}>
-				<div>
-					{menuItems.map((item) => (
-						<Link
-							key={item.id}
-							className={styles.navbarMenuItem}
-							data-is-current={pathname.includes(item.link)}
-							to={item.link}>
-							{item.icon}
-							{item.label}
-						</Link>
-					))}
-				</div>
-				<div className={styles.utils}>
-					<Link className={styles.navbarMenuItem} to='/help'>
-						<Help />
-						Pomoc
-					</Link>
-					<button
-						className={styles.navbarMenuItem}
-						onClick={() => logout(dispatch, navigate)}>
-						<Logout />
-						Wyloguj się
-					</button>
-				</div>
-			</div>
-		</Container>
-	);
+    return (
+        <Container
+            as={Tag.Nav}
+            classes={classNames(styles.navbar, {
+                [styles.navbarExpanded]: isExpanded,
+            })}>
+            <Link
+                to={'/'}
+                className={styles.navbarLogo}
+                onClick={() => setIsExpanded(false)}>
+                <Logo/>
+            </Link>
+            <div className={styles.mobile}>
+                <Notifications/>
+                <button
+                    onClick={toggleExpandHandler}
+                    className={styles.navbarButton}
+                    aria-label='menu'>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div className={styles.navbarMenu}>
+                <div>
+                    {menuItems.map((item) => (
+                        // Sprawdź, czy item jest obiektem i czy posiada właściwość label
+                        item && typeof item === 'object' && item.label && (
+                            <Link
+                                key={item.id}
+                                className={styles.navbarMenuItem}
+                                data-is-current={pathname.includes(item.link)}
+                                to={item.link}
+                            >
+                                {item.icon}
+                                {item.label}
+                            </Link>
+                        )
+                    ))}
+                </div>
+                <div className={styles.utils}>
+                    <Link className={styles.navbarMenuItem} to='/help'>
+                        <Help/>
+                        Pomoc
+                    </Link>
+                    <button
+                        className={styles.navbarMenuItem}
+                        onClick={() => logout(dispatch, navigate)}>
+                        <Logout/>
+                        Wyloguj się
+                    </button>
+                </div>
+            </div>
+        </Container>
+    );
 };
 
 export default Navbar;

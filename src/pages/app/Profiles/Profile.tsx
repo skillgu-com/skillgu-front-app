@@ -15,7 +15,6 @@ import MentorCardDescription
 // Styles
 import styles from './Profile.module.scss';
 import {useSelector} from 'react-redux';
-import {UserData} from '../Settings/Settings';
 import {useParams} from 'react-router-dom';
 import {getMentorProfileByID} from "../../../services/MentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
@@ -37,36 +36,12 @@ interface PlanSelectProps {
 
 const Profile = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
-    const [userData, setUserData] = useState<UserData>({} as UserData);
     const {userID} = useParams();
     const [currentTab, setCurrentTab] = useState('mentorship');
     const [fetchMentorSessions, setFetchMentorSessions] = useState<SessionDataFromAPI[]>([]);
     const [showModal, setShowModal] = useState(false);
 
 
-    useEffect(() => {
-        getMentorProfileByID(userID).then((res) => {
-            setUserData(res.data as UserData)
-                });
-    }, []);
-
-
-
-    useEffect(() => {
-        fetchMentorSession(userID).then(res => {
-            console.log(res.data)
-            const formattedSessions = res?.data.map((elementFromAPI: SessionDataFromAPI) => ({
-                sessionID: elementFromAPI?.id,
-                sessionType: elementFromAPI?.sessionType,
-                sessionPrice: elementFromAPI?.sessionPrice,
-                description: elementFromAPI?.description,
-                meetTime: elementFromAPI?.meetTime,
-                mentorID: Number(userID)
-            }));
-
-            setFetchMentorSessions(formattedSessions);
-        });
-    }, []);
 
 
 
@@ -132,32 +107,7 @@ const Profile = () => {
                         )}
                     </div>
 
-                    <MentorCard
-                        profileImg='https://cdn.pixabay.com/photo/2023/10/24/21/15/nature-8339115_1280.jpg'
-                        logoUrl=''
-                        companyName=''
-                        reviews={2}
-                        reviewsAmount={3}
-                        location={userData?.location}
-                        timeZone='Poland (- 05:00 UTC)'
-                        services={userData?.services}
-                        userID={1}
-                        quickResponder={true}
-                        firstName={userData?.firstName}
-                        lastName={userData?.lastName}
-                        jobPosition={userData?.jobPosition}
-                        description={userData?.description}
-                        skill={userData?.skill}
-                        isExtended={true}
-                        categories={userData?.mentorTopics}
-                        languages={['PL']}
-                        socialMedia={{
-                            linkedInURL: userData?.linkedInURL,
-                            youtubeURL: userData?.youtubeURL,
-                            instagramURL: userData?.instagramURL,
-                            websiteURL: userData?.websiteURL,
-                        }}
-                    />
+
                 </div>
             </Container>
             {showModal && (

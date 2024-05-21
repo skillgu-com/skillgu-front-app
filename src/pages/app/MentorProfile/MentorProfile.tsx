@@ -22,20 +22,71 @@ import {
 import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import {getMentorProfileByID} from "../../../services/MentorViewService";
-import {UserData} from "../Settings/Settings";
+import {SpecialVariant} from "@customTypes/mentor";
 import {fetchMentorSession} from "../../../services/SessionService";
+import {UserProfileHeader} from "@newComponents/_grouped";
+import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
+import clx from 'classnames'
+import {useSelector} from "react-redux";
 
 type Props = {
     isLoggedMentor: boolean;
 };
 
-/**
- *
- */
+export interface MentorData {
+    avatar_url: string;
+    description: string;
+    id: string;
+    firstName: string;
+    lastName: string;
+    price: number;
+    location: string;
+    profession: string;
+    reviewsAvgRate: number;
+    reviewsCount: number;
+    special: string;
+    title: string;
+    intro: string;
+    jobPosition: string;
+    profileImage: string;
+    company: string;
+    coverImage: string;
+    specialVariant: SpecialVariant;
+    userID: number;
+    services: {
+        id: number;
+        name: string;
+    }[];
+    skill: {
+        id: number;
+        name: string;
+    }[];
+    mentorTopics: {
+        id: number;
+        name: string;
+    }[];
+
+    mentorCategory: {
+        id: number;
+        name: string;
+    }[];
+    linkedin: string | null;
+    websiteURL: string | null;
+    youtubeURL: string | null;
+    instagramURL: string | null;
+    xurl: string | null;
+    facebookURL: string | null;
+}
+
 export const MentorProfilePage = () => {
     const {id: mentorId} = useParams();
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
+    const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
+
+
+    // @TODO: get user id from sesion/jwt
+
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
     const [loading, setLoading] = useState<boolean>(true);
@@ -59,12 +110,13 @@ export const MentorProfilePage = () => {
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
     const closePopup = () => setPopupSession(null);
 
+    // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
     useEffect(() => {
         const run = async () => {
             const resp = await fetchMentorServices({mentorId: mentorId || ""});
             if (resp.success) {
                 setOptionsMentoring(resp.mentoring);
-                setOptionsSession(resp.session);
+                // setOptionsSession(resp.session);
             }
             setLoading(false);
         };
@@ -76,70 +128,81 @@ export const MentorProfilePage = () => {
 
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
-            // setUserData(res.data as UserData)
-            console.log(res.data)
+            setMentorData(res.data as MentorData);
         });
     }, []);
 
+    function Extracted() {
+        let mentorIsLoggedUser = true;
 
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        if (userFromRedux?.id !== mentorData?.userID) {
+            mentorIsLoggedUser = false;
+        }
+        return mentorIsLoggedUser;
+    }
+
+    let mentorIsLoggedUser = Extracted();
+
+
+    useEffect(() => {
+        fetchMentorSession(mentorId).then((res) => {
+            if (res) {
+                const formattedSessions = res.data.map((elementFromAPI: any) => ({
+                    id: elementFromAPI?.id,
+                    sessionType: elementFromAPI?.sessionType,
+                    sessionPrice: elementFromAPI?.sessionPrice,
+                    description: elementFromAPI?.description,
+                    meetTime: elementFromAPI?.meetTime,
+                    mentorID: Number(mentorId),
+                }));
+                setOptionsSession(formattedSessions);
+                setLoading(false);
+            }
+        });
+    }, [mentorId]);
 
     return (
         <>
-            <MentorHeaderWrapper>
-                <Container as={Tag.Section}>
-                    <MentorHeader
-                        avatarUrl="/images/img_avatar.png"
-                        fullname="Anna Stokrotka"
-                        location="Warszawa, Polska (UTC+2)"
-                        profession="UX/UI Designer w Google"
-                        company="Google"
-                    />
-                    <MentorLinks
-                        className={styles.onlyMobileFlex}
-                        instagram={"#"}
-                        youtube={"#"}
-                        linkedin={"#"}
-                        twitter={"#"}
-                        facebook={"#"}
-                    />
-                </Container>
-            </MentorHeaderWrapper>
+            <UserProfileHeader
+                avatarUrl={mentorData?.profileImage || 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg'}
+                btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
+                btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
+                company="Google"
+                coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
+                fullname={mentorData?.firstName + " " + mentorData?.lastName}
+                langSwitcher={<LangSwitcherConnected/>}
+                location={mentorData?.location}
+                profession={mentorData?.jobPosition}
+            />
 
             <Container as={Tag.Section}>
+                <MentorLinks
+                    className={clx(styles.onlyMobileFlex, styles.socialLinksMobile)}
+                    instagram={mentorData?.instagramURL ?? "#"}
+                    youtube={mentorData?.youtubeURL ?? "#"}
+                    linkedin={mentorData?.linkedin ?? "#"}
+                    twitter={mentorData?.xurl ?? "#"}
+                    facebook={mentorData?.facebookURL ?? "#"}
+                />
                 <MentorMainWrapper>
                     <main>
                         <MentorContent
-                            title="Nauczę Cię dizajnować jak PRO"
-                            contentHtml="
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <br />
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <br />
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-                <p>Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.</p>
-              "
-                            skills={[
-                                "Figma",
-                                "UX Design",
-                                "UI Design",
-                                "Design Thinking",
-                                "Photoshop",
-                            ]}
-                            services={[
-                                "Spotkania weekendowe",
-                                "Praca z zadaniami",
-                                "Mentoring i sesje",
-                                "Jeszcze jakiś tag",
-                            ]}
+                            title={mentorData?.intro}
+                            contentHtml={mentorData?.description}
+                            contentExpandable={mentorData?.description?.length > 120}
+                            skills={mentorData?.skill}
+                            services={mentorData?.services}
                         />
                         <MentorLinks
                             isDesktop
                             className={styles.onlyDesktopFlex}
-                            instagram={"#"}
-                            youtube={"#"}
-                            linkedin={"#"}
-                            twitter={"#"}
-                            facebook={"#"}
+                            instagram={mentorData?.instagramURL ?? "#"}
+                            youtube={mentorData?.youtubeURL ?? "#"}
+                            linkedin={mentorData?.linkedin ?? "#"}
+                            twitter={mentorData?.xurl ?? "#"}
+                            facebook={mentorData?.facebookURL ?? "#"}
                         />
                     </main>
                     <aside>
@@ -151,18 +214,20 @@ export const MentorProfilePage = () => {
                                     <MentorServicesMentoring
                                         services={optionsMentoring}
                                         selected={selectedMentoring}
-                                        handleSelect={handleSelectMentoring}
-                                        handleSubmit={handleSubmitMentoring}
+                                        handleSelect={!mentorIsLoggedUser ? handleSelectMentoring : undefined}
+                                        handleSubmit={!mentorIsLoggedUser ? handleSubmitMentoring : undefined}
                                     />
                                 ) : null}
-                                {tab === "session" ? (
-                                    <MentorServicesSession
-                                        services={optionsSession}
-                                        selected={selectedSession}
-                                        handleSelect={handleSelectSession}
-                                        handleSubmit={handleSubmitSession}
-                                    />
-                                ) : null}
+                                {tab === "session" &&
+                                    optionsSession &&
+                                    optionsSession.length > 0 && (
+                                        <MentorServicesSession
+                                            services={optionsSession}
+                                            selected={selectedSession}
+                                            handleSelect={!mentorIsLoggedUser ? handleSelectSession : undefined}
+                                            handleSubmit={!mentorIsLoggedUser ? handleSubmitSession : undefined}
+                                        />
+                                    )}
                             </MentorServices>
                         )}
                     </aside>

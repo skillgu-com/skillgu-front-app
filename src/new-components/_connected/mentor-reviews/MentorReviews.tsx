@@ -21,6 +21,7 @@ export const MentorReviewsConnected = ({ mentorId }: Props) => {
   const [error, setError] = useState<string>("");
   const [pending, setPending] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
+  const [avg, setAvg] = useState<number>(0);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [page, setPage] = useState<number>(1);
 
@@ -30,11 +31,12 @@ export const MentorReviewsConnected = ({ mentorId }: Props) => {
       // setReviews([]);
       setError("");
       try {
-        const { total, reviews } = await fetchMentorReviews({
+        const { total, reviews, avgRate } = await fetchMentorReviews({
           mentorId: String(mentorId),
           take: 3,
           skip: (page - 1) * REVIEWS_PER_PAGE,
         });
+        setAvg(avgRate)
         setTotal(total);
         setReviews(reviews.slice(0, REVIEWS_PER_PAGE));
       } catch (e) {
@@ -52,7 +54,12 @@ export const MentorReviewsConnected = ({ mentorId }: Props) => {
   }, []);
 
   return (
-    <Reviews avgRate={4} title="Opinie" total={12}>
+    <Reviews avgRate={avg} title="Opinie" total={total}>
+      {!pending && reviews.length === 0 ? (
+        <Reviews.Message>
+          Ten mentor nie otrzymał na razie żadnych ocen.
+        </Reviews.Message>
+      ) : null}
       <Reviews.List>
         {pending
           ? new Array(3).fill(null).map(() => <ReviewSkeleton />)

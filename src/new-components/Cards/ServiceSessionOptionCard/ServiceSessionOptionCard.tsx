@@ -19,12 +19,15 @@ type Props = ServiceSession & {
 export const ServiceSessionOptionCard = ({
   name,
   value,
-  title,
-  price,
-  durationMinutes,
   selected,
   handleDetails,
   handleSelect,
+  meetTime,
+  scheduleName,
+  sessionName,
+  sessionPrice,
+  sessionType,
+  description,
 }: Props) => {
   const detailsRef = useRef<HTMLButtonElement>(null);
   const _handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,38 +42,41 @@ export const ServiceSessionOptionCard = ({
     <button
       className={clx(styles.card, {
         [styles.selected]: selected,
+        [styles.selectable]: !!handleSelect,
       })}
       onClick={_handleSelect}
       name={name}
       value={value}
     >
       <div className={styles.rowTitle}>
-        <RadioInputIcon filled={selected} />
-        <h5 className={styles.title}>{title}</h5>
+        {handleSelect ? <RadioInputIcon filled={selected} /> : null}
+        <h5 className={styles.title}>{sessionType}</h5>
       </div>
       <div className={styles.rowInfo}>
-        {price ? (
+        {sessionPrice ? (
           <div className={styles.infoCell}>
             <DollarCircleIcon />
-            {Math.ceil(price / 100)} zł/h
+            {Math.ceil(sessionPrice / 100)} zł/h
           </div>
         ) : null}
-        {durationMinutes ? (
+        {meetTime ? (
           <div className={styles.infoCell}>
             <ClockSolidCircleIcon />
-            {durationMinutes} min
+            {meetTime} min
           </div>
         ) : null}
       </div>
-      <div className={styles.rowActions}>
-        <button
-          ref={detailsRef}
-          className={styles.detailsBtn}
-          onClick={handleDetails}
-        >
-          Więcej informacji
-        </button>
-      </div>
+      {handleDetails ? (
+        <div className={styles.rowActions}>
+          <button
+            ref={detailsRef}
+            className={styles.detailsBtn}
+            onClick={handleDetails}
+          >
+            Więcej informacji
+          </button>
+        </div>
+      ) : null}
     </button>
   );
 };

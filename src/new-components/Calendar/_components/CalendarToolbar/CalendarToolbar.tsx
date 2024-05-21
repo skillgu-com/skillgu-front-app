@@ -6,7 +6,7 @@ import {ReactComponent as ArrowLeft} from '@icons/svg/arrow-left.svg';
 import {ReactComponent as ArrowRight} from '@icons/svg/arrow-right.svg';
 import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
 
-type Props = ToolbarProps<Event>;
+type Props = Pick<ToolbarProps<Event>, 'onNavigate' | 'date'>;
 
 const CalendarToolbar: FC<Props> = ({date, onNavigate}) => {
 

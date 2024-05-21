@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Container from "src/new-components/Container/Container";
 import {MentorReviewsConnected} from "@newComponents/_connected";
 import {Tag} from "src/types/tags";
@@ -84,6 +84,17 @@ export const MentorProfilePage = () => {
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
 
+    const useIsMentorLoggedUser = (mentorDat: MentorData) => {
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        const mentorIsLoggedUser = useMemo(() => {
+            return userFromRedux?.id === mentorData?.userID;
+        }, [userFromRedux, mentorData]);
+
+        return mentorIsLoggedUser;
+    };
+    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
+
 
     // @TODO: get user id from sesion/jwt
 
@@ -129,21 +140,9 @@ export const MentorProfilePage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData);
+            console.log(res.data)
         });
     }, []);
-
-    function Extracted() {
-        let mentorIsLoggedUser = true;
-
-        const userFromRedux = useSelector((state: any) => state.auth.user);
-
-        if (userFromRedux?.id !== mentorData?.userID) {
-            mentorIsLoggedUser = false;
-        }
-        return mentorIsLoggedUser;
-    }
-
-    let mentorIsLoggedUser = Extracted();
 
 
     useEffect(() => {
@@ -163,13 +162,14 @@ export const MentorProfilePage = () => {
         });
     }, [mentorId]);
 
+
     return (
         <>
             <UserProfileHeader
                 avatarUrl={mentorData?.profileImage || 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg'}
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
                 btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
-                company="Google"
+                company={mentorData?.company}
                 coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
@@ -194,6 +194,7 @@ export const MentorProfilePage = () => {
                             contentExpandable={mentorData?.description?.length > 120}
                             skills={mentorData?.skill}
                             services={mentorData?.services}
+                            topics={mentorData?.mentorTopics}
                         />
                         <MentorLinks
                             isDesktop

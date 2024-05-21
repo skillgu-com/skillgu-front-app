@@ -27,6 +27,7 @@ import {fetchMentorSession} from "../../../services/SessionService";
 import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
+import {useSelector} from "react-redux";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -51,6 +52,7 @@ export interface MentorData {
     company: string;
     coverImage: string;
     specialVariant: SpecialVariant;
+    userID: number;
     services: {
         id: number;
         name: string;
@@ -84,7 +86,6 @@ export const MentorProfilePage = () => {
 
 
     // @TODO: get user id from sesion/jwt
-    const mentorIsLoggedUser = true;
 
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
@@ -131,6 +132,20 @@ export const MentorProfilePage = () => {
         });
     }, []);
 
+    function Extracted() {
+        let mentorIsLoggedUser = true;
+
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        if (userFromRedux?.id !== mentorData?.userID) {
+            mentorIsLoggedUser = false;
+        }
+        return mentorIsLoggedUser;
+    }
+
+    let mentorIsLoggedUser = Extracted();
+
+
     useEffect(() => {
         fetchMentorSession(mentorId).then((res) => {
             if (res) {
@@ -147,7 +162,6 @@ export const MentorProfilePage = () => {
             }
         });
     }, [mentorId]);
-
 
     return (
         <>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {SpecialVariant} from "@customTypes/mentor";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 type MentorPersonalData = {
     firstName: string;
@@ -26,23 +27,10 @@ export interface MentorData {
     profileImage: string;
 
     specialVariant: SpecialVariant;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
-
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    // mentorTopics: DropdownOption[];
+    mentorCategory:  DropdownOption[];
     linkedin: string | null;
     website: string | null;
     youtube: string | null;
@@ -55,20 +43,18 @@ export interface MentorData {
     coverUrl: File[];
 }
 
-export interface MentorEditProfileFormInput {
+
+export type MentorEditProfileFormInput = {
     heading: string;
     profession: string;
     company: string;
     biography: string;
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    services: string[];
+    skill: DropdownOption[];
+    services: DropdownOption[];
     timezone: string;
     language: string;
-    categories: [];
-    topics: [];
+    categories: DropdownOption[];
+    mentorTopics: DropdownOption[];
 };
 
 interface MentorEditLinksFormInput {

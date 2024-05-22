@@ -12,7 +12,6 @@ export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
                     value: item.value
                 }));
 
-                console.log('response', response.data)
                 resolve(data);
             })
             .catch(error => {

@@ -3,26 +3,15 @@ import styles from "./MentorContent.module.scss";
 import clx from "classnames";
 import {Expandable} from "@newComponents/_base/Expandable";
 import {CheckCircleIcon} from "@icons/CheckCircleIcon";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
-type Skill = {
-    id: number;
-    name: string;
-};
-type Services = {
-    id: number;
-    name: string;
-};
-type Topics = {
-    id: number;
-    name: string;
-};
 
 type Props = {
     title: string;
     contentHtml: string;
-    skills: Skill[];
-    services: Services[];
-    topics: Topics[];
+    skills: DropdownOption[];
+    services: DropdownOption[];
+    topics: DropdownOption[];
     contentExpandable?: boolean;
 };
 
@@ -68,9 +57,9 @@ export const MentorContent = ({
                 <div className={styles.skills}>
                     <h5 className={styles.skillsTitle}>Umiejętności</h5>
                     <ul className={styles.skillsTags}>
-                        {skills.map((skill: Skill, i: number) => (
-                            <li key={skill.id} className={styles.skillsTag}>
-                                {skill.name}
+                        {skills.map((element: DropdownOption, i: number) => (
+                            <li key={element.value} className={styles.skillsTag}>
+                                {element.label}
                             </li>
                         ))}
                     </ul>
@@ -80,9 +69,9 @@ export const MentorContent = ({
                 <div className={styles.skills}>
                     <h5 className={styles.skillsTitle}>Tematy</h5>
                     <ul className={styles.skillsTags}>
-                        {topics.map((topic: Topics, i: number) => (
-                            <li key={topic.id} className={styles.skillsTag}>
-                                {topic.name}
+                        {topics.map((topic: DropdownOption, i: number) => (
+                            <li key={topic.value} className={styles.skillsTag}>
+                                {topic.label}
                             </li>
                         ))}
                     </ul>
@@ -91,10 +80,10 @@ export const MentorContent = ({
 
             {services && services.length ? (
                 <ul className={styles.servicesTags}>
-                    {services.map((service: Services, i: number) => (
-                        <li key={service.id} className={styles.servicesTag}>
+                    {services.map((service: DropdownOption, i: number) => (
+                        <li key={service.value} className={styles.servicesTag}>
                             <CheckCircleIcon/>
-                            {service.name}
+                            {service.label}
                         </li>
                     ))}
                 </ul>

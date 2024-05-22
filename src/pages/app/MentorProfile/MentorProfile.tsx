@@ -28,6 +28,7 @@ import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
 import {useSelector} from "react-redux";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -53,23 +54,10 @@ export interface MentorData {
     coverImage: string;
     specialVariant: SpecialVariant;
     userID: number;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
-
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    mentorTopics: DropdownOption[];
+    mentorCategory: DropdownOption[];
     linkedin: string | null;
     website: string | null;
     youtube: string | null;

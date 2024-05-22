@@ -13,6 +13,7 @@ import getAvailableTopicsService from "src/services/topics/getAvailableTopics.se
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
 import {MentorData} from "../../../MentorProfile";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 
 export type MentorEditProfileFormInput = {
@@ -20,37 +21,20 @@ export type MentorEditProfileFormInput = {
     profession: string;
     company: string;
     biography: string;
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    services: string[];
+    skill: DropdownOption[];
+    services: DropdownOption[];
     timezone: string;
     language: string;
-    categories: [];
-    topics: [];
+    categories: DropdownOption[];
+    mentorTopics: DropdownOption[];
 };
 
 type Props = {
     mentorData: MentorData;
 };
 
-// TODO do wyjebania po sprawdzeniu
-const mentorDataa = {
-    skill: [
-        { id: 1, name: "JavaScript" },
-        { id: 2, name: "React" },
-        { id: 3, name: "Node.js" },
-        { id: 4, name: "TypeScript" },
-        { id: 5, name: "GraphQL" }
-    ]
-};
-
-
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
-    //TODO do wyjebania po sprawdzeniu
-    console.log('mentordata z props: ' , mentorData.skill)
-    console.log('mentordata z mentorDataa: ' , mentorDataa.skill)
+
 
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
@@ -59,12 +43,12 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: '',
                 company: '',
                 biography: '',
-                skill: mentorDataa.skill,
+                skill:[],
                 services: [],
                 timezone: '',
                 language: '',
                 categories: [],
-                topics: [],
+                mentorTopics: mentorData?.mentorTopics,
             },
         });
 
@@ -86,7 +70,8 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 timezone: data.timezone,
                 language: data.language,
                 categories: data.categories,
-                topics: data.topics,
+                mentorTopics: data.mentorTopics
+
             };
             const response = await updateUserProfile(mentorEditSection);
             window.location.reload();
@@ -138,12 +123,13 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Umiejętności"
                     name='skill'
+                    defaultValue={mentorData?.skill || []}
                     getOptions={getAvailableSkillsService}
                 />
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Tematy"
-                    name='topics'
+                    name='mentorTopics'
                     getOptions={getAvailableTopicsService}
                 />
                 <FormCheckboxesDynamic<MentorEditProfileFormInput>

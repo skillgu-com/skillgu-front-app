@@ -16,6 +16,7 @@ import {Typography} from "@mui/material";
 import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import {SpecialVariant} from "@customTypes/mentor";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 /**
  *
@@ -41,23 +42,11 @@ export interface MentorData {
     coverImage: string;
     userID: number;
     specialVariant: SpecialVariant;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    mentorTopics: DropdownOption[];
 
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    mentorCategory: DropdownOption[];
     linkedin: string | null;
     website: string | null;
     youtube: string | null;
@@ -115,7 +104,7 @@ export const MentorProfileEditPage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData)
-            console.log(res.data)
+            console.log('res.data',res.data)
         });
     }, []);
 

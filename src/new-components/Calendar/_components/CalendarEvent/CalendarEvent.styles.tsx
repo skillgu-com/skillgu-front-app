@@ -13,10 +13,12 @@ export const StyledCalendarEvent = styledMui(ButtonBase)<{color: 'primary' | 'se
     margin: theme.spacing(0.25, 1),
     width: `calc(100% - ${theme.spacing(2)})`,
 
-    '& span:first-of-type': {
+    '& span:first-child': {
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
+        justifySelf: 'flex-start',
+        width: '100%'
     },
 
     '&:before': {

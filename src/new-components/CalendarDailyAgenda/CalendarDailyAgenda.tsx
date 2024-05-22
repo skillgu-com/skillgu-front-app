@@ -33,7 +33,7 @@ const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
     }, [searchParams, isLoading]);
 
     return (
-        <Box sx={{ display: 'grid', gap: 3, pt: 3 }}>
+        <Box sx={{ display: 'grid', gap: 3, pt: 2 }}>
             {isLoading
                 ? (
                     <>

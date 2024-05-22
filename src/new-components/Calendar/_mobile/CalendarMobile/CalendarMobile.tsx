@@ -2,7 +2,11 @@ import React, {FC, useMemo} from 'react';
 import {MeetingInCalendar} from "../../../../pages/app/CalendarView/CalendarView";
 import CalendarToolbar from "@newComponents/Calendar/_components/CalendarToolbar/CalendarToolbar";
 import {NavigateAction} from "react-big-calendar";
-import {getDaysInMonth} from "date-fns";
+import {format, getDaysInMonth, isSameDay} from "date-fns";
+import {Box, useTheme} from "@mui/material";
+import {StyledDayInCalendar} from "@newComponents/Calendar/_mobile/CalendarMobile/CalendarMobile.styles";
+import Typography from "@mui/material/Typography";
+import CalendarEvent from "@newComponents/Calendar/_components/CalendarEvent/CalendarEvent";
 
 type Props = {
     events: MeetingInCalendar[],
@@ -10,29 +14,49 @@ type Props = {
     selectedRange: { from: Date, to: Date },
 }
 
-const CalendarMobile: FC<Props> = ({selectedRange, moveSelectedRange}) => {
+type DayInCalendar = {
+    date: Date,
+    events: MeetingInCalendar[],
+}
+
+const CalendarMobile: FC<Props> = ({selectedRange, moveSelectedRange, events}) => {
+    const theme = useTheme();
 
     const daysToDisplay = useMemo(() => {
-        const days = [];
+        const days: DayInCalendar[] = [];
         const daysCount = getDaysInMonth(selectedRange.from);
 
         for (let i = 1; i <= daysCount; i++) {
-            days.push(new Date(selectedRange.from.getFullYear(), selectedRange.from.getMonth(), i));
+            const newDate = new Date(selectedRange.from.getFullYear(), selectedRange.from.getMonth(), i);
+            days.push({
+                date: newDate,
+                events: events.filter(({start}) => isSameDay(start!, newDate)),
+            });
         }
 
         return days;
 
-    }, [selectedRange]);
-
+    }, [selectedRange, events]);
 
     return <div>
-        <CalendarToolbar
-            onNavigate={moveSelectedRange}
-            date={selectedRange.from}
-        />
-        <div>
-            {daysToDisplay.map((date) => <div key={date.toString()}>{date.toDateString()}</div>)}
-        </div>
+        <Box sx={{ position: 'sticky', top: 64, background: theme.palette.background.default, zIndex: 1, pt: 1}}>
+            <CalendarToolbar
+                onNavigate={moveSelectedRange}
+                date={selectedRange.from}
+            />
+        </Box>
+        <Box sx={{display: 'grid', gap: 1}}>
+            {daysToDisplay.map(({date, events}) => (
+                <StyledDayInCalendar key={date.toString()}>
+                    <Box>
+                        {events.map((event) => <CalendarEvent event={event}/>)}
+                    </Box>
+                    <Typography variant='body2'>
+                        {format(date, 'd - EEEEEE')}
+                    </Typography>
+                </StyledDayInCalendar>
+            ))}
+        </Box>
     </div>
 };
 

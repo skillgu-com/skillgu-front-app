@@ -16,7 +16,9 @@ const prepareLinkParams = (date: Date) => ({
     day: date.getDate().toString(),
 })
 
-const CalendarEvent: FC<EventWrapperProps> = ({event}) => {
+type Props = Pick<EventWrapperProps, 'event'>
+
+const CalendarEvent: FC<Props> = ({event}) => {
     const [modalAnchorEl, setModalAnchorEl] = useState<null | HTMLElement>(null);
     const isModalOpen = Boolean(modalAnchorEl);
     const openModal = (event: MouseEvent<HTMLButtonElement>) => setModalAnchorEl(event.currentTarget);
@@ -45,7 +47,7 @@ const CalendarEvent: FC<EventWrapperProps> = ({event}) => {
                 <Typography component='span' variant='buttonSm'>
                     {event.title}
                 </Typography>
-                <Typography component='span' variant='buttonSm'>
+                <Typography component='span' variant='buttonSm' sx={{justifySelf: 'flex-end'}}>
                     {format(event.start!, 'HH:mm')}
                 </Typography>
             </StyledCalendarEvent>

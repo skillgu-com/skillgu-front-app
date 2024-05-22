@@ -91,7 +91,7 @@ const CalendarView = () => {
 
     return (
         <Container>
-            <Typography sx={{pt: 5, pb: 3}} variant='h2'>Kalendarz</Typography>
+            <Typography sx={{pt: 5, pb: {sm: 2, md: 3}}} variant='h2'>Kalendarz</Typography>
             {isMD ? (
                 <Calendar
                     calendarProps={{

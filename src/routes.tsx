@@ -7,7 +7,6 @@ import {Navigate} from 'react-router-dom';
 import HomeScreen from './pages/app/HomePage/HomePage';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import BookSession from './pages/app/BookSession/BookSession';
-import Profile from './pages/app/Profiles/Profile';
 import Schedules from './pages/app/Schedules/Schedules';
 import ScheduleForm from './pages/app/Schedules/screens/ScheduleForm/ScheduleForm';
 import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
@@ -33,7 +32,6 @@ import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
-// import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { StudentProfilePage } from './pages/app/StudentProfile';
 import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
@@ -224,12 +222,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         element: <BookSuccess />,
         isProtected: true,
         layoutVersion: 'none',
-    },
-    {
-        path: paths.loggedUserProfile,
-        element: <Profile />,
-        layoutVersion: 'simple',
-        isProtected: true,
     },
     {
         path: paths.registerMentor,

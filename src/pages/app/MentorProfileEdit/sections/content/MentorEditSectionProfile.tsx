@@ -20,7 +20,10 @@ export type MentorEditProfileFormInput = {
     profession: string;
     company: string;
     biography: string;
-    skills: string[];
+    skill: {
+        id: number;
+        name: string;
+    }[];
     services: string[];
     timezone: string;
     language: string;
@@ -32,8 +35,23 @@ type Props = {
     mentorData: MentorData;
 };
 
+// TODO do wyjebania po sprawdzeniu
+const mentorDataa = {
+    skill: [
+        { id: 1, name: "JavaScript" },
+        { id: 2, name: "React" },
+        { id: 3, name: "Node.js" },
+        { id: 4, name: "TypeScript" },
+        { id: 5, name: "GraphQL" }
+    ]
+};
+
 
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
+    //TODO do wyjebania po sprawdzeniu
+    console.log('mentordata z props: ' , mentorData.skill)
+    console.log('mentordata z mentorDataa: ' , mentorDataa.skill)
+
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
@@ -41,7 +59,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: '',
                 company: '',
                 biography: '',
-                skills: mentorData?.skill?.map((skill) => skill.name) || [],
+                skill: mentorDataa.skill,
                 services: [],
                 timezone: '',
                 language: '',
@@ -63,7 +81,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: data.profession,
                 company: data.company,
                 biography: data.biography,
-                skills: data.skills,
+                skill: data.skill,
                 services: data.services,
                 timezone: data.timezone,
                 language: data.language,
@@ -116,15 +134,10 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     }}
                     name='biography'
                 />
-
-                {/*TODO tutaj na dole chyba zjebalem ? */}
-
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Umiejętności"
-
-                    defaultValue={mentorData?.skill?.map((skill) => skill.name) || []}
-                    name='skills'
+                    name='skill'
                     getOptions={getAvailableSkillsService}
                 />
                 <FormAutocompleteDynamic<MentorEditProfileFormInput>

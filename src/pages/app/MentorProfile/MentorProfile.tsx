@@ -71,11 +71,15 @@ export interface MentorData {
         name: string;
     }[];
     linkedin: string | null;
-    websiteURL: string | null;
-    youtubeURL: string | null;
-    instagramURL: string | null;
-    xurl: string | null;
-    facebookURL: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    facebook: string | null;
+    twitter: string | null;
+    github: string | null;
+    dribble: string | null;
+    behance: string | null;
+
 }
 
 export const MentorProfilePage = () => {
@@ -180,11 +184,11 @@ export const MentorProfilePage = () => {
             <Container as={Tag.Section}>
                 <MentorLinks
                     className={clx(styles.onlyMobileFlex, styles.socialLinksMobile)}
-                    instagram={mentorData?.instagramURL ?? "#"}
-                    youtube={mentorData?.youtubeURL ?? "#"}
+                    instagram={mentorData?.instagram ?? "#"}
+                    youtube={mentorData?.youtube ?? "#"}
                     linkedin={mentorData?.linkedin ?? "#"}
-                    twitter={mentorData?.xurl ?? "#"}
-                    facebook={mentorData?.facebookURL ?? "#"}
+                    twitter={mentorData?.twitter ?? "#"}
+                    facebook={mentorData?.facebook ?? "#"}
                 />
                 <MentorMainWrapper>
                     <main>
@@ -199,11 +203,11 @@ export const MentorProfilePage = () => {
                         <MentorLinks
                             isDesktop
                             className={styles.onlyDesktopFlex}
-                            instagram={mentorData?.instagramURL ?? "#"}
-                            youtube={mentorData?.youtubeURL ?? "#"}
+                            instagram={mentorData?.instagram ?? "#"}
+                            youtube={mentorData?.youtube ?? "#"}
                             linkedin={mentorData?.linkedin ?? "#"}
-                            twitter={mentorData?.xurl ?? "#"}
-                            facebook={mentorData?.facebookURL ?? "#"}
+                            twitter={mentorData?.twitter ?? "#"}
+                            facebook={mentorData?.facebook ?? "#"}
                         />
                     </main>
                     <aside>

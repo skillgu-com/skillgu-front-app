@@ -59,11 +59,14 @@ export interface MentorData {
         name: string;
     }[];
     linkedin: string | null;
-    websiteURL: string | null;
-    youtubeURL: string | null;
-    instagramURL: string | null;
-    xurl: string | null;
-    facebookURL: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    facebook: string | null;
+    github: string | null;
+    dribble: string | null;
+    behance: string | null;
 }
 
 export const MentorProfileEditPage = () => {
@@ -133,7 +136,7 @@ export const MentorProfileEditPage = () => {
             <Container as={Tag.Section}>
                 <MentorEditSectionPersonalData mentorData={mentorData}/>
                 <MentorEditSectionProfile mentorData={mentorData}/>
-                <MentorEditSectionLinks/>
+                <MentorEditSectionLinks mentorData={mentorData}/>
                 <Typography variant='h2' color='secondary' sx={{display: 'block', margin: '48px 0 24px'}}>
                     Ustawienia konta
                 </Typography>

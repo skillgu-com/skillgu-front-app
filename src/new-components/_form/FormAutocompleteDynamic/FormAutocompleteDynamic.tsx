@@ -4,7 +4,7 @@ import {
     FieldValues, Control, ControllerProps, FormState
 } from "react-hook-form"
 import TextField, {TextFieldProps} from '@mui/material/TextField';
-import React, {useCallback, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Autocomplete, CircularProgress, Collapse} from "@mui/material";
 import {StyledFeedbackWrapper, StyledInputWrapper} from "@newComponents/_form/FormInputText/FormInputText.styles";
 import Typography from "@mui/material/Typography";
@@ -20,8 +20,7 @@ interface Props<T extends FieldValues> {
     inputProps?: TextFieldProps;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
     getOptions: (query: string, abortController: AbortController) => Promise<readonly DropdownOption[]>;
-    defaultValue?: any; // Dodaj defaultValue
-
+    defaultValue?: any;
 }
 
 const FormAutocompleteDynamic = <T extends FieldValues>({
@@ -35,26 +34,31 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
                                                             getOptions,
                                                             defaultValue
                                                         }: Props<T>) => {
-
     const [options, setOptions] = useState<readonly DropdownOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const abortController = useMemo(() => new AbortController(), []);
 
     const updateOptions = useCallback(async (query: string) => {
         setIsLoading(true);
-        // TODO test API call cancelations
-        abortController.abort();
-        const newOptions = await getOptions(query, abortController);
+        const newAbortController = new AbortController();
+        const newOptions = await getOptions(query, newAbortController);
         setOptions(newOptions);
-        setIsLoading(false)
-    }, [abortController])
+        setIsLoading(false);
+    }, [getOptions]);
 
     const feedback: InputFeedbackProps[] = useMemo(() => {
         if (customFeedback) return customFeedback;
-        const error = formState.errors[name]
+        const error = formState.errors[name];
         if (!error) return [];
-        return [{message: error.message as string, severity: 'error'}];
+        return [{ message: error.message as string, severity: 'error' }];
     }, [formState, customFeedback, name]);
+
+    useEffect(() => {
+        if (defaultValue && defaultValue.length > 0) {
+            setIsLoading(true);
+            setOptions(defaultValue);
+            setIsLoading(false);
+        }
+    }, [defaultValue]);
 
     return (
         <StyledInputWrapper>
@@ -63,9 +67,9 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
                 name={name}
                 control={control}
                 defaultValue={defaultValue}
-                render={({field}) => (
+                render={({ field }) => (
                     <Autocomplete
-                        filterOptions={(filtered) => filtered}
+                        filterOptions={(x) => x}
                         multiple
                         options={options}
                         getOptionLabel={(option) => option.label}
@@ -81,10 +85,10 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
                                 InputProps={{
                                     ...params.InputProps,
                                     endAdornment: (
-                                        <React.Fragment>
-                                            {isLoading ? <CircularProgress color="inherit" size={20}/> : null}
+                                        <>
+                                            {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
                                             {params.InputProps.endAdornment}
-                                        </React.Fragment>
+                                        </>
                                     ),
                                 }}
                                 {...inputProps}
@@ -98,13 +102,14 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
             />
             <Collapse in={feedback && !!feedback.length}>
                 <StyledFeedbackWrapper>
-                    {feedback && feedback.map(({message, severity}, index) => {
-                        return <InputFeedback key={`${message}_${index}`} message={message} severity={severity}/>
-                    })}
+                    {feedback && feedback.map(({ message, severity }, index) => (
+                        <InputFeedback key={`${message}_${index}`} message={message} severity={severity} />
+                    ))}
                 </StyledFeedbackWrapper>
             </Collapse>
         </StyledInputWrapper>
-    )
+    );
 }
+
 
 export default FormAutocompleteDynamic;

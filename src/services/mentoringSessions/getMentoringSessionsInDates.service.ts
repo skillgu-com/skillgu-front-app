@@ -1,5 +1,4 @@
-import axios from "axios";
-import prepareParams from "../../helpers/prepareParams";
+
 import {MentoringSessionInListDTO, MentoringSessionInListT} from "./mentoringSession.types";
 import {GetMentoringSessionsInDatesServiceParams} from "./getMentoringSessionsInDates.types";
 import {parseMentoringSessionInListForFE} from "./mentoringSession.parsers";
@@ -18,8 +17,8 @@ const mentorMock: Mentor = {
     special: 'Specjalista',
     specialVariant: 'success',
     skill: [
-        { id: 1, name: "Zarządzanie zespołami" },
-        { id: 2, name: "Wdrożenia technologii" }
+        { label: "1", value: "Zarządzanie zespołami" },
+        { label: "2", value: "Wdrożenia technologii" }
     ],
     title: 'Doświadczony Menedżer IT',
 }

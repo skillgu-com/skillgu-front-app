@@ -60,8 +60,6 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
         }
     }, [defaultValue]);
 
-
-    console.log('defaultValue',defaultValue)
     return (
         <StyledInputWrapper>
             {label && <Typography variant='body2'>{label}</Typography>}

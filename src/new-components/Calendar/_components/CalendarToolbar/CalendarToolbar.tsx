@@ -6,7 +6,7 @@ import {ReactComponent as ArrowLeft} from '@icons/svg/arrow-left.svg';
 import {ReactComponent as ArrowRight} from '@icons/svg/arrow-right.svg';
 import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
 
-type Props = ToolbarProps<Event>;
+type Props = Pick<ToolbarProps<Event>, 'onNavigate' | 'date'>;
 
 const CalendarToolbar: FC<Props> = ({date, onNavigate}) => {
 
@@ -14,7 +14,7 @@ const CalendarToolbar: FC<Props> = ({date, onNavigate}) => {
     const onNext = useCallback(() => onNavigate('NEXT'), [onNavigate]);
 
     return (
-        <Box sx={{pb: 3, display: 'flex', justifyContent: 'space-between'}}>
+        <Box sx={{pb: 1, mb: 2, display: 'flex', justifyContent: 'space-between'}}>
             <Typography variant='body1' fontWeight={600}>{format(date, 'MMMM yyyy')}</Typography>
             <Box sx={{display: 'flex', gap: 1.5}}>
                 <FullSizeIconButton onClick={onPrev}>

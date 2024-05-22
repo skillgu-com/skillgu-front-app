@@ -13,7 +13,7 @@ type Props = {
 // TODO set dimensions
 const skeletonDimensions = {
     width: '100%',
-    height: 50
+    height: 185
 }
 
 const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
@@ -25,15 +25,15 @@ const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
     const [searchParams] = useSearchParams()
     useEffect(() => {
         const eventIdToOpen = searchParams.get('mentoringSessionId');
-        if(eventIdToOpen) {
+        if(eventIdToOpen && !isLoading) {
             setOpenEventId(eventIdToOpen);
             const element = document.querySelector(`#mentoringSessionId-${eventIdToOpen}`)
             if(element) element.scrollIntoView({behavior: 'smooth', block: 'center'});
         }
-    }, [searchParams]);
+    }, [searchParams, isLoading]);
 
     return (
-        <Box sx={{ display: 'grid', gap: 3, pt: 3 }}>
+        <Box sx={{ display: 'grid', gap: 3, pt: 2 }}>
             {isLoading
                 ? (
                     <>

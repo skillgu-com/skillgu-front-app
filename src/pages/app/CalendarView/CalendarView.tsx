@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import {useQuery} from "@tanstack/react-query";
-import {lastDayOfMonth, setDate} from "date-fns";
+import {getMonth, lastDayOfMonth, setDate, setMonth} from "date-fns";
 
 import
     getMentoringSessionsInDatesService
@@ -9,8 +9,9 @@ import
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
 import Calendar from "@newComponents/Calendar/Calendar";
 import Typography from "@mui/material/Typography";
-import {Container} from "@mui/material";
-import {Event} from "react-big-calendar";
+import {Container, Theme, useMediaQuery} from "@mui/material";
+import {Event, NavigateAction} from "react-big-calendar";
+import CalendarMobile from "@newComponents/Calendar/_mobile/CalendarMobile/CalendarMobile";
 
 export type MeetingInCalendar = Event & {
     metadata: {
@@ -24,7 +25,22 @@ const generateDayKey = (date: Date) => `${date.getFullYear()}/${date.getMonth()}
 
 
 const CalendarView = () => {
-    const [selectedRange, setSelectedRange] = useState({from: new Date(), to: new Date()});
+    const [selectedRange, setSelectedRange] = useState(
+        {
+            from: setDate(new Date(), 1),
+            to: lastDayOfMonth(new Date())
+        });
+
+    const moveSelectedRange = (navigateAction: NavigateAction) => {
+        setSelectedRange((prevState) => {
+            const newMonth = getMonth(prevState.from) + (navigateAction === 'PREV' ? -1 : 1);
+            return {
+                from: setMonth(prevState.from, newMonth),
+                to: setMonth(prevState.to, newMonth),
+            }
+        });
+    }
+
     const updateSelectedRange = (newDate: Date) => {
         const from = setDate(newDate, 1);
         const to = lastDayOfMonth(newDate);
@@ -71,15 +87,24 @@ const CalendarView = () => {
 
     }, [data]);
 
+    const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));
+
     return (
         <Container>
-            <Typography sx={{pt: 5, pb: 3}} variant='h2'>Kalendarz</Typography>
-            <Calendar
-                calendarProps={{
-                    events,
-                    onNavigate: updateSelectedRange
-                }}
-            />
+            <Typography sx={{pt: 5, pb: {sm: 2, md: 3}}} variant='h2'>Kalendarz</Typography>
+            {isMD ? (
+                <Calendar
+                    calendarProps={{
+                        events,
+                        onNavigate: updateSelectedRange
+                    }}
+                />) : (
+                <CalendarMobile
+                    events={events}
+                    moveSelectedRange={moveSelectedRange}
+                    selectedRange={selectedRange}
+                />
+            )}
         </Container>
     );
 };

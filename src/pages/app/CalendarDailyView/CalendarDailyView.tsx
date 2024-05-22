@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import Typography from "@mui/material/Typography";
-import {Box, Container} from "@mui/material";
+import {Box, Container, Theme, useMediaQuery, useTheme} from "@mui/material";
 import {ReactComponent as ArrowLeft} from '@icons/svg/arrow-left.svg';
 import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
 import {Link, useParams} from "react-router-dom";
@@ -13,6 +13,8 @@ import getMentoringSessionsInDatesService, {
 import CalendarDailyAgenda from "@newComponents/CalendarDailyAgenda/CalendarDailyAgenda";
 
 const CalendarDailyView = () => {
+    const theme = useTheme();
+
     const {year, month, day} = useParams() as { year: string, month: string, day: string };
 
     const date = useMemo(() => new Date(+year, +month - 1, +day), [year, month, day]);
@@ -27,16 +29,28 @@ const CalendarDailyView = () => {
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
     });
 
+    const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));
+
     return (
         <Container>
-            <Typography sx={{pt: 5, pb: 3}} variant='h2'>Kalendarz</Typography>
-            <Box sx={{display: 'flex', gap: 3, alignItems: 'center'}}>
+            <Typography sx={{pt: 5, pb: 2}} variant='h2'>Kalendarz</Typography>
+            <Box sx={{
+                display: 'flex',
+                gap: 3,
+                alignItems: 'center',
+                position: 'sticky',
+                top: {sm: 64, md: 0},
+                background: theme.palette.background.default,
+                zIndex: 1,
+                pb: 1,
+                pt: 1,
+            }}>
                 <Link to={paths.calendar}>
                     <FullSizeIconButton>
                         <ArrowLeft/>
                     </FullSizeIconButton>
                 </Link>
-                <Typography variant='h2'>
+                <Typography variant={isMD ? 'h3' : 'subtitle1'}>
                     {format(date, 'dd MMMM yyyy')}
                 </Typography>
             </Box>

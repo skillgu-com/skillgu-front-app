@@ -27,6 +27,7 @@ type Props = {
 const CELL_SIZE = 150
 
 const Calendar: FC<Props> = ({calendarProps}) => {
+
     return (
         <StyledCalendarWrapper cellSize={CELL_SIZE}>
             <BigCalendar

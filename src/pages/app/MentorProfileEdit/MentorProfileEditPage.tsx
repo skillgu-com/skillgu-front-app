@@ -104,7 +104,7 @@ export const MentorProfileEditPage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData)
-            console.log('res.data',res.data)
+            console.log('res.data', res.data)
         });
     }, []);
 
@@ -115,7 +115,7 @@ export const MentorProfileEditPage = () => {
                 btnText='Zobacz profil'
                 btnHref={`/mentor/${mentorId}`}
                 company={mentorData?.company}
-                coverUrl="/images/header-banner-bg.jpg"
+                coverUrl={mentorData?.coverImage}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
                 location={mentorData?.location}

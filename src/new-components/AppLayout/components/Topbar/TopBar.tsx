@@ -7,7 +7,7 @@ import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './Topbar.module.scss';
 import {useSelector} from 'react-redux';
-import {fetchUserImageFile} from "../../../../services/tobBar.service";
+import {fetchUserImageFile} from "@services/files/files.service";
 
 const TopBar = () => {
     const user = useSelector((state: any) => state.auth?.user);

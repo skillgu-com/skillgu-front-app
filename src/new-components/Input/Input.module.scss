@@ -1,5 +1,6 @@
 @use '@styles/variables' as *;
 @use '@styles/mixins' as *;
+@use '@styles/font' as *;
 
 .input {
 	&Label {
@@ -54,6 +55,13 @@
 			border: 2px solid $success-color;
 		}
 	}
+}
+
+.textMaxLength {
+	@extend %text-caption;
+	color: $colour-base-600;
+	display: block;
+	margin-top: 12px;
 }
 
 textarea.inputField {

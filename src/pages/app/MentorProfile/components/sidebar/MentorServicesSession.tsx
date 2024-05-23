@@ -83,6 +83,7 @@ export const MentorServicesSession = ({
       ) : null}
 
       <ServiceInfoBox
+        title="Informacje dotyczące sesji"
         meetingForm="video"
         maxAttendees={5}
         information="Link do spotkania dostaniesz po zatwierdzeniu terminu"

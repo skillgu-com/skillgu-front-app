@@ -1,4 +1,5 @@
 @use '../../../scss/variables' as *;
+@use '../../../scss/font' as *;
 
 .content {
 	display: grid;
@@ -18,5 +19,61 @@
 	.content {
 		transform: translateY(-70px);
 		margin-left: 70px;
+	}
+}
+
+.title {
+	@extend %text-subtitle-2;
+	color: $colour-primary;
+	margin: 0 0 32px;
+}
+
+.wrapper {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px 32px 64px;
+
+	> aside {
+		flex: 300;
+		order: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	> main {
+		flex: 725;
+		order: 2;
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+
+		> section {
+			display: flex;
+			flex-direction: column;
+			gap: 48px;
+		}
+	}
+
+	@media screen and (min-width: $lg) {
+		flex-direction: row;
+		gap: 29px;
+		padding: 43px 32px 72px;
+
+		aside {
+			order: 2;
+		}
+	
+		main {
+			order: 1;
+		}
+	}
+
+	.formWrapper {
+		@extend %box-border;
+		padding: 32px 24px;
 	}
 }

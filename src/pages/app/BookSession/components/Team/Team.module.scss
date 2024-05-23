@@ -1,17 +1,45 @@
-@use '../../../../../scss/variables' as *; 
+@use "../../../../../scss/variables" as *;
 
 .button {
   background-color: transparent;
   margin-top: 16px;
-	font-size: 12px;
-	font-weight: 600;
-	line-height: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
   color: $link-color;
   cursor: pointer;
 }
 
-.removeButton{
-  grid-column: 1/-1!important;
+.removeButton {
+  grid-column: 1/-1 !important;
   text-align-last: left;
   margin: 16px 0 0;
+}
+
+.header {
+  margin: 24px 0;
+}
+
+.footer {
+  margin: 24px 0 0;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  > li {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .input {
+      flex: 1;
+    }
+
+    @media screen and (min-width: $lg) {
+      flex-direction: row;
+    }
+  }
 }

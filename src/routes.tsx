@@ -113,7 +113,8 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.sessionBook,
         element: <BookSession />,
-        layoutVersion: 'simple',
+        layoutVersion: 'default',
+        // layoutVersion: 'simple',
         isProtected: true,
     },
     {

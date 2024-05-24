@@ -130,6 +130,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Tematy"
                     name='mentorTopics'
+                    defaultValue={mentorData?.mentorTopics || []}
                     getOptions={getAvailableTopicsService}
                 />
                 <FormCheckboxesDynamic<MentorEditProfileFormInput>

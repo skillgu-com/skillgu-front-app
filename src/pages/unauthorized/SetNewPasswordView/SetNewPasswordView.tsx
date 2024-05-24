@@ -38,7 +38,8 @@ const SetNewPasswordView = () => {
             password: data.password,
             repeatPassword: data.repeatPassword,
             changeToken: params.changeToken,
-            userToken: params.userToken
+            userToken: params.userToken,
+            email: ''
         });
         if (response.success) {
             navigate(paths.login, {replace: true});

@@ -3,10 +3,13 @@ export type SetNewPasswordInput = {
     repeatPassword: string;
     changeToken: string;
     userToken: string;
+    email: string;
 }
 
 export type SetNewPasswordDTO = {
     password: string;
-    token: string;
-    userId: string;
+    repeatPassword: string;
+    changeToken: string;
+    userToken: string;
+    email: string;
 }

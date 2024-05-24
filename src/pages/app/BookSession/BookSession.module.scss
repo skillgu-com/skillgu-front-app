@@ -1,5 +1,5 @@
-@use '../../../scss/variables' as *;
-@use '../../../scss/font' as *;
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
 
 .content {
 	display: grid;
@@ -15,7 +15,7 @@
 	cursor: pointer;
 }
 
-@media screen and (min-width: $lg) {
+@media screen and (min-width: $xl) {
 	.content {
 		transform: translateY(-70px);
 		margin-left: 70px;
@@ -34,7 +34,6 @@
 	justify-content: center;
 	flex-direction: column;
 	gap: 16px;
-	padding: 16px 32px 64px;
 
 	> aside {
 		flex: 300;
@@ -42,6 +41,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 24px;
+		background-color: $colour-base-200;
+		padding: 24px 20px 32px;
 	}
 
 	> main {
@@ -50,6 +51,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 40px;
+		padding: 16px 32px 64px;
+		overflow: hidden;
+		width: 100%;
 
 		> section {
 			display: flex;
@@ -58,17 +62,20 @@
 		}
 	}
 
-	@media screen and (min-width: $lg) {
+	@media screen and (min-width: $xl) {
 		flex-direction: row;
 		gap: 29px;
 		padding: 43px 32px 72px;
 
-		aside {
+		> aside {
 			order: 2;
+			padding: 0;
+			background-color: transparent;
 		}
-	
-		main {
+
+		> main {
 			order: 1;
+			padding: 0;
 		}
 	}
 

@@ -36,7 +36,7 @@ const Info = (props: InfoProps) => {
 			<h4 className={styles.position}>{position}</h4>
 			<div className={styles.details}>
 				<h5 className={styles.sessionTitle}>{sessionTitle}</h5>
-				<p className={styles.time}>{time} minut</p>
+				<p className={styles.time}>{time} minut  </p>
 				<p className={styles.payment}>Do zapłaty</p>
 				<p className={styles.price}>
 					{price} <span>zł</span> <small>z VAT</small>

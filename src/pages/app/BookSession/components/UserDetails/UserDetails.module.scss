@@ -30,4 +30,11 @@
             }
         }
     }
+
+    .textarea textarea {
+        height: auto;
+        resize: none;
+        overflow: auto;
+        min-height: 126px;
+    }
 }

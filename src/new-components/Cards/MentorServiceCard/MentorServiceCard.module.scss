@@ -1,4 +1,5 @@
 @use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
 
 .wrapper {
 	background-color: $light-color;
@@ -8,16 +9,17 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	justify-items: center;
-	padding: 16px 20px;
+	// padding: 16px 20px;
 	position: relative;
 	text-decoration: none;
 
 	@media (min-width: $md) {
-		padding: 24px;
+		// padding: 24px;
 	}
 
 	.header {
 		width: 100%;
+		padding: 16px 20px;
 	}
 
 	.user {
@@ -36,6 +38,7 @@
 		}
 
 		.userHeader {
+			flex: 1;
 		}
 	}
 
@@ -126,10 +129,10 @@
 		justify-content: flex-start;
 	}
 
-	.reviewsLg,
 	.reviews {
 		display: flex;
 		gap: 12px;
+		align-self: flex-start;
 
 		span {
 			color: $secondary-color;
@@ -144,59 +147,16 @@
 		}
 	}
 
-	.reviews {
-		display: flex;
 
-		@media (min-width: $lg) {
-			display: none;
-		}
-	}
-
-	.reviewsLg {
-		display: none;
-		flex: 1;
-		align-items: center;
-		justify-content: flex-end;
-		flex-wrap: wrap;
-
-		@media (min-width: $lg) {
-			display: flex;
-		}
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 16px;
-
-		.tag {
-			color: $colour-base-800;
-			background-color: $colour-base-200;
-			font-family: $font-family-montserrat;
-			font-size: map-get($font-size, xxs);
-			font-weight: 600;
-			line-height: 21.6px;
-			text-align: left;
-			border-radius: 24px;
-			padding: 8px 16px;
-			display: block;
-
-			&.clickable:hover {
-				background-color: $primary-color;
-				cursor: pointer;
-			}
-		}
-	}
 
 	.body {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		margin: 16px 0 24px;
+		padding: 8px 16px 16px;
 		width: 100%;
 
 		@media (min-width: $md) {
-			margin: 24px 0 24px;
 			gap: 16px;
 		}
 	}
@@ -205,6 +165,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		padding: 16px 16px 24px;
 
 		.price {
 			align-self: flex-end;
@@ -217,6 +178,25 @@
 				align-self: unset;
 			}
 		}
+	}
+
+	.rowInfo {
+		display: flex;
+		gap: 16px;
+		align-items: flex-start;
+		justify-content: flex-start;
+		border-top: 1px dashed $box-border-colour;
+		padding: 16px;
+		width: 100%;
+	}
+
+	.infoCell {
+		@extend %text-caption;
+		color: $colour-base-600;
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		justify-content: flex-start;
 	}
 
 	.moreBtn {
@@ -236,23 +216,25 @@
 	.descriptionWrapper {
 		display: flex;
 		flex-direction: column;
+		position: relative;
+	}
+
+	.cover {
+		position: absolute;
+		background-image: linear-gradient(to top, rgb(255, 255, 255) calc(100% - 30px), rgba(255, 255, 255, 0));
+		top: 20px;
+		right: 0;
+		width: 100%;
+		height: calc(100% - 20px);
+		content: "";
+		transition: 0.5s;
+		opacity: 1;
 	}
 
 	.animateDescriptionContent {
 		position: relative;
 		transition: 0.5s;
 
-		&::after {
-			position: absolute;
-			background-image: linear-gradient(to top, rgb(255, 255, 255) calc(100% - 30px), rgba(255, 255, 255, 0));
-			bottom: 0;
-			right: 0;
-			width: 100%;
-			height: calc(100% - 20px);
-			content: "";
-			transition: 0.5s;
-			opacity: 1;
-		}
 
 		&.animateDescriptionContentExpanded::after {
 			opacity: 0;

@@ -10,7 +10,6 @@ export const Actions = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Submit", state);
     e.preventDefault();
     navigate(`/session-book/1/payment`);
   };

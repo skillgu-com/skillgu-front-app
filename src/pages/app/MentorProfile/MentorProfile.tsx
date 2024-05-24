@@ -3,7 +3,7 @@ import Container from "src/new-components/Container/Container";
 import {MentorReviewsConnected} from "@newComponents/_connected";
 import {Tag} from "src/types/tags";
 import {MentorHeader, MentorHeaderWrapper} from "./components";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
     MentorContent,
     MentorLinks,
@@ -29,6 +29,7 @@ import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/Lan
 import clx from 'classnames'
 import {useSelector} from "react-redux";
 import {DropdownOption} from "@customTypes/dropdownOption";
+import paths from "../../../paths";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -107,11 +108,18 @@ export const MentorProfilePage = () => {
     const handleSubmitMentoring = (opt: ServiceMentoring) => {
         console.log("ORDER Mentoring, ", opt);
     };
-    const handleSubmitSession = (opt: ServiceSession) => {
-        console.log("ORDER Session, ", opt);
-    };
+    const navigate = useNavigate();
+
+
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
+
     const closePopup = () => setPopupSession(null);
+
+
+    const handleSubmitSession = (opt: ServiceSession) => {
+        console.log('ServiceSession in MentorProfile: ',opt)
+        navigate(paths.sessionBook,{state: opt});
+    };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
     useEffect(() => {

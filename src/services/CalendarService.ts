@@ -2,7 +2,7 @@ import { CalendarSlot } from "@customTypes/booking";
 import axios from "axios";
 
 type Input = {
-    mentorId: number
+    mentorID: number
     sessionID: number
 } 
 

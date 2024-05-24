@@ -10,6 +10,7 @@ export type ServiceInfoBoxProps = {
   maxAttendees?: number;
   information?: string;
   title?: string;
+  className?: string
 };
 
 export const ServiceInfoBox = ({
@@ -17,9 +18,10 @@ export const ServiceInfoBox = ({
   maxAttendees,
   information,
   title,
+  className,
 }: ServiceInfoBoxProps) => {
   return meetingForm || maxAttendees || information ? (
-    <div className={clx(styles.infoBox, styles.border)}>
+    <div className={clx(styles.infoBox, styles.border, className)}>
       {title ? (
         <p className={styles.infoBox_title}>{title}</p>
       ) : null}

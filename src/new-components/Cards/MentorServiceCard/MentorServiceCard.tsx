@@ -10,6 +10,9 @@ import clx from "classnames";
 import StarSvg from "@icons/StarSvg";
 import { SpecialVariant } from "@customTypes/mentor";
 import { ServiceInfoBox, ServiceInfoBoxProps } from "@newComponents/_grouped";
+import { Divider } from "@mui/material";
+import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
 
 type MentorServiceCardProps = Pick<
   ServiceInfoBoxProps,
@@ -27,7 +30,7 @@ type MentorServiceCardProps = Pick<
   serviceDuration: number;
 };
 
-const DEFAULT_DESCRIPTION_HEIGHT = 50;
+const DEFAULT_DESCRIPTION_HEIGHT = 60;
 const DESC_EXPAND_LENGTH = 90;
 
 export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
@@ -72,12 +75,6 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
               >
                 {fullName}
               </Title>
-              <div className={styles.reviews}>
-                <div className={styles.stars}>
-                  <StarSvg />
-                </div>
-                <span>{reviewsCount}</span>
-              </div>
             </div>
             <Title
               tag={TitleTag.h3}
@@ -86,6 +83,12 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
             >
               {profession}
             </Title>
+          </div>
+          <div className={styles.reviews}>
+            <div className={styles.stars}>
+              <StarSvg />
+            </div>
+            <span>{reviewsCount}</span>
           </div>
         </div>
       </div>
@@ -110,6 +113,12 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
                     descriptionHeight !== initialDescriptionHeight,
                 })}
               >
+                <div
+                  className={styles.cover}
+                  style={{
+                    display: descriptionHeight === "auto" ? "none" : "block",
+                  }}
+                />
                 <Title
                   tag={TitleTag.h4}
                   variant={TitleVariant.standard}
@@ -145,18 +154,27 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
             </>
           )}
         </div>
-        <div>
-          <div>{servicePrice}</div>
-          <div>{serviceDuration}</div>
-        </div>
       </div>
-      <div className={styles.footer}>
-        <ServiceInfoBox
-          meetingForm={meetingForm}
-          maxAttendees={maxAttendees}
-          information={information}
-        />
+      <div className={styles.rowInfo}>
+        {servicePrice ? (
+          <div className={styles.infoCell}>
+            <DollarCircleIcon />
+            {Math.ceil(servicePrice / 100)} zł/h
+          </div>
+        ) : null}
+        {serviceDuration ? (
+          <div className={styles.infoCell}>
+            <ClockSolidCircleIcon />
+            {serviceDuration} min
+          </div>
+        ) : null}
       </div>
+      <ServiceInfoBox
+        className={styles.footer}
+        meetingForm={meetingForm}
+        maxAttendees={maxAttendees}
+        information={information}
+      />
     </div>
   );
 };

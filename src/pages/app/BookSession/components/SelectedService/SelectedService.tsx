@@ -17,7 +17,7 @@ export const SelectedService = () => {
       reviewsAvgRate={String(state.mentor.reviewsAvgRate)}
       reviewsCount={String(state.mentor.reviewsCount)}
       title={state.mentor.title}
-      initialDescriptionHeight={40}
+      initialDescriptionHeight={90}
       servicePrice={6000}
       serviceDuration={30}
     />

@@ -14,6 +14,7 @@ import MentoringSessionMeetingDetails
     from "@newComponents/_mentoringMeeting/MentoringSessionMeetingDetails/MentoringSessionMeetingDetails";
 import MentoringSessionJoinButton
     from "@newComponents/_mentoringMeeting/MentoringSessionJoinButton/MentoringSessionJoinButton";
+import useConfirmationModalContext from "../../../context/ConfirmationModalContext";
 
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
@@ -32,6 +33,25 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      contact,
                                                      meetingLink
                                                  }) => {
+    const {showConfirmationDialog} = useConfirmationModalContext();
+
+    const onCancel = async () => {
+        const {decision} = await showConfirmationDialog({
+            title: 'Odwołaj spotkanie',
+            body: 'Czy jesteś pewny, że chcesz odwołać spotkanie?',
+            buttons: [
+                {
+                    label: 'Tak, odwołaj spotkanie',
+                    action: {decision: true},
+                    buttonProps: {
+                        variant: 'contained',
+                        color: 'error'
+                    }
+                }
+            ]
+        });
+    }
+
     return (
         <StyledCard>
             <Box sx={{gridArea: 'timeRange'}} id={`mentoringSessionId-${id}`}>
@@ -60,7 +80,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         <Button sx={{ gridArea: 'changeMeetingButton'}} color='secondary' variant='contained'>
                             Przełóż spotkanie
                         </Button>
-                        <Button sx={{ gridArea: 'cancelMeetingButton'}} color='error' variant='contained'>
+                        <Button onClick={onCancel} sx={{ gridArea: 'cancelMeetingButton'}} color='error' variant='contained'>
                             Odwołaj
                         </Button>
                         <Box sx={{ gridArea: 'joinMeetingButton'}}>

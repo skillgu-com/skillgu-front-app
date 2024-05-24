@@ -17,6 +17,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import SimpleLayout from "@newComponents/SimpleLayout/SimpleLayout";
 import AuthContextProvider from "./context/AuthContextProvider";
+import {ConfirmationModalProvider} from "./context/ConfirmationModalContext";
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 if (!stripeKey) throw new Error('Stripe key not provided, check environment variables');
@@ -44,33 +45,35 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
-                <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
-                    <BrowserRouter>
-                        <AuthContextProvider>
-                            <Elements stripe={stripePromise}>
-                                <Routes>
-                                    {routes.map(
-                                        ({isProtected, path, element, id, layoutVersion}) => (
-                                            <Route
-                                                key={id}
-                                                path={path}
-                                                element={
-                                                    isProtected ? (
-                                                        <ProtectedRoute>
-                                                            {resolveLayout(element, layoutVersion)}
-                                                        </ProtectedRoute>
-                                                    ) : (
-                                                        resolveLayout(element, layoutVersion)
-                                                    )
-                                                }
-                                            />
-                                        )
-                                    )}
-                                </Routes>
-                            </Elements>
-                        </AuthContextProvider>
-                    </BrowserRouter>
-                </SnackbarProvider>
+                <ConfirmationModalProvider>
+                    <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
+                        <BrowserRouter>
+                            <AuthContextProvider>
+                                <Elements stripe={stripePromise}>
+                                    <Routes>
+                                        {routes.map(
+                                            ({isProtected, path, element, id, layoutVersion}) => (
+                                                <Route
+                                                    key={id}
+                                                    path={path}
+                                                    element={
+                                                        isProtected ? (
+                                                            <ProtectedRoute>
+                                                                {resolveLayout(element, layoutVersion)}
+                                                            </ProtectedRoute>
+                                                        ) : (
+                                                            resolveLayout(element, layoutVersion)
+                                                        )
+                                                    }
+                                                />
+                                            )
+                                        )}
+                                    </Routes>
+                                </Elements>
+                            </AuthContextProvider>
+                        </BrowserRouter>
+                    </SnackbarProvider>
+                </ConfirmationModalProvider>
             </ThemeProvider>
             {process.env.REACT_APP_SHOW_RQ_DEVTOOLS && <ReactQueryDevtools initialIsOpen={false}/>}
         </QueryClientProvider>

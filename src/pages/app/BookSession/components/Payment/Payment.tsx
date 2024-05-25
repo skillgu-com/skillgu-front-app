@@ -9,9 +9,6 @@ export const Payment = () => {
   const [clientSecret, setClientSecret] = useState("");
   const bookSession = useSelector((state: any) => state.book.bookSessionState);
 
-
-  console.log('wyglada tak',bookSession)
-
   useEffect(() => {
     createCheckoutSession(bookSession).then((res) => {
       setClientSecret(res.data.clientSecret);

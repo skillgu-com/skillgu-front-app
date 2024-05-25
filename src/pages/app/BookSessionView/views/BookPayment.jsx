@@ -24,7 +24,6 @@ const BookPayment = ({changeStepHandler}) => {
 
     useEffect(() => {
         createCheckoutSession(sessionData).then(res => {
-            console.log(sessionData)
             setClientSecret(res.data.clientSecret)
         });
 

@@ -20,8 +20,8 @@ import {
     TitleTag,
     TitleVariant,
 } from "src/new-components/typography/Title/Title";
-import {fetchCalendarSession} from "src/services/CalendarService";
 import {ServiceSession} from "@customTypes/order";
+import {fetchCalendarSession} from "@services/calendar/calendarService";
 
 interface BookFormProps {
     selectTermHandler: (term: Date) => void;

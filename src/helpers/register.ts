@@ -1,8 +1,8 @@
 // Libraries
 import {NavigateFunction} from 'react-router-dom';
 // Services
-import {registerAccount} from '../services/AuthenticationService';
 import paths from "../paths";
+import {registerAccount} from "@services/auth/authenticationService";
 
 export const register = (
 	firstName: string,

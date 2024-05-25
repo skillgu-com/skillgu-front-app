@@ -29,8 +29,6 @@ const paths = {
     calendar: '/calendar',
     calendarDaily: '/calendar/:year/:month/:day',
     rescheduleMeeting: '/reschedule-meeting/:id',
-    sessionsMentoring: '/sessions-mentorings',
-    scheduleMeeting: '/schedule-meeting',
     accountView: '/account-view',
     createMentoring: '/create-mentoring',
     createSession: '/create-session',

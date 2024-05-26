@@ -15,12 +15,15 @@ import MentoringSessionMeetingDetails
 import MentoringSessionJoinButton
     from "@newComponents/_mentoringMeeting/MentoringSessionJoinButton/MentoringSessionJoinButton";
 import useConfirmationModalContext from "../../../context/ConfirmationModalContext";
+import cancelMentoringSessionById from "@services/mentoringSessions/cancelMentoringSessionById.service";
+import {QueryKey, useMutation, useQueryClient} from "@tanstack/react-query";
+import {useSnackbar} from "notistack";
 
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
     onToggle: () => void;
+    queryKey: QueryKey
 }
-
 
 const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      isOpen,
@@ -31,9 +34,23 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      id,
                                                      title,
                                                      contact,
-                                                     meetingLink
+                                                     meetingLink,
+    queryKey
                                                  }) => {
+    const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient();
     const {showConfirmationDialog} = useConfirmationModalContext();
+
+    const cancelMutation = useMutation({
+        mutationFn: cancelMentoringSessionById,
+        onSuccess: () => {
+            enqueueSnackbar('Spotkanie zostało odwołane', {variant: 'success'});
+            queryClient.invalidateQueries({ queryKey });
+        },
+        onError: () => {
+            enqueueSnackbar('Wystąpił błąd podczas odwoływania spotkania', {variant: 'error'})
+        }
+    });
 
     const onCancel = async () => {
         const {decision} = await showConfirmationDialog({
@@ -50,6 +67,10 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 }
             ]
         });
+
+        if (decision) {
+            cancelMutation.mutate(id);
+        }
     }
 
     return (
@@ -77,14 +98,15 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         />
                     </Box>
                     <StyledButtonsWrapper>
-                        <Button sx={{ gridArea: 'changeMeetingButton'}} color='secondary' variant='contained'>
+                        <Button sx={{gridArea: 'changeMeetingButton'}} color='secondary' variant='contained'>
                             Przełóż spotkanie
                         </Button>
-                        <Button onClick={onCancel} sx={{ gridArea: 'cancelMeetingButton'}} color='error' variant='contained'>
+                        <Button onClick={onCancel} sx={{gridArea: 'cancelMeetingButton'}} color='error'
+                                variant='contained'>
                             Odwołaj
                         </Button>
-                        <Box sx={{ gridArea: 'joinMeetingButton'}}>
-                        <MentoringSessionJoinButton meetingUrl={meetingLink}/>
+                        <Box sx={{gridArea: 'joinMeetingButton'}}>
+                            <MentoringSessionJoinButton meetingUrl={meetingLink}/>
                         </Box>
                     </StyledButtonsWrapper>
                 </Collapse>

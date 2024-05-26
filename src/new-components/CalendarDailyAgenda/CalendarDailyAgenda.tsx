@@ -12,7 +12,6 @@ type Props = {
     queryKey: QueryKey
 }
 
-// TODO set dimensions
 const skeletonDimensions = {
     width: '100%',
     height: 185

@@ -84,7 +84,7 @@ const Button: React.FC<
       ),
       "data-variant": variant,
     };
-  }, [classes, id, fullWidth, disableButton]);
+  }, [props, fullWidth, size, classes, variant]);
   
   // Returned JSX
   switch (as) {

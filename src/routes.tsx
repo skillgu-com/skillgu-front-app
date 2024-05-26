@@ -7,7 +7,6 @@ import {Navigate} from 'react-router-dom';
 import HomeScreen from './pages/app/HomePage/HomePage';
 import SearchMentors from './pages/app/SearchMentors/SearchMentors';
 import BookSession from './pages/app/BookSession/BookSession';
-import Profile from './pages/app/Profiles/Profile';
 import Schedules from './pages/app/Schedules/Schedules';
 import ScheduleForm from './pages/app/Schedules/screens/ScheduleForm/ScheduleForm';
 import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
@@ -16,13 +15,9 @@ import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/Register
 // Screens
 import Raports from './pages/app/Raports/Raports';
 import CalendarView from './pages/app/CalendarView/CalendarView';
-import MentoringAndSessionDashboard from './pages/app/MentoringAndSessionDashboard/MentoringAndSessionDashboard';
-import MeetingSchedule from './pages/app/MeetingScheduleView/MeetingSchedule';
 import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
 import MessagesView from './pages/app/MessagesView/MessagesView';
 import SchedulesView from './pages/app/SchedulesView';
-import CreateMentorPlan from './pages/app/MentoringAndSessionDashboard/CreateMentorPlan';
-import CreateSingleSession from './pages/app/MentoringAndSessionDashboard/CreateSingleSession';
 import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
 
 import RemindPasswordView from "./pages/unauthorized/RemindPasswordView/RemindPasswordView";
@@ -33,7 +28,6 @@ import {LayoutVersion} from "@customTypes/layoutVersion";
 import {MentorProfilePage} from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
-// import LoggedProfile from "./pages/app/LoggedUserProfile/LoggedProfile";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { StudentProfilePage } from './pages/app/StudentProfile';
 import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
@@ -113,7 +107,8 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.sessionBook,
         element: <BookSession />,
-        layoutVersion: 'simple',
+        layoutVersion: 'default',
+        // layoutVersion: 'simple',
         isProtected: true,
     },
     {
@@ -171,30 +166,7 @@ const routesRaw: Omit<Route, 'id'>[] = [
         isProtected: true,
         layoutVersion: 'default',
     },
-    {
-        path: paths.sessionsMentoring,
-        element: <MentoringAndSessionDashboard />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.scheduleMeeting,
-        element: <MeetingSchedule />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.createMentoring,
-        element: <CreateMentorPlan />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.createSession,
-        element: <CreateSingleSession />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
+
     {
         path: paths.reports,
         element: <Raports />,
@@ -224,12 +196,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         element: <BookSuccess />,
         isProtected: true,
         layoutVersion: 'none',
-    },
-    {
-        path: paths.loggedUserProfile,
-        element: <Profile />,
-        layoutVersion: 'simple',
-        isProtected: true,
     },
     {
         path: paths.registerMentor,

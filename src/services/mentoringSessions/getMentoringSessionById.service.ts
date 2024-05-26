@@ -21,8 +21,8 @@ const getMock = () => new Promise<MentoringSessionDTO>((resolve) => {
             special: 'Specjalista',
             specialVariant: 'success',
             skill: [
-                {id: 1, name: "Zarządzanie zespołami"},
-                {id: 2, name: "Wdrożenia technologii"}
+                {value: '1', label: "Zarządzanie zespołami"},
+                {value: '2', label: "Wdrożenia technologii"}
             ],
             title: 'Doświadczony Menedżer IT',
         },

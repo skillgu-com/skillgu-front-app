@@ -21,6 +21,7 @@ $colour-base-600: #8E9ABB;
 $colour-base-800: #56658F;
 $colour-error-100: #F51F59;
 $colour-error-200: #F9EBEB;
+$colour-success-100: #34C759;
 
 $font-base: 10px;
 
@@ -61,3 +62,12 @@ $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
 $duration: 0.25s;
+
+$box-border-colour: $colour-base-400;
+$box-border: 1px solid $box-border-colour;
+$box-border-radius: 14px;
+
+%box-border {
+	border: $box-border;
+	border-radius: $box-border-radius;
+}

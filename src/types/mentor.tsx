@@ -1,3 +1,5 @@
+import {DropdownOption} from "@customTypes/dropdownOption";
+
 export type FilterName =
   | "priceMin"
   | "priceMax"
@@ -55,10 +57,7 @@ export type Mentor = {
   reviewsCount: number;
   special: string;
   specialVariant: SpecialVariant;
-  skill: {
-    id: number;
-    name: string;
-  }[];
+  skill: DropdownOption[];
   title: string;
 };
 

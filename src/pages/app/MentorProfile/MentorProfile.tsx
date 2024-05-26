@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Container from "src/new-components/Container/Container";
 import {MentorReviewsConnected} from "@newComponents/_connected";
 import {Tag} from "src/types/tags";
 import {MentorHeader, MentorHeaderWrapper} from "./components";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
     MentorContent,
     MentorLinks,
@@ -28,6 +28,8 @@ import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from 'classnames'
 import {useSelector} from "react-redux";
+import {DropdownOption} from "@customTypes/dropdownOption";
+import paths from "../../../paths";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -53,29 +55,20 @@ export interface MentorData {
     coverImage: string;
     specialVariant: SpecialVariant;
     userID: number;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
-
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    mentorTopics: DropdownOption[];
+    mentorCategory: DropdownOption[];
     linkedin: string | null;
-    websiteURL: string | null;
-    youtubeURL: string | null;
-    instagramURL: string | null;
-    xurl: string | null;
-    facebookURL: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    facebook: string | null;
+    twitter: string | null;
+    github: string | null;
+    dribble: string | null;
+    behance: string | null;
+
 }
 
 export const MentorProfilePage = () => {
@@ -83,6 +76,17 @@ export const MentorProfilePage = () => {
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
+
+    const useIsMentorLoggedUser = (mentorDat: MentorData) => {
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        const mentorIsLoggedUser = useMemo(() => {
+            return userFromRedux?.id === mentorData?.userID;
+        }, [userFromRedux, mentorData]);
+
+        return mentorIsLoggedUser;
+    };
+    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
 
     // @TODO: get user id from sesion/jwt
@@ -104,11 +108,18 @@ export const MentorProfilePage = () => {
     const handleSubmitMentoring = (opt: ServiceMentoring) => {
         console.log("ORDER Mentoring, ", opt);
     };
-    const handleSubmitSession = (opt: ServiceSession) => {
-        console.log("ORDER Session, ", opt);
-    };
+    const navigate = useNavigate();
+
+
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
+
     const closePopup = () => setPopupSession(null);
+
+
+    const handleSubmitSession = (opt: ServiceSession) => {
+        console.log('ServiceSession in MentorProfile: ',opt)
+        navigate(paths.sessionBook,{state: opt});
+    };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
     useEffect(() => {
@@ -129,21 +140,9 @@ export const MentorProfilePage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData);
+            console.log(res.data)
         });
     }, []);
-
-    function Extracted() {
-        let mentorIsLoggedUser = true;
-
-        const userFromRedux = useSelector((state: any) => state.auth.user);
-
-        if (userFromRedux?.id !== mentorData?.userID) {
-            mentorIsLoggedUser = false;
-        }
-        return mentorIsLoggedUser;
-    }
-
-    let mentorIsLoggedUser = Extracted();
 
 
     useEffect(() => {
@@ -163,13 +162,14 @@ export const MentorProfilePage = () => {
         });
     }, [mentorId]);
 
+
     return (
         <>
             <UserProfileHeader
                 avatarUrl={mentorData?.profileImage || 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg'}
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
                 btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
-                company="Google"
+                company={mentorData?.company}
                 coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
@@ -180,11 +180,11 @@ export const MentorProfilePage = () => {
             <Container as={Tag.Section}>
                 <MentorLinks
                     className={clx(styles.onlyMobileFlex, styles.socialLinksMobile)}
-                    instagram={mentorData?.instagramURL ?? "#"}
-                    youtube={mentorData?.youtubeURL ?? "#"}
+                    instagram={mentorData?.instagram ?? "#"}
+                    youtube={mentorData?.youtube ?? "#"}
                     linkedin={mentorData?.linkedin ?? "#"}
-                    twitter={mentorData?.xurl ?? "#"}
-                    facebook={mentorData?.facebookURL ?? "#"}
+                    twitter={mentorData?.twitter ?? "#"}
+                    facebook={mentorData?.facebook ?? "#"}
                 />
                 <MentorMainWrapper>
                     <main>
@@ -194,15 +194,16 @@ export const MentorProfilePage = () => {
                             contentExpandable={mentorData?.description?.length > 120}
                             skills={mentorData?.skill}
                             services={mentorData?.services}
+                            topics={mentorData?.mentorTopics}
                         />
                         <MentorLinks
                             isDesktop
                             className={styles.onlyDesktopFlex}
-                            instagram={mentorData?.instagramURL ?? "#"}
-                            youtube={mentorData?.youtubeURL ?? "#"}
+                            instagram={mentorData?.instagram ?? "#"}
+                            youtube={mentorData?.youtube ?? "#"}
                             linkedin={mentorData?.linkedin ?? "#"}
-                            twitter={mentorData?.xurl ?? "#"}
-                            facebook={mentorData?.facebookURL ?? "#"}
+                            twitter={mentorData?.twitter ?? "#"}
+                            facebook={mentorData?.facebook ?? "#"}
                         />
                     </main>
                     <aside>

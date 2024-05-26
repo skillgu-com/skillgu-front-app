@@ -5,9 +5,9 @@ export const fetchMentorServices = (): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
         axios.get('/api/mentor/get-all-mentor-services')
             .then(response => {
-                const data: DropdownOption[] = response.data.map((item: any) => ({
-                    label: item.name,
-                    value: item.id
+                const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
+                    label: item.label,
+                    value: item.value
                 }));
                 resolve(data);
             })

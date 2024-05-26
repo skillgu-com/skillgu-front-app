@@ -1,5 +1,6 @@
 import axios from "axios";
 import {SpecialVariant} from "@customTypes/mentor";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 type MentorPersonalData = {
     firstName: string;
@@ -26,44 +27,45 @@ export interface MentorData {
     profileImage: string;
 
     specialVariant: SpecialVariant;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
-
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    // mentorTopics: DropdownOption[];
+    mentorCategory:  DropdownOption[];
     linkedin: string | null;
-    websiteURL: string | null;
-    youtubeURL: string | null;
-    instagramURL: string | null;
-    xurl: string | null;
-    facebookURL: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    facebook: string | null;
+    dribble: string | null;
+    behance: string | null;
     avatarUrl: File[];
     coverUrl: File[];
 }
 
-export interface MentorEditProfileFormInput {
+
+export type MentorEditProfileFormInput = {
     heading: string;
     profession: string;
     company: string;
     biography: string;
-    skills: string[];
-    services: string[];
+    skill: DropdownOption[];
+    services: DropdownOption[];
     timezone: string;
     language: string;
-    categories: [];
-    topics: [];
+    categories: DropdownOption[];
+    mentorTopics: DropdownOption[];
+};
+
+interface MentorEditLinksFormInput {
+    website: string;
+    linkedin: string;
+    twitter: string;
+    github: string;
+    dribble: string;
+    behance: string;
+    youtube: string;
+    facebook: string;
 };
 
 
@@ -96,7 +98,6 @@ const updateUserPersonalData = async (personalData: MentorPersonalData) => {
 
 
 export const updateUserProfile = async (mentorEditSection: MentorEditProfileFormInput) => {
-    console.log('mentorEditSection', mentorEditSection)
     try {
 
         return await axios.patch<string>('/api/user/setting/profile', mentorEditSection);
@@ -107,5 +108,16 @@ export const updateUserProfile = async (mentorEditSection: MentorEditProfileForm
     }
 };
 
+export const updateUserSocialLinks = async (mentorEditLinksSocial: MentorEditLinksFormInput) => {
+    console.log(mentorEditLinksSocial)
+    try {
+
+        return await axios.patch<string>('/api/user/setting/social', mentorEditLinksSocial);
+
+    } catch (error) {
+        console.error(error);
+        throw new Error("Failed to update personal data");
+    }
+}
 
 export default updateUserPersonalData;

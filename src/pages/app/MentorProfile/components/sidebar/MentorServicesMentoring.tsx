@@ -38,12 +38,13 @@ export const MentorServicesMentoring = ({
           Zarezerwuj termin
         </button>
       ) : null}
-      
-      <ServiceInfoBox 
-        meetingForm='video'
+
+      <ServiceInfoBox
+        title="Informacje dotyczące sesji"
+        meetingForm="video"
         maxAttendees={5}
         information="Link do spotkania dostaniesz po zatwierdzeniu terminu"
-      /> 
+      />
     </>
   ) : (
     <p>Brak usług do wyświetlenia</p>

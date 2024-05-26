@@ -1,73 +1,39 @@
-@use '../../../../scss/variables' as *;
+@use "../../../../scss/variables" as *;
+@use "../../../../scss/font" as *;
 
 .wrapper {
-	border-top: 1.5px solid #eff4f9;
-
-	&:last-child {
-		border-bottom: 1.5px solid #eff4f9;
+	.title {
+		@extend %text-button-md;
+		align-items: center;
+		background-color: transparent;
+		border-bottom: 1.5px solid #EBEBEB;
+		color: $secondary-color;
+		cursor: pointer;
+		display: flex;
+		gap: 20px;
+		justify-content: space-between;
+		padding: 20px;
+		text-align: left;
+		width: 100%;
 	}
 
-	.title {
-		display: flex;
-		justify-content: space-between;
-		gap: 20px;
-		padding: 20px 0;
-		width: 100%;
-		font-size: 14px;
-		font-weight: 600;
-		line-height: 24px;
-		text-align: left;
-		color: $secondary-color;
-		background-color: transparent;
-		cursor: pointer;
-
-		.expander {
-			position: relative;
-			width: 11px;
-			height: 11px;
-			margin-top: 0.5em;
-
-			&:before,
-			&:after {
-				content: '';
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				display: block;
-				width: 11px;
-				height: 2px;
-				background: $dark-color;
-				border-radius: 2px;
-			}
-
-			&:before {
-				transform: translate(-50%, -50%);
-			}
-
-			&:after {
-				transform: translate(-50%, -50%) rotate(90deg) scale(1);
-				transform-origin: center;
-				transition: transform 0.24s;
-			}
-		}
+	.expander {
+		font-size: 24px;
+		transition: 0.6s;
 	}
 
 	.description {
-		width: calc(100% - 25px);
-		padding: 0 0 20px;
-		font-size: 12px;
-		font-weight: 400;
-		line-height: 16px;
-		color: $secondary-color;
+		@extend %text-button-sm;
+		color: $colour-base-800;
+		height: auto;
+		margin-top: 4px;
+		padding: 20px;
+		visibility: visible;
 	}
 
-	&[data-is-current='true'] {
-		.title {
-			.expander {
-				&:after {
-					transform: translate(-50%, -50%) rotate(90deg) scale(0);
-				}
-			}
+	&[data-is-current="true"] {
+		.expander {
+			transform: rotate(90deg);
 		}
 	}
 }

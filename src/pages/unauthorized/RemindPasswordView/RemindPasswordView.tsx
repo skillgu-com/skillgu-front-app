@@ -23,6 +23,7 @@ const RemindPasswordView = () => {
 
     const onSubmit: SubmitHandler<RemindPasswordFormInput> = async ({email}) => {
         const {success} = await sendRemindPasswordEmailService(email)
+        console.log(success)
         if(success) navigate(paths.passwordResetLinkSent)
         else enqueueSnackbar('Nie udało się wysłać e-maila z linkiem do resetowania hasła', {variant: 'error'})
     }

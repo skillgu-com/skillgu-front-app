@@ -36,7 +36,6 @@ export const fetchAllSchedules = async () => {
 }
 
 export const deleteSchedule = async (scheduleID) => {
-    console.log('scheduleID do usuniecia to: ', scheduleID)
     try {
         const response = await axios.post(`/api/1.0/schedule/delete?scheduleID=${scheduleID}`);
         return response.data;

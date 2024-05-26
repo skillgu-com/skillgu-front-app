@@ -16,6 +16,7 @@ import {Typography} from "@mui/material";
 import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import {SpecialVariant} from "@customTypes/mentor";
+import {DropdownOption} from "@customTypes/dropdownOption";
 
 /**
  *
@@ -41,29 +42,20 @@ export interface MentorData {
     coverImage: string;
     userID: number;
     specialVariant: SpecialVariant;
-    services: {
-        id: number;
-        name: string;
-    }[];
-    skill: {
-        id: number;
-        name: string;
-    }[];
-    mentorTopics: {
-        id: number;
-        name: string;
-    }[];
+    services: DropdownOption[];
+    skill: DropdownOption[];
+    mentorTopics: DropdownOption[];
 
-    mentorCategory: {
-        id: number;
-        name: string;
-    }[];
+    mentorCategory: DropdownOption[];
     linkedin: string | null;
-    websiteURL: string | null;
-    youtubeURL: string | null;
-    instagramURL: string | null;
-    xurl: string | null;
-    facebookURL: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    facebook: string | null;
+    github: string | null;
+    dribble: string | null;
+    behance: string | null;
 }
 
 export const MentorProfileEditPage = () => {
@@ -112,7 +104,7 @@ export const MentorProfileEditPage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData)
-            console.log(res.data)
+            console.log('res.data', res.data)
         });
     }, []);
 
@@ -123,7 +115,7 @@ export const MentorProfileEditPage = () => {
                 btnText='Zobacz profil'
                 btnHref={`/mentor/${mentorId}`}
                 company={mentorData?.company}
-                coverUrl="/images/header-banner-bg.jpg"
+                coverUrl={mentorData?.coverImage}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
                 location={mentorData?.location}
@@ -133,7 +125,7 @@ export const MentorProfileEditPage = () => {
             <Container as={Tag.Section}>
                 <MentorEditSectionPersonalData mentorData={mentorData}/>
                 <MentorEditSectionProfile mentorData={mentorData}/>
-                <MentorEditSectionLinks/>
+                <MentorEditSectionLinks mentorData={mentorData}/>
                 <Typography variant='h2' color='secondary' sx={{display: 'block', margin: '48px 0 24px'}}>
                     Ustawienia konta
                 </Typography>

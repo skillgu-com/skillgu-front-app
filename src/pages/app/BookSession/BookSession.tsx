@@ -1,79 +1,169 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from "react";
 // Components
-import Container from 'src/new-components/Container/Container';
-import Info from './components/Info/Info';
-import BookForm from './components/BookForm/BookForm';
-import Payment from './components/Payment/Payment';
-import Modal from 'src/new-components/Modal/Modal';
-import SessionCard from 'src/new-components/Cards/SessionCard/SessionCard';
+import {Actions, Calendar, SelectedDate, SelectedService, Team, UserDetails,} from "./components";
+import {Payment} from "./components/Payment/Payment";
 // Types
-import {Tag} from 'src/types/tags';
 // Styles
-import styles from './BookSession.module.scss';
+import styles from "./BookSession.module.scss";
 import {useDispatch, useSelector} from "react-redux";
+//
+import {faqRows} from "./config";
+import FAQ from "src/new-components/FAQ/Accordion";
+import {useBookingReducer} from "src/reducers/booking";
+import {fetchMentorServices} from "@services/mentor/fetchMentorServices.service";
+import {ServiceSession} from "@customTypes/order";
+import {useLocation} from "react-router-dom";
 
 interface BookSessionProps {
-	payment?: boolean;
+    payment?: boolean;
+}
+interface SessionState {
+    id: number;
+    sessionType: string;
+    sessionPrice: number;
+    description: string;
+    meetTime: number;
+    mentorID: number;
 }
 
-const BookSession = (props: BookSessionProps) => {
-	const {payment} = props;
-	const dispatch = useDispatch();
-	const [term, setTerm] = useState<Date | undefined>(undefined);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+const BookSession = ({payment}: BookSessionProps) => {
+    const [term, setTerm] = useState<Date | undefined>(undefined);
+    const selectTermHandler = (term: Date) => {
+        setTerm(term);
+    };
+
+    const [state] = useBookingReducer();
+    const dispatch = useDispatch();
+
+    const location = useLocation();
 
 
-	const selectTermHandler = (term: Date) => {setTerm(term);};
-	return (
-		<>
-			<Container as={Tag.Section}>
-				<div className={styles.content}>
-					<Info
-						fullName='Jan Kowalski TEST'
-						position='Tester oprogramowania'
-						descripiton={
-							<>
-								{'sessionProcess?.description'}{' '}
-								<button className={styles.button} onClick={() => setIsModalOpen(true)}>
-									Czytaj wiecej
-								</button>
-							</>
-						}
-						price={1000}
-						time={1111}
-						imageUrl='https://cdn.pixabay.com/photo/2024/01/10/16/22/man-8499961_1280.jpg'
-						sessionTitle={'sessionProcess?.name'}
-						term={term}
-					/>
-					{!payment ? (
-						<BookForm selectTermHandler={selectTermHandler} />
-					) : (
-						<Payment />
-					)}
-				</div>
-			</Container>
-			{isModalOpen && (
-				<Modal
-					title='Wszystkie dostępne sesje'
-					closeHandler={() => setIsModalOpen(false)}>
-					<SessionCard
-						title='Konsultacja z eksperte TEST'
-						time={60}
-						price={500}
-						description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'
-					/>
-					<SessionCard
-						title='Wspólne programowanie'
-						time={60}
-						price={500}
-						description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fu...'
-					/>
-				</Modal>
-			)}
-		</>
-	);
+    const formattedDate = term ? term.toLocaleDateString() : "";
+    const formattedTime = term ? term.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+
+    const fetchInitialRef = useRef<boolean>(false);
+
+    const element = location.state as SessionState;
+
+    useEffect(() => {
+        if (element) {
+            const { id, sessionType, sessionPrice, description, meetTime, mentorID } = element;
+
+            dispatch({
+                type: 'SET_SESSION_IN_FORM',
+                payload: {
+                    sessionID: id,
+                    name: sessionType,
+                    time: meetTime,
+                    sessionPrice: sessionPrice,
+                    description: description,
+                    mentorID: mentorID,
+                },
+            });
+        }
+    }, [dispatch, element]);
+
+
+
+    // useEffect(() => {
+    //     const loadSlots = async () => {
+    //         try {
+    //             const slots = await fetchCalendarSession({
+    //                 mentorID: sessionData.mentorID,
+    //                 sessionID: Number.parseInt(sessionData?.id),
+    //             });
+    //             if (slots.status === 200 && Array.isArray(slots.data)) {
+    //                 dispatch({
+    //                     type: "SET_SLOTS",
+    //                     payload: {slots: slots.data as CalendarSlot[]},
+    //                 });
+    //             }
+    //         } catch (e) {
+    //             console.error("Failed to load calendar slots.");
+    //         }
+    //     };
+    //     if (state.mentor && state.service) {
+    //         loadSlots();
+    //     }
+    // }, [dispatch, state.mentor, state.service]);
+
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                const services = await fetchMentorServices({mentorId: "1"});
+                const mentors = await fetch(`/search-mentor-results-mocked.json`).then(
+                    (d) => d.json()
+                );
+                if (services.success && services.mentoring.length) {
+                    dispatch({
+                        type: "SET_SERVICE",
+                        payload: {service: services.mentoring[0]},
+                    });
+                }
+                if (
+                    mentors &&
+                    "mentors" in mentors &&
+                    mentors.mentors &&
+                    Array.isArray(mentors.mentors) &&
+                    mentors.mentors.length
+                ) {
+                    dispatch({
+                        type: "SET_MENTOR",
+                        payload: {mentor: mentors.mentors[0]},
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load mentor/service data.");
+            }
+            fetchInitialRef.current = true;
+        };
+
+        if (!fetchInitialRef.current) {
+            fetchInitialData();
+        }
+    }, [dispatch]);
+
+    return (
+        <>
+            <div className={styles.wrapper}>
+                {payment ? null : (
+                    <aside>
+                        <SelectedService/>
+                        <SelectedDate selectedDate={formattedDate} selectedTime={formattedTime}/>
+                    </aside>
+                )}
+
+                <main>
+                    {payment ? (
+                        <section>
+                            <Payment/>
+                        </section>
+                    ) : (
+                        <section>
+                            <Calendar selectTermHandler={selectTermHandler}/>
+
+                            <div>
+                                <h3 className={styles.title}>Szczegóły sesji</h3>
+
+                                <div className={styles.formWrapper}>
+                                    <UserDetails/>
+
+                                    <Team/>
+                                </div>
+                            </div>
+
+                            <Actions/>
+                        </section>
+                    )}
+
+                    <section>
+                        <FAQ title="FAQ" elements={faqRows}/>
+                    </section>
+                </main>
+            </div>
+        </>
+    );
 };
 
 export default BookSession;

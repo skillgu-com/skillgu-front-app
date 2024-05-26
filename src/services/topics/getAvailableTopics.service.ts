@@ -6,10 +6,12 @@ const fetchMentorTopics = (query: string): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
         axios.get('/api/mentor/get-all-mentoring-topics')
             .then(response => {
-                const data: DropdownOption[] = response.data.map((item: any) => ({
-                    label: item.name,
-                    value: item.id
+                const data: DropdownOption[] = response.data.map((item: DropdownOption, index: number) => ({
+                    label: item.label,
+                    value: index + 1
                 }));
+                console.log('response data',response.data)
+                console.log('data',data)
 
                 setTimeout(() => {
                     if (!query) {

@@ -5,20 +5,27 @@ import Camera from "@icons/Camera";
 import People from "@icons/People";
 import { LinkIcon } from "@icons/LinkIcon";
 
-type Props = {
+export type ServiceInfoBoxProps = {
   meetingForm?: "video";
   maxAttendees?: number;
   information?: string;
+  title?: string;
+  className?: string
 };
 
 export const ServiceInfoBox = ({
   meetingForm,
   maxAttendees,
   information,
-}: Props) => {
+  title,
+  className,
+}: ServiceInfoBoxProps) => {
   return meetingForm || maxAttendees || information ? (
-    <div className={clx(styles.infoBox, styles.border)}>
-      <p className={styles.infoBox_title}>Informacje dotyczące sesji</p>
+    <div className={clx(styles.infoBox, styles.border, className)}>
+      {title ? (
+        <p className={styles.infoBox_title}>{title}</p>
+      ) : null}
+
       <ul className={styles.infoBox_list}>
         {meetingForm && meetingForm === "video" ? (
           <li className={styles.infoBox_row}>

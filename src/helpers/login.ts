@@ -2,10 +2,10 @@
 import {Dispatch, useEffect} from 'react';
 import {NavigateFunction} from 'react-router-dom';
 // Service
-import {loginGoogleUser, loginUser} from '../services/AuthenticationService';
 import {parseUserFromJwt} from './parseUserFromJwt';
 import {fetchUserIDByEmail} from '../services/UserProfileService';
 import paths from "../paths";
+import {loginGoogleUser, loginUser} from "@services/auth/authenticationService";
 
 type SuccessResponse = { success: true, userData: ReturnType<typeof parseUserFromJwt> & { id: string } };
 type ErrorResponse = { success: false, errorMessage: string };

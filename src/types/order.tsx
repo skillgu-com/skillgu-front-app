@@ -18,6 +18,7 @@ export type ServiceMentoring = {
 }
 
 export type ServiceSession = {
+    mentorID: number;
     id: string
     meetTime: number
     scheduleName: string

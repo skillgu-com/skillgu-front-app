@@ -10,58 +10,61 @@ import Source from 'src/assets/icons/Source';
 import styles from './SocialLink.module.scss';
 
 interface SocialLinkProps {
-	link: string;
-	type:
-		| 'linkedInURL'
-		| 'youtubeURL'
-		| 'instagramURL'
-		| 'facebookURL'
-		| 'websiteURL'
-		| 'youtube';
+    link: string;
+    type:
+        | 'linkedin'
+        | 'youtube'
+        | 'instagram'
+        | 'facebook'
+        | 'website'
+        | 'youtube'
+        | 'twitter'
+        | 'behance'
+        | 'dribble';
 }
 
 const SocialLink = (props: SocialLinkProps) => {
-	const {link, type} = props;
+    const {link, type} = props;
 
-	const icon = useMemo(() => {
-		switch (type) {
-			case 'linkedInURL':
-				return <LinkedIn />;
-			case 'instagramURL':
-				return <Instagram />;
-			case 'youtubeURL':
-			case 'youtube':
-				return <YouTube />;
-			default:
-				return <Website />;
-		}
-	}, [type]);
+    const icon = useMemo(() => {
+        switch (type) {
+            case 'linkedin':
+                return <LinkedIn/>;
+            case 'instagram':
+                return <Instagram/>;
+            case 'youtube':
+            case 'youtube':
+                return <YouTube/>;
+            default:
+                return <Website/>;
+        }
+    }, [type]);
 
-	const text = useMemo(() => {
-		switch (type) {
-			case 'linkedInURL':
-				return 'Linkedin';
-			case 'instagramURL':
-				return 'Instagram';
-			case 'youtubeURL':
-			case 'youtube':
-				return 'youtube';
-			default:
-				return 'Strona www';
-		}
-	}, [type]);
+    const text = useMemo(() => {
+        switch (type) {
+            case 'linkedin':
+                return 'Linkedin';
+            case 'instagram':
+                return 'Instagram';
+            case 'youtube':
+            case 'youtube':
+                return 'youtube';
+            default:
+                return 'Strona www';
+        }
+    }, [type]);
 
-	return (
-		<a href={link} target='_blank' rel='noreferrer' className={styles.link}>
+    return (
+        <a href={link} target='_blank' rel='noreferrer' className={styles.link}>
 			<span className={styles.title}>
 				{icon} {text}
 			</span>
-			<span className={styles.source}>
+            <span className={styles.source}>
 				{link.slice(0, 19)}
-				{link.length > 19 && '...'} <Source />
+                {link.length > 19 && '...'} <Source/>
 			</span>
-		</a>
-	);
+        </a>
+    );
 };
 
 export default SocialLink;

@@ -1,13 +1,15 @@
 import {SetNewPasswordDTO, SetNewPasswordInput} from "./setNewPassword.types";
 import axios from "axios";
 
-const inputParser = (input: SetNewPasswordInput): SetNewPasswordDTO => {
-    return {
-        password: input.password,
-        token: input.changeToken,
-        userId: input.userToken
-    }
-}
+// const inputParser = (input: SetNewPasswordInput): SetNewPasswordDTO => {
+//     return {
+//         // password: input.password,
+//         // token: input.changeToken,
+//         // userId: ,
+//         // repeatPassword: input.repeatPassword,
+//         // email: input.email
+//     }
+// }
 
 type SetNewPasswordServiceResponse = Promise<
     | { success: true }
@@ -16,8 +18,9 @@ type SetNewPasswordServiceResponse = Promise<
 
 const setNewPasswordService = async (inputData: SetNewPasswordInput): SetNewPasswordServiceResponse => {
     // TODO MENTEE
+
     try {
-        const { status } = await axios.post('/auth/set-new-password', inputParser(inputData));
+        const { status } = await axios.post('/auth/set-new-password', inputData);
 
         console.log(status)
         if(!status || status >= 300) throw 'Coś poszło nie tak';
@@ -26,5 +29,8 @@ const setNewPasswordService = async (inputData: SetNewPasswordInput): SetNewPass
         return { success: false, errorMessage: typeof e === 'string' ? e : 'Coś poszło nie tak' };
     }
 }
+
+
+
 
 export  default setNewPasswordService

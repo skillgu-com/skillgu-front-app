@@ -39,11 +39,6 @@ export const fetchUserIDByEmail = async (email) => {
     return await axios.post(`/api/user/fetch-user-id-by-email/${email}`)
 }
 
-export const settingUser = async (userSettingState) => {
-    console.log(userSettingState)
-    return await axios.patch('/api/user/setting-user', userSettingState)
-}
-
 export const fetchAllUserData = async () => {
     return await axios.get('/api/user/setting/get-all-users-data');
 }

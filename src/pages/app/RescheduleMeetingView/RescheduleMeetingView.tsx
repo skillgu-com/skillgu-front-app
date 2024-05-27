@@ -10,8 +10,12 @@ const RescheduleMeetingView = () => {
     return (
         <Container>
             {/* TODO set spacing*/}
-            <Typography sx={{}} variant='h2'>Ustal nowy termin spotkania</Typography>
-            <Typography sx={{}} variant='body2'>Wybierz nowy termin spotkania. Spotkanie zostanie automatycznie przełożone.</Typography>
+            <Typography sx={{pt: 5}} variant='h2'>
+                Ustal nowy termin spotkania
+            </Typography>
+            <Typography sx={{ pt: 2, pb: 2 }} variant='body2'>
+                Wybierz nowy termin spotkania. Spotkanie zostanie automatycznie przełożone.
+            </Typography>
             <MentoringSessionReschedule meetingId={meetingId} />
         </Container>
     )

@@ -1,17 +1,12 @@
 // Libraries
-import React, {FormEvent, useEffect, useState} from "react";
-import {Calendar as ReactCalendar, momentLocalizer} from "react-big-calendar";
-import moment from "moment";
+import React, { useEffect, useState} from "react";
 import classNames from "classnames";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useLocation, useParams} from "react-router-dom";
+import {useDispatch,} from "react-redux";
 
 // Components
-import Input, {defaultInput} from "src/new-components/Input/Input";
+import {defaultInput} from "src/new-components/Input/Input";
 import {Title} from "src/new-components/typography";
-import Button from "src/new-components/Button/Button";
-import FAQ from "src/new-components/FAQ/Accordion";
-import Checkbox from "src/new-components/Checkbox/Checkbox";
 
 // Styles
 import styles from "./BookForm.module.scss";
@@ -22,23 +17,10 @@ import {
 } from "src/new-components/typography/Title/Title";
 import {ServiceSession} from "@customTypes/order";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
+import WeeklyCalendarPicker, {CalendarEvent} from "@newComponents/WeeklyCalendarPicker/WeeklyCalendarPicker";
 
 interface BookFormProps {
     selectTermHandler: (term: Date) => void;
-}
-
-const localizer = momentLocalizer(moment);
-
-interface CalendarEvent {
-    id: number;
-    start: Date;
-    end: Date;
-    title: string;
-    allDay: false;
-}
-
-interface ExtendedEvent extends CalendarEvent {
-    available: boolean;
 }
 
 export const Calendar = (props: BookFormProps) => {
@@ -47,6 +29,7 @@ export const Calendar = (props: BookFormProps) => {
     const {selectTermHandler} = props;
 
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
+    // TODO is it necessary to use state here (value is unused)?
     const [term, setTerm] = useState<null | Date>(null);
     const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);
 
@@ -70,7 +53,7 @@ export const Calendar = (props: BookFormProps) => {
         fetchCalendarSession({mentorID: sessionData?.mentorID, sessionID: Number.parseInt(sessionData?.id)})
             .then((res) => {
                 const dataFromApi = res.data;
-                const events: any[] = [];
+                const events: CalendarEvent[] = [];
 
                 dataFromApi.forEach((item: any, index: number) => {
                     const startDateTime = new Date(item.sessionDate + "T" + item.hour);
@@ -127,6 +110,13 @@ export const Calendar = (props: BookFormProps) => {
         setForm({...form, [name]: value});
     };
 
+    const onEventClick = (event: CalendarEvent) => {
+        setCurrentEvent(event.id);
+        selectTermHandler(event.start);
+        updateFormHandler("term", event.start);
+        setTerm(event.start);
+    }
+
     return (
         <section className={styles.wrapper}>
             <Title
@@ -136,54 +126,7 @@ export const Calendar = (props: BookFormProps) => {
             >
                 Wybierz termin i godzinę sesji
             </Title>
-            <ReactCalendar
-                localizer={localizer}
-                view="week"
-                onView={() => null}
-                className={styles.calendar}
-                events={combinedData}
-                startAccessor="start"
-                endAccessor="end"
-                components={{
-                    header: ({date}) => {
-                        return (
-                            <p className={styles.header}>
-                  <span>
-                    {date.toLocaleDateString("pl-PL", {weekday: "short"})}
-                  </span>
-                                <small>
-                                    {date.getDate()}{" "}
-                                    {date.toLocaleString("default", {month: "long"})}
-                                </small>
-                            </p>
-                        );
-                    },
-                    eventWrapper: ({event}) => {
-                        const {available} = event as ExtendedEvent;
-
-                        return (
-                            <button
-                                disabled={!available}
-                                data-is-current={event.id === currentEvent}
-                                className={styles.hour}
-                                onClick={() => {
-                                    setCurrentEvent(event.id);
-                                    selectTermHandler(event.start);
-                                    updateFormHandler("term", event.start);
-                                    setTerm(event.start);
-                                }}
-                            >
-                                {event.start.toLocaleTimeString("pl-PL", {
-                                    hour12: false,
-                                    hour: "numeric",
-                                    minute: "numeric",
-                                })}
-                            </button>
-                        );
-                    },
-                    dateCellWrapper: () => <div className={styles.day}></div>,
-                }}
-            />
+            <WeeklyCalendarPicker onEventClick={onEventClick} selectedEventId={currentEvent} events={combinedData}/>
         </section>
     );
 };

@@ -4,10 +4,9 @@ import {Box, Button} from "@mui/material";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import rescheduleMentoringSessionService from "@services/mentoringSessions/rescheduleMentoringSession.service";
 import {useSnackbar} from "notistack";
-import getMentorAvailabilityByMeetingIdService
-    , {
-    getMentorAvailabilityByMeetingIdServiceKeyGenerator
-} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.service";
+import
+    getMentorAvailabilityByMeetingIdService, {getMentorAvailabilityByMeetingIdServiceKeyGenerator}
+    from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.service";
 import {endOfWeek, EndOfWeekOptions, startOfWeek, StartOfWeekOptions} from "date-fns";
 
 type Props = {

@@ -8,33 +8,30 @@ import getMentorAvailabilityByMeetingIdService
     , {
     getMentorAvailabilityByMeetingIdServiceKeyGenerator
 } from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.service";
-import {lastDayOfMonth, setDate} from "date-fns";
+import {endOfWeek, EndOfWeekOptions, startOfWeek, StartOfWeekOptions} from "date-fns";
 
 type Props = {
     meetingId: string;
 }
+
+const dateFnOptions: StartOfWeekOptions | EndOfWeekOptions = {weekStartsOn: 1};
 
 const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
     const {enqueueSnackbar} = useSnackbar()
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     // availability
-    // TODO week range
     const [selectedRange, setSelectedRange] = useState(
         {
-            from: setDate(new Date(), 1),
-            to: lastDayOfMonth(new Date())
+            from: startOfWeek(new Date(), dateFnOptions),
+            to: endOfWeek(new Date(), dateFnOptions)
         });
 
     const moveSelectedRange = (newDate: Date) => {
-        console.log(newDate);
-        // setSelectedRange((prevState) => {
-        //     const newMonth = getMonth(prevState.from) + (navigateAction === 'PREV' ? -1 : 1);
-        //     return {
-        //         from: setMonth(prevState.from, newMonth),
-        //         to: setMonth(prevState.to, newMonth),
-        //     }
-        // });
+        setSelectedRange({
+            from: startOfWeek(newDate, dateFnOptions),
+            to: endOfWeek(newDate, dateFnOptions),
+        });
     }
 
     const queryParams = useMemo(() => ({
@@ -42,13 +39,13 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
         to: selectedRange.to,
     }), [selectedRange]);
 
-    const { data } = useQuery({
+    const {data} = useQuery({
         queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(meetingId, queryParams),
         queryFn: () => getMentorAvailabilityByMeetingIdService(meetingId, queryParams)
     })
 
     const events: CalendarEvent[] = useMemo(() => {
-        if(!data) return [];
+        if (!data) return [];
 
         return data.map((event) => {
             return {
@@ -76,7 +73,12 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
 
     return (
         <Box sx={{pt: {sm: 0, md: 4}}}>
-            <WeeklyCalendarPicker onNavigate={moveSelectedRange} onEventClick={onEventClick} selectedEventId={selectedEvent} events={events}/>
+            <WeeklyCalendarPicker
+                onNavigate={moveSelectedRange}
+                onEventClick={onEventClick}
+                selectedEventId={selectedEvent}
+                events={events}
+            />
             <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Button onClick={onAcceptClick} disabled={!selectedEvent} sx={{mt: 3, ml: 'auto'}} variant='contained'>
                     Potwierdź nowy termin

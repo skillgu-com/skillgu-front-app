@@ -35,9 +35,10 @@ const getMock = () => new Promise<MentoringSessionDTO>((resolve) => {
 });
 
 const getMentoringSessionById = async (id: string): Promise<MentoringSessionT> => {
-    // TODO API
-    // const { data } =  await axios.get<MentoringSessionDTO>(`/api/1.0/get-all-events/${id}`);
-    const data = await getMock();
+
+    console.log('mentorSessionID: ',id)
+    const { data } =  await axios.get<MentoringSessionDTO>(`/api/1.0/fetch-user-calendar-event-detail/${id}`);
+    // const data = await getMock();
     return parseMentoringSessionForFE(data);
 };
 

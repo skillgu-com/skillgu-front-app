@@ -7,7 +7,7 @@ import {ReactComponent as MobileIcon} from '@icons/svg/mobile_dark.svg';
 
 
 export type Props = {
-    meetingDetails: Pick<MentoringSessionT, 'contact' | 'mentor'>;
+    meetingDetails: Pick<MentoringSessionT, 'participant'>;
     isLoading: false;
 } | {
     meetingDetails: undefined;
@@ -29,7 +29,7 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
 
     return (
         <Box sx={{ display: 'grid', gap: 1.5}}>
-            <Typography variant='buttonMd'>{isLoading ? <Skeleton/> : meetingDetails?.mentor.name}</Typography>
+            <Typography variant='buttonMd'>{isLoading ? <Skeleton/> : meetingDetails?.participant.name}</Typography>
             <Box sx={{display: 'flex', gap: 3, pb: 3}}>
                 <Box sx={{display: 'flex', gap: 1.5, alignItems: 'center'}}>
                     <Box sx={iconSx}>
@@ -39,7 +39,7 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                         {
                             isLoading
                                 ? <Skeleton width={65}/>
-                                : meetingDetails?.contact.mobile
+                                : meetingDetails?.participant.mobile
                         }
                     </Typography>
                 </Box>
@@ -51,7 +51,7 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                         {
                             isLoading
                                 ? <Skeleton width={80}/>
-                                : meetingDetails?.contact.email
+                                : meetingDetails?.participant.email
                         }
                     </Typography>
                 </Box>

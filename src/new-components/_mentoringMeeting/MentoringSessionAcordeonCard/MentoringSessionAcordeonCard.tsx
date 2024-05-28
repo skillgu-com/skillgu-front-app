@@ -35,12 +35,11 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      start,
                                                      end,
                                                      onToggle,
-                                                     mentor,
                                                      id,
                                                      title,
-                                                     contact,
                                                      meetingLink,
-                                                     queryKey
+                                                     queryKey,
+                                                     participant
                                                  }) => {
     const {enqueueSnackbar} = useSnackbar();
     const queryClient = useQueryClient();
@@ -93,14 +92,14 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 <MentoringSessionMeetingDetailsHeader
                     isLoading={false}
                     title={title}
-                    mentorName={mentor?.name}
-                    avatarUrl={mentor?.avatar_url}
+                    mentorName={participant?.name}
+                    avatarUrl={participant?.avatarUrl}
                 />
                 <Collapse in={isOpen}>
                     <Box sx={{pt: 6}}>
                         <MentoringSessionMeetingDetails
                             isLoading={false}
-                            meetingDetails={{mentor, contact}}
+                            meetingDetails={{participant}}
                         />
                     </Box>
                     <StyledButtonsWrapper>

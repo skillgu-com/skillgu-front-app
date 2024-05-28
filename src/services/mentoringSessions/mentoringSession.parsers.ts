@@ -8,15 +8,16 @@ import {
 export const parseMentoringSessionForFE = (data: MentoringSessionDTO): MentoringSessionT => {
     return {
         id: data.id,
-        mentor: data.mentor,
         title: data.title,
         start: new Date(data.start),
         end: new Date(data.end),
         meetingLink: data.meetingLink,
-        contact: {
-            mobile: data.contact.mobile,
-            email: data.contact.email,
-        },
+        participant: {
+            mobile: data.participant.mobile,
+            email: data.participant.email,
+            name: data.participant.name,
+            avatarUrl: data.participant.avatar_url,
+        }
     }
 }
 
@@ -26,8 +27,12 @@ export const parseMentoringSessionInListForFE = (data: MentoringSessionInListDTO
         title: data.title,
         start: new Date(data.start),
         end: new Date(data.end),
-        mentor: data.mentor,
-        contact: data.contact,
         meetingLink: data.meetingLink,
+        participant: {
+            mobile: data.participant.mobile,
+            email: data.participant.email,
+            name: data.participant.name,
+            avatarUrl: data.participant.avatar_url,
+        }
     }
 }

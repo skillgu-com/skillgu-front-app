@@ -48,10 +48,7 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
 
         return {
             isLoading: false,
-            meetingDetails: {
-                contact: data.contact,
-                mentor: data.mentor,
-            }
+            meetingDetails: { participant : data.participant }
         }
     }, [data, isLoading]);
 
@@ -84,8 +81,8 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
                 <MentoringSessionMeetingDetailsHeader
                     isLoading={isLoading}
                     title={data?.title}
-                    mentorName={data?.mentor.name}
-                    avatarUrl={data?.mentor.avatar_url}
+                    mentorName={data?.participant.name}
+                    avatarUrl={data?.participant.avatarUrl}
                 />
                 <Box sx={{pt: 4}}>
                     <MentoringSessionMeetingDetails {...meetingDetailsProps}/>

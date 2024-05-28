@@ -9,27 +9,12 @@ const getMock = () => new Promise<MentoringSessionDTO>((resolve) => {
         start: '2024-05-04T15:30:00',
         end: '2024-05-04T16:30:00',
         meetingLink: 'https://meet.google.com/abc-123',
-        mentor: {
-            id: '111',
-            name: 'Jan Kowalski',
-            description: 'Jan Kowalski jest doświadczonym menedżerem z branży IT. Specjalizuje się w zarządzaniu zespołami oraz wdrażaniu nowych technologii.',
-            avatar_url: 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg',
-            price: 120,
-            profession: 'Menedżer IT',
-            reviewsAvgRate: 3.2,
-            reviewsCount: 12,
-            special: 'Specjalista',
-            specialVariant: 'success',
-            skill: [
-                {value: '1', label: "Zarządzanie zespołami"},
-                {value: '2', label: "Wdrożenia technologii"}
-            ],
-            title: 'Doświadczony Menedżer IT',
-        },
-        contact: {
+        participant: {
             mobile: '123456789',
-            email: 'jakiś@email.com'
-        }
+            email: 'asdasd@wp.pl',
+            avatar_url: 'https://via.placeholder.com/150',
+            name: 'Jan Kowalski',
+        },
     }
     setTimeout(() => resolve(data), 1000);
 });

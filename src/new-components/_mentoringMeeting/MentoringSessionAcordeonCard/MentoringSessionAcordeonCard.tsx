@@ -46,8 +46,8 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 <MentoringSessionMeetingDetailsHeader
                     isLoading={false}
                     title={title}
-                    mentorName={mentor.name}
-                    avatarUrl={mentor.avatar_url}
+                    mentorName={mentor?.name}
+                    avatarUrl={mentor?.avatar_url}
                 />
                 <Collapse in={isOpen}>
                     <Box sx={{pt: 6}}>

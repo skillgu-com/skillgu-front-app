@@ -58,8 +58,6 @@ const CalendarView = () => {
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
     });
 
-    console.log('CalendarView', data)
-
     const events: MeetingInCalendar[] = useMemo(() => {
         if (!data) return [];
 

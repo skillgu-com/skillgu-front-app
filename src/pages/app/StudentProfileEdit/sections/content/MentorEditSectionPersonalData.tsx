@@ -1,15 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {UserEditSection} from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import {Switcher} from "@newComponents/_base/Switcher";
-import FormInputSwitcher from "@newComponents/_form/FormInputSwitcher/FormInputSwitcher";
-import {Typography} from "@mui/material";
-import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
-import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
-import getAvailableSkillsService from "src/services/skills/getAvailableSkills.service";
-import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
 import FormInputFile from "@newComponents/_form/FormUploadFile/FormUploadFile";
 
 export type MentorEditPersonalDataFormInput = {

@@ -30,7 +30,7 @@ export interface MentorData {
     services: DropdownOption[];
     skill: DropdownOption[];
     // mentorTopics: DropdownOption[];
-    mentorCategory:  DropdownOption[];
+    mentorCategory: DropdownOption[];
     linkedin: string | null;
     website: string | null;
     youtube: string | null;
@@ -88,7 +88,7 @@ const updateUserPersonalData = async (personalData: MentorPersonalData) => {
             type: 'application/json'
         }));
 
-        return await axios.patch<MentorData>('/api/user/setting/personal-data', formData);
+        return await axios.patch('/api/user/setting/personal-data', formData);
 
     } catch (error) {
         console.error(error);

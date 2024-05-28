@@ -69,7 +69,7 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                 })
                 registerMenteeDispatch({
                     type: 'SET_USER_ID',
-                    payload: data.userId
+                    payload: data
                 })
             }
 

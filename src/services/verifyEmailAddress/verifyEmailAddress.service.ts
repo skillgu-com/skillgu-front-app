@@ -18,7 +18,7 @@ const parseDataForAPI = (inputData: VerificationFormInput, userId: string): Veri
 }
 
 const verifyEmailAddressService = async (inputData: VerificationFormInput, userId: string): Promise<VerificationResponse> => {
-    const response: AxiosResponse<VerificationResponse> = await axios.post('/api/auth/mentor/verify-email-address', parseDataForAPI(inputData, userId));
+    const response: AxiosResponse<VerificationResponse> = await axios.post('/api/auth/verify/email-address', parseDataForAPI(inputData, userId));
     return response.data;
 }
 

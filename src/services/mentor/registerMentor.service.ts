@@ -15,8 +15,6 @@ const parseDataForAPI = (inputData: MergedRegisterMentorFormInput): RegisterMent
     };
 }
 
-// TODO consider common error handler for services
-
 const registerMentorService = async (inputData: MergedRegisterMentorFormInput) => {
     try {
         const formData = new FormData();
@@ -24,10 +22,7 @@ const registerMentorService = async (inputData: MergedRegisterMentorFormInput) =
         const profilePhoto = inputData.profilePhoto ? inputData.profilePhoto[0] : null;
 
         if (profilePhoto != null) {
-
-
             formData.append('profilePhoto', profilePhoto);
-
             formData.append('formData', new Blob([JSON
                 .stringify(inputData)], {
                 type: 'application/json'

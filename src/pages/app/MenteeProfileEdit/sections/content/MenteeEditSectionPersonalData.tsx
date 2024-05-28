@@ -1,20 +1,14 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {UserEditSection} from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import {Switcher} from "@newComponents/_base/Switcher";
-import FormInputSwitcher from "@newComponents/_form/FormInputSwitcher/FormInputSwitcher";
-import {Typography} from "@mui/material";
-import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
-import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
-import getAvailableSkillsService from "src/services/skills/getAvailableSkills.service";
-import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
 import FormInputFile from "@newComponents/_form/FormUploadFile/FormUploadFile";
+import updateUserPersonalData from "@services/mentor/settingMentor.service";
 
 export type MentorEditPersonalDataFormInput = {
     userID: number;
-    firstname: string;
+    firstName: string;
     surname: string;
     avatarUrl: File[];
     coverUrl: File[];
@@ -27,11 +21,19 @@ interface FormData {
     coverUrl: HTMLInputElement;
 }
 
-export const MentorEditSectionPersonalData = () => {
+
+type MenteePersonalData = {
+    firstName: string;
+    surname: string;
+    avatarUrl: File[];
+    coverUrl: File[];
+};
+
+export const MenteeEditSectionPersonalData = () => {
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditPersonalDataFormInput>({
             defaultValues: {
-                firstname: "",
+                firstName: "",
                 surname: "",
                 avatarUrl: [],
                 coverUrl: [],
@@ -41,12 +43,28 @@ export const MentorEditSectionPersonalData = () => {
     const inputProps = {
         formState: formState,
         control: control,
-        controllerProps: {rules: {required: "Imię jest wymagane"}},
+        controllerProps: {}
     };
 
     const avatarValue = watch('avatarUrl')
     const coverValue = watch('coverUrl')
 
+
+    const onSubmit = async (data: MentorEditPersonalDataFormInput) => {
+        try {
+            const mentorPersonalData: MenteePersonalData = {
+                firstName: data.firstName,
+                surname: data.surname,
+                avatarUrl: avatarValue,
+                coverUrl: coverValue,
+            };
+            const response = await updateUserPersonalData(mentorPersonalData);
+            window.location.reload();
+
+        } catch (error) {
+            console.error('Failed to update personal data', error);
+        }
+    };
 
     return (
         <UserEditSection
@@ -55,33 +73,15 @@ export const MentorEditSectionPersonalData = () => {
             onClose={() => {
                 console.log("onClose");
             }}
-            onSubmit={(e) => {
-                e.preventDefault()
-                const {
-                    firstname,
-                    surname,
-                    avatarUrl,
-                    coverUrl,
-                } = (e.target as HTMLFormElement).elements as unknown as FormData;
+            onSubmit={handleSubmit(onSubmit)}>
 
-
-                console.log("onSubmit", {
-                    firstname,
-                    surname,
-                    avatarUrl,
-                    coverUrl,
-                    avatarValue,
-                    coverValue,
-                });
-            }}
-        >
             <div className={styles.Inputs}>
                 <div className={styles.InputsCols2}>
                     <FormInputText<MentorEditPersonalDataFormInput>
                         {...inputProps}
                         label="Imię"
                         inputProps={{placeholder: "Wprowadź swoje Imię"}}
-                        name="firstname"
+                        name="firstName"
                     />
                     <FormInputText<MentorEditPersonalDataFormInput>
                         {...inputProps}

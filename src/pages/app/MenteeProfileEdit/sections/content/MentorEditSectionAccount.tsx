@@ -3,9 +3,6 @@ import { UserEditSection } from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
-import { Switcher } from "@newComponents/_base/Switcher";
-import FormInputSwitcher from "@newComponents/_form/FormInputSwitcher/FormInputSwitcher";
-import { Typography } from "@mui/material";
 import Pencil from "src/pages/app/Schedules/components/icons/Pencil";
 
 export type MentorEditAccountFormInput = {

@@ -29,8 +29,8 @@ import {MentorProfilePage} from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
-import { StudentProfilePage } from './pages/app/StudentProfile';
-import { StudentProfileEditPage } from './pages/app/StudentProfileEdit';
+import { MenteeProfilePage } from './pages/app/MenteeProfile';
+import { MenteeProfileEditPage } from './pages/app/MenteeProfileEdit';
 
 type Route = {
     id: string;
@@ -43,12 +43,12 @@ type Route = {
 const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.studentProfileEdit,
-        element: <StudentProfileEditPage />,
+        element: <MenteeProfileEditPage />,
         layoutVersion: 'default',
     },
     {
         path: paths.studentProfile,
-        element: <StudentProfilePage />,
+        element: <MenteeProfilePage />,
         layoutVersion: 'default',
     },
     {

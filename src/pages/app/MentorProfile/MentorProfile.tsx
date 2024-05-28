@@ -117,7 +117,6 @@ export const MentorProfilePage = () => {
 
 
     const handleSubmitSession = (opt: ServiceSession) => {
-        console.log('ServiceSession in MentorProfile: ',opt)
         navigate(paths.sessionBook,{state: opt});
     };
 
@@ -140,7 +139,6 @@ export const MentorProfilePage = () => {
     useEffect(() => {
         getMentorProfileByID(mentorId).then((res) => {
             setMentorData(res.data as MentorData);
-            console.log(res.data)
         });
     }, []);
 

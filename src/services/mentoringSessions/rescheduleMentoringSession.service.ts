@@ -2,8 +2,10 @@ import axios from "axios";
 
 // TODO Parse it if needed
 type RescheduleMentoringSessionParams = {
+    // id obecnej sesji
     id: string;
     body: {
+        // id nowego time slotu
         timeSlotId: number;
     }
 }

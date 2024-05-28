@@ -78,8 +78,6 @@ const CalendarView = () => {
                 }
             };
         })
-        console.log(eventsCount)
-
 
         return events.map((event) => ({
             ...event,

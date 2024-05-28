@@ -20,6 +20,9 @@ import {QueryKey, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSnackbar} from "notistack";
 import {generatePath, Link} from "react-router-dom";
 import paths from "../../../paths";
+import {useSelector} from "react-redux";
+import {getRole} from "../../../redux/selectors/authSelectors";
+import {useAccountType} from "../../../hooks/useAccountType";
 
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
@@ -42,6 +45,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
     const {enqueueSnackbar} = useSnackbar();
     const queryClient = useQueryClient();
     const {showConfirmationDialog} = useConfirmationModalContext();
+    	const { isMentor, isStudent} = useAccountType();
 
     const cancelMutation = useMutation({
         mutationFn: cancelMentoringSessionById,
@@ -65,12 +69,14 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     buttonProps: {
                         variant: 'contained',
                         color: 'error'
-                    }
+                    },
+                    blockedByForm: true,
                 }
-            ]
+            ],
+            userInputs: isMentor ? [{label: 'Powód odwołania', key: 'reason', required: true}] : undefined,
         });
 
-        if (decision) cancelMutation.mutate(id);
+        if (decision) cancelMutation.mutate({id, reason: 'asd'});
     }
 
     return (
@@ -104,6 +110,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'
+                            disabled={isMentor}
                         >
                             Przełóż spotkanie
                         </Button>

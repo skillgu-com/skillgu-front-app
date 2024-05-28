@@ -4,26 +4,38 @@ import {ButtonProps, Dialog, DialogTitle, DialogContent, DialogActions, Button, 
 import Typography from "@mui/material/Typography";
 import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
 import {ReactComponent as CloseIcon} from "src/assets/icons/svg/close.svg";
+import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+import {FieldValues, useForm} from "react-hook-form";
 
 // TODO expand it for other use cases
+// TODO find any way to type actionType and userFeedback as generic
 type CloseResponse = {
     decision: boolean;
-    message?: string;
+    actionType?: string;
 }
 
 type ModalButton = {
     buttonProps?: ButtonProps,
     label: string | ReactNode,
     action: CloseResponse,
+    blockedByForm?: boolean;
 };
+
+type FeedbackInput = {
+    label: string,
+    key: string;
+    required?: boolean;
+}
 
 type ModalConfig = {
     title: string | ReactNode,
     body: string | ReactNode,
     buttons: ModalButton[],
+    userInputs?: FeedbackInput[]
 };
 
-type ShowConfirmationModal = (options: ModalConfig) => Promise<CloseResponse>;
+type ShowConfirmationModalReturn = CloseResponse & { userFeedback?: FieldValues };
+type ShowConfirmationModal = (options: ModalConfig) => Promise<ShowConfirmationModalReturn>;
 
 type ConfirmationModalContextType = {
     showConfirmationDialog: ShowConfirmationModal;
@@ -42,6 +54,8 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalConfig, setModalConfig] = useState<null | ModalConfig>(null);
 
+    const form = useForm({  mode: 'all'})
+
     const awaitingConfirmation = useRef<any>(null);
 
     // close action - timeout to prevent empty modal flash
@@ -58,16 +72,18 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
         });
     }, [setIsModalOpen, setModalConfig, awaitingConfirmation]);
 
-    const onCancel = (message = '') => {
+    const onCancel = (actionType = '') => {
         if (awaitingConfirmation.current) {
-            awaitingConfirmation.current.resolve({decision: false, message});
+            const response: ShowConfirmationModalReturn = {decision: false, actionType, userFeedback: form.getValues()}
+            awaitingConfirmation.current.resolve(response);
         }
         closeModal();
     };
 
-    const onConfirm = (message = '') => {
+    const onConfirm = (actionType = '') => {
         if (awaitingConfirmation.current) {
-            awaitingConfirmation.current.resolve({decision: true, message});
+            const response: ShowConfirmationModalReturn = {decision: false, actionType, userFeedback: form.getValues()};
+            awaitingConfirmation.current.resolve(response);
         }
         closeModal();
     };
@@ -79,10 +95,11 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
     return (
         <ConfirmationModalContext.Provider value={value}>
             {children}
-            <Dialog open={isModalOpen} onClose={() => onCancel('close-outside')} PaperProps={{sx:{borderRadius: '20px'}}} >
+            <Dialog open={isModalOpen} onClose={() => onCancel('close-outside')}
+                    PaperProps={{sx: {borderRadius: '20px'}}}>
                 {modalConfig && (
-                    <Box sx={{ pt: 4, pr: 4, pb: 7, pl: 4, display: 'grid'  }} >
-                        <FullSizeIconButton onClick={() => onCancel('close-button')} sx={{ justifySelf: 'flex-end'}}>
+                    <Box sx={{pt: 4, pr: 4, pb: 7, pl: 4, display: 'grid'}}>
+                        <FullSizeIconButton onClick={() => onCancel('close-button')} sx={{justifySelf: 'flex-end'}}>
                             <CloseIcon/>
                         </FullSizeIconButton>
                         <DialogTitle>
@@ -94,6 +111,24 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
                             <Typography variant='body2'>
                                 {modalConfig.body}
                             </Typography>
+                            {modalConfig.userInputs && (
+                                <Box sx={{pt: 4}}>
+                                    {modalConfig.userInputs.map(({
+                                                                     label,
+                                                                     key,
+                                                                     required
+                                                                 }, index) => (
+                                        <FormInputText
+                                            control={form.control}
+                                            formState={form.formState}
+                                            name={key}
+                                            controllerProps={{rules: {required: required && 'To pole jest wymagane'}}}
+                                            key={key}
+                                            label={label}
+                                        />
+                                    ))}
+                                </Box>
+                            )}
                         </DialogContent>
                         <DialogActions>
                             <Box sx={{
@@ -103,9 +138,16 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
                                 justifyItems: 'stretch',
                                 justifyContent: 'stretch'
                             }}>
-                                {modalConfig.buttons.map(({buttonProps, action, label}) => {
-                                    const onClick = () => action.decision ? onConfirm(action.message) : onCancel(action.message);
-                                    return <Button {...buttonProps} onClick={onClick}>{label}</Button>
+                                {modalConfig.buttons.map(({buttonProps, action, label, blockedByForm}, index) => {
+                                    const onClick = () => action.decision ? onConfirm(action.actionType) : onCancel(action.actionType);
+                                    return <Button
+                                        disabled={blockedByForm && !form.formState.isValid}
+                                        key={index}
+                                        {...buttonProps}
+                                        onClick={onClick}
+                                    >
+                                        {label}
+                                    </Button>
                                 })}
                             </Box>
                         </DialogActions>
@@ -116,6 +158,6 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
     );
 };
 
-const useConfirmationModalContext = () => useContext(ConfirmationModalContext);
+const useConfirmationModalContext = () => useContext<ConfirmationModalContextType>(ConfirmationModalContext);
 
 export default useConfirmationModalContext;

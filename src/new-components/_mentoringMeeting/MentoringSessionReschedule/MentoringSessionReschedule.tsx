@@ -5,9 +5,11 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import rescheduleMentoringSessionService from "@services/mentoringSessions/rescheduleMentoringSession.service";
 import {useSnackbar} from "notistack";
 import
-    getMentorAvailabilityByMeetingIdService, {getMentorAvailabilityByMeetingIdServiceKeyGenerator}
-    from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.service";
+    getMentorAvailabilityByMentorIdService, {getMentorAvailabilityByMeetingIdServiceKeyGenerator}
+    from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
 import {endOfWeek, EndOfWeekOptions, startOfWeek, StartOfWeekOptions} from "date-fns";
+import {useNavigate} from "react-router-dom";
+import paths from "../../../paths";
 
 type Props = {
     meetingId: string;
@@ -18,6 +20,7 @@ const dateFnOptions: StartOfWeekOptions | EndOfWeekOptions = {weekStartsOn: 1};
 const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
     const {enqueueSnackbar} = useSnackbar()
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const navigate = useNavigate();
 
     // availability
     const [selectedRange, setSelectedRange] = useState(
@@ -40,7 +43,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
 
     const {data} = useQuery({
         queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(meetingId, queryParams),
-        queryFn: () => getMentorAvailabilityByMeetingIdService(meetingId, queryParams)
+        queryFn: () => getMentorAvailabilityByMentorIdService(meetingId, queryParams)
     })
 
     const events: CalendarEvent[] = useMemo(() => {
@@ -58,7 +61,10 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
     // reschedule
     const rescheduleMutation = useMutation({
         mutationFn: rescheduleMentoringSessionService,
-        onSuccess: () => enqueueSnackbar('Nowy termin potwierdzony', {variant: 'success'}),
+        onSuccess: () => {
+            enqueueSnackbar('Nowy termin potwierdzony', {variant: 'success'})
+            navigate(paths.calendar);
+        },
         onError: () => enqueueSnackbar('Wystąpił błąd', {variant: 'error'})
     });
 
@@ -67,7 +73,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
     }
 
     const onEventClick = (event: any) => {
-        setSelectedEvent(event);
+        setSelectedEvent(event.id);
     }
 
     return (

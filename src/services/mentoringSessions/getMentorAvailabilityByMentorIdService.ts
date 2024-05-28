@@ -50,7 +50,7 @@ const dataParser = (dto: SlotDTO): Slot => {
     }
 }
 
-const getMentorAvailabilityByMeetingIdService = async (mentorId: string, params: GetMentorAvailabilityParams) => {
+const getMentorAvailabilityByMentorIdService = async (mentorId: string, params: GetMentorAvailabilityParams) => {
 
     // TODO API
     const data = await getMock();
@@ -62,4 +62,4 @@ export const getMentorAvailabilityByMeetingIdServiceKeyGenerator = (mentorId: st
     return ['mentorAvailability', mentorId, `from-${params.from.toString()}`, `to-${params.to.toString()}`]
 }
 
-export default getMentorAvailabilityByMeetingIdService;
+export default getMentorAvailabilityByMentorIdService;

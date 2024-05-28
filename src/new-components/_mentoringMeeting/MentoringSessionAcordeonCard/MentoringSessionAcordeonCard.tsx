@@ -45,7 +45,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
     const {enqueueSnackbar} = useSnackbar();
     const queryClient = useQueryClient();
     const {showConfirmationDialog} = useConfirmationModalContext();
-    	const { isMentor, isStudent} = useAccountType();
+    const {isMentor} = useAccountType();
 
     const cancelMutation = useMutation({
         mutationFn: cancelMentoringSessionById,
@@ -106,7 +106,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     <StyledButtonsWrapper>
                         <Button
                             component={Link}
-                            to={generatePath(paths.rescheduleMeeting, { meetingId: id })}
+                            to={generatePath(paths.rescheduleMeeting, {meetingId: id})}
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'

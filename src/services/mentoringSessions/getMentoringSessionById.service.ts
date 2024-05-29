@@ -9,7 +9,7 @@ const getMock = () => new Promise<MentoringSessionDTO>((resolve) => {
         start: '2024-05-04T15:30:00',
         end: '2024-05-04T16:30:00',
         meetingLink: 'https://meet.google.com/abc-123',
-        mentor: {
+        user: {
             id: '111',
             name: 'Jan Kowalski',
             description: 'Jan Kowalski jest doświadczonym menedżerem z branży IT. Specjalizuje się w zarządzaniu zespołami oraz wdrażaniu nowych technologii.',

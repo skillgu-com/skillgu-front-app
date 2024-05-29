@@ -8,7 +8,7 @@ import {
 export const parseMentoringSessionForFE = (data: MentoringSessionDTO): MentoringSessionT => {
     return {
         id: data.id,
-        mentor: data.mentor,
+        mentor: data.user,
         title: data.title,
         start: new Date(data.start),
         end: new Date(data.end),
@@ -26,7 +26,7 @@ export const parseMentoringSessionInListForFE = (data: MentoringSessionInListDTO
         title: data.title,
         start: new Date(data.start),
         end: new Date(data.end),
-        mentor: data.mentor,
+        mentor: data.user,
         contact: data.contact,
         meetingLink: data.meetingLink,
     }

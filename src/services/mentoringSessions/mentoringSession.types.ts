@@ -17,7 +17,7 @@ export type MentoringSessionInListT = MentoringSessionT;
 
 export type MentoringSessionDTO = {
     id: string,
-    mentor: Mentor,
+    user: Mentor,
     title: string,
     start: string,
     end: string,

@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 // Components
 import {NavTitle} from '@newComponents/typography';
 import Container from '@newComponents/Container/Container';
-import Input, {defaultInput} from '@newComponents/Input/Input';
+import {defaultInput} from '@newComponents/Input/Input';
 import Button from '@newComponents/Button/Button';
 import MeetingType from '../../components/MeetingType/MeetingType';
 import Checkbox from '@newComponents/Checkbox/Checkbox';
@@ -14,17 +14,50 @@ import {Tag} from '@customTypes/tags';
 import styles from './ScheduleForm.module.scss';
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
 import StepInput from '@newComponents/StepInput/StepInput';
-import {createScheduleMeeting} from '../../../../../services/ScheduleService';
+import {createScheduleMeeting} from '@services/ScheduleService';
+import {Controller, useForm} from "react-hook-form";
+import {addMonths} from "date-fns";
+import {Box, Collapse} from "@mui/material";
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import Typography from "@mui/material/Typography";
+import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+
+const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+type Day = typeof days[number];
+
+type WeekdayInput = {
+    isActivated: boolean;
+    slots: { dateFrom: Date, dateTo: Date }[]
+}
+
+type FormInput = {
+    name: string;
+    slotLength: number;
+    type: 'individual' | 'group';
+    cancelAvailable: boolean;
+    dateFrom: Date;
+    dateTo: Date;
+    participantsNumber: number; // only for group
+    weekdays: Record<Day, WeekdayInput>,
+}
+
+const today = new Date();
+
+const boxWithLabelSX = {
+    display: 'grid',
+    gap: 1,
+}
 
 const ScheduleForm = () => {
     const [form, setForm] = useState({
         name: defaultInput,
+        time: {...defaultInput, value: 30},
         dateFrom: defaultInput,
         dateTo: defaultInput,
         resign: {...defaultInput, value: false},
         type: {value: 'individual'},
-        time: {...defaultInput, value: 30},
         groupAmount: {...defaultInput, value: 1},
+
         monday: {...defaultInput, value: false},
         tuesday: {...defaultInput, value: false},
         wednesday: {...defaultInput, value: false},
@@ -33,6 +66,28 @@ const ScheduleForm = () => {
         saturday: {...defaultInput, value: false},
         sunday: {...defaultInput, value: false},
     });
+
+    const formHook = useForm<FormInput>({
+        defaultValues: {
+            name: '',
+            slotLength: 30,
+            type: 'individual',
+            cancelAvailable: false,
+            dateFrom: today,
+            dateTo: addMonths(today, 1),
+            participantsNumber: 1,
+            weekdays: days.reduce((acc, day) => {
+                acc[day] = {
+                    isActivated: false,
+                    slots: []
+                }
+                return acc;
+            }, {} as Record<Day, WeekdayInput>)
+        },
+        mode: 'onBlur',
+    })
+
+    const selectedType = formHook.watch('type');
 
     const navigate = useNavigate();
 
@@ -120,76 +175,98 @@ const ScheduleForm = () => {
         <Container as={Tag.Section} classes={stylesSessions.wrapper}>
             <NavTitle>Szczegóły harmonogramu</NavTitle>
             <form className={stylesSessions.form} onSubmit={submitHandler}>
-                <Input
-                    id='name'
-                    name='name'
-                    type='text'
-                    required
-                    placeholder={'nazwa harmonogramu'}
-                    value={form.name.value}
-                    errorMessage={form.name.errorMessage}
-                    isValid={form.name.isValid}
-                    valueChangeHandler={updateFormHandler}
-                    label='Nazwa'
-                />
-                <StepInput
-                    minValue={15}
-                    maxValue={120}
-                    step={15}
-                    name='time'
-                    measure='min'
-                    value={form.time.value}
-                    label='Długość spotkania'
-                    valueChangeHandler={updateFormHandler}
-                />
-                <MeetingType
-                    value={form.type.value}
-                    updateFormHandler={updateFormHandler}
-                />
-                {form.type.value === 'group' && (
-                    <StepInput
-                        minValue={1}
-                        maxValue={5}
-                        step={1}
-                        name='groupAmount'
-                        value={form.groupAmount.value}
-                        label='Ilość uczestników'
-                        valueChangeHandler={updateFormHandler}
+                <Box sx={boxWithLabelSX}>
+                    <Typography variant='buttonMd'>Nazwa</Typography>
+                    <FormInputText
+                        name='name'
+                        control={formHook.control}
+                        formState={formHook.formState}
+                        inputProps={{placeholder: 'Nazwa harmonogramu'}}
+                        controllerProps={{rules: {required: 'To pole jest wymagane'}}}
                     />
-                )}
-                <Checkbox
-                    id='resign'
-                    name='resign'
-                    value={form.resign.value}
-                    valueChangeHandler={updateFormHandler}
-                    slide
-                    label='Możliwość odwołania spotkania przez klienta'
+                </Box>
+
+                <Controller
+                    control={formHook.control}
+                    name='slotLength'
+                    render={({field}) => (
+                        <StepInput
+                            minValue={15}
+                            maxValue={120}
+                            step={15}
+                            measure='min'
+                            label='Długość spotkania'
+                            {...field}
+                        />
+                    )}
+                />
+
+                <Controller
+                    control={formHook.control}
+                    name='type'
+                    render={({field}) => (
+                        <MeetingType
+                            value={field.value}
+                            onChange={field.onChange}
+                        />
+                    )}
+                />
+
+                <Collapse in={selectedType === 'group'}>
+                    <Controller
+                        control={formHook.control}
+                        name='participantsNumber'
+                        render={({field}) => (
+                            <StepInput
+                                minValue={1}
+                                maxValue={5}
+                                step={1}
+                                label='Ilość uczestników'
+                                {...field}
+                            />
+                        )}
+                    />
+                </Collapse>
+                <Controller
+                    control={formHook.control}
+                    name='cancelAvailable'
+                    render={({field}) => (
+                        <Checkbox
+                            id='cancelAvailable'
+                            slide
+                            label='Możliwość odwołania spotkania przez klienta'
+                            name={field.name}
+                            valueChangeHandler={(_, {value}) => field.onChange(value)}
+                            value={field.value}
+
+                        />
+                    )}
                 />
                 <div>
-                    <span className={styles.fieldText}>Okres obowiązywania</span>
+                    <Typography variant='buttonMd' className={styles.fieldText}>Okres obowiązywania</Typography>
                     <div className={styles.date}>
-                        <Input
-                            classes={styles.dateInput}
-                            id='dateFrom'
+                        {/*TODO Form datepicker - errors */}
+                        <Controller
+                            control={formHook.control}
                             name='dateFrom'
-                            type='date'
-                            required
-                            value={form.dateFrom.value}
-                            errorMessage={form.dateFrom.errorMessage}
-                            isValid={form.dateFrom.isValid}
-                            valueChangeHandler={updateFormHandler}
+                            rules={{required: 'To pole jest wymagane'}}
+                            render={({field}) => (
+                                <DatePicker
+                                    className={styles.dateInput}
+                                    {...field}
+                                />
+                            )}
                         />
-                        <span className={styles.fieldText}>-</span>
-                        <Input
-                            classes={styles.dateInput}
-                            id='dateTo'
+                        <Controller
+                            control={formHook.control}
                             name='dateTo'
-                            type='date'
-                            required
-                            value={form.dateTo.value}
-                            errorMessage={form.dateTo.errorMessage}
-                            isValid={form.dateTo.isValid}
-                            valueChangeHandler={updateFormHandler}
+                            rules={{required: 'To pole jest wymagane'}}
+                            render={({field}) => (
+                                <DatePicker
+                                    className={styles.dateInput}
+                                    {...field}
+                                />
+                            )}
                         />
                     </div>
                 </div>

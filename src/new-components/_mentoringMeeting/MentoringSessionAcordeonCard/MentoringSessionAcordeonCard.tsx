@@ -72,7 +72,12 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     blockedByForm: true,
                 }
             ],
-            userInputs: isMentor ? [{label: 'Powód odwołania', key: 'reason', required: true}] : undefined,
+            userInputs: isMentor ? [{
+                label: 'Powód odwołania',
+                key: 'reason',
+                required: true,
+                inputProps: { multiline: true, rows: 3},
+            }] : undefined,
         });
 
         if (decision) cancelMutation.mutate({id, reason: 'asd'});

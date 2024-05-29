@@ -24,8 +24,10 @@ const CalendarDailyView = () => {
         to: set(date, {hours: 23, minutes: 59, seconds: 59}),
     }), [date]);
 
+    const queryKey = useMemo(() => getMentoringSessionsInDatesServiceKeyGenerator(queryParams), [queryParams]);
+
     const {data, isLoading} = useQuery({
-        queryKey: getMentoringSessionsInDatesServiceKeyGenerator(queryParams),
+        queryKey,
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
     });
 
@@ -54,7 +56,7 @@ const CalendarDailyView = () => {
                     {format(date, 'dd MMMM yyyy')}
                 </Typography>
             </Box>
-            <CalendarDailyAgenda events={data || []} isLoading={isLoading}/>
+            <CalendarDailyAgenda queryKey={queryKey} events={data || []} isLoading={isLoading}/>
         </Container>
     )
 }

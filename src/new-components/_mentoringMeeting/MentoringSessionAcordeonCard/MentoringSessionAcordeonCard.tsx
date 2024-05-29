@@ -14,12 +14,21 @@ import MentoringSessionMeetingDetails
     from "@newComponents/_mentoringMeeting/MentoringSessionMeetingDetails/MentoringSessionMeetingDetails";
 import MentoringSessionJoinButton
     from "@newComponents/_mentoringMeeting/MentoringSessionJoinButton/MentoringSessionJoinButton";
+import useConfirmationModalContext from "../../../context/ConfirmationModalContext";
+import cancelMentoringSessionById from "@services/mentoringSessions/cancelMentoringSessionById.service";
+import {QueryKey, useMutation, useQueryClient} from "@tanstack/react-query";
+import {useSnackbar} from "notistack";
+import {generatePath, Link} from "react-router-dom";
+import paths from "../../../paths";
+import {useSelector} from "react-redux";
+import {getRole} from "../../../redux/selectors/authSelectors";
+import {useAccountType} from "../../../hooks/useAccountType";
 
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
     onToggle: () => void;
+    queryKey: QueryKey
 }
-
 
 const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      isOpen,
@@ -30,8 +39,46 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      id,
                                                      title,
                                                      contact,
-                                                     meetingLink
+                                                     meetingLink,
+                                                     queryKey
                                                  }) => {
+    const {enqueueSnackbar} = useSnackbar();
+    const queryClient = useQueryClient();
+    const {showConfirmationDialog} = useConfirmationModalContext();
+    const {isMentor} = useAccountType();
+
+    const cancelMutation = useMutation({
+        mutationFn: cancelMentoringSessionById,
+        onSuccess: () => {
+            enqueueSnackbar('Spotkanie zostało odwołane', {variant: 'success'});
+            queryClient.invalidateQueries({queryKey});
+        },
+        onError: () => {
+            enqueueSnackbar('Wystąpił błąd podczas odwoływania spotkania', {variant: 'error'})
+        }
+    });
+
+    const onCancel = async () => {
+        const {decision} = await showConfirmationDialog({
+            title: 'Odwołaj spotkanie',
+            body: 'Czy jesteś pewny, że chcesz odwołać spotkanie?',
+            buttons: [
+                {
+                    label: 'Tak, odwołaj spotkanie',
+                    action: {decision: true},
+                    buttonProps: {
+                        variant: 'contained',
+                        color: 'error'
+                    },
+                    blockedByForm: true,
+                }
+            ],
+            userInputs: isMentor ? [{label: 'Powód odwołania', key: 'reason', required: true}] : undefined,
+        });
+
+        if (decision) cancelMutation.mutate({id, reason: 'asd'});
+    }
+
     return (
         <StyledCard>
             <Box sx={{gridArea: 'timeRange'}} id={`mentoringSessionId-${id}`}>
@@ -57,14 +104,26 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         />
                     </Box>
                     <StyledButtonsWrapper>
-                        <Button sx={{ gridArea: 'changeMeetingButton'}} color='secondary' variant='contained'>
+                        <Button
+                            component={Link}
+                            to={generatePath(paths.rescheduleMeeting, {meetingId: id})}
+                            sx={{gridArea: 'changeMeetingButton'}}
+                            color='secondary'
+                            variant='contained'
+                            disabled={isMentor}
+                        >
                             Przełóż spotkanie
                         </Button>
-                        <Button sx={{ gridArea: 'cancelMeetingButton'}} color='error' variant='contained'>
+                        <Button
+                            onClick={onCancel}
+                            sx={{gridArea: 'cancelMeetingButton'}}
+                            color='error'
+                            variant='contained'
+                        >
                             Odwołaj
                         </Button>
-                        <Box sx={{ gridArea: 'joinMeetingButton'}}>
-                        <MentoringSessionJoinButton meetingUrl={meetingLink}/>
+                        <Box sx={{gridArea: 'joinMeetingButton'}}>
+                            <MentoringSessionJoinButton meetingUrl={meetingLink}/>
                         </Box>
                     </StyledButtonsWrapper>
                 </Collapse>

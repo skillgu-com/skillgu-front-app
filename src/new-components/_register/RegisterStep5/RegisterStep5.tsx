@@ -1,4 +1,4 @@
-import React, {FC, useMemo, useState} from 'react';
+import React, {FC, FocusEvent, KeyboardEventHandler, useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom'
 
 import StepContentWrapper from "@newComponents/_register/StepContentWrapper/StepContentWrapper";
@@ -47,7 +47,7 @@ const validateSingleInput = (event: InputEvent, actionOnValidInput: () => void):
     // regex to allow only digits and empty string
     const isProperInput = /^(\d|)$/.test(event.target.value)
     if (!isProperInput) event.target.value = event.target.value.slice(-1);
-    if (event.target.value) actionOnValidInput();
+    if (event.target.value) setTimeout(actionOnValidInput, 0);
     return event;
 }
 
@@ -60,6 +60,8 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
     const navigate = useNavigate()
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();
     const {registerMenteeState, registerMenteeDispatch} = useRegisterMenteeContext();
+
+    const [userFeedback, setUserFeedback] = useState<string | null>(null);
 
     const {stateSource, stateDispatcher} = useMemo(() => {
         if (isMentor) {
@@ -79,7 +81,12 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
             num3: '',
             num4: '',
         },
+        reValidateMode: 'onSubmit',
     });
+
+    useEffect(() => {
+        if (!formState.isValid && formState.isSubmitted) setUserFeedback('Podaj cały wymagany kod')
+    }, [formState.isValid]);
 
 
     const verifyCode: SubmitHandler<VerificationFormInput> = async (formData) => {
@@ -93,16 +100,21 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
                 const linkAfterVerification = buildAfterRegisterLin();
                 navigate(linkAfterVerification);
             } else {
-                if (verificationResponse.body.errorCode === 401) {
-                } else if (verificationResponse.body.errorCode === 400) {
-                    console.log(verificationResponse.body.message)
-                } else {
-                    console.log(verificationResponse.body.message)
-                }
+                setUserFeedback(verificationResponse.body.message);
             }
             setIsLoading(false);
         }
     };
+
+    const onBackspace = (inputToFocus: keyof VerificationFormInput): KeyboardEventHandler<HTMLDivElement> => (event) => {
+        if(event.key === 'Backspace') setTimeout(() => setFocus(inputToFocus), 0);
+    }
+
+    const commonInputProps = {
+
+                            onFocus: ({target}: FocusEvent<HTMLInputElement>) => target.select(),
+                            disabled: isLoading,
+    }
 
     return (
         <StepContentWrapper
@@ -124,14 +136,11 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
                         rules={{required: true}}
                         render={({field: {ref, ...field}}) => <TextField
                             {...field}
+                            {...commonInputProps}
                             inputRef={ref}
-                            disabled={isLoading}
                             onChange={(event) => {
-                                const onValidInput = () => {
-                                    setTimeout(() => setFocus('num2'), 0)
-                                }
-                                const newEvent = validateSingleInput(event, onValidInput)
-                                field.onChange(newEvent);
+                                setUserFeedback(null);
+                                field.onChange(validateSingleInput(event, () => setFocus('num2')));
                             }}
                         />}
                     />
@@ -141,11 +150,12 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
                         rules={{required: true}}
                         render={({field: {ref, ...field}}) => <TextField
                             {...field}
+                            {...commonInputProps}
                             inputRef={ref}
-                            disabled={isLoading}
+                            onKeyDown={onBackspace('num1')}
                             onChange={(event) => {
-                                const onValidInput = () => setTimeout(() => setFocus('num3'), 0)
-                                field.onChange(validateSingleInput(event, onValidInput));
+                                setUserFeedback(null);
+                                field.onChange(validateSingleInput(event, () => setFocus('num3')));
                             }}
                         />}
                     />
@@ -155,11 +165,12 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
                         rules={{required: true}}
                         render={({field: {ref, ...field}}) => <TextField
                             {...field}
+                            {...commonInputProps}
                             inputRef={ref}
-                            disabled={isLoading}
+                            onKeyDown={onBackspace('num2')}
                             onChange={(event) => {
-                                const onValidInput = () => setTimeout(() => setFocus('num4'), 0)
-                                field.onChange(validateSingleInput(event, onValidInput));
+                                setUserFeedback(null);
+                                field.onChange(validateSingleInput(event, () => setFocus('num4')));
                             }}
                         />}
                     />
@@ -169,17 +180,18 @@ const RegisterStep5: FC<Props> = ({isMentor}) => {
                         rules={{required: true}}
                         render={({field: {ref, ...field}}) => <TextField
                             {...field}
+                            {...commonInputProps}
                             inputRef={ref}
-                            disabled={isLoading}
+                            onKeyDown={onBackspace('num3')}
                             onChange={(event) => {
-                                const onValidInput = () => setTimeout(handleSubmit(verifyCode), 0)
-                                field.onChange(validateSingleInput(event, onValidInput));
+                                setUserFeedback(null);
+                                field.onChange(validateSingleInput(event, handleSubmit(verifyCode)));
                             }}
                         />}
                     />
                     <StyledFallbackWrapper>
-                        <Collapse in={!formState.isValid && formState.isSubmitted}>
-                            <InputFeedback message={'Podaj cały wymagany kod'} severity='error'/>
+                        <Collapse in={!!userFeedback}>
+                            <InputFeedback message={userFeedback || ''} severity='error'/>
                         </Collapse>
                     </StyledFallbackWrapper>
                 </StyledInputsWrapper>

@@ -21,8 +21,7 @@ export type MeetingInCalendar = Event & {
     }
 }
 
-const generateDayKey = (date: Date) => `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
-
+const generateDayKey = (date: Date) => `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
 
 const CalendarView = () => {
     const [selectedRange, setSelectedRange] = useState(
@@ -88,6 +87,7 @@ const CalendarView = () => {
     }, [data]);
 
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));
+
 
     return (
         <Container>

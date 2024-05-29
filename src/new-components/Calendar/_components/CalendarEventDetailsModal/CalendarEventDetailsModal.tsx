@@ -1,5 +1,5 @@
 import React, {FC, MouseEvent, useMemo} from "react";
-import {Box, Button, Menu, Skeleton} from "@mui/material";
+import {Box, Button, IconButton, Menu, Skeleton} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import getMentoringSessionById, {
     getMentoringSessionByIdKeyGenerator
@@ -16,6 +16,7 @@ import {generatePath, Link} from "react-router-dom";
 import paths from "../../../../paths";
 import MentoringSessionMeetingDetailsHeader
     from "@newComponents/_mentoringMeeting/MentoringSessionMeetingDetailsHeader/MentoringSessionMeetingDetailsHeader";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
     openModal: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -69,7 +70,10 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
             onClose={closeModal}
             PaperProps={{elevation: 4, sx: {borderRadius: '12px'}}}
         >
-            <Box sx={{padding: 3, display: 'grid', gap: 1.5}}>
+            <Box sx={{padding: 3, display: 'grid', gap: 1.5, position: 'relative'}}>
+                <IconButton sx={{display: {sm: 'none'}, position: 'absolute', top: 8, right: 16}} onClick={closeModal}>
+                    <CloseIcon/>
+                </IconButton>
                 <Typography fontWeight={600} variant='body2' color='primary'>
                     {
                         isLoading
@@ -83,9 +87,9 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
                     mentorName={data?.mentor.name}
                     avatarUrl={data?.mentor.avatar_url}
                 />
-                <Box sx={{ pt: 4}}>
-                <MentoringSessionMeetingDetails {...meetingDetailsProps}/>
-                    </Box>
+                <Box sx={{pt: 4}}>
+                    <MentoringSessionMeetingDetails {...meetingDetailsProps}/>
+                </Box>
                 <MentoringSessionJoinButton meetingUrl={data?.meetingLink}/>
                 <Button
                     sx={{mt: 2}}

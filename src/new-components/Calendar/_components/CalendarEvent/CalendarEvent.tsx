@@ -34,7 +34,7 @@ const CalendarEvent: FC<Props> = ({event}) => {
             style={{textDecoration: 'none'}}
         >
             <StyledCalendarEvent color='secondary'>
-                <Typography component='span' variant='buttonSm'>
+                <Typography component='span' variant='buttonSm' color='inherit'>
                     +{metadata.eventInDayCount - maxDisplay} innych
                 </Typography>
             </StyledCalendarEvent>
@@ -44,10 +44,10 @@ const CalendarEvent: FC<Props> = ({event}) => {
     return (
         <>
             <StyledCalendarEvent color='primary' onClick={openModal}>
-                <Typography component='span' variant='buttonSm'>
+                <Typography component='span' variant='buttonSm' color='inherit'>
                     {event.title}
                 </Typography>
-                <Typography component='span' variant='buttonSm' sx={{justifySelf: 'flex-end'}}>
+                <Typography component='span' variant='buttonSm' sx={{justifySelf: 'flex-end'}} color='inherit'>
                     {format(event.start!, 'HH:mm')}
                 </Typography>
             </StyledCalendarEvent>

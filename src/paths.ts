@@ -28,7 +28,7 @@ const paths = {
     underConstruction: '/underconstruction',
     calendar: '/calendar',
     calendarDaily: '/calendar/:year/:month/:day',
-    rescheduleMeeting: '/reschedule-meeting/:id',
+    rescheduleMeeting: '/reschedule-meeting/:meetingId',
     accountView: '/account-view',
     createMentoring: '/create-mentoring',
     createSession: '/create-session',

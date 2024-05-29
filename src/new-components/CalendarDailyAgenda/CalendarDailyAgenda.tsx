@@ -4,19 +4,20 @@ import {Box, Skeleton} from "@mui/material";
 import MentoringSessionAcordeonCard
     from "@newComponents/_mentoringMeeting/MentoringSessionAcordeonCard/MentoringSessionAcordeonCard";
 import {useParams, useSearchParams} from "react-router-dom";
+import {QueryKey} from "@tanstack/react-query";
 
 type Props = {
     isLoading: boolean;
-    events: MentoringSessionInListT[]
+    events: MentoringSessionInListT[];
+    queryKey: QueryKey
 }
 
-// TODO set dimensions
 const skeletonDimensions = {
     width: '100%',
     height: 185
 }
 
-const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
+const CalendarDailyAgenda: FC<Props> = ({isLoading, events, queryKey}) => {
     const [openEventId, setOpenEventId] = useState<string | null>(null);
     const onToggleFactory = (eventId: string) => () => {
         setOpenEventId(prev => prev === eventId ? null : eventId);
@@ -45,6 +46,7 @@ const CalendarDailyAgenda: FC<Props> = ({isLoading, events}) => {
                 : (
                     events.map((event) =>
                         <MentoringSessionAcordeonCard
+                            queryKey={queryKey}
                             isOpen={openEventId === event.id}
                             onToggle={onToggleFactory(event.id)}
                             {...event}

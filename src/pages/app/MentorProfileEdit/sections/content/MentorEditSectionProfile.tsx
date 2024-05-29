@@ -14,6 +14,7 @@ import {updateUserProfile} from "../../../../../services/mentor/settingMentor.se
 import {MentorData} from "../../../MentorProfile";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
+import FormCheckboxesOptionsDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 
 
 export type MentorEditProfileFormInput = {
@@ -33,9 +34,8 @@ type Props = {
     mentorData: MentorData;
 };
 
+
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
-
-
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
@@ -47,8 +47,8 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 services: [],
                 timezone: '',
                 language: '',
-                categories: [],
-                mentorTopics: mentorData?.mentorTopics,
+                categories: mentorData?.mentorCategory || [],
+                mentorTopics: mentorData?.mentorTopics || [],
             },
         });
 
@@ -133,7 +133,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     defaultValue={mentorData?.mentorTopics || []}
                     getOptions={getAvailableTopicsService}
                 />
-                <FormCheckboxesDynamic<MentorEditProfileFormInput>
+                <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Kategorie"
                     name='categories'

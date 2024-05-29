@@ -69,7 +69,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         variant: 'contained',
                         color: 'error'
                     },
-                    blockedByForm: true,
+                    blockedByForm: isMentor,
                 }
             ],
             userInputs: isMentor ? [{

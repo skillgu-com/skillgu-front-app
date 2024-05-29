@@ -69,10 +69,15 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         variant: 'contained',
                         color: 'error'
                     },
-                    blockedByForm: true,
+                    blockedByForm: isMentor,
                 }
             ],
-            userInputs: isMentor ? [{label: 'Powód odwołania', key: 'reason', required: true}] : undefined,
+            userInputs: isMentor ? [{
+                label: 'Powód odwołania',
+                key: 'reason',
+                required: true,
+                inputProps: { multiline: true, rows: 3},
+            }] : undefined,
         });
 
         if (decision) cancelMutation.mutate({id, reason: 'asd'});

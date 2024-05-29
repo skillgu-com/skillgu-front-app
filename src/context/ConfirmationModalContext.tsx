@@ -6,6 +6,7 @@ import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconBu
 import {ReactComponent as CloseIcon} from "src/assets/icons/svg/close.svg";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {FieldValues, useForm} from "react-hook-form";
+import {TextFieldProps} from "@mui/material/TextField";
 
 // TODO expand it for other use cases
 // TODO find any way to type actionType and userFeedback as generic
@@ -25,6 +26,7 @@ type FeedbackInput = {
     label: string,
     key: string;
     required?: boolean;
+    inputProps?: TextFieldProps;
 }
 
 type ModalConfig = {
@@ -54,7 +56,7 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalConfig, setModalConfig] = useState<null | ModalConfig>(null);
 
-    const form = useForm({  mode: 'all'})
+    const form = useForm({mode: 'all'})
 
     const awaitingConfirmation = useRef<any>(null);
 
@@ -116,8 +118,9 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
                                     {modalConfig.userInputs.map(({
                                                                      label,
                                                                      key,
-                                                                     required
-                                                                 }, index) => (
+                                                                     required,
+                                                                     inputProps
+                                                                 }) => (
                                         <FormInputText
                                             control={form.control}
                                             formState={form.formState}
@@ -125,6 +128,7 @@ export const ConfirmationModalProvider: React.FC<Props> = ({children}) => {
                                             controllerProps={{rules: {required: required && 'To pole jest wymagane'}}}
                                             key={key}
                                             label={label}
+                                            inputProps={inputProps}
                                         />
                                     ))}
                                 </Box>

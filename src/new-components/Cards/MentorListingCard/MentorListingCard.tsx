@@ -19,6 +19,7 @@ interface MentorListingCardProps {
     link: string;
     price: string;
     profession: string;
+    company: string;
     reviewsAvgRate: string;
     reviewsCount: string;
     special: string;

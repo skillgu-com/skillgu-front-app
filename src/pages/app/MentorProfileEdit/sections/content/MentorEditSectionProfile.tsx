@@ -15,6 +15,7 @@ import {MentorData} from "../../../MentorProfile";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import FormCheckboxesOptionsDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
+import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
 
 
 export type MentorEditProfileFormInput = {
@@ -25,7 +26,7 @@ export type MentorEditProfileFormInput = {
     skill: DropdownOption[];
     services: DropdownOption[];
     timezone: string;
-    language: string;
+    language: DropdownOption[];
     categories: DropdownOption[];
     mentorTopics: DropdownOption[];
 };
@@ -46,7 +47,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 skill:[],
                 services: [],
                 timezone: '',
-                language: '',
+                language: [],
                 categories: mentorData?.mentorCategory || [],
                 mentorTopics: mentorData?.mentorTopics || [],
             },
@@ -57,6 +58,8 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
         control: control,
         controllerProps: {}
     };
+
+    console.log("formState", formState)
 
     const onSubmit = async (data: MentorEditProfileFormInput) => {
         try {
@@ -139,7 +142,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     name='categories'
                     getOptions={getAvailableCategoriesService}
                 />
-                <FormCheckboxesDynamic<MentorEditProfileFormInput>
+                <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Usługi"
                     name='services'
@@ -149,10 +152,10 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Strefa czasowa"
                     name='timezone'
-                    getOptions={getAvailableLanguage}
+                    getOptions={getAvailableTimezone}
 
                 />
-                <FormInputSelect<MentorEditProfileFormInput>
+                <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Język prowadzenia zajęć"
                     name='language'

@@ -19,6 +19,7 @@ import InputFeedback, {
 } from "@newComponents/_form/InputFeedback/InputFeedback";
 import { DropdownOption } from "@customTypes/dropdownOption";
 import Checkbox, { CheckboxValueCb } from "@newComponents/Checkbox/Checkbox";
+import styles from "../styles.module.scss";
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -47,10 +48,6 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
   const [options, setOptions] = useState<readonly DropdownOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const abortController = useMemo(() => new AbortController(), []);
-
-    console.log("X", {
-        options, 
-    })
 
   const updateOptions = useCallback(
     async (query: string) => {
@@ -83,44 +80,42 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
         control={control}
         render={({ field }) => {
           return (
-            <div>
+            <div className={styles.Checkboxes}>
               {options.map((opt) => {
-
-
-                const fieldValues = field.value.map((f: DropdownOption) => f?.label)
-                 console.log("X-opt", {
-                    opt, field,
-                    1: field.value.includes(opt)
-                })
+                const fieldValues = field.value.map(
+                  (f: DropdownOption) => f?.label
+                );
 
                 return (
-                  <div key={opt.value}>
-                    <Checkbox
-                      {...field}
-                      value={!!fieldValues.includes(opt.label)}
-                      // value={!!field.value.map(v => v?.value).includes(opt.value)}
-                      // checked={!!field.value.includes(opt.value)}
-                      label={opt.label}
-                      id={String(opt.value)}
-                      valueChangeHandler={(
-                        name: string,
-                        valueCh: CheckboxValueCb
-                      ) => {
-                        const checked = valueCh.value;
-                        const value = opt.value;
-                        const newValues = field.value.filter(
-                          (v: string) => v !== value
+                  <Checkbox
+                    key={opt.value}
+                    {...field}
+                    value={!!fieldValues.includes(opt.label)}
+                    label={opt.label}
+                    id={String(opt.value)}
+                    valueChangeHandler={(
+                      name: string,
+                      valueCh: CheckboxValueCb
+                    ) => {
+                      const checked = valueCh.value;
+                      const value = opt.value;
+                      const newValues = field.value.filter(
+                        (v: string) => v !== value
+                      );
+                      if (checked) {
+                        field.onChange([...newValues, opt]);
+                      } else {
+                        field.onChange(
+                          newValues.filter(
+                            (o: DropdownOption) => o.label !== opt.label
+                          )
                         );
-                        if (checked) {
-                          newValues.push(value);
-                        }
-                        field.onChange(newValues);
-                      }}
-                      // type="checkbox"
-                      // {...field}
-                      // {...inputProps}
-                    />
-                  </div>
+                      }
+                    }}
+                    // type="checkbox"
+                    // {...field}
+                    // {...inputProps}
+                  />
                 );
               })}
             </div>

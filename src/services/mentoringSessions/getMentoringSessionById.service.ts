@@ -12,6 +12,7 @@ const getMock = () => new Promise<MentoringSessionDTO>((resolve) => {
         mentor: {
             id: '111',
             name: 'Jan Kowalski',
+            company: 'Google',
             description: 'Jan Kowalski jest doświadczonym menedżerem z branży IT. Specjalizuje się w zarządzaniu zespołami oraz wdrażaniu nowych technologii.',
             avatar_url: 'https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg',
             price: 120,

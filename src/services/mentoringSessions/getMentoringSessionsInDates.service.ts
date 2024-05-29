@@ -16,6 +16,7 @@ const mentorMock: Mentor = {
     profession: 'Menedżer IT',
     reviewsAvgRate: 3.2,
     reviewsCount: 12,
+    company: 'Google',
     special: 'Specjalista',
     specialVariant: 'success',
     skill: [

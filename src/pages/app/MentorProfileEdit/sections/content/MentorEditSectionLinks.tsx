@@ -68,7 +68,7 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
 
             };
             const response = await updateUserSocialLinks(mentorSocialLinks);
-            window.location.reload();
+            // window.location.reload();
 
         } catch (error) {
             console.error('Failed to update personal data', error);

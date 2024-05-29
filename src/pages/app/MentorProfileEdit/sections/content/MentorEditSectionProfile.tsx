@@ -43,8 +43,8 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: '',
                 company: '',
                 biography: '',
-                skill:[],
-                services: [],
+                skill: mentorData?.skill || [],
+                services: mentorData?.services || [],
                 timezone: '',
                 language: '',
                 categories: mentorData?.mentorCategory || [],
@@ -52,6 +52,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
             },
         });
 
+    console.log(mentorData)
     const inputProps = {
         formState: formState,
         control: control,
@@ -59,6 +60,9 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
     };
 
     const onSubmit = async (data: MentorEditProfileFormInput) => {
+
+        console.log('ty kurwo')
+        console.log(data)
         try {
             const mentorEditSection: MentorEditProfileFormInput = {
                 heading: data.heading,

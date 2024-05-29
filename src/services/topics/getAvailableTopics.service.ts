@@ -8,10 +8,9 @@ const fetchMentorTopics = (query: string): Promise<DropdownOption[]> => {
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: DropdownOption, index: number) => ({
                     label: item.label,
-                    value: index + 1
+                    value: item.value
                 }));
-                console.log('response data',response.data)
-                console.log('data',data)
+
 
                 setTimeout(() => {
                     if (!query) {

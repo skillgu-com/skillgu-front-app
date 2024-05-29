@@ -101,7 +101,7 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
           {title}
         </Title>
         <div className={styles.descriptionWrapper}>
-          {description.length > DESC_EXPAND_LENGTH ? (
+          {typeof description === 'string' && description.length > DESC_EXPAND_LENGTH ? (
             <>
               <AnimateHeight
                 id="description"

@@ -62,6 +62,10 @@
 		}
 	}
 
+	.sectionPayment {
+		display: block;
+	}
+
 	@media screen and (min-width: $xl) {
 		flex-direction: row;
 		gap: 29px;

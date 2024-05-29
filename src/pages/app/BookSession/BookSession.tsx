@@ -136,7 +136,7 @@ const BookSession = ({payment}: BookSessionProps) => {
 
                 <main>
                     {payment ? (
-                        <section>
+                        <section className={styles.sectionPayment}>
                             <Payment/>
                         </section>
                     ) : (

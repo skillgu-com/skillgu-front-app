@@ -58,7 +58,7 @@ export const MentorContent = ({
       ) : null}
 
       {topics && topics.length ? (
-        <MentorTags title="Tematy" tags={topics} variant="secondary" />
+        <MentorTags title="Tematy" tags={topics} variant="primary" />
       ) : null}
 
       {services && services.length ? (

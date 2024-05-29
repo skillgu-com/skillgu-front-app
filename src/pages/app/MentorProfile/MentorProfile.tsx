@@ -165,6 +165,7 @@ export const MentorProfilePage = () => {
     });
   }, [mentorId]);
 
+
   return loading ? null : (
     <>
       <UserProfileHeader
@@ -188,6 +189,7 @@ export const MentorProfilePage = () => {
         location={mentorData?.location}
         profession={mentorData?.jobPosition}
       />
+
 
       <Container as={Tag.Section}>
         <MentorLinks

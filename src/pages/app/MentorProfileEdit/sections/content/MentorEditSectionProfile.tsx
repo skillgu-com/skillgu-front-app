@@ -44,7 +44,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: '',
                 company: '',
                 biography: '',
-                skill:[],
+                skill:mentorData?.skill || [],
                 services: [],
                 timezone: '',
                 language: [],

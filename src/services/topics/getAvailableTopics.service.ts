@@ -31,5 +31,4 @@ const getAvailableTopicsService = async (query: string, abortController: AbortCo
     return fetchMentorTopics(query);
 }
 
-// /get-all-mentoring-topics
 export default getAvailableTopicsService;

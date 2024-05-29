@@ -124,7 +124,11 @@ export const MentorProfileEditPage = () => {
     }
   }, [mentorId]);
 
-  return (
+  return loading ? (
+    <Container as={Tag.Section}>
+      <p>Loading...</p>
+    </Container>
+  ) : (
     <>
       <UserProfileHeader
         avatarUrl={
@@ -141,27 +145,21 @@ export const MentorProfileEditPage = () => {
         profession={mentorData?.jobPosition}
       />
 
-      {loading ? (
-        <Container as={Tag.Section}>
-          <p>Loading...</p>
-        </Container>
-      ) : (
-        <Container as={Tag.Section}>
-          <MentorEditSectionPersonalData mentorData={mentorData} />
-          <MentorEditSectionProfile mentorData={mentorData} />
-          <MentorEditSectionLinks mentorData={mentorData} />
-          <Typography
-            variant="h2"
-            color="secondary"
-            sx={{ display: "block", margin: "48px 0 24px" }}
-          >
-            Ustawienia konta
-          </Typography>
-          <MentorEditSectionAccount />
-          <MentorEditSectionNotifications />
-          <MentorEditFooter />
-        </Container>
-      )}
+      <Container as={Tag.Section}>
+        <MentorEditSectionPersonalData mentorData={mentorData} />
+        <MentorEditSectionProfile mentorData={mentorData} />
+        <MentorEditSectionLinks mentorData={mentorData} />
+        <Typography
+          variant="h2"
+          color="secondary"
+          sx={{ display: "block", margin: "48px 0 24px" }}
+        >
+          Ustawienia konta
+        </Typography>
+        <MentorEditSectionAccount />
+        <MentorEditSectionNotifications />
+        <MentorEditFooter />
+      </Container>
     </>
   );
 };

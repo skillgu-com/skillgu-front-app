@@ -90,8 +90,32 @@
     justify-content: center;
     padding: 8px 16px;
     height: 38px;
-    background-color: $colour-base-200;
-    color: $colour-base-800;
+
+    &.skillsTagShowMore {
+        cursor: pointer;
+    }
+ 
+    &.skillsTagPrimary {
+        background-color: $colour-base-200;
+        color: $colour-base-800;
+
+        &.skillsTagShowMore {
+            background-color: $colour-base-400;
+        }
+    }
+
+    &.skillsTagSecondary {
+    // background-color: $colour-base-800;
+    // color: $colour-base-200;
+    // background-color: rgba($colour-secondary, 0.10); //$colour-base-600;
+    // color: $colour-secondary;
+    background-color: $colour-base-600;
+    color: $colour-base-400;
+
+    &.skillsTagShowMore {
+        background-color: $colour-base-800;
+    }
+    }
 } 
 
 .servicesTags {

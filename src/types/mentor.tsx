@@ -51,6 +51,7 @@ export type Mentor = {
   description: string;
   id: string;
   name: string;
+  company: string;
   price: number;
   profession: string;
   reviewsAvgRate: number;

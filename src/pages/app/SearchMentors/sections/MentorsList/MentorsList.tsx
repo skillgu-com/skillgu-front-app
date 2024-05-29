@@ -49,6 +49,7 @@ export const MentorsList = ({
                         description={item.description}
                         fullName={item.name}
                         id={item.id}
+                        company={item.company}
                         link={buildMentorLink(item)}
                         price={`${item.price}zł/h`}
                         profession={item.profession}

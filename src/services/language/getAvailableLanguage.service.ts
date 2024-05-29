@@ -22,6 +22,11 @@ export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
 };
 
 const getAvailableLanguage = async (): Promise<DropdownOption[]> => {
-    return fetchMentorLanguage();
+    return [
+        { value: 'pl', label: 'Polski' },
+        { value: 'en', label: 'Angielski' },
+        { value: 'ja', label: 'Japoński' },
+    ]
+    // return fetchMentorLanguage();
 }
 export default getAvailableLanguage;

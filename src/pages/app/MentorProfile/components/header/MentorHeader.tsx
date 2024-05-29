@@ -3,6 +3,7 @@ import clx from "classnames";
 import styles from "./MentorHeader.module.scss";
 import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
+import { MentorLangs } from "@newComponents/_grouped/languages/MentorLangs";
 
 type JobPosition = {
   id: number;
@@ -51,7 +52,13 @@ export const MentorHeader = ({
             </div>
           </div>
           <div className={styles.languages}>
-            <LangSwitcherConnected />
+            {/* <LangSwitcherConnected /> */}
+            <MentorLangs
+            langs={[
+              { value: "pl", label: "Polski" },
+              { value: "en", label: "Angielski" },
+            ]}
+          />
           </div>
         </div>
       </div>

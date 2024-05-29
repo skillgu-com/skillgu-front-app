@@ -52,7 +52,7 @@ export type MentorEditProfileFormInput = {
     skill: DropdownOption[];
     services: DropdownOption[];
     timezone: string;
-    language: string;
+    language: DropdownOption[];
     categories: DropdownOption[];
     mentorTopics: DropdownOption[];
 };

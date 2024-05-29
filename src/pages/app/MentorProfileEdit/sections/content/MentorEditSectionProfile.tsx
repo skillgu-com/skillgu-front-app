@@ -15,6 +15,7 @@ import {MentorData} from "../../../MentorProfile";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import FormCheckboxesOptionsDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
+import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
 
 
 export type MentorEditProfileFormInput = {
@@ -25,7 +26,7 @@ export type MentorEditProfileFormInput = {
     skill: DropdownOption[];
     services: DropdownOption[];
     timezone: string;
-    language: string;
+    language: DropdownOption[];
     categories: DropdownOption[];
     mentorTopics: DropdownOption[];
 };
@@ -43,26 +44,24 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 profession: '',
                 company: '',
                 biography: '',
-                skill: mentorData?.skill || [],
-                services: mentorData?.services || [],
+                skill:[],
+                services: [],
                 timezone: '',
-                language: '',
+                language: [],
                 categories: mentorData?.mentorCategory || [],
                 mentorTopics: mentorData?.mentorTopics || [],
             },
         });
 
-    console.log(mentorData)
     const inputProps = {
         formState: formState,
         control: control,
         controllerProps: {}
     };
 
-    const onSubmit = async (data: MentorEditProfileFormInput) => {
+    console.log("formState", formState)
 
-        console.log('ty kurwo')
-        console.log(data)
+    const onSubmit = async (data: MentorEditProfileFormInput) => {
         try {
             const mentorEditSection: MentorEditProfileFormInput = {
                 heading: data.heading,
@@ -143,7 +142,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     name='categories'
                     getOptions={getAvailableCategoriesService}
                 />
-                <FormCheckboxesDynamic<MentorEditProfileFormInput>
+                <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Usługi"
                     name='services'
@@ -153,10 +152,10 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                     {...inputProps}
                     label="Strefa czasowa"
                     name='timezone'
-                    getOptions={getAvailableLanguage}
+                    getOptions={getAvailableTimezone}
 
                 />
-                <FormInputSelect<MentorEditProfileFormInput>
+                <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
                     label="Język prowadzenia zajęć"
                     name='language'

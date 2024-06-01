@@ -158,9 +158,7 @@ const contactMock = {
 // });
 
 const getMentoringSessionsInDatesService = async (params: GetMentoringSessionsInDatesServiceParams): Promise<MentoringSessionInListT[]> => {
-    // TODO API
     const { data } =  await axios.post<MentoringSessionInListDTO[]>(prepareParams('/api/1.0/fetch-all-calendar-user-events', params))
-    // const data = await getMock();
     return data.map(parseMentoringSessionInListForFE);
 };
 

@@ -4,7 +4,7 @@ import React from "react";
 import styles from './styles.module.scss'
 import { Typography } from "@mui/material";
 
-export const MentorEditFooter = () => {
+export const MenteeEditFooter = () => {
     return (
         <div className={styles.Footer}>
         <Button

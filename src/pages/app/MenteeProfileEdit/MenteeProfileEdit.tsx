@@ -3,22 +3,21 @@ import Container from "src/new-components/Container/Container";
 import {Tag} from "src/types/tags";
 import {useParams} from "react-router-dom";
 import {
-    MentorEditFooter,
-    MentorEditSectionAccount,
-    MentorEditSectionNotifications,
-    MenteeEditSectionPersonalData
+    MenteeEditFooter,
+    MenteeEditSectionAccount,
+    MenteeEditSectionNotifications,
+    MenteeEditSectionPersonalData, MenteeDTO
 } from "./sections/content";
 import {Typography} from "@mui/material";
 import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
-import {getMenteeProfileById, MenteeDTO} from "@services/mentee/fetchMenteeServices.service";
+import {getMenteeProfileById} from "@services/mentee/fetchMenteeServices.service";
 
 /**
  *
  */
 export const MenteeProfileEditPage = () => {
     const {id: menteeId} = useParams();
-    const [mentee, setMentee] = useState<null | MenteeDTO>(null);
 
 
     // const [tab, setTab] = useState<ServiceType>("mentoring");
@@ -59,12 +58,17 @@ export const MenteeProfileEditPage = () => {
     //     }
     // }, [mentorId]);
 
+    const [mentee, setMentee] = useState<MenteeDTO | null>(null);
+
     useEffect(() => {
         getMenteeProfileById(menteeId).then((res) => {
             setMentee(res.data);
-            console.log(res.data)
         });
-    }, []);
+    }, [menteeId]);
+
+    if (!mentee) {
+        return <div>Loading...</div>; // Możesz dodać tu bardziej zaawansowany komponent ładowania
+    }
 
     return (
         <>
@@ -74,7 +78,7 @@ export const MenteeProfileEditPage = () => {
                 btnHref={`/student/${menteeId}`}
                 company="Skillguru"
                 coverUrl={mentee?.coverUrl}
-                fullname={mentee?.firstName +' '+ mentee?.lastName}
+                fullname={mentee?.firstName + ' ' + mentee?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
                 location="Warszawa, Polska (UTC+2)"
                 profession="Mentee"
@@ -85,9 +89,9 @@ export const MenteeProfileEditPage = () => {
                 <Typography variant='h2' color='secondary' sx={{display: 'block', margin: '48px 0 24px'}}>
                     Ustawienia konta
                 </Typography>
-                <MentorEditSectionAccount/>
-                <MentorEditSectionNotifications/>
-                <MentorEditFooter/>
+                <MenteeEditSectionAccount menteeData={mentee} />
+                <MenteeEditSectionNotifications/>
+                <MenteeEditFooter/>
             </Container>
         </>
     );

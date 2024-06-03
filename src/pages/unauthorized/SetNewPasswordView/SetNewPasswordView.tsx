@@ -20,7 +20,9 @@ const PASSWORD_MIN_LENGTH = 8;
 const SetNewPasswordView = () => {
     const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar()
-    const params = useParams() as { changeToken: string, userToken: string };
+    const params = useParams() as { userToken: string };
+    // const { resetToken } = useParams();
+
 
     const {control, formState, handleSubmit, watch} = useForm<SetNewPasswordFormInput>({
         defaultValues: {
@@ -28,6 +30,7 @@ const SetNewPasswordView = () => {
             repeatPassword: ''
         }
     });
+
 
     const passwordValue = watch("password");
     const {passwordFeedback, isPasswordValid} = usePasswordValidation(passwordValue, {minLength: PASSWORD_MIN_LENGTH});
@@ -37,9 +40,8 @@ const SetNewPasswordView = () => {
         const response = await setNewPasswordService({
             password: data.password,
             repeatPassword: data.repeatPassword,
-            changeToken: params.changeToken,
+            // changeToken: params.changeToken,
             userToken: params.userToken,
-            email: ''
         });
         if (response.success) {
             navigate(paths.login, {replace: true});

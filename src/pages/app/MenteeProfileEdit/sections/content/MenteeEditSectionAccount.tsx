@@ -4,22 +4,42 @@ import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {SubmitHandler, useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import Pencil from "src/pages/app/Schedules/components/icons/Pencil";
+import {JobPosition} from "@services/mentee/fetchMenteeServices.service";
 import {ChangePasswordDTO} from "@services/auth/setNewPassword.types";
-import {useSnackbar} from "notistack";
 import changeNewPasswordService from "@services/auth/changeNewPassword";
-import {MentorData} from "../../../MentorProfile";
+import {enqueueSnackbar} from "notistack";
 
-type Props = {
-    mentorData: MentorData;
+
+export type MenteeEditAccountFormInput = {
+    email: string;
+    password: string;
+    password2: string;
 };
 
 
-export const MentorEditSectionAccount = ({mentorData}: Props) => {
+type Props = {
+    menteeData: MenteeDTO;
+};
+
+export interface MenteeDTO {
+    email: string;
+    coverUrl: string;
+    avatarUrl: string;
+    id: string;
+    firstName: string;
+    lastName: string;
+    location: string;
+    profession: string;
+    jobPosition: JobPosition[];
+}
+
+export const MenteeEditSectionAccount = ({menteeData}: Props) => {
     const {control, formState, handleSubmit, watch} =
         useForm<ChangePasswordDTO>({
             defaultValues: {
+                email: "",
                 password: "",
-                repeatPassword: ""
+                repeatPassword: "",
             },
         });
 
@@ -30,19 +50,18 @@ export const MentorEditSectionAccount = ({mentorData}: Props) => {
             type: 'password',
             placeholder: "Wprowadź hasło"
         },
-        controllerProps: {rules: {required: "haslo jest wymagane"}},
+        controllerProps: {rules: {required: "Imię jest wymagane"}},
     };
 
-
-    const {enqueueSnackbar} = useSnackbar()
     const [editPassword, setEditPassword] = useState<boolean>(false);
 
 
+    console.log(menteeData)
     const onSubmit: SubmitHandler<ChangePasswordDTO> = async (data) => {
         const response = await changeNewPasswordService({
             password: data.password,
             repeatPassword: data.repeatPassword,
-            email: mentorData?.email
+            email: menteeData?.email
         });
         if (response.success) {
             enqueueSnackbar({
@@ -60,7 +79,7 @@ export const MentorEditSectionAccount = ({mentorData}: Props) => {
     return (
         <UserEditSection
             title="Informacje kontaktowe"
-            subtitle="Zmień swój e-mail lub hasło."
+            subtitle="Zmień swoje hasło."
             onClose={
                 editPassword
                     ? () => {

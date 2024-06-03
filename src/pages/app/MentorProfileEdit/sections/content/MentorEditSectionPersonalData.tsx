@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {UserEditSection} from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import FormInputFile from "@newComponents/_form/FormUploadFile/FormUploadFile";
 import updateUserPersonalData from "../../../../../services/mentor/settingMentor.service";
-import {getMentorProfileByID} from "../../../../../services/MentorViewService";
 import {MentorData} from "../../../MentorProfile";
 import {useParams} from "react-router-dom";
-
 
 
 export type MentorEditPersonalDataFormInput = {

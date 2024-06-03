@@ -11,7 +11,7 @@ const paths = {
     authLayout: '/auth',
     login: '/auth/login',
     remindPassword: '/auth/remind-password',
-    setNewPassword: '/auth/set-new-password/:userToken/:changeToken',
+    setNewPassword: '/auth/set-new-password/:userToken',
     passwordResetLinkSent: '/auth/reset-link-sent',
     register: '/register',
     home: '/home',

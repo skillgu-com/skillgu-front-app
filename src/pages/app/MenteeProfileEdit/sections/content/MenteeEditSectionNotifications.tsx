@@ -14,7 +14,7 @@ export type MentorEditNotificationsFormInput = {
   switch4: boolean;
 };
 
-export const MentorEditSectionNotifications = () => {
+export const MenteeEditSectionNotifications = () => {
   const { control, formState, handleSubmit, watch } =
     useForm<MentorEditNotificationsFormInput>({
       defaultValues: {

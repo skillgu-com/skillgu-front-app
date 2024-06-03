@@ -1,4 +1,4 @@
-import {SetNewPasswordDTO, SetNewPasswordInput} from "./setNewPassword.types";
+import {ChangePasswordDTO, SetNewPasswordDTO, SetNewPasswordInput} from "./setNewPassword.types";
 import axios from "axios";
 
 // const inputParser = (input: SetNewPasswordInput): SetNewPasswordDTO => {
@@ -16,11 +16,10 @@ type SetNewPasswordServiceResponse = Promise<
     | { success: false, errorMessage: string }
 >
 
-const setNewPasswordService = async (inputData: SetNewPasswordInput): SetNewPasswordServiceResponse => {
-    // TODO MENTEE
+const changeNewPasswordService = async (inputData: ChangePasswordDTO): SetNewPasswordServiceResponse => {
 
     try {
-        const { status } = await axios.post('/api/auth/password/set-new-password', inputData);
+        const { status } = await axios.post('/api/auth/password/change-password', inputData);
         if(!status || status >= 300) throw 'Coś poszło nie tak';
         return { success: true };
     } catch (e) {
@@ -31,4 +30,4 @@ const setNewPasswordService = async (inputData: SetNewPasswordInput): SetNewPass
 
 
 
-export  default setNewPasswordService
+export  default changeNewPasswordService

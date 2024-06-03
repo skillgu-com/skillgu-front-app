@@ -2,7 +2,7 @@ import React from "react";
 import ReactCountryFlag from "react-country-flag";
 import styles from "./Languages.module.scss";
 
-type LangOptionValue = "pl" | "en" | "ja";
+type LangOptionValue = "pl" | "en" | "de" | "jp";
 
 type LangOption = { value: LangOptionValue; label: string };
 
@@ -20,8 +20,12 @@ const renderFlag = (opt: LangOption) => {
       countryCode = "US";
       break;
 
-    case "ja":
-      countryCode = "JA";
+    case "de":
+      countryCode = "DE";
+      break;
+
+    case "jp":
+      countryCode = "JP";
       break;
 
     default:

@@ -7,9 +7,10 @@ export const fetchMentorServices = (): Promise<DropdownOption[]> => {
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
                     label: item.label,
-                    value: item.value
+                    value: Number(item.value) +1
                 }));
                 resolve(data);
+
             })
             .catch(error => {
                 console.error('Error fetching mentor categories:', error);

@@ -35,7 +35,6 @@ type Props = {
     mentorData: MentorData;
 };
 
-
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
@@ -45,7 +44,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 company: '',
                 biography: '',
                 skill:mentorData?.skill || [],
-                services: [],
+                services: mentorData?.services || [],
                 timezone: '',
                 language: [],
                 categories: mentorData?.mentorCategory || [],
@@ -58,8 +57,6 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
         control: control,
         controllerProps: {}
     };
-
-    console.log("formState", formState)
 
     const onSubmit = async (data: MentorEditProfileFormInput) => {
         try {
@@ -83,6 +80,9 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
             console.error('Failed to update personal data', error);
         }
     };
+
+    console.log('mentor serwisy z bazy:' , mentorData.services)
+
 
     return (
         <UserEditSection

@@ -184,6 +184,8 @@ export const MentorProfilePage = () => {
                         langs={[
                             {value: "pl", label: "Polski"},
                             {value: "en", label: "Angielski"},
+                            {value: "de", label: "Niemiecki"},
+                            {value: "jp", label: "Japonski"},
                         ]}
                     />
                 }

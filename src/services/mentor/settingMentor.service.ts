@@ -98,6 +98,7 @@ const updateUserPersonalData = async (personalData: MentorPersonalData) => {
 
 
 export const updateUserProfile = async (mentorEditSection: MentorEditProfileFormInput) => {
+    console.log(' serwis updateUserProfile.services: ', mentorEditSection.services)
     try {
 
         return await axios.patch<string>('/api/user/setting/profile', mentorEditSection);
@@ -109,7 +110,6 @@ export const updateUserProfile = async (mentorEditSection: MentorEditProfileForm
 };
 
 export const updateUserSocialLinks = async (mentorEditLinksSocial: MentorEditLinksFormInput) => {
-    console.log(mentorEditLinksSocial)
     try {
 
         return await axios.patch<string>('/api/user/setting/social', mentorEditLinksSocial);

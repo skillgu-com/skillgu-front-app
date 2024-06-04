@@ -18,7 +18,6 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import SimpleLayout from "@newComponents/SimpleLayout/SimpleLayout";
 import AuthContextProvider from "./context/AuthContextProvider";
 import {ConfirmationModalProvider} from "./context/ConfirmationModalContext";
-import ScheduleForm from "./pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFnsV3'
 import {pl} from 'date-fns/locale/pl';
@@ -58,7 +57,6 @@ function App() {
                             <BrowserRouter>
                                 <AuthContextProvider>
                                     <Elements stripe={stripePromise}>
-                                        <ScheduleForm/>
                                         <Routes>
                                             {routes.map(
                                                 ({isProtected, path, element, id, layoutVersion}) => (

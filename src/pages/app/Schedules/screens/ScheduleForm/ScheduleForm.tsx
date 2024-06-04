@@ -18,9 +18,10 @@ import {Box, Button, Collapse} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import FormDatePicker from "@newComponents/_form/FormDatePicker/FormDatePicker";
+import {createScheduleMeeting} from "@services/ScheduleService";
 
 const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
-type Weekday = typeof weekdays[number];
+export type Weekday = typeof weekdays[number];
 
 type WeekdayInput = {
     isActivated: boolean;
@@ -80,14 +81,14 @@ const ScheduleForm = () => {
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<ScheduleFormInput> = (data) => {
-        console.log(data)
-        // TODO to refactor createScheduleMeeting
-        // createScheduleMeeting(form).then((res) => {
+        // createScheduleMeeting(data).then(() => {
         //     navigate('/schedules');
         // }).catch(error => {
         //     console.error('Error creating schedule meeting:', error.response);
         // });
     };
+
+    console.log('render')
 
     return (
         <Container as={Tag.Section} classes={stylesSessions.wrapper}>
@@ -190,13 +191,11 @@ const ScheduleForm = () => {
                         />
                     )
                 })}
-
                     <Button
                         sx={{ mt: 2}}
                         fullWidth
                         variant='contained'
                         type='submit'
-                        // disableButton={!form.formState.isValid}
                     >
                         Zapisz zmiany
                     </Button>

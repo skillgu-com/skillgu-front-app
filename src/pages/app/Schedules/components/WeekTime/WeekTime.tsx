@@ -6,7 +6,7 @@ import Add from '@icons/Add';
 import Trash from '../icons/Trash';
 // Styles
 import styles from './WeekTime.module.scss';
-import {Controller, get, useFieldArray, UseFormClearErrors, UseFormReturn, UseFormSetError} from "react-hook-form";
+import {Controller, get, useFieldArray, UseFormClearErrors, UseFormReturn} from "react-hook-form";
 import {Box, Collapse, Fade, IconButton, InputAdornment} from "@mui/material";
 import {TimePicker, TimePickerProps} from "@mui/x-date-pickers/TimePicker";
 import {addHours, addMinutes, areIntervalsOverlapping, differenceInMinutes, isAfter} from "date-fns";

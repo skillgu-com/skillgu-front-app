@@ -1,35 +1,37 @@
 import axios from "axios";
-import {ScheduleFormInput} from "../pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
+import type {ScheduleFormInput, Weekday} from "../pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
+import {format} from "date-fns";
 
-// TODO type it
-function extractTimeIntervalsFromDays(days: any, weekTimes: any) {
-    Object.keys(days).forEach((element) => {
-        if (days[element].value && typeof days[element].value === 'object' && Object.keys(days[element].value).length > 0) {
-            weekTimes[element] = Object.values(days[element].value).map((day: any) => ({
-                from: {time: day.from},
-                to: {time: day.to}
+type WeekTimes = Record<Weekday, {
+    from: { time: string },
+    to: { time: string }
+}[]>;
+
+const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInput['weekdays']): WeekTimes => {
+    return Object.entries(weekdays)
+        .filter(([_, {isActivated}]) => isActivated)
+        .reduce((acc, [day, {slots}]) => {
+            acc[day as Weekday] = slots.map(({dateFrom, dateTo}) => ({
+                from: {time: format(dateFrom, 'HH:mm')},
+                to: {time: format(dateTo, 'HH:mm')}
             }));
-        }
-    });
+            return acc;
+        }, {} as WeekTimes);
 }
 
 export const createScheduleMeeting = async (currentState: ScheduleFormInput) => {
-    const {name, dateFrom, dateTo, resign, type, time, groupAmount, ...days} = currentState;
-    const weekTimes = {};
+    const {name, dateFrom, dateTo, cancelAvailable, type, meetingLength, participantsNumber, weekdays} = currentState;
+    const weekTimes = extractTimeIntervalsFromDays(weekdays);
 
-    extractTimeIntervalsFromDays(days, weekTimes);
-    if (type.value === 'individual') {
-        groupAmount.value = 0;
-    }
     return await axios.post('/api/1.0/schedule', {
-        scheduleName: name.value,
-        scheduleStartDay: dateFrom.value,
-        scheduleEndDay: dateTo.value,
-        meetTime: time.value,
-        resign: resign.value,
-        type: type.value,
+        scheduleName: name,
+        scheduleStartDay: format(dateFrom, 'yyyy-MM-dd'),
+        scheduleEndDay: format(dateTo, 'yyyy-MM-dd'),
+        meetTime: meetingLength,
+        resign: cancelAvailable,
+        type: type,
         weekTimes: weekTimes,
-        participant: groupAmount.value
+        participant: type === 'individual' ? 0 : participantsNumber
     });
 };
 

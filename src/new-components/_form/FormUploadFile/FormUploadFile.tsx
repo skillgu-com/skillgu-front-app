@@ -12,10 +12,7 @@ import {
 
 import UploadFileInput from "./_components/UploadFileInput";
 import { Collapse } from "@mui/material";
-import {
-  StyledFeedbackWrapper,
-  StyledInputWrapper,
-} from "@newComponents/_form/FormInputText/FormInputText.styles";
+import {StyledInputWrapper, StyledFeedbackWrapper} from "@newComponents/_form/_common/FormInput.styles";
 import Typography from "@mui/material/Typography";
 import InputFeedback, {
   InputFeedbackProps,

@@ -5,7 +5,7 @@ import {
 } from "react-hook-form"
 import React, {useEffect, useMemo, useState} from "react";
 import {Collapse, Select} from "@mui/material";
-import {StyledFeedbackWrapper, StyledInputWrapper} from "@newComponents/_form/FormInputText/FormInputText.styles";
+import {StyledInputWrapper, StyledFeedbackWrapper} from "@newComponents/_form/_common/FormInput.styles";
 import Typography from "@mui/material/Typography";
 import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
 import {SelectInputProps} from "@mui/material/Select/SelectInput";

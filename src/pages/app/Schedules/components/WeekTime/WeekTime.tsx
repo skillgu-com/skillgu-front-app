@@ -1,283 +1,238 @@
-import React, {
-	ChangeEvent,
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-} from 'react';
+import React, {FC} from 'react';
 // Components
 import Checkbox from '@newComponents/Checkbox/Checkbox';
-import {defaultInput} from '@newComponents/Input/Input';
 // Icons
 import Add from '@icons/Add';
 import Trash from '../icons/Trash';
 // Styles
 import styles from './WeekTime.module.scss';
+import {Controller, get, useFieldArray, UseFormClearErrors, UseFormReturn, UseFormSetError} from "react-hook-form";
+import {Box, Collapse, Fade, IconButton, InputAdornment} from "@mui/material";
+import {TimePicker, TimePickerProps} from "@mui/x-date-pickers/TimePicker";
+import {addHours, addMinutes, areIntervalsOverlapping, differenceInMinutes, isAfter} from "date-fns";
+import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
+import {TextFieldProps} from "@mui/material/TextField";
+import {ScheduleFormInput} from "../../screens/ScheduleForm/ScheduleForm";
 
-interface WeekTimeProps {
-	day: string;
-	value: any;
-	name: string;
-	valueChangeHandler: (name: string, value: any) => void;
-	meetingTime: number;
+type CustomTimePickerProps = {
+    pickerProps?: TimePickerProps<any>;
+    label: string;
+    inputProps?: TextFieldProps['InputProps'];
 }
 
-const WeekTime = (props: WeekTimeProps) => {
-	const {day, meetingTime, valueChangeHandler, name, value} = props;
+const CustomTimePicker: FC<CustomTimePickerProps> = ({pickerProps = {}, label, inputProps = {}}) => {
 
-	const [checkbox, setCheckbox] = useState({...defaultInput, value: false});
-	const [time, setTime] = useState<any>({0: {from: '', to: ''}});
-	const [timeIndex, setTimeIndex] = useState(0);
-	const [error, setError] = useState('');
+    return (
+        <TimePicker
+            slotProps={{
+                textField: {
+                    InputProps: {
+                        startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
+                        classes: {input: styles.customTimePickerInput},
+                        ...inputProps,
+                    },
+                },
+            }}
+            autoFocus
+            {...pickerProps}
+        />
+    )
+}
 
-	const timeDifference = (from: number, to: number): number =>
-		(to - from) / 1000 / 60;
+type Props = {
+    label: string;
+    baseName: string;
+    form: UseFormReturn<any>
+}
 
-	const getTimeRange = (
-		from: string,
-		to: string
-	): {toTime: number; fromTime: number} => {
-		const toTime = new Date(`01/01/2011 ${to}`).getTime();
-		const fromTime = new Date(`01/01/2011 ${from}`).getTime();
+type DateField = { dateFrom: Date, dateTo: Date, id: string }
 
-		return {toTime, fromTime};
-	};
-
-	const currentTimes = useMemo(() => Object.keys(time), [time]);
-
-	const hourValidation = useCallback(
-		(currentRowId: number | null, currentTime?: number, type?: 'to' | 'from') =>
-			currentTimes
-				.map((timeId) => {
-					if (currentRowId === null) {
-						const {toTime, fromTime} = getTimeRange(
-							time[timeId].from,
-							time[timeId].to
-						);
-
-						const isInvalid = timeDifference(fromTime, toTime) < meetingTime;
-
-						if (isInvalid) {
-							setError('Nieprawidłowe godziny!');
-						} else {
-							setError('');
-						}
-
-						return isInvalid;
-					}
-
-					if (currentTime === undefined) throw new Error('CurrentTime is Required!');
-
-					if (+timeId === currentRowId) return false; // Omit validation
-
-					const otherFromTime = time[timeId].from;
-					const otherToTime = time[timeId].to;
-
-					if (!!!otherFromTime || !!!otherToTime) return true; // If any of this value not exist it cause error field can't be empty
-
-					const {toTime: to, fromTime: from} = getTimeRange(
-						time[currentRowId].from,
-						time[currentRowId].to
-					);
-
-					const toTime = type === 'to' ? currentTime : to;
-					const fromTime = type === 'from' ? currentTime : from;
-
-					if (timeDifference(fromTime, toTime) < meetingTime) {
-						setError('Nieprawidłowe godziny!');
-						return true;
-					}
-
-					const otherFrom = new Date(`01/01/2011 ${otherFromTime}`).getTime();
-					const otherTo = new Date(`01/01/2011 ${otherToTime}`).getTime();
-
-					return otherFrom <= currentTime && otherTo >= currentTime;
-				})
-				.some((el) => el === true),
-		[currentTimes, meetingTime, time]
-	);
-
-	const setFromTime = useCallback(
-		(e: ChangeEvent<HTMLInputElement>, index: number) => {
-			const {toTime, fromTime} = getTimeRange(e.target.value, time[index].to);
-
-			const isError = hourValidation(index, fromTime, 'from');
-
-			if (
-				toTime < fromTime ||
-				isError ||
-				timeDifference(fromTime, toTime) < meetingTime
-			) {
-				setError('Nieprawidłowe godziny!');
-			} else if (error !== '') {
-				setError('');
-			}
-
-			setTime({
-				...time,
-				[index]: {...time[index], from: e.target.value},
-			});
-		},
-		[error, hourValidation, meetingTime, time]
-	);
-
-	const setToTime = useCallback(
-		(e: ChangeEvent<HTMLInputElement>, index: number) => {
-			const {toTime, fromTime} = getTimeRange(time[index].from, e.target.value);
-
-			const isError = hourValidation(index, toTime, 'to');
-
-			if (
-				toTime < fromTime ||
-				isError ||
-				timeDifference(fromTime, toTime) < meetingTime
-			) {
-				setError('Nieprawidłowe godziny!');
-			} else if (error !== '') {
-				setError('');
-			}
-
-			setTime({
-				...time,
-				[index]: {...time[index], to: e.target.value},
-			});
-		},
-		[time, hourValidation, meetingTime, error]
-	);
-
-	const addTimesRangeHandler = useCallback(() => {
-		let isError = false;
-		currentTimes.map((id) => {
-			const {toTime, fromTime} = getTimeRange(time[id].from, time[id].to);
-			if (timeDifference(fromTime, toTime) < meetingTime) return (isError = true);
-		});
-
-		if (isError) {
-			return setError('Nieprawidłowe godziny!');
-		} else if (error !== '') {
-			setError('');
-		}
-
-		const newIndex = timeIndex + 1;
-		setTimeIndex(newIndex);
-		setTime({...time, [newIndex]: {from: '', to: ''}});
-	}, [currentTimes, error, timeIndex, time, meetingTime]);
-
-	useEffect(() => {
-		if (checkbox.value) {
-			let err = error;
-			Object.keys(time).map((index) => {
-				if (!!!time[index].to || !!!time[index].from) {
-					err = 'Nieprawidłowe godziny!';
-					setError('Nieprawidłowe godziny!');
-				}
-			});
-			valueChangeHandler(name, {
-				errorMessage: err,
-				isValid: !!!err,
-				value: time,
-			});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [name, time, error]);
-
-	const changeCheckboxHandler = (_name: string, value: any) => {
-		setCheckbox(value);
-
-		if (value.value === true) {
-			const isError = hourValidation(null);
-
-			valueChangeHandler(name, {
-				errorMessage: isError ? 'Nieprawidłowe godziny!' : '',
-				isValid: !isError,
-				value: time,
-			});
-		} else {
-			valueChangeHandler(name, {
-				errorMessage: '',
-				isValid: true,
-				value: false,
-			});
-		}
-	};
-
-	useEffect(() => {
-		if (checkbox.value) {
-			const isError = hourValidation(null);
-
-			valueChangeHandler(name, {
-				errorMessage: isError ? 'Nieprawidłowe godziny!' : '',
-				isValid: !isError,
-				value: time,
-			});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [meetingTime]);
-
-	return (
-		<div className={styles.wrapper}>
-			<Checkbox
-				classes={styles.checkbox}
-				id='isActive'
-				name='isActive'
-				value={checkbox.value}
-				valueChangeHandler={changeCheckboxHandler}
-				slide
-				label={day}
-			/>
-			<div className={styles.time}>
-				{currentTimes.map((timeId, index) => {
-					return (
-						<div key={timeId} className={styles.timeWrapper}>
-							{timeId !== '0' && (
-								<button
-									type='button'
-									className={styles.actionButton}
-									disabled={!!!value}
-									onClick={() => {
-										const newTime = time;
-										delete newTime[timeId];
-										setTime({...newTime});
-									}}>
-									<Trash />
-								</button>
-							)}
-							<input
-								className={styles.inputFrom}
-								id='timeFrom'
-								name='timeFrom'
-								type='time'
-								disabled={!!!value}
-								value={time[timeId]?.from}
-								onChange={(e) => setFromTime(e, +timeId)}
-							/>
-							<input
-								className={styles.inputTo}
-								id='timeTo'
-								name='timeTo'
-								type='time'
-								disabled={!!!value}
-								value={time[timeId]?.to}
-								onChange={(e) => setToTime(e, +timeId)}
-							/>
-							{index + 1 === currentTimes.length &&
-								!!time[timeId]?.from &&
-								time[timeId]?.to && (
-									<button
-										type='button'
-										disabled={!!!value}
-										className={styles.actionButton}
-										onClick={addTimesRangeHandler}>
-										<Add />
-									</button>
-								)}
-						</div>
-					);
-				})}
-				{!!error && checkbox.value && <p className={styles.error}>{error}</p>}
-			</div>
-		</div>
-	);
+const slotsOverlapping = (rowValues: DateField[]): boolean => {
+    return rowValues.some((slot, index) => (
+        rowValues.slice(index + 1).some((slotToCompare) => (
+            areIntervalsOverlapping(
+                {start: slot.dateFrom, end: slot.dateTo},
+                {start: slotToCompare.dateFrom, end: slotToCompare.dateTo}
+            )
+        ))
+    ));
 };
 
+const slotShorterThanMeetingTime = (value: DateField, meetingLength: number): boolean => {
+    if (isAfter(value.dateFrom, value.dateTo)) return false;
+    return meetingLength - 1 > differenceInMinutes(value.dateTo, value.dateFrom);
+};
+
+type CustomValidationArgs = {
+    formValues: ScheduleFormInput,
+    baseName: string,
+    idx: number,
+    clearErrors: UseFormClearErrors<any>
+}
+const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValidationArgs): true | string => {
+
+    // variables
+    const meetingLength = formValues.meetingLength;
+    const rowValues = get(formValues, `${baseName}.slots`)
+    const slotValues = rowValues[idx];
+
+    // reset errors
+    const base  = `${baseName}.slots.${idx}`
+    clearErrors([ `${base}.dateTo`, `${base}.dateFrom` ]);
+
+    if (slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się'
+
+    if (slotShorterThanMeetingTime(slotValues, meetingLength)) return 'Przedział czasowy nie może być krótszy niż czas trwania spotkania';
+
+    return true;
+}
+
+
+const WeekTime = ({baseName, label, form}: Props) => {
+    const rowFormName = `${baseName}.isActivated`;
+    const getFormDateFromName = (idx: number) => `${baseName}.slots.${idx}.dateFrom`;
+    const getFormDateToName = (idx: number) => `${baseName}.slots.${idx}.dateTo`;
+
+    const {fields, append, remove} = useFieldArray({
+        control: form.control,
+        name: `${baseName}.slots`
+    })
+
+    const onAdd = () => {
+        const previousSlotEndDate = (fields[fields.length - 1] as DateField).dateTo;
+        const slotLength = form.getValues('meetingLength');
+        const newDateFrom = addHours(previousSlotEndDate, 1)
+        append({dateFrom: newDateFrom, dateTo: addMinutes(new Date(newDateFrom), +slotLength * 3)})
+    };
+
+    const isRowActivated = form.watch(rowFormName);
+
+    const getErrorMessage = (index: number): null | string => {
+        const errors = get(form.formState.errors, `${baseName}.slots`);
+
+        if (!errors || !errors.length) return null;
+
+        const row = errors[index];
+        if (!row) return null;
+
+        const errorsArray = [];
+        if (row.dateFrom) errorsArray.push(row.dateFrom.message);
+        if (row.dateTo) errorsArray.push(row.dateTo.message);
+        return [...new Set(errorsArray)].filter(v => !!v).join(', ');
+    }
+
+
+    return (
+        <Box sx={{display: 'grid', gap: 1, gridTemplateColumns: '70px 1fr'}}>
+            <Box sx={{pt: 2}}>
+                <Controller
+                    control={form.control}
+                    render={({field}) => {
+                        return (
+                            <Checkbox
+                                classes={styles.checkbox}
+                                id={rowFormName}
+                                name={rowFormName}
+                                value={!!field.value}
+                                valueChangeHandler={(_, {value}) => field.onChange(value)}
+                                slide
+                                label={label}
+                            />
+                        )
+                    }}
+                    name={rowFormName}
+                />
+            </Box>
+            <Box sx={{display: 'grid', gap: 2}}>
+                {fields.map((item, idx) => {
+                    const error = getErrorMessage(idx);
+
+                    return (
+                        <div key={item.id}>
+                            <Box
+
+                                sx={{display: 'grid', gridTemplateColumns: '60px auto auto 60px', gap: 2}}
+                            >
+                                <Fade in={fields.length !== 1}>
+                                    <IconButton disabled={fields.length === 1} size='small' onClick={() => remove(idx)}>
+                                        <Trash/>
+                                    </IconButton>
+                                </Fade>
+                                <Controller
+                                    render={({field}) => (
+                                        <CustomTimePicker
+                                            label={'Od'}
+                                            inputProps={{error: !!error}}
+                                            pickerProps={{
+                                                disabled: !isRowActivated,
+                                                ...field
+                                            }}
+                                        />
+                                    )}
+                                    name={getFormDateFromName(idx)}
+                                    control={form.control}
+                                    rules={{
+                                        required: 'Pole wymagane',
+                                        validate: (_, formValues) => {
+                                            return customValidation({
+                                                formValues,
+                                                baseName,
+                                                idx,
+                                                clearErrors: form.clearErrors
+                                            })
+                                        }
+                                    }}
+                                />
+                                <Controller
+                                    render={({field}) => (
+                                        <CustomTimePicker
+                                            label={'Do'}
+                                            inputProps={{error: !!error}}
+                                            pickerProps={{
+                                                disabled: !isRowActivated,
+                                                ...field
+                                            }}
+                                        />
+                                    )}
+                                    name={getFormDateToName(idx)}
+                                    control={form.control}
+                                    rules={{
+                                        required: 'Pole wymagane',
+                                        validate: (_, formValues) => {
+                                            return customValidation({
+                                                formValues,
+                                                baseName,
+                                                idx,
+                                                clearErrors: form.clearErrors
+                                            })
+                                        }
+                                    }}
+                                />
+                                <Fade in={idx === fields.length - 1}>
+                                    <IconButton
+                                        onClick={onAdd}
+                                        disabled={!isRowActivated}
+                                        sx={{opacity: isRowActivated ? 1 : 0.6}}
+                                        size='small'
+                                    >
+                                        <Add/>
+                                    </IconButton>
+                                </Fade>
+                                {error && (
+                                    <Box sx={{gridColumn: '2/4'}}>
+                                        <Collapse in={!!error}>
+                                            <InputFeedback message={error} severity='error'/>
+                                        </Collapse>
+                                    </Box>
+                                )}
+                            </Box>
+                        </div>
+                    )
+                })}
+            </Box>
+        </Box>
+    )
+}
+
 export default WeekTime;
+

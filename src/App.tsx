@@ -7,7 +7,7 @@ import AppLayout from './new-components/AppLayout/AppLayout';
 // Pages
 import routes from './routes';
 import theme from "./styles/theme";
-import {ThemeProvider} from "@mui/material";
+import {GlobalStyles, ThemeProvider} from "@mui/material";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import exhaustiveGuard from "./helpers/exhaustiveGuard";
 import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
@@ -21,8 +21,8 @@ import {ConfirmationModalProvider} from "./context/ConfirmationModalContext";
 import ScheduleForm from "./pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFnsV3'
-import { pl } from 'date-fns/locale/pl';
-
+import {pl} from 'date-fns/locale/pl';
+import globalStylesOverride from "./styles/globalStylesOverride";
 
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
@@ -52,6 +52,7 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider theme={theme}>
+                    <GlobalStyles styles={globalStylesOverride}/>
                     <ConfirmationModalProvider>
                         <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
                             <BrowserRouter>

@@ -6,13 +6,11 @@ import {
     ControllerProps,
     FormState,
 } from "react-hook-form";
-import TextField, {TextFieldProps} from "@mui/material/TextField";
+import {TextFieldProps} from "@mui/material/TextField";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {Autocomplete, CircularProgress, Collapse} from "@mui/material";
-import {
-    StyledFeedbackWrapper,
-    StyledInputWrapper,
-} from "@newComponents/_form/FormInputText/FormInputText.styles";
+import { Collapse} from "@mui/material";
+import {StyledInputWrapper, StyledFeedbackWrapper} from "@newComponents/_form/_common/FormInput.styles";
+
 import Typography from "@mui/material/Typography";
 import InputFeedback, {
     InputFeedbackProps,

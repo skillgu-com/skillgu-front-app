@@ -1,9 +1,11 @@
 import axios from "axios";
+import {ScheduleFormInput} from "../pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
 
-function extractTimeIntervalsFromDays(days, weekTimes) {
+// TODO type it
+function extractTimeIntervalsFromDays(days: any, weekTimes: any) {
     Object.keys(days).forEach((element) => {
         if (days[element].value && typeof days[element].value === 'object' && Object.keys(days[element].value).length > 0) {
-            weekTimes[element] = Object.values(days[element].value).map((day) => ({
+            weekTimes[element] = Object.values(days[element].value).map((day: any) => ({
                 from: {time: day.from},
                 to: {time: day.to}
             }));
@@ -11,7 +13,7 @@ function extractTimeIntervalsFromDays(days, weekTimes) {
     });
 }
 
-export const createScheduleMeeting = async (currentState) => {
+export const createScheduleMeeting = async (currentState: ScheduleFormInput) => {
     const {name, dateFrom, dateTo, resign, type, time, groupAmount, ...days} = currentState;
     const weekTimes = {};
 
@@ -35,7 +37,7 @@ export const fetchAllSchedules = async () => {
     return await axios.get('/api/1.0/schedule/fetch-all');
 }
 
-export const deleteSchedule = async (scheduleID) => {
+export const deleteSchedule = async (scheduleID: string) => {
     try {
         const response = await axios.post(`/api/1.0/schedule/delete?scheduleID=${scheduleID}`);
         return response.data;

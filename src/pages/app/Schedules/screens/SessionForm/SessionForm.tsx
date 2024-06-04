@@ -10,7 +10,7 @@ import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
 import Select from '@newComponents/Select/Select';
-import {fetchAllSchedules} from "../../../../../services/ScheduleService";
+import {fetchAllSchedules} from "@services/ScheduleService";
 import {createSession, getSessionTypes} from "../../../../../services/SessionService";
 
 const SessionForm = () => {

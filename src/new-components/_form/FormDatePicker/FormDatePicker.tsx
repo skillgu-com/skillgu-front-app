@@ -3,13 +3,13 @@ import {
     Path,
     FieldValues, Control, ControllerProps, FormState
 } from "react-hook-form"
-import TextField, {TextFieldProps} from '@mui/material/TextField';
 import React, {useMemo} from "react";
 import {Collapse} from "@mui/material";
 import {StyledInputWrapper, StyledFeedbackWrapper} from "@newComponents/_form/_common/FormInput.styles";
 import Typography from "@mui/material/Typography";
 import InputFeedback, {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
-import styles from '../styles.module.scss'
+import {DatePickerProps} from "@mui/x-date-pickers";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 
 interface Props<T extends FieldValues> {
     name: Path<T>;
@@ -17,19 +17,19 @@ interface Props<T extends FieldValues> {
     formState: FormState<T>;
     label?: string;
     customFeedback?: InputFeedbackProps[];
-    inputProps?: TextFieldProps;
+    inputProps?: DatePickerProps<any>;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
 }
 
-const FormInputText = <T extends FieldValues>({
-                                                  control,
-                                                  name,
-                                                  customFeedback,
-                                                  inputProps,
-                                                  controllerProps,
-                                                  label,
-                                                  formState
-                                              }: Props<T>) => {
+const FormDatePicker = <T extends FieldValues>({
+                                                   control,
+                                                   name,
+                                                   customFeedback,
+                                                   inputProps,
+                                                   controllerProps,
+                                                   label,
+                                                   formState
+                                               }: Props<T>) => {
 
     const feedback: InputFeedbackProps[] = useMemo(() => {
         if (customFeedback) return customFeedback;
@@ -40,11 +40,16 @@ const FormInputText = <T extends FieldValues>({
 
     return (
         <StyledInputWrapper>
-            {label && <Typography variant='body2' className={styles.Label}>{label}</Typography>}
+            {label && <Typography variant='body2'>{label}</Typography>}
             <Controller
                 name={name}
                 control={control}
-                render={({field: {ref, ...field}}) => <TextField {...field} {...inputProps} inputRef={ref}/>}
+                render={({field}) => (
+                    <DatePicker
+                        {...field}
+                        {...inputProps}
+                    />
+                )}
                 {...controllerProps}
             />
             <Collapse in={feedback && !!feedback.length}>
@@ -58,4 +63,4 @@ const FormInputText = <T extends FieldValues>({
     )
 }
 
-export default FormInputText;
+export default FormDatePicker;

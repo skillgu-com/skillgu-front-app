@@ -140,7 +140,6 @@ export const MentorProfilePage = () => {
             setPending(true);
             await getMentorProfileByID(mentorId).then((res) => {
                 setMentorData(res.data as MentorData);
-                console.log(res.data);
             });
             setPending(false);
         };

@@ -21,7 +21,7 @@ import ScheduleCard, {
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
-import {deleteSchedule, fetchAllSchedules} from '../../../services/ScheduleService';
+import {deleteSchedule, fetchAllSchedules} from '@services/ScheduleService';
 import {useSelector} from "react-redux";
 
 

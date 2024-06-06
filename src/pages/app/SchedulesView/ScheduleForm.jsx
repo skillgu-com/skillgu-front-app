@@ -16,7 +16,7 @@ import Input from '../../../component/Input';
 import Hours from './Hours';
 import {} from '../../../services/MeetingCreatorService';
 import {useNavigate} from "react-router-dom";
-import {createScheduleMeeting} from "../../../services/ScheduleService";
+import {createScheduleMeeting} from "@services/ScheduleService";
 
 const INITIAL_STATE = {
     meetTime: {

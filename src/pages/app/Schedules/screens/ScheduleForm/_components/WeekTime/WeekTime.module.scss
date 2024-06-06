@@ -1,4 +1,4 @@
-@use 'src/scss/variables' as *;
+@use '../../../../../../../scss/variables' as *;
 
 .wrapper {
 	display: grid;
@@ -66,4 +66,8 @@
 	&:disabled{
 		opacity: .5;
 	}
+}
+
+.customTimePickerInput {
+	text-align: end;
 }

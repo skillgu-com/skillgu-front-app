@@ -4,6 +4,7 @@ import Add from '@icons/Add';
 import Minus from '@icons/Minus';
 // styles
 import styles from './StepInput.module.scss';
+import Typography from "@mui/material/Typography";
 
 interface TimeProps {
 	step: number;
@@ -13,31 +14,30 @@ interface TimeProps {
 	label: string;
 	name: string;
 	measure?: string;
-	valueChangeHandler: (name: string, value: any) => void;
+	onChange: (value: number) => void;
 }
 
 const StepInput = (props: TimeProps) => {
 	const {
 		value,
-		valueChangeHandler,
+		onChange,
 		step,
 		minValue,
 		maxValue,
 		label,
 		measure,
-		name,
 	} = props;
 
 	const stepper = {
 		increase: () => {
 			const newTime = value + step;
 			if (newTime > maxValue) return;
-			valueChangeHandler(name, {value: newTime, errorMessage: '', isValid: true});
+			onChange(newTime);
 		},
 		decrease: () => {
 			const newTime = value - step;
 			if (newTime < minValue) return;
-			valueChangeHandler(name, {value: newTime, errorMessage: '', isValid: true});
+			onChange(newTime);
 		},
 		disabledIncrease: value === maxValue,
 		disabledDecrease: value === minValue,
@@ -45,7 +45,7 @@ const StepInput = (props: TimeProps) => {
 
 	return (
 		<div className={styles.time}>
-			<span className={styles.fieldText}>{label}</span>
+			<Typography variant='buttonMd' className={styles.fieldText}>{label}</Typography>
 			<div className={styles.timeControler}>
 				<button
 					disabled={stepper.disabledDecrease}

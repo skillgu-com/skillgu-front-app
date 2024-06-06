@@ -135,7 +135,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                                     sx={{
                                         gridArea: 'add',
                                         justifySelf: {xs: 'flex-start', sm: 'flex-start', md: 'center'},
-                                        mt: {xs: 1, sm: 1, md: 0}
+                                        mb: {xs: 2, sm: 2, md: 0},
                                     }}
                                 >
                                     <IconButton

@@ -23,11 +23,11 @@ const today = new Date();
 const defaultSlot = {
     dateFrom: setHours(setMinutes(today, 0), 9),
     dateTo: setHours(setMinutes(today, 0), 17)
-}
+};
+
+const revalidatingTimeout: Record<string, ReturnType<typeof setTimeout>> = {};
 
 const ScheduleForm = () => {
-    // TODO rwd
-
     const {
         formState,
         control,
@@ -69,14 +69,19 @@ const ScheduleForm = () => {
     const weekdaysValue = watch('weekdays');
     const meetingLengthValue = watch('meetingLength');
 
+    const revalidate = useCallback((path: string) => () => {
+        const timeoutId = revalidatingTimeout[path]
+        if(timeoutId) clearTimeout(timeoutId);
+
+        revalidatingTimeout[path] = setTimeout(() => {
+            trigger(path as keyof ScheduleFormInputT);
+        }, 10);
+    }, []);
+
     useEffect(() => {
         // revalidate weekdays when meeting length changes or weekdaysValue changes
-        trigger('weekdays')
+        revalidate('weekdays')();
     }, [meetingLengthValue]);
-
-    const revalidate = useCallback((path: string) => () => {
-        trigger(path as keyof ScheduleFormInputT);
-    }, [])
 
     return (
         <Container as={Tag.Section} classes={stylesSessions.wrapper}>

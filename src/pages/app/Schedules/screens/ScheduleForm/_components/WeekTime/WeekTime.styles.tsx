@@ -22,6 +22,7 @@ export const StyledScheduleDay = styledMui('div')(({theme}) => ({
     `,
 
     [theme.breakpoints.down('md')]: {
+        gridTemplateColumns: 'auto',
         gridTemplateAreas: `
             "${dayGridArea.switch}"
             "${dayGridArea.row}"

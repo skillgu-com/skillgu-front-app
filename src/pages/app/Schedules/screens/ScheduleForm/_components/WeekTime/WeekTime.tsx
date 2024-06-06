@@ -1,4 +1,4 @@
-import React, {useCallback, memo} from 'react';
+import React, {useCallback, memo, useEffect} from 'react';
 // Components
 import Checkbox from '@newComponents/Checkbox/Checkbox';
 // Icons
@@ -28,10 +28,11 @@ type Props = {
     formGetValues: UseFormGetValues<any>,
     formClearErrors: UseFormClearErrors<any>,
     isRowActivated: boolean,
+    revalidate: () => void,
 }
 
 
-const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated}: Props) => {
+const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated, revalidate}: Props) => {
     const rowFormName = `${baseName}.isActivated`;
 
     const {errors: formErrors} = useFormState({control: formControl});
@@ -64,6 +65,10 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
         return [...errorsSet].filter(v => !!v).join(', ');
     }, [formErrors]);
 
+    useEffect(() => {
+        revalidate()
+    }, [isRowActivated]);
+
 
     return (
         <StyledScheduleDay>
@@ -86,7 +91,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                     name={rowFormName}
                 />
             </Box>
-            <Box sx={{display: 'grid', gap: 2, gridArea: 'row'}}>
+            <Box sx={{display: 'grid', gridArea: 'row'}}>
                 {fields.map((item, idx) => {
                     const error = getErrorMessage(idx);
 
@@ -94,8 +99,11 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                         <StyledScheduleDayRow key={item.id}>
                             <Box sx={{gridArea: 'remove'}}>
                                 <Fade in={fields.length !== 1}>
-                                    <IconButton disabled={fields.length === 1} size='small'
-                                                onClick={onRemoveFactory(idx)}>
+                                    <IconButton
+                                        disabled={fields.length === 1}
+                                        size='small'
+                                        onClick={onRemoveFactory(idx)}
+                                    >
                                         <Trash/>
                                     </IconButton>
                                 </Fade>
@@ -127,7 +135,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                                     sx={{
                                         gridArea: 'add',
                                         justifySelf: {xs: 'flex-start', sm: 'flex-start', md: 'center'},
-                                        mt: {xs: 1, sm: 1, md: 0}
+                                        mb: {xs: 2, sm: 2, md: 0},
                                     }}
                                 >
                                     <IconButton
@@ -140,7 +148,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                                 </Box>
                             )}
                             {error && (
-                                <Box sx={{gridColumn: '2/4', gridArea: 'error'}}>
+                                <Box sx={{gridColumn: '2/4', gridArea: 'error', pb: 1}}>
                                     <Collapse in={!!error}>
                                         <InputFeedback message={error} severity='error'/>
                                     </Collapse>

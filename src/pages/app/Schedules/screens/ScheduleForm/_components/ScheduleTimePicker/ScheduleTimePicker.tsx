@@ -25,6 +25,22 @@ const slotShorterThanMeetingTime = (value: ScheduleDateFieldT, meetingLength: nu
     return meetingLength - 1 > differenceInMinutes(value.dateTo, value.dateFrom);
 };
 
+
+type ClearErrorsIfExistArgs = {
+    base: string,
+    clearErrors: UseFormClearErrors<any>,
+    formValues: ScheduleFormInputT
+}
+
+const clearErrorsIfExist = ({base, clearErrors, formValues}: ClearErrorsIfExistArgs) => {
+    const errorsToClear = [];
+
+    if (get(formValues, `${base}.dateTo`)) errorsToClear.push(`${base}.dateTo`)
+    if (get(formValues, `${base}.dateFrom`)) errorsToClear.push(`${base}.dateFrom`)
+
+    if (errorsToClear?.length) clearErrors(errorsToClear);
+}
+
 type CustomValidationArgs = {
     formValues: ScheduleFormInputT,
     baseName: string,
@@ -32,9 +48,7 @@ type CustomValidationArgs = {
     clearErrors: UseFormClearErrors<any>
 }
 
-
 const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValidationArgs): true | string => {
-
     // variables
     const meetingLength = formValues.meetingLength;
     const rowValues = get(formValues, `${baseName}.slots`)
@@ -43,15 +57,7 @@ const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValida
     // omit validation on inactive days
     if (!get(formValues, `${baseName}.isActivated`)) return true;
 
-    // reset errors
-    const errorsToClear = [];
-    const base = `${baseName}.slots.${idx}`
-
-    // @ts-ignore
-    if (formValues[base]?.dateTo) errorsToClear.push(`${base}.dateTo`)
-    // @ts-ignore
-    if (formValues[base]?.dateFrom) errorsToClear.push(`${base}.dateFrom`)
-    if (errorsToClear?.length) clearErrors(errorsToClear);
+    clearErrorsIfExist({base: `${baseName}.slots.${idx}`, clearErrors, formValues});
 
     // validation
     if (rowValues.length > 1 && slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się'

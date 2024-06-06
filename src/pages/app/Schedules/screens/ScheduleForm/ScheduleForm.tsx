@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Components
 import {NavTitle} from '@newComponents/typography';
@@ -28,7 +28,15 @@ const defaultSlot = {
 const ScheduleForm = () => {
     // TODO rwd
 
-    const {formState, control, clearErrors, watch, getValues, handleSubmit} = useForm<ScheduleFormInputT>({
+    const {
+        formState,
+        control,
+        clearErrors,
+        watch,
+        getValues,
+        handleSubmit,
+        trigger,
+    } = useForm<ScheduleFormInputT>({
         defaultValues: {
             name: '',
             meetingLength: 30,
@@ -59,6 +67,16 @@ const ScheduleForm = () => {
     }, [navigate]);
 
     const weekdaysValue = watch('weekdays');
+    const meetingLengthValue = watch('meetingLength');
+
+    useEffect(() => {
+        // revalidate weekdays when meeting length changes or weekdaysValue changes
+        trigger('weekdays')
+    }, [meetingLengthValue]);
+
+    const revalidate = useCallback((path: string) => () => {
+        trigger(path as keyof ScheduleFormInputT);
+    }, [])
 
     return (
         <Container as={Tag.Section} classes={stylesSessions.wrapper}>
@@ -69,15 +87,17 @@ const ScheduleForm = () => {
                 <div>
                     {weekdays.map((name, index) => {
                         const weekdayDate = setDay(today, index + 1);
+                        const baseName = `weekdays.${name}`
                         return (
                             <WeekTime
                                 key={name}
                                 label={format(weekdayDate, 'EEEEEE')}
-                                baseName={`weekdays.${name}`}
+                                baseName={baseName}
                                 formControl={control}
                                 formGetValues={getValues}
                                 formClearErrors={clearErrors}
                                 isRowActivated={weekdaysValue[name].isActivated}
+                                revalidate={revalidate(baseName)}
                             />
                         )
                     })}

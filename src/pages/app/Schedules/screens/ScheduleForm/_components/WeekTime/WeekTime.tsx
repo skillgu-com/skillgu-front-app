@@ -1,4 +1,4 @@
-import React, {useCallback, memo} from 'react';
+import React, {useCallback, memo, useEffect} from 'react';
 // Components
 import Checkbox from '@newComponents/Checkbox/Checkbox';
 // Icons
@@ -28,10 +28,11 @@ type Props = {
     formGetValues: UseFormGetValues<any>,
     formClearErrors: UseFormClearErrors<any>,
     isRowActivated: boolean,
+    revalidate: () => void,
 }
 
 
-const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated}: Props) => {
+const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated, revalidate}: Props) => {
     const rowFormName = `${baseName}.isActivated`;
 
     const {errors: formErrors} = useFormState({control: formControl});
@@ -63,6 +64,10 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
         if (row.dateTo) errorsSet.add(row.dateTo.message);
         return [...errorsSet].filter(v => !!v).join(', ');
     }, [formErrors]);
+
+    useEffect(() => {
+        revalidate()
+    }, [isRowActivated]);
 
 
     return (

@@ -41,14 +41,18 @@ const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValida
     const slotValues = rowValues[idx];
 
     // omit validation on inactive days
-    if(!get(formValues, `${baseName}.isActivated`)) return true;
+    if (!get(formValues, `${baseName}.isActivated`)) return true;
 
     // reset errors
+    const errorsToRemove = [];
     const base = `${baseName}.slots.${idx}`
-    clearErrors([`${base}.dateTo`, `${base}.dateFrom`]);
 
+    if (get(formValues, `${base}.dateTo`)) errorsToRemove.push(`${base}.dateTo`)
+    if (get(formValues, `${base}.dateFrom`)) errorsToRemove.push(`${base}.dateFrom`)
+    if (errorsToRemove.length) clearErrors(errorsToRemove);
+
+    // validation
     if (rowValues.length > 1 && slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się'
-
     if (slotShorterThanMeetingTime(slotValues, meetingLength)) return 'Przedział czasowy nie może być krótszy niż czas trwania spotkania';
 
     return true;

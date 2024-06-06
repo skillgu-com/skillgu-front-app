@@ -31,46 +31,12 @@ import {useSelector} from "react-redux";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import paths from "../../../paths";
 import {MentorLangs} from "@newComponents/_grouped/languages/MentorLangs";
+import {MentorData} from "../MentorProfileEdit";
 
 type Props = {
     isLoggedMentor: boolean;
 };
 
-export interface MentorData {
-    email: string;
-    avatar_url: string;
-    description: string;
-    id: string;
-    firstName: string;
-    lastName: string;
-    price: number;
-    location: string;
-    profession: string;
-    reviewsAvgRate: number;
-    reviewsCount: number;
-    special: string;
-    title: string;
-    intro: string;
-    jobPosition: string;
-    profileImage: string;
-    company: string;
-    coverImage: string;
-    specialVariant: SpecialVariant;
-    userID: number;
-    services: DropdownOption[];
-    skill: DropdownOption[];
-    mentorTopics: DropdownOption[];
-    mentorCategory: DropdownOption[];
-    linkedin: string | null;
-    website: string | null;
-    youtube: string | null;
-    instagram: string | null;
-    facebook: string | null;
-    twitter: string | null;
-    github: string | null;
-    dribble: string | null;
-    behance: string | null;
-}
 
 export const MentorProfilePage = () => {
     const {id: mentorId} = useParams();
@@ -159,6 +125,7 @@ export const MentorProfilePage = () => {
                     meetTime: elementFromAPI?.meetTime,
                     mentorID: Number(mentorId),
                 }));
+                console.log('formattedSessions: ',formattedSessions)
                 setOptionsSession(formattedSessions);
                 setLoading(false);
             }
@@ -188,7 +155,7 @@ export const MentorProfilePage = () => {
                         ]}
                     />
                 }
-                location={mentorData?.location}
+                location={mentorData?.timeZone}
                 profession={mentorData?.jobPosition}
             />
 

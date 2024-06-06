@@ -5,8 +5,8 @@ import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import FormInputFile from "@newComponents/_form/FormUploadFile/FormUploadFile";
 import updateUserPersonalData from "../../../../../services/mentor/settingMentor.service";
-import {MentorData} from "../../../MentorProfile";
 import {useParams} from "react-router-dom";
+import {MentorData} from "../../MentorProfileEditPage";
 
 
 export type MentorEditPersonalDataFormInput = {

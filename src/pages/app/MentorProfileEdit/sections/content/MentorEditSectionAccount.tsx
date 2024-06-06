@@ -7,7 +7,7 @@ import Pencil from "src/pages/app/Schedules/components/icons/Pencil";
 import {ChangePasswordDTO} from "@services/auth/setNewPassword.types";
 import {useSnackbar} from "notistack";
 import changeNewPasswordService from "@services/auth/changeNewPassword";
-import {MentorData} from "../../../MentorProfile";
+import {MentorData} from "../../MentorProfileEditPage";
 
 type Props = {
     mentorData: MentorData;

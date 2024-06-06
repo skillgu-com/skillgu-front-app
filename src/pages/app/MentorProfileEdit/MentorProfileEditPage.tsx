@@ -21,12 +21,14 @@ import {UserProfileHeader} from "@newComponents/_grouped";
 import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
+import {MentorLangs} from "@newComponents/_grouped/languages/MentorLangs";
 
 /**
  *
  */
 
 export interface MentorData {
+    timeZone: string;
     email: string;
     avatar_url: string;
     description: string;
@@ -116,7 +118,7 @@ export const MentorProfileEditPage = () => {
             setLoading(true);
             await getMentorProfileByID(mentorId).then((res) => {
                 setMentorData(res.data as MentorData);
-                console.log('getMentorProfileByID: ',res.data)
+                console.log('getMentorProfileByID: ', res.data)
             });
             setLoading(false);
         };
@@ -142,8 +144,17 @@ export const MentorProfileEditPage = () => {
                 company={mentorData?.company}
                 coverUrl={mentorData?.coverImage}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
-                langSwitcher={<LangSwitcherConnected/>}
-                location={mentorData?.location}
+                langSwitcher={
+                    <MentorLangs
+                        langs={[
+                            {value: "pl", label: "Polski"},
+                            {value: "en", label: "Angielski"},
+                            {value: "de", label: "Niemiecki"},
+                            {value: "jp", label: "Japonski"},
+                        ]}
+                    />
+                }
+                location={mentorData?.timeZone}
                 profession={mentorData?.jobPosition}
             />
 

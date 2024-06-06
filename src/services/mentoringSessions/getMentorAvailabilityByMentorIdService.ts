@@ -4,6 +4,7 @@ import {
     SlotDTO
 } from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
 import {format} from "date-fns";
+import axios from "axios";
 
 
 const getMock = (): Promise<SlotDTO[]> => new Promise((res) => {
@@ -51,6 +52,7 @@ const dataParser = (dto: SlotDTO): Slot => {
 }
 
 const getMentorAvailabilityByMentorIdService = async (mentorId: string, params: GetMentorAvailabilityParams) => {
+    // return await axios.post<Output>('/api/1.0/fetch-calendar-session',mentorSessionRequest);
 
     // TODO API
     const data = await getMock();

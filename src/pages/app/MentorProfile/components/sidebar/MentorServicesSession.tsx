@@ -29,6 +29,7 @@ export const MentorServicesSession = ({
     null
   );
 
+
   return services.length ? (
     <>
       <ClientPortal selector="modal-root" show={!!detailsService}>
@@ -42,7 +43,7 @@ export const MentorServicesSession = ({
                 {detailsService.sessionPrice ? (
                   <div className={styles.infoCell}>
                     <DollarCircleIcon />
-                    {Math.ceil(detailsService.sessionPrice / 100)} zł/h
+                    {Math.ceil(detailsService.sessionPrice)} zł/h
                   </div>
                 ) : null}
                 {detailsService.meetTime ? (

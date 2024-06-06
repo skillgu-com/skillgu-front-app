@@ -3,8 +3,8 @@ import {UserEditSection} from "@newComponents/_grouped";
 import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import {MentorData} from "../../../MentorProfile";
-import {updateUserProfile, updateUserSocialLinks} from "@services/mentor/settingMentor.service";
+import {updateUserSocialLinks} from "@services/mentor/settingMentor.service";
+import {MentorData} from "../../MentorProfileEditPage";
 
 export type MentorEditLinksFormInput = {
     website: string;

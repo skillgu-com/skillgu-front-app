@@ -6,13 +6,12 @@ import {Payment} from "./components/Payment/Payment";
 // Types
 // Styles
 import styles from "./BookSession.module.scss";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 //
 import {faqRows} from "./config";
 import FAQ from "src/new-components/FAQ/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
 import {fetchMentorServices} from "@services/mentor/fetchMentorServices.service";
-import {ServiceSession} from "@customTypes/order";
 import {useLocation} from "react-router-dom";
 
 interface BookSessionProps {
@@ -64,29 +63,6 @@ const BookSession = ({payment}: BookSessionProps) => {
         }
     }, [dispatch, element]);
 
-
-
-    // useEffect(() => {
-    //     const loadSlots = async () => {
-    //         try {
-    //             const slots = await fetchCalendarSession({
-    //                 mentorID: sessionData.mentorID,
-    //                 sessionID: Number.parseInt(sessionData?.id),
-    //             });
-    //             if (slots.status === 200 && Array.isArray(slots.data)) {
-    //                 dispatch({
-    //                     type: "SET_SLOTS",
-    //                     payload: {slots: slots.data as CalendarSlot[]},
-    //                 });
-    //             }
-    //         } catch (e) {
-    //             console.error("Failed to load calendar slots.");
-    //         }
-    //     };
-    //     if (state.mentor && state.service) {
-    //         loadSlots();
-    //     }
-    // }, [dispatch, state.mentor, state.service]);
 
     useEffect(() => {
         const fetchInitialData = async () => {

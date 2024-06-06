@@ -6,16 +6,15 @@ import styles from "./styles.module.scss";
 import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
 import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
 import getAvailableSkillsService from "src/services/skills/getAvailableSkills.service";
-import FormCheckboxesDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesDynamic";
 import getAvailableServices from "src/services/services/getAvailableServices";
 import getAvailableCategoriesService from "src/services/categories/getAvailableCategories.service";
 import getAvailableTopicsService from "src/services/topics/getAvailableTopics.service";
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
-import {MentorData} from "../../../MentorProfile";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import FormCheckboxesOptionsDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
+import {MentorData} from "../../MentorProfileEditPage";
 
 
 export type MentorEditProfileFormInput = {
@@ -80,8 +79,6 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
             console.error('Failed to update personal data', error);
         }
     };
-
-    console.log('mentor serwisy z bazy:' , mentorData.services)
 
 
     return (
@@ -157,7 +154,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 />
                 <FormCheckboxesOptionsDynamic<MentorEditProfileFormInput>
                     {...inputProps}
-                    label="Język prowadzenia zajęć"
+                    label="Język mentoringu"
                     name='language'
                     getOptions={getAvailableLanguage}
                 />

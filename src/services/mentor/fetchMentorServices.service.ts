@@ -46,6 +46,8 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
             filters: filters || null
         };
 
+        console.log('prepare filterMentorToSend', filterMentorToSend)
+
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 
 

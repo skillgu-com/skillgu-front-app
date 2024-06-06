@@ -26,6 +26,7 @@ const getAvailableLanguage = async (): Promise<DropdownOption[]> => {
         { value: 'pl', label: 'Polski' },
         { value: 'en', label: 'Angielski' },
         { value: 'ja', label: 'Japoński' },
+        { value: 'de', label: 'Niemiecki' },
     ]
     // return fetchMentorLanguage();
 }

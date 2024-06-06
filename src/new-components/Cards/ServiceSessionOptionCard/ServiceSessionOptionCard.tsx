@@ -56,7 +56,7 @@ export const ServiceSessionOptionCard = ({
         {sessionPrice ? (
           <div className={styles.infoCell}>
             <DollarCircleIcon />
-            {Math.ceil(sessionPrice / 100)} zł/h
+            {Math.ceil(sessionPrice)} zł/h
           </div>
         ) : null}
         {meetTime ? (

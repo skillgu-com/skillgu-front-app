@@ -60,8 +60,6 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
         }
     });
 
-    console.log()
-
     const onCancel = async () => {
         const {decision} = await showConfirmationDialog({
             title: 'Odwołaj spotkanie',

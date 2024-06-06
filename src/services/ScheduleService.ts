@@ -1,17 +1,18 @@
 import axios from "axios";
-import type {ScheduleFormInput, Weekday} from "../pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
+import type {ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
+import type { WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
 import {format} from "date-fns";
 
-type WeekTimes = Record<Weekday, {
+type WeekTimes = Record<WeekdayT, {
     from: { time: string },
     to: { time: string }
 }[]>;
 
-const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInput['weekdays']): WeekTimes => {
+const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInputT['weekdays']): WeekTimes => {
     return Object.entries(weekdays)
         .filter(([_, {isActivated}]) => isActivated)
         .reduce((acc, [day, {slots}]) => {
-            acc[day as Weekday] = slots.map(({dateFrom, dateTo}) => ({
+            acc[day as WeekdayT] = slots.map(({dateFrom, dateTo}) => ({
                 from: {time: format(dateFrom, 'HH:mm')},
                 to: {time: format(dateTo, 'HH:mm')}
             }));
@@ -19,7 +20,7 @@ const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInput['weekdays']): 
         }, {} as WeekTimes);
 }
 
-export const createScheduleMeeting = async (currentState: ScheduleFormInput) => {
+export const createScheduleMeeting = async (currentState: ScheduleFormInputT) => {
     const {name, dateFrom, dateTo, cancelAvailable, type, meetingLength, participantsNumber, weekdays} = currentState;
     const weekTimes = extractTimeIntervalsFromDays(weekdays);
 

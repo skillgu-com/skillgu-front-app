@@ -6,7 +6,7 @@ import MentoringSessionReschedule
     from "@newComponents/_mentoringMeeting/MentoringSessionReschedule/MentoringSessionReschedule";
 
 const RescheduleMeetingView = () => {
-    const {meetingId} = useParams() as { meetingId: string };
+    const { meetingId, sessionId, mentorId } = useParams() as { meetingId: string, sessionId: string, mentorId: string };
     return (
         <Container>
             {/* TODO set spacing*/}
@@ -16,7 +16,7 @@ const RescheduleMeetingView = () => {
             <Typography sx={{ pt: 2, pb: 2 }} variant='body2'>
                 Wybierz nowy termin spotkania. Spotkanie zostanie automatycznie przełożone.
             </Typography>
-            <MentoringSessionReschedule meetingId={meetingId} />
+            <MentoringSessionReschedule meetingId={meetingId} sessionId={sessionId} mentorId={mentorId} />
         </Container>
     )
 }

@@ -19,6 +19,7 @@ const skeletonDimensions = {
 
 const CalendarDailyAgenda: FC<Props> = ({isLoading, events, queryKey}) => {
     const [openEventId, setOpenEventId] = useState<string | null>(null);
+
     const onToggleFactory = (eventId: string) => () => {
         setOpenEventId(prev => prev === eventId ? null : eventId);
     }
@@ -32,6 +33,7 @@ const CalendarDailyAgenda: FC<Props> = ({isLoading, events, queryKey}) => {
             if(element) element.scrollIntoView({behavior: 'smooth', block: 'center'});
         }
     }, [searchParams, isLoading]);
+
 
     return (
         <Box sx={{ display: 'grid', gap: 3, pt: 2 }}>

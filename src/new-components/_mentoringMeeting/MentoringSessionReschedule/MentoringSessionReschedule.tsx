@@ -4,29 +4,27 @@ import {Box, Button} from "@mui/material";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import rescheduleMentoringSessionService from "@services/mentoringSessions/rescheduleMentoringSession.service";
 import {useSnackbar} from "notistack";
-import
-    getMentorAvailabilityByMentorIdService, {getMentorAvailabilityByMeetingIdServiceKeyGenerator}
-    from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
+import getMentorAvailabilityByMentorIdService, {
+    getMentorAvailabilityByMeetingIdServiceKeyGenerator
+} from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
 import {endOfWeek, EndOfWeekOptions, startOfWeek, StartOfWeekOptions} from "date-fns";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import paths from "../../../paths";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
-import {ServiceSession} from "@customTypes/order";
-import {useDispatch} from "react-redux";
 
 type Props = {
     meetingId: string;
+    sessionId: string;
+    mentorId: string;
 }
 
 const dateFnOptions: StartOfWeekOptions | EndOfWeekOptions = {weekStartsOn: 1};
 
-const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
-    console.log('meetingId:', meetingId)
+const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId}) => {
     const {enqueueSnackbar} = useSnackbar()
     const [selectedEvent, setSelectedEvent] = useState(null);
     const navigate = useNavigate();
 
-    // availability
     const [selectedRange, setSelectedRange] = useState(
         {
             from: startOfWeek(new Date(), dateFnOptions),
@@ -53,21 +51,10 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
     const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
 
-    const sessionData = location.state as ServiceSession;
-
-    // useEffect(() => {
-    //     dispatch({
-    //         type: "UPDATE_BOOK_FORM",
-    //         payload: {
-    //             calendarEventId: currentEvent,
-    //         },
-    //     });
-    // });
-
 
     useEffect(() => {
         meetingId &&
-        fetchCalendarSession({mentorID: 1, sessionID: 1})
+        fetchCalendarSession({mentorID: Number.parseInt(mentorId), sessionID: Number.parseInt(sessionId)})
             .then((res) => {
                 const dataFromApi = res.data;
                 const events: CalendarEvent[] = [];
@@ -135,7 +122,6 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId}) => {
         <Box sx={{pt: {sm: 0, md: 4}}}>
             <WeeklyCalendarPicker onNavigate={moveSelectedRange} onEventClick={onEventClick}
                                   selectedEventId={currentEvent} events={combinedData}/>
-
             <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Button onClick={onAcceptClick} disabled={!selectedEvent} sx={{mt: 3, ml: 'auto'}} variant='contained'>
                     Potwierdź nowy termin

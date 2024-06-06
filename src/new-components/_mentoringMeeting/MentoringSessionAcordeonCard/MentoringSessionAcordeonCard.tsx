@@ -39,6 +39,9 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                                                      title,
                                                      meetingLink,
                                                      queryKey,
+                                                     sessionId,
+                                                     mentorId,
+                                                     meetingId,
                                                      participant
                                                  }) => {
     const {enqueueSnackbar} = useSnackbar();
@@ -56,6 +59,8 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
             enqueueSnackbar('Wystąpił błąd podczas odwoływania spotkania', {variant: 'error'})
         }
     });
+
+    console.log()
 
     const onCancel = async () => {
         const {decision} = await showConfirmationDialog({
@@ -76,7 +81,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 label: 'Powód odwołania',
                 key: 'reason',
                 required: true,
-                inputProps: { multiline: true, rows: 3},
+                inputProps: {multiline: true, rows: 3},
             }] : undefined,
         });
 
@@ -110,7 +115,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     <StyledButtonsWrapper>
                         <Button
                             component={Link}
-                            to={generatePath(paths.rescheduleMeeting, {meetingId: id})}
+                            to={generatePath(paths.rescheduleMeeting, {meetingId: id, sessionId: sessionId.toString(), mentorId: mentorId.toString()})}
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'

@@ -12,6 +12,9 @@ export const parseMentoringSessionForFE = (data: MentoringSessionDTO): Mentoring
         start: new Date(data.start),
         end: new Date(data.end),
         meetingLink: data.meetingLink,
+        sessionId: data.sessionId,
+        meetingId: data.meetingId,
+        mentorId:  data.mentorId,
         participant: {
             mobile: data.participant.mobile,
             email: data.participant.email,
@@ -28,6 +31,9 @@ export const parseMentoringSessionInListForFE = (data: MentoringSessionInListDTO
         start: new Date(data.start),
         end: new Date(data.end),
         meetingLink: data.meetingLink,
+        sessionId: data.sessionId,
+        meetingId: data.meetingId,
+        mentorId:  data.mentorId,
         participant: {
             mobile: data.participant.mobile,
             email: data.participant.email,

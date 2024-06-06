@@ -6,6 +6,9 @@ export type MentoringSessionT = {
     start: Date,
     end: Date,
     meetingLink: string,
+    sessionId: number,
+    meetingId: number,
+    mentorId: number
     participant: {
         mobile: string,
         email: string,
@@ -22,6 +25,9 @@ export type MentoringSessionDTO = {
     start: string,
     end: string,
     meetingLink: string,
+    sessionId: number,
+    meetingId: number,
+    mentorId: number
     participant: {
         mobile: string,
         email: string,

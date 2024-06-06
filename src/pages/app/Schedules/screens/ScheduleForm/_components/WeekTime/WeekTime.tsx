@@ -86,7 +86,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                     name={rowFormName}
                 />
             </Box>
-            <Box sx={{display: 'grid', gap: 2, gridArea: 'row'}}>
+            <Box sx={{display: 'grid', gridArea: 'row'}}>
                 {fields.map((item, idx) => {
                     const error = getErrorMessage(idx);
 
@@ -94,8 +94,11 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                         <StyledScheduleDayRow key={item.id}>
                             <Box sx={{gridArea: 'remove'}}>
                                 <Fade in={fields.length !== 1}>
-                                    <IconButton disabled={fields.length === 1} size='small'
-                                                onClick={onRemoveFactory(idx)}>
+                                    <IconButton
+                                        disabled={fields.length === 1}
+                                        size='small'
+                                        onClick={onRemoveFactory(idx)}
+                                    >
                                         <Trash/>
                                     </IconButton>
                                 </Fade>
@@ -140,7 +143,7 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                                 </Box>
                             )}
                             {error && (
-                                <Box sx={{gridColumn: '2/4', gridArea: 'error'}}>
+                                <Box sx={{gridColumn: '2/4', gridArea: 'error', pb: 1}}>
                                     <Collapse in={!!error}>
                                         <InputFeedback message={error} severity='error'/>
                                     </Collapse>

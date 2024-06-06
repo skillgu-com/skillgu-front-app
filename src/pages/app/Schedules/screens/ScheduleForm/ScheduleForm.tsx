@@ -15,6 +15,7 @@ import {ScheduleFormInputT} from "./_types/ScheduleFormInputT";
 import {type WeekdayT, weekdays} from "./_types/WeekdayT";
 import {WeekdayInputT} from "./_types/WeekdayInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
+import {createScheduleMeeting} from "@services/ScheduleService";
 
 
 const today = new Date();
@@ -50,12 +51,11 @@ const ScheduleForm = () => {
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<ScheduleFormInputT> = useCallback((data) => {
-        console.log('DONE')
-        // createScheduleMeeting(data).then(() => {
-        //     navigate('/schedules');
-        // }).catch(error => {
-        //     console.error('Error creating schedule meeting:', error.response);
-        // });
+        createScheduleMeeting(data).then(() => {
+            navigate('/schedules');
+        }).catch(error => {
+            console.error('Error creating schedule meeting:', error.response);
+        });
     }, [navigate]);
 
     const weekdaysValue = watch('weekdays');
@@ -66,20 +66,22 @@ const ScheduleForm = () => {
             <form className={stylesSessions.form} onSubmit={handleSubmit(onSubmit)}>
 
                 <ScheduleFormGeneralSettings formControl={control} formWatch={watch} formState={formState}/>
-                {weekdays.map((name, index) => {
-                    const weekdayDate = setDay(today, index + 1);
-                    return (
-                        <WeekTime
-                            key={name}
-                            label={format(weekdayDate, 'EEEEEE')}
-                            baseName={`weekdays.${name}`}
-                            formControl={control}
-                            formGetValues={getValues}
-                            formClearErrors={clearErrors}
-                            isRowActivated={weekdaysValue[name].isActivated}
-                        />
-                    )
-                })}
+                <div>
+                    {weekdays.map((name, index) => {
+                        const weekdayDate = setDay(today, index + 1);
+                        return (
+                            <WeekTime
+                                key={name}
+                                label={format(weekdayDate, 'EEEEEE')}
+                                baseName={`weekdays.${name}`}
+                                formControl={control}
+                                formGetValues={getValues}
+                                formClearErrors={clearErrors}
+                                isRowActivated={weekdaysValue[name].isActivated}
+                            />
+                        )
+                    })}
+                </div>
                 <Button
                     sx={{mt: 2}}
                     fullWidth

@@ -91,7 +91,7 @@ const ScheduleTimePicker: FC<Props> = ({
                         textField: {
                             InputProps: {
                                 startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
-                                classes: {input: styles.customTimePickerInput},
+                                classes: { input: styles.customTimePickerInput },
                                 ...inputProps,
                             },
                         },

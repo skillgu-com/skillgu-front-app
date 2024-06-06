@@ -15,7 +15,8 @@ const rowGridArea = {
 
 export const StyledScheduleDay = styledMui('div')(({theme}) => ({
     display: 'grid',
-        gap: theme.spacing(2),
+    gap: theme.spacing(2),
+    gridTemplateColumns: '75px auto',
     gridTemplateAreas: `
         "${dayGridArea.switch} ${dayGridArea.row}"
     `,

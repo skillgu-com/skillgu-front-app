@@ -44,7 +44,7 @@ const ScheduleForm = () => {
                 return acc;
             }, {} as Record<WeekdayT, WeekdayInputT>)
         },
-        mode: 'onSubmit',
+        mode: 'onChange',
     })
 
     const navigate = useNavigate();

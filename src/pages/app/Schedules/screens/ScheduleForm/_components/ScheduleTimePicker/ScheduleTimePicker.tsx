@@ -44,12 +44,14 @@ const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValida
     if (!get(formValues, `${baseName}.isActivated`)) return true;
 
     // reset errors
-    const errorsToRemove = [];
+    const errorsToClear = [];
     const base = `${baseName}.slots.${idx}`
 
-    if (get(formValues, `${base}.dateTo`)) errorsToRemove.push(`${base}.dateTo`)
-    if (get(formValues, `${base}.dateFrom`)) errorsToRemove.push(`${base}.dateFrom`)
-    if (errorsToRemove.length) clearErrors(errorsToRemove);
+    // @ts-ignore
+    if (formValues[base]?.dateTo) errorsToClear.push(`${base}.dateTo`)
+    // @ts-ignore
+    if (formValues[base]?.dateFrom) errorsToClear.push(`${base}.dateFrom`)
+    if (errorsToClear?.length) clearErrors(errorsToClear);
 
     // validation
     if (rowValues.length > 1 && slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się'

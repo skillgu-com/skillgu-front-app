@@ -15,10 +15,11 @@ import {
     UseFormGetValues, useFormState,
 } from "react-hook-form";
 import {Box, Collapse, Fade, IconButton} from "@mui/material";
-import {addHours, addMinutes } from "date-fns";
+import {addHours, addMinutes} from "date-fns";
 import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
 import ScheduleTimePicker from "../ScheduleTimePicker/ScheduleTimePicker";
 import {ScheduleDateFieldT} from "../../_types/ScheduleDateField";
+import {StyledScheduleDay, StyledScheduleDayRow} from "./WeekTime.styles";
 
 type Props = {
     label: string;
@@ -33,7 +34,7 @@ type Props = {
 const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated}: Props) => {
     const rowFormName = `${baseName}.isActivated`;
 
-    const { errors: formErrors } = useFormState({ control: formControl });
+    const {errors: formErrors} = useFormState({control: formControl});
 
     const {fields, append, remove} = useFieldArray({
         control: formControl,
@@ -65,8 +66,8 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
 
 
     return (
-        <Box sx={{display: 'grid', gap: 1, gridTemplateColumns: '70px 1fr'}}>
-            <Box sx={{pt: 2}}>
+        <StyledScheduleDay>
+            <Box sx={{pt: {md: 2}, gridArea: 'switch'}}>
                 <Controller
                     control={formControl}
                     render={({field}) => {
@@ -85,18 +86,21 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                     name={rowFormName}
                 />
             </Box>
-            <Box sx={{display: 'grid', gap: 2}}>
+            <Box sx={{display: 'grid', gap: 2, gridArea: 'row'}}>
                 {fields.map((item, idx) => {
                     const error = getErrorMessage(idx);
 
                     return (
-                        <div key={item.id}>
-                            <Box sx={{display: 'grid', gridTemplateColumns: '60px auto auto 60px', gap: 2}}>
+                        <StyledScheduleDayRow key={item.id}>
+                            <Box sx={{gridArea: 'remove'}}>
                                 <Fade in={fields.length !== 1}>
-                                    <IconButton disabled={fields.length === 1} size='small' onClick={onRemoveFactory(idx)}>
+                                    <IconButton disabled={fields.length === 1} size='small'
+                                                onClick={onRemoveFactory(idx)}>
                                         <Trash/>
                                     </IconButton>
                                 </Fade>
+                            </Box>
+                            <Box sx={{display: 'grid', gap: 2, gridTemplateColumns: 'auto auto', gridArea: 'inputs'}}>
                                 <ScheduleTimePicker
                                     inputProps={{error: !!error}}
                                     nameSuffix={'dateFrom'}
@@ -117,29 +121,36 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
                                     formClearErrors={formClearErrors}
                                     idx={idx}
                                 />
-                                <Fade in={idx === fields.length - 1}>
+                            </Box>
+                            {idx === fields.length - 1 && isRowActivated && (
+                                <Box
+                                    sx={{
+                                        gridArea: 'add',
+                                        justifySelf: {xs: 'flex-start', sm: 'flex-start', md: 'center'},
+                                        mt: {xs: 1, sm: 1, md: 0}
+                                    }}
+                                >
                                     <IconButton
                                         onClick={onAdd}
                                         disabled={!isRowActivated}
-                                        sx={{opacity: isRowActivated ? 1 : 0.6}}
                                         size='small'
                                     >
                                         <Add/>
                                     </IconButton>
-                                </Fade>
-                                {error && (
-                                    <Box sx={{gridColumn: '2/4'}}>
-                                        <Collapse in={!!error}>
-                                            <InputFeedback message={error} severity='error'/>
-                                        </Collapse>
-                                    </Box>
-                                )}
-                            </Box>
-                        </div>
+                                </Box>
+                            )}
+                            {error && (
+                                <Box sx={{gridColumn: '2/4', gridArea: 'error'}}>
+                                    <Collapse in={!!error}>
+                                        <InputFeedback message={error} severity='error'/>
+                                    </Collapse>
+                                </Box>
+                            )}
+                        </StyledScheduleDayRow>
                     )
                 })}
             </Box>
-        </Box>
+        </StyledScheduleDay>
     )
 }
 

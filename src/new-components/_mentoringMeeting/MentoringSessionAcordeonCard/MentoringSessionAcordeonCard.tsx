@@ -113,7 +113,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     <StyledButtonsWrapper>
                         <Button
                             component={Link}
-                            to={generatePath(paths.rescheduleMeeting, {meetingId: id, sessionId: sessionId.toString(), mentorId: mentorId.toString()})}
+                            to={generatePath(paths.rescheduleMeeting, {meetingId: id, sessionId: sessionId, mentorId: mentorId})}
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'

@@ -27,6 +27,10 @@ export const Calendar = (props: BookFormProps) => {
     const dispatch = useDispatch();
     const {id} = useParams();
     const {selectTermHandler} = props;
+    const location = useLocation();
+    const sessionData = location.state as ServiceSession;
+
+
 
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
     // TODO is it necessary to use state here (value is unused)?
@@ -42,10 +46,7 @@ export const Calendar = (props: BookFormProps) => {
         });
     });
 
-
-    const location = useLocation();
-
-    const sessionData = location.state as ServiceSession;
+    console.log('Jestem w Calendar!',sessionData)
 
 
     useEffect(() => {

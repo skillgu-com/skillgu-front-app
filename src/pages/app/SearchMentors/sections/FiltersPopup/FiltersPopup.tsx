@@ -8,6 +8,7 @@ import {
 import styles from "./FiltersPopup.module.scss";
 import Modal from "src/new-components/Modal/Modal";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
+import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
 
 type Props = {
   terms: Terms;
@@ -80,6 +81,19 @@ export const FiltersPopup = ({
             startedRows={5}
             options={terms.services}
             selected={filters.services}
+            handleChange={(name: FilterName, selected: Option[]) => {
+              handleChange({
+                [name]: selected,
+              });
+            }}
+          />
+        </FiltersGroup>
+        <FiltersGroup title="Tematy">
+          <FiltersCheckboxes
+            name="topics"
+            startedRows={FILTERS_CHECKBOXES_ROWS_LIMIT}
+            options={terms.topics}
+            selected={filters.topics}
             handleChange={(name: FilterName, selected: Option[]) => {
               handleChange({
                 [name]: selected,

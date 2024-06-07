@@ -20,6 +20,7 @@ import {parseMentoringSessionForFE} from "./mentoringSession.parsers";
 // });
 
 const getMentoringSessionById = async (id: string): Promise<MentoringSessionT> => {
+    console.log('idzie strzal ? ')
 
     const { data } =  await axios.get<MentoringSessionDTO>(`/api/1.0/fetch-user-calendar-event-detail/${id}`);
 

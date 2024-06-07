@@ -92,7 +92,7 @@ const CalendarEventDetailsModal: FC<Props> = ({anchorEl, openModal, isOpen, clos
                     sx={{mt: 2}}
                     disabled={!data}
                     component={Link}
-                    to={generatePath(paths.calendarDaily, prepareLinkParams(data?.start || new Date())) + `?mentoringSessionId=${mentoringSessionId}`}
+                    to={generatePath(paths.calendarDaily, prepareLinkParams(data?.start || new Date())) + `?mentoringSessionId=${1}`}
                     variant='outlined'
                 >
                     Zobacz szczegóły

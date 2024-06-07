@@ -1,5 +1,3 @@
-import {Mentor} from "@customTypes/mentor";
-
 export type MentoringSessionT = {
     id: string,
     title: string,

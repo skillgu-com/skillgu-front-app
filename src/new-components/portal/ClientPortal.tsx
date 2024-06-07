@@ -12,9 +12,6 @@ export const ClientPortal = ({ children, selector, show = true }: ClientPortalIn
   const ref = useRef<Element | null>(null);
  
   useEffect(() => {
-    const x = document.getElementById(selector);
-
-    console.log("EFFECT CLIENT PORTAL", x)
     ref.current = document.getElementById(selector);
   }, [selector]);
 

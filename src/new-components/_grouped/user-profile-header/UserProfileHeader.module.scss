@@ -75,8 +75,9 @@
 .avatar img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
+    object-position: center;
 }
 
 .fullname {

@@ -7,6 +7,7 @@ import {Payment} from "./components/Payment/Payment";
 // Styles
 import styles from "./BookSession.module.scss";
 import {useDispatch} from "react-redux";
+import clx from 'classnames'
 //
 import {faqRows} from "./config";
 import FAQ from "src/new-components/FAQ/Accordion";
@@ -110,7 +111,9 @@ const BookSession = ({payment}: BookSessionProps) => {
                     </aside>
                 )}
 
-                <main>
+                <main className={clx(styles.main, {
+                    [styles.mainFullWidth]: payment,
+                })}>
                     {payment ? (
                         <section className={styles.sectionPayment}>
                             <Payment/>

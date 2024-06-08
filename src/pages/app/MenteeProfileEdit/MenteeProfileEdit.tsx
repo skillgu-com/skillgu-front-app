@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Container from "src/new-components/Container/Container";
+import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
 import {useParams} from "react-router-dom";
 import {
@@ -9,9 +9,10 @@ import {
     MenteeEditSectionPersonalData, MenteeDTO
 } from "./sections/content";
 import {Typography} from "@mui/material";
-import {UserProfileHeader} from "@newComponents/_grouped";
-import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
+
 import {getMenteeProfileById} from "@services/mentee/fetchMenteeServices.service";
+import {UserProfileHeader} from "../../../components/_grouped";
+import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
 
 /**
  *

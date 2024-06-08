@@ -1,11 +1,9 @@
 import React from "react";
-import { UserEditSection } from "@newComponents/_grouped";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
-import { Switcher } from "@newComponents/_base/Switcher";
-import FormInputSwitcher from "@newComponents/_form/FormInputSwitcher/FormInputSwitcher";
 import { Typography } from "@mui/material";
+import FormInputSwitcher from "../../../../../components/_form/FormInputSwitcher/FormInputSwitcher";
+import { UserEditSection } from "src/components/_grouped/user-edit-section/UserEditSection";
 
 export type MentorEditNotificationsFormInput = {
   switch1: boolean;

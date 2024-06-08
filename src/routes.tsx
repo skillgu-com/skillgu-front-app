@@ -13,13 +13,7 @@ import SessionForm from './pages/app/Schedules/screens/SessionForm/SessionForm';
 import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
 // Screens
-import Raports from './pages/app/Raports/Raports';
 import CalendarView from './pages/app/CalendarView/CalendarView';
-import AccountSettlement from './pages/app/AccountSettlement/AccountSettlement';
-import MessagesView from './pages/app/MessagesView/MessagesView';
-import SchedulesView from './pages/app/SchedulesView';
-import BookSuccess from './pages/app/BookSessionView/views/BookSuccess';
-
 import RemindPasswordView from "./pages/unauthorized/RemindPasswordView/RemindPasswordView";
 import LoginView from "./pages/unauthorized/LoginView/LoginView";
 import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSentView/PasswordResetLinkSentView";
@@ -167,36 +161,6 @@ const routesRaw: Omit<Route, 'id'>[] = [
         layoutVersion: 'default',
     },
 
-    {
-        path: paths.reports,
-        element: <Raports />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.accountSettlements,
-        element: <AccountSettlement />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.messages,
-        element: <MessagesView />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.schedules,
-        element: <SchedulesView />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.bookSuccess,
-        element: <BookSuccess />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
     {
         path: paths.registerMentor,
         element: <RegisterMentorView />,

@@ -1,10 +1,11 @@
 import React from "react";
-import {UserEditSection} from "@newComponents/_grouped";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import {updateUserSocialLinks} from "@services/mentor/settingMentor.service";
 import {MentorData} from "../../MentorProfileEditPage";
+import {UserEditSection} from "../../../../../components/_grouped";
+import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
 
 export type MentorEditLinksFormInput = {
     website: string;
@@ -68,7 +69,7 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
 
             };
             const response = await updateUserSocialLinks(mentorSocialLinks);
-            // window.location.reload();
+            window.location.reload();
 
         } catch (error) {
             console.error('Failed to update personal data', error);

@@ -1,20 +1,18 @@
 import React from 'react';
 // Components
-import Container from '@newComponents/Container/Container';
-import {Title, Text} from '@newComponents/typography';
-import Button, {ButtonTag, ButtonVariant} from '@newComponents/Button/Button';
+
 // Icons
 import Schedules from '@icons/Schedules';
 import Add from '@icons/Add';
 // Types
 import {Tag} from 'src/types/tags';
-import {
-	TitleTag,
-	TitleVariant,
-} from 'src/new-components/typography/Title/Title';
+
 // Styles
 import styles from './Empty.module.scss';
 import classNames from 'classnames';
+import Container from "../../../../../components/Container/Container";
+import Button, {ButtonTag, ButtonVariant} from "../../../../../components/Button/Button";
+import Title, {TitleTag, TitleVariant} from "../../../../../components/typography/Title/Title";
 
 interface EmptyProps {
 	title?: string;
@@ -47,7 +45,7 @@ const Empty = (props: EmptyProps) => {
 				</Title>
 			)}
 			{icon ?? <Schedules />}
-			<Text classes={styles.text}>{text}</Text>
+			{/*<Text classes={styles.text}>{text}</Text>*/}
 			<Button
 				as={ButtonTag.InternalLink}
 				variant={ButtonVariant.Outline}

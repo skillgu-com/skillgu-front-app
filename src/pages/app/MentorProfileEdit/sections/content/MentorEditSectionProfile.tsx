@@ -1,10 +1,8 @@
 import React from "react";
-import {UserEditSection} from "@newComponents/_grouped";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import FormAutocompleteDynamic from "@newComponents/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
-import FormInputSelect from "@newComponents/_form/FormInputSelect/FormInputSelect";
+
 import getAvailableSkillsService from "src/services/skills/getAvailableSkills.service";
 import getAvailableServices from "src/services/services/getAvailableServices";
 import getAvailableCategoriesService from "src/services/categories/getAvailableCategories.service";
@@ -12,9 +10,14 @@ import getAvailableTopicsService from "src/services/topics/getAvailableTopics.se
 import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
-import FormCheckboxesOptionsDynamic from "@newComponents/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
 import {MentorData} from "../../MentorProfileEditPage";
+import {UserEditSection} from "../../../../../components/_grouped";
+import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
+import FormAutocompleteDynamic from "../../../../../components/_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
+import FormCheckboxesOptionsDynamic
+    from "../../../../../components/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
+import FormInputSelect from "../../../../../components/_form/FormInputSelect/FormInputSelect";
 
 
 export type MentorEditProfileFormInput = {

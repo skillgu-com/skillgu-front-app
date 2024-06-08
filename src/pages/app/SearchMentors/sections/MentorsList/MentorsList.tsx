@@ -2,11 +2,8 @@
 import React from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 // Components
-import Container from "src/new-components/Container/Container";
-import {
-    MentorListingCard,
-    MentorListingCardSkeleton,
-} from "@newComponents/Cards/MentorListingCard";
+import Container from "src/components/Container/Container";
+
 // Styles
 import styles from "./MentorsList.module.scss";
 // Types
@@ -14,6 +11,7 @@ import {Tag} from "src/types/tags";
 // Utils
 import {buildMentorLink} from "../../utils";
 import {Mentor} from "@customTypes/mentor";
+import {MentorListingCard, MentorListingCardSkeleton} from "../../../../../components/Cards/MentorListingCard";
 
 type Props = {
     error?: string;

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import {UserEditSection} from "@newComponents/_grouped";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+
 import {SubmitHandler, useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import Pencil from "src/pages/app/Schedules/components/icons/Pencil";
@@ -8,6 +7,8 @@ import {ChangePasswordDTO} from "@services/auth/setNewPassword.types";
 import {useSnackbar} from "notistack";
 import changeNewPasswordService from "@services/auth/changeNewPassword";
 import {MentorData} from "../../MentorProfileEditPage";
+import {UserEditSection} from "../../../../../components/_grouped";
+import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
 
 type Props = {
     mentorData: MentorData;

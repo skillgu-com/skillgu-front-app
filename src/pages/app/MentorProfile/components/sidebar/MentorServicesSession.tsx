@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styles from "./Sidebar.module.scss";
-import clx from "classnames";
-import { ServiceSession } from "@customTypes/order";
-import Camera from "@icons/Camera";
-import People from "@icons/People";
-import { ServiceSessionOptionCard } from "@newComponents/Cards/ServiceSessionOptionCard/ServiceSessionOptionCard";
-import { LinkIcon } from "@icons/LinkIcon";
-import { ServiceInfoBox } from "@newComponents/_grouped";
-import { ClientPortal } from "@newComponents/portal";
-import Modal from "@newComponents/Modal/Modal";
-import { DollarCircleIcon } from "@icons/DollarCircleIcon";
-import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
+import {ServiceSession} from "@customTypes/order";
+
+import {DollarCircleIcon} from "@icons/DollarCircleIcon";
+import {ClockSolidCircleIcon} from "@icons/ClockSolidCircleIcon";
+import {ClientPortal} from "../../../../../components/portal";
+import Modal from "../../../../../components/Modal/Modal";
+import {ServiceInfoBox} from "../../../../../components/_grouped";
+import {
+    ServiceSessionOptionCard
+} from "../../../../../components/Cards/ServiceSessionOptionCard/ServiceSessionOptionCard";
 
 type Props = {
   services: ServiceSession[];

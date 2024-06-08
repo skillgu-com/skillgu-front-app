@@ -21,7 +21,7 @@ type FetchMentorReviewsData = {
 };
 
 
-export const fetchMentorServices = async (input: Input): Promise<OutputSuccess | OutputFailed> => {
+export const fetchMentoring = async (input: Input): Promise<OutputSuccess | OutputFailed> => {
     try {
         const resp = await fetch('/mentor-services.json')
         const respData = await resp.json()
@@ -35,7 +35,7 @@ export const fetchMentorServices = async (input: Input): Promise<OutputSuccess |
     }
 }
 
-export const fetchMentors = async (take: number, skip: number, filters?: FiltersSelected): Promise<ResponseData> => {
+export const fetchMentorFilteredList = async (take: number, skip: number, filters?: FiltersSelected): Promise<ResponseData> => {
     try {
         const filterMentorToSend = {
             take: 10,
@@ -46,7 +46,6 @@ export const fetchMentors = async (take: number, skip: number, filters?: Filters
             filters: filters || null
         };
 
-        console.log('prepare filterMentorToSend', filterMentorToSend)
 
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 

@@ -1,9 +1,8 @@
 import React from "react";
-import clx from "classnames";
 import styles from "./MentorHeader.module.scss";
-import { LangSwitcherConnected } from "@newComponents/_connected/lang-switcher/LangSwitcher";
-import { MapMarkIcon } from "@icons/MapMarkIcon";
-import { MentorLangs } from "@newComponents/_grouped/languages/MentorLangs";
+import {MapMarkIcon} from "@icons/MapMarkIcon";
+import {MentorLangs} from "../../../../../components/_grouped/languages/MentorLangs";
+import {LangSwitcherConnected} from "../../../../../components/_connected/lang-switcher/LangSwitcher";
 
 type JobPosition = {
   id: number;

@@ -1,10 +1,10 @@
 import React from "react";
-import {UserEditSection} from "@newComponents/_grouped";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import FormInputFile from "@newComponents/_form/FormUploadFile/FormUploadFile";
 import updateUserPersonalData from "@services/mentor/settingMentor.service";
+import {UserEditSection} from "../../../../../components/_grouped";
+import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
+import FormInputFile from "../../../../../components/_form/FormUploadFile/FormUploadFile";
 
 export type MentorEditPersonalDataFormInput = {
     userID: number;

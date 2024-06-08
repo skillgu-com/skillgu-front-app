@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 // Selectors
 import {getRole} from 'src/redux/selectors/authSelectors';
 // Components
-import NavCard from 'src/new-components/Cards/NavCard/NavCard';
+import NavCard from 'src/components/Cards/NavCard/NavCard';
 // Icons
 import Calendar from 'src/assets/icons/Calendar';
 import Message from 'src/assets/icons/Message';

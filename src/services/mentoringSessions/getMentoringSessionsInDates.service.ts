@@ -2,7 +2,6 @@
 import {MentoringSessionInListDTO, MentoringSessionInListT} from "./mentoringSession.types";
 import {GetMentoringSessionsInDatesServiceParams} from "./getMentoringSessionsInDates.types";
 import {parseMentoringSessionInListForFE} from "./mentoringSession.parsers";
-import {Mentor} from "@customTypes/mentor";
 import prepareParams from "../../helpers/prepareParams";
 import axios from "axios";
 

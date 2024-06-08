@@ -3,7 +3,8 @@ import {useParams} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {Container} from "@mui/material";
 import MentoringSessionReschedule
-    from "@newComponents/_mentoringMeeting/MentoringSessionReschedule/MentoringSessionReschedule";
+    from "../../../components/_mentoringMeeting/MentoringSessionReschedule/MentoringSessionReschedule";
+
 
 const RescheduleMeetingView = () => {
     const { meetingId, sessionId, mentorId } = useParams() as { meetingId: string, sessionId: string, mentorId: string };

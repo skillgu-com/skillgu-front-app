@@ -5,8 +5,8 @@ import {useLocation, useParams} from "react-router-dom";
 import {useDispatch,} from "react-redux";
 
 // Components
-import {defaultInput} from "src/new-components/Input/Input";
-import {Title} from "src/new-components/typography";
+import {defaultInput} from "src/components/Input/Input";
+import {Title} from "src/components/typography";
 
 // Styles
 import styles from "./BookForm.module.scss";
@@ -14,10 +14,10 @@ import styles from "./BookForm.module.scss";
 import {
     TitleTag,
     TitleVariant,
-} from "src/new-components/typography/Title/Title";
+} from "src/components/typography/Title/Title";
 import {ServiceSession} from "@customTypes/order";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
-import WeeklyCalendarPicker, {CalendarEvent} from "@newComponents/WeeklyCalendarPicker/WeeklyCalendarPicker";
+import WeeklyCalendarPicker, {CalendarEvent} from "../../../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
 
 interface BookFormProps {
     selectTermHandler: (term: Date) => void;
@@ -29,8 +29,6 @@ export const Calendar = (props: BookFormProps) => {
     const {selectTermHandler} = props;
     const location = useLocation();
     const sessionData = location.state as ServiceSession;
-
-
 
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
     // TODO is it necessary to use state here (value is unused)?
@@ -46,7 +44,6 @@ export const Calendar = (props: BookFormProps) => {
         });
     });
 
-    console.log('Jestem w Calendar!',sessionData)
 
 
     useEffect(() => {

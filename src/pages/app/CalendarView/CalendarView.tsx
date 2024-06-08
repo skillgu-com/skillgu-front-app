@@ -7,11 +7,11 @@ import
     , {
     getMentoringSessionsInDatesServiceKeyGenerator
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
-import Calendar from "@newComponents/Calendar/Calendar";
 import Typography from "@mui/material/Typography";
 import {Container, Theme, useMediaQuery} from "@mui/material";
 import {Event, NavigateAction} from "react-big-calendar";
-import CalendarMobile from "@newComponents/Calendar/_mobile/CalendarMobile/CalendarMobile";
+import Calendar from "../../../components/Calendar/Calendar";
+import CalendarMobile from "../../../components/Calendar/_mobile/CalendarMobile/CalendarMobile";
 
 export type MeetingInCalendar = Event & {
     metadata: {

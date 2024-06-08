@@ -3,25 +3,25 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 // Components
-import AppLayout from './new-components/AppLayout/AppLayout';
+import AppLayout from './components/AppLayout/AppLayout';
 // Pages
 import routes from './routes';
 import theme from "./styles/theme";
 import {GlobalStyles, ThemeProvider} from "@mui/material";
 import {LayoutVersion} from "@customTypes/layoutVersion";
 import exhaustiveGuard from "./helpers/exhaustiveGuard";
-import AuthLayout from "@newComponents/_layouts/AuthLayout/AuthLayout";
 import paths from "./paths";
 import {SnackbarProvider} from "notistack";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
-import SimpleLayout from "@newComponents/SimpleLayout/SimpleLayout";
 import AuthContextProvider from "./context/AuthContextProvider";
 import {ConfirmationModalProvider} from "./context/ConfirmationModalContext";
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFnsV3'
 import {pl} from 'date-fns/locale/pl';
 import globalStylesOverride from "./styles/globalStylesOverride";
+import AuthLayout from "./components/_layouts/AuthLayout/AuthLayout";
+import SimpleLayout from "./components/SimpleLayout/SimpleLayout";
 
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;

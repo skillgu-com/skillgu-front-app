@@ -1,14 +1,14 @@
 import React, {FC, memo} from "react";
 import {Box, Collapse} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {Control, Controller, FormState, UseFormWatch} from "react-hook-form";
-import StepInput from "@newComponents/StepInput/StepInput";
 import MeetingType from "../../../../components/MeetingType/MeetingType";
-import Checkbox from "@newComponents/Checkbox/Checkbox";
 import styles from "../../ScheduleForm.module.scss";
-import FormDatePicker from "@newComponents/_form/FormDatePicker/FormDatePicker";
 import {isAfter, isBefore} from "date-fns";
+import FormDatePicker from "../../../../../../../components/_form/FormDatePicker/FormDatePicker";
+import FormInputText from "../../../../../../../components/_form/FormInputText/FormInputText";
+import StepInput from "../../../../../../../components/StepInput/StepInput";
+import Checkbox from "../../../../../../../components/Checkbox/Checkbox";
 
 type Props = {
     formControl: Control<any>,

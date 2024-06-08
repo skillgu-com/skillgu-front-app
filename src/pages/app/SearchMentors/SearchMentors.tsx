@@ -1,14 +1,13 @@
 // Libraries
 import React, {useCallback, useEffect, useReducer, useState} from "react";
 // Components
-import AppHeader from "src/new-components/AppHeader/AppHeader";
+import AppHeader from "src/components/AppHeader/AppHeader";
 import {
     FiltersHeader,
     FiltersPopup,
     MentorsList,
     FiltersSidebar,
 } from "./sections";
-import Container from "@newComponents/Container/Container";
 // Types
 import {SortOption} from "@customTypes/mentor";
 import {Tag} from "src/types/tags";
@@ -21,8 +20,9 @@ import styles from "./SearchMentors.module.scss";
 import {mentorsReducer} from "src/reducers/mentors";
 import {mentorsInitialState} from "src/reducers/mentors/constants";
 import {FilterName, FiltersSelected, Option} from "@customTypes/mentor";
-import {fetchMentors} from "src/services/mentor/fetchMentorServices.service";
+import {fetchMentorFilteredList} from "src/services/mentor/fetchMentorServices.service";
 import {fetchTerms} from "../../../services/terms.service";
+import Container from "../../../components/Container/Container";
 
 const SearchMentors = () => {
     const [terms, dispatchTerms] = useReducer(termsReducer, termsInitialState);
@@ -39,7 +39,7 @@ const SearchMentors = () => {
                     type: "UPDATE_REQUEST_STATE",
                     payload: {error: "", pending: true},
                 });
-                const {mentors, total} = await fetchMentors(
+                const {mentors, total} = await fetchMentorFilteredList(
                     PAGE_SIZE,
                     (page - 1) * PAGE_SIZE,
                     filters

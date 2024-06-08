@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Components
-import {NavTitle} from '@newComponents/typography';
-import Container from '@newComponents/Container/Container';
+
 import WeekTime from './_components/WeekTime/WeekTime';
 // Types
 import {Tag} from '@customTypes/tags';
@@ -16,6 +15,8 @@ import {type WeekdayT, weekdays} from "./_types/WeekdayT";
 import {WeekdayInputT} from "./_types/WeekdayInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
 import {createScheduleMeeting} from "@services/ScheduleService";
+import Container from "../../../../../components/Container/Container";
+import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 
 
 const today = new Date();

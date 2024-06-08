@@ -6,7 +6,7 @@ import {
   Option,
 } from "@customTypes/mentor";
 import styles from "./FiltersPopup.module.scss";
-import Modal from "src/new-components/Modal/Modal";
+import Modal from "src/components/Modal/Modal";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
 import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
 

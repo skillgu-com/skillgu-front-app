@@ -1,8 +1,7 @@
 import React from "react";
-import Container from "src/new-components/Container/Container";
+import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
 import styles from "./FiltersHeader.module.scss";
-import Select from "@newComponents/Select/Select";
 import {sortOptions} from "../../config";
 import SearchSvg from "@icons/SearchSvg";
 import {
@@ -13,6 +12,7 @@ import {
 } from "@customTypes/mentor";
 import {FilterTag} from "../../elements";
 import {FilterSearchSvg} from "@icons/FilterSearchSvg";
+import Select from "../../../../../components/Select/Select";
 
 type FiltersHeaderProps = {
     displayed: number;

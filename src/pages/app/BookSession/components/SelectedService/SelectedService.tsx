@@ -1,8 +1,8 @@
 import React from "react";
 import { useBookingReducer } from "src/reducers/booking";
-import { MentorServiceCard } from "@newComponents/Cards/MentorServiceCard";
 import {useLocation} from "react-router-dom";
 import {ServiceSession} from "@customTypes/order";
+import {MentorServiceCard} from "../../../../../components/Cards/MentorServiceCard";
 
 export const SelectedService = () => {
   const [state] = useBookingReducer();

@@ -2,7 +2,6 @@ import React, {useMemo} from 'react';
 import Typography from "@mui/material/Typography";
 import {Box, Container, Theme, useMediaQuery, useTheme} from "@mui/material";
 import {ReactComponent as ArrowLeft} from '@icons/svg/arrow-left.svg';
-import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
 import {Link, useParams} from "react-router-dom";
 import paths from "../../../paths";
 import {format, set} from "date-fns";
@@ -10,7 +9,8 @@ import {useQuery} from "@tanstack/react-query";
 import getMentoringSessionsInDatesService, {
     getMentoringSessionsInDatesServiceKeyGenerator
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
-import CalendarDailyAgenda from "@newComponents/CalendarDailyAgenda/CalendarDailyAgenda";
+import FullSizeIconButton from "../../../components/FullSizeIconButton/FullSizeIconButton";
+import CalendarDailyAgenda from "../../../components/CalendarDailyAgenda/CalendarDailyAgenda";
 
 const CalendarDailyView = () => {
     const theme = useTheme();

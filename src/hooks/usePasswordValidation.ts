@@ -1,6 +1,6 @@
-import {InputFeedbackProps} from "@newComponents/_form/InputFeedback/InputFeedback";
 import {useMemo} from "react";
 import {BIG_SIGN_REGEX, NUM_REGEX} from "../helpers/improovedValidation";
+import {InputFeedbackProps} from "../components/_form/InputFeedback/InputFeedback";
 
 type Config = {
     minLength: number

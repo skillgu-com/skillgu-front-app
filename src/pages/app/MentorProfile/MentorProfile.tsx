@@ -1,37 +1,21 @@
 import React, {useEffect, useMemo, useState} from "react";
-import Container from "src/new-components/Container/Container";
-import {MentorReviewsConnected} from "@newComponents/_connected";
+import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
-import {MentorHeader, MentorHeaderWrapper} from "./components";
 import {useNavigate, useParams} from "react-router-dom";
-import {
-    MentorContent,
-    MentorLinks,
-    MentorMainWrapper,
-} from "./components/content";
-import {
-    MentorServices,
-    MentorServicesMentoring,
-    MentorServicesSession,
-} from "./components/sidebar";
-import {
-    ServiceMentoring,
-    ServiceSession,
-    ServiceType,
-} from "@customTypes/order";
-import {fetchMentorServices} from "src/services/mentor/fetchMentorServices.service";
+import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
+import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
+import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
+import {fetchMentoring} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import {getMentorProfileByID} from "../../../services/MentorViewService";
-import {SpecialVariant} from "@customTypes/mentor";
 import {fetchMentorSession} from "../../../services/SessionService";
-import {UserProfileHeader} from "@newComponents/_grouped";
-import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import {DropdownOption} from "@customTypes/dropdownOption";
 import paths from "../../../paths";
-import {MentorLangs} from "@newComponents/_grouped/languages/MentorLangs";
 import {MentorData} from "../MentorProfileEdit";
+import {UserProfileHeader} from "../../../components/_grouped";
+import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
+import {MentorReviewsConnected} from "../../../components/_connected";
 
 type Props = {
     isLoggedMentor: boolean;
@@ -82,14 +66,13 @@ export const MentorProfilePage = () => {
     const closePopup = () => setPopupSession(null);
 
     const handleSubmitSession = (opt: ServiceSession) => {
-        console.log("ServiceSession in MentorProfile: ", opt);
         navigate(paths.sessionBook, {state: opt});
     };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
     useEffect(() => {
         const run = async () => {
-            const resp = await fetchMentorServices({mentorId: mentorId || ""});
+            const resp = await fetchMentoring({mentorId: mentorId || ""});
             if (resp.success) {
                 setOptionsMentoring(resp.mentoring);
                 // setOptionsSession(resp.session);
@@ -124,8 +107,8 @@ export const MentorProfilePage = () => {
                     description: elementFromAPI?.description,
                     meetTime: elementFromAPI?.meetTime,
                     mentorID: Number(mentorId),
+
                 }));
-                console.log('formattedSessions: ',formattedSessions)
                 setOptionsSession(formattedSessions);
                 setLoading(false);
             }

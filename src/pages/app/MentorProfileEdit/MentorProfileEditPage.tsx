@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import Container from "src/new-components/Container/Container";
+import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
 import {useParams} from "react-router-dom";
 import {
@@ -17,11 +17,10 @@ import {
 } from "@customTypes/order";
 import {getMentorProfileByID} from "../../../services/MentorViewService";
 import {Typography} from "@mui/material";
-import {UserProfileHeader} from "@newComponents/_grouped";
-import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
-import {MentorLangs} from "@newComponents/_grouped/languages/MentorLangs";
+import {UserProfileHeader} from "../../../components/_grouped";
+import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 
 /**
  *

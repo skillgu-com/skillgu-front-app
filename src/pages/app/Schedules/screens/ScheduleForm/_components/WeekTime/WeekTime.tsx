@@ -1,6 +1,5 @@
 import React, {useCallback, memo, useEffect} from 'react';
 // Components
-import Checkbox from '@newComponents/Checkbox/Checkbox';
 // Icons
 import Add from '@icons/Add';
 import Trash from '../../../../components/icons/Trash';
@@ -16,10 +15,11 @@ import {
 } from "react-hook-form";
 import {Box, Collapse, Fade, IconButton} from "@mui/material";
 import {addHours, addMinutes} from "date-fns";
-import InputFeedback from "@newComponents/_form/InputFeedback/InputFeedback";
 import ScheduleTimePicker from "../ScheduleTimePicker/ScheduleTimePicker";
 import {ScheduleDateFieldT} from "../../_types/ScheduleDateField";
 import {StyledScheduleDay, StyledScheduleDayRow} from "./WeekTime.styles";
+import Checkbox from "../../../../../../../components/Checkbox/Checkbox";
+import InputFeedback from "../../../../../../../components/_form/InputFeedback/InputFeedback";
 
 type Props = {
     label: string;

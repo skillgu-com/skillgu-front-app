@@ -2,8 +2,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 // Components
-import AppHeader from 'src/new-components/AppHeader/AppHeader';
-import Container from 'src/new-components/Container/Container';
+import AppHeader from 'src/components/AppHeader/AppHeader';
+import Container from 'src/components/Container/Container';
 // Selectors
 import {getRole} from 'src/redux/selectors/authSelectors';
 // Sections

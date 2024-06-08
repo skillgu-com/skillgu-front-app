@@ -3,13 +3,13 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {ScrollContainer} from 'react-indiana-drag-scroll';
 // Components
-import {Title, Text} from 'src/new-components/typography';
-import Tag from 'src/new-components/Tag/Tag';
+import {Title, Text} from 'src/components/typography';
+import Tag from 'src/components/Tag/Tag';
 // Types
 import {
 	TitleTag,
 	TitleVariant,
-} from 'src/new-components/typography/Title/Title';
+} from 'src/components/typography/Title/Title';
 // Styles
 import styles from './ListSection.module.scss';
 import {findRelatedUsersBasedOnRole} from "../../../../../services/UserProfileService";

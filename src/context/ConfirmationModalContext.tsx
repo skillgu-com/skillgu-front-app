@@ -2,11 +2,12 @@ import React, {ReactNode, useCallback, useContext, useMemo, useRef, useState} fr
 import {createContext} from "react";
 import {ButtonProps, Dialog, DialogTitle, DialogContent, DialogActions, Button, Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import FullSizeIconButton from "@newComponents/FullSizeIconButton/FullSizeIconButton";
-import {ReactComponent as CloseIcon} from "src/assets/icons/svg/close.svg";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
+
 import {FieldValues, useForm} from "react-hook-form";
 import {TextFieldProps} from "@mui/material/TextField";
+import FullSizeIconButton from "../components/FullSizeIconButton/FullSizeIconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import FormInputText from "../components/_form/FormInputText/FormInputText";
 
 // TODO expand it for other use cases
 // TODO find any way to type actionType and userFeedback as generic

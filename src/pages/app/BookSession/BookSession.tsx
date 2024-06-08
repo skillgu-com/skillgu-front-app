@@ -46,7 +46,6 @@ const BookSession = ({payment}: BookSessionProps) => {
     const fetchInitialRef = useRef<boolean>(false);
 
     const element = location.state as SessionState;
-    console.log(element)
 
     useEffect(() => {
         if (element) {

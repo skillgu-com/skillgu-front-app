@@ -31,6 +31,7 @@ import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleM
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { MenteeProfilePage } from './pages/app/MenteeProfile';
 import { MenteeProfileEditPage } from './pages/app/MenteeProfileEdit';
+import { ChatPage } from './pages/app/Chat';
 
 type Route = {
     id: string;
@@ -205,6 +206,11 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.registerMentee,
         element: <RegisterMenteeView/>,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.chat,
+        element: <ChatPage />,
         layoutVersion: 'none',
     },
 ];

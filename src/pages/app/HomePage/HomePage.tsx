@@ -8,7 +8,6 @@ import Container from 'src/components/Container/Container';
 import {getRole} from 'src/redux/selectors/authSelectors';
 // Sections
 import NavSection from './sections/NavSection/NavSection';
-import ListSection from './sections/ListSection/ListSection';
 // Types
 import {Tag} from 'src/types/tags';
 // Styles
@@ -52,7 +51,6 @@ const HomePage = () => {
 			/>
 			<Container as={Tag.Main} classes={styles.wrapper}>
 				<NavSection />
-				<ListSection />
 			</Container>
 		</>
 	);

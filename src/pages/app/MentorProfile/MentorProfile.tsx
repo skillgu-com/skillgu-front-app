@@ -5,9 +5,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
 import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
 import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
-import {fetchMentoring} from "src/services/mentor/fetchMentorServices.service";
+import {fetchMentoring, getMentorByUsername} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import {getMentorByUsername, getMentorProfileByID} from "../../../services/mentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
 import clx from "classnames";
 import {useSelector} from "react-redux";
@@ -101,7 +100,7 @@ export const MentorProfilePage = () => {
 
     useEffect(() => {
         const fetchInitialData = async () => {
-            setPending(false);
+            setPending(true);
             setLoading(false);
             try {
                 const mentorResponse = await getMentorByUsername(username);

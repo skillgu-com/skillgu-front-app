@@ -11,12 +11,12 @@ import {
     MentorEditSectionProfile,
 } from "./sections/content";
 import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
-import {getMentorByUsername} from "../../../services/mentorViewService";
 import {Typography} from "@mui/material";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
+import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
 
 /**
  *
@@ -111,25 +111,40 @@ export const MentorProfileEditPage = () => {
 
     const initialDataFetched = useRef<boolean>(false);
 
+    // useEffect(() => {
+    //     const fetchInitialData = async () => {
+    //         setLoading(false);
+    //         try {
+    //             const resp =  await getMentorByUsername(username);
+    //             const mentorData = resp.data as MentorData;
+    //             setMentorData(mentorData);
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //
+    //     if (username) {
+    //         fetchInitialData();
+    //     }
+    // }, [username]);
+
+
     useEffect(() => {
         const fetchInitialData = async () => {
+            setLoading(true);
+            await getMentorByUsername(username).then((res) => {
+                setMentorData(res.data as MentorData);
+                console.log('getMentorProfileByID: ', res.data)
+            });
             setLoading(false);
-            try {
-                const resp =  await getMentorByUsername(username);
-                const mentorData = resp.data as MentorData;
-                setMentorData(mentorData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
         };
-
-        if (username) {
+        if (!initialDataFetched.current) {
             fetchInitialData();
+            initialDataFetched.current = true;
         }
-    }, [username]);
-
+    }, [mentorId]);
 
 
     return loading ? (

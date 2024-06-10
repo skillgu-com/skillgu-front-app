@@ -53,7 +53,7 @@ const Navbar = () => {
         {
             id: 'profile',
             label: 'Profil',
-            link: role === 'M' ? `/mentor/${userFromRedux.id}` : `/student/${userFromRedux.id}`,
+            link: role === 'M' ? `/mentor/${userFromRedux.username}` : `/student/${userFromRedux.id}`,
             icon: <Doc/>,
         },
         {
@@ -65,7 +65,7 @@ const Navbar = () => {
         {
             id: 'settings',
             label: 'Ustawienia',
-            link: role === 'M' ? `/edit-mentor/${userFromRedux.id}` : `/edit-student/${userFromRedux.id}`,
+            link: role === 'M' ? `/edit-mentor/${userFromRedux.username}` : `/edit-student/${userFromRedux.id}`,
             icon: <Settings/>,
         },
     ].filter(item => item.link !== '');

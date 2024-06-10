@@ -10,12 +10,8 @@ import {
     MentorEditSectionPersonalData,
     MentorEditSectionProfile,
 } from "./sections/content";
-import {
-    ServiceMentoring,
-    ServiceSession,
-    ServiceType,
-} from "@customTypes/order";
-import {getMentorProfileByID} from "../../../services/mentorViewService";
+import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
+import {getMentorByUsername} from "../../../services/mentorViewService";
 import {Typography} from "@mui/material";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
@@ -31,7 +27,9 @@ export interface MentorData {
     email: string;
     avatar_url: string;
     description: string;
+    username: string;
     id: string;
+    mentorId: string,
     firstName: string;
     lastName: string;
     price: number;
@@ -66,6 +64,7 @@ export interface MentorData {
 
 export const MentorProfileEditPage = () => {
     const {id: mentorId} = useParams();
+    const {username: username} = useParams();
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
@@ -95,7 +94,7 @@ export const MentorProfileEditPage = () => {
     };
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
     const closePopup = () => setPopupSession(null);
-
+    //
     // useEffect(() => {
     //     const run = async () => {
     //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
@@ -114,18 +113,24 @@ export const MentorProfileEditPage = () => {
 
     useEffect(() => {
         const fetchInitialData = async () => {
-            setLoading(true);
-            await getMentorProfileByID(mentorId).then((res) => {
-                setMentorData(res.data as MentorData);
-                console.log('getMentorProfileByID: ', res.data)
-            });
             setLoading(false);
+            try {
+                const resp =  await getMentorByUsername(username);
+                const mentorData = resp.data as MentorData;
+                setMentorData(mentorData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
         };
-        if (!initialDataFetched.current) {
+
+        if (username) {
             fetchInitialData();
-            initialDataFetched.current = true;
         }
-    }, [mentorId]);
+    }, [username]);
+
+
 
     return loading ? (
         <Container as={Tag.Section}>

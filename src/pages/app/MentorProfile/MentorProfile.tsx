@@ -23,7 +23,9 @@ type Props = {
 
 
 export const MentorProfilePage = () => {
-    const {id: mentorId} = useParams();
+
+    const {username: username} = useParams();
+
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
@@ -70,59 +72,76 @@ export const MentorProfilePage = () => {
     };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
-    useEffect(() => {
-        const run = async () => {
-            const resp = await fetchMentoring({mentorId: mentorId || ""});
-            if (resp.success) {
-                setOptionsMentoring(resp.mentoring);
-                // setOptionsSession(resp.session);
-            }
-            setLoading(false);
-        };
-        if (mentorId) {
-            run();
-        }
-    }, [mentorId]);
+    // useEffect(() => {
+    //     const run = async () => {
+    //         const resp = await fetchMentoring({mentorId: mentorId || ""});
+    //         if (resp.success) {
+    //             setOptionsMentoring(resp.mentoring);
+    //             // setOptionsSession(resp.session);
+    //         }
+    //         setLoading(false);
+    //     };
+    //     if (mentorId) {
+    //         run();
+    //     }
+    // }, [mentorId]);
+
+    // useEffect(() => {
+    //     const fetchInitialData = async () => {
+    //         setPending(true);
+    //         await getMentorProfileByID(mentorId).then((res) => {
+    //             setMentorData(res.data as MentorData);
+    //         });
+    //         setPending(false);
+    //     };
+    //     if (mentorId) {
+    //         fetchInitialData();
+    //     }
+    // }, [mentorId]);
 
     useEffect(() => {
         const fetchInitialData = async () => {
-            setPending(true);
-            await getMentorProfileByID(mentorId).then((res) => {
-                setMentorData(res.data as MentorData);
-            });
             setPending(false);
-        };
-        if (mentorId) {
-            fetchInitialData();
-        }
-    }, [mentorId]);
+            setLoading(false);
+            try {
+                const mentorResponse = await getMentorByUsername(username);
+                const mentorData = mentorResponse.data as MentorData;
+                setMentorData(mentorData);
 
-    useEffect(() => {
+                const mentorId = mentorResponse.data.mentorId;
 
-            const response = getMentorByUsername("john_doe").then((res) => {
-                // setMentorData(res.data as MentorData);
-            });
+                if (mentorId) {
+                    const [sessionResponse, mentoringResponse] = await Promise.all([
+                        fetchMentorSession(mentorId),
+                        fetchMentoring({mentorId: mentorId})
+                    ]);
 
-    },);
+                    const formattedSessions = sessionResponse.data.map((elementFromAPI: any) => ({
+                        id: elementFromAPI?.id,
+                        sessionType: elementFromAPI?.sessionType,
+                        sessionPrice: elementFromAPI?.sessionPrice,
+                        description: elementFromAPI?.description,
+                        meetTime: elementFromAPI?.meetTime,
+                        mentorID: mentorId,
+                    }));
+                    setOptionsSession(formattedSessions);
 
-    useEffect(() => {
-        fetchMentorSession(mentorId).then((res) => {
-            if (res) {
-                const formattedSessions = res.data.map((elementFromAPI: any) => ({
-                    id: elementFromAPI?.id,
-                    sessionType: elementFromAPI?.sessionType,
-                    sessionPrice: elementFromAPI?.sessionPrice,
-                    description: elementFromAPI?.description,
-                    meetTime: elementFromAPI?.meetTime,
-                    mentorID: Number(mentorId),
-
-                }));
-                setOptionsSession(formattedSessions);
+                    if (mentoringResponse.success) {
+                        setOptionsMentoring(mentoringResponse.mentoring);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setPending(false);
                 setLoading(false);
             }
-        });
-    }, [mentorId]);
+        };
 
+        if (username) {
+            fetchInitialData();
+        }
+    }, [username]);
 
     return loading ? null : (
         <>
@@ -132,7 +151,7 @@ export const MentorProfilePage = () => {
                     "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
                 }
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
-                btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorId}` : ""}
+                btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorData.mentorId}` : ""}
                 company={mentorData?.company}
                 coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
@@ -217,9 +236,9 @@ export const MentorProfilePage = () => {
                 </MentorMainWrapper>
             </Container>
 
-            {mentorId ? (
+            {mentorData.mentorId ? (
                 <Container as={Tag.Section}>
-                    <MentorReviewsConnected mentorId={mentorId}/>
+                    <MentorReviewsConnected mentorId={mentorData.mentorId}/>
                 </Container>
             ) : null}
         </>

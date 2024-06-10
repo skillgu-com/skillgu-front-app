@@ -38,6 +38,7 @@ type Props = {
 };
 
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
+
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
@@ -53,6 +54,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 mentorTopics: mentorData?.mentorTopics || [],
             },
         });
+
 
     const inputProps = {
         formState: formState,
@@ -76,12 +78,14 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
 
             };
             const response = await updateUserProfile(mentorEditSection);
-            window.location.reload();
+            // window.location.reload();
 
         } catch (error) {
             console.error('Failed to update personal data', error);
         }
     };
+
+
 
 
     return (

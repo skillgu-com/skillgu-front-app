@@ -6,6 +6,5 @@ export const getMentorProfileByID = async (mentorID: any) => {
 
 }
 export const getMentorByUsername = async (username: any) => {
-    console.log('pizda nad niebem: ', username)
     return await axios.get(`/api/mentor/get-mentor-by-mentor-username/${username}`);
 }

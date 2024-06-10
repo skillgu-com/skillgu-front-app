@@ -39,8 +39,8 @@ const paths = {
     loggedUserProfile: '/logged-user-profile',
     registerMentor: '/register-mentor',
     registerMentee: '/register-mentee',
-    mentorProfile: '/mentor/:id',
-    mentorProfileEdit: '/edit-mentor/:id',
+    mentorProfile: '/mentor/:username',
+    mentorProfileEdit: '/edit-mentor/:username',
     studentProfile: '/student/:id',
     studentProfileEdit: '/edit-student/:id',
 } as const;

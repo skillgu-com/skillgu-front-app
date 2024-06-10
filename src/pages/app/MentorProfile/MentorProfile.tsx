@@ -7,7 +7,7 @@ import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from ".
 import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
 import {fetchMentoring} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {getMentorByUsername, getMentorProfileByID} from "../../../services/mentorViewService";
 import {fetchMentorSession} from "../../../services/SessionService";
 import clx from "classnames";
 import {useSelector} from "react-redux";
@@ -96,6 +96,14 @@ export const MentorProfilePage = () => {
             fetchInitialData();
         }
     }, [mentorId]);
+
+    useEffect(() => {
+
+            const response = getMentorByUsername("john_doe").then((res) => {
+                // setMentorData(res.data as MentorData);
+            });
+
+    },);
 
     useEffect(() => {
         fetchMentorSession(mentorId).then((res) => {

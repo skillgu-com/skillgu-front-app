@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
-import {fetchAllSchedules} from "@services/ScheduleService";
+import {fetchAllSchedules} from "@services/scheduleService";
 import {createSession, getSessionTypes} from "../../../../../services/SessionService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";

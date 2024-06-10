@@ -49,6 +49,7 @@ const LoginView = () => {
                     id: response.userData.id,
                     email: response.userData.email,
                     role: response.userData.role[0],
+                    username: response.userData.username
                 },
             });
             navigate(paths.home);

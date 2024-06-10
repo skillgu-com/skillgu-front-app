@@ -13,7 +13,6 @@ import {Tag} from '@customTypes/tags';
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
 import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
-import {deleteSchedule, fetchAllSchedules} from '@services/ScheduleService';
 import {useSelector} from "react-redux";
 import ScheduleCard, {ScheduleCardProps} from "../../../components/Cards/ScheduleCard/ScheduleCard";
 import Title, {TitleTag, TitleVariant} from "../../../components/typography/Title/Title";
@@ -21,6 +20,7 @@ import Modal from "../../../components/Modal/Modal";
 import Pagination from "../../../components/Pagination/Pagination";
 import Container from "../../../components/Container/Container";
 import Button, {ButtonTag, ButtonVariant} from "../../../components/Button/Button";
+import {deleteSchedule, fetchAllSchedules} from "@services/scheduleService";
 
 
 const SchedulesView = () => {

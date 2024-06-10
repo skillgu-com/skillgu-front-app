@@ -15,7 +15,7 @@ import {
     ServiceSession,
     ServiceType,
 } from "@customTypes/order";
-import {getMentorProfileByID} from "../../../services/MentorViewService";
+import {getMentorProfileByID} from "../../../services/mentorViewService";
 import {Typography} from "@mui/material";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";

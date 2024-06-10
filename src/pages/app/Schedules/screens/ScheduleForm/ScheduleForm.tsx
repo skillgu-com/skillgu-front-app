@@ -14,7 +14,7 @@ import {ScheduleFormInputT} from "./_types/ScheduleFormInputT";
 import {type WeekdayT, weekdays} from "./_types/WeekdayT";
 import {WeekdayInputT} from "./_types/WeekdayInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
-import {createScheduleMeeting} from "@services/ScheduleService";
+import {createScheduleMeeting} from "@services/scheduleService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 

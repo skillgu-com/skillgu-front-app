@@ -3,7 +3,6 @@ import {Dispatch, useEffect} from 'react';
 import {NavigateFunction} from 'react-router-dom';
 // Service
 import {parseUserFromJwt} from './parseUserFromJwt';
-import {fetchUserIDByEmail} from '../services/UserProfileService';
 import paths from "../paths";
 import {loginGoogleUser, loginUser} from "@services/auth/authenticationService";
 
@@ -17,7 +16,9 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
     const userData = parseUserFromJwt(userJWT);
     if (!userData) return {success: false, errorMessage: errorMsg};
 
-    const {data: userId} = await fetchUserIDByEmail(email)
+    // const {data: userId} = await fetchUserIDByEmail(email)
+
+    // console.log(email)
 
     localStorage.setItem('jwttoken', userJWT);
     return {
@@ -26,6 +27,8 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
             id: userData.id,
             email: userData.email,
             role: userData.role[0],
+            username: userData.username
+
         }
     };
 }

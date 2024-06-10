@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {EmbeddedCheckout, EmbeddedCheckoutProvider, useStripe,} from "@stripe/react-stripe-js";
-import {createCheckoutSession} from "src/services/PaymentService";
 import {useSelector} from "react-redux";
+import {createCheckoutSession} from "@services/paymentService";
 
 export const Payment = () => {
   const stripe = useStripe();

@@ -12,7 +12,7 @@ import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './components/Empty/Empty.module.scss';
 import scheduleStyles from './Schedules.module.scss';
-import {deleteSession, fetchMentorSession} from '../../../services/SessionService';
+import {deleteSession, fetchMentorSession} from '../../../services/sessionService';
 import {useSelector} from "react-redux";
 import ScheduleCard, {ScheduleCardProps} from "../../../components/Cards/ScheduleCard/ScheduleCard";
 import Title, {TitleTag, TitleVariant} from "../../../components/typography/Title/Title";

@@ -7,7 +7,7 @@ import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from ".
 import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
 import {fetchMentoring, getMentorByUsername} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import {fetchMentorSession} from "../../../services/SessionService";
+import {fetchMentorSession} from "../../../services/sessionService";
 import clx from "classnames";
 import {useSelector} from "react-redux";
 import paths from "../../../paths";

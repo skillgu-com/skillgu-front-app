@@ -30,8 +30,6 @@ const SchedulesView = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
 
 
-
-
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
             if (arrayType === 'schedules') {
@@ -55,8 +53,6 @@ const SchedulesView = () => {
         [schedules, sessions]
     );
 
-
-
     useEffect(() => {
         fetchAllSchedules().then((res) => {
             const formatSchedules = res?.data.map(
@@ -72,8 +68,6 @@ const SchedulesView = () => {
                         assignedSession: elementFromAPI.assignedSession ?? 0,
                         scheduleName: elementFromAPI?.scheduleName,
                         participant: elementFromAPI?.participant,
-
-
                     },
                 })
             );
@@ -95,7 +89,7 @@ const SchedulesView = () => {
                     meetTime: elementFromAPI?.meetTime,
                     sessionName: elementFromAPI?.sessionName,
                     sessionTypeName: elementFromAPI?.sessionType,
-                    scheduleName: elementFromAPI?.scheduleName || 'brak pyrzpisanego harmonogramu',
+                    scheduleName: elementFromAPI?.scheduleName || 'brak przypisanego harmonogramu',
                 },
             }));
             setSessions(formattedSessions);

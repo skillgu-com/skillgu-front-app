@@ -16,7 +16,7 @@ import {WeekdayInputT} from "./_types/WeekdayInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
-import {createScheduleMeeting, editScheduleTemplate} from "@services/scheduleService";
+import {createScheduleMeeting, fetchScheduleTemplateForEdit} from "@services/scheduleService";
 
 
 const today = new Date();
@@ -29,8 +29,8 @@ const defaultSlot = {
 const revalidatingTimeout: Record<string, ReturnType<typeof setTimeout>> = {};
 
 const ScheduleForm = () => {
-    const { scheduleId } = useParams<{ scheduleId: string }>();
-    const navigate = useNavigate();
+    const navigate = useNavigate();    const { scheduleId } = useParams<{ scheduleId: string }>();
+
     // const [data, setData] = useState<any>(null);
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -84,9 +84,8 @@ const ScheduleForm = () => {
             setIsEdit(true);
             const fetchData = async () => {
                 try {
-                    const result = await editScheduleTemplate(scheduleId);
+                    const result = await fetchScheduleTemplateForEdit(scheduleId);
 
-                    console.log('schedule response is: ',result.data)
                     // setData(result);
                 } catch (error) {
                     console.error('Error fetching schedule data:', error);
@@ -98,19 +97,6 @@ const ScheduleForm = () => {
         }
     }, [scheduleId]);
 
-    // const handleSave = async () => {
-    //     try {
-    //         if (isEdit) {
-    //             const response = await editScheduleTemplate(scheduleId, data);
-    //             console.log(response.message);
-    //         } else {
-    //
-    //             const response = await createScheduleMeeting(data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error saving schedule:', error);
-    //     }
-    // };
 
     return (
         <Container as={Tag.Section} classes={stylesSessions.wrapper}>

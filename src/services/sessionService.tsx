@@ -28,9 +28,9 @@ export const deleteSession = async (sessionID: any) => {
 };
 
 
-export const editSessionTemplate = async (sessionId: string | undefined) => {
+export const fetchSessionTemplateForEdit = async (sessionId: string | undefined) => {
     try {
-        const response = await axios.put(`/api/1.0/session/edit-session/${sessionId}`);
+        const response = await axios.put(`/api/1.0/session/fetch-session-for-edit/${sessionId}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to delete schedule');

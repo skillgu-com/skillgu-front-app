@@ -23,7 +23,7 @@ const paths = {
     schedulesAddSchedule: '/schedules/add-schedule',
     schedulesEditSchedule: '/schedules/edit-schedule/:scheduleId',
     schedulesAddSession: '/schedules/add-session',
-    schedulesEditSession: '/schedules/edit-session/:scheduleId',
+    schedulesEditSession: '/schedules/edit-session/:sessionId',
     help: '/help',
     underConstruction: '/underconstruction',
     calendar: '/calendar',

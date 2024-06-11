@@ -111,9 +111,10 @@ export const MentorProfilePage = () => {
 
                 if (mentorId) {
                     const [sessionResponse, mentoringResponse] = await Promise.all([
-                        fetchMentorSession(mentorId),
+                        fetchMentorSession(mentorData.userID),
                         fetchMentoring({mentorId: mentorId})
                     ]);
+
 
                     const formattedSessions = sessionResponse.data.map((elementFromAPI: any) => ({
                         id: elementFromAPI?.id,

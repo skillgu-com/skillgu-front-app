@@ -30,6 +30,8 @@ const SchedulesView = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
 
 
+
+
     const removeItem = useCallback(
         (id: string, arrayType: 'schedules' | 'sessions') => {
             if (arrayType === 'schedules') {

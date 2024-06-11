@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./MentorContent.module.scss";
 import clx from "classnames";
-import { Expandable } from "@newComponents/_base/Expandable";
 import { CheckCircleIcon } from "@icons/CheckCircleIcon";
 import { DropdownOption } from "@customTypes/dropdownOption";
 import { MentorTags } from "./MentorTags";
+import {Expandable} from "../../../../../components/_base/Expandable";
 
 type Props = {
   title: string;

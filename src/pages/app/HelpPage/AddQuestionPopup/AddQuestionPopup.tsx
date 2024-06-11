@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import Button, { ButtonVariant } from "@newComponents/Button/Button";
-import Modal from "@newComponents/Modal/Modal";
-import { Text } from "@newComponents/typography";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import Modal from "src/components/Modal/Modal";
+import { Text } from "src/components/typography";
 import { InputField } from "../InputField/InputField";
 
 import styles from "./AddQuestionPopup.module.scss";
@@ -53,7 +53,7 @@ export const AddQuestionPopup = ({
   } = register("message");
 
   if (!isOpen) return null;
-  
+
   return (
     <Modal
       className={styles.modal}

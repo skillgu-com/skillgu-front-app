@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Option, FilterName } from "@customTypes/mentor";
-import Checkbox, { type CheckboxValueCb } from "src/new-components/Checkbox/Checkbox";
+import Checkbox, { type CheckboxValueCb } from "src/components/Checkbox/Checkbox";
 import styles from './FiltersCheckboxes.module.scss'
 
 type FiltersCheckboxesProps = {

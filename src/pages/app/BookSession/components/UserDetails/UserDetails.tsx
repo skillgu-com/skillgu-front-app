@@ -1,7 +1,7 @@
 import React from "react";
 import { useBookingReducer } from "src/reducers/booking";
 import styles from "./UserDetails.module.scss";
-import Input from "@newComponents/Input/Input";
+import Input from "../../../../../components/Input/Input";
 
 export const UserDetails = () => {
   const [state, dispatch] = useBookingReducer();

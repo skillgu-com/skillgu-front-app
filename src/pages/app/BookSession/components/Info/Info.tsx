@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import PlanScope from 'src/new-components/PlanScope/PlanScope';
+import PlanScope from 'src/components/PlanScope/PlanScope';
 // Styles
 import styles from './Info.module.scss';
 

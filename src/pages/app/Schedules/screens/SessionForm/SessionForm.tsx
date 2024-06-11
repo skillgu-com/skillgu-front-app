@@ -1,17 +1,18 @@
 import React, {FormEvent, useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Components
-import {NavTitle} from '@newComponents/typography';
-import Container from '@newComponents/Container/Container';
-import Input, {defaultInput} from '@newComponents/Input/Input';
-import Button from '@newComponents/Button/Button';
+
 // Types
 import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
-import Select from '@newComponents/Select/Select';
 import {fetchAllSchedules} from "@services/ScheduleService";
 import {createSession, getSessionTypes} from "../../../../../services/SessionService";
+import Container from "../../../../../components/Container/Container";
+import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
+import Input, {defaultInput} from "../../../../../components/Input/Input";
+import Select from "../../../../../components/Select/Select";
+import Button from "../../../../../components/Button/Button";
 
 const SessionForm = () => {
     const [scheduleNames, setScheduleNames] = useState([]);

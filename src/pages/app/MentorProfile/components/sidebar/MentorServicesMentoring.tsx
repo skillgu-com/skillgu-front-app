@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
-import clx from "classnames";
 import { ServiceMentoring } from "@customTypes/order";
-import { ServiceMentoringOptionCard } from "@newComponents/Cards/ServiceMentoringOptionCard";
-import { ServiceInfoBox } from "@newComponents/_grouped";
+import {ServiceMentoringOptionCard} from "../../../../../components/Cards/ServiceMentoringOptionCard";
+import {ServiceInfoBox} from "../../../../../components/_grouped";
+
 
 type Props = {
   services: ServiceMentoring[];

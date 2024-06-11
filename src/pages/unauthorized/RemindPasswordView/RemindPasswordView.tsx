@@ -2,12 +2,12 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Box from "@mui/material/Box";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {Button} from "@mui/material";
 import sendRemindPasswordEmailService from "../../../services/auth/sendRemindPasswordEmail.service";
 import {useSnackbar} from "notistack";
 import {useNavigate} from "react-router-dom";
 import paths from "../../../paths";
+import FormInputText from "../../../components/_form/FormInputText/FormInputText";
 
 type RemindPasswordFormInput = {
     email: string;

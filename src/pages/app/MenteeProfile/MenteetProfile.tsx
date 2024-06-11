@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {UserProfileHeader} from "@newComponents/_grouped";
-import {LangSwitcherConnected} from "@newComponents/_connected/lang-switcher/LangSwitcher";
+
 import {getMenteeProfileById} from "@services/mentee/fetchMenteeServices.service";
 import {MenteeDTO} from "../MenteeProfileEdit/sections";
+import {UserProfileHeader} from "../../../components/_grouped";
+import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
 
 
 

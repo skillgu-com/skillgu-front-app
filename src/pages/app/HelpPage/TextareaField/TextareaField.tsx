@@ -1,8 +1,8 @@
-import React, { ChangeEventHandler, FocusEventHandler, Ref } from "react";
+import React, { ChangeEventHandler, Ref } from "react";
 import classNames from "classnames";
 import { Path } from "react-hook-form";
 
-import { Text } from "@newComponents/typography";
+import { Text } from "src/components/typography";
 import styles from "./TextareaField.module.scss";
 
 export interface IFormValues {

@@ -27,4 +27,8 @@ export const getAllMentorServices = async () => {
 
 export const getMentorProfileByID = async (mentorID) => {
     return await axios.get(`/api/mentor/get-mentor-by-mentor-id/${mentorID}`);
+
+}
+export const getMentorByUsername = async (username) => {
+    return await axios.get(`/api/mentor/get-mentor-by-mentor-username/${username}`);
 }

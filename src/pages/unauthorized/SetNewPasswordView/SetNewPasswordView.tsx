@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {type SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 import usePasswordValidation from "../../../hooks/usePasswordValidation";
@@ -9,6 +8,7 @@ import {Button} from "@mui/material";
 import {useSnackbar} from "notistack";
 import paths from "../../../paths";
 import setNewPasswordService from "../../../services/auth/setNewPassword.service";
+import FormInputText from "../../../components/_form/FormInputText/FormInputText";
 
 type SetNewPasswordFormInput = {
     password: string;

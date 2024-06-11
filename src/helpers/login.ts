@@ -15,8 +15,6 @@ type LoginReturn = Promise<SuccessResponse | ErrorResponse>;
 
 const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMsg: string): LoginReturn => {
     const userData = parseUserFromJwt(userJWT);
-    console.log('zalogowalem sie!',userData)
-
     if (!userData) return {success: false, errorMessage: errorMsg};
 
     const {data: userId} = await fetchUserIDByEmail(email)

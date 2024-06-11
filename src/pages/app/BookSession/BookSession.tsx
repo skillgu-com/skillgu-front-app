@@ -7,16 +7,18 @@ import {Payment} from "./components/Payment/Payment";
 // Styles
 import styles from "./BookSession.module.scss";
 import {useDispatch} from "react-redux";
+import clx from 'classnames'
 //
 import {faqRows} from "./config";
-import FAQ from "src/new-components/FAQ/Accordion";
+import FAQ from "src/components/FAQ/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
-import {fetchMentorServices} from "@services/mentor/fetchMentorServices.service";
+import {fetchMentoring} from "@services/mentor/fetchMentorServices.service";
 import {useLocation} from "react-router-dom";
 
 interface BookSessionProps {
     payment?: boolean;
 }
+
 interface SessionState {
     id: number;
     sessionType: string;
@@ -39,7 +41,7 @@ const BookSession = ({payment}: BookSessionProps) => {
 
 
     const formattedDate = term ? term.toLocaleDateString() : "";
-    const formattedTime = term ? term.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+    const formattedTime = term ? term.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) : "";
 
     const fetchInitialRef = useRef<boolean>(false);
 
@@ -47,7 +49,7 @@ const BookSession = ({payment}: BookSessionProps) => {
 
     useEffect(() => {
         if (element) {
-            const { id, sessionType, sessionPrice, description, meetTime, mentorID } = element;
+            const {id, sessionType, sessionPrice, description, meetTime, mentorID} = element;
 
             dispatch({
                 type: 'SET_SESSION_IN_FORM',
@@ -63,30 +65,39 @@ const BookSession = ({payment}: BookSessionProps) => {
         }
     }, [dispatch, element]);
 
+    const mentorTest = {
+        avatar_url: "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
+        description: "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
+        id: "1",
+        name: "Marek",
+        price: 50,
+        profession: "UX/UI Designer w Google",
+        reviewsAvgRate: 5,
+        reviewsCount: 10,
+        skills: ['Figma', 'UX Design', 'UI Design', 'Design Thinking', 'Tag 1', 'Tag 2', 'Tag 3'],
+        special: "Szybko odpowiada",
+        specialVariant: "success",
+        title: "Nauczę Cię dizajnować jak PRO"
+    };
 
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                const services = await fetchMentorServices({mentorId: "1"});
-                const mentors = await fetch(`/search-mentor-results-mocked.json`).then(
-                    (d) => d.json()
-                );
-                if (services.success && services.mentoring.length) {
+                const mentoring = await fetchMentoring({mentorId: "1"});
+                const mentors = await fetch(`/search-mentor-results-mocked.json`).then((d) => d.json());
+
+                if (mentoring.success && mentoring.mentoring.length) {
                     dispatch({
                         type: "SET_SERVICE",
-                        payload: {service: services.mentoring[0]},
+                        payload: {service: mentoring.mentoring[0]},
                     });
                 }
                 if (
-                    mentors &&
-                    "mentors" in mentors &&
-                    mentors.mentors &&
-                    Array.isArray(mentors.mentors) &&
-                    mentors.mentors.length
+                    mentors && "mentors" in mentors && mentors.mentors && Array.isArray(mentors.mentors) && mentors.mentors.length
                 ) {
                     dispatch({
                         type: "SET_MENTOR",
-                        payload: {mentor: mentors.mentors[0]},
+                        payload: {mentor: mentorTest},
                     });
                 }
             } catch (e) {
@@ -110,7 +121,9 @@ const BookSession = ({payment}: BookSessionProps) => {
                     </aside>
                 )}
 
-                <main>
+                <main className={clx(styles.main, {
+                    [styles.mainFullWidth]: payment,
+                })}>
                     {payment ? (
                         <section className={styles.sectionPayment}>
                             <Payment/>

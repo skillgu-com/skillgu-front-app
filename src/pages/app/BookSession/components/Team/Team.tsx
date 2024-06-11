@@ -1,14 +1,13 @@
 // Libraries
 import React, { useCallback } from "react";
 // Components
-import Input from "src/new-components/Input/Input";
+import Input from "src/components/Input/Input";
 // Styles
 import styles from "./Team.module.scss";
 import { useBookingReducer } from "src/reducers/booking";
-import { Switcher } from "@newComponents/_base/Switcher";
-import { Typography } from "@mui/material";
 import CrossIcon from "src/assets/icons/CloseSvg";
 import { PlusIcon } from "@icons/PlusIcon";
+import {Switcher} from "../../../../../components/_base/Switcher";
 
 const LIMIT = 5;
 

@@ -1,15 +1,16 @@
 import React, { useCallback, useState } from "react";
 
-import Button, { ButtonVariant } from "@newComponents/Button/Button";
-import Container from "@newComponents/Container/Container";
-import FAQ from "@newComponents/FAQ/Accordion";
-import { Text, Title } from "@newComponents/typography";
-import { TitleTag, TitleVariant } from "@newComponents/typography/Title/Title";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import Container from "src/components/Container/Container";
+
+import Accordion from "src/components/FAQ/Accordion";
+import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Tag } from "@customTypes/tags";
 
 import styles from "./HelpPage.module.scss";
 import { faqList } from "./config";
 import { AddQuestionPopup } from "./AddQuestionPopup/AddQuestionPopup";
+import { Text, Title } from "src/components/typography";
 
 const HelpPage = () => {
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const HelpPage = () => {
             </Button>
           </div>
           <section className={styles.faqSection}>
-            <FAQ title="" elements={faqList} />
+            <Accordion title="" elements={faqList} />
           </section>
         </div>
       </Container>

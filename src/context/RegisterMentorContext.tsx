@@ -4,22 +4,18 @@ import mentorRegisterInitialState from "../reducers/mentorRegister/constants";
 import mentorRegisterReducer from "../reducers/mentorRegister/mentorRegisterReducer";
 import {MentorRegisterReducerAction} from "../reducers/mentorRegister/types";
 
-import AsideTileLayout from "@newComponents/_layouts/AsideTileLayout/AsideTileLayout";
-import RegisterStepperNavigation, {
-    NavigationContentT
-} from "@newComponents/_register/RegisterStepperNavigation/RegisterStepperNavigation";
-
-import RegisterStep1 from "@newComponents/_register/RegisterStep1/RegisterStep1";
-import RegisterStep2 from "@newComponents/_register/RegisterStep2/RegisterStep2";
-import RegisterStep3 from "@newComponents/_register/RegisterStep3/RegisterStep3";
-import RegisterStep4 from "@newComponents/_register/RegisterStep4/RegisterStep4";
-import RegisterStep5 from "@newComponents/_register/RegisterStep5/RegisterStep5";
-
 import {ReactComponent as EditIcon} from '@icons/svg/edit.svg';
 import {ReactComponent as EnvelopeIcon} from '@icons/svg/envelope.svg';
 import {ReactComponent as LinkIcon} from '@icons/svg/link.svg';
 import {ReactComponent as UserIcon} from '@icons/svg/user.svg';
 import {ReactComponent as TeacherIcon} from '@icons/svg/teacher.svg';
+import RegisterStepperNavigation, {NavigationContentT} from "../components/_register/RegisterStepperNavigation/RegisterStepperNavigation";
+import RegisterStep1 from "../components/_register/RegisterStep1/RegisterStep1";
+import RegisterStep2 from "../components/_register/RegisterStep2/RegisterStep2";
+import RegisterStep3 from "../components/_register/RegisterStep3/RegisterStep3";
+import RegisterStep4 from "../components/_register/RegisterStep4/RegisterStep4";
+import RegisterStep5 from "../components/_register/RegisterStep5/RegisterStep5";
+import AsideTileLayout from "../components/_layouts/AsideTileLayout/AsideTileLayout";
 
 type RegisterMentorContextType = {
     registerMentorState: typeof mentorRegisterInitialState;

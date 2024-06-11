@@ -1,9 +1,10 @@
-import Button from "@newComponents/Button/Button";
-import Checkbox from "@newComponents/Checkbox/Checkbox";
+
 import React from "react";
 import styles from "./Actions.module.scss";
 import { useBookingReducer } from "src/reducers/booking";
 import { useNavigate } from "react-router-dom";
+import Checkbox from "../../../../../components/Checkbox/Checkbox";
+import Button from "../../../../../components/Button/Button";
 
 export const Actions = () => {
   const [state, dispatch] = useBookingReducer();

@@ -1,10 +1,7 @@
 import React, {useRef} from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import FormInputText from "@newComponents/_form/FormInputText/FormInputText";
 import {SubmitHandler, useForm} from "react-hook-form";
-import FormInputCheckbox from "@newComponents/_form/FormInputCheckbox/FormInputCheckbox";
-import TextLink from "@newComponents/TextLink/TextLink";
 import {Button, Collapse} from "@mui/material";
 import paths, {pathAnchors} from "../../../paths";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -14,6 +11,9 @@ import {loginUserByEmail} from "../../../helpers/login";
 import {useDispatch} from "react-redux";
 import {ReactComponent as GoogleIcon} from '../../../assets/icons/svg/google.svg'
 import useGoogleLogin from "../../../hooks/useGoogleLogin";
+import FormInputText from "../../../components/_form/FormInputText/FormInputText";
+import FormInputCheckbox from "../../../components/_form/FormInputCheckbox/FormInputCheckbox";
+import TextLink from "../../../components/TextLink/TextLink";
 
 type LoginFormInput = {
     email: string;

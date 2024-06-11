@@ -1,17 +1,16 @@
 import React, {useContext} from "react";
 import {createContext, useReducer} from "react";
-import mentorRegisterReducer from "../reducers/mentorRegister/mentorRegisterReducer";
-import RegisterStep1 from "@newComponents/_register/RegisterStep1/RegisterStep1";
-import RegisterStep5 from "@newComponents/_register/RegisterStep5/RegisterStep5";
-import AsideTileLayout from "@newComponents/_layouts/AsideTileLayout/AsideTileLayout";
-import RegisterStepperNavigation
-    , {NavigationContentT} from "@newComponents/_register/RegisterStepperNavigation/RegisterStepperNavigation";
+
 import menteeRegisterInitialState from "../reducers/menteeRegister/constants";
 import {MenteeRegisterReducerAction} from "../reducers/menteeRegister/types";
 
 import {ReactComponent as TeacherIcon} from '@icons/svg/teacher.svg';
 import {ReactComponent as EnvelopeIcon} from '@icons/svg/envelope.svg';
 import menteeRegisterReducer from "../reducers/menteeRegister/menteeRegisterReducer";
+import RegisterStep1 from "../components/_register/RegisterStep1/RegisterStep1";
+import RegisterStep5 from "../components/_register/RegisterStep5/RegisterStep5";
+import RegisterStepperNavigation, {NavigationContentT} from "../components/_register/RegisterStepperNavigation/RegisterStepperNavigation";
+import AsideTileLayout from "../components/_layouts/AsideTileLayout/AsideTileLayout";
 
 type RegisterMenteeContextType = {
     registerMenteeState: typeof menteeRegisterInitialState;

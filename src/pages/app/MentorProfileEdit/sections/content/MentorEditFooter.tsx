@@ -1,8 +1,8 @@
 import { BinIcon } from "@icons/BinIcon";
-import Button, { ButtonVariant } from "@newComponents/Button/Button";
 import React from "react";
 import styles from './styles.module.scss'
 import { Typography } from "@mui/material";
+import Button, {ButtonVariant} from "../../../../../components/Button/Button";
 
 export const MentorEditFooter = () => {
     return (

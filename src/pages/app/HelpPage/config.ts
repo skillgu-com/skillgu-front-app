@@ -27,10 +27,4 @@ export const faqList: {
     description:
       "Figma ipsum component variant main layer. Vertical blur strikethrough font scale bold font. Shadow pixel fill arrow font style follower. Blur fill bold background opacity.",
   },
-  {
-    id: "05",
-    title: "Figma ipsum component variant main layer?",
-    description:
-      "Figma ipsum component variant main layer. Vertical blur strikethrough font scale bold font. Shadow pixel fill arrow font style follower. Blur fill bold background opacity.",
-  },
 ];

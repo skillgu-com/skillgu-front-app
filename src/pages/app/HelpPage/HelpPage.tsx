@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import Button, { ButtonVariant } from "@newComponents/Button/Button";
 import Container from "@newComponents/Container/Container";
@@ -9,10 +9,16 @@ import { Tag } from "@customTypes/tags";
 
 import styles from "./HelpPage.module.scss";
 import { faqList } from "./config";
+import { AddQuestionPopup } from "./AddQuestionPopup/AddQuestionPopup";
 
 const HelpPage = () => {
+  const [popupOpen, setPopupOpen] = useState<boolean>(false);
+
+  const toogleModalOpened = useCallback(() => setPopupOpen((s) => !s), []);
+
   return (
     <main>
+      <AddQuestionPopup isOpen={popupOpen} handleClose={toogleModalOpened} />
       <Container as={Tag.Section}>
         <Title
           tag={TitleTag.h2}
@@ -29,7 +35,7 @@ const HelpPage = () => {
               odpowiemy najszybciej jak to możliwe
             </Text>
             <Button
-              // onClick={goToForm}
+              onClick={toogleModalOpened}
               classes={styles.button}
               variant={ButtonVariant.Primary}
               type="button"
@@ -38,7 +44,7 @@ const HelpPage = () => {
             </Button>
           </div>
           <section className={styles.faqSection}>
-            {<FAQ title="" elements={faqList} />}
+            <FAQ title="" elements={faqList} />
           </section>
         </div>
       </Container>

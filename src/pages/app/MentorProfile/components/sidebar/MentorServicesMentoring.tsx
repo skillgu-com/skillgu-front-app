@@ -1,23 +1,23 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
-import { ServiceMentoring } from "@customTypes/order";
 import {ServiceMentoringOptionCard} from "../../../../../components/Cards/ServiceMentoringOptionCard";
 import {ServiceInfoBox} from "../../../../../components/_grouped";
-
+import {MentorshipDTO, MentorshipPlanDTO} from "@services/mentor/fetchMentorServices.service";
+import {MentorshipPlan, ServiceMentoring, ServiceSession} from "@customTypes/order";
 
 type Props = {
-  services: ServiceMentoring[];
-  selected?: ServiceMentoring | null;
-  handleSelect?: (opt: ServiceMentoring) => void;
-  handleSubmit?: (opt: ServiceMentoring) => void;
+    services: MentorshipPlanDTO[];
+    selected?: MentorshipPlanDTO | null;
+    handleSelect?: (opt: MentorshipPlanDTO) => void;
+    handleSubmit?: (opt: MentorshipPlanDTO) => void;
 };
 
 export const MentorServicesMentoring = ({
-  services,
-  selected,
-  handleSelect,
-  handleSubmit,
-}: Props) => {
+                                            services,
+                                            selected,
+                                            handleSelect,
+                                            handleSubmit,
+                                        }: Props) => {
   return services && services.length ? (
     <>
       <div className={styles.cards}>

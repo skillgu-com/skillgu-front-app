@@ -7,6 +7,14 @@ type ResponseData = {
     total: number;
 };
 
+export type ServiceMentoring = {
+    id: string
+    title: string
+    subtitle: string
+    price: number
+    variant: '' | 'pro'
+    descriptionRows: string[]
+}
 
 type FetchMentorReviewsInput = {
     mentorId: string;
@@ -20,8 +28,29 @@ type FetchMentorReviewsData = {
     reviews: Review[];
 };
 
+export interface DescriptionRowDTO {
+    description: string;
+}
 
-export const fetchMentoring = async (input: Input): Promise<OutputSuccess | OutputFailed> => {
+export interface MentorshipPlanDTO {
+    id: string;
+    title: string;
+    subtitle: string;
+    price: number;
+    variant: string;
+    descriptionRows: DescriptionRowDTO[];
+    numberOfSessionsPerMonth: number;
+    sessionDurationMinutes: number;
+    responseTimeHours: number;
+    providesMaterials: boolean;
+    mentoringDescription: string;
+}
+
+export interface MentorshipDTO {
+    mentorships: MentorshipPlanDTO[];
+}
+
+export const fetchMentorShip = async (input: Input): Promise<OutputSuccess | OutputFailed> => {
     try {
         const resp = await fetch('/mentor-services.json')
         const respData = await resp.json()
@@ -34,6 +63,32 @@ export const fetchMentoring = async (input: Input): Promise<OutputSuccess | Outp
         return {success: false, error: 'Error'}
     }
 }
+
+export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<MentorshipDTO> => {
+
+    try {
+        const response = await axios.get<any>(`/api/mentors/${mentorId.mentorId}/mentorship-plans`);
+        const mentoringData = response.data;
+        const mentorships: MentorshipPlanDTO[] = mentoringData.map((plan: any) => ({
+            id: plan.id,
+            title: plan.title,
+            subtitle: plan.subtitle,
+            price: plan.price,
+            variant: plan.variant,
+            descriptionRows: plan.descriptionRows,
+            numberOfSessionsPerMonth: plan.numberOfSessionsPerMonth,
+            sessionDurationMinutes: plan.sessionDurationMinutes,
+            responseTimeHours: plan.responseTimeHours,
+            providesMaterials: plan.providesMaterials,
+            mentoringDescription: plan.mentoringDescription
+        }));
+        return { mentorships };
+    } catch (error) {
+        console.error("Error fetching mentorship plans", error);
+        throw error;
+    }
+};
+
 
 export const fetchMentorFilteredList = async (take: number, skip: number, filters?: FiltersSelected): Promise<ResponseData> => {
     try {
@@ -54,7 +109,6 @@ export const fetchMentorFilteredList = async (take: number, skip: number, filter
         const filteredMentors = mentors.slice(skip, skip + take);
 
 
-
         return {total, mentors: filteredMentors}
     } catch (error) {
         console.error('Error fetching mentors:', error);
@@ -70,8 +124,8 @@ export const fetchMentorReviews = async ({
     try {
         const response = await fetch("/mentor-reviews.json");
         const responseData = await response.json();
-        const {total, reviews, avgRate } = responseData;
-        return {total, reviews, avgRate };
+        const {total, reviews, avgRate} = responseData;
+        return {total, reviews, avgRate};
     } catch (error) {
         console.error("Error fetching mentor reviews:", error);
         throw error;

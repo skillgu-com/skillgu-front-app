@@ -12,7 +12,7 @@ import clx from 'classnames'
 import {faqRows} from "./config";
 import FAQ from "src/components/FAQ/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
-import {fetchMentoring} from "@services/mentor/fetchMentorServices.service";
+import {fetchMentorShip} from "@services/mentor/fetchMentorServices.service";
 import {useLocation} from "react-router-dom";
 
 interface BookSessionProps {
@@ -83,7 +83,7 @@ const BookSession = ({payment}: BookSessionProps) => {
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                const mentoring = await fetchMentoring({mentorId: "1"});
+                const mentoring = await fetchMentorShip({mentorId: "1"});
                 const mentors = await fetch(`/search-mentor-results-mocked.json`).then((d) => d.json());
 
                 if (mentoring.success && mentoring.mentoring.length) {

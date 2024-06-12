@@ -4,8 +4,12 @@ import {Tag} from "src/types/tags";
 import {useNavigate, useParams} from "react-router-dom";
 import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
 import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
-import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
-import {fetchMentoring, getMentorByUsername} from "src/services/mentor/fetchMentorServices.service";
+import {MentorshipPlan, ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
+import {
+    fetchMentorMentorshipPlans,
+    fetchMentorShip,
+    getMentorByUsername, MentorshipDTO, MentorshipPlanDTO
+} from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import {fetchMentorSession} from "../../../services/sessionService";
 import clx from "classnames";
@@ -43,23 +47,27 @@ export const MentorProfilePage = () => {
 
     // @TODO: get user id from sesion/jwt
 
+
+    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>([]);
+    const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
+    const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
+
+
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
     const [loading, setLoading] = useState<boolean>(true);
-    const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
-        []
-    );
-    const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-    const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
-        null
-    );
-    const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-    const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-    const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
-    const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-    const handleSubmitMentoring = (opt: ServiceMentoring) => {
+
+
+    const handleSubmitMentoring = (opt: MentorshipPlan) => {
         console.log("ORDER Mentoring, ", opt);
     };
+    const handleSelectMentoring = (opt: MentorshipPlan) => setMentoring(opt);
+
+
+    const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+    const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
+    const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+
     const navigate = useNavigate();
 
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
@@ -112,9 +120,8 @@ export const MentorProfilePage = () => {
                 if (mentorId) {
                     const [sessionResponse, mentoringResponse] = await Promise.all([
                         fetchMentorSession(mentorData.userID),
-                        fetchMentoring({mentorId: mentorId})
+                        fetchMentorMentorshipPlans({mentorId: mentorId})
                     ]);
-
 
                     const formattedSessions = sessionResponse.data.map((elementFromAPI: any) => ({
                         id: elementFromAPI?.id,
@@ -126,8 +133,8 @@ export const MentorProfilePage = () => {
                     }));
                     setOptionsSession(formattedSessions);
 
-                    if (mentoringResponse.success) {
-                        setOptionsMentoring(mentoringResponse.mentoring);
+                    if (mentoringResponse) {
+                        setOptionsMentoring(mentoringResponse.mentorships);
                     }
                 }
             } catch (error) {
@@ -142,6 +149,7 @@ export const MentorProfilePage = () => {
             fetchInitialData();
         }
     }, [username]);
+
 
     return loading ? null : (
         <>

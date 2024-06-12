@@ -1,12 +1,12 @@
 import React from "react";
-import { ServiceMentoring } from "@customTypes/order";
+import {MentorshipPlan, ServiceMentoring} from "@customTypes/order";
 import styles from "./ServiceMentoringOptionCard.module.scss";
 import clx from "classnames";
 import { RadioInputIcon } from "@icons/RadioInput";
 import { CrownIcon } from "@icons/CrownIcon";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 
-type Props = ServiceMentoring & {
+type Props = MentorshipPlan & {
   name?: string;
   value?: string;
   selected?: boolean;
@@ -42,7 +42,7 @@ export const ServiceMentoringOptionCard = ({
       {subtitle ? <p className={styles.subtitle}> {subtitle}</p> : null}
 
       <div className={styles.priceRow}>
-        <strong>{Math.ceil(price / 100)} zł</strong>
+        <strong>{Math.ceil(price)} zł</strong>
         <span>miesięcznie</span>
       </div>
 
@@ -53,7 +53,7 @@ export const ServiceMentoringOptionCard = ({
             {descriptionRows.map((r) => (
               <li>
                 <CheckCircleSolidIcon />
-                <span>{r}</span>
+                <span>{r.description}</span>
               </li>
             ))}
           </ul>

@@ -10,10 +10,9 @@ import { TextareaField } from "../TextareaField/TextareaField";
 import styles from "./AddQuestionPopup.module.scss";
 import { resolver } from "./resolver";
 
-
 type AddQuestionPopupTypes = {
   isOpen: boolean;
-  handleClose: any;
+  handleClose: () => void;
 };
 export type AddQuestionFormTypes = {
   email: string;

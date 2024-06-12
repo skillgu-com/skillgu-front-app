@@ -9,10 +9,8 @@
 
 .input {
   @extend %text-body-2;
-
   padding: 14px;
   width: 100%;
-
   border-radius: 8px;
   border: 1px solid $new-gray-color;
   outline: none;
@@ -30,5 +28,4 @@
   @extend %text-button-sm;
   position: absolute;
   color: $colour-error-100;
-  font-style: italic;
 }

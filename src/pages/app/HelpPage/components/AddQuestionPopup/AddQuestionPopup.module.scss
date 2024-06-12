@@ -26,10 +26,16 @@
 
 .modal {
   & h3 {
+    margin-top: 60px;
     color: $colour-primary;
   }
 }
 
 .modalContent {
-  width: 300px;
+  width: 100%;
+  max-width: 516px;
+  margin: 20px;
+  @include media-md-and-up {
+    width: 516px;
+  }
 }

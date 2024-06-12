@@ -9,22 +9,27 @@
 }
 
 .flexContainer {
-  
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+
   @include media-md-and-up {
-    display: flex;
+    flex-direction: row;
+    gap: 24px;
   }
 }
 
-.button {
-  display: block;
-  width: 100%;
-  padding: 1rem 2.5rem;
+.btnPrimary {
+  @include media-md-and-up {
+    order: 2;
+  }
 }
 
 .modal {
   & h3 {
-    padding-top: 32px;
     color: $colour-primary;
   }
+}
+
+.modalContent {
+  width: 300px;
 }

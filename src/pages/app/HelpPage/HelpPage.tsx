@@ -2,15 +2,14 @@ import React, { useCallback, useState } from "react";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Container from "src/components/Container/Container";
-
 import Accordion from "src/components/FAQ/Accordion";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Tag } from "@customTypes/tags";
+import { Text, Title } from "src/components/typography";
+import { AddQuestionPopup } from "./components/AddQuestionPopup/AddQuestionPopup";
 
 import styles from "./HelpPage.module.scss";
 import { faqList } from "./config";
-import { AddQuestionPopup } from "./AddQuestionPopup/AddQuestionPopup";
-import { Text, Title } from "src/components/typography";
 
 const HelpPage = () => {
   const [popupOpen, setPopupOpen] = useState<boolean>(false);

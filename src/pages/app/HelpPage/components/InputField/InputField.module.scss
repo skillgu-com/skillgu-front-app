@@ -7,7 +7,7 @@
   padding-bottom: 32px;
 }
 
-.textarea {
+.input {
   @extend %text-body-2;
 
   padding: 14px;
@@ -27,7 +27,7 @@
 }
 
 .error {
-  @extend %text-button-md;
+  @extend %text-button-sm;
   position: absolute;
   color: $colour-error-100;
   font-style: italic;

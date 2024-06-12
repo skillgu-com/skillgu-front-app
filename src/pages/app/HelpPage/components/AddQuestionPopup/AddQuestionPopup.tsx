@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Modal from "src/components/Modal/Modal";
 import { Text } from "src/components/typography";
 import { InputField } from "../InputField/InputField";
+import { TextareaField } from "../TextareaField/TextareaField";
 
 import styles from "./AddQuestionPopup.module.scss";
 import { resolver } from "./resolver";
-import { TextareaField } from "../TextareaField/TextareaField";
+
 
 type AddQuestionPopupTypes = {
   isOpen: boolean;
@@ -23,6 +24,7 @@ export const AddQuestionPopup = ({
   isOpen,
   handleClose,
 }: AddQuestionPopupTypes) => {
+  const [isPending, startTransition] = useTransition(); // isPending will be used leter
   const {
     register,
     formState: { errors },
@@ -33,7 +35,9 @@ export const AddQuestionPopup = ({
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data); //TODO
+    startTransition(() => {
+      console.log(data); //TODO
+    });
     handleClose();
   });
 
@@ -81,19 +85,20 @@ export const AddQuestionPopup = ({
         />
         <div className={styles.flexContainer}>
           <Button
+            fullWidth={true}
+            variant={ButtonVariant.Primary}
+            classes={styles.btnPrimary}
+            type="submit"
+          >
+            Wyślij
+          </Button>
+          <Button
+            fullWidth={true}
             onClick={handleClose}
-            classes={styles.button}
             variant={ButtonVariant.Light}
             type="button"
           >
             Anuluj
-          </Button>
-          <Button
-            classes={styles.button}
-            variant={ButtonVariant.Primary}
-            type="submit"
-          >
-            Wyślij
           </Button>
         </div>
       </form>

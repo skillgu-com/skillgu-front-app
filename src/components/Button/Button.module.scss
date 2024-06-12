@@ -70,7 +70,8 @@
 	}
 	&[data-variant='light'] {
 		@include hover-effect($light-color);
-		color: $dark-color;
+		background-color: $colour-base-200;
+		color: $colour-primary;
 	}
 	&[data-variant='dark'] {
 		@include hover-effect($dark-color);

@@ -1,4 +1,3 @@
-
 const initialState = {
     isAuthenticated: false,
     user: {
@@ -8,17 +7,18 @@ const initialState = {
         userID: null,
         firstName: null,
         lastName: null,
+        username: null,
         age: null,
-        user_role: null | null,
+        user_role: '',
         agreement: true,
         description: null,
-        location: null | null,
-        linkedInURL:  null,
+        location: '',
+        linkedInURL: null,
         youtubeURL: null,
-        instagramURL:  null,
+        instagramURL: null,
         facebookURL: null,
         websiteURL: null,
-        youtube:  null,
+        youtube: null,
         timeZone: null,
         jobPosition: null,
         skill: []
@@ -26,7 +26,7 @@ const initialState = {
 };
 
 
-const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case 'LOGIN':
             return {
@@ -36,6 +36,8 @@ const authReducer = (state = initialState, action) => {
                     id: action.payload.id,
                     email: action.payload.email,
                     role: action.payload.role,
+                    username: action.payload.username,
+
                 },
 
             };
@@ -59,9 +61,9 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuthenticated: true,
                 user: {
-                    id: action.payload.id, // Add new property id
-                    email: action.payload.email, //  Add new property email
-                    role: action.payload.role, // Add new property role
+                    id: action.payload.id,
+                    email: action.payload.email,
+                    role: action.payload.role,
                 },
             };
         case 'FETCH_ALL_USER_DATA':
@@ -78,7 +80,7 @@ const authReducer = (state = initialState, action) => {
                     instagramURL: action?.payload.instagramURL,
                     facebookURL: action?.payload.facebookURL,
                     websiteURL: action?.payload.websiteURL,
-                    description:action?.payload.description,
+                    description: action?.payload.description,
                     skill: action?.payload.skill
                 },
             };
@@ -87,5 +89,3 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
-
-export default authReducer;

@@ -48,3 +48,12 @@ export const deleteSchedule = async (scheduleID: string) => {
         throw new Error('Failed to delete schedule');
     }
 };
+
+export const fetchScheduleTemplateForEdit = async (scheduleId: string | undefined) => {
+    try {
+        const response = await axios.put(`/api/1.0/schedule/schedule/fetch-schedule-for-edit/${scheduleId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to delete schedule');
+    }
+};

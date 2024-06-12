@@ -12,12 +12,11 @@ export const parseUserFromJwt = (token: string) => {
         );
         const payload = JSON.parse(jsonPayload);
 
-        console.log('payload', payload)
-
         return {
             id: payload.userId,
             email: payload.sub,
             role: payload?.role[0],
+            username: payload?.username
         };
     }
     return null;

@@ -78,3 +78,11 @@ export const fetchMentorReviews = async ({
     }
 };
 
+export const getMentorProfileByID = async (mentorID: any) => {
+    return await axios.get(`/api/mentor/get-mentor-by-mentor-id/${mentorID}`);
+
+}
+export const getMentorByUsername = async (username: any) => {
+    return await axios.get(`/api/mentor/get-mentor-by-mentor-username/${username}`);
+}
+

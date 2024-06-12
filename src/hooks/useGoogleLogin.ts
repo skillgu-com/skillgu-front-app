@@ -34,6 +34,7 @@ const useGoogleLogin = (buttonRef: RefObject<HTMLElement>) => {
                         id: response.userData.id,
                         email: response.userData.email,
                         role: response.userData.role,
+                        username: response.userData.username
                     },
                 });
                 navigate(paths.home);

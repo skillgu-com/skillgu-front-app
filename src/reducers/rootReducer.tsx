@@ -1,6 +1,5 @@
 // rootReducer.js
 import {combineReducers} from 'redux';
-import authReducer from "./authReducer";
 import connectionProcessReducer from "./connectionProcessReducer";
 import userSettingReducer from "./userSettingReducer";
 import bookSessionReducer from "./bookSessionProcessReducer";
@@ -8,6 +7,7 @@ import sessionIDReducer from "./calendarProcessReducer";
 import { termsReducer } from './terms';
 import { mentorsReducer } from './mentors';
 import { bookingReducer } from './booking';
+import {authReducer} from "./auth/authReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,

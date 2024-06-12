@@ -1,13 +1,13 @@
 import React, {FormEvent, useEffect, useMemo, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 // Components
 
 // Types
 import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
-import {fetchAllSchedules} from "@services/ScheduleService";
-import {createSession, getSessionTypes} from "../../../../../services/SessionService";
+import {fetchScheduleTemplateForEdit, fetchAllSchedules} from "@services/scheduleService";
+import {createSession, fetchSessionTemplateForEdit, getSessionTypes} from "../../../../../services/sessionService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 import Input, {defaultInput} from "../../../../../components/Input/Input";
@@ -17,6 +17,10 @@ import Button from "../../../../../components/Button/Button";
 const SessionForm = () => {
     const [scheduleNames, setScheduleNames] = useState([]);
     const [sessionTypes, setSessionTypes] = useState([]);
+    // const [data, setData] = useState<any>(null);
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+    const { sessionId } = useParams<{ sessionId: string }>();
+
 
     const [form, setForm] = useState({
         name: defaultInput,
@@ -54,12 +58,28 @@ const SessionForm = () => {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
-
-        console.log(form)
         createSession(form).then(() => {
             navigate('/schedules');
         })
     };
+
+    useEffect(() => {
+        if (sessionId) {
+            setIsEdit(true);
+            const fetchData = async () => {
+                try {
+                    const result = await fetchSessionTemplateForEdit(sessionId);
+
+                    // setData(result);
+                } catch (error) {
+                    console.error('Error fetching schedule data:', error);
+                }
+            };
+            fetchData();
+        } else {
+            setIsEdit(false);
+        }
+    }, [sessionId]);
 
     const disabled = useMemo(() => {
         if (
@@ -94,7 +114,7 @@ const SessionForm = () => {
                     name='price'
                     type='number'
                     required
-                    placeholder='60'
+                    placeholder='100'
                     value={form.price.value}
                     errorMessage={form.price.errorMessage}
                     isValid={form.price.isValid}

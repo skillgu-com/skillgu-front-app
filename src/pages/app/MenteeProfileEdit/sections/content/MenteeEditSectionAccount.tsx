@@ -56,8 +56,6 @@ export const MenteeEditSectionAccount = ({menteeData}: Props) => {
 
     const [editPassword, setEditPassword] = useState<boolean>(false);
 
-
-    console.log(menteeData)
     const onSubmit: SubmitHandler<ChangePasswordDTO> = async (data) => {
         const response = await changeNewPasswordService({
             password: data.password,

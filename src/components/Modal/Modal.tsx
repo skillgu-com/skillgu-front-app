@@ -13,7 +13,7 @@ import { TitleTag, TitleVariant } from "../typography/Title/Title";
 
 interface ModalProps extends Common {
   className?: string;
-  classNameContent?: string
+  classNameContent?: string;
   title: string;
   closeHandler: () => void;
 }
@@ -24,18 +24,16 @@ const Modal = (props: ModalProps) => {
   return (
     <div className={clx(styles.wrapper, props.className)}>
       <div className={clx(styles.content, props.classNameContent)}>
-        <div className={styles.header}>
-          <Title
-            tag={TitleTag.h3}
-            variant={TitleVariant.standard}
-            classes={styles.title}
-          >
-            {title}
-          </Title>
-          <button className={styles.close} onClick={closeHandler}>
-            <CloseSvg width={15} height={13} />
-          </button>
-        </div>
+        <button className={styles.close} onClick={closeHandler}>
+          <CloseSvg width={16} height={16} />
+        </button>
+        <Title
+          tag={TitleTag.h3}
+          variant={TitleVariant.standard}
+          classes={styles.title}
+        >
+          {title}
+        </Title>
         {children}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
-import {getMenteeProfileById} from "@services/mentee/fetchMenteeServices.service";
+import {getMenteeByUserName} from "@services/mentee/fetchMenteeServices.service";
 import {MenteeDTO} from "../MenteeProfileEdit/sections";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
@@ -10,6 +10,7 @@ import {LangSwitcherConnected} from "../../../components/_connected/lang-switche
 
 export const MenteeProfilePage = () => {
     const {id: studentId} = useParams();
+    const {username: username} = useParams();
     const [mentee, setMentee] = useState<null | MenteeDTO>(null);
     const [pending, setPending] = useState<boolean>(true)
     const [error, setError] = useState<string>('')
@@ -20,7 +21,7 @@ export const MenteeProfilePage = () => {
         setError('')
         setPending(true)
         try {
-            getMenteeProfileById(studentId).then((res)=>{
+            getMenteeByUserName(studentId).then((res)=>{
                 setMentee(res.data)
             })
         } catch (e) {

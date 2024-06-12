@@ -4,6 +4,7 @@ export const StyledInputWrapper = styledMui('div')(({theme}) => ({
     display: 'flex',
     // gridGap: theme.spacing(1),
     color: 'green',
+    flexDirection: 'column'
 }))
 
 export const StyledFeedbackWrapper = styledMui('div')(({theme}) => ({
@@ -11,4 +12,3 @@ export const StyledFeedbackWrapper = styledMui('div')(({theme}) => ({
     gridGap: theme.spacing(1),
     marginBottom: theme.spacing(2)
 }))
-

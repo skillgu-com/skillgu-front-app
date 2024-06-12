@@ -166,6 +166,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
             {!!session && openModal && (
                 <Modal
                     title={schedule ? schedule?.scheduleName : session?.sessionTypeName ?? ''}
+                    classNameContent={styles.modalContent}
                     closeHandler={() => setOpenModal(false)}>
                     <p className={styles.description}>{session?.description}</p>
                 </Modal>

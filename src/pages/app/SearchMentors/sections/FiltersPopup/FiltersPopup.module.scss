@@ -2,7 +2,7 @@
 
 .modal {
   overflow: hidden;
-  display: block;  
+  display: block;
 
   @media (min-width: $xl) {
     display: none;
@@ -12,10 +12,13 @@
     max-width: 390px !important;
     overflow: auto;
     scrollbar-width: none;
-    border-radius: 24px !important;
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    h3 {
+      margin-top: 10px;
     }
   }
 }

@@ -7,12 +7,12 @@ import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
 import {fetchScheduleTemplateForEdit, fetchAllSchedules} from "@services/scheduleService";
-import {createSession, fetchSessionTemplateForEdit, getSessionTypes} from "../../../../../services/sessionService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 import Input, {defaultInput} from "../../../../../components/Input/Input";
 import Select from "../../../../../components/Select/Select";
 import Button from "../../../../../components/Button/Button";
+import {createSession, getSessionTypes, updateMentorSession} from "@services/session/sessionService";
 
 const SessionForm = () => {
     const [scheduleNames, setScheduleNames] = useState([]);
@@ -68,7 +68,7 @@ const SessionForm = () => {
             setIsEdit(true);
             const fetchData = async () => {
                 try {
-                    const result = await fetchSessionTemplateForEdit(sessionId);
+                    const result = await updateMentorSession(sessionId);
 
                     // setData(result);
                 } catch (error) {

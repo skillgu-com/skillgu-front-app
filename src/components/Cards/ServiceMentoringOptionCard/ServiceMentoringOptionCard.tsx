@@ -36,7 +36,7 @@ export const ServiceMentoringOptionCard = ({
     >
       <div className={styles.rowTitle}>
         {handleSelect ? <RadioInputIcon filled={selected} /> : null}
-        <h5 className={styles.title}>{title}</h5>
+        <h5 className={styles.title}>{variant}</h5>
         {variant === "pro" ? <CrownIcon /> : null}
       </div>
       {subtitle ? <p className={styles.subtitle}> {subtitle}</p> : null}

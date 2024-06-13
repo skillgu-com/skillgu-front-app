@@ -4,14 +4,13 @@ import {Tag} from "src/types/tags";
 import {useNavigate, useParams} from "react-router-dom";
 import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
 import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
-import {MentorshipPlan, ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
+import {MentorshipPlan, ServiceSession, ServiceType,} from "@customTypes/order";
 import {
     fetchMentorMentorshipPlans,
-    fetchMentorShip,
-    getMentorByUsername, MentorshipDTO, MentorshipPlanDTO
+    getMentorByUsername,
+    MentorshipPlanDTO
 } from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
-import {fetchMentorSession} from "../../../services/sessionService";
 import clx from "classnames";
 import {useSelector} from "react-redux";
 import paths from "../../../paths";
@@ -19,6 +18,7 @@ import {MentorData} from "../MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
+import {fetchMentorSession} from "@services/session/sessionService";
 
 type Props = {
     isLoggedMentor: boolean;

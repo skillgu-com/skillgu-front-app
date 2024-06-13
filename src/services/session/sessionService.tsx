@@ -24,13 +24,13 @@ export const getSessionTypes = async () => {
 }
 
 export const deleteSession = async (sessionID: any) => {
-    return await axios.post(`/api/1.0/session/delete?sessionID=${sessionID}`);
+    return await axios.post(`/api/1.0/session/delete?sessionID${sessionID}`);
 };
 
 
-export const fetchSessionTemplateForEdit = async (sessionId: string | undefined) => {
+export const updateMentorSession = async (sessionId: string | undefined) => {
     try {
-        const response = await axios.put(`/api/1.0/session/fetch-session-for-edit/${sessionId}`);
+        const response = await axios.put(`/api/1.0/session/update-mentor-session/${sessionId}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to delete schedule');

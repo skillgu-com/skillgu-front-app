@@ -7,7 +7,17 @@
   color: $colour-base-800;
   margin-bottom: 1.5rem;
 }
-
+.container {
+  //position: relative;
+}
+.loading {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($colour-base-000, 0.6)
+}
 .flexContainer {
   display: flex;
   flex-direction: column;

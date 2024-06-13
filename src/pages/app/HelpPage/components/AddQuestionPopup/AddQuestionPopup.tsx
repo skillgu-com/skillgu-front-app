@@ -1,4 +1,4 @@
-import React, { useEffect, useTransition } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
@@ -9,6 +9,7 @@ import { TextareaField } from "../TextareaField/TextareaField";
 
 import styles from "./AddQuestionPopup.module.scss";
 import { resolver } from "./resolver";
+import { contactService } from "@services/contact/contact.service";
 
 type AddQuestionPopupTypes = {
   isOpen: boolean;
@@ -23,7 +24,8 @@ export const AddQuestionPopup = ({
   isOpen,
   handleClose,
 }: AddQuestionPopupTypes) => {
-  const [isPending, startTransition] = useTransition(); // isPending will be used leter
+  const [isPending, setIsPending] = useState<boolean>(false);
+
   const {
     register,
     formState: { errors },
@@ -33,10 +35,15 @@ export const AddQuestionPopup = ({
     resolver,
   });
 
-  const onSubmit = handleSubmit((data) => {
-    startTransition(() => {
-      console.log(data); //TODO
-    });
+  const onSubmit = handleSubmit(async (data) => {
+    setIsPending(true);
+    try {
+      await contactService({ senderEmail: data.email, message: data.message }); //TODO
+      setIsPending(false);
+    } catch (err) {
+      console.log(err); //TODO
+    }
+
     handleClose();
   });
 
@@ -88,6 +95,7 @@ export const AddQuestionPopup = ({
             variant={ButtonVariant.Primary}
             classes={styles.btnPrimary}
             type="submit"
+            disableButton={isPending}
           >
             Wyślij
           </Button>
@@ -101,6 +109,11 @@ export const AddQuestionPopup = ({
           </Button>
         </div>
       </form>
+      {isPending && (
+        <p className={styles.loading} aria-busy="true">
+          Loading...
+        </p>
+      )}
     </Modal>
   );
 };

@@ -19,7 +19,9 @@ export enum TitleVariant {
 	main = 'main',
 	section = 'section',
 	standard = 'standard',
+	sectionConst = 'section-const',
 }
+
 
 interface Title extends Common {
 	tag: TitleTag;

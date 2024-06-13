@@ -17,6 +17,7 @@ Once the connection is established, send the list of contacts ("contacts"), then
 #### load-contacts
 
 This is a request to load more contacts (typically when the user scrolls down and needs to load more, or when searching by phrase)
+After this request, send the 'contacts'.
 
 - `Payload` is optional.
 - `phrase` means searching by fullName.
@@ -37,6 +38,7 @@ This is a request to load more contacts (typically when the user scrolls down an
 #### load-messages
 
 This is a request when the user wants to load more messages from the currently selected contact.
+After this request, send the 'messages'.
 
 - `contactId` - for security reasons - should be the same id as currently selected.
 - `take` - how many messages to load (default 15).

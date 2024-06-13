@@ -19,7 +19,7 @@ const HelpPage = () => {
   return (
     <main>
       <AddQuestionPopup isOpen={popupOpen} handleClose={toogleModalOpened} />
-      <Container as={Tag.Section}>
+      <Container as={Tag.Section} classes={styles.container}>
         <Title
           tag={TitleTag.h2}
           variant={TitleVariant.sectionConst}

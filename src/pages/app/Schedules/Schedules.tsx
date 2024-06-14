@@ -12,10 +12,7 @@ import { Tag } from "@customTypes/tags";
 // Styles
 import styles from "./components/Empty/Empty.module.scss";
 import scheduleStyles from "./Schedules.module.scss";
-import {
-  deleteSession,
-  fetchMentorSession,
-} from "../../../services/sessionService";
+
 import { useSelector } from "react-redux";
 import ScheduleCard, {
   ScheduleCardProps,
@@ -32,6 +29,7 @@ import Button, {
   ButtonVariant,
 } from "../../../components/Button/Button";
 import { deleteSchedule, fetchAllSchedules } from "@services/scheduleService";
+import {deleteSession, fetchMentorSession} from "@services/session/sessionService";
 
 const SchedulesView = () => {
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);

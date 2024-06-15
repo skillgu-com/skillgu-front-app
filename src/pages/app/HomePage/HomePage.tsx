@@ -12,7 +12,7 @@ import NavSection from './sections/NavSection/NavSection';
 import {Tag} from 'src/types/tags';
 // Styles
 import styles from './HomePage.module.scss';
-import {fetchAllUserData} from "../../../services/UserProfileService";
+import {fetchAllUserData} from "../../../services/userProfileService";
 
 const HomePage = () => {
 	const role = useSelector(getRole);

@@ -24,6 +24,9 @@ import { MentorProfilePage } from "./pages/app/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
+import { MenteeProfilePage } from './pages/app/MenteeProfile';
+import { MenteeProfileEditPage } from './pages/app/MenteeProfileEdit';
+import { ChatPage } from './pages/app/Chat';
 import { MenteeProfilePage } from "./pages/app/MenteeProfile";
 import { MenteeProfileEditPage } from "./pages/app/MenteeProfileEdit";
 
@@ -177,6 +180,70 @@ const routesRaw: Omit<Route, "id">[] = [
     element: <HelpPage />,
     layoutVersion: "default",
   },
+    {
+        path: paths.calendar,
+        element: <CalendarView />,
+        isProtected: true,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.calendarDaily,
+        element: <CalendarDailyView />,
+        isProtected: true,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.rescheduleMeeting,
+        element: <RescheduleMeetingView />,
+        isProtected: true,
+        layoutVersion: 'default',
+    },
+
+    {
+        path: paths.reports,
+        element: <Raports />,
+        isProtected: true,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.accountSettlements,
+        element: <AccountSettlement />,
+        isProtected: true,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.messages,
+        element: <MessagesView />,
+        isProtected: true,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.schedules,
+        element: <SchedulesView />,
+        isProtected: true,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.bookSuccess,
+        element: <BookSuccess />,
+        isProtected: true,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.registerMentor,
+        element: <RegisterMentorView />,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.registerMentee,
+        element: <RegisterMenteeView/>,
+        layoutVersion: 'none',
+    },
+    {
+        path: paths.chat,
+        element: <ChatPage />,
+        layoutVersion: 'default',
+    },
 ];
 
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route

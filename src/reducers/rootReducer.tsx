@@ -7,6 +7,7 @@ import sessionIDReducer from "./calendarProcessReducer";
 import { termsReducer } from './terms';
 import { mentorsReducer } from './mentors';
 import { bookingReducer } from './booking';
+import { chatReducer } from './chat';
 import {authReducer} from "./auth/authReducer";
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     terms: termsReducer,
     mentors: mentorsReducer,
     booking: bookingReducer,
+    chat: chatReducer,
     // Add other reducers if you have them
 });
 

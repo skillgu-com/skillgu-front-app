@@ -211,7 +211,7 @@ const routesRaw: Omit<Route, 'id'>[] = [
     {
         path: paths.chat,
         element: <ChatPage />,
-        layoutVersion: 'none',
+        layoutVersion: 'default',
     },
 ];
 

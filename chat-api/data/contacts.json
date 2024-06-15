@@ -1,5 +1,5 @@
 [
-    { "id": 1, "lastMessageDate": "2014-01-02", "unreadMessages": 1, "name": "John Doe", "lastMessage": "Hello!", "avatarUrl": "" },
+    { "id": 1, "lastMessageDate": "2014-01-02", "unreadMessages": 1, "fullName": "John Doe", "lastMessage": "Hello!", "avatarUrl": "" },
     { "id": 2, "lastMessageDate": "", "unreadMessages": 1, "fullName": "Jane Smith", "lastMessage": "Hi there!", "avatarUrl": "" },
     { "id": 4, "lastMessageDate": "", "unreadMessages": 1, "fullName": "Bob Brown", "lastMessage": "Good morning!", "avatarUrl": "" },
     { "id": 5, "lastMessageDate": "", "unreadMessages": 1, "fullName": "John2 Doe", "lastMessage": "Hello!", "avatarUrl": "" },

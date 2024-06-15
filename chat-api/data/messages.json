@@ -21,6 +21,6 @@
         { "id": "17", "fromId": "2", "text": "Słyszałam, że nowy film akcji jest świetny. Może ten?", "date": "2024-01-01 10:47" },
         { "id": "18", "fromId": "0", "text": "Brzmi interesująco! Dzięki za podpowiedź.", "date": "2024-01-01 10:48" },
         { "id": "19", "fromId": "2", "text": "Nie ma za co. Miłego wieczoru!", "date": "2024-01-01 10:50" },
-        { "id": "20", "fromId": "0", "text": "Tobie również, Jane!", "date": "2024-01-01 11:00" }
+        { "id": "20", "fromId": "0", "text": "Tobie również, Testr!", "date": "2024-01-01 11:00" }
     ]
 }

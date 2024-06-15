@@ -27,8 +27,7 @@ import { MentorProfileEditPage } from "./pages/app/MentorProfileEdit";
 import { MenteeProfilePage } from './pages/app/MenteeProfile';
 import { MenteeProfileEditPage } from './pages/app/MenteeProfileEdit';
 import { ChatPage } from './pages/app/Chat';
-import { MenteeProfilePage } from "./pages/app/MenteeProfile";
-import { MenteeProfileEditPage } from "./pages/app/MenteeProfileEdit";
+import SchedulesView from "./pages/app/Schedules/Schedules";
 
 type Route = {
   id: string;
@@ -200,35 +199,12 @@ const routesRaw: Omit<Route, "id">[] = [
     },
 
     {
-        path: paths.reports,
-        element: <Raports />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.accountSettlements,
-        element: <AccountSettlement />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
-        path: paths.messages,
-        element: <MessagesView />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
-    {
         path: paths.schedules,
         element: <SchedulesView />,
         isProtected: true,
         layoutVersion: 'none',
     },
-    {
-        path: paths.bookSuccess,
-        element: <BookSuccess />,
-        isProtected: true,
-        layoutVersion: 'none',
-    },
+
     {
         path: paths.registerMentor,
         element: <RegisterMentorView />,

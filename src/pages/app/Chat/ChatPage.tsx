@@ -6,7 +6,6 @@ import {
   ChatContactsOutput,
   ChatMessagesOutput,
 } from "@services/chat/chat.service.types";
-import { v4 as uuidv4 } from 'uuid';
 
 type ChatMessageWithOptimistic = ChatMessage & {
   optimistic?: true

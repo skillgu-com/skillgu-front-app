@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {useQuery} from "@tanstack/react-query";
+import React, {useEffect, useMemo, useState} from 'react';
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {getMonth, lastDayOfMonth, setDate, setMonth} from "date-fns";
 
 import
@@ -12,6 +12,7 @@ import {Container, Theme, useMediaQuery} from "@mui/material";
 import {Event, NavigateAction} from "react-big-calendar";
 import Calendar from "../../../components/Calendar/Calendar";
 import CalendarMobile from "../../../components/Calendar/_mobile/CalendarMobile/CalendarMobile";
+import {useLocation} from "react-router-dom";
 
 export type MeetingInCalendar = Event & {
     metadata: {
@@ -47,6 +48,8 @@ const CalendarView = () => {
         setSelectedRange({from, to});
     }
 
+
+
     const queryParams = useMemo(() => ({
         from: selectedRange.from,
         to: selectedRange.to,
@@ -55,6 +58,8 @@ const CalendarView = () => {
     const {data} = useQuery({
         queryKey: getMentoringSessionsInDatesServiceKeyGenerator(queryParams),
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
+
+
     });
 
     const events: MeetingInCalendar[] = useMemo(() => {
@@ -87,7 +92,6 @@ const CalendarView = () => {
     }, [data]);
 
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));
-
 
     return (
         <Container>

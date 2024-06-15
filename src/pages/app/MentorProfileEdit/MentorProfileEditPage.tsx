@@ -136,7 +136,6 @@ export const MentorProfileEditPage = () => {
             setLoading(true);
             await getMentorByUsername(username).then((res) => {
                 setMentorData(res.data as MentorData);
-                console.log('getMentorProfileByID: ', res.data)
             });
             setLoading(false);
         };

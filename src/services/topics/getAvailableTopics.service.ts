@@ -1,7 +1,6 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
 import axios from "axios";
 
-
 const fetchMentorTopics = (query: string): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
         axios.get('/api/mentor/get-all-mentoring-topics')

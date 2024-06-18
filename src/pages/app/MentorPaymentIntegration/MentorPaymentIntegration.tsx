@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {createStripeAccount, createStripeAccountLink} from "@services/stripe/stripeService";
+import React, {useEffect, useState} from "react";
+import {createStripeAccount, createStripeAccountLink, getStripeAccount} from "@services/stripe/stripeService";
 
 
 export const MentorPaymentIntegration = () => {
@@ -7,6 +7,19 @@ export const MentorPaymentIntegration = () => {
     const [accountCreatePending, setAccountCreatePending] = useState(false);
     const [accountLinkCreatePending, setAccountLinkCreatePending] = useState(false);
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        const fetchStripeAccount = async () => {
+            try {
+                const accountId = await getStripeAccount();
+                setConnectedAccountId(accountId);
+            } catch (error) {
+                console.error('Error fetching Stripe account:', error);
+            }
+        };
+
+        fetchStripeAccount();
+    }, []);
 
     const handleCreateAccount = async () => {
         try {

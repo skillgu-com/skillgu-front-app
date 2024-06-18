@@ -26,6 +26,7 @@ import {ReactComponent as CalendarIcon} from '../../../../assets/icons/svg/calen
 import styles from './Navbar.module.scss';
 import paths from "../../../../paths";
 import {getRole} from "../../../../redux/selectors/authSelectors";
+import Payment from "@icons/Payment";
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -66,6 +67,13 @@ const Navbar = () => {
             id: 'settings',
             label: 'Ustawienia',
             link: role === 'M' ? `/edit-mentor/${userFromRedux.username}` : `/edit-student/${userFromRedux.username}`,
+            icon: <Settings/>,
+        },
+
+        {
+            id: 'payments',
+            label: 'Płatności',
+            link: role === 'M' ? `/payment` : `/payment/${userFromRedux.username}`,
             icon: <Settings/>,
         },
     ].filter(item => item.link !== '');

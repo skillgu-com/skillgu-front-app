@@ -39,7 +39,7 @@ const NavSection = () => {
                 {
                     link: '/messages',
                     icon: <Message/>,
-                    text: 'Wiadomości',
+                    text: 'Chat',
                 },
             ]
             : [
@@ -59,14 +59,14 @@ const NavSection = () => {
                     text: 'Raporty',
                 },
                 {
-                    link: '/messages',
+                    link: '/chat',
                     icon: <Message/>,
-                    text: 'Wiadomości',
+                    text: 'Chat',
                 },
                 {
                     link: '/account-view',
                     icon: <Payment/>,
-                    text: 'Subsrkypcje',
+                    text: 'Płatności',
                 },
             ];
 

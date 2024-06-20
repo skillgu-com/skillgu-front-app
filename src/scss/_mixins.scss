@@ -49,6 +49,6 @@
 	}
 }
 
-@function pxToRem($pxValue, $baseFontSize: 16) {
+@function pxToRem($pxValue, $baseFontSize: 10) {
 	@return #{$pxValue / $baseFontSize}rem;
 }

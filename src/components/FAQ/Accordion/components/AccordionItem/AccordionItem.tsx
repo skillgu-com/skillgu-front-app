@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 // Styles
 import styles from "./AccordionItem.module.scss";
 import { ChevronDownIcon } from "@icons/ChevronDownIcon";
-import {Expandable} from "../../../_base/Expandable";
+import {Expandable} from "src/components/_base/Expandable"
 
 export interface AccordionItemModel {
   id: string;

@@ -3,6 +3,9 @@ import { LinksList, LinksListRow } from "src/components/FAQ/LinksList";
 import clx from "classnames";
 import styles from "../styles.module.scss";
 import Button, { ButtonVariant } from "src/components/Button/Button";
+import {payment} from "../../../../components/FAQ/Accordion/content/payment";
+import FAQ from "src/components/FAQ/Accordion/Accordion";
+
 
 type Props = {
   price: number;
@@ -35,46 +38,17 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
               </span>
             ) : null}
             <div>
-              <Button
-                onClick={handleCreateAccountLink}
-                fullWidth
-                variant={ButtonVariant.Primary}
-              >
-                Połącz ze Stripe
-              </Button>
-
+              <Button onClick={handleCreateAccountLink} fullWidth variant={ButtonVariant.Primary}>Połącz ze Stripe</Button>
               {error && <p>Error occurred while processing your request.</p>}
             </div>
           </div>
         </div>
         <div className={styles.faqWrapper}>
-          <LinksList title="FAQ: Wypłaty środków" className={styles.faq}>
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-          </LinksList>
-
-          <LinksList title="Rozliczanie ze Skilguru" className={styles.faq}>
-            <LinksListRow
-              text="Jak rozliczyć się z zarobków na platformie Skillguru?"
-              href="#"
-            />
-          </LinksList>
         </div>
       </div>
+      <section>
+        <FAQ title="FAQ" elements={payment}/>
+      </section>
     </div>
   );
 };

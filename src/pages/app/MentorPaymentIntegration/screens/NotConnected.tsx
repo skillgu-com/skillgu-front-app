@@ -1,8 +1,9 @@
 import React from "react";
-import { LinksList, LinksListRow } from "src/components/FAQ/LinksList";
 import clx from "classnames";
 import styles from "../styles.module.scss";
 import Button, { ButtonVariant } from "src/components/Button/Button";
+import FAQ from "../../../../components/FAQ/Accordion/Accordion";
+import {stripeIntegration} from "../../../../components/FAQ/Accordion/content/stripe-integration";
 
 type Props = {
   error: string;
@@ -41,33 +42,11 @@ export const NotConnected = ({ error, handleCreateAccount }: Props) => {
           </div>
         </div>
         <div className={styles.faqWrapper}>
-          <LinksList title="FAQ: Wypłaty środków" className={styles.faq}>
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-            <LinksListRow
-              text="Kiedy moje środki będą gotowe do wypłaty?"
-              href="#"
-            />
-          </LinksList>
-
-          <LinksList title="Rozliczanie ze Skilguru" className={styles.faq}>
-            <LinksListRow
-              text="Jak rozliczyć się z zarobków na platformie Skillguru?"
-              href="#"
-            />
-          </LinksList>
         </div>
       </div>
+        <section>
+            <FAQ title="FAQ" elements={stripeIntegration}/>
+        </section>
     </div>
   );
 };

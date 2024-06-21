@@ -1,0 +1,115 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/mixins" as *;
+@use "../../../scss/main.scss" as *;
+@use "../../../scss/font" as *;
+
+.wrapper {
+    padding: 20px;
+    max-width: 1054px;
+}
+
+.title {
+    @extend %text-heading-3;
+    color: $colour-primary;
+
+    @include media-lg-and-up {
+        font-size: 32px;
+    }
+}
+
+.title + .description {
+    margin-top: 16px;
+}
+
+.description {
+    @extend %text-button-md;
+    color: $colour-base-800;
+}
+
+.description + .cols2 {
+    margin-top: 32px;
+}
+
+.cols2 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+
+    @include media-lg-and-up {
+        flex-direction: row;
+    }
+
+    > * {
+        flex: 1;
+    }
+}
+
+.cols2Reverse {
+    @include media-lg-and-up {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.faqWrapper {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+
+    .faq {
+        padding: 32px 20px;
+    }
+}
+
+.imgCtaWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .imgCtaBox {
+        max-width: 350px;
+        width: 100%;
+
+        > div {
+            width: 100%;
+        }
+    }
+}
+
+.priceCtaWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .priceCtaBox {
+        max-width: 398px;
+        width: 100%;
+        border: 1px solid $colour-base-400;
+        border-radius: 12px;
+        padding: 32px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: stretch;
+        justify-content: stretch;
+
+        > div {
+            width: 100%;
+        }
+    }
+}
+
+.priceLabel {
+    @extend %text-subtitle-1;
+    color: $colour-primary;
+    display: block;
+}
+
+.priceAmount {
+    color: $colour-secondary;
+    margin-left: 12px;
+}

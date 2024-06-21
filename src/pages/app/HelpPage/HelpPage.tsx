@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Container from "src/components/Container/Container";
-import Accordion from "src/components/FAQ/Accordion";
+import Accordion from "src/components/FAQ/Accordion/Accordion";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Tag } from "@customTypes/tags";
 import { Text, Title } from "src/components/typography";

@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import clx from 'classnames'
 //
 import {faqRows} from "./config";
-import FAQ from "src/components/FAQ/Accordion";
+import FAQ from "src/components/FAQ/Accordion/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
 import {fetchMentorShip} from "@services/mentor/fetchMentorServices.service";
 import {useLocation} from "react-router-dom";

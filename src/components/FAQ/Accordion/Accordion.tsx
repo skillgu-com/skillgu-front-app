@@ -1,10 +1,10 @@
 // Libraries
 import React, {useState} from 'react';
 // Components
-import {Title} from '../typography';
+import {Title} from '../../typography';
 import AccordionItem from './components/AccordionItem/AccordionItem';
 // Types
-import {TitleTag, TitleVariant} from '../typography/Title/Title';
+import {TitleTag, TitleVariant} from '../../typography/Title/Title';
 import {AccordionItemModel} from './components/AccordionItem/AccordionItem';
 // Styles
 import styles from './Accordion.module.scss';

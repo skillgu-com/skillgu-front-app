@@ -1,5 +1,5 @@
 import { ChatContactType } from "@customTypes/chat";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { ChatContact } from "../ChatContact";
 
@@ -40,12 +40,13 @@ export const ChatContacts = ({
   }, [debouncePhrase]);
 
   const _contacts = phrase
-    ? contacts.filter((c) => c.fullName.toLowerCase().includes(phrase.toLowerCase()))
+    ? contacts.filter((c) =>
+        c.fullName.toLowerCase().includes(phrase.toLowerCase())
+      )
     : contacts;
 
   return (
     <section className={styles.box}>
-      <h4>ChatContacts</h4>
       {pending ? <p>pending</p> : null}
       <SearchInput
         placeholder="Szukaj"
@@ -54,11 +55,7 @@ export const ChatContacts = ({
         onChangePhrase={handleInputChange}
       />
       <ul
-        style={{
-          height: "220px",
-          overflow: "auto",
-          listStyle: "none",
-        }}
+        className={styles.list}
       >
         {_contacts.map((contact) => (
           <ChatContact

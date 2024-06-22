@@ -8,7 +8,7 @@ import {
 } from "@services/chat/chat.service.types";
 import { Tag } from "@customTypes/tags";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
-import { Text, Title } from "src/components/typography";
+import { Title } from "src/components/typography";
 import Container from "src/components/Container/Container";
 
 import styles from "./ChatPage.module.scss";
@@ -85,7 +85,7 @@ export const ChatPage = () => {
     if (phrase) {
       WebSocketInstance.loadContacts({
         phrase,
-        take: 5,
+        //take: 5,
         skip: 0,
       });
     }

@@ -1,0 +1,59 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.box {
+  padding: 24px 32px;
+  max-height: 500px;
+  border: 1px solid $colour-base-200;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.title {
+  @extend %text-button-lg;
+  color: $colour-primary;
+  padding: 16px 32px;
+  border: 1px solid $colour-base-200;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: none;
+}
+
+.flex {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.avatar {
+  display: none;
+  @include media-xl-and-up {
+    display: block;
+  }
+}
+
+.textarea {
+  @extend %text-caption;
+  line-height: 1.2;
+  flex-grow: 2;
+  padding: 4px 24px;
+  border-radius: 50px;
+  background-color: $colour-base-400;
+  border: 1px solid $colour-base-400;
+  color: $colour-base-800;
+  outline: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &:focus {
+    border-color: $colour-base-600;
+  }
+}

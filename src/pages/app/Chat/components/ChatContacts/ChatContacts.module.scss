@@ -5,3 +5,15 @@
   border: 1px solid $colour-base-200;
   border-radius: 8px;
 }
+
+.list {
+  margin-top: 24px;
+  scrollbar-width: none;
+  list-style: none;
+  max-height: 500px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,12 +1,16 @@
-import { ChatContact } from "@customTypes/chat";
+import { ChatContactType } from "@customTypes/chat";
 import React, { useRef, useState } from "react";
+
+import { ChatContact } from "../ChatContact";
+
+import styles from "./ChatContacts.module.scss";
 
 type Props = {
   pending: boolean;
-  selected: ChatContact | null;
-  contacts: ChatContact[];
+  selected: ChatContactType | null;
+  contacts: ChatContactType[];
   total: number | null;
-  switchContact: (contact: ChatContact) => void;
+  switchContact: (contact: ChatContactType) => void;
   loadMoreContacts: () => void;
   findContacts: (phrase: string) => void;
 };
@@ -25,8 +29,9 @@ export const ChatContacts = ({
     ? contacts.filter((c) => c.fullName.includes(phrase))
     : contacts;
 
+
   return (
-    <div>
+    <section className={styles.box}>
       <h4>ChatContacts</h4>
       {pending ? <p>pending</p> : null}
       <form
@@ -43,6 +48,7 @@ export const ChatContacts = ({
           <legend>Szukaj</legend>
           <input
             type="text"
+            placeholder="Szukaj"
             name="phrase"
             // value={phrase}
             // onChange={(e) => setPhrase(e.target.value)}
@@ -50,29 +56,24 @@ export const ChatContacts = ({
         </fieldset>
         <button>findContacts</button>
       </form>
-      <div
+      <ul
         style={{
           height: "220px",
           overflow: "auto",
+          listStyle: "none",
         }}
       >
-        {_contacts.map((c) => (
-          <div key={c.id} style={{ margin: "20px", border: "1px solid red" }}>
-            <h4>{c.fullName}</h4>
-            <p>{c.lastMessage}</p>
-            <p>{c.unreadMessages}</p>
-            {selected && selected?.id === c.id ? (
-              <p>SELECTED</p>
-            ) : (
-              <button onClick={() => switchContact(c)}>Select</button>
-            )}
-          </div>
+        {_contacts.map((contact) => (
+          <ChatContact
+            key={contact.id}
+            contact={contact}
+            switchContact={() => switchContact(contact)}
+          />
         ))}
-
         {total && !phrase && total > contacts.length ? (
           <button onClick={loadMoreContacts}>load more</button>
         ) : null}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };

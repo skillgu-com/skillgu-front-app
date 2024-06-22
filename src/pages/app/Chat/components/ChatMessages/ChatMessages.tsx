@@ -1,10 +1,10 @@
-import { ChatContact, ChatMessage } from "@customTypes/chat";
+import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 import React from "react";
 
 type Props = {
-  selected: ChatContact | null;
+  selected: ChatContactType | null;
   pending: boolean;
-  messages: ChatMessage[];
+  messages: ChatMessageType[];
   total: number | null;
   sendMessage: (text: string) => void;
   loadMoreMessages: () => void;

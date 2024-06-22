@@ -12,7 +12,7 @@ export const MentorEditFooter = () => {
             variant={ButtonVariant.DangerText}
         >
             <BinIcon />
-            <Typography variant='buttonMd'>Usuń swoje konto</Typography>
+            <Typography variant='buttonMd' color='error'>Usuń swoje konto</Typography>
         </Button>
         </div>
     )

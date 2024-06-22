@@ -32,6 +32,7 @@ interface CommonProps extends Common {
   variant?: ButtonVariant;
   disableButton?: boolean;
   size?: "sm" | "md" | "lg";
+  fontVariant?: 'button-md'
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -49,6 +50,7 @@ const Button: React.FC<
     variant = ButtonVariant.Primary,
     disableButton,
     size,
+    fontVariant,
   } = props;
 
   const as = customAs
@@ -79,6 +81,7 @@ const Button: React.FC<
           [styles.buttonFullWidth]: fullWidth,
           [styles.buttonSm]: size === "sm",
           [styles.buttonLg]: size === "lg",
+          [styles.FontButtonMd]: fontVariant === 'button-md',
         },
         classes
       ),

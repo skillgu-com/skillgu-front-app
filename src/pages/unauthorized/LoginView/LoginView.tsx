@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Button, Collapse} from "@mui/material";
 import paths, {pathAnchors} from "../../../paths";
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {loginUserByEmail} from "../../../helpers/login";
@@ -14,6 +14,7 @@ import useGoogleLogin from "../../../hooks/useGoogleLogin";
 import FormInputText from "../../../components/_form/FormInputText/FormInputText";
 import FormInputCheckbox from "../../../components/_form/FormInputCheckbox/FormInputCheckbox";
 import TextLink from "../../../components/TextLink/TextLink";
+import styles from './style.module.scss'
 
 type LoginFormInput = {
     email: string;
@@ -92,7 +93,7 @@ const LoginView = () => {
                     controllerProps={{rules: {required: 'Hasło jest wymagane'}}}
                 />
             </Box>
-            <Box sx={{display: 'flex', justifyContent: 'space-between', marginTop: 1}}>
+            <Box sx={{display: 'flex', justifyContent: 'space-between', alignContent: 'center', flexWrap: 'wrap', marginTop: 1}}>
                 <FormInputCheckbox<LoginFormInput>
                     inputProps={{color: 'secondary'}}
                     label='Zapamiętaj mnie'
@@ -100,12 +101,9 @@ const LoginView = () => {
                     control={control}
                     formState={formState}
                 />
-                <TextLink
-                    typographyProps={{variant: 'body2', sx: {marginTop: '3px'}}}
-                    linkProps={{to: paths.remindPassword}}
-                >
+                <Link className={styles.link} to={paths.remindPassword}>
                     Zapomniałem hasła
-                </TextLink>
+                </Link>
             </Box>
             <Collapse in={!!globalError}>
                 <Typography sx={{marginBottom: 2, marginTop: 2}} color='error' variant='caption'>

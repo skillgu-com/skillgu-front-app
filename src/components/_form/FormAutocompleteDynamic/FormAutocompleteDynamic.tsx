@@ -64,7 +64,7 @@ const FormAutocompleteDynamic = <T extends FieldValues>({
 
     return (
         <StyledInputWrapper>
-            {label && <Typography variant='body2'>{label}</Typography>}
+            {label && <Typography variant='buttonMd' color='secondary' >{label}</Typography>}
             <Controller
                 name={name}
                 control={control}

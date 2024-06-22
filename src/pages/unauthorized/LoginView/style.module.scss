@@ -1,0 +1,8 @@
+@use '../../../scss/font' as *;
+@use '../../../scss/variables' as *;
+
+.link {
+    @extend %text-reset-button, %text-caption;
+    color: $colour-primary;
+    margin-top: 3px;
+}

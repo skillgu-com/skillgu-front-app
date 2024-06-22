@@ -57,6 +57,7 @@ export const UserEditSection = ({
                 variant={ButtonVariant.PrimaryLight}
                 disabled={pending}
                 type="button"
+                fontVariant='button-md'
               >
                 Anuluj
               </Button>
@@ -68,6 +69,7 @@ export const UserEditSection = ({
                 variant={ButtonVariant.Primary}
                 disabled={disabledSubmit || pending}
                 type="submit"
+                fontVariant='button-md'
               >
                 Zapisz zmiany
               </Button>

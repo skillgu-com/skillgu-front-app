@@ -30,8 +30,8 @@ interface CheckboxProps {
   valueChangeHandler: CheckboxValueChangeHandler;
   classes?: string;
   slide?: boolean;
-  fontVariant?: 'button-sm'|'caption'
-  colorVariant?: 'base-80'|'primary'
+  fontVariant?: "button-sm" | "caption";
+  colorVariant?: "base-80" | "primary";
 }
 
 const Checkbox = (props: CheckboxProps) => {
@@ -46,8 +46,8 @@ const Checkbox = (props: CheckboxProps) => {
     valueChangeHandler,
     classes,
     slide,
-    fontVariant = '',
-    colorVariant = '',
+    fontVariant = "",
+    colorVariant = "",
   } = props;
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,15 +76,20 @@ const Checkbox = (props: CheckboxProps) => {
         checked={value}
         required={required}
       />
-      <div className={clx(styles.checkboxLabel, {
-        [styles.checkboxLabelButtonSm]: fontVariant === 'button-sm',
-        [styles.checkboxLabelCaption]: fontVariant === 'caption',
-        [styles.checkboxLabelBase80]: colorVariant === 'base-80',
-        [styles.checkboxLabelPrimary]: colorVariant === 'primary',
-      })}>
-        <CheckboxIcon checked={value} className={styles.icon} />
+      <div
+        className={clx(styles.checkboxLabel, {
+          [styles.checkboxLabelButtonSm]: fontVariant === "button-sm",
+          [styles.checkboxLabelCaption]: fontVariant === "caption",
+          [styles.checkboxLabelBase80]: colorVariant === "base-80",
+          [styles.checkboxLabelPrimary]: colorVariant === "primary",
+        })}
+      >
+        {slide ? (
+            <span className={styles.slideField} />
+          ) : (
+            <CheckboxIcon checked={value} className={styles.icon} />
+          )}
         <span>
-          {slide && <span className={styles.slideField} />}
           {label}
           {required && " *"}
         </span>

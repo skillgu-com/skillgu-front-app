@@ -14,6 +14,7 @@ import {
 type Props = {
   services: ServiceSession[];
   selected?: ServiceSession | null;
+  displayRadioInput?: boolean;
   handleSelect?: (opt: ServiceSession) => void;
   handleSubmit?: (opt: ServiceSession) => void;
 };
@@ -21,6 +22,7 @@ type Props = {
 export const MentorServicesSession = ({
   services,
   selected,
+  displayRadioInput,
   handleSelect,
   handleSubmit,
 }: Props) => {
@@ -67,6 +69,7 @@ export const MentorServicesSession = ({
           <ServiceSessionOptionCard
             key={s.id}
             {...s}
+            displayRadioInput={displayRadioInput}
             handleSelect={handleSelect ? () => handleSelect(s) : undefined}
             selected={s === selected}
             handleDetails={() => setDetailsService(s)}

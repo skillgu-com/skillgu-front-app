@@ -1,7 +1,17 @@
 @use '../../scss/variables' as *;
+@use '../../scss/font' as *;
 
 .checkbox {
 	cursor: pointer;
+
+	.icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	span {
+		flex: 1;
+	}
 
 	&Label {
 		display: flex;
@@ -9,32 +19,22 @@
 		gap: 10px;
 		font-size: 16px;
 		color: $dark-color;
+		align-items: flex-start;
 
-		&:before {
-			content: '';
-			display: block;
-			width: 24px;
-			min-width: 24px;
-			height: 24px;
-			background-color: #fff;
-			border: 1px solid $colour-primary;
-			border-radius: 5px;
+		&ButtonSm span {
+			@extend %text-button-sm;
 		}
 
-		&:after {
-			color: $dark-color;
-			content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="9" viewBox="0 0 17 13" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8311 1.17017C15.6057 0.943278 15.2405 0.943278 15.0152 1.17017L5.6633 10.5962L1.98487 6.88864C1.75962 6.66155 1.39428 6.66155 1.16892 6.88864C0.943692 7.11572 0.943692 7.48389 1.16892 7.71098L5.25538 11.8296C5.48051 12.0567 5.84597 12.0569 6.0712 11.8296L15.8311 1.99269C16.0563 1.76542 16.0563 1.39725 15.8311 1.17017Z" fill="white" stroke="white"/></svg>');
-			font-size: 10px;
-			height: 12px;
-			left: 5px;
-			max-height: 12px;
-			max-width: 12px;
-			opacity: 0;
-			opacity: 1;
-			position: absolute;
-			top: 5px;
-			transition: opacity 0.24s;
-			width: 12px;
+		&Caption span {
+			@extend %text-caption;
+		}
+
+		&Base80 span {
+			color: $colour-base-800;
+		}
+
+		&Primary span {
+			color: $colour-primary;
 		}
 	}
 

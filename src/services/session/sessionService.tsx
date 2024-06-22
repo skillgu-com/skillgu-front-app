@@ -24,9 +24,9 @@ export const getSessionTypes = async () => {
 }
 
 export const deleteSession = async (sessionID: any) => {
-    return await axios.post(`/api/1.0/session/delete?sessionID${sessionID}`);
+    console.log('ty kurwo: ',sessionID)
+    return await axios.post(`/api/1.0/session/delete/${sessionID}`);
 };
-
 
 export const updateMentorSession = async (sessionId: string | undefined) => {
     try {

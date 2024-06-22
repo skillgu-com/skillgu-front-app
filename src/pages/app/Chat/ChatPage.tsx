@@ -8,7 +8,7 @@ import {
 } from "@services/chat/chat.service.types";
 import { Tag } from "@customTypes/tags";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
-import { Title } from "src/components/typography";
+import { Text, Title } from "src/components/typography";
 import Container from "src/components/Container/Container";
 
 import styles from "./ChatPage.module.scss";
@@ -174,35 +174,36 @@ export const ChatPage = () => {
   return (
     <main>
       <Container as={Tag.Section} classes={styles.container}>
-        <Title
-          tag={TitleTag.h2}
-          variant={TitleVariant.section}
-          classes={styles.title}
-        >
-          Wiadomości
-        </Title>
+        <header className={styles.header}>
+          <Title
+            tag={TitleTag.h2}
+            variant={TitleVariant.section}
+            classes={styles.title}
+          >
+            Wiadomości
+          </Title>
+          {/* TODO */}
+          <p className={styles.unreadMsg}>{`${10} nieprzeczytanych`}</p>
+        </header>
+
         <div className={styles.gridContainer}>
-          <div style={{ flex: 1 }}>
-            <ChatContacts
-              pending={pendingContacts}
-              selected={selected}
-              contacts={contacts}
-              switchContact={switchContact}
-              loadMoreContacts={loadMoreContacts}
-              findContacts={findContacts}
-              total={totalContacts}
-            />
-          </div>
-          <div style={{ flex: 2 }}>
-            <ChatMessages
-              selected={selected}
-              pending={pendingMessages}
-              messages={messages}
-              sendMessage={sendMessage}
-              loadMoreMessages={loadMoreMessages}
-              total={totalMessages}
-            />
-          </div>
+          <ChatContacts
+            pending={pendingContacts}
+            selected={selected}
+            contacts={contacts}
+            switchContact={switchContact}
+            loadMoreContacts={loadMoreContacts}
+            findContacts={findContacts}
+            total={totalContacts}
+          />
+          <ChatMessages
+            selected={selected}
+            pending={pendingMessages}
+            messages={messages}
+            sendMessage={sendMessage}
+            loadMoreMessages={loadMoreMessages}
+            total={totalMessages}
+          />
         </div>
       </Container>
     </main>

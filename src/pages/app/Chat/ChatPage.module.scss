@@ -4,12 +4,11 @@
 
 .title {
   font-size: 28px !important;
-  padding-top: 32px;
+  margin-top: 20px;
   letter-spacing: -1px;
   color: $colour-primary;
   @include media-xl-and-up {
     font-size: 32px !important;
-    padding-top: 40px;
   }
 }
 
@@ -26,5 +25,27 @@
   @include media-xl-and-up {
     grid-template-columns: 325px 1fr;
     gap: 20px;
+  }
+}
+
+.unreadMsg {
+  @extend %text-button-md;
+  width: 188px;
+  line-height: 45px;
+  border: 1px solid $colour-base-200;
+  border-radius: 50px;
+  background-color: $colour-base-200;
+  text-align: center;
+  color: $colour-secondary;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  @include media-xl-and-up {
+    margin-top: 20px;
   }
 }

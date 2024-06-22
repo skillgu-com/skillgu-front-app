@@ -3,11 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import Dots from '../icons/Dots';
 // Styles
 import styles from './Options.module.scss';
+import clx from 'classnames'
 
 export interface Option {
   icon: React.ReactNode;
   text: string;
   onClick: (...props: any) => void;
+  className?: string
 }
 
 interface OptionsProps {
@@ -44,10 +46,10 @@ const Options = (props: OptionsProps) => {
       </button>
       {visible && (
         <div className={styles.options}>
-          {options.map(({ icon, text, onClick }) => (
+          {options.map(({ icon, text, onClick, className }) => (
             <button
               key={text}
-              className={styles.optionsItem}
+              className={clx(styles.optionsItem, className)}
               onClick={() => {
                 onClick();
                 setVisible(false);

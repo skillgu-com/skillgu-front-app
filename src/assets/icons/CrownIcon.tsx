@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const CrownIcon = () => {
+type Props = {
+	className?: string
+}
+
+export const CrownIcon = ({ className } : Props) => {
 	return (
 		<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +12,7 @@ export const CrownIcon = () => {
 		height={'1em'}
 		fill="none"
 		viewBox="0 0 20 21"
+		className={className}
 	  >
 		<path
 		  stroke="currentColor"

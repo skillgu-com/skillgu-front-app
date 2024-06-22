@@ -5,6 +5,7 @@ import { MapMarkIcon } from "@icons/MapMarkIcon";
 import { Tag } from "src/types/tags";
 import Container from "src/components/Container/Container";
 import Button, {ButtonVariant} from "../../Button/Button";
+import { Typography } from "@mui/material";
 
 type Props = {
   avatarUrl?: string;
@@ -75,7 +76,7 @@ export const UserProfileHeader = ({
                     onClick={handleBtnClick}
                     href={btnHref}
                   >
-                    {btnText}
+                    <Typography color='primary' variant="buttonMd">{btnText}</Typography>
                   </Button>
                 </div>
               ) : null}

@@ -1,8 +1,24 @@
 @use 'src/scss/variables' as *;
+@use 'src/scss/font' as *;
 
 .main {
 	min-height: calc(100vh - 73px);
 	background-color: $light-color;
+}
+
+.btn {
+	@extend %text-button-md;
+	color: $colour-secondary;
+	display: flex;
+	padding: 8px 24px;
+	gap: 8px;
+	align-items: center;
+	justify-content: center;
+	height: 41px;
+
+	&:hover {
+		color: #fff;
+	}
 }
 
 .header {

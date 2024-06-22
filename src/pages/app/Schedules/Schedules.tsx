@@ -128,9 +128,9 @@ const SchedulesView = () => {
                 as={ButtonTag.InternalLink}
                 variant={ButtonVariant.Outline}
                 href="/schedules/add-schedule"
-                classes={styles.button}
+                classes={scheduleStyles.btn}
               >
-                Dodaj <Add />
+                Nowy harmonogram <Add color='currentColor' />
               </Button>
             </header>
             <div className={scheduleStyles.list}>
@@ -152,9 +152,9 @@ const SchedulesView = () => {
                   as={ButtonTag.InternalLink}
                   variant={ButtonVariant.Outline}
                   href="/schedules/add-session"
-                  classes={styles.button}
+                  classes={scheduleStyles.btn}
                 >
-                  Dodaj <Add />
+                  Nowa sesja <Add color='currentColor' />
                 </Button>
               )}
             </header>

@@ -1,7 +1,12 @@
 @use '@styles/variables' as *;
+@use '../../../../scss/font' as *;
 
 .wrapper {
 	display: none;
+
+	.profile {
+		@extend %text-reset-button;		
+	}
 
 	@media screen and (min-width: $md) {
 		display: block;

@@ -208,6 +208,7 @@ const components: Components<Omit<Theme, "components">> = {
                 textTransform: 'none',
                 borderRadius: '100px',
                 fontSize: typography.buttonMd.fontSize,
+                fontWeight: 600,
                 boxShadow: 'none',
                 padding: '12px 20px',
 

@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Add = () => {
+type Props = {
+	color?: string
+}
+
+const Add = ({ color = '#FF6A3D' } : Props) => {
 	return (
 		<svg
 			width='14'
@@ -10,14 +14,14 @@ const Add = () => {
 			xmlns='http://www.w3.org/2000/svg'>
 			<path
 				d='M1 7H13'
-				stroke='#FF6A3D'
+				stroke={color}
 				strokeWidth='1.5'
 				strokeLinecap='round'
 				strokeLinejoin='round'
 			/>
 			<path
 				d='M7 13V1'
-				stroke='#FF6A3D'
+				stroke={color}
 				strokeWidth='1.5'
 				strokeLinecap='round'
 				strokeLinejoin='round'

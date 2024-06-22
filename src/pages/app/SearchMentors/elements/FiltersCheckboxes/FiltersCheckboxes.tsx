@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { Option, FilterName } from "@customTypes/mentor";
 import Checkbox, { type CheckboxValueCb } from "src/components/Checkbox/Checkbox";
 import styles from './FiltersCheckboxes.module.scss'
+import SearchSvg from "@icons/SearchSvg";
 
 type FiltersCheckboxesProps = {
   name: FilterName;
@@ -21,6 +22,12 @@ export const FiltersCheckboxes = ({
   const partialyHide = Math.max(options.length - (startedRows - 1), 0);
   const displayAll = partialyHide > 0;
   const [isExpanded, setIsExpanded] = useState<boolean>(displayAll);
+  const [phrase, setPhrase] = useState<string>('')
+
+  const handlePhraseChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setPhrase(e.target.value)
+  }, [])
+
   const onToggle = useCallback(() => {
     setIsExpanded((s) => !s);
   }, []);
@@ -39,10 +46,20 @@ export const FiltersCheckboxes = ({
     [name, options, selected, handleChange]
   );
 
+  const filteredOptions = useMemo(() => {
+    return phrase ? options.filter(o => o.label.includes(phrase)) : options
+  }, [options, phrase])
+
   return (
     <div className={styles.wrapper}>
+      {options.length > 5 ? (
+        <div className={styles.searchWrapper}>
+          <SearchSvg />
+          <input value={phrase} onChange={handlePhraseChange} /> 
+        </div>
+      ) : null}
       <div className={styles.checkboxes}>
-        {options.slice(0, isExpanded ? options.length : startedRows - 1).map((opt, i) => (
+        {filteredOptions.slice(0, isExpanded ? filteredOptions.length : startedRows - 1).map((opt, i) => (
           <Checkbox
             key={`${opt.value}-${i}`}
             id={name}

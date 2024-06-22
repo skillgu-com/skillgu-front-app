@@ -36,6 +36,7 @@ const DESC_EXPAND_LENGTH = 90;
 
 export const MentorListingCard: React.FC<MentorListingCardProps> = ({
                                                                         avatar_url,
+                                                                        company,
                                                                         description,
                                                                         fullName,
                                                                         link,
@@ -117,7 +118,7 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
                             variant={TitleVariant.standard}
                             classes={styles.profession}
                         >
-                            {profession}
+                            {profession} {company ? `w ${company}` : ``}
                         </Title>
                     </div>
 

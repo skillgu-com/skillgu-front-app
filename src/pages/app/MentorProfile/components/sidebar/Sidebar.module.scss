@@ -98,5 +98,6 @@
 }
 
 .rowDescription {
+    @extend %text-caption;
     color: $colour-base-600;
 }

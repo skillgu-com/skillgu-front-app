@@ -69,6 +69,8 @@ export const FiltersCheckboxes = ({
             value={selected.includes(opt)}
             valueChangeHandler={handleInputChange}
             classes={styles.checkbox}
+            colorVariant='primary'
+            fontVariant='button-sm'
           />
         ))}
       </div>

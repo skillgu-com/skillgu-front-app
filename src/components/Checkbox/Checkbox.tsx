@@ -1,10 +1,11 @@
 // Libraries
 import React, { ChangeEvent } from "react";
-import classNames from "classnames";
+import clx from "classnames";
 // Helpers
 import validation from "../../helpers/improovedValidation";
 // Styles
 import styles from "./Checkbox.module.scss";
+import { CheckboxIcon } from "@icons/CheckboxIcon";
 
 export type CheckboxValueCb = {
   value: boolean;
@@ -29,6 +30,8 @@ interface CheckboxProps {
   valueChangeHandler: CheckboxValueChangeHandler;
   classes?: string;
   slide?: boolean;
+  fontVariant?: 'button-sm'|'caption'
+  colorVariant?: 'base-80'|'primary'
 }
 
 const Checkbox = (props: CheckboxProps) => {
@@ -43,6 +46,8 @@ const Checkbox = (props: CheckboxProps) => {
     valueChangeHandler,
     classes,
     slide,
+    fontVariant = '',
+    colorVariant = '',
   } = props;
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +61,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   return (
     <label
-      className={classNames(styles.checkbox, classes, {
+      className={clx(styles.checkbox, classes, {
         [styles.slide]: slide,
       })}
       data-is-error={!!errorMessage}
@@ -71,11 +76,19 @@ const Checkbox = (props: CheckboxProps) => {
         checked={value}
         required={required}
       />
-      <span className={styles.checkboxLabel}>
-        {slide && <span className={styles.slideField} />}
-        {label}
-        {required && " *"}
-      </span>
+      <div className={clx(styles.checkboxLabel, {
+        [styles.checkboxLabelButtonSm]: fontVariant === 'button-sm',
+        [styles.checkboxLabelCaption]: fontVariant === 'caption',
+        [styles.checkboxLabelBase80]: colorVariant === 'base-80',
+        [styles.checkboxLabelPrimary]: colorVariant === 'primary',
+      })}>
+        <CheckboxIcon checked={value} className={styles.icon} />
+        <span>
+          {slide && <span className={styles.slideField} />}
+          {label}
+          {required && " *"}
+        </span>
+      </div>
     </label>
   );
 };

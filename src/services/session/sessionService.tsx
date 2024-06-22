@@ -23,12 +23,14 @@ export const getSessionTypes = async () => {
     return await axios.get('/api/session-types/get-all')
 }
 
-export const deleteSession = async (sessionID: any) => {
-    console.log('ty kurwo: ',sessionID)
-    return await axios.post(`/api/1.0/session/delete/${sessionID}`);
+export const deleteSession = async (sessionId: any) => {
+    console.log('ty kurwo: ',sessionId)
+    return await axios.post(`/api/1.0/session/delete/${sessionId}`);
 };
 
 export const updateMentorSession = async (sessionId: string | undefined) => {
+    console.log('update: ',sessionId)
+
     try {
         const response = await axios.put(`/api/1.0/session/update-mentor-session/${sessionId}`);
         return response.data;

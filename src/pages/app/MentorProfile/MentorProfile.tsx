@@ -61,9 +61,8 @@ export const MentorProfilePage = () => {
     []
   );
   const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-  const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(
-    null
-  );
+  const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
+
 
   const toggleTab = () =>
     setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
@@ -255,7 +254,7 @@ export const MentorProfilePage = () => {
                       <Button
                         variant={ButtonVariant.PrimaryLight}
                         fontVariant="button-md"
-                        href={selectedSession ? "/edit-session" : undefined}
+                        href={selectedSession ? `/edit-session/${selectedSession.id}` : undefined}
                         disabled={!selectedSession}
                         disableButton={!selectedSession}
                       >

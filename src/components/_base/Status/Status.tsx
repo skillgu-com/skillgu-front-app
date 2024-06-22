@@ -2,7 +2,7 @@ import React from "react";
 import clx from "classnames";
 import styles from "./Status.module.scss";
 
-type StatusVariant = "active" | "inactive";
+type StatusVariant = "danger" | "warning" | "success";
 
 type Props = {
   variant: StatusVariant;
@@ -13,8 +13,9 @@ export const Status = ({ variant, text }: Props) => {
   return (
     <div
       className={clx(styles.status, {
-        [styles.active]: variant === "active",
-        [styles.inactive]: variant === "inactive",
+        [styles.active]: variant === "success",
+        [styles.warning]: variant === "warning",
+        [styles.inactive]: variant === "danger",
       })}
     >
       {text}

@@ -28,3 +28,20 @@ export const formatDate = (
 
   return '';
 };
+
+interface DateObject {
+    [key: string]: any;
+}
+
+export function getSortFunction(order: 'asc' | 'desc', key: string): (a: DateObject, b: DateObject) => number {
+    return (a: DateObject, b: DateObject) => {
+        const dateA = new Date(a[key]);
+        const dateB = new Date(b[key]);
+
+        if (order === 'asc') {
+            return dateA.getTime() - dateB.getTime();
+        } else {
+            return dateB.getTime() - dateA.getTime();
+        }
+    }; 
+}

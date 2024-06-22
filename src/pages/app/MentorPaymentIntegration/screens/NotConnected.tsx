@@ -3,7 +3,8 @@ import clx from "classnames";
 import styles from "../styles.module.scss";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import FAQ from "../../../../components/FAQ/Accordion/Accordion";
-import {stripeIntegration} from "../../../../components/FAQ/Accordion/content/stripe-integration";
+import { stripeIntegration } from "../../../../components/FAQ/Accordion/content/stripe-integration";
+import { Reports } from "../elements/Reports";
 
 type Props = {
   error: string;
@@ -41,12 +42,13 @@ export const NotConnected = ({ error, handleCreateAccount }: Props) => {
             </div>
           </div>
         </div>
-        <div className={styles.faqWrapper}>
-        </div>
+        <div className={styles.faqWrapper}></div>
       </div>
-        <section>
-            <FAQ title="FAQ" elements={stripeIntegration}/>
-        </section>
+      <section>
+        <div className={styles.faqBox}>
+          <FAQ title="FAQ" elements={stripeIntegration} />
+        </div>
+      </section>
     </div>
   );
 };

@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 // Sections
 import Empty from "./components/Empty/Empty";
 // Components
+
 // Icons
 import Add from "@icons/Add";
 import Sessions from "@icons/Sessions";
 // Types
 import { Tag } from "@customTypes/tags";
+
 // Styles
 import styles from "./components/Empty/Empty.module.scss";
 import scheduleStyles from "./Schedules.module.scss";

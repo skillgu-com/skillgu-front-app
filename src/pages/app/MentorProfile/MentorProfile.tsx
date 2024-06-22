@@ -230,7 +230,9 @@ export const MentorProfilePage = () => {
                       <Button
                         variant={ButtonVariant.PrimaryLight}
                         fontVariant="button-md"
-                        href={`/edit-mentoring/${selectedMentoring?.id}`}
+                        href={selectedMentoring ? `/edit-mentoring/${selectedMentoring?.id}` : undefined}
+                        disabled={!selectedMentoring}
+                        disableButton={!selectedMentoring}
                       >
                         Edytuj plan
                       </Button>
@@ -253,7 +255,9 @@ export const MentorProfilePage = () => {
                       <Button
                         variant={ButtonVariant.PrimaryLight}
                         fontVariant="button-md"
-                        href="/edit-session"
+                        href={selectedSession ? "/edit-session" : undefined}
+                        disabled={!selectedSession}
+                        disableButton={!selectedSession}
                       >
                         Edytuj sesje
                       </Button>
@@ -263,9 +267,8 @@ export const MentorProfilePage = () => {
                       <MentorServicesSession
                         services={optionsSession}
                         selected={selectedSession}
-                        handleSelect={
-                          !mentorIsLoggedUser ? handleSelectSession : undefined
-                        }
+                        displayRadioInput={!mentorIsLoggedUser}
+                        handleSelect={handleSelectSession}
                         handleSubmit={
                           !mentorIsLoggedUser ? handleSubmitSession : undefined
                         }

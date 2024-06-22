@@ -12,6 +12,7 @@ type Props = ServiceSession & {
   name?: string;
   value?: string;
   selected?: boolean;
+  displayRadioInput?: boolean;
   handleSelect?: React.MouseEventHandler<HTMLButtonElement>;
   handleDetails?: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -28,6 +29,7 @@ export const ServiceSessionOptionCard = ({
   sessionPrice,
   sessionType,
   description,
+  displayRadioInput,
 }: Props) => {
   const detailsRef = useRef<HTMLButtonElement>(null);
   const _handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +51,7 @@ export const ServiceSessionOptionCard = ({
       value={value}
     >
       <div className={styles.rowTitle}>
-        {handleSelect ? <RadioInputIcon filled={selected} /> : null}
+        {handleSelect && displayRadioInput ? <RadioInputIcon filled={selected} /> : null}
         <h5 className={styles.title}>{sessionType}</h5>
       </div>
       <div className={styles.rowInfo}>

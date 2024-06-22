@@ -225,26 +225,40 @@ export const MentorProfilePage = () => {
             ) : (
               <MentorServices activeTab={tab} handleSwitchTab={toggleTab}>
                 {tab === "mentoring" ? (
-                  <MentorServicesMentoring
-                    services={optionsMentoring}
-                    selected={selectedMentoring}
-                    handleSelect={
-                      !mentorIsLoggedUser ? handleSelectMentoring : undefined
-                    }
-                    handleSubmit={
-                      !mentorIsLoggedUser ? handleSubmitMentoring : undefined
-                    }
-                  />
+                  <>
+                    {mentorIsLoggedUser ? (
+                      <Button
+                        variant={ButtonVariant.PrimaryLight}
+                        fontVariant="button-md"
+                        href={`/edit-mentoring/${selectedMentoring?.id}`}
+                      >
+                        Edytuj plan
+                      </Button>
+                    ) : null}
+
+                    <MentorServicesMentoring
+                      services={optionsMentoring}
+                      selected={selectedMentoring}
+                      displayRadioInput={!mentorIsLoggedUser}
+                      handleSelect={handleSelectMentoring}
+                      handleSubmit={
+                        !mentorIsLoggedUser ? handleSubmitMentoring : undefined
+                      }
+                    />
+                  </>
                 ) : null}
                 {tab === "session" && (
                   <>
-                    <Button
+                    {mentorIsLoggedUser ? (
+                      <Button
                         variant={ButtonVariant.PrimaryLight}
-                        fontVariant='button-md'
+                        fontVariant="button-md"
                         href="/edit-session"
-                    >
+                      >
                         Edytuj sesje
-                    </Button>
+                      </Button>
+                    ) : null}
+
                     {optionsSession && optionsSession.length > 0 && (
                       <MentorServicesSession
                         services={optionsSession}

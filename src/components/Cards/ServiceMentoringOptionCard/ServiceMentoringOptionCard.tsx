@@ -10,6 +10,7 @@ type Props = MentorshipPlan & {
   name?: string;
   value?: string;
   selected?: boolean;
+  displayRadioInput?: boolean;
   handleSelect?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -23,6 +24,7 @@ export const ServiceMentoringOptionCard = ({
   variant,
   descriptionRows,
   selected,
+  displayRadioInput,
   handleSelect,
 }: Props) => {
   return (
@@ -35,7 +37,7 @@ export const ServiceMentoringOptionCard = ({
       value={value}
     >
       <div className={styles.rowTitle}>
-        {handleSelect ? <RadioInputIcon filled={selected} /> : null}
+        {handleSelect && displayRadioInput ? <RadioInputIcon filled={selected} /> : null}
         <h5 className={styles.title}>{title}</h5> 
         {variant === "pro" ? <CrownIcon className={styles.crown} /> : null}
       </div>

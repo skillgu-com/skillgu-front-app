@@ -1,9 +1,11 @@
 import { ChatContactType } from "@customTypes/chat";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ChatContact } from "../ChatContact";
 
 import styles from "./ChatContacts.module.scss";
+import { SearchInput } from "src/components/SearchInput";
+import { useDebounce } from "src/hooks/useDebounce";
 
 type Props = {
   pending: boolean;
@@ -25,37 +27,32 @@ export const ChatContacts = ({
   findContacts,
 }: Props) => {
   const [phrase, setPhrase] = useState<string>("");
-  const _contacts = phrase
-    ? contacts.filter((c) => c.fullName.includes(phrase))
-    : contacts;
+  const debouncePhrase = useDebounce(phrase);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setPhrase(e.target.value);
+  };
+
+  useEffect(() => {
+    if (!debouncePhrase) return;
+    findContacts(debouncePhrase);
+  }, [debouncePhrase]);
+
+  const _contacts = phrase
+    ? contacts.filter((c) => c.fullName.toLowerCase().includes(phrase.toLowerCase()))
+    : contacts;
 
   return (
     <section className={styles.box}>
       <h4>ChatContacts</h4>
       {pending ? <p>pending</p> : null}
-      <form
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          e.preventDefault();
-          const form = e.target as HTMLFormElement;
-          const input = form.elements.namedItem("phrase") as HTMLInputElement;
-          findContacts(input.value);
-          // phraseRef.current = input.value
-          setPhrase(input.value);
-        }}
-      >
-        <fieldset>
-          <legend>Szukaj</legend>
-          <input
-            type="text"
-            placeholder="Szukaj"
-            name="phrase"
-            // value={phrase}
-            // onChange={(e) => setPhrase(e.target.value)}
-          />
-        </fieldset>
-        <button>findContacts</button>
-      </form>
+      <SearchInput
+        placeholder="Szukaj"
+        name="phrase"
+        value={phrase}
+        onChangePhrase={handleInputChange}
+      />
       <ul
         style={{
           height: "220px",

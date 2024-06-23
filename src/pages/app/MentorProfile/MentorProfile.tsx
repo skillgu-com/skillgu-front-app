@@ -170,7 +170,7 @@ export const MentorProfilePage = () => {
         }
         btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
         btnHref={
-          mentorIsLoggedUser ? `/edit-mentor/${mentorData.mentorId}` : ""
+          mentorIsLoggedUser ? `/edit-mentor/${username}` : ""
         }
         company={mentorData?.company}
         coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}

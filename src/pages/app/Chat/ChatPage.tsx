@@ -49,7 +49,6 @@ export const ChatPage = () => {
         optimistic: true,
       };
       setMessages((curr) => {
-        console.log(newMsg)
         const newMessages = [newMsg, ...curr].sort(
           (a, b) => new Date(b.date).getTime() + new Date(a.date).getTime()
         );
@@ -59,13 +58,16 @@ export const ChatPage = () => {
     [selected]
   );
 
-  const switchContact = useCallback((newSelected: ChatContactType) => {
-    WebSocketInstance.switchContact({
-      contactId: newSelected.id,
-    });
-    setSelected(newSelected);
-    setIsMobileMessageShown(true);
-  }, []);
+  const switchContact = useCallback(
+    (newSelected: ChatContactType) => {
+      WebSocketInstance.switchContact({
+        contactId: newSelected.id,
+      });
+      setSelected(newSelected);
+      if (!isMobileMessageShown) setIsMobileMessageShown(true);
+    },
+    [isMobileMessageShown]
+  );
 
   const loadMoreContacts = useCallback(() => {
     WebSocketInstance.loadContacts({
@@ -76,6 +78,7 @@ export const ChatPage = () => {
 
   const loadMoreMessages = useCallback(() => {
     if (!selected || !lastMsgId.current) {
+      console.log(8);
       return;
     }
     WebSocketInstance.loadMessages({
@@ -98,10 +101,12 @@ export const ChatPage = () => {
   useEffect(() => {
     if (selected) {
       setMessages([]);
+      setTotalMessages(0);
+
       WebSocketInstance.setLoadMessagesCallback(
         (data: ChatMessagesOutput["payload"]) => {
-          setPendingMessages(false);
-          console.log(data)
+          setPendingMessages(true);
+          console.log(data);
           setTotalMessages(data.total);
           setMessages((curr) => {
             const filteredMessages: ChatMessageType[] = curr
@@ -129,8 +134,9 @@ export const ChatPage = () => {
       );
       WebSocketInstance.loadMessages({
         contactId: selected.id,
-        take: 8,
+        take: 3,
       });
+      setPendingMessages(false);
     }
   }, [selected]);
 
@@ -138,7 +144,6 @@ export const ChatPage = () => {
     WebSocketInstance.setLoadContactsCallback(
       (data: ChatContactsOutput["payload"]) => {
         setPendingContacts(false);
-        console.log(data)
         setTotalContacts(data.total);
         setSelected((curr) => curr ?? data.contacts[0]);
         setContacts((curr) => {
@@ -176,7 +181,7 @@ export const ChatPage = () => {
       WebSocketInstance.closeSocket();
     };
   }, []);
-console.log(1, totalMessages)
+
   return (
     <main>
       <Container as={Tag.Section} classes={styles.container}>
@@ -210,7 +215,7 @@ console.log(1, totalMessages)
             total={totalMessages}
             variant={ChatMessagesVariant.desktop}
           />
-          {isMobileMessageShown ? (
+          {/* {isMobileMessageShown ? (
             <ChatMessages
               selected={selected}
               pending={pendingMessages}
@@ -221,7 +226,7 @@ console.log(1, totalMessages)
               variant={ChatMessagesVariant.mobile}
               setIsMobileMessageShown={setIsMobileMessageShown}
             />
-          ) : null}
+          ) : null} */}
         </div>
       </Container>
     </main>

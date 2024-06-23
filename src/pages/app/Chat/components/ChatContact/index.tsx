@@ -1,1 +1,2 @@
-export * from './ChatContact'
+export * from './ChatContact';
+export * from './ChatContactSkeleton';

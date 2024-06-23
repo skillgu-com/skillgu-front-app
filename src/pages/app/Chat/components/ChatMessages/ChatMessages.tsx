@@ -1,5 +1,6 @@
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 import React from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 import { Message, MessageVariant } from "../Message/Message";
 import styles from "./ChatMessages.module.scss";
 import { Avatar } from "src/components/Avatar/Avatar";
@@ -45,6 +46,14 @@ export const ChatMessages = ({
     }
   };
 
+  const [sentryRef] = useInfiniteScroll({
+    loading: pending,
+    hasNextPage: true,
+    onLoadMore: loadMoreMessages,
+    //disabled: !!error,
+    // rootMargin: "0px 0px 700px 0px",
+  });
+
   return (
     <section className={styles.section} data-variant={variant}>
       {selected && (
@@ -69,9 +78,13 @@ export const ChatMessages = ({
         </header>
       )}
       <div className={styles.box}>
-        {pending ? <p>pending</p> : null}
         {selected ? (
           <div>
+            {total && total > messages.length ? (
+              <p ref={sentryRef}>
+                <span>pending</span>
+              </p>
+            ) : null}
             {total && total > messages.length ? (
               <div>
                 <button onClick={loadMoreMessages}>msg skeleton</button>

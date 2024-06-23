@@ -1,15 +1,17 @@
-import { ChatContactType } from "@customTypes/chat";
 import React, { useEffect, useState } from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 
-import { ChatContact } from "../ChatContact";
+import { ChatContact, ChatContactSkeleton } from "../ChatContact";
+import { SearchInput } from "src/components/SearchInput";
 
 import styles from "./ChatContacts.module.scss";
-import { SearchInput } from "src/components/SearchInput";
+
+import { ChatContactType } from "@customTypes/chat";
 import { useDebounce } from "src/hooks/useDebounce";
+
 
 type Props = {
   pending: boolean;
-  selected: ChatContactType | null;
   contacts: ChatContactType[];
   total: number | null;
   switchContact: (contact: ChatContactType) => void;
@@ -19,7 +21,6 @@ type Props = {
 
 export const ChatContacts = ({
   pending,
-  selected,
   contacts,
   total,
   switchContact,
@@ -45,6 +46,12 @@ export const ChatContacts = ({
       )
     : contacts;
 
+  const [sentryRef] = useInfiniteScroll({
+    loading: pending,
+    hasNextPage: true,
+    onLoadMore: loadMoreContacts,
+  });
+
   return (
     <section className={styles.box}>
       {pending ? <p>pending</p> : null}
@@ -54,9 +61,7 @@ export const ChatContacts = ({
         value={phrase}
         onChangePhrase={handleInputChange}
       />
-      <ul
-        className={styles.list}
-      >
+      <ul className={styles.list}>
         {_contacts.map((contact) => (
           <ChatContact
             key={contact.id}
@@ -64,8 +69,10 @@ export const ChatContacts = ({
             switchContact={() => switchContact(contact)}
           />
         ))}
-        {total && !phrase && total > contacts.length ? (
-          <button onClick={loadMoreContacts}>load more</button>
+        {(total && !phrase && total > contacts.length) || pending ? (
+          <div ref={pending ? undefined : sentryRef}>
+            <ChatContactSkeleton />
+          </div>
         ) : null}
       </ul>
     </section>

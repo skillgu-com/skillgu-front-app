@@ -49,6 +49,7 @@ export const ChatPage = () => {
         optimistic: true,
       };
       setMessages((curr) => {
+        console.log(newMsg)
         const newMessages = [newMsg, ...curr].sort(
           (a, b) => new Date(b.date).getTime() + new Date(a.date).getTime()
         );
@@ -100,6 +101,7 @@ export const ChatPage = () => {
       WebSocketInstance.setLoadMessagesCallback(
         (data: ChatMessagesOutput["payload"]) => {
           setPendingMessages(false);
+          console.log(data)
           setTotalMessages(data.total);
           setMessages((curr) => {
             const filteredMessages: ChatMessageType[] = curr
@@ -127,7 +129,7 @@ export const ChatPage = () => {
       );
       WebSocketInstance.loadMessages({
         contactId: selected.id,
-        take: 10,
+        take: 8,
       });
     }
   }, [selected]);
@@ -174,7 +176,7 @@ export const ChatPage = () => {
       WebSocketInstance.closeSocket();
     };
   }, []);
-
+console.log(1, totalMessages)
   return (
     <main>
       <Container as={Tag.Section} classes={styles.container}>
@@ -193,7 +195,6 @@ export const ChatPage = () => {
         <div className={styles.gridContainer}>
           <ChatContacts
             pending={pendingContacts}
-            selected={selected}
             contacts={contacts}
             switchContact={switchContact}
             loadMoreContacts={loadMoreContacts}

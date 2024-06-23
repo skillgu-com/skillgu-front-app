@@ -44,7 +44,7 @@
 
 .box {
   height: calc(100vh - 360px);
-  max-height: 1000px;
+  max-height: 800px;
   overflow: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {

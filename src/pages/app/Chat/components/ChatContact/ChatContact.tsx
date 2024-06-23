@@ -1,8 +1,9 @@
 import React, { MouseEventHandler } from "react";
 
+import { Avatar } from "src/components/Avatar/Avatar";
+
 import styles from "./ChatContact.module.scss";
 import { ChatContactType } from "@customTypes/chat";
-import { Avatar } from "src/components/Avatar/Avatar";
 
 type ChatContactProps = {
   contact: ChatContactType;
@@ -18,7 +19,7 @@ export const ChatContact = ({
   };
 
   return (
-    <li key={id}>
+    <li>
       <button onClick={switchContact} className={styles.button}>
         <Avatar src={avatarUrl} alt={`${fullName} avatar`} />
         <div>

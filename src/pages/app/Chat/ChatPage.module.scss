@@ -20,6 +20,7 @@
 }
 
 .gridContainer {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   @include media-xl-and-up {
@@ -30,13 +31,17 @@
 
 .unreadMsg {
   @extend %text-button-md;
-  width: 188px;
-  line-height: 45px;
-  border: 1px solid $colour-base-200;
-  border-radius: 50px;
-  background-color: $colour-base-200;
-  text-align: center;
-  color: $colour-secondary;
+  display: none;
+  @media (min-width: $xs) {
+    display: block;
+    width: 188px;
+    padding: 10px 12px;
+    border: 1px solid $colour-base-200;
+    border-radius: 50px;
+    background-color: $colour-base-200;
+    text-align: center;
+    color: $colour-secondary;
+  }
 }
 
 .header {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ChatMessages, ChatContacts } from "./components";
+import { ChatMessages, ChatContacts, ChatMessagesVariant } from "./components";
 import WebSocketInstance from "@services/chat/chat.service";
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 import {
@@ -19,6 +19,8 @@ type ChatMessageWithOptimistic = ChatMessageType & {
 
 export const ChatPage = () => {
   const userId = 0;
+  const [isMobileMessageShown, setIsMobileMessageShown] =
+    useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessageWithOptimistic[]>([]);
   const [contacts, setContacts] = useState<ChatContactType[]>([]);
   const [totalContacts, setTotalContacts] = useState<number | null>(null);
@@ -61,11 +63,12 @@ export const ChatPage = () => {
       contactId: newSelected.id,
     });
     setSelected(newSelected);
+    setIsMobileMessageShown(true);
   }, []);
 
   const loadMoreContacts = useCallback(() => {
     WebSocketInstance.loadContacts({
-      take: 2,
+      take: 4,
       skip: contacts.length,
     });
   }, [contacts.length]);
@@ -76,7 +79,7 @@ export const ChatPage = () => {
     }
     WebSocketInstance.loadMessages({
       contactId: selected.id,
-      take: 2,
+      take: 4,
       beforeMessageId: lastMsgId.current,
     });
   }, [selected]);
@@ -85,7 +88,7 @@ export const ChatPage = () => {
     if (phrase) {
       WebSocketInstance.loadContacts({
         phrase,
-        //take: 5,
+        take: 5,
         skip: 0,
       });
     }
@@ -124,7 +127,7 @@ export const ChatPage = () => {
       );
       WebSocketInstance.loadMessages({
         contactId: selected.id,
-        take: 2,
+        take: 10,
       });
     }
   }, [selected]);
@@ -133,6 +136,7 @@ export const ChatPage = () => {
     WebSocketInstance.setLoadContactsCallback(
       (data: ChatContactsOutput["payload"]) => {
         setPendingContacts(false);
+        console.log(data)
         setTotalContacts(data.total);
         setSelected((curr) => curr ?? data.contacts[0]);
         setContacts((curr) => {
@@ -203,7 +207,20 @@ export const ChatPage = () => {
             sendMessage={sendMessage}
             loadMoreMessages={loadMoreMessages}
             total={totalMessages}
+            variant={ChatMessagesVariant.desktop}
           />
+          {isMobileMessageShown ? (
+            <ChatMessages
+              selected={selected}
+              pending={pendingMessages}
+              messages={messages}
+              sendMessage={sendMessage}
+              loadMoreMessages={loadMoreMessages}
+              total={totalMessages}
+              variant={ChatMessagesVariant.mobile}
+              setIsMobileMessageShown={setIsMobileMessageShown}
+            />
+          ) : null}
         </div>
       </Container>
     </main>

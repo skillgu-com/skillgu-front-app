@@ -37,7 +37,7 @@ export const ChatContacts = ({
   useEffect(() => {
     if (!debouncePhrase) return;
     findContacts(debouncePhrase);
-  }, [debouncePhrase]);
+  }, [debouncePhrase, findContacts]);
 
   const _contacts = phrase
     ? contacts.filter((c) =>

@@ -4,13 +4,23 @@ import { Message, MessageVariant } from "../Message/Message";
 import styles from "./ChatMessages.module.scss";
 import { Avatar } from "src/components/Avatar/Avatar";
 import Button, { ButtonVariant } from "src/components/Button/Button";
-type Props = {
+import SendArrow from "@icons/SendArrow";
+import BackIcon from "@icons/BackIcon";
+
+export enum ChatMessagesVariant {
+  mobile = "mobile",
+  desktop = "desktop",
+}
+
+type ChatMessagesProps = {
   selected: ChatContactType | null;
   pending: boolean;
   messages: ChatMessageType[];
   total: number | null;
   sendMessage: (text: string) => void;
   loadMoreMessages: () => void;
+  variant: ChatMessagesVariant;
+  setIsMobileMessageShown?: (state: boolean) => void;
 };
 
 export const ChatMessages = ({
@@ -20,7 +30,9 @@ export const ChatMessages = ({
   total,
   sendMessage,
   loadMoreMessages,
-}: Props) => {
+  variant,
+  setIsMobileMessageShown,
+}: ChatMessagesProps) => {
   const _messages = [...messages].reverse();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,8 +46,28 @@ export const ChatMessages = ({
   };
 
   return (
-    <section>
-      {selected && <h4 className={styles.title}>{selected?.fullName}</h4>}
+    <section className={styles.section} data-variant={variant}>
+      {selected && (
+        <header className={styles.header}>
+          {setIsMobileMessageShown ? (
+            <>
+              <button
+                className={styles.back}
+                onClick={() => setIsMobileMessageShown(false)}
+              >
+                <BackIcon />
+              </button>
+              <Avatar
+                size="32px"
+                src={selected.avatarUrl}
+                alt={`${selected.fullName} avatar`}
+              />
+            </>
+          ) : null}
+
+          <h4>{selected?.fullName}</h4>
+        </header>
+      )}
       <div className={styles.box}>
         {pending ? <p>pending</p> : null}
         {selected ? (
@@ -67,18 +99,23 @@ export const ChatMessages = ({
         ) : (
           <>empty</>
         )}
-
-        {selected ? (
-          <div>
-            <form onSubmit={handleSubmit} className={styles.flex}>
-              <textarea className={styles.textarea} name="text" />
-              <Button variant={ButtonVariant.Primary} size="sm" type="submit">
-                Wyślij
-              </Button>
-            </form>
-          </div>
-        ) : null}
       </div>
+      {selected ? (
+        <div className={styles.formBox}>
+          <form onSubmit={handleSubmit} className={styles.flex}>
+            <textarea className={styles.textarea} name="text" />
+            <Button
+              classes={styles.button}
+              variant={ButtonVariant.Primary}
+              size="sm"
+              type="submit"
+            >
+              <span>Wyślij </span>
+              <SendArrow />
+            </Button>
+          </form>
+        </div>
+      ) : null}
     </section>
   );
 };

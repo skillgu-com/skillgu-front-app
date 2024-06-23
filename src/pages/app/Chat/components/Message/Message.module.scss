@@ -7,32 +7,25 @@
   display: flex;
   justify-content: stretch;
 
-  &[data-variant="message"] > p {
-    color: $colour-base-800;
-    background-color: $colour-base-200;
+  &[data-variant="message"] {
+    justify-content: left;
+    & p {
+      color: $colour-base-800;
+      background-color: $colour-base-200;
+    }
   }
 
-  &[data-variant="response"] > p {
-    color: $colour-base-200;
-    background-color: $colour-primary;
+  &[data-variant="response"] {
+    justify-content: right;
+    & p {
+      color: $colour-base-200;
+      background-color: $colour-primary;
+    }
   }
 
   & > p {
     padding: 12px 24px;
     margin-bottom: 10px;
     border-radius: 12px;
-  }
-
-  @include media-xl-and-up {
-    & > p {
-      max-width: 80%;
-    }
-    &[data-variant="message"] {
-      justify-content: left;
-    }
-
-    &[data-variant="response"] {
-      justify-content: right;
-    }
   }
 }

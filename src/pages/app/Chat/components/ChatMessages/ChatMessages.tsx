@@ -10,6 +10,7 @@ import BackIcon from "@icons/BackIcon";
 import styles from "./ChatMessages.module.scss";
 
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
+import { MessageRowSkeleton } from "../Message";
 
 export enum ChatMessagesVariant {
   mobile = "mobile",
@@ -81,7 +82,6 @@ export const ChatMessages = ({
   );
 
   const handleRootScroll = React.useCallback(() => {
-
     const rootNode = scrollableRootRef.current;
     if (rootNode) {
       const scrollDistanceToBottom = rootNode.scrollHeight - rootNode.scrollTop;
@@ -117,10 +117,10 @@ export const ChatMessages = ({
             onScroll={handleRootScroll}
           >
             {total && total > messages.length ? (
-              <p ref={sentryRef}>
-                <span>pending</span>
+              <div ref={sentryRef}>
+                <MessageRowSkeleton />
                 <button onClick={loadMoreMessages}>msg skeleton</button>
-              </p>
+              </div>
             ) : null}
             {_messages.map((m) =>
               Number(m.fromId) ? (
@@ -134,9 +134,11 @@ export const ChatMessages = ({
                   <Message variant={MessageVariant.message}>{m.text}</Message>
                 </div>
               ) : (
-                <Message key={m.id} variant={MessageVariant.response}>
-                  {m.text}
-                </Message>
+                <div key={m.id} className={styles.msgBox}>
+                  <Message key={m.id} variant={MessageVariant.response}>
+                    {m.text}
+                  </Message>
+                </div>
               )
             )}
           </div>

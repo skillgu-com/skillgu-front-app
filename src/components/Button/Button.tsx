@@ -33,6 +33,8 @@ interface CommonProps extends Common {
   disableButton?: boolean;
   size?: "sm" | "md" | "lg";
   fontVariant?: 'button-md'
+  btnHref?: string;
+
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -51,6 +53,7 @@ const Button: React.FC<
     disableButton,
     size,
     fontVariant,
+    btnHref
   } = props;
 
   const as = customAs
@@ -88,7 +91,7 @@ const Button: React.FC<
       "data-variant": variant,
     };
   }, [props, fullWidth, size, classes, variant]);
-  
+
   // Returned JSX
   switch (as) {
     case ButtonTag.InternalLink:

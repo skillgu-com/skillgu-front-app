@@ -106,7 +106,6 @@ export const ChatPage = () => {
       WebSocketInstance.setLoadMessagesCallback(
         (data: ChatMessagesOutput["payload"]) => {
           setPendingMessages(true);
-          console.log(data);
           setTotalMessages(data.total);
           setMessages((curr) => {
             const filteredMessages: ChatMessageType[] = curr
@@ -134,7 +133,7 @@ export const ChatPage = () => {
       );
       WebSocketInstance.loadMessages({
         contactId: selected.id,
-        take: 3,
+        take: 8,
       });
       setPendingMessages(false);
     }
@@ -215,7 +214,7 @@ export const ChatPage = () => {
             total={totalMessages}
             variant={ChatMessagesVariant.desktop}
           />
-          {/* {isMobileMessageShown ? (
+          {isMobileMessageShown ? (
             <ChatMessages
               selected={selected}
               pending={pendingMessages}
@@ -226,7 +225,7 @@ export const ChatPage = () => {
               variant={ChatMessagesVariant.mobile}
               setIsMobileMessageShown={setIsMobileMessageShown}
             />
-          ) : null} */}
+          ) : null}
         </div>
       </Container>
     </main>

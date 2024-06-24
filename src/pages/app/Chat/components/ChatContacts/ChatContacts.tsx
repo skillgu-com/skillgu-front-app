@@ -9,7 +9,6 @@ import styles from "./ChatContacts.module.scss";
 import { ChatContactType } from "@customTypes/chat";
 import { useDebounce } from "src/hooks/useDebounce";
 
-
 type Props = {
   pending: boolean;
   contacts: ChatContactType[];
@@ -62,13 +61,17 @@ export const ChatContacts = ({
         onChangePhrase={handleInputChange}
       />
       <ul className={styles.list}>
-        {_contacts.map((contact) => (
-          <ChatContact
-            key={contact.id}
-            contact={contact}
-            switchContact={() => switchContact(contact)}
-          />
-        ))}
+        {_contacts.length ? (
+          _contacts.map((contact) => (
+            <ChatContact
+              key={contact.id}
+              contact={contact}
+              switchContact={() => switchContact(contact)}
+            />
+          ))
+        ) : (
+          <p className={styles.info}>Nie znaleziono</p>
+        )}
         {(total && !phrase && total > contacts.length) || pending ? (
           <div ref={pending ? undefined : sentryRef}>
             <ChatContactSkeleton />

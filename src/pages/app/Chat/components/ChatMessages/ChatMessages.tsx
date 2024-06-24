@@ -1,7 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 
-import { Message, MessageVariant } from "../Message/Message";
+import { Message, MessageVariant, MessageRowSkeleton } from "../Message";
 import { Avatar } from "src/components/Avatar/Avatar";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import SendArrow from "@icons/SendArrow";
@@ -10,7 +10,6 @@ import BackIcon from "@icons/BackIcon";
 import styles from "./ChatMessages.module.scss";
 
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
-import { MessageRowSkeleton } from "../Message";
 
 export enum ChatMessagesVariant {
   mobile = "mobile",
@@ -52,16 +51,17 @@ export const ChatMessages = ({
 
   const [sentryRef, { rootRef }] = useInfiniteScroll({
     loading: pending,
-    hasNextPage: total ? total > messages.length : false,
+    // hasNextPage: total ? total > messages.length : false,
+    hasNextPage: true,
     onLoadMore: loadMoreMessages,
     //disabled: !!error,
-    rootMargin: "0px 0px 0px 0px",
+    rootMargin: "500px 0px 0px 0px",
   });
 
   // Docs
   const scrollableRootRef = useRef<HTMLDivElement | null>(null);
   const lastScrollDistanceToBottomRef = useRef<number>();
-
+  console.log(scrollableRootRef);
   // We keep the scroll position when new items are added etc.
   useLayoutEffect(() => {
     const scrollableRoot = scrollableRootRef.current;

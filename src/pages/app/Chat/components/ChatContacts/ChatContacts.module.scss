@@ -1,5 +1,6 @@
 @use "@styles/variables" as *;
 @use "@styles/mixins" as *;
+@use "@styles/font" as *;
 
 .box {
   @media (min-width: $md) {
@@ -20,4 +21,9 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.info {
+  @extend %text-caption;
+  color: $colour-base-800;
 }

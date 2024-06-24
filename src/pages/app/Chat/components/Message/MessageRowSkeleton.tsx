@@ -1,5 +1,7 @@
-import { Skeleton } from "@mui/material";
 import React from "react";
+
+import { Skeleton } from "@mui/material";
+
 import styles from "./Message.module.scss";
 
 export const MessageRowSkeleton = () => {

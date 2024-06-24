@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "nickname": "techguru",
+    "avatarUrl": "https://example.com/avatar1.jpg",
+    "fullName": "John Doe",
+    "profession": "Software Engineer",
+    "tags": ["JavaScript", "React", "Node.js"]
+  },
+  {
+    "id": 2,
+    "nickname": "designpro",
+    "avatarUrl": "https://example.com/avatar2.jpg",
+    "fullName": "Jane Smith",
+    "profession": "UI/UX Designer",
+    "tags": ["Figma", "Sketch", "Adobe XD"]
+  },
+  {
+    "id": 3,
+    "nickname": "datascientist",
+    "avatarUrl": "https://example.com/avatar3.jpg",
+    "fullName": "Mike Johnson",
+    "profession": "Data Scientist",
+    "tags": ["Python", "Machine Learning", "Data Analysis"]
+  },
+  {
+    "id": 4,
+    "nickname": "webwizard",
+    "avatarUrl": "https://example.com/avatar4.jpg",
+    "fullName": "Alice Brown",
+    "profession": "Web Developer",
+    "tags": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": 5,
+    "nickname": "cybersecure",
+    "avatarUrl": "https://example.com/avatar5.jpg",
+    "fullName": "Tom Wilson",
+    "profession": "Cybersecurity Expert",
+    "tags": ["Network Security", "Penetration Testing", "Cryptography"]
+  },
+  {
+    "id": 6,
+    "nickname": "mobilemaster",
+    "avatarUrl": "https://example.com/avatar6.jpg",
+    "fullName": "Lucy Green",
+    "profession": "Mobile App Developer",
+    "tags": ["iOS", "Android", "React Native"]
+  },
+  {
+    "id": 7,
+    "nickname": "cloudarchitect",
+    "avatarUrl": "https://example.com/avatar7.jpg",
+    "fullName": "James White",
+    "profession": "Cloud Architect",
+    "tags": ["AWS", "Azure", "Google Cloud"]
+  },
+  {
+    "id": 8,
+    "nickname": "gamedev",
+    "avatarUrl": "https://example.com/avatar8.jpg",
+    "fullName": "Emma Harris",
+    "profession": "Game Developer",
+    "tags": ["Unity", "C#", "Unreal Engine"]
+  },
+  {
+    "id": 9,
+    "nickname": "datasculptor",
+    "avatarUrl": "https://example.com/avatar9.jpg",
+    "fullName": "Oliver King",
+    "profession": "Data Engineer",
+    "tags": ["SQL", "ETL", "Big Data"]
+  },
+  {
+    "id": 10,
+    "nickname": "mlguru",
+    "avatarUrl": "https://example.com/avatar10.jpg",
+    "fullName": "Sophia Martinez",
+    "profession": "Machine Learning Engineer",
+    "tags": ["TensorFlow", "PyTorch", "Deep Learning"]
+  },
+  {
+    "id": 11,
+    "nickname": "frontendwhiz",
+    "avatarUrl": "https://example.com/avatar11.jpg",
+    "fullName": "Ethan Thompson",
+    "profession": "Frontend Developer",
+    "tags": ["Vue.js", "Sass", "JavaScript"]
+  },
+  {
+    "id": 12,
+    "nickname": "backendninja",
+    "avatarUrl": "https://example.com/avatar12.jpg",
+    "fullName": "Ava Garcia",
+    "profession": "Backend Developer",
+    "tags": ["Node.js", "Express", "MongoDB"]
+  },
+  {
+    "id": 13,
+    "nickname": "devopsgenius",
+    "avatarUrl": "https://example.com/avatar13.jpg",
+    "fullName": "William Lee",
+    "profession": "DevOps Engineer",
+    "tags": ["Docker", "Kubernetes", "CI/CD"]
+  },
+  {
+    "id": 14,
+    "nickname": "seofreak",
+    "avatarUrl": "https://example.com/avatar14.jpg",
+    "fullName": "Mia Scott",
+    "profession": "SEO Specialist",
+    "tags": ["SEO", "Content Marketing", "Google Analytics"]
+  },
+  {
+    "id": 15,
+    "nickname": "blockchainpro",
+    "avatarUrl": "https://example.com/avatar15.jpg",
+    "fullName": "Benjamin Davis",
+    "profession": "Blockchain Developer",
+    "tags": ["Ethereum", "Smart Contracts", "Solidity"]
+  },
+  {
+    "id": 16,
+    "nickname": "techwriter",
+    "avatarUrl": "https://example.com/avatar16.jpg",
+    "fullName": "Charlotte Miller",
+    "profession": "Technical Writer",
+    "tags": ["Documentation", "API Writing", "Markdown"]
+  },
+  {
+    "id": 17,
+    "nickname": "networkguru",
+    "avatarUrl": "https://example.com/avatar17.jpg",
+    "fullName": "Henry Taylor",
+    "profession": "Network Engineer",
+    "tags": ["Cisco", "Networking", "Firewall"]
+  },
+  {
+    "id": 18,
+    "nickname": "datastrategist",
+    "avatarUrl": "https://example.com/avatar18.jpg",
+    "fullName": "Amelia Anderson",
+    "profession": "Data Analyst",
+    "tags": ["Excel", "Power BI", "Data Visualization"]
+  }
+]

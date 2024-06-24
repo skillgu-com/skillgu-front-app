@@ -11,9 +11,9 @@ const Arrow = () => {
 			<path
 				d='M1.16699 7.49996H12.8337M12.8337 7.49996L7.00033 1.66663M12.8337 7.49996L7.00033 13.3333'
 				stroke='#56658F'
-				stroke-width='1.67'
-				stroke-linecap='round'
-				stroke-linejoin='round'
+				strokeWidth='1.67'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 			/>
 		</svg>
 	);

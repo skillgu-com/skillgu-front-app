@@ -2,11 +2,34 @@ import axios from "axios";
 import type {ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
 import type { WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
 import {format} from "date-fns";
+import {SessionDTO} from "@services/session/sessionService";
 
 type WeekTimes = Record<WeekdayT, {
     from: { time: string },
     to: { time: string }
 }[]>;
+
+export interface TimeSlotDTO {
+    time: string;
+}
+
+export interface TimeIntervalDTO {
+    from: TimeSlotDTO;
+    to: TimeSlotDTO;
+}
+
+export interface ScheduleDTO {
+    scheduleName: string;
+    scheduleStartDay: string;
+    scheduleEndDay: string;
+    meetTime: number;
+    resign: boolean;
+    type: string;
+    participant: number;
+    weekTimes: {
+        [key: string]: TimeIntervalDTO[];
+    };
+}
 
 const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInputT['weekdays']): WeekTimes => {
     return Object.entries(weekdays)
@@ -48,12 +71,21 @@ export const deleteSchedule = async (scheduleID: string) => {
         throw new Error('Failed to delete schedule');
     }
 };
-
-export const fetchScheduleTemplateForEdit = async (scheduleId: string | undefined) => {
+export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleDTO) => {
     try {
-        const response = await axios.put(`/api/1.0/schedule/schedule/fetch-schedule-for-edit/${scheduleId}`);
+        const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
+            scheduleName: updatedData.scheduleName,
+            scheduleStartDay: updatedData.scheduleStartDay,
+            scheduleEndDay: updatedData.scheduleEndDay,
+            meetTime: updatedData.meetTime,
+            resign: updatedData.resign,
+            type: updatedData.type,
+            participant: updatedData.participant,
+            weekTimes: updatedData.weekTimes
+        });
         return response.data;
     } catch (error) {
-        throw new Error('Failed to delete schedule');
+        throw new Error('Failed to update schedule');
     }
 };
+

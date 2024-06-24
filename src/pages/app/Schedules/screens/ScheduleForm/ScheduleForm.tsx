@@ -16,7 +16,7 @@ import {WeekdayInputT} from "./_types/WeekdayInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
-import {createScheduleMeeting, fetchScheduleTemplateForEdit} from "@services/scheduleService";
+import {createScheduleMeeting, editMentorSchedule, ScheduleDTO} from "@services/scheduleService";
 
 
 const today = new Date();
@@ -84,7 +84,44 @@ const ScheduleForm = () => {
             setIsEdit(true);
             const fetchData = async () => {
                 try {
-                    const result = await fetchScheduleTemplateForEdit(scheduleId);
+                    // TODO po implementacji, do wyrzucenia ten const !!! !!!
+                    const updatedData: ScheduleDTO = {
+                        scheduleName: 'Nowy Harmonogram test',
+                        scheduleStartDay: '2024-07-01',
+                        scheduleEndDay: '2024-07-31',
+                        meetTime: 50,
+                        resign: false,
+                        type: 'individual',
+                        participant: 5,
+                        weekTimes: {
+                            MONDAY: [
+                                {
+                                    from: { time: '21:00' },
+                                    to: { time: '22:00' }
+                                }
+                            ],
+                            WEDNESDAY: [
+                                {
+                                    from: { time: '09:00' },
+                                    to: { time: '15:00' }
+                                }
+                            ],
+                            THURSDAY: [
+                                {
+                                    from: { time: '09:00' },
+                                    to: { time: '15:00' }
+                                }
+                            ],
+                            FRIDAY: [
+                                {
+                                    from: { time: '09:00' },
+                                    to: { time: '15:00' }
+                                }
+                            ]
+                        }
+                    };
+
+                    const result = await editMentorSchedule(scheduleId,updatedData);
 
                     // setData(result);
                 } catch (error) {

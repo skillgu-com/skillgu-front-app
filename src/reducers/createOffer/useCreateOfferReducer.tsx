@@ -1,8 +1,7 @@
 import { createOfferInitialState } from "./constants";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateOfferActionType, CreateOfferState } from "./types";
-import { ChatContactType, ChatMessageType } from "@customTypes/chat";
-import { useCallback, useMemo } from "react";
+import { CreateOfferState } from "./types";
+import { useCallback } from "react";
 import { PlanInput } from "@customTypes/create-mentoring";
 
 type Output = {

@@ -29,7 +29,6 @@ import {MenteeProfileEditPage} from './pages/app/MenteeProfileEdit';
 import {ChatPage} from './pages/app/Chat';
 import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
-// import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffe";
 import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
 import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffer";
 
@@ -230,18 +229,13 @@ const routesRaw: Omit<Route, "id">[] = [
         layoutVersion: 'default',
     },
     {
-        path: paths.createMentoring,
-        element: <CreateMentoringOffer />,
-        layoutVersion: 'default',
-    },
-    // {
-    //     path: paths.createMentoring,
-    //     element: <CreateMentoringOffer />,
-    //     layoutVersion: 'default',
-    // },
-    {
         path: paths.mentorOfferDetails,
         element: <MentorOfferDetails />,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.createMentoring,
+        element: <CreateMentoringOffer />,
         layoutVersion: 'default',
     },
 ];

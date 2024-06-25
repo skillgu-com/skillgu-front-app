@@ -81,7 +81,7 @@ export const MentorPaymentIntegration = () => {
   if (connectedAccountId && !accountLinkCreatePending) {
     return (
       <Connected
-        price={100} // @TODO
+        price={4700} // @TODO
         error={error ? "Error occurred while processing your request." : ""}
         handleCreateAccountLink={handleCreateAccountLink}
       />

@@ -74,6 +74,7 @@
 
 .PopupInput {
     @extend %text-button-md;
+    color: $colour-primary;
     display: flex;
     align-items: center;
     justify-content: flex-start;

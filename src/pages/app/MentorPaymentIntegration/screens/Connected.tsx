@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LinksList, LinksListRow } from "src/components/FAQ/LinksList";
 import clx from "classnames";
 import styles from "../styles.module.scss";
 import Button, { ButtonVariant } from "src/components/Button/Button";
-import {payment} from "../../../../components/FAQ/Accordion/content/payment";
+import { payment } from "../../../../components/FAQ/Accordion/content/payment";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
-
+import { Reports } from "../elements/Reports";
 
 type Props = {
   price: number;
@@ -28,7 +28,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
         Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować
         jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".
       </p>
-      <div className={clx(styles.cols2)}>
+      <div className={clx(styles.cols)}>
         <div className={styles.priceCtaWrapper}>
           <div className={styles.priceCtaBox}>
             {formattedPrice ? (
@@ -38,16 +38,26 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
               </span>
             ) : null}
             <div>
-              <Button onClick={handleCreateAccountLink} fullWidth variant={ButtonVariant.Primary}>Połącz ze Stripe</Button>
+              <Button
+                onClick={handleCreateAccountLink}
+                fullWidth
+                variant={ButtonVariant.Primary}
+              >
+                Połącz ze Stripe
+              </Button>
               {error && <p>Error occurred while processing your request.</p>}
             </div>
           </div>
         </div>
-        <div className={styles.faqWrapper}>
-        </div>
+        <div className={styles.faqWrapper}></div>
       </div>
       <section>
-        <FAQ title="FAQ" elements={payment}/>
+        <Reports />
+      </section>
+      <section>
+        <div className={styles.faqBox}>
+          <FAQ title="FAQ" elements={payment} />
+        </div>
       </section>
     </div>
   );

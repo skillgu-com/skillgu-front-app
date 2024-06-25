@@ -71,7 +71,7 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
 
   return (
     <StyledInputWrapper>
-      {label && <Typography variant="body2">{label}</Typography>}
+      {label && <Typography variant="buttonMd" color='secondary'>{label}</Typography>}
       <Controller
         name={name}
         control={control}
@@ -90,6 +90,8 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
                     value={!!fieldValues.includes(opt.label)}
                     label={opt.label}
                     id={String(opt.value)}
+                    fontVariant='caption'
+                    colorVariant='base-80'
                     valueChangeHandler={(
                       name: string,
                       valueCh: CheckboxValueCb

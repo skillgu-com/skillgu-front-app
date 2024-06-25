@@ -21,14 +21,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Active: Story = {
   args: {
-    variant: 'active',
+    variant: 'success',
     text: 'Aktywny',
   },
 };
 
 export const Inactive: Story = {
   args: {
-    variant: 'inactive',
+    variant: 'danger',
     text: 'Nieaktywny',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    variant: 'warning',
+    text: 'W trakcie',
   },
 };

@@ -1,4 +1,5 @@
 @use '../../scss/variables' as *;
+@use '../../scss/font' as *;
 
 @mixin hover-effect($color) {
 	background-color: $color;
@@ -22,6 +23,10 @@
 	cursor: pointer;
 	transition: background-color 0.24s, color 0.24s;
 	line-height: 180%;	
+
+	&.FontButtonMd { 
+		@extend %text-button-md;
+	}
 
 	&Sm {
 		padding: 8px 30px;	
@@ -53,9 +58,13 @@
 		}
 	}
 	&[data-variant='primary-light'] {
-		@include hover-effect($colour-error-200);
-		color: $colour-error-100;
-		background-color: $colour-error-200;
+		@include hover-effect(rgba(255, 106, 61, 0.1));
+		color: $colour-secondary;
+		background-color: rgba($colour-secondary, .1);
+
+		&[disabled] {
+			color: #ccc;
+		}
 	}
 	&[data-variant='outline'] {
 		background-color: transparent;

@@ -37,7 +37,6 @@ export const ChatMessages = ({
   variant,
   setIsMobileMessageShown,
 }: ChatMessagesProps) => {
-  
   const _messages = useMemo(() => [...messages].reverse(), [messages]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +61,6 @@ export const ChatMessages = ({
   // Docs
   const scrollableRootRef = useRef<HTMLDivElement | null>(null);
   const lastScrollDistanceToBottomRef = useRef<number>();
-  console.log(scrollableRootRef);
   // We keep the scroll position when new items are added etc.
   useLayoutEffect(() => {
     const scrollableRoot = scrollableRootRef.current;
@@ -92,8 +90,8 @@ export const ChatMessages = ({
 
   return (
     <section className={styles.section} data-variant={variant}>
-      {selected ? (
-        <>
+      <>
+        {selected ? (
           <header className={styles.header}>
             {setIsMobileMessageShown ? (
               <>
@@ -112,55 +110,61 @@ export const ChatMessages = ({
             ) : null}
             <h4>{selected?.fullName}</h4>
           </header>
-          <div
-            className={styles.box}
-            ref={rootRefSetter}
-            onScroll={handleRootScroll}
-          >
-            {total && total > messages.length ? (
-              <div ref={sentryRef}>
-                <MessageRowSkeleton />
-                <button onClick={loadMoreMessages}>msg skeleton</button>
-              </div>
-            ) : null}
-            {_messages.map((m) =>
-              Number(m.fromId) ? (
-                <div key={m.id} className={styles.flex}>
-                  <Avatar
-                    classes={styles.avatar}
-                    size="32px"
-                    src={selected.avatarUrl}
-                    alt={`${selected.fullName} avatar`}
-                  />
-                  <Message variant={MessageVariant.message}>{m.text}</Message>
+        ) : null}
+        {selected ? (
+          <>
+            <div
+              className={styles.box}
+              ref={rootRefSetter}
+              onScroll={handleRootScroll}
+            >
+              {total && total > messages.length ? (
+                <div ref={sentryRef}>
+                  <MessageRowSkeleton />
+                  <button onClick={loadMoreMessages}>msg skeleton</button>
                 </div>
-              ) : (
-                <div key={m.id} className={styles.msgBox}>
-                  <Message key={m.id} variant={MessageVariant.response}>
-                    {m.text}
-                  </Message>
-                </div>
-              )
-            )}
+              ) : null}
+              {_messages.map((m) =>
+                Number(m.fromId) ? (
+                  <div key={m.id} className={styles.flex}>
+                    <Avatar
+                      classes={styles.avatar}
+                      size="32px"
+                      src={selected.avatarUrl}
+                      alt={`${selected.fullName} avatar`}
+                    />
+                    <Message variant={MessageVariant.message}>{m.text}</Message>
+                  </div>
+                ) : (
+                  <div key={m.id} className={styles.msgBox}>
+                    <Message key={m.id} variant={MessageVariant.response}>
+                      {m.text}
+                    </Message>
+                  </div>
+                )
+              )}
+            </div>
+            <div className={styles.formBox}>
+              <form onSubmit={handleSubmit} className={styles.flex}>
+                <textarea className={styles.textarea} name="text" />
+                <Button
+                  classes={styles.button}
+                  variant={ButtonVariant.Primary}
+                  size="sm"
+                  type="submit"
+                >
+                  <span>Wyślij </span>
+                  <SendArrow />
+                </Button>
+              </form>
+            </div>
+          </>
+        ) : (
+          <div className={styles.infoBox}>
+            <p className={styles.info}>Wybierz kontakt</p>
           </div>
-          <div className={styles.formBox}>
-            <form onSubmit={handleSubmit} className={styles.flex}>
-              <textarea className={styles.textarea} name="text" />
-              <Button
-                classes={styles.button}
-                variant={ButtonVariant.Primary}
-                size="sm"
-                type="submit"
-              >
-                <span>Wyślij </span>
-                <SendArrow />
-              </Button>
-            </form>
-          </div>
-        </>
-      ) : (
-        <p>Wybierz kontakt</p>
-      )}
+        )}
+      </>
     </section>
   );
 };

@@ -5,7 +5,7 @@ export const stripeIntegration: AccordionItemModel[] = [
     id: "01",
     title: "Dlaczego muszę przyjmować płatności przez platformę?",
     description:
-        "Pamiętaj, że płatność za wszystkie świadczone usługi należy przyjmować wyłącznie przez platformę. Rozliczanie się z menotrami poza platformą jest niezgodne z regulaminem i skutkuje wyłączeniem konta.",
+        `Pamiętaj, że płatność za wszystkie świadczone usługi należy przyjmować wyłącznie przez platformę. Rozliczanie się z menotrami poza platformą jest niezgodne z regulaminem i skutkuje wyłączeniem konta. <a href="#">Zobacz więcej</a>`,
   },
   {
     id: "02",

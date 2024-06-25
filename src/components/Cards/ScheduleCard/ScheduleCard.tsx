@@ -99,10 +99,12 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                                     icon: <Pencil/>,
                                     text: 'Edytuj',
                                     onClick: handleEditClick,
+                                    className: styles.option,
                                 },
                                 {
                                     icon: <Trash/>,
                                     text: 'Usuń',
+                                    className: styles.optionRemove,
                                     onClick: handleDeleteClick,
                                 },
                             ]}

@@ -50,7 +50,7 @@ const FormInputCheckbox = <T extends FieldValues>({
   return (
     <StyledInputWrapper>
       <FormControlLabel
-        label={<Typography variant="body2">{label}</Typography>}
+        label={<Typography variant="caption">{label}</Typography>}
         control={
           <Controller
             name={name}
@@ -69,20 +69,22 @@ const FormInputCheckbox = <T extends FieldValues>({
           />
         }
       />
-      <Collapse in={feedback && !!feedback.length}>
-        <StyledFeedbackWrapper>
-          {feedback &&
-            feedback.map(({ message, severity }, index) => {
-              return (
-                <InputFeedback
-                  key={`${message}_${index}`}
-                  message={message}
-                  severity={severity}
-                />
-              );
-            })}
-        </StyledFeedbackWrapper>
-      </Collapse>
+      {feedback ? (
+        <Collapse in={feedback && !!feedback.length}>
+          <StyledFeedbackWrapper>
+            {feedback &&
+              feedback.map(({ message, severity }, index) => {
+                return (
+                  <InputFeedback
+                    key={`${message}_${index}`}
+                    message={message}
+                    severity={severity}
+                  />
+                );
+              })}
+          </StyledFeedbackWrapper>
+        </Collapse>
+      ) : null}
     </StyledInputWrapper>
   );
 };

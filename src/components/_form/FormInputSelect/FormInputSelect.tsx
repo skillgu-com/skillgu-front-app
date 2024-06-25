@@ -70,7 +70,7 @@ const FormInputSelect = <T extends FieldValues, OptionMetadataT = undefined>({
 
     return (
         <StyledInputWrapper>
-            <Typography variant='body2'>{label}</Typography>
+            <Typography variant='buttonMd' color='secondary'>{label}</Typography>
             <Controller
                 name={name}
                 control={control}

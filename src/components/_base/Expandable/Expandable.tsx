@@ -7,9 +7,10 @@ type Props = {
   children?: ReactNode;
   foldedHeight?: number | "auto";
   isExpanded?: boolean;
+  withOverlay?: boolean;
 };
 
-export const Expandable = ({ children, foldedHeight = 0, isExpanded }: Props) => {
+export const Expandable = ({ withOverlay, children, foldedHeight = 0, isExpanded }: Props) => {
   const [height, setHeight] = useState<number | "auto">(
     foldedHeight
   );
@@ -33,6 +34,7 @@ export const Expandable = ({ children, foldedHeight = 0, isExpanded }: Props) =>
         height={height}
         animateOpacity={true}
         contentClassName={clx(styles.Content, {
+          [styles.WithOverlay]: withOverlay,
           [styles.ContentExpanded]:
             height !== foldedHeight,
         })}

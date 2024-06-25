@@ -41,7 +41,7 @@ const FormInputText = <T extends FieldValues>({
 
     return (
         <StyledInputWrapper>
-            {label && <Typography variant='body2' className={styles.Label}>{label}</Typography>}
+            {label && <Typography variant='buttonMd' color='secondary' className={styles.Label}>{label}</Typography>}
             <Controller
                 name={name}
                 control={control}

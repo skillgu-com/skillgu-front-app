@@ -1,25 +1,31 @@
 import React, {FormEvent, useEffect, useMemo, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 // Components
-
 // Types
 import {Tag} from '@customTypes/tags';
 // Styles
 import styles from './SessionForm.module.scss';
-import {fetchScheduleTemplateForEdit, fetchAllSchedules} from "@services/scheduleService";
+import {fetchAllSchedules} from "@services/scheduleService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 import Input, {defaultInput} from "../../../../../components/Input/Input";
 import Select from "../../../../../components/Select/Select";
 import Button from "../../../../../components/Button/Button";
-import {createSession, getSessionTypes, updateMentorSession} from "@services/session/sessionService";
+import {createSession, getSessionTypes, SessionDTO, editMentorSingleSession} from "@services/session/sessionService";
 
 const SessionForm = () => {
     const [scheduleNames, setScheduleNames] = useState([]);
     const [sessionTypes, setSessionTypes] = useState([]);
     // const [data, setData] = useState<any>(null);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const { sessionId } = useParams<{ sessionId: string }>();
+    const {sessionId} = useParams<{ sessionId: string }>();
+    const [sessionData, setSessionData] = useState<SessionDTO>({
+        sessionName: '',
+        sessionPrice: 0,
+        sessionType: 0,
+        scheduleID:0,
+        sessionDescription: ''
+    });
 
 
     const [form, setForm] = useState({
@@ -68,7 +74,7 @@ const SessionForm = () => {
             setIsEdit(true);
             const fetchData = async () => {
                 try {
-                    const result = await updateMentorSession(sessionId);
+                    const result = await editMentorSingleSession(sessionId, sessionData);
 
                     // setData(result);
                 } catch (error) {

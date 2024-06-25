@@ -2,13 +2,25 @@ import React, {useEffect, useMemo, useState} from "react";
 import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
 import {useNavigate, useParams} from "react-router-dom";
-import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
-import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
-import {MentorshipPlan, ServiceSession, ServiceType,} from "@customTypes/order";
+import {
+    MentorContent,
+    MentorLinks,
+    MentorMainWrapper,
+} from "./components/content";
+import {
+    MentorServices,
+    MentorServicesMentoring,
+    MentorServicesSession,
+} from "./components/sidebar";
+import {
+    MentorshipPlan,
+    ServiceSession,
+    ServiceType,
+} from "@customTypes/order";
 import {
     fetchMentorMentorshipPlans,
     getMentorByUsername,
-    MentorshipPlanDTO
+    MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
@@ -19,16 +31,14 @@ import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
 import {fetchMentorSession} from "@services/session/sessionService";
+import Button, {ButtonVariant} from "src/components/Button/Button";
 
 type Props = {
     isLoggedMentor: boolean;
 };
 
-
 export const MentorProfilePage = () => {
-
     const {username: username} = useParams();
-
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
@@ -47,8 +57,9 @@ export const MentorProfilePage = () => {
 
     // @TODO: get user id from sesion/jwt
 
-
-    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>([]);
+    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
+        []
+    );
     const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
     const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
 
@@ -57,12 +68,10 @@ export const MentorProfilePage = () => {
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
     const [loading, setLoading] = useState<boolean>(true);
 
-
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
         console.log("ORDER Mentoring, ", opt);
     };
     const handleSelectMentoring = (opt: MentorshipPlan) => setMentoring(opt);
-
 
     const [selectedSession, setSession] = useState<null | ServiceSession>(null);
     const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
@@ -106,6 +115,8 @@ export const MentorProfilePage = () => {
     //     }
     // }, [mentorId]);
 
+    console.log('selectedMentoring', selectedMentoring)
+
     useEffect(() => {
         const fetchInitialData = async () => {
             setPending(true);
@@ -120,17 +131,19 @@ export const MentorProfilePage = () => {
                 if (mentorId) {
                     const [sessionResponse, mentoringResponse] = await Promise.all([
                         fetchMentorSession(mentorData.userID),
-                        fetchMentorMentorshipPlans({mentorId: mentorId})
+                        fetchMentorMentorshipPlans({mentorId: mentorId}),
                     ]);
 
-                    const formattedSessions = sessionResponse.data.map((elementFromAPI: any) => ({
-                        id: elementFromAPI?.id,
-                        sessionType: elementFromAPI?.sessionType,
-                        sessionPrice: elementFromAPI?.sessionPrice,
-                        description: elementFromAPI?.description,
-                        meetTime: elementFromAPI?.meetTime,
-                        mentorID: mentorId,
-                    }));
+                    const formattedSessions = sessionResponse.data.map(
+                        (elementFromAPI: any) => ({
+                            id: elementFromAPI?.id,
+                            sessionType: elementFromAPI?.sessionType,
+                            sessionPrice: elementFromAPI?.sessionPrice,
+                            description: elementFromAPI?.description,
+                            meetTime: elementFromAPI?.meetTime,
+                            mentorID: mentorId,
+                        })
+                    );
                     setOptionsSession(formattedSessions);
 
                     if (mentoringResponse) {
@@ -138,7 +151,7 @@ export const MentorProfilePage = () => {
                     }
                 }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             } finally {
                 setPending(false);
                 setLoading(false);
@@ -150,7 +163,6 @@ export const MentorProfilePage = () => {
         }
     }, [username]);
 
-
     return loading ? null : (
         <>
             <UserProfileHeader
@@ -159,7 +171,9 @@ export const MentorProfilePage = () => {
                     "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
                 }
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
-                btnHref={mentorIsLoggedUser ? `/edit-mentor/${mentorData.mentorId}` : ""}
+                btnHref={
+                    mentorIsLoggedUser ? `/edit-mentor/${username}` : ""
+                }
                 company={mentorData?.company}
                 coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
@@ -176,7 +190,6 @@ export const MentorProfilePage = () => {
                 location={mentorData?.timeZone}
                 profession={mentorData?.jobPosition}
             />
-
 
             <Container as={Tag.Section}>
                 <MentorLinks
@@ -213,31 +226,54 @@ export const MentorProfilePage = () => {
                         ) : (
                             <MentorServices activeTab={tab} handleSwitchTab={toggleTab}>
                                 {tab === "mentoring" ? (
-                                    <MentorServicesMentoring
-                                        services={optionsMentoring}
-                                        selected={selectedMentoring}
-                                        handleSelect={
-                                            !mentorIsLoggedUser ? handleSelectMentoring : undefined
-                                        }
-                                        handleSubmit={
-                                            !mentorIsLoggedUser ? handleSubmitMentoring : undefined
-                                        }
-                                    />
-                                ) : null}
-                                {tab === "session" &&
-                                    optionsSession &&
-                                    optionsSession.length > 0 && (
-                                        <MentorServicesSession
-                                            services={optionsSession}
-                                            selected={selectedSession}
-                                            handleSelect={
-                                                !mentorIsLoggedUser ? handleSelectSession : undefined
-                                            }
+                                    <>
+                                        {mentorIsLoggedUser ? (
+                                            <Button
+                                                variant={ButtonVariant.PrimaryLight}
+                                                fontVariant="button-md"
+                                                href={selectedMentoring ? `/schedules/edit-mentorship/${selectedMentoring.id}` : undefined}
+                                                disabled={!selectedMentoring}
+                                                disableButton={!selectedMentoring}>Edytuj plan</Button>
+                                        ) : null}
+
+                                        <MentorServicesMentoring
+                                            services={optionsMentoring}
+                                            selected={selectedMentoring}
+                                            displayRadioInput={!mentorIsLoggedUser}
+                                            handleSelect={handleSelectMentoring}
                                             handleSubmit={
-                                                !mentorIsLoggedUser ? handleSubmitSession : undefined
+                                                !mentorIsLoggedUser ? handleSubmitMentoring : undefined
                                             }
                                         />
-                                    )}
+                                    </>
+                                ) : null}
+                                {tab === "session" && (
+                                    <>
+                                        {mentorIsLoggedUser ? (
+                                            <Button
+                                                variant={ButtonVariant.PrimaryLight}
+                                                fontVariant="button-md"
+                                                href={selectedSession ? `/schedules/edit-session/${selectedSession.id}` : undefined}
+                                                disabled={!selectedSession}
+                                                disableButton={!selectedSession}
+                                            >
+                                                Edytuj sesje
+                                            </Button>
+                                        ) : null}
+
+                                        {optionsSession && optionsSession.length > 0 && (
+                                            <MentorServicesSession
+                                                services={optionsSession}
+                                                selected={selectedSession}
+                                                displayRadioInput={!mentorIsLoggedUser}
+                                                handleSelect={handleSelectSession}
+                                                handleSubmit={
+                                                    !mentorIsLoggedUser ? handleSubmitSession : undefined
+                                                }
+                                            />
+                                        )}
+                                    </>
+                                )}
                             </MentorServices>
                         )}
                     </aside>

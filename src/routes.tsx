@@ -29,6 +29,8 @@ import {MenteeProfileEditPage} from './pages/app/MenteeProfileEdit';
 import {ChatPage} from './pages/app/Chat';
 import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
+// import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffe";
+import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
 
 type Route = {
     id: string;
@@ -226,6 +228,16 @@ const routesRaw: Omit<Route, "id">[] = [
         element: <MentorPaymentIntegration/>,
         layoutVersion: 'default',
     },
+    // {
+    //     path: paths.createMentoring,
+    //     element: <CreateMentoringOffer />,
+    //     layoutVersion: 'default',
+    // },
+    {
+        path: paths.mentorOfferDetails,
+        element: <MentorOfferDetails />,
+        layoutVersion: 'default',
+    },    
 ];
 
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route

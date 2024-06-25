@@ -68,7 +68,7 @@
 %text-body-2 {
     @extend %text-common;
     font-size: 14px; //pxToRem(14);
-    font-weight: $font-weight-regular;
+    font-weight: $font-weight-medium;
     line-height: 180%; 
 }
 

@@ -7,6 +7,10 @@
 	gap: 20px;
 	padding: 12px;
 
+	&.fullWidth {
+		width: 100%;
+	}
+
 	button {
 		border-radius: 8px;
 		background-color: transparent;

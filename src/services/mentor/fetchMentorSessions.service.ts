@@ -11,6 +11,6 @@ export const fetchMentorSessions = async (
 
   return {
     total: data.length,
-    students: data.slice(0, props.take),
+    students: data.slice(props.skip, props.skip + props.take),
   };
 };

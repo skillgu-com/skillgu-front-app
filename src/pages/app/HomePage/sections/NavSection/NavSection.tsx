@@ -14,6 +14,8 @@ import Find from 'src/assets/icons/Find';
 // Styles
 import styles from './NavSection.module.scss';
 import paths from "../../../../../paths";
+// Assets
+import * as icons from '../../icons'
 
 const NavSection = () => {
     const role = useSelector(getRole);
@@ -24,49 +26,57 @@ const NavSection = () => {
                 {
                     link: paths.calendar,
                     icon: <Calendar/>,
-                    text: 'Kalendarz',
+                    title: 'Kalendarz',
+                    text: '',
                 },
                 {
                     link: '/search-mentors',
                     icon: <Find/>,
-                    text: 'Znajdź mentora',
+                    title: 'Znajdź mentora',
+                    text: '',
                 },
                 {
                     link: '/raports',
                     icon: <Raports/>,
-                    text: 'Raporty',
+                    title: 'Raporty',
+                    text: '',
                 },
                 {
                     link: '/messages',
                     icon: <Message/>,
-                    text: 'Chat',
+                    title: 'Chat',
+                    text: '',
                 },
             ]
             : [
                 {
                     link: paths.calendar,
-                    icon: <Calendar/>,
-                    text: 'Kalendarz',
+                    icon: icons.calendarIcon,
+                    title: 'Kalendarz',
+                    text: 'Sprawdź swoje zaplanowane spotkania',
                 },
                 {
                     link: '/schedules',
-                    icon: <Meet/>,
-                    text: 'Tworzenie spotkań',
+                    icon: icons.meetingsIcon,
+                    title: 'Tworzenie spotkań',
+                    text: 'Zarządzaj swoimi spotkaniami i ustal swój harmonogram',
                 },
-                {
-                    link: '/raports',
-                    icon: <Raports/>,
-                    text: 'Raporty',
-                },
+                // {
+                //     link: '/raports',
+                //     icon: <Raports/>,
+                //     text: 'Raporty',
+                // },
                 {
                     link: '/chat',
-                    icon: <Message/>,
-                    text: 'Chat',
+                    icon: icons.chatIcon,
+                    title: 'Wiadomości',
+                    text: 'Masz 9 oczekujących wiadomości',
                 },
                 {
                     link: '/account-view',
-                    icon: <Payment/>,
-                    text: 'Płatności',
+                    icon: icons.paymentsIcon,
+                    title: 'Rozliczenia',
+                    text: 'Sprawdź swoje rozliczenia',
                 },
             ];
 

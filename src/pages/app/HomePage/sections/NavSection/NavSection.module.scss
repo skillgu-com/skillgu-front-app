@@ -2,35 +2,26 @@
 
 .wrapper {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-	gap: 20px 30px;
-	grid-column: 1/-1;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px 18px;
+	grid-column: 1 / -1;
 
 	> * {
-		grid-column: span 6;
+		grid-column: span 4;
 	}
 
 	@media screen and (min-width: $sm) {
 		> * {
-			grid-column: span 3;
-		}
-	}
-
-	@media screen and (min-width: $md) {
-		gap: 30px;
-
-		> * {
-			grid-column: span 3;
+			grid-column: span 2;
 		}
 	}
 
 	@media screen and (min-width: $lg) {
-		grid-column: 1/2;
-	}
+		grid-template-columns: repeat(4, 1fr);
+		grid-column: 1 / -1;
 
-	@media screen and (min-width: $xl) {
 		> * {
-			grid-column: span 2;
+			grid-column: span 1;
 		}
 	}
 }

@@ -10,6 +10,7 @@ import { bookingReducer } from './booking';
 import { chatReducer } from './chat';
 import {authReducer} from "./auth/authReducer";
 import { createOfferReducer } from './createOffer';
+import { sessionsReducer } from './sessions'
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     booking: bookingReducer,
     chat: chatReducer,
     createOffer: createOfferReducer,
+    sessions: sessionsReducer,
     // Add other reducers if you have them
 });
 

@@ -5,6 +5,8 @@ export type FetchMentorSessionsInput = {
     take: number
 }
 
+export type SessionStatus = 'in-progress'|'planned'|'cancelled'
+
 export type FetchMentorSessionsOutput = {
     total: number
     students: {
@@ -13,7 +15,7 @@ export type FetchMentorSessionsOutput = {
         avatarUrl: string
         fullName: string
         date: string
-        status: 'in-progress'|'planned'|'cancelled'
+        status: SessionStatus
         serviceType: 'session'|'mentoring'
         serviceName: string
     }[]

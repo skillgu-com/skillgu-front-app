@@ -2,7 +2,7 @@
     position: relative;
     transition: 0.5s;
 
-    &::after {
+    &.WithOverlay::after {
         position: absolute;
         background-image: linear-gradient(to top, rgb(255, 255, 255) calc(100% - 30px), rgba(255, 255, 255, 0));
         bottom: 0;
@@ -14,7 +14,7 @@
         opacity: 1;
     }
 
-    &.ContentExpanded::after {
+    &.WithOverlay.ContentExpanded::after {
         opacity: 0;
         transition: 0.5s;
     }

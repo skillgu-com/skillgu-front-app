@@ -28,7 +28,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
         Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować
         jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".
       </p>
-      <div className={clx(styles.cols2)}>
+      <div className={clx(styles.cols)}>
         <div className={styles.priceCtaWrapper}>
           <div className={styles.priceCtaBox}>
             {formattedPrice ? (

@@ -31,7 +31,7 @@ export const MentorContent = ({
       <div>
         {contentExpandable ? (
           <>
-            <Expandable foldedHeight={50} isExpanded={isExpanded}>
+            <Expandable foldedHeight={50} isExpanded={isExpanded} withOverlay>
               <div
                 className={styles.content_content}
                 dangerouslySetInnerHTML={{ __html: contentHtml }}

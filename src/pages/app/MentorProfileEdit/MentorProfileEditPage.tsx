@@ -158,7 +158,7 @@ export const MentorProfileEditPage = () => {
                     "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
                 }
                 btnText="Zobacz profil"
-                btnHref={`/mentor/${mentorId}`}
+                btnHref={`/mentor/${username}`}
                 company={mentorData?.company}
                 coverUrl={mentorData?.coverImage}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}

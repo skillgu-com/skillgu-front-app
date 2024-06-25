@@ -49,7 +49,7 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
     {
       id: "profile",
       label: "Profil",
-      link: `/mentor/$username`,
+      link: `/mentor/${username}`,
       icon: <Doc />,
       visibility: "mentor",
     },

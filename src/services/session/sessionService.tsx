@@ -9,15 +9,15 @@ export interface SessionDTO {
 }
 
 export const createSession = async (session: any) => {
+
     return await axios.post('/api/1.0/session', {
-        sessionName: session?.name,
-        sessionPrice: session?.price,
+        sessionName: session?.name.value,
+        sessionPrice: session?.price.value,
         sessionType: session?.type,
         scheduleID: session?.schedule,
-        sessionDescription: session?.description
+        sessionDescription: session?.message.value
     });
 }
-
 
 export const getSessionNumber = async () => {
     return await axios.get('/api/1.0/get-session-number')

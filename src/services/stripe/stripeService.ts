@@ -1,13 +1,12 @@
 import axios from "axios";
 
-
 /**
  * Checks if a Stripe account exists for the current user.
  * @returns {Promise<string>} The Stripe account ID.
  */
 export const getStripeAccount = async () => {
-    const response = await axios.get('api/stripe/check/account');
-    return response.data;
+  const response = await axios.get("api/stripe/check/account");
+  return response.data;
 };
 
 /**
@@ -16,13 +15,13 @@ export const getStripeAccount = async () => {
  * @throws {Error} If there is an error creating the Stripe account.
  */
 export const createStripeAccount = async () => {
-    try {
-        const response = await axios.post('api/stripe/create-account');
-        return response.data;
-    } catch (error) {
-        console.error('Error creating Stripe account:', error);
-        throw error;
-    }
+  try {
+    const response = await axios.post("api/stripe/create-account");
+    return response.data;
+  } catch (error) {
+    console.error("Error creating Stripe account:", error);
+    throw error;
+  }
 };
 
 /**
@@ -32,13 +31,31 @@ export const createStripeAccount = async () => {
  * @throws {Error} If there is an error creating the Stripe account link.
  */
 export const createStripeAccountLink = async (accountId: string) => {
-    try {
-        const response = await axios.post(`api/stripe/create-account-link`, {
-            account: accountId,
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error creating Stripe account link:', error);
-        throw error;
-    }
+  try {
+    const response = await axios.post(`api/stripe/create-account-link`, {
+      account: accountId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating Stripe account link:", error);
+    throw error;
+  }
+};
+
+export const fetchPaymentSchedule = async () => {
+  //TODO
+
+  return {
+    options: [
+      { label: "raz w tygodniu", value: "1/w" },
+      { label: "raz na 2 tygodnie", value: "1/2w" },
+      { label: "raz w miesiącu", value: "1/m" },
+    ],
+    selected: "1/w",
+    nextPayment: "2024-10-15",
+  };
+};
+
+export const updatePaymentSchedule = (selected: string) => {
+  return true;
 };

@@ -91,12 +91,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    border: 1px solid $colour-base-400;
+    margin: 12px auto 36px;
+    border-radius: 12px;
 
     .priceCtaBox {
         max-width: 398px;
-        width: 100%;
-        border: 1px solid $colour-base-400;
-        border-radius: 12px;
+        // width: 100%;
         padding: 32px 24px;
         display: flex;
         flex-direction: column;

@@ -1,17 +1,27 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
 import { ChatMessages, ChatContacts, ChatMessagesVariant } from "./components";
-import WebSocketInstance from "@services/chat/chat.service";
-import { ChatContactType, ChatMessageType } from "@customTypes/chat";
-import {
-  ChatContactsOutput,
-  ChatMessagesOutput,
-} from "@services/chat/chat.service.types";
-import { Tag } from "@customTypes/tags";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Title } from "src/components/typography";
 import Container from "src/components/Container/Container";
 
+import { ChatContactType, ChatMessageType } from "@customTypes/chat";
+import { Tag } from "@customTypes/tags";
+
 import styles from "./ChatPage.module.scss";
+
+import WebSocketInstance from "@services/chat/chat.service";
+
+import {
+  ChatContactsOutput,
+  ChatMessagesOutput,
+} from "@services/chat/chat.service.types";
 
 type ChatMessageWithOptimistic = ChatMessageType & {
   optimistic?: true;
@@ -78,7 +88,6 @@ export const ChatPage = () => {
 
   const loadMoreMessages = useCallback(() => {
     if (!selected || !lastMsgId.current) {
-      console.log(8);
       return;
     }
     WebSocketInstance.loadMessages({
@@ -97,6 +106,11 @@ export const ChatPage = () => {
       });
     }
   }, []);
+
+  const unreadMsgQuantity = useMemo(
+    () => contacts.reduce((acc, curr) => acc + curr.unreadMessages, 0),
+    [contacts]
+  );
 
   useEffect(() => {
     if (selected) {
@@ -192,8 +206,9 @@ export const ChatPage = () => {
           >
             Wiadomości
           </Title>
-          {/* TODO */}
-          <p className={styles.unreadMsg}>{`${10} nieprzeczytanych`}</p>
+          <p
+            className={styles.unreadMsg}
+          >{`${unreadMsgQuantity} nieprzeczytanych`}</p>
         </header>
 
         <div className={styles.gridContainer}>

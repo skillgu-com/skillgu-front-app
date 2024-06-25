@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef } from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 
 import { Message, MessageVariant, MessageRowSkeleton } from "../Message";
@@ -37,7 +37,8 @@ export const ChatMessages = ({
   variant,
   setIsMobileMessageShown,
 }: ChatMessagesProps) => {
-  const _messages = React.useMemo(() => [...messages].reverse(), [messages]);
+  
+  const _messages = useMemo(() => [...messages].reverse(), [messages]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

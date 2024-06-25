@@ -23,7 +23,8 @@
   }
 }
 
-.info {
+.infoBox {
   @extend %text-caption;
+  margin-top: 24px;
   color: $colour-base-800;
 }

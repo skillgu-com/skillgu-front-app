@@ -60,24 +60,26 @@ export const ChatContacts = ({
         value={phrase}
         onChangePhrase={handleInputChange}
       />
-      <ul className={styles.list}>
-        {_contacts.length ? (
-          _contacts.map((contact) => (
+      {_contacts.length ? (
+        <ul className={styles.list}>
+          {_contacts.map((contact) => (
             <ChatContact
               key={contact.id}
               contact={contact}
               switchContact={() => switchContact(contact)}
             />
-          ))
-        ) : (
-          <p className={styles.info}>Nie znaleziono</p>
-        )}
-        {(total && !phrase && total > contacts.length) || pending ? (
-          <div ref={pending ? undefined : sentryRef}>
-            <ChatContactSkeleton />
-          </div>
-        ) : null}
-      </ul>
+          ))}
+          {(total && !phrase && total > contacts.length) || pending ? (
+            <div ref={pending ? undefined : sentryRef}>
+              <ChatContactSkeleton />
+            </div>
+          ) : null}
+        </ul>
+      ) : (
+        <div className={styles.infoBox}>
+          <p>Nie znaleziono</p>
+        </div>
+      )}
     </section>
   );
 };

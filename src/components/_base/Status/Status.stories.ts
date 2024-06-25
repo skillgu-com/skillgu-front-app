@@ -26,9 +26,16 @@ export const Active: Story = {
   },
 };
 
-// export const Inactive: Story = {
-//   args: {
-//     variant: 'error',
-//     text: 'Nieaktywny',
-//   },
-// };
+export const Inactive: Story = {
+  args: {
+    variant: 'danger',
+    text: 'Nieaktywny',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    variant: 'warning',
+    text: 'W trakcie',
+  },
+};

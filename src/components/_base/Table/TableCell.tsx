@@ -13,6 +13,7 @@ interface TableListCellProps {
   text?: string
   heading?: boolean
   primary?: boolean
+  width?: string
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -26,6 +27,7 @@ export const TableCell = ({
   text,
   heading,
   primary,
+  width,
   onClick,
 }: TableListCellProps) => {
   const style: Record<string, string | number> = {};
@@ -33,6 +35,11 @@ export const TableCell = ({
   if (typeof flex === 'number') {
     style.flex = flex;
   }
+
+  if(width){
+    style.width = width;
+  }
+  
 
   return (
     <div

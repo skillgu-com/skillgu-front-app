@@ -1,32 +1,55 @@
-@use '../../../scss/variables' as *;
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
 
 .card {
 	display: flex;
-	align-items: center;
-	gap: 32px 29px;
-	padding: 15px 15px 15px 27px;
-	border-radius: 15px;
-	background: $light-color;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: 10px;
+	padding: 24px 20px;
 	text-decoration: none;
 
 	&Icon {
 		svg {
-			width: 72px;
-			height: 72px;
+			width: 40px;
+			height: 40px;
 		}
 	}
 
 	&Title {
-		color: $dark-color;
-		font-size: 20px;
-		font-weight: 600;
-		line-height: normal;
+		@extend %text-button-md;
+		color: $colour-primary;
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		justify-content: flex-start;
+
+		span {
+			flex: 1;
+		}
+
+		svg {
+			width: 14px;
+			height: 14px;
+		}
 	}
 
-	@media screen and (min-width: $sm) {
-		text-align: center;
-		padding: 61px 23px 56px;
-		flex-direction: column;
-		justify-content: center;
+	&Text {
+		@extend %text-button-sm;
+		color: $colour-base-800;
+		display: none;
+	}
+
+	@media screen and (min-width: $lg) {
+		padding: 24px 32px;
+
+		&Title {
+			font-size: 16px;
+		}
+
+		&Text {
+			display: block;
+		}
 	}
 }

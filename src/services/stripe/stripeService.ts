@@ -56,6 +56,6 @@ export const fetchPaymentSchedule = async () => {
   };
 };
 
-export const updatePaymentSchedule = (selected: string) => {
+export const updatePaymentSchedule = async (selected: string) => {
   return true;
 };

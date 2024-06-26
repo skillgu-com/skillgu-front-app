@@ -50,7 +50,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
             </div>
           </div>
         </div>
-        <div className={styles.dropdownWrapper}>
+        <div className={styles.scheduleWrapper}>
           <Schedule />
         </div>
       </div>

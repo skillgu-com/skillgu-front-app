@@ -123,55 +123,11 @@
   margin-left: 12px;
 }
 
-.dropdownWrapper {
+.scheduleWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   margin: 12px auto 24px;
-
-  .scheduleLabel {
-    @extend %text-button-lg;
-    color: $colour-primary;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  .btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    width: 100%;
-    color: $colour-base-600;
-    border: 1px solid $colour-base-400;
-    background-color: $colour-base-000;
-  }
-  .toogle {
-    border-radius: 12px;
-  }
-  .menu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 100;
-  }
-  .option {
-    border-top: none;
-    cursor: pointer;
-
-    &:hover {
-        background-color: $colour-base-200;
-    }
-    &:first-child {
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-    &:last-child {
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-    }
-  }
+  padding: 0 24px;
 }

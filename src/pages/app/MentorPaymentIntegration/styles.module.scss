@@ -5,7 +5,6 @@
 
 .wrapper {
   padding: 20px;
-  max-width: 1054px;
 }
 
 .faqBox {
@@ -93,8 +92,12 @@
   justify-content: center;
   width: 100%;
   border: 1px solid $colour-base-400;
-  margin: 12px auto 36px;
+  margin: 12px auto;
   border-radius: 12px;
+
+  @include media-lg-and-up {
+    margin-bottom: 36px;
+  }
 
   .priceCtaBox {
     max-width: 398px;

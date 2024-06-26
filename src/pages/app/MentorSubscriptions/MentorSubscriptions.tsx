@@ -51,6 +51,7 @@ export const MentorSubscriptions = () => {
   useEffect(() => {
     const fetchData = async () => {
       setPending(true);
+      setData(null)
       const data = await fetchMentorStudents({
         take: PER_PAGE,
         skip: PER_PAGE * (page - 1),

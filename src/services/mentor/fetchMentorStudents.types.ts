@@ -1,4 +1,7 @@
+import { SubscriptionStatus } from "@customTypes/subscriptions"
+
 export type FetchMentorStudentsInput = {
+    status: SubscriptionStatus,
     sortBy: 'status'
     sortMethod: 'ASC'|'DESC'
     skip: number 
@@ -13,8 +16,10 @@ export type FetchMentorStudentsOutput = {
         avatarUrl: string
         fullName: string
         date: string
-        status: 'in-progress'|'planned'|'cancelled'
+        status: SubscriptionStatus
+        // status: 'in-progress'|'planned'|'cancelled'
         serviceType: 'session'|'mentoring'
         serviceName: string
+        isPro: boolean
     }[]
 }

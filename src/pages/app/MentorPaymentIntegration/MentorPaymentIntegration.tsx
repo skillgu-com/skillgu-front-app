@@ -88,7 +88,7 @@ export const MentorPaymentIntegration = () => {
     )
   }
 
-  // if (connectedAccountId && !accountLinkCreatePending) {
+  if (connectedAccountId && !accountLinkCreatePending) {
     return (
       <Connected
         price={4700} // @TODO
@@ -96,7 +96,7 @@ export const MentorPaymentIntegration = () => {
         handleCreateAccountLink={handleCreateAccountLink}
       />
     );
-  // }
+  }
 
   return (
     <NotConnected

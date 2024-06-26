@@ -9,6 +9,11 @@ $table-border-colour: #EAECF0;
   width: 100%;
   border: 1px solid $table-border-colour;
   border-radius: 8px;
+
+  &.minWidth {
+    overflow: auto;
+    max-width: 100%;
+  }
 }
 
 .Row {

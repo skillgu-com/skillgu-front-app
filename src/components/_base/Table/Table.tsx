@@ -7,11 +7,12 @@ interface TableListProps {
   className?: string;
   testId?: string;
   children?: ReactNode;
+  minWidth?: string
 }
 
-export const Table = ({ className, children, testId }: TableListProps) => {
+export const Table = ({ minWidth, className, children, testId }: TableListProps) => {
   return (
-    <div className={clx(styles.Table, className)} data-test-id={testId}>
+    <div style={{ minWidth }} className={clx(styles.Table, className)} data-test-id={testId}>
       {children}
     </div>
   );

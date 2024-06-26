@@ -9,8 +9,11 @@ import clx from "classnames";
 import styles from "./styles.module.scss";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { Connected, NotConnected } from "./screens";
+import { Spinner } from "src/components/_base/Spinner";
+import { Loader } from "src/components/_grouped/loader";
 
 export const MentorPaymentIntegration = () => {
+  const [initialDataPending, setInitialDataPending] = useState<boolean>(true)
   const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
     null
   );
@@ -27,6 +30,7 @@ export const MentorPaymentIntegration = () => {
       } catch (error) {
         console.error("Error fetching Stripe account:", error);
       }
+      setInitialDataPending(false)
     };
 
     fetchStripeAccount();
@@ -78,7 +82,13 @@ export const MentorPaymentIntegration = () => {
     }
   };
 
-  if (connectedAccountId && !accountLinkCreatePending) {
+  if(initialDataPending) {
+    return ( 
+      <Loader spinner shadow overflow spinnerSize="lg" />
+    )
+  }
+
+  // if (connectedAccountId && !accountLinkCreatePending) {
     return (
       <Connected
         price={4700} // @TODO
@@ -86,7 +96,7 @@ export const MentorPaymentIntegration = () => {
         handleCreateAccountLink={handleCreateAccountLink}
       />
     );
-  }
+  // }
 
   return (
     <NotConnected

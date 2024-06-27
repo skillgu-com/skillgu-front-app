@@ -1,8 +1,9 @@
 import axios from "axios";
-import type {ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
-import type { WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
-import {format} from "date-fns";
+import {MeetingTypeT, ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
+import {weekdays, WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
+import {addMonths, format, setHours, setMinutes} from "date-fns";
 import {SessionDTO} from "@services/session/sessionService";
+import {WeekdayInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayInputT";
 
 type WeekTimes = Record<WeekdayT, {
     from: { time: string },
@@ -24,11 +25,9 @@ export interface ScheduleDTO {
     scheduleEndDay: string;
     meetTime: number;
     resign: boolean;
-    type: string;
+    type: MeetingTypeT;
     participant: number;
-    weekTimes: {
-        [key: string]: TimeIntervalDTO[];
-    };
+    weekTimes: Partial<Record<WeekdayT, TimeIntervalDTO[]>>;
 }
 
 const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInputT['weekdays']): WeekTimes => {
@@ -44,11 +43,11 @@ const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInputT['weekdays']):
 }
 
 export const createScheduleMeeting = async (currentState: ScheduleFormInputT) => {
-    const {name, dateFrom, dateTo, cancelAvailable, type, meetingLength, participantsNumber, weekdays} = currentState;
+    const {scheduleName, dateFrom, dateTo, cancelAvailable, type, meetingLength, participantsNumber, weekdays} = currentState;
     const weekTimes = extractTimeIntervalsFromDays(weekdays);
 
     return await axios.post('/api/1.0/schedule', {
-        scheduleName: name,
+        scheduleName: scheduleName,
         scheduleStartDay: format(dateFrom, 'yyyy-MM-dd'),
         scheduleEndDay: format(dateTo, 'yyyy-MM-dd'),
         meetTime: meetingLength,
@@ -71,6 +70,92 @@ export const deleteSchedule = async (scheduleID: string) => {
         throw new Error('Failed to delete schedule');
     }
 };
+
+
+export const getScheduleFormInitialData = async (scheduleId: string): Promise<ScheduleFormInputT> => {
+
+    const mock: ScheduleDTO = {
+        scheduleName: 'Nowy Harmonogram test',
+        scheduleStartDay: '2024-07-01',
+        scheduleEndDay: '2024-07-31',
+        meetTime: 50,
+        resign: false,
+        type: 'group',
+        participant: 5,
+        weekTimes: {
+            monday: [
+                {
+                    from: {time: '21:00'},
+                    to: {time: '22:00'}
+                }
+            ],
+            wednesday: [
+                {
+                    from: {time: '09:00'},
+                    to: {time: '15:00'}
+                },
+                {
+                    from: {time: '17:00'},
+                    to: {time: '19:00'}
+                }
+            ],
+            thursday: [
+                {
+                    from: {time: '09:00'},
+                    to: {time: '15:00'}
+                }
+            ],
+            friday: [
+                {
+                    from: {time: '09:00'},
+                    to: {time: '15:00'}
+                }
+            ]
+        }
+    };
+
+
+    // TODO put axios GET here
+    const axiosMock = () => new Promise<{ data: ScheduleDTO }>(res => {
+        setTimeout(() => {
+            res({data: mock})
+        }, 1000)
+    })
+
+    const {data} = await axiosMock();
+    const today = new Date();
+
+
+    const defaultSlot = {
+        dateFrom: setHours(setMinutes(today, 0), 9),
+        dateTo: setHours(setMinutes(today, 0), 17)
+    };
+
+
+    return {
+        scheduleName: data.scheduleName,
+        meetingLength: data.meetTime,
+        type: data.type,
+        cancelAvailable: data.resign,
+        dateFrom: new Date(data.scheduleStartDay),
+        dateTo: new Date(data.scheduleEndDay),
+        participantsNumber: data.participant,
+        weekdays: weekdays.reduce((acc, day) => {
+            acc[day] = {
+                isActivated: !!data.weekTimes[day],
+                slots: data.weekTimes[day]?.map(({from, to}) => ({
+                    dateFrom: new Date(`2021-01-01T${from.time}:00`),
+                    dateTo: new Date(`2021-01-01T${to.time}:00`)
+                })) || [{
+                    dateFrom: setHours(setMinutes(today, 0), 9),
+                    dateTo: setHours(setMinutes(today, 0), 15),
+                }]
+            }
+            return acc;
+        }, {} as Record<WeekdayT, WeekdayInputT>)
+    }
+}
+
 export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleDTO) => {
     try {
         const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {

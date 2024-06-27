@@ -8,7 +8,6 @@ import {areIntervalsOverlapping, differenceInMinutes, isAfter} from "date-fns";
 import {ScheduleFormInputT} from "../../_types/ScheduleFormInputT";
 import {ScheduleDateFieldT} from "../../_types/ScheduleDateField";
 
-
 const slotsOverlapping = (rowValues: ScheduleDateFieldT[]): boolean => {
     return rowValues.some((slot, index) => (
         rowValues.slice(index + 1).some((slotToCompare) => (
@@ -49,21 +48,21 @@ type CustomValidationArgs = {
 }
 
 const customValidation = ({formValues, idx, baseName, clearErrors}: CustomValidationArgs): true | string => {
-    // variables
-    const meetingLength = formValues.meetingLength;
-    const rowValues = get(formValues, `${baseName}.slots`)
-    const slotValues = rowValues[idx];
+        // omit validation on inactive days
+        if (!get(formValues, `${baseName}.isActivated`)) return true;
 
-    // omit validation on inactive days
-    if (!get(formValues, `${baseName}.isActivated`)) return true;
+        // variables
+        const meetingLength = formValues.meetingLength;
+        const rowValues = get(formValues, `${baseName}.slots`)
+        const slotValues = rowValues[idx];
 
-    clearErrorsIfExist({base: `${baseName}.slots.${idx}`, clearErrors, formValues});
+        clearErrorsIfExist({base: `${baseName}.slots.${idx}`, clearErrors, formValues});
 
-    // validation
-    if (rowValues.length > 1 && slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się'
-    if (slotShorterThanMeetingTime(slotValues, meetingLength)) return 'Przedział czasowy nie może być krótszy niż czas trwania spotkania';
+        // validation
+        if (rowValues.length > 1 && slotsOverlapping(rowValues)) return 'Przedziały czasowe pokrywają się';
+        if (slotShorterThanMeetingTime(slotValues, meetingLength)) return 'Przedział czasowy nie może być krótszy niż czas trwania spotkania';
 
-    return true;
+        return true
 }
 
 type Props = {
@@ -85,7 +84,7 @@ const ScheduleTimePicker: FC<Props> = ({
                                            formControl,
                                            formClearErrors,
                                            idx,
-                                           baseName
+                                           baseName,
                                        }) => {
 
 
@@ -111,14 +110,15 @@ const ScheduleTimePicker: FC<Props> = ({
             control={formControl}
             rules={{
                 required: 'Pole wymagane',
-                validate: (_, formValues) => {
+                validate: async (_, formValues) => {
                     return customValidation({
                         formValues,
                         baseName,
                         idx,
                         clearErrors: formClearErrors
                     })
-                }
+
+                },
             }}
         />
     )

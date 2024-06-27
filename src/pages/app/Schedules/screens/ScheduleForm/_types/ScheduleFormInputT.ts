@@ -1,10 +1,12 @@
 import {WeekdayT} from "./WeekdayT";
 import {WeekdayInputT} from "./WeekdayInputT";
 
+export type MeetingTypeT = 'individual' | 'group'; // meeting
+
 export type ScheduleFormInputT = {
-    name: string;
+    scheduleName: string;
     meetingLength: number;
-    type: 'individual' | 'group';
+    type: MeetingTypeT | '';
     cancelAvailable: boolean;
     dateFrom: Date;
     dateTo: Date;

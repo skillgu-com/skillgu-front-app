@@ -1,5 +1,5 @@
-import React, {FC, memo} from "react";
-import {Box, Collapse} from "@mui/material";
+import React, {FC, memo, useMemo} from "react";
+import {Box, Collapse, useMediaQuery} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {Control, Controller, FormState, UseFormWatch} from "react-hook-form";
 import MeetingType from "../../../../components/MeetingType/MeetingType";
@@ -9,22 +9,32 @@ import FormDatePicker from "../../../../../../../components/_form/FormDatePicker
 import FormInputText from "../../../../../../../components/_form/FormInputText/FormInputText";
 import StepInput from "../../../../../../../components/StepInput/StepInput";
 import Checkbox from "../../../../../../../components/Checkbox/Checkbox";
+import {ScheduleFormInputT} from "../../_types/ScheduleFormInputT";
+import {debounce} from "lodash";
+import {StyledFeedbackWrapper} from "../../../../../../../components/_form/_common/FormInput.styles";
+import InputFeedback from "../../../../../../../components/_form/InputFeedback/InputFeedback";
 
 type Props = {
-    formControl: Control<any>,
-    formState: FormState<any>,
-    formWatch: UseFormWatch<any>,
+    formControl: Control<ScheduleFormInputT>,
+    formState: FormState<ScheduleFormInputT>,
+    formWatch: UseFormWatch<ScheduleFormInputT>,
 };
 
 const ScheduleFormGeneralSettings: FC<Props> = ({formControl, formState, formWatch}) => {
     const selectedType = formWatch('type');
+
+    const dateRangeError = useMemo(() => {
+        const {dateTo, dateFrom} = formState.errors;
+        if (!dateFrom && !dateTo) return '';
+        return 'Data końcowa musi być późniejsza niż początkowa'
+    }, [formState]);
 
     return (
         <>
             <Box sx={{display: 'grid', gap: 1}}>
                 <Typography variant='buttonMd'>Nazwa</Typography>
                 <FormInputText
-                    name='name'
+                    name='scheduleName'
                     control={formControl}
                     formState={formState}
                     inputProps={{placeholder: 'Nazwa harmonogramu'}}
@@ -95,13 +105,14 @@ const ScheduleFormGeneralSettings: FC<Props> = ({formControl, formState, formWat
                         formState={formState}
                         name='dateFrom'
                         control={formControl}
+                        hideError
                         controllerProps={{
                             rules: {
                                 required: 'To pole jest wymagane',
                                 validate: (value, formValues) => {
                                     const dateTo = formValues.dateTo;
                                     if (!dateTo) return true;
-                                    return isBefore(value, dateTo) || 'Data początkowa musi być wcześniejsza niż końcowa';
+                                    return isBefore(value as Date, dateTo) || 'Error message is set in dateRangeError function';
                                 }
                             }
                         }}
@@ -110,18 +121,24 @@ const ScheduleFormGeneralSettings: FC<Props> = ({formControl, formState, formWat
                         formState={formState}
                         name='dateTo'
                         control={formControl}
+                        hideError
                         controllerProps={{
                             rules: {
                                 required: 'To pole jest wymagane',
                                 validate: (value, formValues) => {
                                     const dateFrom = formValues.dateFrom;
                                     if (!dateFrom) return true;
-                                    return isAfter(value, dateFrom) || 'Data końcowa musi być późniejsza niż początkowa';
+                                    return isAfter(value as Date, dateFrom) || 'Error message is set in dateRangeError function';
                                 }
                             }
                         }}
                     />
                 </div>
+                <Collapse in={!!dateRangeError}>
+                    <Box sx={{marginTop: 1}}>
+                        <InputFeedback message={dateRangeError} severity='error'/>
+                    </Box>
+                </Collapse>
             </div>
         </>
     )

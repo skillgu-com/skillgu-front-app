@@ -5,8 +5,11 @@ import {
   getStripeAccount,
 } from "@services/stripe/stripeService";
 import { Connected, NotConnected } from "./screens";
+import { Spinner } from "src/components/_base/Spinner";
+import { Loader } from "src/components/_grouped/loader";
 
 export const MentorPaymentIntegration = () => {
+  const [initialDataPending, setInitialDataPending] = useState<boolean>(true)
   const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
     null
   );
@@ -23,6 +26,7 @@ export const MentorPaymentIntegration = () => {
       } catch (error) {
         console.error("Error fetching Stripe account:", error);
       }
+      setInitialDataPending(false)
     };
 
     fetchStripeAccount();
@@ -73,6 +77,12 @@ export const MentorPaymentIntegration = () => {
       setAccountLinkCreatePending(false);
     }
   };
+
+  if(initialDataPending) {
+    return ( 
+      <Loader spinner shadow overflow spinnerSize="lg" />
+    )
+  }
 
   if (connectedAccountId && !accountLinkCreatePending) {
     return (

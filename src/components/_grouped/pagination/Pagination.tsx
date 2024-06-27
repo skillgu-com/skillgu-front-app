@@ -8,6 +8,7 @@ import { generatePagination } from "./generatePagination";
 import clx from 'classnames'
 
 interface PaginationProps {
+  className?: string
   name?: string;
   current: number;
   last: number;
@@ -15,7 +16,7 @@ interface PaginationProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Pagination = ({ name, fullWidth, current, last, onClick }: PaginationProps) => {
+export const Pagination = ({ className, name, fullWidth, current, last, onClick }: PaginationProps) => {
   const pages = generatePagination(current, last);
 
   if (last === 1) return <></>;
@@ -23,7 +24,7 @@ export const Pagination = ({ name, fullWidth, current, last, onClick }: Paginati
   return (
     <div data-test-id="pagination" className={clx(styles.wrapper, {
       [styles.fullWidth]: !!fullWidth,
-    })}>
+    }, className)}>
       <button
         type="button"
         name={name}

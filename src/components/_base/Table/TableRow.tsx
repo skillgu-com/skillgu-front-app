@@ -9,6 +9,7 @@ interface TableListRowProps {
   heading?: boolean;
   sticky?: boolean;
   index?: number;
+  borderTop?: boolean;
   style?: CSSProperties;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
@@ -20,6 +21,7 @@ export const TableRow = forwardRef(
       className,
       heading,
       sticky,
+      borderTop,
       index,
       style,
       onClick,
@@ -38,6 +40,7 @@ export const TableRow = forwardRef(
             [styles.RowHeading]: heading,
             [styles.RowSticky]: sticky,
             [styles.Clickable]: !!onClick,
+            [styles.BorderTop]: !!borderTop,
           },
           className
         )}

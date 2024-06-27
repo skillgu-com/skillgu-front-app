@@ -13,7 +13,7 @@ import { Tag } from "src/types/tags";
 // Styles
 import styles from "./HomePage.module.scss";
 import { fetchAllUserData } from "../../../services/userProfileService";
-import { MentorSessionsHistory } from "./sections";
+import { MentorSessionsHistory, SimilarMentors } from "./sections";
 
 const HomePage = () => {
   const role = useSelector(getRole);
@@ -62,16 +62,20 @@ const HomePage = () => {
       ) : null}
 
       {role === "M" ? (
+        <>
         <Container as={Tag.Main} classes={styles.header}>
-          <h2>Witaj, mentorze! 🤓</h2>
+          <h2 className={styles.sectionTitle}>Witaj, mentorze! 🤓</h2>
           <NavSection />
         </Container>
-      ) : null}
-
-      {role === "M" ? (
+        
+        <Container as={Tag.Main}>
+          <SimilarMentors />
+        </Container>
+      
         <Container as={Tag.Main}>
           <MentorSessionsHistory />
         </Container>
+        </>
       ) : null}
     </div>
   );

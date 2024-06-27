@@ -45,7 +45,8 @@ const paths = {
     studentProfileEdit: '/edit-student/:id',
     chat: '/chat',
     payment: '/payment',
-    mentorOfferDetails: '/offer/:id'
+    mentorOfferDetails: '/offer/:id',
+    mentorSubscriptions: '/mentor-subscriptions'
 } as const;
 
 export type PathKey = keyof typeof paths;

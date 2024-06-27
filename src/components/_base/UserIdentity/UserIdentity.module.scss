@@ -1,0 +1,31 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
+
+.card {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.avatar {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.title {
+    display: block;
+}
+
+.subtitle {
+    display: block;
+}

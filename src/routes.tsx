@@ -31,6 +31,7 @@ import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
 import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
 import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffer";
+import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 
 type Route = {
     id: string;
@@ -125,13 +126,13 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.schedulesAddSchedule,
-        element: <ScheduleForm/>,
+        element: <ScheduleScreen/>,
         layoutVersion: "default",
         isProtected: true,
     },
     {
         path: paths.schedulesEditSchedule,
-        element: <ScheduleForm/>,
+        element: <ScheduleScreen />,
         layoutVersion: "default",
         isProtected: true,
     },

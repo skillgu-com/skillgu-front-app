@@ -73,7 +73,7 @@ const NavSection = () => {
                     text: 'Masz 9 oczekujących wiadomości',
                 },
                 {
-                    link: '/account-view',
+                    link: '/payment',
                     icon: icons.paymentsIcon,
                     title: 'Rozliczenia',
                     text: 'Sprawdź swoje rozliczenia',

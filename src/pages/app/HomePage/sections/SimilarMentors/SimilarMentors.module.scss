@@ -65,6 +65,11 @@
             @extend %text-button-sm;
             color: $colour-secondary;
             padding: 8px 12px;
+            a {
+                @extend .tag;
+                color: $colour-secondary;
+                text-decoration: none;
+            }
         }
     }
 }

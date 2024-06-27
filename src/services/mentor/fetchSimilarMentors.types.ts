@@ -5,10 +5,10 @@ export type FetchSimilarMentorsInput = {
 export type FetchSimilarMentorsOutput = {
     mentors: {
         id: number
-        nickname: string 
+        userName: string
         avatarUrl: string
         fullName: string
         profession: string
-        tags: string[]
+        skill: string[]
     }[]
 }

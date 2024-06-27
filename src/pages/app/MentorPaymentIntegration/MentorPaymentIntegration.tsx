@@ -18,6 +18,7 @@ export const MentorPaymentIntegration = () => {
       try {
         const accountId = await getStripeAccount();
         setConnectedAccountId(accountId);
+        setInitialDataPending(false)
       } catch (error) {
         console.error("Error fetching Stripe account:", error);
       }
@@ -73,13 +74,13 @@ export const MentorPaymentIntegration = () => {
     }
   };
 
-  if(initialDataPending) {
+  if(initialDataPending || accountLinkCreatePending) {
     return ( 
       <Loader spinner shadow overflow spinnerSize="lg" />
     )
   }
 
-  if (connectedAccountId && !accountLinkCreatePending) {
+  if (connectedAccountId) {
     return (
       <Connected
         price={4700} // @TODO

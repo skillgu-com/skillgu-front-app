@@ -4,10 +4,6 @@ import {
   createStripeAccountLink,
   getStripeAccount,
 } from "@services/stripe/stripeService";
-import { LinksList, LinksListRow } from "src/components/FAQ/LinksList";
-import clx from "classnames";
-import styles from "./styles.module.scss";
-import Button, { ButtonVariant } from "src/components/Button/Button";
 import { Connected, NotConnected } from "./screens";
 
 export const MentorPaymentIntegration = () => {

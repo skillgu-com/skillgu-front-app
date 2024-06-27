@@ -7,6 +7,7 @@ import CreateSchedules from "../../../../assets/icons/CreateSchedules";
 import { ReactComponent as CalendarIcon } from "../../../../assets/icons/svg/calendar.svg";
 import paths from "../../../../paths";
 import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+import SubscriptionIcon from "@icons/SubscriptionIcon";
 
 export type Visibility = "student" | "mentor" | "authenticated" | "all";
 
@@ -87,6 +88,13 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       link: `/payment/${username}`,
       icon: <DollarCircleIcon />,
       visibility: "student",
+    },
+    {
+      id: "subscription",
+      label: "Subskrypcja",
+      link: `/mentor-subscriptions`,
+      icon: <SubscriptionIcon />,
+      visibility: "mentor",
     },
   ].filter((item) => {
     if (

@@ -7,11 +7,7 @@ type Props = {
   color?: string;
 };
 
-export const DollarCircleIcon = ({
-  size = "1em",
-  className,
-  color = "currentColor",
-}: Props) => {
+export const DollarCircleIcon = ({size = "1em", className, color = "currentColor",}: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

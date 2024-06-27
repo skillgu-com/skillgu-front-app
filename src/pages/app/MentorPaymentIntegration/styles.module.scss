@@ -122,3 +122,11 @@
     color: $colour-secondary;
     margin-left: 12px;
 }
+.scheduleWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 12px auto 24px;
+    padding: 0 24px;
+  }

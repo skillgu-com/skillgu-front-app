@@ -6,6 +6,7 @@ import Button, { ButtonVariant } from "src/components/Button/Button";
 import { payment } from "../../../../components/FAQ/Accordion/content/payment";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import { Reports } from "../elements/Reports";
+import { PaymentSchedule } from "../elements/PaymentSchedule";
 
 type Props = {
   price: number;
@@ -28,7 +29,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
         Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować
         jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".
       </p>
-      <div className={clx(styles.cols)}>
+      <div className={clx(styles.cols2)}>
         <div className={styles.priceCtaWrapper}>
           <div className={styles.priceCtaBox}>
             {formattedPrice ? (
@@ -48,6 +49,9 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
               {error && <p>Error occurred while processing your request.</p>}
             </div>
           </div>
+        </div>
+        <div className={styles.scheduleWrapper}>
+          <PaymentSchedule />
         </div>
         <div className={styles.faqWrapper}></div>
       </div>

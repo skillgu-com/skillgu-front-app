@@ -6,7 +6,6 @@
 .wrapper {
   margin: auto;
   padding: 20px;
-  // max-width: 1054px;
 }
 
 .faqBox {
@@ -132,9 +131,9 @@
 }
 
 .error {
-  @extend %text-caption;
+  @extend %text-button-sm;
   margin-top: 12px;
-  color: $colour-base-800;
+  color: $colour-error-100;
 }
 
 .priceLabel {
@@ -147,6 +146,7 @@
   color: $colour-secondary;
   margin-left: 12px;
 }
+
 .scheduleWrapper {
   display: flex;
   flex-direction: column;

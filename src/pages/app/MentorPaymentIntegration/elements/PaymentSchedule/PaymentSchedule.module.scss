@@ -32,7 +32,7 @@
     right: 1px;
     bottom: 1px;
     top: 1px;
-    background-color: rgba($colour-base-200,.6);
+    background-color: rgba($colour-base-200, 0.6);
   }
 }
 
@@ -46,15 +46,18 @@
   border: 1px solid $colour-base-400;
   background-color: $colour-base-000;
 }
+
 .toogle {
   border-radius: 12px;
 }
+
 .menu {
   position: absolute;
   left: 0;
   right: 0;
   z-index: 100;
 }
+
 .option {
   border-top: none;
   cursor: pointer;
@@ -70,4 +73,10 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
+}
+
+.error {
+  @extend %text-button-sm;
+  margin-top: 12px;
+  color: $colour-error-100;
 }

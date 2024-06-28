@@ -61,7 +61,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
                 variant={ButtonVariant.Light}
                 classes={styles.paymentBtn}
               >
-                Połącz ze Stripe
+                Przejdż do Stripe
               </Button>
               <Button
                 onClick={withdrawPayment}

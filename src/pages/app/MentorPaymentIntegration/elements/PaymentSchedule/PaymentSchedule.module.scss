@@ -10,15 +10,30 @@
 
 .dropdownWrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 14px;
+
+  .btnSave {
+    font-weight: 500;
+  }
 }
+
 .dropdown {
   position: relative;
   flex-grow: 2;
+  max-width: 400px;
   min-width: 320px;
+
+  .pending {
+    position: absolute;
+    border-radius: 12px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    top: 1px;
+    background-color: rgba($colour-base-200,.6);
+  }
 }
 
 .btn {
@@ -55,10 +70,4 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
-}
-
-.error {
-  @extend %text-caption;
-  margin-top: 12px;
-  color: $colour-base-800;
 }

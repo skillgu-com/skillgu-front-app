@@ -18,7 +18,11 @@ type ScheduleType = {
   nextPayment: string;
 };
 
-export const PaymentSchedule = () => {
+export const PaymentSchedule = ({
+  setPayoff,
+}: {
+  setPayoff: (state: string) => void;
+}) => {
   const [schedule, setSchedule] = useState<ScheduleType>();
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [error, setError] = useState("");
@@ -76,6 +80,12 @@ export const PaymentSchedule = () => {
   }, []);
 
   useEffect(() => {
+    if (schedule) {
+      setPayoff(schedule?.nextPayment);
+    }
+  }, [schedule, setPayoff]);
+
+  useEffect(() => {
     setPaymentFrequency(selectedPayment);
   }, [selectedPayment]);
 
@@ -84,6 +94,7 @@ export const PaymentSchedule = () => {
       <p className={styles.scheduleLabel}>Harmonogram wypłat</p>
       <div className={styles.dropdownWrapper}>
         <Dropdown className={styles.dropdown}>
+          {isPending && <div className={styles.pending}></div>}
           <Dropdown.Toggle
             onClick={openDropdown}
             className={clx(styles.btn, styles.toogle)}
@@ -122,7 +133,6 @@ export const PaymentSchedule = () => {
         >
           Zmień
         </Button>
-
       </div>
       {true && <p className={styles.error}>{error}</p>}
     </>

@@ -10,7 +10,6 @@ import Sessions from "@icons/Sessions";
 import {Tag} from "@customTypes/tags";
 
 // Styles
-import styles from "./components/Empty/Empty.module.scss";
 import scheduleStyles from "./Schedules.module.scss";
 
 import {useSelector} from "react-redux";

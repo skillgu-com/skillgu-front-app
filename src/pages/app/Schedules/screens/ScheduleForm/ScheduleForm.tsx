@@ -1,12 +1,12 @@
 import React, {FC, useCallback, useEffect, useMemo} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Button, CircularProgress} from "@mui/material";
 import {ScheduleFormInputT} from "./_types/ScheduleFormInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
-import {createScheduleMeeting} from "@services/scheduleService";
+import {createScheduleMeeting, editMentorSchedule} from "@services/scheduleService";
 import ScheduleFormWeekDays from "./_components/ScheduleFormWeekDays/ScheduleFormWeekDays";
 
 const revalidatingTimeout: Record<string, ReturnType<typeof setTimeout>> = {};
@@ -17,7 +17,6 @@ type Props = {
 
 const ScheduleForm: FC<Props> = ({defaultValues}) => {
     const navigate = useNavigate();
-
     const {
         formState,
         control,
@@ -31,17 +30,28 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         defaultValues,
         mode: 'all',
     })
+    const {scheduleId} = useParams(); // Pobiera parametr `id` z URL
 
     const meetingLengthValue = watch('meetingLength');
 
     const onSubmit: SubmitHandler<ScheduleFormInputT> = useCallback((data) => {
-        // TODO different API call to update schedule
-        console.log(data)
-        // createScheduleMeeting(data).then(() => {
-        //     navigate('/schedules');
-        // }).catch(error => {
-        //     console.error('Error creating schedule meeting:', error.response);
-        // });
+        if (scheduleId) {
+            editMentorSchedule(scheduleId, data)
+                .then(() => {
+                    navigate('/schedules');
+                })
+                .catch(error => {
+                    console.error('Error updating schedule:', error.message);
+                });
+        } else {
+            createScheduleMeeting(data)
+                .then(() => {
+                    navigate('/schedules');
+                })
+                .catch(error => {
+                    console.error('Error creating schedule meeting:', error.message);
+                });
+        }
     }, [navigate]);
 
     const revalidate = useCallback((path: string) => () => {
@@ -78,8 +88,7 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
                 fullWidth
                 variant='contained'
                 type='submit'
-                disabled={!!Object.entries(formState.errors).length}
-            >
+                disabled={!!Object.entries(formState.errors).length}>
                 Zapisz zmiany
             </Button>
         </form>

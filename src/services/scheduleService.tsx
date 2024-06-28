@@ -156,17 +156,17 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
     }
 }
 
-export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleDTO) => {
+export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleFormInputT) => {
     try {
         const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
-            scheduleName: updatedData.scheduleName,
-            scheduleStartDay: updatedData.scheduleStartDay,
-            scheduleEndDay: updatedData.scheduleEndDay,
-            meetTime: updatedData.meetTime,
-            resign: updatedData.resign,
-            type: updatedData.type,
-            participant: updatedData.participant,
-            weekTimes: updatedData.weekTimes
+            // scheduleName: updatedData.scheduleName,
+            // scheduleStartDay: updatedData.scheduleStartDay,
+            // scheduleEndDay: updatedData.scheduleEndDay,
+            // meetTime: updatedData.meetTime,
+            // resign: updatedData.resign,
+            // type: updatedData.type,
+            // participant: updatedData.participant,
+            // weekTimes: updatedData.weekTimes
         });
         return response.data;
     } catch (error) {

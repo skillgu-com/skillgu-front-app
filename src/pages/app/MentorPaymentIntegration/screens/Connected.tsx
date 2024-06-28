@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { LinksList, LinksListRow } from "src/components/FAQ/LinksList";
 import clx from "classnames";
-import styles from "../styles.module.scss";
-import Button, { ButtonVariant } from "src/components/Button/Button";
-import { payment } from "../../../../components/FAQ/Accordion/content/payment";
-import FAQ from "src/components/FAQ/Accordion/Accordion";
+
 import { Reports } from "../elements/Reports";
+import { PaymentSchedule } from "../elements/PaymentSchedule";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import { payment } from "src/components/FAQ/Accordion/content/payment";
+import FAQ from "src/components/FAQ/Accordion/Accordion";
+import Container from "src/components/Container/Container";
+
+import styles from "../styles.module.scss";
+
+import { Tag } from "@customTypes/tags";
 
 type Props = {
   price: number;
@@ -20,37 +26,63 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
         maximumFractionDigits: 2,
       })
     : "";
+  const [payoff, setPayoff] = useState<string>();
+
+  const withdrawPayment = () => {
+    // TODO
+  };
 
   return (
-    <div className={styles.wrapper}>
+    <Container as={Tag.Section} classes={styles.wrapper}>
       <h1 className={styles.title}>Płatności</h1>
       <p className={styles.description}>
         Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować
         jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".
       </p>
-      <div className={clx(styles.cols)}>
-        <div className={styles.priceCtaWrapper}>
-          <div className={styles.priceCtaBox}>
-            {formattedPrice ? (
-              <span className={styles.priceLabel}>
+
+      <div className={styles.priceCtaWrapper}>
+        <div className={styles.priceCtaBox}>
+          {formattedPrice ? (
+            <div className={styles.flex}>
+              <p className={styles.priceLabel}>
                 Obecne saldo wynosi
                 <span className={styles.priceAmount}>{formattedPrice} zł</span>
-              </span>
-            ) : null}
-            <div>
+              </p>
+              {/* TODO */}
+              <p className={styles.payoff}>
+                Wypłata środków zaplanowana na <span>{payoff}</span>
+              </p>
+            </div>
+          ) : null}
+          <div>
+            <div className={styles.buttonWrapper}>
               <Button
                 onClick={handleCreateAccountLink}
-                fullWidth
-                variant={ButtonVariant.Primary}
+                variant={ButtonVariant.Light}
+                classes={styles.paymentBtn}
               >
                 Połącz ze Stripe
               </Button>
-              {error && <p>Error occurred while processing your request.</p>}
+              <Button
+                onClick={withdrawPayment}
+                variant={ButtonVariant.Light}
+                classes={styles.paymentBtn}
+              >
+                Wypłać
+              </Button>
             </div>
+            {error && (
+              <p className={styles.error}>
+                Error occurred while processing your request.
+              </p>
+            )}
           </div>
         </div>
-        <div className={styles.faqWrapper}></div>
+        <div className={styles.scheduleWrapper}>
+          <PaymentSchedule setPayoff={setPayoff} />
+        </div>
       </div>
+
       <section>
         <Reports />
       </section>
@@ -59,6 +91,6 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
           <FAQ title="FAQ" elements={payment} />
         </div>
       </section>
-    </div>
+    </Container>
   );
 };

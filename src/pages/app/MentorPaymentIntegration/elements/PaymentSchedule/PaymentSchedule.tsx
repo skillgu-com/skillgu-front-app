@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import clx from "classnames";
 
 import { Dropdown } from "src/components/_grouped/dropdown";
@@ -25,7 +31,7 @@ export const PaymentSchedule = ({
 }) => {
   const [schedule, setSchedule] = useState<ScheduleType>();
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
-  const [error, setError] = useState<string>("some");
+  const [error, setError] = useState<string>("");
   const [isPending, setIsPending] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const closeDropdown = () => setIsOpenDropdown(false);
@@ -62,7 +68,7 @@ export const PaymentSchedule = ({
       setError("Error occurred while getting payment schedule.");
       console.error("Error fetching payment schedule", error);
     }
-  },[setPayoff]);
+  }, [setPayoff]);
 
   const saveChanges = async () => {
     try {
@@ -81,8 +87,6 @@ export const PaymentSchedule = ({
   useEffect(() => {
     fetchSchedule();
   }, [fetchSchedule]);
-
-
 
   useEffect(() => {
     setPaymentFrequency(selectedPayment);
@@ -133,7 +137,7 @@ export const PaymentSchedule = ({
           Zmień
         </Button>
       </div>
-      {true && <p className={styles.error}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </>
   );
 };

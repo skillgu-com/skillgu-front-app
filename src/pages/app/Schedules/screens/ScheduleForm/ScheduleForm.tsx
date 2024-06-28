@@ -16,6 +16,7 @@ type Props = {
 }
 
 const ScheduleForm: FC<Props> = ({defaultValues}) => {
+    const {scheduleId} = useParams();
     const navigate = useNavigate();
     const {
         formState,
@@ -30,7 +31,7 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         defaultValues,
         mode: 'all',
     })
-    const {scheduleId} = useParams(); // Pobiera parametr `id` z URL
+
 
     const meetingLengthValue = watch('meetingLength');
 

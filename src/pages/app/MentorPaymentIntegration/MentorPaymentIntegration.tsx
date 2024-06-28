@@ -1,16 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {createStripeAccount, createStripeAccountLink, getStripeAccount,} from "@services/stripe/stripeService";
-import {Connected, NotConnected} from "./screens";
-import {Loader} from "src/components/_grouped/loader";
+import React, { useEffect, useState } from "react";
+import { createStripeAccount, createStripeAccountLink, getStripeAccount } from "@services/stripe/stripeService";
+import { Connected, NotConnected } from "./screens";
+import { CircularProgress, Box } from '@mui/material';
 
 export const MentorPaymentIntegration = () => {
-  const [initialDataPending, setInitialDataPending] = useState<boolean>(true)
-  const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
-    null
-  );
+  const [initialDataPending, setInitialDataPending] = useState<boolean>(true);
+  const [connectedAccountId, setConnectedAccountId] = useState<string | null>(null);
   const [accountCreatePending, setAccountCreatePending] = useState(false);
-  const [accountLinkCreatePending, setAccountLinkCreatePending] =
-    useState(false);
+  const [accountLinkCreatePending, setAccountLinkCreatePending] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -18,11 +15,11 @@ export const MentorPaymentIntegration = () => {
       try {
         const accountId = await getStripeAccount();
         setConnectedAccountId(accountId);
-        setInitialDataPending(false)
+        setInitialDataPending(false);
       } catch (error) {
         console.error("Error fetching Stripe account:", error);
       }
-      setInitialDataPending(false)
+      setInitialDataPending(false);
     };
 
     fetchStripeAccount();
@@ -33,7 +30,7 @@ export const MentorPaymentIntegration = () => {
       setAccountCreatePending(true);
       setError(false);
 
-      const account = await createStripeAccount(); // Załóżmy, że createStripeAccount zwraca accountId
+      const account = await createStripeAccount();
 
       setAccountCreatePending(false);
 
@@ -74,27 +71,30 @@ export const MentorPaymentIntegration = () => {
     }
   };
 
-  if(initialDataPending || accountLinkCreatePending) {
-    return ( 
-      <Loader spinner shadow overflow spinnerSize="lg" />
-    )
+  if (initialDataPending || accountLinkCreatePending) {
+    return (
+        <Box sx={{ display: 'flex', paddingTop: 6, justifyContent: 'center' }}>
+          <CircularProgress size={45} />
+        </Box>
+    );
   }
 
   if (connectedAccountId) {
     return (
-      <Connected
-        price={4700} // @TODO
-        error={error ? "Error occurred while processing your request." : ""}
-        handleCreateAccountLink={handleCreateAccountLink}
-      />
+        <Connected
+            price={4700} // @TODO
+            error={error ? "Error occurred while processing your request." : ""}
+            handleCreateAccountLink={handleCreateAccountLink}
+        />
     );
   }
 
   return (
-    <NotConnected
-      error={error ? "Error occurred while processing your request." : ""}
-      handleCreateAccount={handleCreateAccount}
-    />
+      <NotConnected
+          error={error ? "Error occurred while processing your request." : ""}
+          handleCreateAccount={handleCreateAccount}
+          accountCreatePending={accountCreatePending} // Przekazanie stanu ładowania
+      />
   );
 };
 

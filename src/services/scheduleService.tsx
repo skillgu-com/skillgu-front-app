@@ -1,6 +1,6 @@
 import axios from "axios";
 import type {ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
-import type { WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
+import type {WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
 import {format} from "date-fns";
 import {SessionDTO} from "@services/session/sessionService";
 
@@ -60,7 +60,8 @@ export const createScheduleMeeting = async (currentState: ScheduleFormInputT) =>
 };
 
 export const fetchAllSchedules = async () => {
-    return await axios.get('/api/1.0/schedule/fetch-all');
+    // TODO type response tightly and eventually parse it
+    return await axios.get<{ id: number, scheduleName: string }[]>('/api/1.0/schedule/fetch-all');
 }
 
 export const deleteSchedule = async (scheduleID: string) => {

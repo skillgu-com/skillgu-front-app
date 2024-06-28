@@ -39,12 +39,16 @@ const defaultValues: ScheduleFormInputT = {
     }, {} as Record<WeekdayT, WeekdayInputT>)
 };
 
+export const getScheduleQueryOptions = (scheduleId: string) => ({
+    queryKey: ['schedule', scheduleId],
+    queryFn: () => getScheduleFormInitialData(scheduleId),
+});
+
 const ScheduleScreen: FC = () => {
     const {scheduleId} = useParams<{ scheduleId: string | undefined }>();
 
     const {data, isLoading} = useQuery({
-        queryKey: ['schedule', scheduleId],
-        queryFn: () => getScheduleFormInitialData(scheduleId as string),
+        ...getScheduleQueryOptions(scheduleId as string),
         enabled: !!scheduleId
     })
 

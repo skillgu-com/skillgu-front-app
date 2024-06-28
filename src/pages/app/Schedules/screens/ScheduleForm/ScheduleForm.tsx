@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
 import {SubmitHandler, useForm} from "react-hook-form";
-import {Button, CircularProgress} from "@mui/material";
+import {Button} from "@mui/material";
 import {ScheduleFormInputT} from "./_types/ScheduleFormInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
 import {createScheduleMeeting} from "@services/scheduleService";

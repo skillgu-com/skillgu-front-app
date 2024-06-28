@@ -65,7 +65,7 @@ const SchedulesView = () => {
         fetchAllSchedules().then((res) => {
             const formatSchedules = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
-                    id: elementFromAPI.id,
+                    id: elementFromAPI.id.toString(),
                     dateStart: new Date(elementFromAPI?.scheduleStartDay),
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI.meetTime,
@@ -87,7 +87,7 @@ const SchedulesView = () => {
         fetchMentorSession(userFromRedux.id).then((res) => {
             const formattedSessions = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
-                    id: elementFromAPI?.id,
+                    id: elementFromAPI?.id.toString(),
                     dateStart: new Date(elementFromAPI?.scheduleStartDay),
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI?.meetTime,

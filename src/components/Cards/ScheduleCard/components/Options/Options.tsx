@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, MouseEventHandler} from 'react';
 // Icons
 import Dots from '../icons/Dots';
 // Styles
@@ -9,7 +9,8 @@ export interface Option {
   icon: React.ReactNode;
   text: string;
   onClick: (...props: any) => void;
-  className?: string
+  className?: string;
+  onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
 }
 
 interface OptionsProps {
@@ -46,7 +47,7 @@ const Options = (props: OptionsProps) => {
       </button>
       {visible && (
         <div className={styles.options}>
-          {options.map(({ icon, text, onClick, className }) => (
+          {options.map(({ icon, text, onClick, className, onMouseEnter }) => (
             <button
               key={text}
               className={clx(styles.optionsItem, className)}
@@ -54,6 +55,7 @@ const Options = (props: OptionsProps) => {
                 onClick();
                 setVisible(false);
               }}
+              onMouseEnter={onMouseEnter}
             >
               {icon}
               {text}

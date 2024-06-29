@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import clx from "classnames";
 import styles from "./MentorSessionsHistory.module.scss";
 import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
@@ -9,14 +9,15 @@ import { formatDate } from "src/utils";
 import { formatPrice } from "src/utils/price";
 import { ReportStatus, Report } from "@customTypes/reports";
 import { Status } from "src/components/_base/Status";
+import { OverflowMenu } from "src/components/_grouped/overflow-menu/OverflowMenu";
+import { OverflowMenuToggle } from "src/components/_grouped/overflow-menu/OverflowMenuToggle";
+import { OverflowMenuList } from "src/components/_grouped/overflow-menu/OverflowMenuList";
+import { OverflowMenuOption } from "src/components/_grouped/overflow-menu/OverflowMenuOption";
+import { useNavigate } from 'react-router-dom';
 
 export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
-  const pageRef = useRef<number>(sr.sessionsState.page);
-
-  console.log("SR", sr);
-  // const [data, setData] = useState<FetchMentorSessionsOutput|null>(null)
-  // const [pending, setPending] = useState<boolean>(true)
+  const pageRef = useRef<number>(0);
 
   useEffect(() => {
     const fetchData = async (page: number) => {
@@ -34,7 +35,7 @@ export const MentorSessionsHistory = () => {
       }
       sr.setPending(false);
     };
-    if (pageRef.current !== sr.sessionsState.page) {
+    if (pageRef.current === 0 || pageRef.current !== sr.sessionsState.page) {
       fetchData(sr.sessionsState.page);
       pageRef.current = sr.sessionsState.page;
     }
@@ -42,6 +43,25 @@ export const MentorSessionsHistory = () => {
 
   const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
+
+  const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
+    null
+  );
+
+  const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = e.currentTarget as HTMLButtonElement
+    const id = Number(btn.value)
+    const action = btn.name as 'suspend'|'cancel' 
+    if(id && action === 'suspend'){
+      console.log("Przełóż spotkanie o id: ", id)
+    }
+    if(id && action === 'cancel'){
+      console.log("Odwołaj spotkanie o id: ", id)
+    }
+    setOverflowMenuIndex(null)
+  }, [])
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.wrapper}>
@@ -53,11 +73,14 @@ export const MentorSessionsHistory = () => {
           <TableCell flex={3} heading text="Status" />
           <TableCell flex={3} heading text="Rodzaj" />
           <TableCell flex={4} heading text="Typ" />
+          <TableCell flex={1} heading text="" />
         </TableRow>
 
         {sessions
           ? sessions.map((s) => (
-              <TableRow key={s.id}>
+              <TableRow key={s.id} onClick={() => {
+                navigate(`/student/${s.id}`);
+              }}>
                 <TableCell flex={4}>
                   <div className={styles.userCol}>
                     <img alt={s.fullName} src={s.avatarUrl} />
@@ -80,6 +103,34 @@ export const MentorSessionsHistory = () => {
                   {s.serviceType}
                 </TableCell>
                 <TableCell flex={4}>{s.serviceName}</TableCell>
+                <TableCell flex={1} displayOverflow className={styles.dotsCell}>
+                  <OverflowMenu>
+                    <OverflowMenuToggle
+                      onClick={() => {
+                        setOverflowMenuIndex(id => {
+                          return id === s.id ? null : s.id
+                        });
+                      }}
+                    />
+                    {s.id === overflowMenuIndex ? (
+                      <OverflowMenuList>
+                        <OverflowMenuOption
+                          text="Przełóż spotkanie"
+                          onClick={handleEdit}
+                          name="suspend"
+                          value={String(s.id)}
+                        />
+                        <OverflowMenuOption
+                          text="Odwołaj"
+                          variant="danger"
+                          onClick={handleEdit}
+                          name="cancel"
+                          value={String(s.id)}
+                        />
+                      </OverflowMenuList>
+                    ) : null}
+                  </OverflowMenu>
+                </TableCell>
               </TableRow>
             ))
           : null}

@@ -73,6 +73,7 @@ wss.on("connection", (ws, req) => {
         JSON.stringify({
           type: "messages",
           payload: {
+            subtype: "prepend",
             messages: slicedBefore ? slicedBefore : all.slice(0, take),
             total: all.length,
           },
@@ -83,7 +84,7 @@ wss.on("connection", (ws, req) => {
     if (type === "send-message") {
       const { recipient, text } = payload;
       const newMsg = {
-        id: messages[String(recipient)].length,
+        id: String(messages[String(recipient)].length),
         fromId: "0",
         text,
         date: formatDate(new Date()),
@@ -94,6 +95,7 @@ wss.on("connection", (ws, req) => {
         JSON.stringify({
           type: "messages",
           payload: {
+            subtype: "append",
             messages: [newMsg],
             total: all.length,
           },

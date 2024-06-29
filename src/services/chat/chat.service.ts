@@ -78,7 +78,7 @@ class WebSocketService {
 
   public loadContacts(input?: ChatLoadContactsInput["payload"]): void {
     const phrase = input?.phrase ?? undefined;
-    const take = input?.take ?? undefined;
+    const take = input?.take ?? 10;
     const skip = input?.skip ?? undefined;
     if (this.socketRef && this.socketRef.readyState === WebSocket.OPEN) {
       this.socketRef.send(

@@ -1,4 +1,4 @@
-import { ChatContact, ChatMessage } from "@customTypes/chat";
+import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 
 export type ActionType =
   | "ADD_CONTACTS"
@@ -9,16 +9,16 @@ export type ActionType =
   | "SEND_MESSAGE";
 
 export type ChatState = {
-  contacts: ChatContact[];
-  selectedContact: ChatContact | null;
-  messages: ChatMessage[];
+  contacts: ChatContactType[];
+  selectedContact: ChatContactType | null;
+  messages: ChatMessageType[];
   phrase: string;
 };
 
 export type ChatAction =
-  | { type: "ADD_CONTACTS"; payload: { contacts: ChatContact[] } }
-  | { type: "SET_CONTACTS"; payload: { contacts: ChatContact[], phrase: string } }
-  | { type: "SELECT_CONTACT"; payload: { selectedContact: ChatContact } }
-  | { type: "ADD_MESSAGES"; payload: { messages: ChatMessage[] } }
+  | { type: "ADD_CONTACTS"; payload: { contacts: ChatContactType[] } }
+  | { type: "SET_CONTACTS"; payload: { contacts: ChatContactType[], phrase: string } }
+  | { type: "SELECT_CONTACT"; payload: { selectedContact: ChatContactType } }
+  | { type: "ADD_MESSAGES"; payload: { messages: ChatMessageType[] } }
   // | { type: "SET_PHRASE"; payload: { phrase: string } }
-  | { type: "SEND_MESSAGE"; payload: { message: ChatMessage } };
+  | { type: "SEND_MESSAGE"; payload: { message: ChatMessageType } };

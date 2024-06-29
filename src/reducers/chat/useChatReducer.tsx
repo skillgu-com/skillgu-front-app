@@ -1,15 +1,15 @@
 import { chatInitialState } from "./constants";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatState } from "./types";
-import { ChatContact, ChatMessage } from "@customTypes/chat";
+import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 import { useCallback, useMemo } from "react";
 
 type Output = {
   chatState: ChatState;
-  addContacts: (contacts: ChatContact[]) => void;
-  setContacts: (contacts: ChatContact[], phrase: string) => void;
-  selectContact: (contact: ChatContact) => void;
-  addMessages: (messages: ChatMessage[]) => void;
+  addContacts: (contacts: ChatContactType[]) => void;
+  setContacts: (contacts: ChatContactType[], phrase: string) => void;
+  selectContact: (contact: ChatContactType) => void;
+  addMessages: (messages: ChatMessageType[]) => void;
 };
 
 export const useChatReducer = (): Output => {
@@ -22,7 +22,7 @@ export const useChatReducer = (): Output => {
   const dispatch = useDispatch();
 
   const addContacts = useCallback(
-    (contacts: ChatContact[]) =>
+    (contacts: ChatContactType[]) =>
       dispatch({
         type: "ADD_CONTACTS",
         payload: {
@@ -33,7 +33,7 @@ export const useChatReducer = (): Output => {
   );
 
   const setContacts = useCallback(
-    (contacts: ChatContact[], phrase: string) =>
+    (contacts: ChatContactType[], phrase: string) =>
       dispatch({
         type: "SET_CONTACTS",
         payload: {
@@ -45,7 +45,7 @@ export const useChatReducer = (): Output => {
   );
 
   const selectContact = useCallback(
-    (selectedContact: ChatContact) =>
+    (selectedContact: ChatContactType) =>
       dispatch({
         type: "SELECT_CONTACT",
         payload: {
@@ -56,7 +56,7 @@ export const useChatReducer = (): Output => {
   );
 
   const addMessages = useCallback(
-    (messages: ChatMessage[]) =>
+    (messages: ChatMessageType[]) =>
       dispatch({
         type: "ADD_MESSAGES",
         payload: {

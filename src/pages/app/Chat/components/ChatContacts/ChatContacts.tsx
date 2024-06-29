@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
-
 import { ChatContact, ChatContactSkeleton } from "../ChatContact";
 import { SearchInput } from "src/components/SearchInput";
-
 import styles from "./ChatContacts.module.scss";
-
 import { ChatContactType } from "@customTypes/chat";
 import { useDebounce } from "src/hooks/useDebounce";
-
+ 
 type Props = {
   pending: boolean;
   contacts: ChatContactType[];

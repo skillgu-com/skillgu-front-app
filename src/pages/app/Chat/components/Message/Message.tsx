@@ -1,4 +1,4 @@
-import React, { ReactNode } from "React";
+import React, { ReactNode } from "react";
 import styles from "./Message.module.scss";
 
 export enum MessageVariant {

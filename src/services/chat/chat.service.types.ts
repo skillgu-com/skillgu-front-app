@@ -36,6 +36,7 @@ export type ChatSendMessageInput = {
 export type ChatMessagesOutput = {
   type: 'messages',
   payload: {
+    subtype: "append"|"prepend",
     messages: ChatMessageType[]
     total: number
   }  

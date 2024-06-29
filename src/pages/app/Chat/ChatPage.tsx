@@ -5,19 +5,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-
 import { ChatMessages, ChatContacts, ChatMessagesVariant } from "./components";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Title } from "src/components/typography";
 import Container from "src/components/Container/Container";
-
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 import { Tag } from "@customTypes/tags";
-
 import styles from "./ChatPage.module.scss";
-
 import WebSocketInstance from "@services/chat/chat.service";
-
 import {
   ChatContactsOutput,
   ChatMessagesOutput,
@@ -29,8 +24,9 @@ type ChatMessageWithOptimistic = ChatMessageType & {
 
 export const ChatPage = () => {
   const userId = 0;
-  const [isMobileMessageShown, setIsMobileMessageShown] =
-    useState<boolean>(false);
+  const [isMobileMessageShown, setIsMobileMessageShown] = useState<boolean>(
+    false
+  );
   const [messages, setMessages] = useState<ChatMessageWithOptimistic[]>([]);
   const [contacts, setContacts] = useState<ChatContactType[]>([]);
   const [totalContacts, setTotalContacts] = useState<number | null>(null);
@@ -40,6 +36,11 @@ export const ChatPage = () => {
   const [pendingContacts, setPendingContacts] = useState<boolean>(false);
   const [pendingMessages, setPendingMessages] = useState<boolean>(false);
   const lastMsgId = useRef<number | null>(null);
+  const unreadMessages = useMemo(() => {
+    return contacts
+      .map((c) => c.unreadMessages)
+      .reduce((sum, curr) => sum + curr, 0);
+  }, [contacts]);
 
   const sendMessage = useCallback(
     (text: string) => {
@@ -119,7 +120,6 @@ export const ChatPage = () => {
 
       WebSocketInstance.setLoadMessagesCallback(
         (data: ChatMessagesOutput["payload"]) => {
-          setPendingMessages(true);
           setTotalMessages(data.total);
           setMessages((curr) => {
             const filteredMessages: ChatMessageType[] = curr
@@ -140,14 +140,15 @@ export const ChatPage = () => {
             newMessagesList.sort((a, b) => {
               return new Date(b.date).getTime() - new Date(a.date).getTime();
             });
-            lastMsgId.current = newMessagesList[newMessagesList.length - 1].id;
+            lastMsgId.current = newMessagesList[newMessagesList.length - 1].id; //newMessagesList[0].id
+
             return newMessagesList;
           });
         }
       );
       WebSocketInstance.loadMessages({
         contactId: selected.id,
-        take: 8,
+        take: 2,
       });
       setPendingMessages(false);
     }

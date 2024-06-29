@@ -9,6 +9,8 @@
 	gap: 10px;
 	padding: 24px 20px;
 	text-decoration: none;
+    border: 1px solid $colour-base-200;
+    border-radius: 12px;
 
 	&Icon {
 		svg {

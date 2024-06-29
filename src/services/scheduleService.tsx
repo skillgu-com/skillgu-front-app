@@ -1,11 +1,8 @@
 import axios from "axios";
 import {MeetingTypeT, ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
-import {weekdays, WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
-import {addMonths, format, setHours, setMinutes} from "date-fns";
-import type {ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
+import {weekdays } from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
+import { format, setHours, setMinutes} from "date-fns";
 import type {WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
-import {format} from "date-fns";
-import {SessionDTO} from "@services/session/sessionService";
 import {WeekdayInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayInputT";
 
 type WeekTimes = Record<WeekdayT, {

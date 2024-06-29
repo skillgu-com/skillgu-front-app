@@ -58,7 +58,7 @@ const getScheduleNamesQuery = async (): Promise<DropdownOption[]> => {
     }));
 }
 
-const getSingleSessionQueryOptions = (sessionId: string) => ({
+export const getSingleSessionQueryOptions = (sessionId: string) => ({
     queryKey: ['single-session', sessionId],
     queryFn: async (): Promise<SessionFormInput> => {
         const sessionData = await getSingleSession(sessionId)

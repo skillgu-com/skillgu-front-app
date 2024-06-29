@@ -17,6 +17,11 @@
 		flex: 1;
 	}
 
+	&.disabled {
+		opacity: 0.35;
+		cursor: auto;
+	}
+
 	&Label {
 		display: flex;
 		position: relative;

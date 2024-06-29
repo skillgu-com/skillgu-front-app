@@ -10,7 +10,6 @@ import Sessions from "@icons/Sessions";
 import {Tag} from "@customTypes/tags";
 
 // Styles
-import styles from "./components/Empty/Empty.module.scss";
 import scheduleStyles from "./Schedules.module.scss";
 
 import {useSelector} from "react-redux";
@@ -68,7 +67,7 @@ const SchedulesView = () => {
                 // TODO (1) why api response is treated as ScheduleCardProps? It should be parsed to it, even if it's the same it should be explicit
                 // @ts-ignore
                 (elementFromAPI: ScheduleCardProps) => ({
-                    id: elementFromAPI.id,
+                    id: elementFromAPI.id.toString(),
                     dateStart: new Date(elementFromAPI?.scheduleStartDay),
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI.meetTime,
@@ -91,7 +90,7 @@ const SchedulesView = () => {
         fetchMentorSession(userFromRedux.id).then((res) => {
             const formattedSessions = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
-                    id: elementFromAPI?.id,
+                    id: elementFromAPI?.id.toString(),
                     dateStart: new Date(elementFromAPI?.scheduleStartDay),
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI?.meetTime,

@@ -31,6 +31,7 @@ import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
 import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
 import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffer";
+import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 import { MentorSubscriptions } from "./pages/app/MentorSubscriptions";
 
 type Route = {
@@ -126,13 +127,13 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.schedulesAddSchedule,
-        element: <ScheduleForm/>,
+        element: <ScheduleScreen/>,
         layoutVersion: "default",
         isProtected: true,
     },
     {
         path: paths.schedulesEditSchedule,
-        element: <ScheduleForm/>,
+        element: <ScheduleScreen />,
         layoutVersion: "default",
         isProtected: true,
     },
@@ -243,7 +244,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.mentorSubscriptions,
         element: <MentorSubscriptions />,
         layoutVersion: 'default',
-    },    
+    },
 ];
 
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route

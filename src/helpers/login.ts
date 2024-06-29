@@ -35,7 +35,6 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
 
 
 export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginReturn => {
-    // TODO MENTEE
     // co z rememberMe?
 
     try {

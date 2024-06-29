@@ -1,8 +1,8 @@
-import { ChatMessage } from "@customTypes/chat";
+import { ChatMessageType } from "@customTypes/chat";
 import { chatInitialState } from "./constants";
 import { type ChatAction, type ChatState } from "./types";
 
-const sortMessagesByDate = (a: ChatMessage, b: ChatMessage) => {
+const sortMessagesByDate = (a: ChatMessageType, b: ChatMessageType) => {
   const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     if (dateA < dateB) return 1;

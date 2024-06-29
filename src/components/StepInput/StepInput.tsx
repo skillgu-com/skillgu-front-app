@@ -67,4 +67,4 @@ const StepInput = (props: TimeProps) => {
 	);
 };
 
-export default StepInput;
+export default React.forwardRef(StepInput);

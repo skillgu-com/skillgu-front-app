@@ -68,7 +68,7 @@ export const Reports = () => {
 
           {data.reports
             ? data.reports.map((r) => (
-                <TableRow>
+                <TableRow key={r.id}>
                   <TableCell width="100px">{r.invoiceNo}</TableCell>
                   <TableCell flex={1}>
                     {formatDate(r.date, "DD.MM.YYYY")}

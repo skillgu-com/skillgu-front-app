@@ -12,6 +12,8 @@ import Trash from 'src/pages/app/Schedules/components/icons/Trash';
 // Styles
 import styles from './ShceduleCard.module.scss';
 import Modal from "../../Modal/Modal";
+import {useQueryClient} from "@tanstack/react-query";
+import {getScheduleQueryOptions} from "../../../pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 
 export interface ScheduleCardProps {
     id: string;
@@ -78,6 +80,15 @@ const ScheduleCard = (props: ScheduleCardProps) => {
         );
     };
 
+
+    const queryClient = useQueryClient();
+    const prefetchScheduleData = () => {
+        queryClient.prefetchQuery({
+            ...getScheduleQueryOptions(id),
+            staleTime: 1000 * 60 * 5,
+        })
+    }
+
     const handleDeleteClick = () => {
         !!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules');
         window.location.reload();
@@ -100,6 +111,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                                     text: 'Edytuj',
                                     onClick: handleEditClick,
                                     className: styles.option,
+                                    onMouseEnter: prefetchScheduleData,
                                 },
                                 {
                                     icon: <Trash/>,

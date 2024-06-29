@@ -32,10 +32,18 @@ type Props = {
 }
 
 
-const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues, isRowActivated, revalidate}: Props) => {
+const WeekTime = ({
+                      baseName,
+                      label,
+                      formControl,
+                      formClearErrors,
+                      formGetValues,
+                      isRowActivated,
+                      revalidate,
+                  }: Props) => {
     const rowFormName = `${baseName}.isActivated`;
 
-    const {errors: formErrors} = useFormState({control: formControl});
+    const formState = useFormState({control: formControl});
 
     const {fields, append, remove} = useFieldArray({
         control: formControl,
@@ -52,6 +60,8 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
     const onRemoveFactory = useCallback((idx: number) => () => remove(idx), []);
 
     const getErrorMessage = useCallback((index: number): null | string => {
+    const { errors: formErrors } = formState;
+
         const errors = get(formErrors, `${baseName}.slots`);
 
         if (!errors || !errors.length) return null;
@@ -63,12 +73,11 @@ const WeekTime = ({baseName, label, formControl, formClearErrors, formGetValues,
         if (row.dateFrom) errorsSet.add(row.dateFrom.message);
         if (row.dateTo) errorsSet.add(row.dateTo.message);
         return [...errorsSet].filter(v => !!v).join(', ');
-    }, [formErrors]);
+    }, [formState]);
 
     useEffect(() => {
         revalidate()
     }, [isRowActivated]);
-
 
     return (
         <StyledScheduleDay>

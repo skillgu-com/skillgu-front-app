@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import clx from "classnames";
 import styles from "./MentorSubscriptions.module.scss";
 import {
@@ -21,6 +21,13 @@ import Container from "src/components/Container/Container";
 import SearchSvg from "@icons/SearchSvg";
 import { SearchSvg2 } from "@icons/SearchSvg2";
 import { SkeletonRow } from "./SkeletonRow";
+import {
+  OverflowMenu,
+  OverflowMenuList,
+  OverflowMenuOption,
+  OverflowMenuToggle,
+} from "src/components/_grouped/overflow-menu";
+import { useNavigate } from "react-router-dom";
 
 const PER_PAGE = 8;
 
@@ -66,6 +73,25 @@ export const MentorSubscriptions = () => {
     };
     fetchData();
   }, [page, tab]);
+
+  const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
+    null
+  );
+
+  const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = Number(btn.value);
+    const action = btn.name as "suspend" | "cancel";
+    if (id && action === "suspend") {
+      console.log("Przełóż spotkanie o id: ", id);
+    }
+    if (id && action === "cancel") {
+      console.log("Odwołaj spotkanie o id: ", id);
+    }
+    setOverflowMenuIndex(null);
+  }, []);
+
+  const navigate = useNavigate();
 
   return (
     <Container as={Tag.Section}>
@@ -165,6 +191,38 @@ export const MentorSubscriptions = () => {
                             {s.isPro ? <CrownIcon /> : null}
                             {s.serviceName}
                           </div>
+                        </TableCell>
+                        <TableCell
+                          flex={1}
+                          displayOverflow
+                          className={styles.dotsCell}
+                        >
+                          <OverflowMenu>
+                            <OverflowMenuToggle
+                              onClick={() => {
+                                setOverflowMenuIndex((id) => {
+                                  return id === s.id ? null : s.id;
+                                });
+                              }}
+                            />
+                            {s.id === overflowMenuIndex ? (
+                              <OverflowMenuList>
+                                <OverflowMenuOption
+                                  text="Przełóż spotkanie"
+                                  onClick={handleEdit}
+                                  name="suspend"
+                                  value={String(s.id)}
+                                />
+                                <OverflowMenuOption
+                                  text="Odwołaj"
+                                  variant="danger"
+                                  onClick={handleEdit}
+                                  name="cancel"
+                                  value={String(s.id)}
+                                />
+                              </OverflowMenuList>
+                            ) : null}
+                          </OverflowMenu>
                         </TableCell>
                       </TableRow>
                     ))

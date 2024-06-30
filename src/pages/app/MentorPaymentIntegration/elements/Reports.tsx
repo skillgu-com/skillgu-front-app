@@ -63,12 +63,12 @@ export const Reports = () => {
             <TableCell flex={1} heading text="Kwota" />
             <TableCell width="167px" heading text="Status" />
             <TableCell flex={3} heading text="Sesja" />
-            <TableCell flex={3} heading />
+            <TableCell width="190px" heading />
           </TableRow>
 
           {data.reports
             ? data.reports.map((r) => (
-                <TableRow>
+                <TableRow borderTop>
                   <TableCell width="100px">{r.invoiceNo}</TableCell>
                   <TableCell flex={1}>
                     {formatDate(r.date, "DD.MM.YYYY")}
@@ -78,7 +78,7 @@ export const Reports = () => {
                   </TableCell>
                   <TableCell width="167px">{renderStatus(r.status)}</TableCell>
                   <TableCell flex={3}>{r.sessionTitle}</TableCell>
-                  <TableCell flex={3}>
+                  <TableCell width="190px" noPadding>
                     <a
                       href={r.invoiceFileUrl}
                       download={r.invoiceNo}
@@ -91,7 +91,7 @@ export const Reports = () => {
               ))
             : null}
         </Scrollable>
-        <TableRow heading>
+        <TableRow heading borderTop>
           <TableCell flex /*width="100%"*/>
             <Pagination
               name="reports-pagination"

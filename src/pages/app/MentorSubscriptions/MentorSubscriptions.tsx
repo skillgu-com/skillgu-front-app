@@ -112,7 +112,7 @@ export const MentorSubscriptions = () => {
             <a href="/payments">Raportów.</a>
           </p>
         </div>
-
+ 
         <div className={styles.body}>
           <HorizontalTabs className={styles.tabs}>
             <HorizontalTabsButton
@@ -179,7 +179,7 @@ export const MentorSubscriptions = () => {
                   <TableCell flex={3} heading text="Rodzaj" />
                   <TableCell flex={3} heading text="Typ" />
                   <TableCell
-                    width={tab === "awaiting" ? "184px" : "64px"}
+                    width={tab === "awaiting" ? "171px" : "64px"}
                     heading
                   />
                 </TableRow>
@@ -213,20 +213,18 @@ export const MentorSubscriptions = () => {
                           </div>
                         </TableCell>
                         <TableCell
-                          width={tab === "awaiting" ? "184px" : "64px"}
+                          width={tab === "awaiting" ? "171px" : "64px"}
                           displayOverflow
                           noPadding
                           className={tab === "awaiting" ? "" : styles.dotsCell}
                         >
                           {tab === "awaiting" ? (
-                            <Button 
+                            <a 
                               href={`/mentor-offer-details/${s.id}`}
-                              size="sm"
-                              fontVariant="button-md"
-                              variant={ButtonVariant.Outline}
+                              className={styles.tableBtn}
                             >
                               Zobacz aplikacje
-                            </Button>
+                            </a>
                           ) : tab === 'inactive' ? (<OverflowMenuToggle disabled />) :(
                             <OverflowMenu
                               onMouseEnter={() => {

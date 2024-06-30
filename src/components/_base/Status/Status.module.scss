@@ -13,13 +13,25 @@
 
     &::before {
         border-radius: 50%;
-        content: '';
+        content: "";
         display: block;
         height: 6px;
         left: 7px;
         position: absolute;
         width: 6px;
         z-index: 2;
+    }
+
+    &.noWrap {
+        max-width: 100%;
+
+        span {
+            max-width: 100%;
+            text-wrap: nowrap;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     &.fullWidth {
@@ -46,6 +58,15 @@
     }
 
     &.warning {
+        background-color: $colour-warning-200;
+        color: $colour-warning-100;
+
+        &::before {
+            background-color: $colour-warning-100;
+        }
+    }
+
+    &.info {
         background-color: $colour-warning-200;
         color: $colour-warning-100;
 

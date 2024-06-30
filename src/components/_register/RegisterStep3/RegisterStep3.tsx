@@ -12,6 +12,7 @@ import StepContentWrapper from "../StepContentWrapper/StepContentWrapper";
 import ProfilePictureEditor from "../../ProfilePictureEditor/ProfilePictureEditor";
 import FormInputText from "../../_form/FormInputText/FormInputText";
 import FormAutocompleteDynamic from "../../_form/FormAutocompleteDynamic/FormAutocompleteDynamic";
+import resolvePolishNumeralFactory from "../../../helpers/resolvePolishNumeralFactory";
 
 const formId = 'ProfileFormInput'
 
@@ -45,8 +46,9 @@ const RegisterStep3 = () => {
     const bioValue = watch('bio');
     const remainingCharacters = useMemo(() => {
         const count = maxBioCharacters - bioValue.length;
+        const getPolishNumeral = resolvePolishNumeralFactory('znak', 'znaki', 'znaków');
 
-        return count > 0 ? `Pozostało ${count} znaków` : `Przekroczyłeś limit znaków o ${-count}`;
+        return count > 0 ? `Pozostało ${count} ${getPolishNumeral(count)}` : `Przekroczyłeś limit znaków o ${-count}`;
     }, [bioValue])
 
 

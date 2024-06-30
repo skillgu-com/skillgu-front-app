@@ -101,3 +101,66 @@
         font-size: 20px;
     }
 }
+
+
+.emptyState {
+    max-width: 352px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 16px;
+    margin: 40px auto 48px;
+
+    div {
+        background-color: #ffe7e0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+
+    svg {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: $colour-secondary;
+    }
+
+    p {
+        @extend %text-button-lg;
+        color: $colour-base-800;
+    }
+}
+
+.dotsCell {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableBtn {
+    @extend %text-reset-button, %text-button-md;
+    color: $colour-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #E2E9FC;
+    border-radius: 8px;
+    text-wrap: nowrap;
+    margin-right: 16px;
+
+    &:hover {
+        background-color: #fff;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}

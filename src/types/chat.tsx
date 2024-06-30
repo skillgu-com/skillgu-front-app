@@ -1,4 +1,4 @@
-export type ChatContact = {
+export type ChatContactType = {
     id: number, 
     fullName: string, 
     lastMessage: string,
@@ -7,7 +7,7 @@ export type ChatContact = {
     unreadMessages: number,
 }
 
-export type ChatMessage = {
+export type ChatMessageType = {
     id: number,
     fromId: number,
     date: string,

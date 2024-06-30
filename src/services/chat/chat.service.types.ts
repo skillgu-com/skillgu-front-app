@@ -1,4 +1,4 @@
-import { ChatContact, ChatMessage } from "@customTypes/chat";
+import { ChatContactType, ChatMessageType } from "@customTypes/chat";
 
 export type ChatLoadContactsInput = {
   type: 'load-contacts',
@@ -36,7 +36,8 @@ export type ChatSendMessageInput = {
 export type ChatMessagesOutput = {
   type: 'messages',
   payload: {
-    messages: ChatMessage[]
+    subtype: "append"|"prepend",
+    messages: ChatMessageType[]
     total: number
   }  
 };
@@ -44,7 +45,7 @@ export type ChatMessagesOutput = {
 export type ChatContactsOutput = {
   type: 'contacts',
   payload: {
-    contacts: ChatContact[]
+    contacts: ChatContactType[]
     total: number
   }  
 };

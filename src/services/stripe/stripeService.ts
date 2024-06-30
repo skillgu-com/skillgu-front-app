@@ -42,3 +42,21 @@ export const createStripeAccountLink = async (accountId: string) => {
         throw error;
     }
 };
+
+export const fetchPaymentSchedule = async () => {
+    //TODO
+  
+    return {
+      options: [
+        { label: "raz w tygodniu", value: "1/w" },
+        { label: "raz na 2 tygodnie", value: "1/2w" },
+        { label: "raz w miesiącu", value: "1/m" },
+      ],
+      selected: "1/w",
+      nextPayment: "2024-10-15",
+    };
+  };
+  
+export const updatePaymentSchedule = async (selected: string) => {
+    return true;
+};

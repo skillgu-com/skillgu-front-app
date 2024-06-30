@@ -1,16 +1,22 @@
 @use "../../../../../scss/variables" as *;
 @use "../../../../../scss/font" as *;
 
-.wrapper {
-}
-
 .title {
     @extend %text-subtitle-1;
     color: $colour-primary;
     margin-bottom: 24px;
 }
 
-.grid {
+.slick {
+    margin-left: -16px;
+    margin-right: -16px;
+    overflow: hidden;
+
+    .slickItem {
+        padding-left: 16px;
+        padding-right: 16px;
+        cursor: pointer;
+    }
 }
 
 .card {
@@ -18,6 +24,8 @@
     flex-direction: column;
     gap: 12px;
     padding: 24px 16px;
+    border: 1px solid $colour-base-200;
+    border-radius: 12px;
 
     .user {
         display: flex;

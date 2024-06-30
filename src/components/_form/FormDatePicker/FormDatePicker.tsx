@@ -19,6 +19,7 @@ interface Props<T extends FieldValues> {
     customFeedback?: InputFeedbackProps[];
     inputProps?: DatePickerProps<any>;
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
+    hideError?: boolean
 }
 
 const FormDatePicker = <T extends FieldValues>({
@@ -28,7 +29,8 @@ const FormDatePicker = <T extends FieldValues>({
                                                    inputProps,
                                                    controllerProps,
                                                    label,
-                                                   formState
+                                                   formState,
+                                                   hideError
                                                }: Props<T>) => {
 
     const feedback: InputFeedbackProps[] = useMemo(() => {
@@ -52,13 +54,15 @@ const FormDatePicker = <T extends FieldValues>({
                 )}
                 {...controllerProps}
             />
-            <Collapse in={feedback && !!feedback.length}>
-                <StyledFeedbackWrapper>
-                    {feedback && feedback.map(({message, severity}, index) => {
-                        return <InputFeedback key={`${message}_${index}`} message={message} severity={severity}/>
-                    })}
-                </StyledFeedbackWrapper>
-            </Collapse>
+            {!hideError && (
+                <Collapse in={feedback && !!feedback.length}>
+                    <StyledFeedbackWrapper>
+                        {feedback && feedback.map(({message, severity}, index) => {
+                            return <InputFeedback key={`${message}_${index}`} message={message} severity={severity}/>
+                        })}
+                    </StyledFeedbackWrapper>
+                </Collapse>
+            )}
         </StyledInputWrapper>
     )
 }

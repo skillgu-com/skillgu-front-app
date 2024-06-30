@@ -48,7 +48,7 @@ export const Reports = () => {
   }, [page]);
 
   return pending ? (
-    <Loader spinner spinnerSize="lg" shadow overflow />
+    <Loader spinner spinnerSize="lg" shadow overlay='global' />
   ) : data === null ? (
     <div className={styles.alert}>
       <p>Brak danych</p>

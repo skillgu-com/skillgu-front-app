@@ -13,7 +13,13 @@ import { OverflowMenu } from "src/components/_grouped/overflow-menu/OverflowMenu
 import { OverflowMenuToggle } from "src/components/_grouped/overflow-menu/OverflowMenuToggle";
 import { OverflowMenuList } from "src/components/_grouped/overflow-menu/OverflowMenuList";
 import { OverflowMenuOption } from "src/components/_grouped/overflow-menu/OverflowMenuOption";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "src/components/_base/Spinner";
+import { Loader } from "src/components/_grouped/loader";
+import { Skeleton } from "@mui/material";
+import { SkeletonRow } from "./SkeletonRow";
+import SearchSvg from "@icons/SearchSvg";
+import { SearchSvg2 } from "@icons/SearchSvg2";
 
 export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
@@ -41,7 +47,7 @@ export const MentorSessionsHistory = () => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  const sessions = sr.sessionsState.sessions;
+  const sessions: any[] = []; //sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
@@ -49,17 +55,17 @@ export const MentorSessionsHistory = () => {
   );
 
   const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget as HTMLButtonElement
-    const id = Number(btn.value)
-    const action = btn.name as 'suspend'|'cancel' 
-    if(id && action === 'suspend'){
-      console.log("Przełóż spotkanie o id: ", id)
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = Number(btn.value);
+    const action = btn.name as "suspend" | "cancel";
+    if (id && action === "suspend") {
+      console.log("Przełóż spotkanie o id: ", id);
     }
-    if(id && action === 'cancel'){
-      console.log("Odwołaj spotkanie o id: ", id)
+    if (id && action === "cancel") {
+      console.log("Odwołaj spotkanie o id: ", id);
     }
-    setOverflowMenuIndex(null)
-  }, [])
+    setOverflowMenuIndex(null);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -76,84 +82,112 @@ export const MentorSessionsHistory = () => {
           <TableCell flex={1} heading text="" />
         </TableRow>
 
-        {sessions
-          ? sessions.map((s) => (
-              <TableRow key={s.id} onClick={() => {
-                navigate(`/student/${s.id}`);
-              }}>
-                <TableCell flex={4}>
-                  <div className={styles.userCol}>
-                    <img alt={s.fullName} src={s.avatarUrl} />
-                    <span>{s.fullName}</span>
-                  </div>
-                </TableCell>
-                <TableCell flex={3}>
-                  {formatDate(s.date, "DD.MM.YYYY")}
-                </TableCell>
-                <TableCell flex={3}>
-                  {s.status === "planned" ? (
-                    <Status variant="warning" text="Zaplanowane" />
-                  ) : s.status === "cancelled" ? (
-                    <Status variant="danger" text="Odwołana" />
-                  ) : s.status === "in-progress" ? (
-                    <Status variant="success" text="W trakcie" />
-                  ) : null}
-                </TableCell>
-                <TableCell flex={3} className={styles.capitalize}>
-                  {s.serviceType}
-                </TableCell>
-                <TableCell flex={4}>{s.serviceName}</TableCell>
-                <TableCell flex={1} displayOverflow className={styles.dotsCell}>
-                  <OverflowMenu>
-                    <OverflowMenuToggle
-                      onClick={() => {
-                        setOverflowMenuIndex(id => {
-                          return id === s.id ? null : s.id
-                        });
-                      }}
-                    />
-                    {s.id === overflowMenuIndex ? (
-                      <OverflowMenuList>
-                        <OverflowMenuOption
-                          text="Przełóż spotkanie"
-                          onClick={handleEdit}
-                          name="suspend"
-                          value={String(s.id)}
+        {sr.sessionsState.pending ? (
+          <>
+            {new Array(PER_PAGE).fill(null).map((_, i) => (
+              <SkeletonRow key={i} />
+            ))}
+          </>
+        ) : sessions.length ? (
+          <>
+            {sessions
+              ? sessions.map((s) => (
+                  <TableRow
+                    key={s.id}
+                    onClick={() => {
+                      navigate(`/student/${s.id}`);
+                    }}
+                  >
+                    <TableCell flex={4}>
+                      <div className={styles.userCol}>
+                        <img alt={s.fullName} src={s.avatarUrl} />
+                        <span>{s.fullName}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell flex={3}>
+                      {formatDate(s.date, "DD.MM.YYYY")}
+                    </TableCell>
+                    <TableCell flex={3}>
+                      {s.status === "planned" ? (
+                        <Status noWrap variant="warning" text="Zaplanowane" />
+                      ) : s.status === "cancelled" ? (
+                        <Status noWrap variant="danger" text="Odwołana" />
+                      ) : s.status === "in-progress" ? (
+                        <Status noWrap variant="success" text="W trakcie" />
+                      ) : null}
+                    </TableCell>
+                    <TableCell flex={3} className={styles.capitalize}>
+                      {s.serviceType}
+                    </TableCell>
+                    <TableCell flex={4}>{s.serviceName}</TableCell>
+                    <TableCell
+                      flex={1}
+                      displayOverflow
+                      className={styles.dotsCell}
+                    >
+                      <OverflowMenu>
+                        <OverflowMenuToggle
+                          onClick={() => {
+                            setOverflowMenuIndex((id) => {
+                              return id === s.id ? null : s.id;
+                            });
+                          }}
                         />
-                        <OverflowMenuOption
-                          text="Odwołaj"
-                          variant="danger"
-                          onClick={handleEdit}
-                          name="cancel"
-                          value={String(s.id)}
-                        />
-                      </OverflowMenuList>
-                    ) : null}
-                  </OverflowMenu>
-                </TableCell>
-              </TableRow>
-            ))
-          : null}
+                        {s.id === overflowMenuIndex ? (
+                          <OverflowMenuList>
+                            <OverflowMenuOption
+                              text="Przełóż spotkanie"
+                              onClick={handleEdit}
+                              name="suspend"
+                              value={String(s.id)}
+                            />
+                            <OverflowMenuOption
+                              text="Odwołaj"
+                              variant="danger"
+                              onClick={handleEdit}
+                              name="cancel"
+                              value={String(s.id)}
+                            />
+                          </OverflowMenuList>
+                        ) : null}
+                      </OverflowMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : null}
 
-        <TableRow heading>
-          <TableCell flex width="100%">
-            <Pagination
-              name="home-sessions-pagination"
-              current={sr.sessionsState.page}
-              last={totalPages}
-              fullWidth
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                const btn = e.currentTarget as HTMLButtonElement;
-                if (
-                  !!btn.value &&
-                  sr.sessionsState.page !== Number(btn.value)
-                ) {
-                  sr.updatePage(Number(btn.value));
-                }
-              }}
-            />
-          </TableCell>
-        </TableRow>
+            <TableRow heading>
+              <TableCell flex width="100%">
+                <Pagination
+                  name="home-sessions-pagination"
+                  current={sr.sessionsState.page}
+                  last={totalPages}
+                  fullWidth
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    if (
+                      !!btn.value &&
+                      sr.sessionsState.page !== Number(btn.value)
+                    ) {
+                      sr.updatePage(Number(btn.value));
+                    }
+                  }}
+                />
+              </TableCell>
+            </TableRow>
+          </>
+        ) : (
+          <TableRow>
+            <TableCell flex>
+              <div className={styles.emptyState}>
+                <div>
+                  <SearchSvg2 />
+                </div>
+                <p>Nie znaleziono żadnych Twoich sesji</p>
+              </div>
+            </TableCell>
+          </TableRow>
+        )}
       </Table>
     </div>
   );

@@ -19,6 +19,8 @@ import { Loader } from "src/components/_grouped/loader";
 import { Tag } from "src/types/tags";
 import Container from "src/components/Container/Container";
 import SearchSvg from "@icons/SearchSvg";
+import { SearchSvg2 } from "@icons/SearchSvg2";
+import { SkeletonRow } from "./SkeletonRow";
 
 const PER_PAGE = 8;
 
@@ -51,7 +53,7 @@ export const MentorSubscriptions = () => {
   useEffect(() => {
     const fetchData = async () => {
       setPending(true);
-      setData(null)
+      setData(null);
       const data = await fetchMentorStudents({
         take: PER_PAGE,
         skip: PER_PAGE * (page - 1),
@@ -59,8 +61,8 @@ export const MentorSubscriptions = () => {
         sortBy: "status",
         sortMethod: "ASC",
       });
-      setData(data);
-      setPending(false);
+      // setData(data);
+      // setPending(false);
     };
     fetchData();
   }, [page, tab]);
@@ -103,11 +105,22 @@ export const MentorSubscriptions = () => {
 
           <Table>
             {pending ? (
-              <Loader spinner overflow shadow spinnerSize="lg" />
+              <>
+                {new Array(PER_PAGE).fill(null).map((_, i) => (
+                  <SkeletonRow key={i} />
+                ))}
+              </>
             ) : data === null ? (
-              <div className={styles.alert}>
-                <p>Brak danych</p>
-              </div>
+              <TableRow>
+                <TableCell flex>
+                  <div className={styles.emptyState}>
+                    <div>
+                      <SearchSvg2 />
+                    </div>
+                    <p>Nie znaleziono żadnych aktywnych subskrypcji</p>
+                  </div>
+                </TableCell>
+              </TableRow>
             ) : data.students.length === 0 ? (
               <div className={styles.alert2}>
                 <div className={styles.icon}>
@@ -135,7 +148,7 @@ export const MentorSubscriptions = () => {
                             avatarAlt={s.fullName}
                             title={
                               <span className={styles.userName}>
-                                {s.fullName}asdsa
+                                {s.fullName}
                               </span>
                             }
                           />

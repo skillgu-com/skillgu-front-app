@@ -76,7 +76,7 @@ export const MentorPaymentIntegration = () => {
 
   if(initialDataPending || accountLinkCreatePending) {
     return ( 
-      <Loader spinner shadow overflow spinnerSize="lg" />
+      <Loader spinner shadow overlay='global' spinnerSize="lg" />
     )
   }
 

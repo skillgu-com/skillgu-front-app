@@ -90,11 +90,18 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       visibility: "student",
     },
     {
-      id: "subscription",
+      id: "subscription-mentor",
       label: "Subskrypcja",
       link: `/mentor-subscriptions`,
       icon: <SubscriptionIcon />,
       visibility: "mentor",
+    },
+    {
+      id: "subscription-student",
+      label: "Subskrypcja",
+      link: `/student-subscriptions`,
+      icon: <SubscriptionIcon />,
+      visibility: "student",
     },
   ].filter((item) => {
     if (

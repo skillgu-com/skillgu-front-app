@@ -1,50 +1,42 @@
-import React, { useEffect, useRef} from "react";
-import styles from "./MentorSessionsHistory.module.scss";
-import {fetchMentorSessions} from "@services/mentor/fetchMentorSessions.service";
-import {PER_PAGE, useSessionsReducer} from "src/reducers/sessions";
-import {Table, TableCell, TableRow} from "src/components/_base/Table";
-import {Pagination} from "src/components/_grouped";
-import {formatDate} from "src/utils";
-import {Status} from "src/components/_base/Status";
-import {useNavigate} from "react-router-dom";
-import {SkeletonRow} from "./SkeletonRow";
-import {SearchSvg2} from "@icons/SearchSvg2";
+import React, { useCallback, useEffect, useRef } from "react";
+import styles from "./SessionsHistory.module.scss";
+import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
+import { Table, TableCell, TableRow } from "src/components/_base/Table";
+import { Pagination } from "src/components/_grouped";
+import { formatDate } from "src/utils";
+import { Status } from "src/components/_base/Status";
+import { useNavigate } from "react-router-dom";
+import { SkeletonRow } from "./SkeletonRow";
+import { SearchSvg2 } from "@icons/SearchSvg2";
+import { Skeleton } from "@mui/material";
+import { UserIdentity } from "src/components/_base/UserIdentity";
 
-export const MentorSessionsHistory = () => {
+type Props = {
+  getProfileLink: (id: number) => string;
+};
+
+export const SessionsHistory = ({ getProfileLink }: Props) => {
   const sr = useSessionsReducer();
-  const pageRef = useRef<number>(0);
-
-  useEffect(() => {
-    const fetchData = async (page: number) => {
-      sr.setPending(true);
-      try {
-        const { students, total } = await fetchMentorSessions({
-          sortBy: "status",
-          sortMethod: "ASC",
-          skip: PER_PAGE * (page - 1),
-          take: PER_PAGE,
-        });
-        sr.updateRecords(students, total);
-      } catch (e) {
-        sr.updateStatus("Wystąpił błąd podczas pobierania danych.");
-      }
-      sr.setPending(false);
-    };
-    if (pageRef.current === 0 || pageRef.current !== sr.sessionsState.page) {
-      fetchData(sr.sessionsState.page);
-      pageRef.current = sr.sessionsState.page;
-    }
-  }, [sr, sr.sessionsState.page]);
-
   const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
-
   const navigate = useNavigate();
+
+  const handlePagination = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      if (!!btn.value && sr.sessionsState.page !== Number(btn.value)) {
+        sr.updatePage(Number(btn.value));
+      }
+    },
+    [sr]
+  );
 
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Historia Twoich sesji</h3>
-      <Table>
+
+      <Table className={styles.table}>
         <TableRow heading>
           <TableCell flex={4} heading text="Mentor" />
           <TableCell flex={3} heading text="Data" />
@@ -58,6 +50,27 @@ export const MentorSessionsHistory = () => {
             {new Array(PER_PAGE).fill(null).map((_, i) => (
               <SkeletonRow key={i} />
             ))}
+            <TableRow borderTop>
+              <TableCell flex>
+                <div className={styles.PaginationSkeleton}>
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                </div>
+              </TableCell>
+            </TableRow>
           </>
         ) : sessions.length ? (
           <>
@@ -66,14 +79,16 @@ export const MentorSessionsHistory = () => {
                   <TableRow
                     key={s.id}
                     onClick={() => {
-                      navigate(`/student/${s.id}`);
+                      navigate(getProfileLink(s.id));
                     }}
                   >
                     <TableCell flex={4}>
-                      <div className={styles.userCol}>
-                        <img alt={s.fullName} src={s.avatarUrl} />
-                        <span>{s.fullName}</span>
-                      </div>
+                      <UserIdentity
+                        avatarUrl={s.avatarUrl}
+                        avatarAlt={s.fullName}
+                        avatarSize={40}
+                        title={s.fullName}
+                      />
                     </TableCell>
                     <TableCell flex={3}>
                       {formatDate(s.date, "DD.MM.YYYY")}
@@ -102,15 +117,7 @@ export const MentorSessionsHistory = () => {
                   current={sr.sessionsState.page}
                   last={totalPages}
                   fullWidth
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    const btn = e.currentTarget as HTMLButtonElement;
-                    if (
-                      !!btn.value &&
-                      sr.sessionsState.page !== Number(btn.value)
-                    ) {
-                      sr.updatePage(Number(btn.value));
-                    }
-                  }}
+                  onClick={handlePagination}
                 />
               </TableCell>
             </TableRow>

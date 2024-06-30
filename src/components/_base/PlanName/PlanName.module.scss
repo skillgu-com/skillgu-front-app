@@ -1,0 +1,31 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
+
+.card {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+
+    &.noPadding {
+        padding: 0;
+    }
+
+    &.pillBg {
+        background-color: $colour-base-200;
+        border-radius: 50px;
+    }
+
+    svg {
+        color: $colour-secondary;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+
+    span {
+        @extend %text-button-md;
+        color: $colour-primary;
+    }
+}

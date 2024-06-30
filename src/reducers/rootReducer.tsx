@@ -11,6 +11,7 @@ import { chatReducer } from './chat';
 import {authReducer} from "./auth/authReducer";
 import { createOfferReducer } from './createOffer';
 import { sessionsReducer } from './sessions'
+import { subscriptionsReducer } from './subscriptions';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     chat: chatReducer,
     createOffer: createOfferReducer,
     sessions: sessionsReducer,
+    subscriptions: subscriptionsReducer,
     // Add other reducers if you have them
 });
 

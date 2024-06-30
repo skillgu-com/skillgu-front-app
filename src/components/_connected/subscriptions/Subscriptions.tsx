@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import clx from "classnames";
-import styles from "./MentorSubscriptions.module.scss";
+import React, {
+  ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
+import styles from "./Subscriptions.module.scss";
 import {
   HorizontalTabs,
   HorizontalTabsButton,
 } from "src/components/_base/HorizontalTabs";
 import { SubscriptionStatus } from "@customTypes/subscriptions";
-import { fetchMentorStudents } from "@services/mentor/fetchMentorStudents.service";
-import { FetchMentorStudentsOutput } from "@services/mentor/fetchMentorStudents.types";
 import { Table, TableCell, TableRow } from "src/components/_base/Table";
 import { Scrollable } from "src/components/_base/Scrollable";
 import { Pagination } from "src/components/_grouped";
@@ -15,10 +17,8 @@ import { formatDate } from "src/utils";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { CrownIcon } from "@icons/CrownIcon";
 import { Status } from "src/components/_base/Status";
-import { Loader } from "src/components/_grouped/loader";
 import { Tag } from "src/types/tags";
 import Container from "src/components/Container/Container";
-import SearchSvg from "@icons/SearchSvg";
 import { SearchSvg2 } from "@icons/SearchSvg2";
 import { SkeletonRow } from "./SkeletonRow";
 import {
@@ -28,9 +28,10 @@ import {
   OverflowMenuToggle,
 } from "src/components/_grouped/overflow-menu";
 import { useNavigate } from "react-router-dom";
-import Button, { ButtonVariant } from "src/components/Button/Button";
+import { useSubscriptionsReducer } from "src/reducers/subscriptions";
+import { Skeleton } from "@mui/material";
 
-const PER_PAGE = 8;
+const PER_PAGE = 5;
 
 const renderStatus = (status: SubscriptionStatus) => {
   switch (status) {
@@ -47,35 +48,23 @@ const renderStatus = (status: SubscriptionStatus) => {
   }
 };
 
-export const MentorSubscriptions = () => {
-  const [data, setData] = useState<FetchMentorStudentsOutput | null>(null);
-  const [page, setPage] = useState<number>(1);
-  const [pending, setPending] = useState<boolean>(true);
-  const [tab, setTab] = useState<SubscriptionStatus>("awaiting");
+type Props = {
+  title?: string;
+  subtitle?: ReactNode;
+};
 
-  const handleClick = (
+export const Subscriptions = ({ title, subtitle }: Props) => {
+  const sr = useSubscriptionsReducer();
+
+  const { role, tab, pending, errorMessage, page, total, records } =
+    sr.subscriptionsState;
+
+  const handleTabClick = (
     e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
   ) => {
     const btn = e.target as HTMLButtonElement;
-    setTab(btn.value as SubscriptionStatus);
+    sr.setTab(btn.value as SubscriptionStatus);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setPending(true);
-      setData(null);
-      const data = await fetchMentorStudents({
-        take: PER_PAGE,
-        skip: PER_PAGE * (page - 1),
-        status: tab,
-        sortBy: "status",
-        sortMethod: "ASC",
-      });
-      setData(data);
-      setPending(false);
-    };
-    fetchData();
-  }, [page, tab]);
 
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
     null
@@ -90,29 +79,32 @@ export const MentorSubscriptions = () => {
       const id = Number(btn.value);
       const action = btn.name as "suspend" | "cancel";
       if (id && action === "suspend") {
-        console.log("Przełóż spotkanie o id: ", id);
+        console.log(
+          `[Jako ${sr.subscriptionsState.role}] Przełóż spotkanie o id: `,
+          id
+        );
         // navigate('/#')
       }
       if (id && action === "cancel") {
-        console.log("Odwołaj spotkanie o id: ", id);
+        console.log(
+          `[Jako ${sr.subscriptionsState.role}] Odwołaj spotkanie o id: `,
+          id
+        );
         // navigate('/#')
       }
       setOverflowMenuIndex(null);
     },
-    [navigate]
+    [navigate, sr]
   );
 
   return (
     <Container as={Tag.Section}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <h2>Status subskrypcji Twoich studentów</h2>
-          <p>
-            Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-            <a href="/payments">Raportów.</a>
-          </p>
+          <h2>{title}</h2>
+          <p>{subtitle}</p>
         </div>
- 
+
         <div className={styles.body}>
           <HorizontalTabs className={styles.tabs}>
             <HorizontalTabsButton
@@ -120,28 +112,28 @@ export const MentorSubscriptions = () => {
               text="Oczekujące subskrypcje"
               name=""
               value="awaiting"
-              onClick={handleClick}
+              onClick={handleTabClick}
             />
             <HorizontalTabsButton
               isActive={tab === "active"}
               text="Aktywne subskrypcje"
               name=""
               value="active"
-              onClick={handleClick}
+              onClick={handleTabClick}
             />
             <HorizontalTabsButton
               isActive={tab === "suspended"}
               text="Zawieszone subskrypcje"
               name=""
               value="suspended"
-              onClick={handleClick}
+              onClick={handleTabClick}
             />
             <HorizontalTabsButton
               isActive={tab === "inactive"}
               text="Nieaktywne subskrypcje"
               name=""
               value="inactive"
-              onClick={handleClick}
+              onClick={handleTabClick}
             />
           </HorizontalTabs>
 
@@ -152,7 +144,7 @@ export const MentorSubscriptions = () => {
                   <SkeletonRow key={i} />
                 ))}
               </>
-            ) : data === null ? (
+            ) : !pending && records && records.length <= 0 ? (
               <TableRow>
                 <TableCell flex>
                   <div className={styles.emptyState}>
@@ -163,17 +155,10 @@ export const MentorSubscriptions = () => {
                   </div>
                 </TableCell>
               </TableRow>
-            ) : data.students.length === 0 ? (
-              <div className={styles.alert2}>
-                <div className={styles.icon}>
-                  <SearchSvg />
-                </div>
-                <p>Nie znaleziono żadnych aktywnych subskrypcji</p>
-              </div>
             ) : (
               <Scrollable minWidth={"980px"}>
                 <TableRow heading>
-                  <TableCell flex={4} heading text="Student" />
+                  <TableCell flex={4} heading text={role === 'M' ? "Student" : 'Mentor'} />
                   <TableCell flex={3} heading text="Data" />
                   <TableCell flex={3} heading text="Status" />
                   <TableCell flex={3} heading text="Rodzaj" />
@@ -184,9 +169,9 @@ export const MentorSubscriptions = () => {
                   />
                 </TableRow>
 
-                {data.students
-                  ? data.students.map((s) => (
-                      <TableRow>
+                {records
+                  ? records.map((s) => (
+                      <TableRow key={s.id}>
                         <TableCell flex={4}>
                           <UserIdentity
                             avatarUrl={s.avatarUrl}
@@ -201,7 +186,7 @@ export const MentorSubscriptions = () => {
                         </TableCell>
                         <TableCell flex={3}>
                           {formatDate(s.date, "DD.MM.YYYY")}
-                        </TableCell>
+                        </TableCell> 
                         <TableCell flex={3}>{renderStatus(s.status)}</TableCell>
                         <TableCell flex={3} className={styles.service}>
                           {s.serviceType}
@@ -219,13 +204,15 @@ export const MentorSubscriptions = () => {
                           className={tab === "awaiting" ? "" : styles.dotsCell}
                         >
                           {tab === "awaiting" ? (
-                            <a 
+                            <a
                               href={`/mentor-offer-details/${s.id}`}
                               className={styles.tableBtn}
                             >
                               Zobacz aplikacje
                             </a>
-                          ) : tab === 'inactive' ? (<OverflowMenuToggle disabled />) :(
+                          ) : tab === "inactive" ? (
+                            <OverflowMenuToggle disabled />
+                          ) : (
                             <OverflowMenu
                               onMouseEnter={() => {
                                 overflowMenuTimeRef.current =
@@ -279,23 +266,41 @@ export const MentorSubscriptions = () => {
               </Scrollable>
             )}
 
-            {data && data.total ? (
-              <TableRow heading borderTop>
-                <TableCell flex>
+            <TableRow heading borderTop>
+              <TableCell flex>
+                {pending ? (
+                  <div className={styles.PaginationSkeleton}>
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                  <Skeleton
+                    style={{ width: "60px" }}
+                    variant="text"
+                    sx={{ fontSize: "1em" }}
+                  />
+                </div>
+                ) : (
                   <Pagination
                     name="mentor-subscriptions-pagination"
                     current={page}
-                    last={Math.ceil(data.total / PER_PAGE)}
+                    last={Math.ceil(total / PER_PAGE)}
                     onClick={(e) => {
                       const btn = e.target as HTMLButtonElement;
-                      setPage(Number(btn.value));
+                      sr.updatePage(Number(btn.value));
                     }}
                     className={styles.pagination}
                     fullWidth
                   />
-                </TableCell>
-              </TableRow>
-            ) : null}
+                )}
+              </TableCell>
+            </TableRow>
           </Table>
         </div>
       </div>

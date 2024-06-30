@@ -20,34 +20,34 @@ export type SessionsState = {
 };
 
 export type SessionsActionType =
-  | "UPDATE_PENDING"
-  | "UPDATE_STATUS"
-  | "UPDATE_PAGE"
-  | "UPDATE_RECORDS"
-  | "RESET";
+  | "SESSIONS_UPDATE_PENDING"
+  | "SESSIONS_UPDATE_STATUS"
+  | "SESSIONS_UPDATE_PAGE"
+  | "SESSIONS_UPDATE_RECORDS"
+  | "SESSIONS_RESET";
 
 export type SessionsAction =
   | {
-      type: "UPDATE_PAGE";
+      type: "SESSIONS_UPDATE_PAGE";
       payload: {
         page: number;
       };
     }
   | {
-      type: "UPDATE_RECORDS";
+      type: "SESSIONS_UPDATE_RECORDS";
       payload: {
         totalRecords: number;
         sessions: SessionRowType[];
       };
     }
   | {
-      type: "UPDATE_PENDING";
+      type: "SESSIONS_UPDATE_PENDING";
       payload: { pending: boolean };
     }
   | {
-      type: "UPDATE_STATUS";
+      type: "SESSIONS_UPDATE_STATUS";
       payload: { errorMessage: string };
     }
   | {
-      type: "RESET";
+      type: "SESSIONS_RESET";
     };

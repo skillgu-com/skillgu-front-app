@@ -13,7 +13,11 @@ import { Tag } from "src/types/tags";
 // Styles
 import styles from "./HomePage.module.scss";
 import { fetchAllUserData } from "../../../services/userProfileService";
-import { MentorSessionsHistory, SimilarMentors } from "./sections";
+import { SimilarMentors, RecommendedMentors } from "./sections";
+import {
+  StudentSessionsHistory,
+  MentorSessionsHistory,
+} from "src/components/_connected/sessions-history";
 
 const HomePage = () => {
   const role = useSelector(getRole);
@@ -43,38 +47,40 @@ const HomePage = () => {
       });
   }, [dispatch]);
 
+// return <h1>HOM</h1>
   return (
     <div className={styles.pageWrapper}>
       {role === "S" ? (
         <>
-          <AppHeader
-            title={role === "M" ? "Witaj, mentorze! 🤓" : "Witaj Studencie!"}
-            text={
-              role === "M"
-                ? ""
-                : "Zarządzaj i sprawdzaj swoje spotkania, zadania, informacje."
-            }
-          />
-          <Container as={Tag.Main} classes={styles.wrapper}>
+          <Container as={Tag.Main} classes={styles.header}>
+            <h2 className={styles.sectionTitle}>Witaj, studencie! 🤓</h2>
             <NavSection />
+          </Container>
+
+          <Container as={Tag.Main}>
+            <RecommendedMentors />
+          </Container>
+
+          <Container as={Tag.Main}>
+            <StudentSessionsHistory />
           </Container>
         </>
       ) : null}
 
       {role === "M" ? (
         <>
-        <Container as={Tag.Main} classes={styles.header}>
-          <h2 className={styles.sectionTitle}>Witaj, mentorze! 🤓</h2>
-          <NavSection />
-        </Container>
-        
-        <Container as={Tag.Main}>
-          <SimilarMentors />
-        </Container>
-      
-        <Container as={Tag.Main}>
-          <MentorSessionsHistory />
-        </Container>
+          <Container as={Tag.Main} classes={styles.header}>
+            <h2 className={styles.sectionTitle}>Witaj, mentorze! 🤓</h2>
+            <NavSection />
+          </Container>
+
+          <Container as={Tag.Main}>
+            <SimilarMentors />
+          </Container>
+
+          <Container as={Tag.Main}>
+            <MentorSessionsHistory />
+          </Container>
         </>
       ) : null}
     </div>

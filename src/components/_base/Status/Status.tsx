@@ -7,18 +7,20 @@ type StatusVariant = "success" | "danger" | "warning";
 type Props = {
   variant: StatusVariant;
   text: string;
+  noWrap?: boolean
 };
 
-export const Status = ({ variant, text }: Props) => {
+export const Status = ({ noWrap, variant, text }: Props) => {
   return (
     <div
       className={clx(styles.status, {
         [styles.active]: variant === "success",
         [styles.inactive]: variant === "danger",
         [styles.warning]: variant === "warning",
+        [styles.noWrap]: !!noWrap,
       })}
     >
-      {text}
+      <span>{text}</span>
     </div>
   );
 };

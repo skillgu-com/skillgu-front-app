@@ -10,39 +10,37 @@ type Props = {
   spinner?: boolean;
   spinnerSize?: SpinnerSize;
   shadow?: boolean;
-  overflow?: boolean;
+  overlay?: boolean | "global";
 };
 
 export const Loader = ({
   children,
   className,
   shadow,
-  overflow,
+  overlay,
   spinner,
   spinnerSize,
 }: Props) => {
-
   const child = (
     <div
       className={clx(
         styles.loader,
         {
           [styles.shadow]: !!shadow,
-          [styles.overflow]: !!overflow,
+          [styles.overlay]: !!overlay,
+          [styles.overlayGlobal]: overlay === "global",
         },
         className
       )}
     >
       {children}
-      {spinner ? <Spinner 
-      light={overflow}
-       size={spinnerSize || "md"} /> : null}
+      {spinner ? <Spinner light={shadow} size={spinnerSize || "md"} /> : null}
     </div>
   );
 
-  if(overflow){
-    return <ClientPortal selector="loader-root">{child}</ClientPortal>
+  if (overlay === "global") {
+    return <ClientPortal selector="loader-root">{child}</ClientPortal>;
   }
 
-  return child
+  return child;
 };

@@ -30,7 +30,7 @@ export const MentorPaymentIntegration = () => {
       setAccountCreatePending(true);
       setError(false);
 
-      const account = await createStripeAccount();
+      const account = await createStripeAccount(); // Załóżmy, że createStripeAccount zwraca accountId
 
       setAccountCreatePending(false);
 
@@ -71,12 +71,10 @@ export const MentorPaymentIntegration = () => {
     }
   };
 
-  if (initialDataPending || accountLinkCreatePending) {
-    return (
-        <Box sx={{ display: 'flex', paddingTop: 6, justifyContent: 'center' }}>
-          <CircularProgress size={45} />
-        </Box>
-    );
+  if(initialDataPending || accountLinkCreatePending) {
+    return ( 
+      <Loader spinner shadow overlay='global' spinnerSize="lg" />
+    )
   }
 
   if (connectedAccountId) {

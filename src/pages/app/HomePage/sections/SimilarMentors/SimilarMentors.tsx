@@ -15,7 +15,7 @@ const settings = {
     slidesToScroll: 2,
     responsive: [
         {
-            breakpoint: 1024,
+            breakpoint: 1600,
             settings: {
                 slidesToShow: 3,
                 slidesToScroll: 2,
@@ -47,7 +47,6 @@ export const SimilarMentors = () => {
     );
 
     useEffect(() => {
-
         const fetchInitialData = async () => {
             const data = await fetchSimilarMentors({take: 8});
             setSimilar(data);
@@ -60,9 +59,9 @@ export const SimilarMentors = () => {
             <h3 className={styles.title}>Podobni do Ciebie</h3>
 
             <div className={styles.grid}>
-                <Slider {...settings}>
+                <Slider {...settings} className={styles.slick}>
                     {similar.mentors.map((m) => (
-                        <div key={m.id}>
+                        <div key={m.id} className={styles.slickItem}>
                             <div className={styles.card}>
                                 <div className={styles.user}>
                                     <img src={m.avatarUrl} alt={m.fullName}/>

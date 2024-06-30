@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createStripeAccount, createStripeAccountLink, getStripeAccount } from "@services/stripe/stripeService";
 import { Connected, NotConnected } from "./screens";
-import {Loader} from "../../../components/_grouped/loader";
+import { Loader } from "src/components/_grouped/loader";
 
 export const MentorPaymentIntegration = () => {
   const [initialDataPending, setInitialDataPending] = useState<boolean>(true);

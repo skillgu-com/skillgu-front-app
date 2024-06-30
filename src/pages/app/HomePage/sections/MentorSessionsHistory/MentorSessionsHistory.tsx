@@ -1,14 +1,24 @@
-import React, { useEffect, useRef} from "react";
+import React, { useCallback, useEffect, useRef, useState} from "react";
 import styles from "./MentorSessionsHistory.module.scss";
-import {fetchMentorSessions} from "@services/mentor/fetchMentorSessions.service";
-import {PER_PAGE, useSessionsReducer} from "src/reducers/sessions";
-import {Table, TableCell, TableRow} from "src/components/_base/Table";
-import {Pagination} from "src/components/_grouped";
-import {formatDate} from "src/utils";
-import {Status} from "src/components/_base/Status";
-import {useNavigate} from "react-router-dom";
-import {SkeletonRow} from "./SkeletonRow";
-import {SearchSvg2} from "@icons/SearchSvg2";
+import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { useSessionsReducer, PER_PAGE } from "src/reducers/sessions";
+import { Table, TableCell, TableRow } from "src/components/_base/Table";
+import { Pagination } from "src/components/_grouped";
+import { formatDate } from "src/utils";
+import { formatPrice } from "src/utils/price";
+import { ReportStatus, Report } from "@customTypes/reports";
+import { Status } from "src/components/_base/Status";
+import { OverflowMenu } from "src/components/_grouped/overflow-menu/OverflowMenu";
+import { OverflowMenuToggle } from "src/components/_grouped/overflow-menu/OverflowMenuToggle";
+import { OverflowMenuList } from "src/components/_grouped/overflow-menu/OverflowMenuList";
+import { OverflowMenuOption } from "src/components/_grouped/overflow-menu/OverflowMenuOption";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "src/components/_base/Spinner";
+import { Loader } from "src/components/_grouped/loader";
+import { Skeleton } from "@mui/material";
+import { SkeletonRow } from "./SkeletonRow";
+import SearchSvg from "@icons/SearchSvg";
+import { SearchSvg2 } from "@icons/SearchSvg2";
 
 export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
@@ -36,8 +46,25 @@ export const MentorSessionsHistory = () => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  const sessions = sr.sessionsState.sessions;
+  const sessions: any[] = []; //sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
+
+  const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
+    null
+  );
+
+  const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = Number(btn.value);
+    const action = btn.name as "suspend" | "cancel";
+    if (id && action === "suspend") {
+      console.log("Przełóż spotkanie o id: ", id);
+    }
+    if (id && action === "cancel") {
+      console.log("Odwołaj spotkanie o id: ", id);
+    }
+    setOverflowMenuIndex(null);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -91,6 +118,38 @@ export const MentorSessionsHistory = () => {
                       {s.serviceType}
                     </TableCell>
                     <TableCell flex={4}>{s.serviceName}</TableCell>
+                    <TableCell
+                      flex={1}
+                      displayOverflow
+                      className={styles.dotsCell}
+                    >
+                      <OverflowMenu>
+                        <OverflowMenuToggle
+                          onClick={() => {
+                            setOverflowMenuIndex((id) => {
+                              return id === s.id ? null : s.id;
+                            });
+                          }}
+                        />
+                        {s.id === overflowMenuIndex ? (
+                          <OverflowMenuList>
+                            <OverflowMenuOption
+                              text="Przełóż spotkanie"
+                              onClick={handleEdit}
+                              name="suspend"
+                              value={String(s.id)}
+                            />
+                            <OverflowMenuOption
+                              text="Odwołaj"
+                              variant="danger"
+                              onClick={handleEdit}
+                              name="cancel"
+                              value={String(s.id)}
+                            />
+                          </OverflowMenuList>
+                        ) : null}
+                      </OverflowMenu>
+                    </TableCell>
                   </TableRow>
                 ))
               : null}

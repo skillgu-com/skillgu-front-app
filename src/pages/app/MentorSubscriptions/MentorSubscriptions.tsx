@@ -61,8 +61,8 @@ export const MentorSubscriptions = () => {
         sortBy: "status",
         sortMethod: "ASC",
       });
-      // setData(data);
-      // setPending(false);
+      setData(data);
+      setPending(false);
     };
     fetchData();
   }, [page, tab]);

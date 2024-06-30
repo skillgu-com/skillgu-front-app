@@ -34,6 +34,11 @@
     border: 1px solid #E2E9FC;
     border-radius: 8px;
     text-wrap: nowrap;
+    margin-right: 16px;
+
+    &:hover {
+        background-color: #fff;
+    }
 
     svg {
         width: 20px;

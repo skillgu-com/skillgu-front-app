@@ -1,21 +1,16 @@
 @use "../../../../../scss/variables" as *;
 @use "../../../../../scss/font" as *;
 
-.wrapper {
-}
-
 .title {
     @extend %text-subtitle-1;
     color: $colour-primary;
     margin-bottom: 24px;
 }
 
-.grid {
-}
-
 .slick {
     margin-left: -16px;
     margin-right: -16px;
+    overflow: hidden;
 
     .slickItem {
         padding-left: 16px;

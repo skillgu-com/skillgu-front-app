@@ -7,6 +7,7 @@ import { ChatContactType } from "@customTypes/chat";
 import { useDebounce } from "src/hooks/useDebounce";
  
 type Props = {
+  selected: ChatContactType|null
   pending: boolean;
   contacts: ChatContactType[];
   total: number | null;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const ChatContacts = ({
+  selected,
   pending,
   contacts,
   total,
@@ -64,6 +66,7 @@ export const ChatContacts = ({
               key={contact.id}
               contact={contact}
               switchContact={() => switchContact(contact)}
+              isSelected={selected?.id === contact.id}
             />
           ))}
           {(total && !phrase && total > contacts.length) || pending ? (

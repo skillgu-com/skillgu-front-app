@@ -6,12 +6,33 @@ import { MoreVerticalIcon } from "@icons/MoreVerticalIcon";
 type Props = {
   children?: ReactNode;
   className?: string;
+  name?: string;
+  value?: string;
+  disabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const OverflowMenuToggle = ({ children, className, onClick }: Props) => {
+export const OverflowMenuToggle = ({
+  disabled,
+  children,
+  name,
+  value,
+  className,
+  onClick,
+}: Props) => {
   return (
-    <button onClick={onClick} className={clx(styles.toggle, className)}>
+    <button
+      name={name}
+      value={value}
+      onClick={onClick}
+      className={clx(
+        styles.toggle,
+        {
+          [styles.disabled]: disabled,
+        },
+        className
+      )}
+    >
       {children} <MoreVerticalIcon className={styles.dots} />
     </button>
   );

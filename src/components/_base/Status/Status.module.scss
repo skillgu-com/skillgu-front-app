@@ -65,4 +65,13 @@
             background-color: $colour-warning-100;
         }
     }
+
+    &.info {
+        background-color: $colour-warning-200;
+        color: $colour-warning-100;
+
+        &::before {
+            background-color: $colour-warning-100;
+        }
+    }
 }

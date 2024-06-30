@@ -50,23 +50,6 @@ export const MentorSessionsHistory = () => {
   const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
-  const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
-    null
-  );
-
-  const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget as HTMLButtonElement;
-    const id = Number(btn.value);
-    const action = btn.name as "suspend" | "cancel";
-    if (id && action === "suspend") {
-      console.log("Przełóż spotkanie o id: ", id);
-    }
-    if (id && action === "cancel") {
-      console.log("Odwołaj spotkanie o id: ", id);
-    }
-    setOverflowMenuIndex(null);
-  }, []);
-
   const navigate = useNavigate();
 
   return (
@@ -79,7 +62,6 @@ export const MentorSessionsHistory = () => {
           <TableCell flex={3} heading text="Status" />
           <TableCell flex={3} heading text="Rodzaj" />
           <TableCell flex={4} heading text="Typ" />
-          <TableCell flex={1} heading text="" />
         </TableRow>
 
         {sr.sessionsState.pending ? (
@@ -120,38 +102,6 @@ export const MentorSessionsHistory = () => {
                       {s.serviceType}
                     </TableCell>
                     <TableCell flex={4}>{s.serviceName}</TableCell>
-                    <TableCell
-                      flex={1}
-                      displayOverflow
-                      className={styles.dotsCell}
-                    >
-                      <OverflowMenu>
-                        <OverflowMenuToggle
-                          onClick={() => {
-                            setOverflowMenuIndex((id) => {
-                              return id === s.id ? null : s.id;
-                            });
-                          }}
-                        />
-                        {s.id === overflowMenuIndex ? (
-                          <OverflowMenuList>
-                            <OverflowMenuOption
-                              text="Przełóż spotkanie"
-                              onClick={handleEdit}
-                              name="suspend"
-                              value={String(s.id)}
-                            />
-                            <OverflowMenuOption
-                              text="Odwołaj"
-                              variant="danger"
-                              onClick={handleEdit}
-                              name="cancel"
-                              value={String(s.id)}
-                            />
-                          </OverflowMenuList>
-                        ) : null}
-                      </OverflowMenu>
-                    </TableCell>
                   </TableRow>
                 ))
               : null}

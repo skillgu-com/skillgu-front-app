@@ -118,38 +118,6 @@ export const MentorSessionsHistory = () => {
                       {s.serviceType}
                     </TableCell>
                     <TableCell flex={4}>{s.serviceName}</TableCell>
-                    <TableCell
-                      flex={1}
-                      displayOverflow
-                      className={styles.dotsCell}
-                    >
-                      <OverflowMenu>
-                        <OverflowMenuToggle
-                          onClick={() => {
-                            setOverflowMenuIndex((id) => {
-                              return id === s.id ? null : s.id;
-                            });
-                          }}
-                        />
-                        {s.id === overflowMenuIndex ? (
-                          <OverflowMenuList>
-                            <OverflowMenuOption
-                              text="Przełóż spotkanie"
-                              onClick={handleEdit}
-                              name="suspend"
-                              value={String(s.id)}
-                            />
-                            <OverflowMenuOption
-                              text="Odwołaj"
-                              variant="danger"
-                              onClick={handleEdit}
-                              name="cancel"
-                              value={String(s.id)}
-                            />
-                          </OverflowMenuList>
-                        ) : null}
-                      </OverflowMenu>
-                    </TableCell>
                   </TableRow>
                 ))
               : null}

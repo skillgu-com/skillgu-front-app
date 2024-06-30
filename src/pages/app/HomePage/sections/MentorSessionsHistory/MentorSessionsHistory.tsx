@@ -46,7 +46,7 @@ export const MentorSessionsHistory = () => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  const sessions: any[] = []; //sr.sessionsState.sessions;
+  const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(

@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 // Components
 // Types
@@ -8,157 +8,202 @@ import styles from './SessionForm.module.scss';
 import {fetchAllSchedules} from "@services/scheduleService";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
-import Input, {defaultInput} from "../../../../../components/Input/Input";
-import Select from "../../../../../components/Select/Select";
-import Button from "../../../../../components/Button/Button";
-import {createSession, getSessionTypes, SessionDTO, editMentorSingleSession} from "@services/session/sessionService";
+import {
+    createSession,
+    getSessionTypes,
+    SessionFormInput, getSingleSession
+} from "@services/session/sessionService";
+import {useForm} from "react-hook-form";
+import {Button} from "@mui/material";
+import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
+import FormInputSelect from "../../../../../components/_form/FormInputSelect/FormInputSelect";
+import {DropdownOption} from "@customTypes/dropdownOption";
+import Typography from "@mui/material/Typography";
+import resolvePolishNumeralFactory from "../../../../../helpers/resolvePolishNumeralFactory";
+import {useSnackbar} from "notistack";
+import {useQuery} from "@tanstack/react-query";
 
-const SessionForm = () => {
-    const [scheduleNames, setScheduleNames] = useState([]);
-    const [sessionTypes, setSessionTypes] = useState([]);
-    // const [data, setData] = useState<any>(null);
-    const [isEdit, setIsEdit] = useState<boolean>(false);
-    const {sessionId} = useParams<{ sessionId: string }>();
-    const [sessionData, setSessionData] = useState<SessionDTO>({
-        sessionName: '',
-        sessionPrice: 0,
-        sessionType: 0,
-        scheduleID:0,
-        sessionDescription: ''
-    });
+interface DirtySessionFormInput {
+    name: string;
+    price: string | number;
+    type: string | number;
+    scheduleId: string | number;
+    description: string;
+}
 
+const defaultValues: DirtySessionFormInput = {
+    name: '',
+    price: '',
+    type: '',
+    scheduleId: '',
+    description: ''
+};
 
-    const [form, setForm] = useState({
-        name: defaultInput,
-        price: defaultInput,
-        message: defaultInput,
-        type: defaultInput,
-        schedule: defaultInput,
-    });
+const maxDescriptionCharacters = 1000;
+const minDescriptionCharacters = 30;
 
-    useEffect(() => {
-        fetchAllSchedules().then(res => {
-            setScheduleNames(res.data);
-        })
-        getSessionTypes().then(res => {
-            setSessionTypes(res.data);
-        })
-    }, []);
-
-    const sessionType = sessionTypes.map((element: { id: any; name: any; }) => ({
+const getSessionTypesQuery = async (): Promise<DropdownOption[]> => {
+    const {data} = await getSessionTypes();
+    return data.map((element) => ({
         value: element.id,
         label: element.name
     }));
+}
 
-
-    const schedules = scheduleNames.map((element: { id: any; scheduleName: any; }) => ({
+const getScheduleNamesQuery = async (): Promise<DropdownOption[]> => {
+    const {data} = await fetchAllSchedules();
+    return data.map((element) => ({
         value: element.id,
         label: element.scheduleName
     }));
+}
 
+export const getSingleSessionQueryOptions = (sessionId: string) => ({
+    queryKey: ['single-session', sessionId],
+    queryFn: async (): Promise<SessionFormInput> => {
+        const sessionData = await getSingleSession(sessionId)
+        return {
+            name: sessionData.sessionName,
+            price: sessionData.sessionPrice,
+            type: sessionData.sessionType,
+            scheduleId: sessionData.scheduleID,
+            description: sessionData.sessionDescription
+        }
+    },
+})
+
+const SessionForm = () => {
+    const {sessionId} = useParams<{ sessionId: string }>();
     const navigate = useNavigate();
 
-    const updateFormHandler = (name: string, value: any) => {
-        setForm({...form, [name]: value});
-    };
+    const {data: initialData} = useQuery({
+        ...getSingleSessionQueryOptions(sessionId as string),
+        enabled: !!sessionId
+    });
 
-    const submitHandler = (e: FormEvent) => {
-        e.preventDefault();
-        createSession(form).then(() => {
-            navigate('/schedules');
-        })
-    };
+    const {enqueueSnackbar} = useSnackbar()
+    const isEdit = useMemo(() => !!sessionId, [sessionId]);
+
+    const onSubmit = async (data: SessionFormInput) => {
+        try {
+            if (isEdit) {
+                alert('ACTION on EDIT');
+                enqueueSnackbar('Sesja została zaktualizowana', {variant: 'success'});
+                navigate('/schedules');
+            } else {
+                await createSession(data);
+                enqueueSnackbar('Sesja została utworzona', {variant: 'success'});
+                navigate('/schedules');
+            }
+        } catch (error) {
+            enqueueSnackbar('Wystąpił błąd podczas zapisywania sesji', {variant: 'error'});
+        }
+    }
+
+    const {
+        control,
+        handleSubmit,
+        formState,
+        watch,
+        reset
+    } = useForm<DirtySessionFormInput, void, SessionFormInput>({
+        defaultValues,
+    })
 
     useEffect(() => {
-        if (sessionId) {
-            setIsEdit(true);
-            const fetchData = async () => {
-                try {
-                    const result = await editMentorSingleSession(sessionId, sessionData);
+        if (initialData) reset(initialData);
+    }, [initialData]);
 
-                    // setData(result);
-                } catch (error) {
-                    console.error('Error fetching schedule data:', error);
-                }
-            };
-            fetchData();
-        } else {
-            setIsEdit(false);
+    const description = watch('description');
+    const descriptionFeedback = useMemo(() => {
+        const descriptionLength = description.length;
+        const getPolishNumeral = resolvePolishNumeralFactory('znak', 'znaki', 'znaków');
+
+        if (descriptionLength === 0) {
+            return `Opis powinien mieć między ${minDescriptionCharacters} a ${maxDescriptionCharacters} ${getPolishNumeral(maxDescriptionCharacters)}`;
         }
-    }, [sessionId]);
 
-    const disabled = useMemo(() => {
-        if (
-            form.name.isValid &&
-            form.message.isValid &&
-            form.price.isValid &&
-            !!form.schedule &&
-            !!form.type
-        )
-            return false;
-        return true;
-    }, [form]);
+        if (descriptionLength < minDescriptionCharacters) {
+            const count = minDescriptionCharacters - descriptionLength;
+            return `Brakuje jeszcze ${count} ${getPolishNumeral(count)}`;
+        }
+
+        if (descriptionLength > maxDescriptionCharacters) {
+            const count = descriptionLength - maxDescriptionCharacters;
+            return `Przekroczyłeś limit znaków o ${count}`;
+        }
+
+        const count = maxDescriptionCharacters - descriptionLength;
+        return `Pozostało ${count} ${getPolishNumeral(count)}`;
+    }, [description])
 
     return (
         <Container as={Tag.Section} classes={styles.wrapper}>
-            <NavTitle>Szczegóły sesji</NavTitle>
-            <form className={styles.form} onSubmit={submitHandler}>
-                <Input
-                    id='name'
+            <NavTitle>{isEdit ? 'Edytuj sesję' : 'Utwórz nową sesję'}</NavTitle>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                <FormInputText<DirtySessionFormInput>
                     name='name'
-                    type='text'
-                    required
-                    placeholder={'nazwa sesji'}
-                    value={form.name.value}
-                    errorMessage={form.name.errorMessage}
-                    isValid={form.name.isValid}
-                    valueChangeHandler={updateFormHandler}
+                    control={control}
+                    formState={formState}
                     label='Nazwa'
+                    inputProps={{placeholder: 'nazwa sesji'}}
+                    controllerProps={{rules: {required: 'Nazwa jest wymagana'}}}
                 />
-                <Input
-                    id='price'
+                <FormInputText<DirtySessionFormInput>
                     name='price'
-                    type='number'
-                    required
-                    placeholder='100'
-                    value={form.price.value}
-                    errorMessage={form.price.errorMessage}
-                    isValid={form.price.isValid}
-                    valueChangeHandler={updateFormHandler}
+                    control={control}
+                    formState={formState}
+                    inputProps={{type: 'number', placeholder: '100'}}
                     label='Cena za sesję [zł]'
+                    controllerProps={{
+                        rules: {
+                            required: 'Cena jest wymagana',
+                            min: {value: 0, message: 'Cena nie może być ujemna'}
+                        }
+                    }}
                 />
-                <Select
-                    options={sessionType}
-                    value={form?.type?.value}
-                    valueChangeHandler={updateFormHandler}
+                <FormInputSelect
+                    label='Typ spotkania'
                     name='type'
-                    id='type'
-                    label='Sortowanie'
-                    spanLabel='Typ spotkania'
+                    control={control}
+                    formState={formState}
+                    getOptions={getSessionTypesQuery}
+                    inputProps={{placeholder: 'Wybierz typ spotkania'}}
+                    controllerProps={{rules: {required: 'Typ spotkania jest wymagany'}}}
                 />
-                <Select
-                    options={schedules}
-                    value={form?.schedule?.value}
-                    valueChangeHandler={updateFormHandler}
-                    name='schedule'
-                    id='schedule'
-                    label='nazwa harmonogramu'
-                    spanLabel='Harmonogram'
+                <FormInputSelect
+                    label='Harmonogram'
+                    name='scheduleId'
+                    control={control}
+                    formState={formState}
+                    getOptions={getScheduleNamesQuery}
+                    inputProps={{placeholder: 'Wybierz harmonogram'}}
+                    controllerProps={{rules: {required: 'Harmonogram jest wymagany'}}}
                 />
-                <Input
-                    id='message'
-                    name='message'
-                    required
-                    as='textarea'
-                    placeholder={'Opisz sesję...'}
-                    value={form.message.value}
-                    errorMessage={form.message.errorMessage}
-                    isValid={form.message.isValid}
-                    valueChangeHandler={updateFormHandler}
+                <FormInputText<DirtySessionFormInput>
+                    name='description'
+                    control={control}
+                    formState={formState}
+                    inputProps={{multiline: true, rows: 4, placeholder: 'Opisz sesję...'}}
                     label='Opis sesji'
+                    controllerProps={{
+                        rules: {
+                            required: 'Opis sesji jest wymagany',
+                            maxLength: {
+                                value: maxDescriptionCharacters,
+                                message: `Maksymalna liczba znaków to ${maxDescriptionCharacters}`
+                            },
+                            minLength: {
+                                value: minDescriptionCharacters,
+                                message: `Minimalna liczba znaków to ${minDescriptionCharacters}`
+                            }
+                        }
+                    }}
                 />
-                <Button classes={styles.formButton} fullWidth type='submit' disableButton={disabled}>
-                    Zapisz zmiany
+                <Typography variant='caption' color='base.60'>{descriptionFeedback}</Typography>
+                <Button fullWidth type='submit' variant='contained'
+                        disabled={!formState.isValid && formState.isSubmitted}>
+                    {isEdit ? 'Zapisz zmiany' : 'Utwórz sesję'}
                 </Button>
             </form>
         </Container>

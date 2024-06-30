@@ -25,7 +25,10 @@ interface Props<T extends FieldValues, OptionMetadataT> {
     formState: FormState<T>;
     getOptions: () => Promise<DropdownOption<OptionMetadataT>[]>;
     customFeedback?: Feedback[];
-    inputProps?: SelectInputProps;
+    // placeholder is nested to keep it consistent with other input components
+    inputProps?: Partial<SelectInputProps> & {
+        placeholder?: string
+    };
     controllerProps?: Omit<ControllerProps<T>, 'name' | 'control' | 'render'>;
 }
 
@@ -38,11 +41,17 @@ const FormInputSelect = <T extends FieldValues, OptionMetadataT = undefined>({
                                                                                  controllerProps,
                                                                                  label,
                                                                                  formState,
-                                                                                 getOptions
+                                                                                 getOptions,
                                                                              }: Props<T, OptionMetadataT>) => {
+
+    const {placeholder, ...selectInputProps} = inputProps || {};
 
     const [options, setOptions] = useState<DropdownOption<OptionMetadataT>[]>([]);
     const [loading, setLoading] = useState(true);
+
+    // TODO refactor it:
+    // 1. use useQuery to cache response and simplify the code
+    // 2. add possibility to use static options or split it to another component i.e. FormInputSelectStatic + FormInputSelectDynamic
 
     useEffect(() => {
         let isMounted = true;
@@ -74,8 +83,18 @@ const FormInputSelect = <T extends FieldValues, OptionMetadataT = undefined>({
             <Controller
                 name={name}
                 control={control}
-                render={({field: { ref, ...field}}) => (
-                    <Select {...field} {...inputProps} inputRef={ref}>
+                render={({field: {ref, ...field}}) => (
+                    <Select
+                        displayEmpty={!!placeholder}
+                        {...field}
+                        {...selectInputProps}
+                        inputRef={ref}
+                    >
+                        {placeholder && (
+                            <MenuItem disabled value=''>
+                                <Typography color='text.disabled'>{placeholder}</Typography>
+                            </MenuItem>
+                        )}
                         {loading ? (
                             <MenuItem disabled>Loading...</MenuItem>
                         ) : (

@@ -47,7 +47,6 @@ const HomePage = () => {
       });
   }, [dispatch]);
 
-// return <h1>HOM</h1>
   return (
     <div className={styles.pageWrapper}>
       {role === "S" ? (

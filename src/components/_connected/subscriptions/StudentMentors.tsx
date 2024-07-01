@@ -43,6 +43,7 @@ import Arrow from "@icons/Arrow";
 import { ArrowLongRight } from "@icons/ArrowLongRight";
 import clx from 'classnames'
 
+
 const PER_PAGE = 5;
 
 const renderStatus = (status: SubscriptionStatus) => {
@@ -102,6 +103,8 @@ export const StudentMentors = ({ title }: Props) => {
   const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
   const [pending, setPending] = useState<boolean>(true);
   const pageRef = useRef<number>(0);
+  const [suspending, setSuspending] = useState<number>(0)
+  const [canceling, setCanceling] = useState<number>(0)
 
   useEffect(() => {
     const fetchData = async () => {

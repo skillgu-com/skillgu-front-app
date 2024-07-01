@@ -70,7 +70,8 @@ export const MentorPaymentIntegration = () => {
         throw new Error("Empty stripe url");
       }
 
-      navigate(url);
+      // navigate(url);
+      window.location.href = url
     } catch (error) {
       console.error("Error creating Stripe account link:", error);
       setError(true);

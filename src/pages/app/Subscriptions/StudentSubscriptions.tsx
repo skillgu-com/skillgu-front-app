@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StudentMentors,
-  StudentSubscriptions,
 } from "src/components/_connected";
 import {
   StudentSessionsHistory,

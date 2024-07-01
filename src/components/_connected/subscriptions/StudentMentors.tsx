@@ -1,4 +1,10 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Subscriptions.module.scss";
 import {
   HorizontalTabs,
@@ -24,13 +30,18 @@ import {
 } from "src/components/_grouped/overflow-menu";
 import { useNavigate } from "react-router-dom";
 import { useSubscriptionsReducer } from "src/reducers/subscriptions";
-import { Skeleton } from "@mui/material";
+import { Skeleton, Typography } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PlanName } from "src/components/_base/PlanName";
 import SendArrow from "@icons/SendArrow";
 import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
+import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
+import Button from "src/components/Button/Button";
+import Arrow from "@icons/Arrow";
+import { ArrowLongRight } from "@icons/ArrowLongRight";
+import clx from 'classnames'
 
 const PER_PAGE = 5;
 
@@ -88,37 +99,26 @@ const settings = {
 };
 
 export const StudentMentors = ({ title }: Props) => {
-  const sr = useSubscriptionsReducer();
+  const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
+  const [pending, setPending] = useState<boolean>(true);
   const pageRef = useRef<number>(0);
-  const tabRef = useRef<SubscriptionStatus>('awaiting');
-
-  const { tab, page, role, pending, total, records } = sr.subscriptionsState;
 
   useEffect(() => {
     const fetchData = async () => {
-      sr.setPending(true);
       const data = await fetchStudentMentors({
         take: PER_PAGE,
-        skip: PER_PAGE * (page - 1),
-        status: tab,
-        sortBy: "status",
-        sortMethod: "ASC",
+        skip: PER_PAGE * (pageRef.current - 1),
       });
-      sr.updateRecords({
-        total: data.total,
-        records: data.mentors,
-        role: "S",
-      });
-      sr.setPending(false);
+      setData(data);
+      setPending(false);
     };
-    if (pageRef.current === 0 || pageRef.current !== page || tabRef.current !== tab) {
+    if (pageRef.current === 0) {
+      pageRef.current = 1;
       fetchData();
-      pageRef.current = page;
-      tabRef.current = tab;
     }
-  }, [page, sr, tab]);
+  }, []);
 
-  return role === "S" ? (
+  return (
     <Container as={Tag.Section}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
@@ -152,27 +152,93 @@ export const StudentMentors = ({ title }: Props) => {
               ))}
             </Slider>
           ) : null}
-          {!pending && total && records && records.length > 0 ? (
+          {!pending &&
+          data &&
+          data?.total &&
+          data.mentors &&
+          data.mentors.length > 0 ? (
             <Slider {...settings} className={styles.slick}>
-              {records.map((m) => (
-                <div key={m.id} className={styles.slickItem}>
-                  <div className={styles.card}>
-                    <UserIdentity
-                      avatarSize={56}
-                      avatarAlt={m.fullName}
-                      avatarUrl={m.avatarUrl}
-                      title={m.fullName}
-                      subtitle={
-                        <a
-                          className={styles.profileLink}
-                          href={`/mentor/${m.id}`}
-                        >
-                          Zobacz profil
-                          <SendArrow />
-                        </a>
-                      }
-                    />
-                    <PlanName plan={"basic"} planName={m.planName} />
+              {data.mentors.map((m) => (
+                <div key={m.id} className={styles.studentMentorSlickItem}>
+                  <div className={styles.studentMentorCard}>
+                    <div>
+                      <UserIdentity
+                        className={styles.userIdentity}
+                        avatarSize={56}
+                        avatarAlt={m.fullName}
+                        avatarUrl={m.avatarUrl}
+                        title={
+                          <Typography variant="buttonLg" color="secondary">
+                            {m.fullName}
+                          </Typography>
+                        }
+                        subtitle={
+                          <a
+                            className={styles.profileLink}
+                            href={`/mentor/${m.id}`}
+                          >
+                            Zobacz profil
+                            <ArrowLongRight />
+                          </a>
+                        }
+                      />
+                      <PlanName
+                        plan={m.plan}
+                        pillBg
+                        className={styles.planPill}
+                      />
+                    </div>
+                    <div className={styles.hr} />
+                    {m.status === "awaiting" ? (
+                      <>
+                        <div className={styles.cardStatus}>
+                          <Status text="Aplikacja w toku" variant="warning" />
+                          <p>
+                            Jeżeli zostanie zaakceptowana, poprosimy Cię o
+                            wybranie terminów.
+                          </p>
+                        </div>
+                        <div className={styles.buttons}>
+                          <button className={styles.btn}>Zobacz aplikację</button>
+                        </div>
+                      </>
+                    ) : null}
+                    {m.status === "rejected" ? (
+                      <>
+                        <div className={styles.cardStatus}>
+                          <Status text="Aplikacja odrzucona" variant="danger" />
+                          <p>Mentor odrzucił Twoją aplikację.</p>
+                        </div>
+                        <div className={styles.buttons}>
+                          <button className={styles.btn}>Zobacz powód odrzucenia</button>
+                        </div>
+                      </>
+                    ) : null}
+                    {m.status === "accepted" && !m.scheduled ? (
+                      <>
+                        <div className={styles.cardStatus}>
+                          <Status
+                            text="Aplikacja zaakceptowana"
+                            variant="success"
+                          />
+                          <p>
+                            Jeżeli zostanie zaakceptowana, poprosimy Cię o
+                            wybranie terminów.
+                          </p>
+                        </div>
+                        <div className={styles.buttons}>
+                          <button className={styles.btn}>Wybierz terminy spotkań</button>
+                        </div>
+                      </>
+                    ) : null}
+                    {m.status === "accepted" && m.scheduled ? (
+                      <>
+                        <div className={styles.buttons}>
+                          <button className={styles.btn}>Zawieś subskrypcję</button>
+                          <button className={clx(styles.btn, styles.btnRed)}>Zakończ subskrypcję</button>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
                 </div>
               ))}
@@ -181,5 +247,5 @@ export const StudentMentors = ({ title }: Props) => {
         </div>
       </div>
     </Container>
-  ) : null;
+  );
 };

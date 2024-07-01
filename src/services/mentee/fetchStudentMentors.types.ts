@@ -1,9 +1,10 @@
+import { SubscriptionPlan } from "@customTypes/order"
 import { SubscriptionStatus } from "@customTypes/subscriptions"
 
 export type FetchStudentMentorsInput = {
-    sortBy: 'status'
-    sortMethod: 'ASC'|'DESC'
-    status: SubscriptionStatus,
+    // sortBy: 'status'
+    // sortMethod: 'ASC'|'DESC'
+    // status: SubscriptionStatus,
     skip: number 
     take: number
 }
@@ -15,11 +16,14 @@ export type FetchStudentMentorsOutput = {
         nickname: string 
         avatarUrl: string
         fullName: string
-        date: string
-        status: SubscriptionStatus
-        serviceType: 'session'|'mentoring'
-        serviceName: string
-        isPro: boolean
-        planName: string
+        status: 'accepted'|'rejected'|'awaiting'
+        // date: string
+        // status: SubscriptionStatus
+        // serviceType: 'session'|'mentoring'
+        // serviceName: string
+        // isPro: boolean
+        // planName: string
+        plan: SubscriptionPlan
+        scheduled: boolean
     }[]
 }

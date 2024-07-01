@@ -34,6 +34,7 @@ interface CommonProps extends Common {
   size?: "sm" | "md" | "lg";
   fontVariant?: 'button-md'
   btnHref?: string;
+  noWrap?: boolean
 
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
@@ -53,7 +54,8 @@ const Button: React.FC<
     disableButton,
     size,
     fontVariant,
-    btnHref
+    btnHref,
+    noWrap,
   } = props;
 
   const as = customAs
@@ -85,12 +87,13 @@ const Button: React.FC<
           [styles.buttonSm]: size === "sm",
           [styles.buttonLg]: size === "lg",
           [styles.FontButtonMd]: fontVariant === 'button-md',
+          [styles.noWrap]: !!noWrap,
         },
         classes
       ),
       "data-variant": variant,
     };
-  }, [props, fullWidth, size, classes, variant]);
+  }, [props, fullWidth, size, classes, variant, noWrap, fontVariant]);
 
   // Returned JSX
   switch (as) {

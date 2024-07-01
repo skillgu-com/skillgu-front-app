@@ -17,9 +17,9 @@ export type FetchMentorStudentsOutput = {
         fullName: string
         date: string
         status: SubscriptionStatus
+        // status: 'in-progress'|'planned'|'cancelled'
         serviceType: 'session'|'mentoring'
         serviceName: string
         isPro: boolean
-        planName: string
     }[]
 }

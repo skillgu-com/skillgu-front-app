@@ -24,12 +24,6 @@
 	transition: background-color 0.24s, color 0.24s;
 	line-height: 180%;	
 
-	&.noWrap {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
 	&.FontButtonMd { 
 		@extend %text-button-md;
 	}

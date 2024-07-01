@@ -1,10 +1,5 @@
 import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 
-// export type OrderStatus = 'awaiting'|'rejected'|'accepted'
-// export type SubscriptionStatus = 'active'|'suspended'|'completed'
-export type SubscriptionOrderStatus = 'awaiting'|'rejected'|'active'|'suspended'|'completed'
-export type SubscriptionPlan = 'basic'|'advanced'|'pro'
-export type SessionStatus = 'planned'|'completed'|'canceled'|'suspended'
 export type ServiceType = 'session' | 'mentoring'
 
 // export type ServiceSession = {
@@ -20,7 +15,7 @@ export type ServiceMentoring = {
     title: string
     subtitle: string
     price: number
-    variant: SubscriptionPlan
+    variant: '' | 'pro'
     descriptionRows: string[]
 }
 

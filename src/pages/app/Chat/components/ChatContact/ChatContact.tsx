@@ -1,17 +1,16 @@
 import React, { MouseEventHandler } from "react";
+
 import { Avatar } from "src/components/Avatar/Avatar";
-import clx from "classnames";
+
 import styles from "./ChatContact.module.scss";
 import { ChatContactType } from "@customTypes/chat";
 
 type ChatContactProps = {
-  isSelected?: boolean;
   contact: ChatContactType;
   switchContact: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const ChatContact = ({
-  isSelected,
   contact: { avatarUrl, fullName, lastMessage, unreadMessages },
   switchContact,
 }: ChatContactProps) => {
@@ -21,12 +20,7 @@ export const ChatContact = ({
 
   return (
     <li>
-      <button
-        onClick={switchContact}
-        className={clx(styles.button, {
-          [styles.isSelected]: isSelected,
-        })}
-      >
+      <button onClick={switchContact} className={styles.button}>
         <Avatar src={avatarUrl} alt={`${fullName} avatar`} />
         <div>
           <h4 className={styles.title}>{fullName}</h4>

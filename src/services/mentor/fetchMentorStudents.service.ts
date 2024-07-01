@@ -7,11 +7,10 @@ export const fetchMentorStudents = async (
   props: FetchMentorStudentsInput
 ): Promise<FetchMentorStudentsOutput> => {
   const res = await fetch('/mentor-students.json')
-  const data = await res.json() as FetchMentorStudentsOutput['students']
-  const filtered = data.filter(d => d.status === props.status)
+  const data = await res.json() 
 
   return {
-    students: filtered.slice(props.skip, props.skip + props.take),
-    total: filtered.length,
+    students: data.slice(0, props.take),
+    total: data.length,
   };
 };

@@ -13,28 +13,28 @@ export const sessionsReducer = (
   action: SessionsAction
 ): SessionsState => {
   switch (action.type) {
-    case "SESSIONS_UPDATE_PAGE":
+    case "UPDATE_PAGE":
       return {
         ...state,
         page: parsePage(action.payload.page, PER_PAGE),
       };
-    case "SESSIONS_UPDATE_RECORDS":
+    case "UPDATE_RECORDS":
       return {
         ...state,
         totalRecords: action.payload.totalRecords,
         sessions: action.payload.sessions,
       };
-    case "SESSIONS_UPDATE_PENDING":
+    case "UPDATE_PENDING":
       return {
         ...state,
         pending: action.payload.pending,
       };
-    case "SESSIONS_UPDATE_STATUS":
+    case "UPDATE_STATUS":
       return {
         ...state,
         errorMessage: action.payload.errorMessage,
       };
-    case "SESSIONS_RESET":
+    case "RESET":
       return {
         ...sessionsInitialState,
       };

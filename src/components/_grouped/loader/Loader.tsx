@@ -5,45 +5,44 @@ import { Spinner, SpinnerSize } from "src/components/_base/Spinner";
 import { ClientPortal } from "src/components/portal";
 
 type Props = {
-  open?: boolean
   className?: string;
   children?: ReactNode;
   spinner?: boolean;
   spinnerSize?: SpinnerSize;
   shadow?: boolean;
-  overlay?: boolean | "global";
+  overflow?: boolean;
 };
 
 export const Loader = ({
-  open = true,
   children,
   className,
   shadow,
-  overlay,
+  overflow,
   spinner,
   spinnerSize,
 }: Props) => {
-  const child = open ? (
+
+  const child = (
     <div
       className={clx(
         styles.loader,
         {
-          [styles.open]: !!open,
           [styles.shadow]: !!shadow,
-          [styles.overlay]: !!overlay,
-          [styles.overlayGlobal]: overlay === "global",
+          [styles.overflow]: !!overflow,
         },
         className
       )}
     >
       {children}
-      {spinner ? <Spinner light={shadow} size={spinnerSize || "md"} /> : null}
+      {spinner ? <Spinner 
+      light={overflow}
+       size={spinnerSize || "md"} /> : null}
     </div>
-  ) : null;
+  );
 
-  if (overlay === "global") {
-    return <ClientPortal selector="loader-root">{child}</ClientPortal>;
+  if(overflow){
+    return <ClientPortal selector="loader-root">{child}</ClientPortal>
   }
 
-  return child;
+  return child
 };

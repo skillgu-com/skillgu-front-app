@@ -52,11 +52,7 @@
     justify-content: flex-start;
     gap: 21px;
     width: 100%;
-    margin-top: 48px;
-
-    @include media-lg-and-up {
-        margin-top: 36px;
-    }
+    margin-top: 36px;
 }
 
 .avatar {
@@ -131,10 +127,6 @@
         width: 20px;
         height: 20px;
     }
-}
-
-.bar2nd + .action {
-    margin-top: 12px;
 }
 
 .action {

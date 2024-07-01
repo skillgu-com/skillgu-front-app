@@ -150,7 +150,7 @@ export const ChatMessages = ({
           </div>
           <div className={styles.formBox}>
             <form onSubmit={handleSubmit} className={styles.flex}>
-              <textarea className={styles.textarea} name="text" rows={1} />
+              <textarea className={styles.textarea} name="text" />
               <Button
                 classes={styles.button}
                 variant={ButtonVariant.Primary}

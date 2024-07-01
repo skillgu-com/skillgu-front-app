@@ -5,8 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ChatMessages, ChatContacts } from "./components";
-import { ChatMessagesVariant } from "./components/ChatMessages";
+import { ChatMessages, ChatContacts, ChatMessagesVariant } from "./components";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Title } from "src/components/typography";
 import Container from "src/components/Container/Container";
@@ -216,7 +215,6 @@ export const ChatPage = () => {
         <div className={styles.gridContainer}>
           <ChatContacts
             pending={pendingContacts}
-            selected={selected}
             contacts={contacts}
             switchContact={switchContact}
             loadMoreContacts={loadMoreContacts}

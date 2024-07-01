@@ -11,6 +11,6 @@ export const fetchStudentSessions = async (
 
   return {
     total: data.length,
-    mentors: data.slice(props.skip, props.skip + props.take),
+    mentors: data.slice(0, props.take),
   };
 };

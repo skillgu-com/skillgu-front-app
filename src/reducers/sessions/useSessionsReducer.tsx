@@ -25,7 +25,7 @@ export const useSessionsReducer = (): Output => {
   const updatePage = useCallback(
     (page: number) =>
       dispatch({
-        type: "SESSIONS_UPDATE_PAGE",
+        type: "UPDATE_PAGE",
         payload: {
           page,
         },
@@ -36,7 +36,7 @@ export const useSessionsReducer = (): Output => {
   const updateRecords = useCallback(
     (sessions: SessionRowType[], totalRecords: number) =>
       dispatch({
-        type: "SESSIONS_UPDATE_RECORDS",
+        type: "UPDATE_RECORDS",
         payload: {
           totalRecords,
           sessions,
@@ -48,7 +48,7 @@ export const useSessionsReducer = (): Output => {
   const setPending = useCallback(
     (pending: boolean) =>
       dispatch({
-        type: "SESSIONS_UPDATE_PENDING",
+        type: "UPDATE_PENDING",
         payload: {
           pending,
         },
@@ -59,7 +59,7 @@ export const useSessionsReducer = (): Output => {
   const updateStatus = useCallback(
     (errorMessage: string) =>
       dispatch({
-        type: "SESSIONS_UPDATE_STATUS",
+        type: "UPDATE_STATUS",
         payload: {
           errorMessage: errorMessage || undefined,
         },
@@ -70,7 +70,7 @@ export const useSessionsReducer = (): Output => {
   const reset = useCallback(
     () =>
       dispatch({
-        type: "SESSIONS_RESET",
+        type: "RESET",
       }),
     [dispatch]
   );

@@ -12,7 +12,6 @@ interface TableListCellProps {
   displayOverflow?: boolean;
   text?: string
   heading?: boolean
-  noPadding?: boolean
   primary?: boolean
   width?: string
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -29,7 +28,6 @@ export const TableCell = ({
   heading,
   primary,
   width,
-  noPadding,
   onClick,
 }: TableListCellProps) => {
   const style: Record<string, string | number> = {};
@@ -42,6 +40,7 @@ export const TableCell = ({
     style.width = width;
   }
   
+
   return (
     <div
       data-index={index}
@@ -59,7 +58,6 @@ export const TableCell = ({
           [styles.DisplayOverflow]: displayOverflow,
           [styles.heading]: heading,
           [styles.primary]: primary,
-          [styles.noPadding]: noPadding,          
         },
         className,
       )}

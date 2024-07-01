@@ -1,1 +1,1 @@
-export type SubscriptionStatus = 'awaiting'|'active'|'inactive'|'suspended'
+export type SubscriptionStatus = 'active'|'inactive'|'suspended'

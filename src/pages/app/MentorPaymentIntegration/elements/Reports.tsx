@@ -48,7 +48,7 @@ export const Reports = () => {
   }, [page]);
 
   return pending ? (
-    <Loader spinner spinnerSize="lg" shadow overlay='global' />
+    <Loader spinner spinnerSize="lg" shadow overflow />
   ) : data === null ? (
     <div className={styles.alert}>
       <p>Brak danych</p>
@@ -63,12 +63,12 @@ export const Reports = () => {
             <TableCell flex={1} heading text="Kwota" />
             <TableCell width="167px" heading text="Status" />
             <TableCell flex={3} heading text="Sesja" />
-            <TableCell width="190px" heading />
+            <TableCell flex={3} heading />
           </TableRow>
 
           {data.reports
             ? data.reports.map((r) => (
-                <TableRow key={r.id} borderTop>
+                <TableRow key={r.id}>
                   <TableCell width="100px">{r.invoiceNo}</TableCell>
                   <TableCell flex={1}>
                     {formatDate(r.date, "DD.MM.YYYY")}
@@ -78,7 +78,7 @@ export const Reports = () => {
                   </TableCell>
                   <TableCell width="167px">{renderStatus(r.status)}</TableCell>
                   <TableCell flex={3}>{r.sessionTitle}</TableCell>
-                  <TableCell width="190px" noPadding>
+                  <TableCell flex={3}>
                     <a
                       href={r.invoiceFileUrl}
                       download={r.invoiceNo}
@@ -91,7 +91,7 @@ export const Reports = () => {
               ))
             : null}
         </Scrollable>
-        <TableRow heading borderTop>
+        <TableRow heading>
           <TableCell flex /*width="100%"*/>
             <Pagination
               name="reports-pagination"

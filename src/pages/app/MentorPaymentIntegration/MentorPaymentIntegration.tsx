@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  createStripeAccount,
-  createStripeAccountLink,
-  getStripeAccount,
-} from "@services/stripe/stripeService";
+import { createStripeAccount, createStripeAccountLink, getStripeAccount } from "@services/stripe/stripeService";
 import { Connected, NotConnected } from "./screens";
-import { Loader } from "src/components/_grouped/loader";
-import { useNavigate } from "react-router-dom";
+import { CircularProgress, Box } from '@mui/material';
 
 export const MentorPaymentIntegration = () => {
   const [initialDataPending, setInitialDataPending] = useState<boolean>(true);
-  const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
-    null
-  );
+  const [connectedAccountId, setConnectedAccountId] = useState<string | null>(null);
   const [accountCreatePending, setAccountCreatePending] = useState(false);
-  const [accountLinkCreatePending, setAccountLinkCreatePending] =
-    useState(false);
+  const [accountLinkCreatePending, setAccountLinkCreatePending] = useState(false);
   const [error, setError] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStripeAccount = async () => {
@@ -40,7 +30,7 @@ export const MentorPaymentIntegration = () => {
       setAccountCreatePending(true);
       setError(false);
 
-      const account = await createStripeAccount(); // Załóżmy, że createStripeAccount zwraca accountId
+      const account = await createStripeAccount();
 
       setAccountCreatePending(false);
 
@@ -57,54 +47,54 @@ export const MentorPaymentIntegration = () => {
   };
 
   const handleCreateAccountLink = async () => {
-    setAccountLinkCreatePending(true);
-    setError(false);
     try {
+      setAccountLinkCreatePending(true);
+      setError(false);
+
       if (!connectedAccountId) {
         throw new Error("No connected account id available"); // Obsługa błędu, jeśli nie ma ID konta
       }
 
       const url = await createStripeAccountLink(connectedAccountId);
 
-      if (!url) {
-        throw new Error("Empty stripe url");
-      }
+      setAccountLinkCreatePending(false);
 
-      // navigate(url);
-      window.location.href = url
+      if (url) {
+        window.location.href = url; // Przekierowanie do Stripe
+      } else {
+        setError(true);
+      }
     } catch (error) {
       console.error("Error creating Stripe account link:", error);
       setError(true);
+      setAccountLinkCreatePending(false);
     }
-    setAccountLinkCreatePending(false);
   };
 
-  return (
-    <>
-      <Loader
-        open={!!(accountLinkCreatePending || initialDataPending)}
-        spinner
-        shadow
-        overlay="global"
-        spinnerSize="lg"
-      />
+  if (initialDataPending || accountLinkCreatePending) {
+    return (
+        <Box sx={{ display: 'flex', paddingTop: 6, justifyContent: 'center' }}>
+          <CircularProgress size={45} />
+        </Box>
+    );
+  }
 
-      {connectedAccountId ? (
+  if (connectedAccountId) {
+    return (
         <Connected
-          price={4700} // @TODO
-          error={error ? "Error occurred while processing your request." : ""}
-          handleCreateAccountLink={handleCreateAccountLink}
+            price={4700} // @TODO
+            error={error ? "Error occurred while processing your request." : ""}
+            handleCreateAccountLink={handleCreateAccountLink}
         />
-      ) : null}
+    );
+  }
 
-      {!connectedAccountId && !initialDataPending ? (
-        <NotConnected
+  return (
+      <NotConnected
           error={error ? "Error occurred while processing your request." : ""}
           handleCreateAccount={handleCreateAccount}
           accountCreatePending={accountCreatePending} // Przekazanie stanu ładowania
-        />
-      ) : null}
-    </>
+      />
   );
 };
 

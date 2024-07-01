@@ -1,1 +1,2 @@
-export * from './OtherMentors'
+export * from './MentorSessionsHistory'
+export * from './SimilarMentors'

@@ -1,13 +1,5 @@
 import axios from "axios";
 
-export interface SessionFormInput {
-    name: string;
-    price: number;
-    type: number;
-    scheduleId: number;
-    description: string;
-}
-
 export interface SessionDTO {
     sessionName: string;
     sessionPrice: number;
@@ -16,22 +8,15 @@ export interface SessionDTO {
     sessionDescription: string;
 }
 
-const parseSessionFormDataToSessionDTO = (session: SessionFormInput): SessionDTO => {
-    return {
-        sessionName: session.name,
-        sessionPrice: session.price,
-        sessionType: session.type,
-        scheduleID: session.scheduleId,
-        sessionDescription: session.description
-    }
-}
+export const createSession = async (session: any) => {
 
-export const createSession = async (session: SessionFormInput) => {
-    return await axios.post('/api/1.0/session', parseSessionFormDataToSessionDTO(session));
-}
-
-export const editSession = async ({ sessionId, session }: { sessionId: string, session: SessionFormInput }) => {
-    return await axios.post(`/api/1.0/session/${sessionId}`, parseSessionFormDataToSessionDTO(session));
+    return await axios.post('/api/1.0/session', {
+        sessionName: session?.name.value,
+        sessionPrice: session?.price.value,
+        sessionType: session?.type,
+        scheduleID: session?.schedule,
+        sessionDescription: session?.message.value
+    });
 }
 
 export const getSessionNumber = async () => {
@@ -43,25 +28,13 @@ export const fetchMentorSession = async (userID: any) => {
 }
 
 export const getSessionTypes = async () => {
-    // TODO type response tightly and eventually parse it
-    return await axios.get<{id: number, name: string}[]>('/api/session-types/get-all')
+    return await axios.get('/api/session-types/get-all')
 }
 
 export const deleteSession = async (sessionId: any) => {
     return await axios.post(`/api/1.0/session/delete/${sessionId}`);
 };
 
-export const getSingleSession = async (sessionId: string | number): Promise<SessionDTO> => {
-    // return await axios.get(`/api/1.0/session/delete/${sessionId}`);
-
-    return {
-        sessionName: 'test',
-        sessionPrice: 220,
-        sessionType: 1,
-        scheduleID: 1,
-        sessionDescription: 'test'
-    }
-};
 
 export const editMentorSingleSession = async (sessionId: string, updatedData: SessionDTO) => {
     try {

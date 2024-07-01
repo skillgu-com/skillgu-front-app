@@ -22,8 +22,8 @@
 .dropdown {
   position: relative;
   flex-grow: 2;
-  width: 400px;
-  max-width: 100%;
+  max-width: 400px;
+  min-width: 320px;
 
   .pending {
     position: absolute;
@@ -49,12 +49,6 @@
 
 .toogle {
   border-radius: 12px;
-  max-width: 100%;
-
-  p {
-    width: calc(100% - 20px);
-    text-align: left;
-  }
 }
 
 .menu {

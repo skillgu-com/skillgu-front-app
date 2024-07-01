@@ -1,0 +1,138 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.main {
+  min-height: calc(100vh - 74px);
+  @include media-md-and-up {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-items: center;
+    padding: 24px 0;
+  }
+}
+
+// Templates
+
+.containerOuter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: calc(100vh - 64px);
+  max-width: 700px;
+  padding: 24px 4px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  @include media-md-and-up {
+    justify-content: center;
+    width: 95%;
+    height: fit-content;
+    padding: 32px 8px;
+    border: 1px solid $colour-base-400;
+    border-radius: 8px;
+  }
+
+  .title {
+    @extend %text-heading-3;
+    color: $colour-primary;
+    margin-top: 32px;
+
+    @include media-lg-and-up {
+      font-size: 28px !important;
+    }
+  }
+
+  .subtitle {
+    @extend %text-button-md;
+    color: $colour-base-800;
+    margin: 20px 0 32px 0;
+  }
+
+  .progressBar {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    .step {
+      width: 100%;
+      height: 8px;
+      background-color: $colour-secondary;
+      border-radius: 50px;
+      opacity: 0.15;
+      &[data-variant="active"] {
+        opacity: 1;
+      }
+    }
+  }
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex-grow: 2;
+
+    & > div:first-child {
+      flex-grow: 2;
+    }
+  }
+
+  //  --------
+
+  .btnBox {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    @include media-lg-and-up {
+      flex-direction: row;
+      gap: 24px;
+    }
+    button {
+      @extend %text-button-md;
+    }
+  }
+}
+
+//
+.radioBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.legend {
+  @extend %text-subtitle-1;
+  color: $colour-primary;
+  margin-bottom: 24px;
+}
+
+.summaryImgBox {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 16px;
+  > img {
+    max-width: 90%;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+// Build steps
+.plansWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  @include media-lg-and-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}

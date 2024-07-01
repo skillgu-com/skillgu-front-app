@@ -1,4 +1,3 @@
-
 export type FetchRecommendedMentorsInput = {
     take: number
 }
@@ -6,10 +5,10 @@ export type FetchRecommendedMentorsInput = {
 export type FetchRecommendedMentorsOutput = {
     mentors: {
         id: number
-        userName: string
+        nickname: string 
         avatarUrl: string
         fullName: string
         profession: string
-        skill: string[]
+        tags: string[]
     }[]
 }

@@ -14,7 +14,6 @@ import styles from './ShceduleCard.module.scss';
 import Modal from "../../Modal/Modal";
 import {useQueryClient} from "@tanstack/react-query";
 import {getScheduleQueryOptions} from "../../../pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
-import {getSingleSessionQueryOptions} from "../../../pages/app/Schedules/screens/SessionForm/SessionForm";
 
 export interface ScheduleCardProps {
     id: string;
@@ -53,10 +52,7 @@ export interface ScheduleCardProps {
     };
 }
 
-const prefetchStaleTime = 1000 * 60 * 5;
-
 const ScheduleCard = (props: ScheduleCardProps) => {
-    // TODO refactor it to use separate components (eventually share common components) - composition over conditions hell
     if (!!!props.schedule && !!!props.session)
         throw new Error('One of parameters schedule or session is required!');
 
@@ -89,19 +85,8 @@ const ScheduleCard = (props: ScheduleCardProps) => {
     const prefetchScheduleData = () => {
         queryClient.prefetchQuery({
             ...getScheduleQueryOptions(id),
-            staleTime: prefetchStaleTime,
+            staleTime: 1000 * 60 * 5,
         })
-    }
-    const prefetchSessionData = () => {
-        queryClient.prefetchQuery({
-            ...getSingleSessionQueryOptions(id),
-            staleTime: prefetchStaleTime,
-        })
-    }
-
-    const prefetchData = () => {
-        if (!!schedule) prefetchScheduleData()
-        else prefetchSessionData()
     }
 
     const handleDeleteClick = () => {
@@ -126,7 +111,7 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                                     text: 'Edytuj',
                                     onClick: handleEditClick,
                                     className: styles.option,
-                                    onMouseEnter: prefetchData,
+                                    onMouseEnter: prefetchScheduleData,
                                 },
                                 {
                                     icon: <Trash/>,

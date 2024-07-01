@@ -5,7 +5,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ChatMessages, ChatContacts, ChatMessagesVariant } from "./components";
+import { ChatMessages, ChatContacts } from "./components";
+import { ChatMessagesVariant } from "./components/ChatMessages";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { Title } from "src/components/typography";
 import Container from "src/components/Container/Container";

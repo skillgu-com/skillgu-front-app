@@ -1,6 +1,15 @@
 @use "../../../scss/variables" as *;
 @use "../../../scss/font" as *;
 
+.PaginationSkeleton {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -65,7 +74,7 @@
     .icon {
         width: 48px;
         height: 48px;
-        background-color: #FFE7E0;
+        background-color: #ffe7e0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -76,7 +85,6 @@
             color: $colour-secondary;
         }
     }
-  
 
     p {
         @extend %text-button-lg;
@@ -101,7 +109,6 @@
         font-size: 20px;
     }
 }
-
 
 .emptyState {
     max-width: 352px;
@@ -150,7 +157,7 @@
     justify-content: center;
     gap: 8px;
     padding: 8px 16px;
-    border: 1px solid #E2E9FC;
+    border: 1px solid #e2e9fc;
     border-radius: 8px;
     text-wrap: nowrap;
     margin-right: 16px;
@@ -162,5 +169,91 @@
     svg {
         width: 20px;
         height: 20px;
+    }
+}
+
+.studentMentorSlickItem {
+    padding-right: 32px;
+    
+    .studentMentorCard {
+        display: flex;
+        padding: 32px 24px;
+        gap: 24px;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-start;
+        border: 1px solid $colour-base-200;
+        min-height: 316px;
+    }
+
+    .profileLink {
+        @extend %text-button-md;
+        color: $colour-secondary;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        text-decoration: none;
+        text-align: left;
+
+        svg {
+            font-size: 24px;
+        }
+    }
+
+    .userIdentity {
+        padding: 0;
+        margin-bottom: 16px;
+    }
+
+    .planPill {
+    }
+
+    .hr {
+        border-top: 1px solid $colour-base-200;
+        width: 100%;
+    }
+
+    .buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .btn {
+        @extend %text-button-md;
+        color: $colour-base-800;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid $colour-base-200;
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $colour-base-200;
+        }
+    }
+
+    .btnRed {
+        color: $colour-error-100;
+    }
+
+    .cardStatus {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 8px;
+        flex-direction: column;
+
+        p {
+            @extend %text-caption;
+            color: $colour-base-800;
+            min-height: 44px;
+        }
     }
 }

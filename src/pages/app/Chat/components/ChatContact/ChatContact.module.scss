@@ -19,6 +19,15 @@
   text-align: left;
   background-color: transparent;
   cursor: pointer;
+  padding: 4px;
+
+  &:hover {
+    background-color: $colour-base-200;
+  }
+
+  &.isSelected {
+    background-color: $colour-base-400;
+  }
 }
 
 .message {

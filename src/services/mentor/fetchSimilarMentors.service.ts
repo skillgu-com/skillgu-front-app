@@ -21,8 +21,6 @@ export const fetchSimilarMentors = async (props: FetchSimilarMentorsInput): Prom
     const response = await axios.get('/mentor/home/mentors/similar');
     const data = response.data;
 
-    console.log('similar mentors are: TEST ', data)
-
     return {
       mentors: data.slice(0, props.take),
     };

@@ -5,7 +5,7 @@ import styles from "./UserIdentity.module.scss";
 interface UserProfileCardProps {
   className?: string;
   avatarUrl?: string;
-  avatarSize?: 40 | 48;
+  avatarSize?: 40 | 48 | 56;
   avatarAlt?: string;
   avatar?: ReactNode;
   title?: string | ReactNode;

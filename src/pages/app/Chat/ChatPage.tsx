@@ -215,6 +215,7 @@ export const ChatPage = () => {
         <div className={styles.gridContainer}>
           <ChatContacts
             pending={pendingContacts}
+            selected={selected}
             contacts={contacts}
             switchContact={switchContact}
             loadMoreContacts={loadMoreContacts}

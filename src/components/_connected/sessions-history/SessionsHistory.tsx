@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useRef } from "react";
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./SessionsHistory.module.scss";
 import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
@@ -26,6 +26,24 @@ export const SessionsHistory = ({
   const sr = useSessionsReducer();
   const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
+
+  const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
+    null
+  );
+
+  const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = Number(btn.value);
+    const action = btn.name as "suspend" | "cancel";
+    if (id && action === "suspend") {
+      console.log("Przełóż spotkanie o id: ", id);
+    }
+    if (id && action === "cancel") {
+      console.log("Odwołaj spotkanie o id: ", id);
+    }
+    setOverflowMenuIndex(null);
+  }, []);
+
   const navigate = useNavigate();
 
   const handlePagination = useCallback(

@@ -77,6 +77,11 @@
   margin-top: 24px;
 }
 
+.textarea,
+.button {
+  height: 39px;
+}
+
 .msgBox {
   margin-top: 24px;
 }
@@ -93,13 +98,18 @@
   @extend %text-caption;
   line-height: 1.2;
   flex-grow: 2;
-  padding: 4px 24px;
+  padding: 10px 24px;
   border-radius: 50px;
   background-color: $colour-base-400;
   border: 1px solid $colour-base-400;
   color: $colour-base-800;
   outline: none;
   scrollbar-width: none;
+  resize: none;
+  box-sizing: border-box;
+  overflow: auto; 
+  width: 100%;
+  min-height: calc(1.2em * 1 + 10px * 2);
 
   &::-webkit-scrollbar {
     display: none;

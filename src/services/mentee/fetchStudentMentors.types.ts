@@ -25,5 +25,6 @@ export type FetchStudentMentorsOutput = {
         // planName: string
         plan: SubscriptionPlan
         scheduled: boolean
+        paidUntil: string
     }[]
 }

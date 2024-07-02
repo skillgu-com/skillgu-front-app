@@ -7,6 +7,15 @@ export type SubscriptionPlan = 'basic'|'advanced'|'pro'
 export type SessionStatus = 'planned'|'completed'|'canceled'|'suspended'
 export type ServiceType = 'session' | 'mentoring'
 
+export type MentorshipOrderInput = {
+    planId: number
+    selectedGoals: string[];
+    timezone: string;
+    location: string;
+    description: string;
+    questions: string;
+}
+
 // export type ServiceSession = {
 //     id: string
 //     title: string

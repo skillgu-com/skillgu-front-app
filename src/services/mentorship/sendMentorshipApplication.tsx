@@ -1,15 +1,8 @@
-type Props = {
-    planId: number
-    selectedGoals: string[];
-    timezone: string;
-    location: string;
-    description: string;
-    questions: string;
-}
+import { MentorshipOrderInput } from "@customTypes/order";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const sendMentorshipApplication = async (props: Props) : Promise<boolean> => {
+export const sendMentorshipApplication = async (props: MentorshipOrderInput) : Promise<boolean> => {
     await delay(1000);
 
     return true

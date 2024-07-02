@@ -1,53 +1,22 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, {useCallback, useEffect, useRef, useState,} from "react";
 import styles from "./Subscriptions.module.scss";
-import {
-  HorizontalTabs,
-  HorizontalTabsButton,
-} from "src/components/_base/HorizontalTabs";
-import { SubscriptionStatus } from "@customTypes/subscriptions";
-import { Table, TableCell, TableRow } from "src/components/_base/Table";
-import { Scrollable } from "src/components/_base/Scrollable";
-import { Pagination } from "src/components/_grouped";
-import { formatDate } from "src/utils";
-import { UserIdentity } from "src/components/_base/UserIdentity";
-import { CrownIcon } from "@icons/CrownIcon";
-import { Status } from "src/components/_base/Status";
-import { Tag } from "src/types/tags";
+import {SubscriptionStatus} from "@customTypes/subscriptions";
+import {UserIdentity} from "src/components/_base/UserIdentity";
+import {Status} from "src/components/_base/Status";
+import {Tag} from "src/types/tags";
 import Container from "src/components/Container/Container";
-import { SearchSvg2 } from "@icons/SearchSvg2";
-import { SkeletonRow } from "./SkeletonRow";
-import {
-  OverflowMenu,
-  OverflowMenuList,
-  OverflowMenuOption,
-  OverflowMenuToggle,
-} from "src/components/_grouped/overflow-menu";
-import { useNavigate } from "react-router-dom";
-import { useSubscriptionsReducer } from "src/reducers/subscriptions";
-import { Skeleton, Typography } from "@mui/material";
+import {Skeleton, Typography} from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { PlanName } from "src/components/_base/PlanName";
-import SendArrow from "@icons/SendArrow";
-import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
-import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
-import Button from "src/components/Button/Button";
-import Arrow from "@icons/Arrow";
-import { ArrowLongRight } from "@icons/ArrowLongRight";
+import {PlanName} from "src/components/_base/PlanName";
+import {fetchStudentMentors} from "@services/mentee/fetchStudentMentors.service";
+import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
+import {ArrowLongRight} from "@icons/ArrowLongRight";
 import clx from "classnames";
-import { ClientPortal } from "src/components/portal";
-import { SubscriptionPlan } from "@customTypes/order";
-import Modal from "src/components/Modal/Modal";
-import { MentorshipFeedbackModal } from "../mentorship-feedback/MentorshipFeedbackModal";
-import { cancelMentorship } from "@services/mentorship/cancelMentorship";
-import { suspendMentorship } from "@services/mentorship/suspendMentorship";
+import {SubscriptionPlan} from "@customTypes/order";
+import {cancelMentorship} from "@services/mentorship/cancelMentorship";
+import {suspendMentorship} from "@services/mentorship/suspendMentorship";
 
 
 const PER_PAGE = 5;
@@ -119,8 +88,7 @@ export const StudentMentors = ({ title }: Props) => {
   const [suspending, setSuspending] = useState<MentorShort | null>(null);
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
-  const [suspending, setSuspending] = useState<number>(0)
-  const [canceling, setCanceling] = useState<number>(0)
+
 
   useEffect(() => {
     const fetchData = async () => {

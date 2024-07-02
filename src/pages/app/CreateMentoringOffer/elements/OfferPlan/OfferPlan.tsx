@@ -63,13 +63,13 @@ export const OfferPlan = ({
               <DropdownIcon />
             </p>
           </li>
-          {data?.additional &&
-            data.additional.map((item) => (
-              <li className={styles.listItem}>
-                <ListStyleIcon />
-                <p className={styles.box}>{item}</p>
-              </li>
-            ))}
+          {data?.additional.map((item, ind) => (
+            // TODO - key
+            <li className={styles.listItem} key={ind}>
+              <ListStyleIcon />
+              <p className={styles.box}>{item}</p>
+            </li>
+          ))}
         </ul>
         <p className={styles.addNew}>
           <Add />

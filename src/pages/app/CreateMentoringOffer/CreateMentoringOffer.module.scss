@@ -84,8 +84,26 @@
     }
   }
 
-  //  --------
+  //  Initial-------
 
+  .imgBox {
+    position: relative;
+    & img:last-child {
+      position: absolute;
+      right: 20px;
+      top: 160px;
+      @media (min-width: 480px) {
+        left: 200px;
+      }
+      @media (min-width: $lg) {
+        width: 193px;
+        height: 59px;
+
+        right: initial;
+        top: 40px;
+      }
+    }
+  }
   .btnBox {
     display: flex;
     flex-direction: column;

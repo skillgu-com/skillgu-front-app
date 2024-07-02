@@ -17,7 +17,7 @@ export const Initial = ({ step }: { step: string }) => {
       subtitle="Twoje plany, które zaraz utworzysz będą się pojawiały po prawej stronie Twojego profilu."
       step={1}
     >
-      <div>
+      <div className={styles.imgBox}>
         <img
           //width="308.33px"
           height="600px"
@@ -25,8 +25,8 @@ export const Initial = ({ step }: { step: string }) => {
           alt="woman payment"
         />
         <img
-          width="193pxpx"
-          height="59px"
+          width="177px"
+          height="54.13px"
           src="/images/mentoring-text.svg"
           alt="woman payment"
         />

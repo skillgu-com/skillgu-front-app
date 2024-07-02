@@ -24,20 +24,7 @@
   }
 }
 
-.containerSchedule {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  height: 90px;
 
-  .box {
-    @extend %text-body-2;
-    height: 50px;
-    justify-content: space-between;
-    color: $colour-base-800;
-  }
-}
 .containerPlan {
   width: 100%;
   padding: 24px 20px;
@@ -125,6 +112,8 @@
     display: flex;
     align-items: center;
     gap:12px;
+    background-color: transparent;
     color: $colour-secondary;
+    cursor:pointer;
   }
 }

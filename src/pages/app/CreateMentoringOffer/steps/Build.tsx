@@ -7,6 +7,7 @@ import { CreateOfferTemplates } from "../CreateOfferTemplates";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { RadioButton } from "../elements/RadioButton";
 import { OfferPlan } from "../elements/OfferPlan";
+import DropdownIcon from "@icons/DropdownIcon";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -21,25 +22,50 @@ export const Build = () => {
         step={3}
       >
         <div className={styles.plansWrapper}>
-          <OfferPlan
-            title="Plan podstawowy"
-            subtitle="Harmonogram dla Planu Podstawowego"
-            data={co.createOfferState.base}
-          />
-          {co.createOfferState.numberOfPlans > 2 ? (
+          <div>
+            <div className={styles.containerSchedule}>
+              <p className={styles.scheduleSubtitle}>
+                Harmonogram dla Planu Podstawowego
+              </p>
+              <p className={styles.box}>
+                <span>{co.createOfferState.base?.schedule}</span>
+                <DropdownIcon />
+              </p>
+            </div>
             <OfferPlan
-              title="Plan zaawansowany"
-              subtitle="Harmonogram dla Planu Zaawansowanego"
-              data={co.createOfferState.advanced}
+              title="Plan podstawowy"
+              data={co.createOfferState.base}
             />
+          </div>
+
+          {co.createOfferState.numberOfPlans > 2 ? (
+            <div>
+              <div className={styles.containerSchedule}>
+                <p className={styles.scheduleSubtitle}>
+                  Harmonogram dla Planu Zaawansowanego
+                </p>
+                <p className={styles.box}>
+                  <span>{co.createOfferState.advanced?.schedule}</span>
+                  <DropdownIcon />
+                </p>
+              </div>
+              <OfferPlan
+                title="Plan zaawansowany"
+                data={co.createOfferState.advanced}
+              />
+            </div>
           ) : null}
           {co.createOfferState.numberOfPlans > 1 && (
-            <OfferPlan
-              title="Plan pro"
-              subtitle="Harmonogram dla Planu Pro"
-              data={co.createOfferState.pro}
-              pro
-            />
+            <div>
+              <div className={styles.containerSchedule}>
+                <p className={styles.scheduleSubtitle}>Harmonogram dla Planu Pro</p>
+                <p className={styles.box}>
+                  <span>{co.createOfferState.pro?.schedule}</span>
+                  <DropdownIcon />
+                </p>
+              </div>
+              <OfferPlan title="Plan pro" data={co.createOfferState.pro} pro />
+            </div>
           )}
         </div>
 

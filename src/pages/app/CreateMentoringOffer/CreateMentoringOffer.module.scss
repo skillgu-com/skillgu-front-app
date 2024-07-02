@@ -149,8 +149,33 @@
 .plansWrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 32px 12px;
   @include media-lg-and-up {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .containerSchedule {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    height: 90px;
+
+    .scheduleSubtitle {
+      @extend %text-button-md;
+      color: $colour-primary;
+    }
+    .box {
+      @extend %text-body-2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $colour-base-800;
+      gap: 10px;
+      height: 50px;
+      padding: 8px 12px;
+      border: 1px solid $colour-base-400;
+      border-radius: 8px;
+    }
   }
 }

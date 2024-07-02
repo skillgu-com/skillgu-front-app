@@ -12,23 +12,14 @@ import Add from "@icons/Add";
 export const OfferPlan = ({
   data,
   title,
-  subtitle,
   pro,
 }: {
   title: string;
-  subtitle: string;
   data: PlanInput;
   pro?: boolean;
 }) => {
   return (
     <Container as={Tag.Section} classes={styles.container}>
-      <div className={styles.containerSchedule}>
-        <p className={styles.subtitle}>{subtitle}</p>
-        <p className={styles.box}>
-          <span>{data?.schedule}</span>
-          <DropdownIcon />
-        </p>
-      </div>
       <div className={styles.containerPlan} data-variant={pro ? "pro" : null}>
         <h4 className={styles.title}>
           {title} <span>{pro && <ProPlanIcon />}</span>
@@ -71,10 +62,10 @@ export const OfferPlan = ({
             </li>
           ))}
         </ul>
-        <p className={styles.addNew}>
+        <button className={styles.addNew}>
           <Add />
           Dodaj kolejny punkt
-        </p>
+        </button>
       </div>
     </Container>
   );

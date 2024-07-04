@@ -1,1 +1,22 @@
-.wrapper {}
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.modal {
+  & h3 {
+    margin-top: 60px;
+    @include media-lg-and-up {
+      font-size: 28px !important;
+      margin-top: 72px;
+    }
+  }
+
+  .info {
+    @extend %text-body-1;
+    color: $colour-base-800;
+    margin-bottom: 20px;
+  }
+  .wrapper {
+    max-width: 580px;
+  }
+}

@@ -38,7 +38,8 @@ import { PlanName } from "src/components/_base/PlanName";
 import SendArrow from "@icons/SendArrow";
 import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
-import Button from "src/components/Button/Button";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+
 import Arrow from "@icons/Arrow";
 import { ArrowLongRight } from "@icons/ArrowLongRight";
 import clx from "classnames";
@@ -48,7 +49,8 @@ import Modal from "src/components/Modal/Modal";
 import { MentorshipFeedbackModal } from "../mentorship-feedback/MentorshipFeedbackModal";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
-
+import { Text } from "src/components/typography";
+import { Tag as TagButtonTypes } from "@customTypes/tags";
 const PER_PAGE = 5;
 
 const renderStatus = (status: SubscriptionStatus) => {
@@ -135,17 +137,17 @@ export const StudentMentors = ({ title }: Props) => {
   }, []);
 
   const handleCancelConfirm = useCallback(async () => {
-    const c = cancelling ? {...cancelling} : {} as MentorShort
-    await cancelMentorship(c.id)
+    const c = cancelling ? { ...cancelling } : ({} as MentorShort);
+    await cancelMentorship(c.id);
     setCancelled(c);
     setCancelling(null);
   }, [cancelling]);
 
   const handleSuspendConfirm = useCallback(async () => {
-    if(!suspending){
-      return
+    if (!suspending) {
+      return;
     }
-    await suspendMentorship(suspending?.id)
+    await suspendMentorship(suspending?.id);
     setSuspending(null);
   }, [suspending]);
 
@@ -153,43 +155,65 @@ export const StudentMentors = ({ title }: Props) => {
     <>
       <ClientPortal selector="modal-root">
         {cancelling ? (
-          <Modal title="" closeHandler={() => setCancelling(null)}>
-            <div>
-              <h2>
-                Czy jesteś pewny, że chcesz anulować swój plan z{" "}
-                {cancelling.fullName}?
-              </h2>
-              <p>
+          <Modal
+            className={styles.modal}
+            title={`Czy jesteś pewny, że chcesz anulować swój plan z ${cancelling.fullName}?`}
+            closeHandler={() => setCancelling(null)}
+          >
+            {cancelling.paidUntil && (
+              <Text classes={styles.info}>
                 Dostęp do funkcji premium będziesz miał jeszcze do{" "}
                 {formatDate(cancelling.paidUntil, "DD MMMM YYYY")} roku.
-              </p>
+              </Text>
+            )}
+            <div className={styles.btnBox}>
+              <Button
+                variant={ButtonVariant.Transparent}
+                onClick={handleCancelConfirm}
+                fullWidth
+              >
+                Tak, zakończ subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={() => setCancelling(null)}
+                fullWidth
+              >
+                Nie, jeszcze nie
+              </Button>
             </div>
-            <button onClick={handleCancelConfirm}>
-              Tak, zakończ subskrypcję
-            </button>
-            <button onClick={() => setCancelling(null)}>
-              Nie, jeszcze nie
-            </button>
           </Modal>
         ) : null}
         {suspending ? (
-          <Modal title="" closeHandler={() => setSuspending(null)}>
+          <Modal
+            className={styles.modal}
+            title={`Czy jesteś pewny, że chcesz zawiesić swój plan z ${suspending.fullName}?`}
+            closeHandler={() => setSuspending(null)}
+          >
             <div>
-              <h2>
-                Czy jesteś pewny, że chcesz zawiesić swój plan z{" "}
-                {suspending.fullName}?
-              </h2>
-              <p>
-                Dostęp do funkcji premium będziesz miał jeszcze do{" "}
-                {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
-              </p>
+              {suspending.paidUntil && (
+                <Text classes={styles.info}>
+                  Dostęp do funkcji premium będziesz miał jeszcze do{" "}
+                  {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
+                </Text>
+              )}
             </div>
-            <button onClick={handleSuspendConfirm}>
-              Tak, zawieś subskrypcję
-            </button>
-            <button onClick={() => setSuspending(null)}>
-              Nie, jeszcze nie
-            </button>
+            <div className={styles.btnBox}>
+              <Button
+                variant={ButtonVariant.Transparent}
+                onClick={handleSuspendConfirm}
+                fullWidth
+              >
+                Tak, zawieś subskrypcję
+              </Button>
+              <Button
+                onClick={() => setSuspending(null)}
+                variant={ButtonVariant.Light}
+                fullWidth
+              >
+                Nie, jeszcze nie
+              </Button>
+            </div>
           </Modal>
         ) : null}
         {cancelled ? (

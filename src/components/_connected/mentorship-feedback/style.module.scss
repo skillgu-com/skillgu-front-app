@@ -3,8 +3,9 @@
 @use "@styles/font" as *;
 
 .modal {
-  & h3 {
+  & .title {
     margin-top: 60px;
+    color: $colour-primary;
     @include media-lg-and-up {
       font-size: 28px !important;
       margin-top: 72px;
@@ -18,28 +19,42 @@
   }
   .wrapper {
     max-width: 580px;
-    & fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom:32px;
-      border: 0;
-    }
-    & legend {
-      @extend %text-button-md;
-      color: $colour-primary;
-      margin-bottom: 16px;
-    }
 
-    textarea {
-      @extend %text-body-2;
-      padding: 14px;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid $colour-base-400;
-      outline: none;
-      color: $colour-base-600;
-      resize: vertical;
+    overflow: auto;
+    scrollbar-width: none;
+
+    form {
+      padding: 2px;
+      overflow: auto;
+      scrollbar-width: none;
+      & fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+        border: 0;
+      }
+      & legend {
+        @extend %text-button-md;
+        color: $colour-primary;
+        margin-bottom: 16px;
+      }
+
+      .select {
+        @extend %text-body-2;
+        color: $colour-base-800;
+      }
+
+      textarea {
+        @extend %text-body-2;
+        padding: 14px;
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid $colour-base-400;
+        outline: none;
+        color: $colour-base-600;
+        resize: vertical;
+      }
     }
 
     .btnBox {

@@ -129,6 +129,7 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
           <fieldset>
             <legend>{config.subscriptionEndReasons.question}</legend>
             <Select
+              classes={styles.select}
               name="subscriptionEndReasons"
               id="subscriptionEndReasons"
               value={subscriptionEndReasons}

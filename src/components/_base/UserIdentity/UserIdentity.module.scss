@@ -7,6 +7,20 @@
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
+    box-sizing: border-box;
+    
+    &.fullWidth {
+        width: 100%;
+
+        .content {
+            width: 100%;
+            flex: 1;
+        }
+    }
+
+    &.noPadding {
+        padding: 0;
+    }
 }
 
 .avatar {
@@ -22,12 +36,31 @@
     gap: 4px;
 }
 
-.title {
-    // @extend %text-button-lg;
-    // color: $colour-primary;
-    display: block;
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.rate {
+    @extend %text-button-sm;
+    color: $colour-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 34px;
+}
+
+.title, .rate {
+    @extend %text-button-lg;
+    color: $colour-primary;
 }
 
 .subtitle {
+    @extend %text-caption;
+    color: $colour-base-600;
     display: block;
 }

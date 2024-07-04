@@ -24,6 +24,7 @@ import {
   OverflowMenuToggle,
 } from "../overflow-menu";
 import { PlanName } from "src/components/_base/PlanName";
+import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 
 type MentorhsipPlanPart = Pick<
   MentorhsipPlanType,
@@ -44,7 +45,7 @@ type Props = MentorhsipPlanPart & {
   onClick?: () => void;
 };
 
-const checkIcon = <CheckCircleIcon className={styles.checkIcon} />;
+const checkIcon = <CheckCircleSolidIcon className={styles.checkIcon} />;
 
 export const MentorshipPlan = ({
   id,
@@ -72,8 +73,8 @@ export const MentorshipPlan = ({
           noPadding
           iconPosition="trailing"
         />
-        <div className={clx(styles.row, styles.price)}>
-          <span>{price} zł</span>
+        <div className={clx(styles.row, styles.priceRow)}>
+          <span className={styles.textCurrency}>{price} zł</span>
           <span>miesięcznie</span>
         </div>
         {description ? (
@@ -87,7 +88,7 @@ export const MentorshipPlan = ({
           <div className={clx(styles.row)}>
             {checkIcon}
             <div>
-              <span>
+              <span className={styles.text}>
                 {sessionsPerMonth} sesje mentoringowe na miesiąc{" "}
                 {typeof sessionDuration !== "undefined"
                   ? `(${sessionDuration} minut każda)`
@@ -99,7 +100,7 @@ export const MentorshipPlan = ({
         {typeof responseTime !== "undefined" ? (
           <div className={clx(styles.row)}>
             {checkIcon}
-            <div>
+            <div className={styles.text}>
               <span>Odpowiedzi na Twoje pytania w ciągu {responseTime}h </span>
             </div>
           </div>
@@ -107,7 +108,7 @@ export const MentorshipPlan = ({
         {planIncludes.map((r, i) => (
           <div className={clx(styles.row)} key={r + "_" + i}>
             {checkIcon}
-            <div>
+            <div className={styles.text}>
               <span>{r}</span>
             </div>
           </div>

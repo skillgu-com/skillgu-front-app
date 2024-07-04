@@ -5,12 +5,14 @@ type Props = {
   size?: string;
   filled?: boolean;
   color?: string;
+  bg?: string
 };
 
 export function CheckCircleSolidIcon({
   size = "1em",
   className,
   color = "currentColor",
+  bg = '#fff'
 }: Props) {
   return (
     <svg
@@ -27,7 +29,7 @@ export function CheckCircleSolidIcon({
           d="M9 18a9 9 0 009-9 9 9 0 00-9-9 9 9 0 00-9 9 9 9 0 009 9z"
         ></path>
         <path
-          stroke="#fff"
+          stroke={bg}
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -36,7 +38,7 @@ export function CheckCircleSolidIcon({
       </g>
       <defs>
         <clipPath id="clip0_4023_22115">
-          <path fill="#fff" d="M0 0H18V18H0z"></path>
+          <path fill={bg} d="M0 0H18V18H0z"></path>
         </clipPath>
       </defs>
     </svg>

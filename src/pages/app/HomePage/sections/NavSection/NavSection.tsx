@@ -42,7 +42,7 @@ const NavSection = () => {
                     text: '',
                 },
                 {
-                    link: '/messages',
+                    link: '/chat',
                     icon: <Message/>,
                     title: 'Chat',
                     text: '',

@@ -48,6 +48,7 @@ import Modal from "src/components/Modal/Modal";
 import { MentorshipFeedbackModal } from "../mentorship-feedback/MentorshipFeedbackModal";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
+import { resumeMentorship } from "@services/mentorship/resumeMentorship";
 
 const PER_PAGE = 5;
 
@@ -115,6 +116,7 @@ export const StudentMentors = ({ title }: Props) => {
   const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
   const [pending, setPending] = useState<boolean>(true);
   const pageRef = useRef<number>(0);
+  const [resuming, setResuming] = useState<MentorShort | null>(null);
   const [suspending, setSuspending] = useState<MentorShort | null>(null);
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
@@ -148,6 +150,14 @@ export const StudentMentors = ({ title }: Props) => {
     await suspendMentorship(suspending?.id)
     setSuspending(null);
   }, [suspending]);
+
+  const handleResumeConfirm = useCallback(async () => {
+    if(!resuming){
+      return
+    }
+    await resumeMentorship(resuming?.id)
+    setResuming(null);
+  }, [resuming]);
 
   return (
     <>
@@ -280,9 +290,9 @@ export const StudentMentors = ({ title }: Props) => {
                             </p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Zobacz aplikację
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}
@@ -296,9 +306,9 @@ export const StudentMentors = ({ title }: Props) => {
                             <p>Mentor odrzucił Twoją aplikację.</p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Zobacz powód odrzucenia
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}
@@ -315,9 +325,9 @@ export const StudentMentors = ({ title }: Props) => {
                             </p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Wybierz terminy spotkań
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}

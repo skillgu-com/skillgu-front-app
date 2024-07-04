@@ -107,6 +107,7 @@
     "@storybook/test": "^8.1.9",
     "@types/react-big-calendar": "^1.8.8",
     "@types/react-slick": "^0.23.13",
+    "@types/webpack": "^5.28.5",
     "axios": "^0.27.2",
     "env-cmd": "^10.1.0",
     "eslint-plugin-storybook": "^0.8.0",

@@ -10,6 +10,7 @@ interface UserProfileCardProps {
   avatar?: ReactNode;
   title?: string | ReactNode;
   subtitle?: string | ReactNode;
+  rate?: number
 }
 
 export const UserIdentity = ({

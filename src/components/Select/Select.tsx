@@ -32,6 +32,7 @@ const Select = (props: SelectProps) => {
 					placeholder={label}
 					className='select'
 					value={value}
+					defaultValue={value}
 					getOptionLabel={(option: any) => option?.label}
 					onChange={(newValue: any) => {
 						valueChangeHandler(name, newValue.value);

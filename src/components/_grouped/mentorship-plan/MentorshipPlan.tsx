@@ -1,32 +1,11 @@
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  FocusEvent,
-  MouseEvent,
-  MouseEventHandler,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react";
+import React, { ReactNode } from "react";
 import styles from "./MentorshipPlan.module.scss";
 import clx from "classnames";
 import { MentorhsipPlanType, SubscriptionPlan } from "@customTypes/order";
-import { displayPlanName } from "src/utils/plan";
-import { CrownIcon } from "@icons/CrownIcon";
-import { PlusIcon } from "@icons/PlusIcon";
-import { CheckCircleIcon } from "@icons/CheckCircleIcon";
-import Select from "src/components/Select/Select";
-import { responseTimeOptions, sessionDurationOptions } from "./config";
-import {
-  OverflowMenu,
-  OverflowMenuList,
-  OverflowMenuOption,
-  OverflowMenuToggle,
-} from "../overflow-menu";
 import { PlanName } from "src/components/_base/PlanName";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 
-type MentorhsipPlanPart = Pick<
+type Props = Pick<
   MentorhsipPlanType,
   | "id"
   | "description"
@@ -35,9 +14,7 @@ type MentorhsipPlanPart = Pick<
   | "responseTime"
   | "sessionsPerMonth"
   | "planIncludes"
->;
-
-type Props = MentorhsipPlanPart & {
+> & {
   subscriptionVariant: SubscriptionPlan;
   userIdentity?: ReactNode;
   selected?: boolean;

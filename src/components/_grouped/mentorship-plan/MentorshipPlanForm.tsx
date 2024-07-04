@@ -1,22 +1,14 @@
 import React, {
   ChangeEvent,
-  ChangeEventHandler,
-  FocusEvent,
   MouseEvent,
-  MouseEventHandler,
-  ReactNode,
   useCallback,
   useMemo,
   useState,
 } from "react";
 import styles from "./MentorshipPlan.module.scss";
 import clx from "classnames";
-import { MentorhsipPlanType, SubscriptionPlan } from "@customTypes/order";
-import { displayPlanName } from "src/utils/plan";
-import { CrownIcon } from "@icons/CrownIcon";
+import { SubscriptionPlan } from "@customTypes/order";
 import { PlusIcon } from "@icons/PlusIcon";
-import { CheckCircleIcon } from "@icons/CheckCircleIcon";
-import Select from "src/components/Select/Select";
 import { ReactSelectOptionType, responseTimeOptions } from "./config";
 import {
   OverflowMenu,

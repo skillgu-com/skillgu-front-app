@@ -4,7 +4,9 @@ import Modal from "src/components/Modal/Modal";
 import { ClientPortal } from "src/components/portal";
 import { sendMentorshipFeedback } from "@services/mentorship/mentorshipFeedback";
 import styles from "./style.module.scss";
-import { Text } from "src/components/typography";
+import { Text, Title } from "src/components/typography";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 
 type Props = {
   mentorshipId: number;
@@ -19,14 +21,9 @@ export const MentorshipFeedbackModal = ({
     <Modal
       className={styles.modal}
       classNameContent={styles.wrapper}
-      title="Poczekaj! A tak między nami..."
+      title=""
       closeHandler={handleClose}
     >
-      <Text classes={styles.info}>
-        Jak oceniasz współpracę z Mentorem? Ta opinia nie zostanie mu
-        udostępniona.
-      </Text>
-
       <MentorshipFeedbackModalContent
         mentorshipId={mentorshipId}
         handleClose={handleClose}
@@ -92,43 +89,59 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
   if (!pending && config) {
     return (
       <div>
+        <Title
+          tag={TitleTag.h3}
+          variant={TitleVariant.sectionConst}
+          classes={styles.title}
+        >
+          Poczekaj! A tak między nami...
+        </Title>
+        <Text classes={styles.info}>
+          Jak oceniasz współpracę z Mentorem? Ta opinia nie zostanie mu
+          udostępniona.
+        </Text>
         <form onSubmit={handleSubmit}>
-          <div>
-            <fieldset>
-              <legend>{config.goalAchievement.question}</legend>
-              {config.goalAchievement.options.map((o, i) => (
-                <label key={`${o}-${i}`}>
-                  <input type="radio" name="goalAchievement" value={o} />
-                  <span>{o}</span>
-                </label>
-              ))}
-            </fieldset>
-            <fieldset>
-              <legend>{config.subscriptionEndReasons.question}</legend>
-              {config.subscriptionEndReasons.options.map((o, i) => (
-                <label key={`${o}-${i}`}>
-                  <input type="radio" name="subscriptionEndReasons" value={o} />
-                  <span>{o}</span>
-                </label>
-              ))}
-            </fieldset>
-            <fieldset>
-              <legend>{config.serviceDescription.question}</legend>
-              {config.serviceDescription.options.map((o, i) => (
-                <label key={`${o}-${i}`}>
-                  <input type="radio" name="serviceDescription" value={o} />
-                  <span>{o}</span>
-                </label>
-              ))}
-            </fieldset>
-            <fieldset>
-              <legend>{config.additional.question}</legend>
-              <textarea name="additional"></textarea>
-            </fieldset>
-          </div>
-          <div>
-            <button>Anuluj</button>
-            <button>Wyślij</button>
+          <fieldset>
+            <legend>{config.goalAchievement.question}</legend>
+            {config.goalAchievement.options.map((o, i) => (
+              <label className={styles.radio} key={`${o}-${i}`}>
+                <input type="radio" name="goalAchievement" value={o} />
+                <span></span>
+                <span>{o}</span>
+              </label>
+            ))}
+          </fieldset>
+          <fieldset>
+            <legend>{config.subscriptionEndReasons.question}</legend>
+            {config.subscriptionEndReasons.options.map((o, i) => (
+              <label className={styles.radio} key={`${o}-${i}`}>
+                <input type="radio" name="subscriptionEndReasons" value={o} />
+                <span></span>
+                <span>{o}</span>
+              </label>
+            ))}
+          </fieldset>
+          <fieldset>
+            <legend>{config.serviceDescription.question}</legend>
+            {config.serviceDescription.options.map((o, i) => (
+              <label className={styles.radio} key={`${o}-${i}`}>
+                <input type="radio" name="serviceDescription" value={o} />
+                <span></span>
+                <span>{o}</span>
+              </label>
+            ))}
+          </fieldset>
+          <fieldset>
+            <legend>{config.additional.question}</legend>
+            <textarea name="additional"></textarea>
+          </fieldset>
+          <div className={styles.btnBox}>
+            <Button variant={ButtonVariant.Light} type="button" fullWidth>
+              Anuluj
+            </Button>
+            <Button variant={ButtonVariant.Primary} type="submit" fullWidth>
+              Wyślij
+            </Button>
           </div>
         </form>
       </div>

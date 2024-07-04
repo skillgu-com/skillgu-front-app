@@ -260,6 +260,9 @@
 }
 
 .modal {
+  .box {
+    max-width: 600px;
+  }
   & h3 {
     margin-top: 60px;
     @include media-lg-and-up {
@@ -269,8 +272,8 @@
 
   .info {
     @extend %text-body-1;
-    color: $colour-base-800;
     margin-bottom: 20px;
+    color: $colour-base-800;
   }
 
   .btnBox {

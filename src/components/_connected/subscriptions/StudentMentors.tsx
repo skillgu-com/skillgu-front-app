@@ -119,6 +119,7 @@ export const StudentMentors = ({ title }: Props) => {
   const pageRef = useRef<number>(0);
   const [suspending, setSuspending] = useState<MentorShort | null>(null);
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
+  const [confirmed, setConfirmed] = useState<MentorShort | null>(null);
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
 
   useEffect(() => {
@@ -136,12 +137,18 @@ export const StudentMentors = ({ title }: Props) => {
     }
   }, []);
 
-  const handleCancelConfirm = useCallback(async () => {
+  const handleCanceling = () => {
     const c = cancelling ? { ...cancelling } : ({} as MentorShort);
+    setConfirmed(c);
+    setCancelling(null);
+  }
+
+  const handleCancelConfirm = useCallback(async () => {
+    const c = confirmed ? { ...confirmed } : ({} as MentorShort);
     await cancelMentorship(c.id);
     setCancelled(c);
-    setCancelling(null);
-  }, [cancelling]);
+    setConfirmed(null);
+  }, [confirmed]);
 
   const handleSuspendConfirm = useCallback(async () => {
     if (!suspending) {
@@ -157,6 +164,7 @@ export const StudentMentors = ({ title }: Props) => {
         {cancelling ? (
           <Modal
             className={styles.modal}
+            classNameContent={styles.box}
             title={`Czy jesteś pewny, że chcesz anulować swój plan z ${cancelling.fullName}?`}
             closeHandler={() => setCancelling(null)}
           >
@@ -169,7 +177,7 @@ export const StudentMentors = ({ title }: Props) => {
             <div className={styles.btnBox}>
               <Button
                 variant={ButtonVariant.Transparent}
-                onClick={handleCancelConfirm}
+                onClick={handleCanceling}
                 fullWidth
               >
                 Tak, zakończ subskrypcję
@@ -187,6 +195,7 @@ export const StudentMentors = ({ title }: Props) => {
         {suspending ? (
           <Modal
             className={styles.modal}
+            classNameContent={styles.box}
             title={`Czy jesteś pewny, że chcesz zawiesić swój plan z ${suspending.fullName}?`}
             closeHandler={() => setSuspending(null)}
           >
@@ -212,6 +221,36 @@ export const StudentMentors = ({ title }: Props) => {
                 fullWidth
               >
                 Nie, jeszcze nie
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+        {confirmed ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Anulowałeś swój plan Pro z ${confirmed.fullName}?`}
+            closeHandler={() => setConfirmed(null)}
+          >
+          
+              <Text classes={styles.info}>
+                Przykro nam, że odchodzisz! Zawsze możesz wznowić swoją subskrypcję.
+              </Text>
+        
+            <div className={styles.btnBox}>
+              <Button
+                variant={ButtonVariant.Transparent}
+                onClick={() => setConfirmed(null)}
+                fullWidth
+              >
+                Wznów subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={handleCancelConfirm}
+                fullWidth
+              >
+                Wyjdź
               </Button>
             </div>
           </Modal>

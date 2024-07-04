@@ -69,7 +69,7 @@ const BookSession = ({payment}: BookSessionProps) => {
         avatar_url: "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
         description: "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
         id: "1",
-        name: "Marek",
+        name: "Chujek",
         price: 50,
         profession: "UX/UI Designer w Google",
         reviewsAvgRate: 5,

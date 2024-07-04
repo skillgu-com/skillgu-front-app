@@ -48,6 +48,7 @@ const paths = {
     mentorOfferDetails: '/offer/:id',
     mentorSubscriptions: '/mentor-subscriptions',
     studentSubscriptions: 'student-subscriptions',
+    mentorshipApplication: '/mentorship/:id/application',
 } as const;
 
 export type PathKey = keyof typeof paths;

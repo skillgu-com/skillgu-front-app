@@ -104,7 +104,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
         mutationFn: rescheduleMentoringSessionService,
         onSuccess: () => {
             enqueueSnackbar('Nowy termin potwierdzony', {variant: 'success'})
-            navigate(paths.calendar);
+            // navigate(paths.calendar);
         },
         onError: () => enqueueSnackbar('Wystąpił błąd', {variant: 'error'})
     });

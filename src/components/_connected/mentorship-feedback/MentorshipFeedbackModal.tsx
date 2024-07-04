@@ -4,6 +4,7 @@ import Modal from "src/components/Modal/Modal";
 import { ClientPortal } from "src/components/portal";
 import { sendMentorshipFeedback } from "@services/mentorship/mentorshipFeedback";
 import styles from "./style.module.scss";
+import { Text } from "src/components/typography";
 
 type Props = {
   mentorshipId: number;
@@ -15,7 +16,17 @@ export const MentorshipFeedbackModal = ({
   handleClose,
 }: Props) => {
   return (
-    <Modal className="" classNameContent="" title="" closeHandler={handleClose}>
+    <Modal
+      className={styles.modal}
+      classNameContent={styles.wrapper}
+      title="Poczekaj! A tak między nami..."
+      closeHandler={handleClose}
+    >
+      <Text classes={styles.info}>
+        Jak oceniasz współpracę z Mentorem? Ta opinia nie zostanie mu
+        udostępniona.
+      </Text>
+
       <MentorshipFeedbackModalContent
         mentorshipId={mentorshipId}
         handleClose={handleClose}
@@ -82,13 +93,6 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
     return (
       <div>
         <form onSubmit={handleSubmit}>
-          <div>
-            <h3>Poczekaj! A tak między nami...</h3>
-            <p>
-              Jak oceniasz współpracę z Mentorem? Ta opinia nie zostanie mu
-              udostępniona.
-            </p>
-          </div>
           <div>
             <fieldset>
               <legend>{config.goalAchievement.question}</legend>

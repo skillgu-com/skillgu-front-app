@@ -10,7 +10,7 @@ interface SelectProps {
 	id: string;
 	name: string;
 	options: any // { value: string, label: string }[];
-	value: string;
+	value: string | number;
 	label: string;
 	valueChangeHandler: (name: string, value: any) => void;
 	classes?: string;

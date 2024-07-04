@@ -22,8 +22,12 @@
     @extend %text-button-md;
     color: $colour-primary;
   }
-}
 
+  input,
+  textarea {
+    outline: none;
+  }
+}
 
 .containerPlan {
   width: 100%;
@@ -56,6 +60,7 @@
     .priceValue {
       @extend %text-heading-3;
       padding: 4px 16px;
+      max-width: 280px;
       border: 1px solid $colour-base-400;
       border-radius: 8px;
       color: $colour-primary;
@@ -78,6 +83,7 @@
     border: 1px solid $colour-base-400;
     border-radius: 8px;
     color: $colour-base-600;
+    resize: vertical;
   }
 
   .list {
@@ -111,9 +117,19 @@
     @extend %text-button-sm;
     display: flex;
     align-items: center;
-    gap:12px;
+    gap: 12px;
     background-color: transparent;
     color: $colour-secondary;
-    cursor:pointer;
+    cursor: pointer;
+  }
+}
+
+.select {
+  height: 38px;
+  & .css-1xc3v61-indicatorContainer {
+    padding: 0 6px;
+  }
+  & svg {
+    fill: red !important;
   }
 }

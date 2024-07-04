@@ -8,6 +8,10 @@ import { ListStyleIcon } from "@icons/ListStyleIcon";
 import DropdownIcon from "@icons/DropdownIcon";
 import { ProPlanIcon } from "@icons/ProPlanIcon";
 import Add from "@icons/Add";
+import { Dropdown } from "src/components/_grouped/dropdown";
+import Select from "src/components/Select/Select";
+import { useForm } from "react-hook-form";
+import { responseTimeOptions, sessionDurationOptions } from "../../config";
 
 export const OfferPlan = ({
   data,
@@ -18,47 +22,102 @@ export const OfferPlan = ({
   data: PlanInput;
   pro?: boolean;
 }) => {
+  const selectedResponseTimeOptions = responseTimeOptions.find(
+    (s) => s.value === data.responseTime
+  );
+  const selectedSessionDurationOptions = sessionDurationOptions.find(
+    (s) => s.value === data.sessionDuration
+  );
+
+  if (!selectedResponseTimeOptions || !selectedSessionDurationOptions) {
+    return null;
+  }
+
   return (
     <Container as={Tag.Section} classes={styles.container}>
       <div className={styles.containerPlan} data-variant={pro ? "pro" : null}>
         <h4 className={styles.title}>
-          {title} <span>{pro && <ProPlanIcon />}</span>
+          {title}
+          {pro && (
+            <span>
+              <ProPlanIcon />
+            </span>
+          )}
         </h4>
         <div className={styles.priceBox}>
-          <p className={styles.priceValue}>{data.price}</p>
-          <p className={styles.priceCurrency}>zł</p>
-          <p className={styles.pricePeriod}>miesięcznie</p>
+          <input
+            className={styles.priceValue}
+            value={data.price}
+            name="price"
+            size={2}
+          />
+          <label
+            className={styles.priceCurrency}
+            htmlFor="price"
+            aria-labelledby="price"
+          >
+            zł
+          </label>
+          <span className={styles.pricePeriod}>miesięcznie</span>
         </div>
-        <p className={styles.description}>{data.description}</p>
+
+        <textarea
+          className={styles.description}
+          name="description"
+          value={data.description}
+        />
         <ul className={styles.list}>
           <p className={styles.subtitle}>Plan obejmuje</p>
 
           <li className={styles.listItem}>
             <ListStyleIcon />
-            <span className={styles.box}>{data.numberOfSessions}</span>sesje
-            mentoringowe na miesiąc
+            <input
+              className={styles.box}
+              name="numberOfSession"
+              value={data.numberOfSessions}
+              size={1}
+            />
+            <label htmlFor="numberOfSession" aria-label="numberOfSessions">
+              sesje mentoringowe na miesiąc
+            </label>
           </li>
           <li className={styles.listItem}>
             <ListStyleIcon />
-            <p>każda po</p>
-            <p className={styles.box}>
-              <span>{data.sessionDuration}</span> <DropdownIcon />
-            </p>
-            minut
+            <span>każda po</span>
+            <div className={styles.selectBox}>
+              <Select
+                label={selectedSessionDurationOptions.label}
+                id="sessionDuration"
+                name="sessionDuration"
+                options={sessionDurationOptions}
+                value={data.sessionDuration}
+              />
+            </div>
+            <span>minut</span>
           </li>
           <li className={styles.listItem}>
             <ListStyleIcon />
             odpowiedź w przeciągu
-            <p className={styles.box}>
-              <span>{`${data.responseTime} h`}</span>
-              <DropdownIcon />
-            </p>
+            <div className={styles.selectBox}>
+              <Select
+                label={selectedResponseTimeOptions.label}
+                id="responseTime"
+                name="responseTime"
+                options={responseTimeOptions}
+                value={data.responseTime}
+                classes={styles.select}
+              />
+            </div>
           </li>
           {data?.additional.map((item, ind) => (
             // TODO - key
             <li className={styles.listItem} key={ind}>
               <ListStyleIcon />
-              <p className={styles.box}>{item}</p>
+              <textarea
+                name={(ind + 1).toString()}
+                className={styles.description}
+                value={item}
+              />
             </li>
           ))}
         </ul>

@@ -2,14 +2,15 @@ import React from 'react';
 
 type Props = {
 	className?: string
+	size?: string
 }
 
-export const CrownIcon = ({ className } : Props) => {
+export const CrownIcon = ({ className, size = '1em' } : Props) => {
 	return (
 		<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width={'1em'}
-		height={'1em'}
+		width={size}
+		height={size}
 		fill="none"
 		viewBox="0 0 20 21"
 		className={className}

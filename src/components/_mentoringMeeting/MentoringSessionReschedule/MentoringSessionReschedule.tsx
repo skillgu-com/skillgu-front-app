@@ -50,6 +50,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
     const location = useLocation();
     const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
+    const [unavailableEvents, setUnavailableEvents] = useState<CalendarEvent[]>([]);
 
 
     useEffect(() => {
@@ -66,25 +67,27 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
                     );
                     const event = {
                         id: item.calendarEventId,
-                        title:
-                            startDateTime.getHours() +
-                            ":" +
-                            (startDateTime.getMinutes() < 10 ? "0" : "") +
-                            startDateTime.getMinutes(),
+                        title: startDateTime.getHours() + ":" + (startDateTime.getMinutes() < 10 ? "0" : "") + startDateTime.getMinutes(),
                         allDay: true,
                         start: startDateTime,
                         end: endDateTime,
                         available: item.available,
                     };
                     events.push(event);
+                    if (!item.available) {
+                        unavailableEvents.push(event);
+                    }
                 });
                 setCombinedData(events);
+                setUnavailableEvents(unavailableEvents);
+
             })
             .catch((error) => {
                 console.error("Błąd podczas pobierania danych z serwera:", error);
             });
     }, [meetingId]);
 
+    // console.log('teraz to chce przetestowac:', unavailableEvents)
 
     // const onEventClick = (event: CalendarEvent) => {
     //     setCurrentEvent(event.id);

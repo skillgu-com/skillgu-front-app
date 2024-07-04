@@ -7,15 +7,16 @@ type RescheduleMentoringSessionParams = {
     body: {
         // id nowego time slotu
         timeSlotId: number;
+
     }
 }
 
 const rescheduleMentoringSessionService = async ({id, body}: RescheduleMentoringSessionParams): Promise<number> => {
     // TODO API
-    console.log('tutaj sa dane id ',id,' oraz body: ',body)
-    const {status} = await axios.patch(`/api/1.0/update-calendar-event/${id}`, body);
+    const {status} = await axios.patch(`/api/1.0/update-calendar-event/${id}/${body.timeSlotId}`);
     return status;
 
 };
+
 
 export default rescheduleMentoringSessionService;

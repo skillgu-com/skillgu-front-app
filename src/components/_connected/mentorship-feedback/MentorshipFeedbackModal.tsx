@@ -1,4 +1,10 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { type Config, type Feedback } from "./types";
 import Modal from "src/components/Modal/Modal";
 import { ClientPortal } from "src/components/portal";
@@ -7,6 +13,7 @@ import styles from "./style.module.scss";
 import { Text, Title } from "src/components/typography";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
+import Select from "src/components/Select/Select";
 
 type Props = {
   mentorshipId: number;
@@ -37,6 +44,14 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
   const [pending, setPending] = useState<boolean>(true);
   const [done, setDone] = useState<boolean>(false);
 
+  const [subscriptionEndReasons, setSubscriptionEndReasons] = useState("");
+  const subscriptionEndReasonsOptions = useMemo(() => {
+    return config?.subscriptionEndReasons.options.map((item) => ({
+      value: item,
+      label: item,
+    }));
+  }, [config?.subscriptionEndReasons]);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -44,7 +59,7 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
 
     const feedback: Feedback = {
       goalAchievement: formData.get("goalAchievement") as string,
-      subscriptionEndReason: formData.get("subscriptionEndReason") as string,
+      subscriptionEndReason: subscriptionEndReasons,
       serviceDescription: formData.get("serviceDescription") as string,
       additional: formData.get("additional") as string,
     };
@@ -113,13 +128,16 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
           </fieldset>
           <fieldset>
             <legend>{config.subscriptionEndReasons.question}</legend>
-            {config.subscriptionEndReasons.options.map((o, i) => (
-              <label className={styles.radio} key={`${o}-${i}`}>
-                <input type="radio" name="subscriptionEndReasons" value={o} />
-                <span></span>
-                <span>{o}</span>
-              </label>
-            ))}
+            <Select
+              name="subscriptionEndReasons"
+              id="subscriptionEndReasons"
+              value={subscriptionEndReasons}
+              valueChangeHandler={(_: string, value: string) => {
+                setSubscriptionEndReasons(value);
+              }}
+              options={subscriptionEndReasonsOptions}
+              label={subscriptionEndReasons}
+            />
           </fieldset>
           <fieldset>
             <legend>{config.serviceDescription.question}</legend>

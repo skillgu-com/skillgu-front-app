@@ -148,6 +148,44 @@
   }
 }
 
+.scheduleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: auto;
+
+  svg {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.scheduleMsgImgBox {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 16px;
+  flex-direction: column;
+  gap: 40px;
+  
+  > img {
+    max-width: 90%;
+  }
+
+  p {
+    @extend %text-button-lg;
+    color: $colour-base-800;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.errorMessage {
+  @extend %text-button-lg;
+  color: $colour-error-100;
+}
+
 .flex {
   display: flex;
 }

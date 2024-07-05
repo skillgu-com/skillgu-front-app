@@ -3,6 +3,7 @@ import { PlanInput } from "@customTypes/create-mentoring";
 export type CreateOfferStepType = "initial" | "determine" | "build" | "summary";
 
 export type CreateOfferState = {
+  fetchedInitial: boolean
   step: CreateOfferStepType;
   availableSchedules: string[];
   numberOfPlans: 1 | 2 | 3;
@@ -38,6 +39,7 @@ export type CreateOfferAction =
       type: "SUBMIT_DETERMINE";
       payload: {
         numberOfPlans: 1 | 2 | 3;
+        nextStep: boolean;
       };
     }
   | {
@@ -47,6 +49,7 @@ export type CreateOfferAction =
         base: PlanInput;
         advanced?: PlanInput;
         pro?: PlanInput;
+        nextStep: boolean;
       };
     }
   | {

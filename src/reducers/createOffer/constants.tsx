@@ -1,6 +1,7 @@
 import { CreateOfferState } from "./types";
 
 export const createOfferInitialState: CreateOfferState = {
+  fetchedInitial: false,
   step: "initial",
   availableSchedules: [],
   numberOfPlans: 1,

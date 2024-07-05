@@ -103,7 +103,7 @@ export const Build = () => {
           <Button
             onClick={() => {
               console.log(1);
-              co.submitBuild(co.createOfferState)
+              co.submitBuild(co.createOfferState, true)
             }}
             variant={ButtonVariant.Primary}
             type="button"

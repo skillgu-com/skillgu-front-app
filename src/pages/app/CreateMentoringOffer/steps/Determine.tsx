@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { CreateOfferTemplates } from "../CreateOfferTemplates";
 import Button, { ButtonVariant } from "src/components/Button/Button";
@@ -16,28 +16,27 @@ type PlanTypes = {
   label: string;
 };
 
-export const Determine = () => {
-  const co = useCreateOfferReducer();
-  const [planQuantity, setPlanQuantity] = useState<Quantity>();
-  console.log("Determine state", co.createOfferState);
+const planList: PlanTypes[] = [
+  { id: "one", quantity: 1, label: "1 plan" },
+  { id: "two", quantity: 2, label: "2 plany (w tym jeden Pro)" },
+  { id: "three", quantity: 3, label: "3 plany (w tym jeden Pro)" },
+];
 
-  const planList: PlanTypes[] = [
-    { id: "one", quantity: 1, label: "1 plan" },
-    { id: "two", quantity: 2, label: "2 plany (w tym jeden Pro)" },
-    { id: "three", quantity: 3, label: "3 plany (w tym jeden Pro)" },
-  ];
+export const Determine = () => {
+  const { createOfferState: state, submitDetermine } = useCreateOfferReducer();
+  const { numberOfPlans } = state
 
   const onRadioButtonClick = (number: Quantity) => {
     if (!number) return;
-    setPlanQuantity(number);
+    submitDetermine(number, false);
   };
 
-  const handleOnClick = () => {
-    if (planQuantity) {
-      console.log(planQuantity);
-      co.submitDetermine(planQuantity);
+  const handleSubmit = useCallback(() => {
+    if (numberOfPlans) {
+      submitDetermine(numberOfPlans, true);
     }
-  };
+  }, [numberOfPlans, submitDetermine]);
+  
   return (
     <CreateOfferTemplates
       title="Ilość planów"
@@ -52,7 +51,7 @@ export const Determine = () => {
               key={id}
               name="plan-qty"
               id={id}
-              checked={planQuantity === quantity}
+              checked={numberOfPlans === quantity}
               onChange={() => onRadioButtonClick(quantity)}
               label={label}
             />
@@ -62,7 +61,8 @@ export const Determine = () => {
 
       <div className={styles.btnBox}>
         <Button
-          onClick={handleOnClick}
+          onClick={handleSubmit}
+          disableButton={!numberOfPlans}
           fullWidth
           variant={ButtonVariant.Primary}
           type="button"

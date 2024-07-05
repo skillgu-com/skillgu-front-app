@@ -296,6 +296,21 @@ export const StudentMentors = ({ title }: Props) => {
                           </div>
                         </>
                       ) : null}
+                      {m.status === "suspended" ? (
+                        <>
+                          <div className={styles.cardStatus}>
+                            <Status text="Mentoring zawieszony" variant="warning" />
+                            <p>
+                              Zawiesiłeś współpracę z mentorem.
+                            </p>
+                          </div>
+                          <div className={styles.buttons}>
+                            <a className={styles.btn} onClick={() => {}}>
+                              Odwieś
+                            </a>
+                          </div>
+                        </>
+                      ) : null}
                       {m.status === "rejected" ? (
                         <>
                           <div className={styles.cardStatus}>

@@ -35,18 +35,19 @@ export const createOfferReducer = (
     case "SUBMIT_DETERMINE":
       return {
         ...state,
-        step: "build",
+        step: action.payload.nextStep ? "build" : "determine",
         numberOfPlans: action.payload.numberOfPlans,
       };
     case "LOAD_SCHEDULES":
       return {
         ...state,
         availableSchedules: action.payload.availableSchedules,
+        fetchedInitial: true,
       };
     case "SUBMIT_BUILD":
       return {
         ...state,
-        step: "summary",
+        step: action.payload.nextStep ? "summary" : "build",
         providesMaterials: action.payload.providesMaterials,
         base: action.payload.base,
         advanced: action.payload.advanced || createOfferInitialState.advanced,

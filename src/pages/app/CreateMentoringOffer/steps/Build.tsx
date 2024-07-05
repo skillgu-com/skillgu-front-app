@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import clx from "classnames";
+
 import styles from "../CreateMentoringOffer.module.scss";
+
 import { useCreateOfferReducer } from "src/reducers/createOffer";
+import { CreateOfferTemplates } from "../CreateOfferTemplates";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import { RadioButton } from "../elements/RadioButton";
+import { OfferPlan } from "../elements/OfferPlan";
+import DropdownIcon from "@icons/DropdownIcon";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -10,59 +16,104 @@ export const Build = () => {
 
   return (
     <div>
-      <h1>Build Step</h1>
-      <form>
-        <p>Ilość planów: {co.createOfferState.numberOfPlans}</p>
-        <div
-          style={{ border: "1px solid red", padding: "20px", margin: "20px" }}
-        >
-          <h3>Basic</h3>
-          <p>Schedule: {co.createOfferState.base.schedule}</p>
-          <p>Price: {co.createOfferState.base.price}</p>
-          <p>Description: {co.createOfferState.base.description}</p>
-          <p>numberOfSessions: {co.createOfferState.base.numberOfSessions}</p>
-          <p>sessionDuration: {co.createOfferState.base.sessionDuration}</p>
-          <p>responseTime: {co.createOfferState.base.responseTime}</p>
-          <p>Extra: {co.createOfferState.base.additional[0]}</p>
-        </div>
-        {co.createOfferState.numberOfPlans > 1 ? (
-          <div
-            style={{ border: "1px solid red", padding: "20px", margin: "20px" }}
-          >
-            <h3>Advanced</h3>
-            <p>Schedule: {co.createOfferState.advanced.schedule}</p>
-            <p>Price: {co.createOfferState.advanced.price}</p>
-            <p>Description: {co.createOfferState.advanced.description}</p>
-            <p>
-              numberOfSessions: {co.createOfferState.advanced.numberOfSessions}
-            </p>
-            <p>
-              sessionDuration: {co.createOfferState.advanced.sessionDuration}
-            </p>
-            <p>responseTime: {co.createOfferState.advanced.responseTime}</p>
-            <p>Extra: {co.createOfferState.advanced.additional[0]}</p>
+      <CreateOfferTemplates
+        title="Setup Twoich planów"
+        subtitle="Uzupełnij pola."
+        step={3}
+      >
+        <div className={styles.plansWrapper}>
+          <div>
+            <div className={styles.containerSchedule}>
+              <p className={styles.scheduleSubtitle}>
+                Harmonogram dla Planu Podstawowego
+              </p>
+              <p className={styles.box}>
+                <span>{co.createOfferState.base?.schedule}</span>
+                <DropdownIcon />
+              </p>
+            </div>
+            <OfferPlan
+              title="Plan podstawowy"
+              data={co.createOfferState.base}
+            />
           </div>
-        ) : null}
-        {co.createOfferState.numberOfPlans > 2 ? (
-          <div
-            style={{ border: "1px solid red", padding: "20px", margin: "20px" }}
-          >
-            <h3>PRO</h3>
-            <p>Schedule: {co.createOfferState.pro.schedule}</p>
-            <p>Price: {co.createOfferState.pro.price}</p>
-            <p>Description: {co.createOfferState.pro.description}</p>
-            <p>numberOfSessions: {co.createOfferState.pro.numberOfSessions}</p>
-            <p>sessionDuration: {co.createOfferState.pro.sessionDuration}</p>
-            <p>responseTime: {co.createOfferState.pro.responseTime}</p>
-            <p>Extra: {co.createOfferState.pro.additional[0]}</p>
-          </div>
-        ) : null}
-        <div>
-          <p>Dostarczasz materiały?</p>
-          <p>{co.createOfferState.providesMaterials ? "TAK" : "NIE"}</p>
+
+          {co.createOfferState.numberOfPlans > 2 ? (
+            <div>
+              <div className={styles.containerSchedule}>
+                <p className={styles.scheduleSubtitle}>
+                  Harmonogram dla Planu Zaawansowanego
+                </p>
+                <p className={styles.box}>
+                  <span>{co.createOfferState.advanced?.schedule}</span>
+                  <DropdownIcon />
+                </p>
+              </div>
+              <OfferPlan
+                title="Plan zaawansowany"
+                data={co.createOfferState.advanced}
+              />
+            </div>
+          ) : null}
+          {co.createOfferState.numberOfPlans > 1 && (
+            <div>
+              <div className={styles.containerSchedule}>
+                <p className={styles.scheduleSubtitle}>Harmonogram dla Planu Pro</p>
+                <p className={styles.box}>
+                  <span>{co.createOfferState.pro?.schedule}</span>
+                  <DropdownIcon />
+                </p>
+              </div>
+              <OfferPlan title="Plan pro" data={co.createOfferState.pro} pro />
+            </div>
+          )}
         </div>
-      </form>
-      <button onClick={() => co.prevStep()}>BACK</button>
+
+        <div className={styles.flex}>
+          <div className={styles.legendBuild}>
+            <p>Dostarczasz materiały?</p>
+            <p>Tutaj jakiś opis wyjaśniający.</p>
+          </div>
+          <div className={styles.flex}>
+            <RadioButton
+              id="yes"
+              name="materials-provider"
+              label="TAK"
+              onChange={() => console.log(2)}
+              checked={co.createOfferState.providesMaterials === true}
+            />
+            <RadioButton
+              id="no"
+              name="materials-provider"
+              label="NIE"
+              onChange={() => console.log(2)}
+              checked={co.createOfferState.providesMaterials === false}
+            />
+          </div>
+        </div>
+        <div className={styles.btnBox}>
+          <Button
+            onClick={co.prevStep}
+            variant={ButtonVariant.PrimaryLight}
+            type="button"
+            fullWidth
+          >
+            Wróć
+          </Button>
+          <Button
+            onClick={() => {
+              console.log(1);
+              co.submitBuild(co.createOfferState, true)
+            }}
+            variant={ButtonVariant.Primary}
+            type="button"
+            fullWidth
+            // disableButton={true}
+          >
+            Dalej
+          </Button>
+        </div>
+      </CreateOfferTemplates>
     </div>
   );
 };

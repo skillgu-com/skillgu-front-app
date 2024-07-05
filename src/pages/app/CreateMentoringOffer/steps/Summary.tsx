@@ -3,12 +3,15 @@ import clx from "classnames";
 import styles from "../CreateMentoringOffer.module.scss";
 import { useCreateOfferReducer } from "src/reducers/createOffer";
 import { createMentoringOffer } from "@services/services/createMentoringOffer";
+import { CreateOfferTemplates } from "../CreateOfferTemplates";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 export const Summary = () => {
   const co = useCreateOfferReducer();
   const { createOfferState, reset, updateStatus, setPending } = co;
   const { errorMessage, success, pending } = co.createOfferState;
-
+  const navigate = useNavigate();
   console.log("Summary state", co.createOfferState);
 
   useEffect(() => {
@@ -49,13 +52,33 @@ export const Summary = () => {
   ]);
 
   return (
-    <div>
-      <h1>Summary Step</h1>
-      <p>Success</p>
-      <p>or</p>
-      <p>Pending</p>
-      <p>or</p>
-      <p>Error</p>
-    </div>
+    <CreateOfferTemplates
+      title="Wszystko gotowe"
+      subtitle="Zajrzyj na swój profil, aby zobaczyć swoje nowe plany."
+      step={4}
+    >
+      {success && (
+        <div className={styles.summaryImgBox}>
+          <img
+            width="503.26px"
+            height="263.02px"
+            src="/images/mentoring-offer-sum.svg"
+            alt="woman payment"
+          />
+        </div>
+      )}
+      {pending && <p>Pending</p>}
+      {errorMessage && <p>Error</p>}
+      <div className={styles.btnBox}>
+        <Button
+          onClick={() => co.reset()}
+          fullWidth
+          variant={ButtonVariant.Primary}
+          type="button"
+        >
+          Przejdź do profilu
+        </Button>
+      </div>
+    </CreateOfferTemplates>
   );
 };

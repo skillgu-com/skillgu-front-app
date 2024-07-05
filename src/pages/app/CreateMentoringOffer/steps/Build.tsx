@@ -14,7 +14,6 @@ export const Build = () => {
   const co = useCreateOfferReducer();
   const state = co.createOfferState;
   const [selected, setSelected] = useState<SubscriptionPlan | null>(null);
-  console.log("Build state", state.availableSchedules);
 
   const valid = useMemo(() => {
     return validateState(state);

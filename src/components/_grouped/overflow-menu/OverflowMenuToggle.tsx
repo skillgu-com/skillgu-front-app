@@ -9,6 +9,7 @@ type Props = {
   name?: string;
   value?: string;
   disabled?: boolean;
+  Icon?: React.FC<{ className: string }>
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -18,6 +19,7 @@ export const OverflowMenuToggle = ({
   name,
   value,
   className,
+  Icon = MoreVerticalIcon,
   onClick,
 }: Props) => {
   return (
@@ -33,7 +35,7 @@ export const OverflowMenuToggle = ({
         className
       )}
     >
-      {children} <MoreVerticalIcon strokeWidth={"2.6"} className={styles.dots} />
+      {children} <Icon className={styles.dots} />
     </button>
   );
 };

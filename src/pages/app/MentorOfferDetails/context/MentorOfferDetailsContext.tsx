@@ -64,7 +64,6 @@ export const MentorOfferDetailsProvider = ({ children } : Props) => {
 
   // reject offer
   const handleReject = async () => {
-    console.log("REJ", offerId)
     setPending(true)
     try {
       await rejectMentorship(offerId)

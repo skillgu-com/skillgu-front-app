@@ -8,12 +8,15 @@ import Accordion from "src/components/FAQ/Accordion/Accordion";
 import { mentorshipApplicationFaq } from "src/components/FAQ/Accordion/content/mentorship-application";
 import StepInput from "src/components/StepInput/StepInput";
 import { PlanDetails } from "./PlanDetails";
+import { ProgressBarStepper } from "src/components/_base/progress-bar";
+import Button, { ButtonVariant } from "src/components/Button/Button";
 
 type Props = {
   title: string;
   subtitle: string;
   description: ReactNode;
   submitText: string;
+  submitDisabled?: boolean;
   submitHandler: () => void;
   step: 1 | 2 | 3 | 4;
   sidebar?: boolean;
@@ -21,17 +24,23 @@ type Props = {
 };
 
 export const ContentWrapper = (props: Props) => {
+  console.log("DD", {
+    props,
+
+  })
   return (
     <div className={styles.wrapper}>
-      <div className={styles.grid}>
+      <div className={clx(styles.grid, {
+        [styles.withSidebar]: props.sidebar,
+        [styles.gridCenter]: !props.sidebar,
+      })}>
         <main className={styles.main}>
           <div className={styles.mainContent}>
-            <div className={styles.stepper}>
-              <span data-active={props.step >= 1 ? "T" : 'F'} />
-              <span data-active={props.step >= 2 ? "T" : 'F'} />
-              <span data-active={props.step >= 3 ? "T" : 'F'} />
-              <span data-active={props.step >= 4 ? "T" : 'F'} />
-            </div>
+            <ProgressBarStepper
+              className={styles.stepper}
+              current={props.step}
+              max={4}
+            />
             {props.title ? (
               <h1 className={styles.title}>{props.title}</h1>
             ) : null}
@@ -43,9 +52,17 @@ export const ContentWrapper = (props: Props) => {
             ) : null}
             <div className={styles.content}>{props.children}</div>
             <div className={styles.actions}>
-              <button className={styles.btn} onClick={props.submitHandler}>
+              <Button
+                variant={ButtonVariant.Primary}
+                size="lg"
+                fullWidth
+                fontVariant="button-md"
+                onClick={props.submitHandler}
+                disabled={props.submitDisabled}
+                disableButton={props.submitDisabled}
+              >
                 {props.submitText}
-              </button>
+              </Button>
             </div>
           </div>
 

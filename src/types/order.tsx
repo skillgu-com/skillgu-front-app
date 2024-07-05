@@ -24,7 +24,7 @@ export type MentorshipOrderInput = {
 export type MentorhsipPlanType = {
   id: number;
   variant: SubscriptionPlan;
-  description: string;
+  description?: string;
   price: number;
   sessionDuration?: number;
   sessionsPerMonth?: number;

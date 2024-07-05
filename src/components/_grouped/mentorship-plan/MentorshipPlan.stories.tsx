@@ -1,5 +1,7 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { MentorshipPlan, MentorshipPlanForm, MentorshipPlanSkeleton } from '.';
+import { UserIdentity } from 'src/components/_base/UserIdentity';
 
 const meta = {
   title: 'grouped/MentorshipPlan',
@@ -66,3 +68,38 @@ export const Basic: Story = {
 //     text: 'W trakcie',
 //   },
 // };
+
+export const WithUserIdentity: Story = {
+  args: {
+    id: 1,
+    subscriptionVariant: 'pro',
+    description: '',
+    price: 119,
+    sessionDuration: 45,
+    sessionsPerMonth: 3,
+    responseTime: 72,
+    planIncludes: [
+      'Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów',
+      'Nieograniczony dostęp do pytań i odpowiedzi'
+    ],
+    selected: false,
+    selectable: false,
+  },
+  render: (args) => {
+    return (
+      <MentorshipPlan 
+        {...args}
+        userIdentity={(<UserIdentity 
+          avatarUrl="/images/img_avatar.png"
+          avatarSize={64}
+          avatarAlt="Example avatar"
+          title="Anna Stokrotka"
+          subtitle="UX/UI Designer w Google"
+          rate={5}
+          fullWidth
+          noPadding
+        />)}
+      />
+    )
+  }
+};

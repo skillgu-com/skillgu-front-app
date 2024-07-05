@@ -33,7 +33,7 @@ export const OverflowMenuToggle = ({
         className
       )}
     >
-      {children} <MoreVerticalIcon className={styles.dots} />
+      {children} <MoreVerticalIcon strokeWidth={"2.6"} className={styles.dots} />
     </button>
   );
 };

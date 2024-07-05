@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { MentorshipPlanForm, MentorshipPlanFormValues } from ".";
+import { MentorshipPlanForm } from ".";
 import { getDefaultPlanValues } from "./utils";
+import { MentorshipPlanFormErrors, MentorshipPlanFormTouched, MentorshipPlanFormValues } from './types'
 
 const meta = {
   title: "grouped/MentorshipPlanForm",
@@ -59,6 +60,42 @@ export const Basic: Story = {
           subscriptionVariant={args.subscriptionVariant}
           values={{ ...values }}
           setValues={setValues}
+        /> 
+      </div>
+    );
+  },
+};
+
+export const Selected: Story = {
+  args: {
+    subscriptionVariant: "pro",
+    values: {
+      description: "",
+      price: 119,
+      sessionDuration: 45,
+      sessionsPerMonth: 3,
+      responseTime: 72,
+      planIncludes: [
+        "Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów",
+        "Nieograniczony dostęp do pytań i odpowiedzi",
+      ],
+    },
+  },
+  render: (args) => {
+    const [values, setValues] = useState<MentorshipPlanFormValues>(
+      getDefaultPlanValues(args.subscriptionVariant)
+    );
+    
+    return (
+      <div>
+        <MentorshipPlanForm
+          subscriptionVariant={args.subscriptionVariant}
+          values={{ ...values }}
+          selected
+          setValues={setValues}
+          handleChange={() => {
+            console.log("handleChange")
+          }}
         /> 
       </div>
     );

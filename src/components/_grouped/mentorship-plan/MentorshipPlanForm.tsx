@@ -1,27 +1,15 @@
 import React, {
   ChangeEvent,
-  ChangeEventHandler,
-  FocusEvent,
   MouseEvent,
-  MouseEventHandler,
-  ReactNode,
   useCallback,
   useMemo,
   useState,
 } from "react";
 import styles from "./MentorshipPlan.module.scss";
 import clx from "classnames";
-import { MentorhsipPlanType, SubscriptionPlan } from "@customTypes/order";
-import { displayPlanName } from "src/utils/plan";
-import { CrownIcon } from "@icons/CrownIcon";
+import { SubscriptionPlan } from "@customTypes/order";
 import { PlusIcon } from "@icons/PlusIcon";
-import { CheckCircleIcon } from "@icons/CheckCircleIcon";
-import Select from "src/components/Select/Select";
-import {
-  ReactSelectOptionType,
-  responseTimeOptions,
-  sessionDurationOptions,
-} from "./config";
+import { ReactSelectOptionType, responseTimeOptions } from "./config";
 import {
   OverflowMenu,
   OverflowMenuList,
@@ -30,81 +18,38 @@ import {
 } from "../overflow-menu";
 import { PlanName } from "src/components/_base/PlanName";
 import ReactSelect, { ActionMeta, SingleValue } from "react-select";
-
-type FieldName =
-  | "description"
-  | "price"
-  | "sessionDuration"
-  | "responseTime"
-  | "sessionsPerMonth"
-  | "planIncludes";
-
-type Values = Pick<
-  MentorhsipPlanType,
-  | "description"
-  | "price"
-  | "sessionDuration"
-  | "responseTime"
-  | "sessionsPerMonth"
-  | "planIncludes"
->;
-
-export type MentorshipPlanFormValues = Values;
-
-type Errors = Record<keyof Values, string>;
-
-type Touched = Record<keyof Values, string>;
-
-type ChangeProp =
-  | { name: "description"; value: string }
-  | { name: "price"; value: number }
-  | { name: "sessionDuration"; value: number }
-  | { name: "responseTime"; value: number }
-  | { name: "sessionsPerMonth"; value: number }
-  | { name: "planIncludes"; value?: string; i: number };
+import {
+  FieldName,
+  MentorshipPlanFormValues,
+  MentorshipPlanFormErrors,
+  MentorshipPlanFormTouched,
+  MentorshipPlanFormChangeProp,
+} from "./types";
+import { parseNameAndIndex } from "./utils";
+import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 
 type Props = {
   subscriptionVariant: SubscriptionPlan;
-  values: Values;
-  errors?: Errors;
-  touched?: Touched;
+  values: MentorshipPlanFormValues;
+  errors?: MentorshipPlanFormErrors;
+  touched?: MentorshipPlanFormTouched;
+  selected?: boolean
+  handleClick?: () => void
   handleBlur?: (name: string) => void;
-  handleChange?: (chProps: ChangeProp) => void; //(name: string, value: string | null, index?: number) => void;
+  handleChange?: (chProps: MentorshipPlanFormChangeProp) => void; //(name: string, value: string | null, index?: number) => void;
   setAdditional?: React.Dispatch<React.SetStateAction<string[]>>;
   setValues?: React.Dispatch<React.SetStateAction<MentorshipPlanFormValues>>; //(cb: (values: Values) => Values) => void;
 };
 
-const checkIcon = <CheckCircleIcon className={styles.checkIcon} />;
-
-const regex = /^(\w+)\[(\d+)\]$/; ///planIncludes\[(\d+)\]/;
-
-const parseNameAndIndex = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) : { fullName: string, name: FieldName, i?: number } => {
-  const inp = e.currentTarget as HTMLInputElement | HTMLTextAreaElement;
-  const _name = inp.name as FieldName;
-  try {
-    const match = _name.match(regex)
-    if(match && match.length >= 3 && match[1] && match[2]){
-      const name = match[1] as FieldName
-      const i = Number(match[2])
-      if(isNaN(i)){
-        throw new Error('Wrong or missing index')
-      }   
-      return {
-        fullName: name,
-        name, 
-        i,
-      }
-    }
-  } catch (e) {}
-
-  return { fullName: _name, name: _name }
-}
+const checkIcon = <CheckCircleSolidIcon className={styles.checkIcon} />;
 
 export const MentorshipPlanForm = ({
   subscriptionVariant,
   values,
   errors,
   touched,
+  selected,
+  handleClick,
   handleBlur,
   handleChange,
   setValues,
@@ -139,12 +84,12 @@ export const MentorshipPlanForm = ({
       }
       handleChange && handleChange({ name: "planIncludes", value: "", i });
       setValues &&
-        setValues((curr: Values) => ({
+        setValues((curr: MentorshipPlanFormValues) => ({
           ...curr,
           planIncludes: [...curr.planIncludes, ""],
         }));
     },
-    [handleChange]
+    [handleChange, setValues]
   );
 
   const handleRemoveAdditionalRow = useCallback(
@@ -160,7 +105,7 @@ export const MentorshipPlanForm = ({
           i,
         });
       setValues &&
-        setValues((curr: Values) => ({
+        setValues((curr: MentorshipPlanFormValues) => ({
           ...curr,
           planIncludes: curr.planIncludes.filter((_, j) => j !== i),
         }));
@@ -180,14 +125,14 @@ export const MentorshipPlanForm = ({
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const inp = e.currentTarget as HTMLInputElement | HTMLTextAreaElement;
-      const { name, i } = parseNameAndIndex(e)
+      const { name, i } = parseNameAndIndex(e);
 
       switch (name) {
         case "description":
           const strValue = String(inp.value);
           handleChange && handleChange({ name, value: strValue });
           setValues &&
-            setValues((curr: Values) => ({
+            setValues((curr: MentorshipPlanFormValues) => ({
               ...curr,
               [name]: strValue,
             }));
@@ -199,19 +144,19 @@ export const MentorshipPlanForm = ({
           const numValue = Number(inp.value);
           handleChange && handleChange({ name, value: numValue });
           setValues &&
-            setValues((curr: Values) => ({
+            setValues((curr: MentorshipPlanFormValues) => ({
               ...curr,
               [name]: numValue,
             }));
           break;
         case "planIncludes":
-          if(typeof i !== 'number' || isNaN(i)){
+          if (typeof i !== "number" || isNaN(i)) {
             break;
           }
           const strValue2 = String(inp.value);
           handleChange && handleChange({ name, value: strValue2, i });
           setValues &&
-            setValues((curr: Values) => ({
+            setValues((curr: MentorshipPlanFormValues) => ({
               ...curr,
               planIncludes: curr.planIncludes.map((c, j) =>
                 j === i ? strValue2 : c
@@ -233,7 +178,7 @@ export const MentorshipPlanForm = ({
           const numValue = Number(value);
           handleChange && handleChange({ name, value: numValue });
           setValues &&
-            setValues((curr: Values) => ({
+            setValues((curr: MentorshipPlanFormValues) => ({
               ...curr,
               [name]: numValue,
             }));
@@ -243,38 +188,42 @@ export const MentorshipPlanForm = ({
     [handleChange, setValues]
   );
 
-  const lastExtraRowIsEmpty = useMemo(() => {
+  const hasEmptyRow = useMemo(() => {
     if (values.planIncludes.length === 0) {
       return false;
     }
-    const lastElement = values.planIncludes[values.planIncludes.length - 1];
-    return lastElement === "";
+    const emptyIndex = values.planIncludes.findIndex((v) => v === "" || !v);
+    return typeof emptyIndex === "number" && emptyIndex >= 0 ? true : false;
   }, [values.planIncludes]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={clx(styles.wrapper, {
+      [styles.selected]: selected,
+    })} onClick={handleClick}>
       <div className={styles.rows}>
         <PlanName
           className={styles.planName}
           plan={subscriptionVariant}
           fontVariant="subtitle-1"
           iconSize={20}
+          iconPosition='trailing'
+          noPadding
         />
         <div className={clx(styles.row, styles.priceRow)}>
           <input
-            className={clx(styles.input, styles.priceInput)}
+            className={clx(styles.input, styles.text, styles.priceInput)}
             type="number"
             onChange={inputChangeHandler}
             onBlur={inputBlurHandler}
             name={"price"}
             value={values.price}
           />
-          <span>zł</span>
+          <span className={styles.textCurrency}>zł</span>
           <span>miesięcznie</span>
         </div>
         <div className={clx(styles.row)}>
           <textarea
-            className={clx(styles.input, styles.textareaInput)}
+            className={clx(styles.input, styles.description, styles.text, styles.textareaInput)}
             onChange={inputChangeHandler}
             onBlur={inputBlurHandler}
             name={"description"}
@@ -286,53 +235,32 @@ export const MentorshipPlanForm = ({
         {"sessionsPerMonth" in values ? (
           <div className={clx(styles.row)}>
             {checkIcon}
-            <div>
+            <div className={clx(styles.rowMiddle)}>
               <input
-                className={clx(styles.input)}
+                className={clx(styles.input, styles.text)}
                 type="text"
                 onChange={inputChangeHandler}
                 onBlur={inputBlurHandler}
                 name={"sessionsPerMonth"}
                 value={values.sessionsPerMonth}
               />
-              <span>sesje mentoringowe na miesiąc </span>
-            </div>
-          </div>
-        ) : null}
-        {"sessionDuration" in values ? (
-          <div className={clx(styles.row)}>
-            {checkIcon}
-            <div>
-              <span>Każda po</span>
-              <ReactSelect
-                options={sessionDurationOptions}
-                value={
-                  values.sessionDuration
-                    ? sessionDurationOptions.find(
-                        (v) => Number(v.value) === values.sessionDuration
-                      )
-                    : {}
-                }
-                defaultValue={
-                  values.sessionDuration
-                    ? sessionDurationOptions.find(
-                        (v) => Number(v.value) === values.sessionDuration
-                      )
-                    : {}
-                }
-                onChange={inputReactSelectHandler}
-                name="sessionDuration"
-              />
-              <span>minut </span>
+              <span className={styles.text}>
+                sesje mentoringowe na miesiąc{" "}
+                {values.sessionDuration
+                  ? `(każda po ${values.sessionDuration} minut)`
+                  : ``}
+              </span>
             </div>
           </div>
         ) : null}
         {"responseTime" in values ? (
           <div className={clx(styles.row)}>
             {checkIcon}
-            <div>
-              <span>Odpowiedź w przeciągu</span>
+            <div className={clx(styles.rowMiddle)}>
+              <span className={styles.text}>Odpowiedź w przeciągu</span>
               <ReactSelect
+                className={styles.select}
+                classNamePrefix={'xyz'}
                 options={responseTimeOptions}
                 value={
                   values.responseTime
@@ -357,13 +285,17 @@ export const MentorshipPlanForm = ({
         {values.planIncludes.map((r, i) => (
           <div className={clx(styles.row)} key={i}>
             {checkIcon}
-            <div>
-              <textarea
-                value={r}
-                name={`planIncludes[${i}]`}
-                onChange={inputChangeHandler}
-              />
-            </div>
+            <textarea
+              value={r}
+              name={`planIncludes[${i}]`}
+              onChange={inputChangeHandler}
+              className={clx(
+                styles.input,
+                styles.rowMiddle,
+                styles.text,
+                styles.textareaInput
+              )}
+            />
             <OverflowMenu
               onMouseLeave={() => setOverflowMenuIndex(null)}
               onClickOutside={() => setOverflowMenuIndex(null)}
@@ -374,8 +306,9 @@ export const MentorshipPlanForm = ({
                 className={styles.toggle}
               />
               {overflowMenuIndex === i ? (
-                <OverflowMenuList>
+                <OverflowMenuList className={styles.overflowList}>
                   <OverflowMenuOption
+                    className={styles.overflowOption}
                     text="Usuń"
                     onClick={handleRemoveAdditionalRow}
                     name="suspend"
@@ -390,7 +323,8 @@ export const MentorshipPlanForm = ({
 
       <div className={styles.action}>
         <button
-          disabled={lastExtraRowIsEmpty}
+          className={styles.btnAdd}
+          disabled={hasEmptyRow}
           value={values.planIncludes.length}
           onClick={handleAddAdditionalRow}
         >

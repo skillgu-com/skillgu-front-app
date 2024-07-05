@@ -39,7 +39,7 @@ export interface MentorshipPlanDTO {
     price: number;
     variant: string;
     descriptionRows: DescriptionRowDTO[];
-    numberOfSessionsPerMonth: number;
+    sessionsPerMonth: number;
     sessionDurationMinutes: number;
     responseTimeHours: number;
     providesMaterials: boolean;
@@ -76,7 +76,7 @@ export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<Mentors
             price: plan.price,
             variant: plan.variant,
             descriptionRows: plan.descriptionRows,
-            numberOfSessionsPerMonth: plan.numberOfSessionsPerMonth,
+            sessionsPerMonth: plan.sessionsPerMonth,
             sessionDurationMinutes: plan.sessionDurationMinutes,
             responseTimeHours: plan.responseTimeHours,
             providesMaterials: plan.providesMaterials,

@@ -16,7 +16,7 @@ type Output = {
   submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
   submitBuild: (props: {
     providesMaterials: boolean;
-    base: PlanInput;
+    basic: PlanInput;
     advanced?: PlanInput;
     pro?: PlanInput;
   }, nextStep: boolean) => void;
@@ -72,7 +72,7 @@ export const useCreateOfferReducer = (): Output => {
   const submitBuild = useCallback(
     (props: {
       providesMaterials: boolean;
-      base: PlanInput;
+      basic: PlanInput;
       advanced?: PlanInput;
       pro?: PlanInput;
     }, nextStep: boolean) =>
@@ -80,7 +80,7 @@ export const useCreateOfferReducer = (): Output => {
         type: "SUBMIT_BUILD",
         payload: {
           providesMaterials: props.providesMaterials,
-          base: props.base,
+          basic: props.basic,
           advanced: props.advanced || undefined,
           pro: props.pro || undefined,
           nextStep,

@@ -189,7 +189,7 @@ export const MentorshipPlanForm = ({
   );
 
   const hasEmptyRow = useMemo(() => {
-    if (values.planIncludes.length === 0) {
+    if (!values.planIncludes || values.planIncludes.length === 0) {
       return false;
     }
     const emptyIndex = values.planIncludes.findIndex((v) => v === "" || !v);
@@ -282,7 +282,7 @@ export const MentorshipPlanForm = ({
             </div>
           </div>
         ) : null}
-        {values.planIncludes.map((r, i) => (
+        {'planIncludes' in values && values.planIncludes.map((r, i) => (
           <div className={clx(styles.row)} key={i}>
             {checkIcon}
             <textarea
@@ -320,7 +320,7 @@ export const MentorshipPlanForm = ({
           </div>
         ))}
       </div>
-
+        
       <div className={styles.action}>
         <button
           className={styles.btnAdd}

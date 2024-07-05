@@ -67,7 +67,7 @@ export interface MentorshipPlan {
   price: number;
   variant: string;
   descriptionRows: DescriptionRowDTO[];
-  numberOfSessionsPerMonth: number;
+  sessionsPerMonth: number;
   sessionDurationMinutes: number;
   responseTimeHours: number;
   providesMaterials: boolean;

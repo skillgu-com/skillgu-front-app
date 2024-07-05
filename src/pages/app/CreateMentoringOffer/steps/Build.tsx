@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useMemo, useState } from "react";
 import styles from "../CreateMentoringOffer.module.scss";
-
 import { useCreateOfferReducer } from "src/reducers/createOffer";
 import { CreateOfferTemplates } from "../CreateOfferTemplates";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { RadioButton } from "../elements/RadioButton";
 import { OfferPlan } from "../elements/OfferPlan";
-import DropdownIcon from "@icons/DropdownIcon";
+import { SubscriptionPlan } from "@customTypes/order";
+import { PlanInput } from "@customTypes/create-mentoring";
+import { CreateOfferState } from "src/reducers/createOffer/types";
+import { getStateErrorMessage, validateState } from "../utils";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
+  const state = co.createOfferState;
+  const [selected, setSelected] = useState<SubscriptionPlan | null>(null);
+  console.log("Build state", state.availableSchedules);
 
-  console.log("Build state", co.createOfferState);
+  const valid = useMemo(() => {
+    return validateState(state);
+  }, [state]);
+
+  const validMsg = getStateErrorMessage(valid)
 
   return (
     <div>
@@ -22,75 +30,76 @@ export const Build = () => {
         step={3}
       >
         <div className={styles.plansWrapper}>
-          <div>
-            <div className={styles.containerSchedule}>
-              <p className={styles.scheduleSubtitle}>
-                Harmonogram dla Planu Podstawowego
-              </p>
-              <p className={styles.box}>
-                <span>{co.createOfferState.base?.schedule}</span>
-                <DropdownIcon />
-              </p>
-            </div>
-            <OfferPlan
-              title="Plan podstawowy"
-              data={co.createOfferState.base}
-            />
-          </div>
+          <OfferPlan
+            errors={valid.errors.basic}
+            plan="basic"
+            selected={selected === "basic"}
+            setSelected={setSelected}
+          />
 
           {co.createOfferState.numberOfPlans > 2 ? (
-            <div>
-              <div className={styles.containerSchedule}>
-                <p className={styles.scheduleSubtitle}>
-                  Harmonogram dla Planu Zaawansowanego
-                </p>
-                <p className={styles.box}>
-                  <span>{co.createOfferState.advanced?.schedule}</span>
-                  <DropdownIcon />
-                </p>
-              </div>
-              <OfferPlan
-                title="Plan zaawansowany"
-                data={co.createOfferState.advanced}
-              />
-            </div>
+            <OfferPlan
+              errors={valid.errors.advanced}
+              plan="advanced"
+              selected={selected === "advanced"}
+              setSelected={setSelected}
+            />
           ) : null}
           {co.createOfferState.numberOfPlans > 1 && (
-            <div>
-              <div className={styles.containerSchedule}>
-                <p className={styles.scheduleSubtitle}>Harmonogram dla Planu Pro</p>
-                <p className={styles.box}>
-                  <span>{co.createOfferState.pro?.schedule}</span>
-                  <DropdownIcon />
-                </p>
-              </div>
-              <OfferPlan title="Plan pro" data={co.createOfferState.pro} pro />
-            </div>
+            <OfferPlan
+              errors={valid.errors.pro}
+              plan="pro"
+              selected={selected === "pro"}
+              setSelected={setSelected}
+            />
           )}
         </div>
 
-        <div className={styles.flex}>
-          <div className={styles.legendBuild}>
-            <p>Dostarczasz materiały?</p>
+        <div className={styles.legendBuild}>
+          <div className={styles.left}>
+            <h6>Czy dostarczasz materiały?</h6>
             <p>Tutaj jakiś opis wyjaśniający.</p>
           </div>
-          <div className={styles.flex}>
+          <div className={styles.right}>
             <RadioButton
               id="yes"
               name="materials-provider"
-              label="TAK"
-              onChange={() => console.log(2)}
+              label="Tak"
+              onChange={() => {
+                co.submitBuild(
+                  {
+                    ...state,
+                    providesMaterials: true,
+                  },
+                  false
+                );
+              }}
               checked={co.createOfferState.providesMaterials === true}
             />
             <RadioButton
               id="no"
               name="materials-provider"
-              label="NIE"
-              onChange={() => console.log(2)}
+              label="Nie"
+              onChange={() => {
+                co.submitBuild(
+                  {
+                    ...state,
+                    providesMaterials: false,
+                  },
+                  false
+                );
+              }}
               checked={co.createOfferState.providesMaterials === false}
             />
           </div>
         </div>
+
+        {validMsg ? (
+          <p className={styles.validMsg}>
+            {validMsg}
+          </p>
+        ) : null}
+
         <div className={styles.btnBox}>
           <Button
             onClick={co.prevStep}
@@ -102,13 +111,12 @@ export const Build = () => {
           </Button>
           <Button
             onClick={() => {
-              console.log(1);
-              co.submitBuild(co.createOfferState, true)
+              co.submitBuild(co.createOfferState, true);
             }}
             variant={ButtonVariant.Primary}
             type="button"
             fullWidth
-            // disableButton={true}
+            disableButton={!valid.isValid}
           >
             Dalej
           </Button>

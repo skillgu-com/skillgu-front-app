@@ -1,133 +1,118 @@
 import Container from "src/components/Container/Container";
 import React from "react";
 import { Tag } from "@customTypes/tags";
-
-import styles from "./OfferPlan.module.scss";
+import styles from "../../CreateMentoringOffer.module.scss";
 import { PlanInput } from "@customTypes/create-mentoring";
 import { ListStyleIcon } from "@icons/ListStyleIcon";
 import DropdownIcon from "@icons/DropdownIcon";
 import { ProPlanIcon } from "@icons/ProPlanIcon";
 import Add from "@icons/Add";
 import { Dropdown } from "src/components/_grouped/dropdown";
-import Select from "src/components/Select/Select";
 import { useForm } from "react-hook-form";
 import { responseTimeOptions, sessionDurationOptions } from "../../config";
+import { MentorshipPlanForm } from "src/components/_grouped/mentorship-plan";
+import { SubscriptionPlan } from "@customTypes/order";
+import { useCreateOfferReducer } from "src/reducers/createOffer";
+import { Select } from "../../form/select";
+import { ScheduleOption } from "src/reducers/createOffer/types";
+import {
+  MentorshipPlanFormChangeProp,
+  MentorshipPlanFormErrors,
+} from "src/components/_grouped/mentorship-plan/types";
 
-export const OfferPlan = ({
-  data,
-  title,
-  pro,
-}: {
-  title: string;
-  data: PlanInput;
-  pro?: boolean;
-}) => {
-  const selectedResponseTimeOptions = responseTimeOptions.find(
-    (s) => s.value === data.responseTime
-  );
-  const selectedSessionDurationOptions = sessionDurationOptions.find(
-    (s) => s.value === data.sessionDuration
-  );
+type Props = {
+  plan: SubscriptionPlan;
+  selected: boolean;
+  errors: MentorshipPlanFormErrors;
+  setSelected: (plan: SubscriptionPlan) => void;
+};
 
-  if (!selectedResponseTimeOptions || !selectedSessionDurationOptions) {
-    return null;
-  }
+export const OfferPlan = ({ errors, plan, selected, setSelected }: Props) => {
+  const { createOfferState, submitBuild } = useCreateOfferReducer();
+  const planState = createOfferState[plan];
+  const errorValues = Array.from(Object.values(errors)).filter((e) => !!e);
 
   return (
-    <Container as={Tag.Section} classes={styles.container}>
-      <div className={styles.containerPlan} data-variant={pro ? "pro" : null}>
-        <h4 className={styles.title}>
-          {title}
-          {pro && (
-            <span>
-              <ProPlanIcon />
-            </span>
+    <div onClick={() => setSelected(plan)}>
+      <div className={styles.containerSchedule}>
+        <p className={styles.scheduleSubtitle}>
+          Harmonogram dla Planu{" "}
+          {plan === "basic"
+            ? "Podstawowego"
+            : plan === "advanced"
+              ? "Zaawansowanego"
+              : "Pro"}
+        </p>
+        <Select
+          className={styles.select}
+          name={`schedule-${plan}`}
+          value={createOfferState.availableSchedules.find(
+            (s) => String(s.value) === String(planState.schedule)
           )}
-        </h4>
-        <div className={styles.priceBox}>
-          <input
-            className={styles.priceValue}
-            value={data.price}
-            name="price"
-            size={2}
-          />
-          <label
-            className={styles.priceCurrency}
-            htmlFor="price"
-            aria-labelledby="price"
-          >
-            zł
-          </label>
-          <span className={styles.pricePeriod}>miesięcznie</span>
-        </div>
-
-        <textarea
-          className={styles.description}
-          name="description"
-          value={data.description}
+          placeholder="Wybierz harmonogram"
+          options={createOfferState.availableSchedules}
+          handleSelect={(name: string, opt: ScheduleOption) => {
+            submitBuild(
+              {
+                ...createOfferState,
+                [plan]: {
+                  ...planState,
+                  schedule: String(opt.value),
+                },
+              },
+              false
+            );
+          }}
         />
-        <ul className={styles.list}>
-          <p className={styles.subtitle}>Plan obejmuje</p>
-
-          <li className={styles.listItem}>
-            <ListStyleIcon />
-            <input
-              className={styles.box}
-              name="numberOfSession"
-              value={data.numberOfSessions}
-              size={1}
-            />
-            <label htmlFor="numberOfSession" aria-label="numberOfSessions">
-              sesje mentoringowe na miesiąc
-            </label>
-          </li>
-          <li className={styles.listItem}>
-            <ListStyleIcon />
-            <span>każda po</span>
-            <div className={styles.selectBox}>
-              {/* <Select
-                label={selectedSessionDurationOptions.label}
-                id="sessionDuration"
-                name="sessionDuration"
-                options={sessionDurationOptions}
-                value={data.sessionDuration}
-                valueChangeHandler={() => {}}
-              /> */}
-            </div>
-            <span>minut</span>
-          </li>
-          <li className={styles.listItem}>
-            <ListStyleIcon />
-            odpowiedź w przeciągu
-            <div className={styles.selectBox}>
-              {/* <Select
-                label={selectedResponseTimeOptions.label}
-                id="responseTime"
-                name="responseTime"
-                options={responseTimeOptions}
-                value={data.responseTime}
-                classes={styles.select}
-                valueChangeHandler={() => {}}
-              /> */}
-            </div>
-          </li>
-          {data?.additional.map((item, ind) => (
-            // TODO - key
-            <li className={styles.listItem} key={ind}>
-              <ListStyleIcon />
-              <textarea
-                name={(ind + 1).toString()}
-                className={styles.description}
-                value={item}
-              />
-            </li>
-          ))}
-        </ul>
-        <button className={styles.addNew}>
-          <Add />
-          Dodaj kolejny punkt
-        </button>
       </div>
-    </Container>
+      <MentorshipPlanForm
+        subscriptionVariant={plan}
+        values={planState}
+        selected={selected}
+        errors={errors}
+        handleChange={(props: MentorshipPlanFormChangeProp) => {
+          const newValues = { ...planState };
+
+          switch (props.name) {
+            case "description":
+              newValues[props.name] = String(props.value);
+              break;
+            case "price":
+            case "sessionDuration":
+            case "responseTime":
+            case "sessionsPerMonth":
+              newValues[props.name] = Number(props.value);
+              break;
+            case "planIncludes":
+              const { value, i } = props;
+              const newAdds = [...planState.planIncludes];
+              if (typeof value === "undefined") {
+                newAdds.splice(i, 1);
+              }
+              if (typeof value === "string") {
+                newAdds[i] = value;
+              }
+              newValues.planIncludes = newAdds;
+          }
+          submitBuild(
+            {
+              ...createOfferState,
+              [plan]: {
+                ...planState,
+                ...newValues,
+              },
+            },
+            false
+          );
+        }}
+      />
+      {errorValues.length ? (
+        <ul className={styles.planErrors}>
+          {errorValues.map((e, i) =>
+            typeof e === "string" ? <li key={i}>{e}</li> : null
+          )}
+        </ul>
+      ) : null}
+    </div>
   );
 };

@@ -211,6 +211,11 @@
       @extend %text-button-md;
       color: $colour-primary;
     }
+
+    .select { 
+      height: 54px;
+    }
+
     .box {
       @extend %text-body-2;
       display: flex;
@@ -223,5 +228,61 @@
       border: 1px solid $colour-base-400;
       border-radius: 8px;
     }
+  }
+}
+
+.legendBuild {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    row-gap: 8px;
+    align-items: flex-end;
+    justify-content: center;
+
+    > * {
+      cursor: pointer;
+      @extend %text-button-sm;
+      color: $colour-primary;
+    }
+  }
+
+  h6 {
+    @extend %text-button-md;
+    color: $colour-primary; 
+  }
+
+  p {
+    @extend %text-button-sm;
+    color: $colour-base-800; 
+  }
+}
+
+.validMsg {
+  @extend %text-button-lg;
+    color: $colour-error-100;
+}
+
+.planErrors {
+  padding: 12px;
+
+  li {
+    @extend %text-button-md;
+    color: $colour-error-100;  
   }
 }

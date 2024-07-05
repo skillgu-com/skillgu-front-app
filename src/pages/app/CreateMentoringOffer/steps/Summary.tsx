@@ -21,7 +21,7 @@ export const Summary = () => {
         const resData = await createMentoringOffer({
           numberOfPlans: co.createOfferState.numberOfPlans,
           providesMaterials: co.createOfferState.providesMaterials,
-          base: co.createOfferState.base,
+          base: co.createOfferState.basic,
           advanced: co.createOfferState.advanced,
           pro: co.createOfferState.pro,
         });
@@ -42,7 +42,7 @@ export const Summary = () => {
     }
   }, [
     co.createOfferState.advanced,
-    co.createOfferState.base,
+    co.createOfferState.basic,
     co.createOfferState.numberOfPlans,
     co.createOfferState.pro,
     co.createOfferState.providesMaterials,

@@ -49,7 +49,7 @@ export const createOfferReducer = (
         ...state,
         step: action.payload.nextStep ? "summary" : "build",
         providesMaterials: action.payload.providesMaterials,
-        base: action.payload.base,
+        basic: action.payload.basic,
         advanced: action.payload.advanced || createOfferInitialState.advanced,
         pro: action.payload.pro || createOfferInitialState.pro,
       };
@@ -64,6 +64,8 @@ export const createOfferReducer = (
         errorMessage: action.payload.errorMessage,
         success: action.payload.success,
       };
+    case "LOGOUT":
+    case "LOGIN": 
     case "RESET":
       return {
         ...createOfferInitialState,

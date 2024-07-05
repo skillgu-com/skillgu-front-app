@@ -103,7 +103,7 @@ export const MentorSubscriptions = () => {
 
           <Table>
             {pending ? (
-              <Loader spinner overflow shadow spinnerSize="lg" />
+              <Loader spinner overlay shadow spinnerSize="lg" />
             ) : data === null ? (
               <div className={styles.alert}>
                 <p>Brak danych</p>

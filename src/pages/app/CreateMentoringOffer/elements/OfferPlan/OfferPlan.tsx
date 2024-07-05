@@ -85,13 +85,14 @@ export const OfferPlan = ({
             <ListStyleIcon />
             <span>każda po</span>
             <div className={styles.selectBox}>
-              <Select
+              {/* <Select
                 label={selectedSessionDurationOptions.label}
                 id="sessionDuration"
                 name="sessionDuration"
                 options={sessionDurationOptions}
                 value={data.sessionDuration}
-              />
+                valueChangeHandler={() => {}}
+              /> */}
             </div>
             <span>minut</span>
           </li>
@@ -99,14 +100,15 @@ export const OfferPlan = ({
             <ListStyleIcon />
             odpowiedź w przeciągu
             <div className={styles.selectBox}>
-              <Select
+              {/* <Select
                 label={selectedResponseTimeOptions.label}
                 id="responseTime"
                 name="responseTime"
                 options={responseTimeOptions}
                 value={data.responseTime}
                 classes={styles.select}
-              />
+                valueChangeHandler={() => {}}
+              /> */}
             </div>
           </li>
           {data?.additional.map((item, ind) => (

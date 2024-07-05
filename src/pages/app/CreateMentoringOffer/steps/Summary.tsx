@@ -71,7 +71,7 @@ export const Summary = () => {
       {errorMessage && <p>Error</p>}
       <div className={styles.btnBox}>
         <Button
-          // onClick={co.submit}
+          onClick={() => co.reset()}
           fullWidth
           variant={ButtonVariant.Primary}
           type="button"

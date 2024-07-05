@@ -4,6 +4,7 @@ import clx from "classnames";
 import { MentorhsipPlanType, SubscriptionPlan } from "@customTypes/order";
 import { PlanName } from "src/components/_base/PlanName";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
+import { replaceSpacesWithNonBreaking } from "src/utils/text";
 
 type Props = Pick<
   MentorhsipPlanType,
@@ -39,7 +40,11 @@ export const MentorshipPlan = ({
   onClick,
 }: Props) => {
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={clx(styles.wrapper, {
+        [styles.selected]: selected,
+      })}
+    >
       {userIdentity}
       <div className={styles.rows}>
         <PlanName
@@ -64,12 +69,15 @@ export const MentorshipPlan = ({
         {typeof sessionsPerMonth !== "undefined" ? (
           <div className={clx(styles.row)}>
             {checkIcon}
-            <div>
-              <span className={styles.text}>
-                {sessionsPerMonth} sesje mentoringowe na miesiąc{" "}
-                {typeof sessionDuration !== "undefined"
-                  ? `(${sessionDuration} minut każda)`
-                  : null}
+            <div className={styles.text}>
+              <span>
+                {replaceSpacesWithNonBreaking(
+                  `${sessionsPerMonth} sesje mentoringowe na miesiąc ${
+                    typeof sessionDuration !== "undefined"
+                      ? `(${sessionDuration} minut każda)`
+                      : null
+                  }`
+                )}{" "}
               </span>
             </div>
           </div>
@@ -78,7 +86,11 @@ export const MentorshipPlan = ({
           <div className={clx(styles.row)}>
             {checkIcon}
             <div className={styles.text}>
-              <span>Odpowiedzi na Twoje pytania w ciągu {responseTime}h </span>
+              <span>
+                {replaceSpacesWithNonBreaking(
+                  `Odpowiedzi na Twoje pytania w ciągu ${responseTime}h `
+                )}
+              </span>
             </div>
           </div>
         ) : null}
@@ -86,7 +98,7 @@ export const MentorshipPlan = ({
           <div className={clx(styles.row)} key={r + "_" + i}>
             {checkIcon}
             <div className={styles.text}>
-              <span>{r}</span>
+              <span>{replaceSpacesWithNonBreaking(r)}</span>
             </div>
           </div>
         ))}

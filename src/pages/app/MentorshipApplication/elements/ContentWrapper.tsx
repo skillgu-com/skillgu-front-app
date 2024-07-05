@@ -24,10 +24,6 @@ type Props = {
 };
 
 export const ContentWrapper = (props: Props) => {
-  console.log("DD", {
-    props,
-
-  })
   return (
     <div className={styles.wrapper}>
       <div className={clx(styles.grid, {

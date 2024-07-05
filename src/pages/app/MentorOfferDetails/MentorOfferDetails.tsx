@@ -9,75 +9,48 @@ import {
   sendRejectionFeedback,
 } from "src/services/offer/offer.service";
 import { InProgress, Rejected, Accepted } from "./screens";
-import { Sidebar } from "./elements";
+import {} from "./elements";
+import { useParams } from "react-router-dom";
+import { Loader } from "src/components/_grouped/loader";
+import { MentorOfferDetailsProvider, useMentorOfferDetails } from "./context/MentorOfferDetailsContext";
+
+const MentorOfferDetailsContent = () => {
+  const { offer, pending, handleAccept, handleReject, handleFeedback } = useMentorOfferDetails();
+
+  if (pending) {
+    return <Loader className={styles.loader} spinner />;
+  }
+
+  if (!offer) {
+    return null;
+  }
+
+  if (offer.status === "rejected") {
+    return (
+      <Rejected />
+    );
+  }
+
+  if (offer.status === "accepted") {
+    return <Accepted />;
+  }
+
+  if (offer.status === "in-progress") {
+    return (
+      <InProgress />
+    );
+  }
+
+  return null;
+};
 
 export const MentorOfferDetails = () => {
-  const offerId = 1; //@TODO
-  const [pending, setPending] = useState<boolean>(true);
-  const [details, setDetails] = useState<OfferDetails | null>(null);
+  const { id } = useParams();
+  const offerId = Number(id);
 
-  const handleAccept = useCallback(async () => {
-    setPending(true);
-    try {
-      await acceptOffer(offerId);
-      const data = await fetchOfferDetails(offerId);
-      setDetails(data);
-    } catch (e) {}
-    setPending(false);
-  }, []);
-
-  const handleReject = useCallback(async () => {
-    try {
-      await rejectOffer(offerId);
-      const data = await fetchOfferDetails(offerId);
-      setDetails(data);
-    } catch (e) {}
-    setPending(false);
-  }, []);
-
-  const handleFeedback = useCallback(async (feedback: string) => {
-    try {
-      await sendRejectionFeedback(offerId, feedback);
-      const data = await fetchOfferDetails(offerId);
-      setDetails(data);
-    } catch (e) {}
-    setPending(false);
-  }, []);
-
-  useEffect(() => {
-    const getInitialData = async () => {
-      try {
-        const data = await fetchOfferDetails(offerId);
-        setDetails(data);
-      } catch (e) {}
-      setPending(false);
-    };
-    getInitialData();
-  }, []);
-
-  return pending ? (
-    <p>Pending</p>
-  ) : details ? (
-    <div>
-      <main>
-        {details.status === "rejected" ? (
-          <Rejected
-            rejectionFeedback={details.rejectionFeedback}
-            handleSendFeedback={handleFeedback}
-          />
-        ) : details.status === "accepted" ? (
-          <Accepted />
-        ) : details.status === "in-progress" ? (
-          <InProgress
-            offerDetails={details}
-            handleAccept={handleAccept}
-            handleReject={handleReject}
-          />
-        ) : null}
-      </main>
-      <aside>
-        <Sidebar service={details.service} />
-      </aside>
-    </div>
-  ) : null;
+  return isNaN(offerId) ? null : (
+    <MentorOfferDetailsProvider>
+      <MentorOfferDetailsContent />
+    </MentorOfferDetailsProvider>
+  );
 };

@@ -122,6 +122,10 @@
     color: $colour-base-800;
 }
 
+.row > .text {
+    flex: 1;
+}
+
 .checkIcon {
     font-size: 18px;
     color: $colour-primary;

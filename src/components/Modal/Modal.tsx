@@ -14,14 +14,15 @@ import { TitleTag, TitleVariant } from "../typography/Title/Title";
 interface ModalProps extends Common {
   className?: string;
   classNameContent?: string;
-  title: string;
+  title?: string;
+  isOpen?: boolean;
   closeHandler: () => void;
 }
 
 const Modal = (props: ModalProps) => {
-  const { title, children, closeHandler } = props;
+  const { title, children, closeHandler, isOpen = true } = props;
 
-  return (
+  return isOpen ? (
     <div className={clx(styles.wrapper, props.className)}>
       <div className={clx(styles.content, props.classNameContent)}>
         <button className={styles.close} onClick={closeHandler}>
@@ -37,7 +38,7 @@ const Modal = (props: ModalProps) => {
         {children}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Modal;

@@ -1,6 +1,16 @@
-import { ServiceMentoring } from "@customTypes/order";
+import { ServiceMentoring, SubscriptionPlan } from "@customTypes/order";
 
 export type OfferStatus = 'in-progress'|'rejected'|'accepted'
+
+type Plan = {
+  id: number
+  price: number
+  sessionDuration: number
+  responseTime: number
+  sessionsPerMonth: number
+  planIncludes: string[]
+  subscriptionVariant: SubscriptionPlan;
+}
 
 export type OfferDetails = {
   status: OfferStatus
@@ -15,12 +25,17 @@ export type OfferDetails = {
   questionForMentor: string;
 };
 
+type Output = {
+  offer: OfferDetails
+  plan: Plan
+}
 
 export const fetchOfferDetails = async (
   offerId: number
-): Promise<OfferDetails> => {
+): Promise<Output> => {
   return {
-    status: 'in-progress',
+    offer: {
+      status: 'in-progress',
     rejectionFeedback: '',
     service: {
       id: "1",
@@ -46,6 +61,19 @@ export const fetchOfferDetails = async (
     aboutStudent:
       "Hej! Jestem studentką i poszukuję pomocy w naucy. Chciałabym również zmienić moją ścieżkę kariery.",
     questionForMentor: "Jak radzisz sobie z uczniami, którzy mają trudności z materiałem?",
+    },
+    plan: {
+      id: 1,
+      price: 300,
+      sessionDuration: 60,
+      responseTime: 24,
+      sessionsPerMonth: 4,
+      planIncludes: [
+        'Nieograniczony dostęp do pytań i odpowiedzi',
+        'Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów',
+      ],
+      subscriptionVariant: 'pro',
+    },
   };
 };
 

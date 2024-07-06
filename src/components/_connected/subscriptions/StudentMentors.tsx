@@ -1,56 +1,35 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import styles from "./Subscriptions.module.scss";
-import {
-  HorizontalTabs,
-  HorizontalTabsButton,
-} from "src/components/_base/HorizontalTabs";
-import { SubscriptionStatus } from "@customTypes/subscriptions";
-import { Table, TableCell, TableRow } from "src/components/_base/Table";
-import { Scrollable } from "src/components/_base/Scrollable";
-import { Pagination } from "src/components/_grouped";
-import { formatDate } from "src/utils";
-import { UserIdentity } from "src/components/_base/UserIdentity";
-import { CrownIcon } from "@icons/CrownIcon";
-import { Status } from "src/components/_base/Status";
-import { Tag } from "src/types/tags";
-import Container from "src/components/Container/Container";
-import { SearchSvg2 } from "@icons/SearchSvg2";
-import { SkeletonRow } from "./SkeletonRow";
-import {
-  OverflowMenu,
-  OverflowMenuList,
-  OverflowMenuOption,
-  OverflowMenuToggle,
-} from "src/components/_grouped/overflow-menu";
-import { useNavigate } from "react-router-dom";
-import { useSubscriptionsReducer } from "src/reducers/subscriptions";
-import { Skeleton, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
+import clx from "classnames";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { PlanName } from "src/components/_base/PlanName";
-import SendArrow from "@icons/SendArrow";
-import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
-import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
-import Button, { ButtonVariant } from "src/components/Button/Button";
 
-import Arrow from "@icons/Arrow";
-import { ArrowLongRight } from "@icons/ArrowLongRight";
-import clx from "classnames";
+import { useSubscriptionsReducer } from "src/reducers/subscriptions";
+
+import Button, { ButtonVariant } from "src/components/Button/Button";
 import { ClientPortal } from "src/components/portal";
-import { SubscriptionPlan } from "@customTypes/order";
+import Container from "src/components/Container/Container";
 import Modal from "src/components/Modal/Modal";
+import { PlanName } from "src/components/_base/PlanName";
+import { Status } from "src/components/_base/Status";
+import { Text } from "src/components/typography";
+import { UserIdentity } from "src/components/_base/UserIdentity";
 import { MentorshipFeedbackModal } from "../mentorship-feedback/MentorshipFeedbackModal";
+import { Skeleton, Typography } from "@mui/material";
+import { ArrowLongRight } from "@icons/ArrowLongRight";
+
+import { SubscriptionPlan } from "@customTypes/order";
+import { SubscriptionStatus } from "@customTypes/subscriptions";
+import { Tag } from "src/types/tags";
+
+import styles from "./Subscriptions.module.scss";
+
+import { formatDate } from "src/utils";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
-import { Text } from "src/components/typography";
-import { Tag as TagButtonTypes } from "@customTypes/tags";
+import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
+import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
+
 const PER_PAGE = 5;
 
 const renderStatus = (status: SubscriptionStatus) => {
@@ -141,7 +120,7 @@ export const StudentMentors = ({ title }: Props) => {
     const c = cancelling ? { ...cancelling } : ({} as MentorShort);
     setConfirmed(c);
     setCancelling(null);
-  }
+  };
 
   const handleCancelConfirm = useCallback(async () => {
     const c = confirmed ? { ...confirmed } : ({} as MentorShort);
@@ -232,11 +211,11 @@ export const StudentMentors = ({ title }: Props) => {
             title={`Anulowałeś swój plan Pro z ${confirmed.fullName}?`}
             closeHandler={() => setConfirmed(null)}
           >
-          
-              <Text classes={styles.info}>
-                Przykro nam, że odchodzisz! Zawsze możesz wznowić swoją subskrypcję.
-              </Text>
-        
+            <Text classes={styles.info}>
+              Przykro nam, że odchodzisz! Zawsze możesz wznowić swoją
+              subskrypcję.
+            </Text>
+
             <div className={styles.btnBox}>
               <Button
                 variant={ButtonVariant.Transparent}
@@ -297,7 +276,6 @@ export const StudentMentors = ({ title }: Props) => {
               </Slider>
             ) : null}
             {!pending &&
-            data &&
             data?.total &&
             data.mentors &&
             data.mentors.length > 0 ? (
@@ -349,6 +327,21 @@ export const StudentMentors = ({ title }: Props) => {
                           </div>
                         </>
                       ) : null}
+                         {m.status === "suspended" ? (
+                        <>
+                          <div className={styles.cardStatus}>
+                            <Status text="Mentoring zawieszony" variant="warning" />
+                            <p>
+                              Zawiesiłeś współpracę z mentorem.
+                            </p>
+                          </div>
+                          <div className={styles.buttons}>
+                            <a className={styles.btn} onClick={() => {}}>
+                              Odwieś
+                            </a>
+                          </div>
+                        </>
+                      ) : null}
                       {m.status === "rejected" ? (
                         <>
                           <div className={styles.cardStatus}>
@@ -385,36 +378,34 @@ export const StudentMentors = ({ title }: Props) => {
                         </>
                       ) : null}
                       {m.status === "accepted" && m.scheduled ? (
-                        <>
-                          <div className={styles.buttons}>
-                            <button
-                              onClick={() =>
-                                setSuspending({
-                                  id: m.id,
-                                  fullName: m.fullName,
-                                  plan: m.plan,
-                                  paidUntil: m.paidUntil,
-                                })
-                              }
-                              className={styles.btn}
-                            >
-                              Zawieś subskrypcję
-                            </button>
-                            <button
-                              onClick={() =>
-                                setCancelling({
-                                  id: m.id,
-                                  fullName: m.fullName,
-                                  plan: m.plan,
-                                  paidUntil: m.paidUntil,
-                                })
-                              }
-                              className={clx(styles.btn, styles.btnRed)}
-                            >
-                              Zakończ subskrypcję
-                            </button>
-                          </div>
-                        </>
+                        <div className={styles.buttons}>
+                          <button
+                            onClick={() =>
+                              setSuspending({
+                                id: m.id,
+                                fullName: m.fullName,
+                                plan: m.plan,
+                                paidUntil: m.paidUntil,
+                              })
+                            }
+                            className={styles.btn}
+                          >
+                            Zawieś subskrypcję
+                          </button>
+                          <button
+                            onClick={() =>
+                              setCancelling({
+                                id: m.id,
+                                fullName: m.fullName,
+                                plan: m.plan,
+                                paidUntil: m.paidUntil,
+                              })
+                            }
+                            className={clx(styles.btn, styles.btnRed)}
+                          >
+                            Zakończ subskrypcję
+                          </button>
+                        </div>
                       ) : null}
                     </div>
                   </div>

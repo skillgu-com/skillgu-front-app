@@ -7,13 +7,14 @@ import React, {
 } from "react";
 import { type Config, type Feedback } from "./types";
 import Modal from "src/components/Modal/Modal";
-import { ClientPortal } from "src/components/portal";
 import { sendMentorshipFeedback } from "@services/mentorship/mentorshipFeedback";
 import styles from "./style.module.scss";
 import { Text, Title } from "src/components/typography";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import Select from "src/components/Select/Select";
+import { Loader } from "src/components/_grouped/loader";
+import Thanks from "@icons/Thanks";
 
 type Props = {
   mentorshipId: number;
@@ -39,12 +40,16 @@ export const MentorshipFeedbackModal = ({
   );
 };
 
-const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
+const MentorshipFeedbackModalContent = ({
+  mentorshipId,
+  handleClose,
+}: Props) => {
   const [config, setConfig] = useState<Config | null>(null);
   const [pending, setPending] = useState<boolean>(true);
   const [done, setDone] = useState<boolean>(false);
 
   const [subscriptionEndReasons, setSubscriptionEndReasons] = useState("");
+
   const subscriptionEndReasonsOptions = useMemo(() => {
     return config?.subscriptionEndReasons.options.map((item) => ({
       value: item,
@@ -69,6 +74,7 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
       feedback,
     });
     setDone(true);
+    // handleClose();
   };
 
   useEffect(() => {
@@ -87,23 +93,79 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
 
   /* Thank You message */
   if (done) {
-    return <>thank you</>;
+    return (
+      <div>
+        <Title
+          tag={TitleTag.h3}
+          variant={TitleVariant.sectionConst}
+          classes={styles.titleThank}
+        >
+          Dziękujemy!
+        </Title>
+        <Text classes={styles.info}>
+          Pamiętaj, że zawsze możesz wznowić swoją subskrypcję.
+        </Text>
+        <div className={styles.imgBox}>
+          <Thanks />
+        </div>
+        <Button
+          classes={styles.btn}
+          variant={ButtonVariant.Light}
+          type="submit"
+          fullWidth
+          onClick={handleClose}
+        >
+          Zakończ
+        </Button>
+      </div>
+    );
   }
 
   /* Error status */
-  if (!config && !pending) {
-    return <>Error, sorry</>;
+   if (!config && !pending) {
+    return (
+      <div>
+        <Title
+          tag={TitleTag.h3}
+          variant={TitleVariant.sectionConst}
+          classes={styles.titleError}
+        >
+          Wystąpił błąd podczas pobierania danych
+        </Title>
+        <Text classes={styles.info}>
+          Spróbój ponownie za kilka minut
+        </Text>
+        <Button
+          classes={styles.btn}
+          variant={ButtonVariant.Light}
+          type="submit"
+          fullWidth
+          onClick={handleClose}
+        >
+          Zamknij
+        </Button>
+      </div>
+    );
   }
 
   /* Options fetching */
   if (pending && !config) {
-    return <>Options fetching...</>;
+    return (
+      <div className={styles.container}>
+        <Loader spinner />
+      </div>
+    );
   }
 
   /* Form */
-  if (!pending && config) {
+  if (config) {
     return (
       <div>
+        {pending ? (
+          <div className={styles.loaderBox}>
+            <Loader spinner />
+          </div>
+        ) : null}
         <Title
           tag={TitleTag.h3}
           variant={TitleVariant.sectionConst}
@@ -115,9 +177,11 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
           Jak oceniasz współpracę z Mentorem? Ta opinia nie zostanie mu
           udostępniona.
         </Text>
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <legend>{config.goalAchievement.question}</legend>
+        <form className={styles.feedbackForm} onSubmit={handleSubmit}>
+          <fieldset className={styles.fieldBox}>
+            <legend className={styles.fieldTitle}>
+              {config.goalAchievement.question}
+            </legend>
             {config.goalAchievement.options.map((o, i) => (
               <label className={styles.radio} key={`${o}-${i}`}>
                 <input type="radio" name="goalAchievement" value={o} />
@@ -126,8 +190,10 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
               </label>
             ))}
           </fieldset>
-          <fieldset>
-            <legend>{config.subscriptionEndReasons.question}</legend>
+          <fieldset className={styles.fieldBox}>
+            <legend className={styles.fieldTitle}>
+              {config.subscriptionEndReasons.question}
+            </legend>
             <Select
               classes={styles.select}
               name="subscriptionEndReasons"
@@ -140,8 +206,10 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
               label={subscriptionEndReasons}
             />
           </fieldset>
-          <fieldset>
-            <legend>{config.serviceDescription.question}</legend>
+          <fieldset className={styles.fieldBox}>
+            <legend className={styles.fieldTitle}>
+              {config.serviceDescription.question}
+            </legend>
             {config.serviceDescription.options.map((o, i) => (
               <label className={styles.radio} key={`${o}-${i}`}>
                 <input type="radio" name="serviceDescription" value={o} />
@@ -150,12 +218,19 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
               </label>
             ))}
           </fieldset>
-          <fieldset>
-            <legend>{config.additional.question}</legend>
-            <textarea name="additional"></textarea>
+          <fieldset className={styles.fieldBox}>
+            <legend className={styles.fieldTitle}>
+              {config.additional.question}
+            </legend>
+            <textarea className={styles.remark} name="additional"></textarea>
           </fieldset>
           <div className={styles.btnBox}>
-            <Button variant={ButtonVariant.Light} type="button" fullWidth>
+            <Button
+              variant={ButtonVariant.Light}
+              type="button"
+              fullWidth
+              onClick={handleClose}
+            >
               Anuluj
             </Button>
             <Button variant={ButtonVariant.Primary} type="submit" fullWidth>
@@ -165,11 +240,6 @@ const MentorshipFeedbackModalContent = ({ mentorshipId }: Props) => {
         </form>
       </div>
     );
-  }
-
-  /* Sending feedback */
-  if (pending && config) {
-    return <>sending feedback...</>;
   }
 
   return null;

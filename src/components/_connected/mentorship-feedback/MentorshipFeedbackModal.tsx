@@ -103,7 +103,7 @@ const MentorshipFeedbackModalContent = ({
           Dziękujemy!
         </Title>
         <Text classes={styles.info}>
-          Pamiętaj, że zawsze możesz wznowić swoją subskrypcję.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi, praesentium!
         </Text>
         <div className={styles.imgBox}>
           <Thanks />

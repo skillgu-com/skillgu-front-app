@@ -17,7 +17,6 @@ import { Skeleton, Typography } from "@mui/material";
 import { ArrowLongRight } from "@icons/ArrowLongRight";
 
 import { SubscriptionPlan } from "@customTypes/order";
-import { SubscriptionStatus } from "@customTypes/subscriptions";
 import { Tag } from "src/types/tags";
 
 import styles from "./Subscriptions.module.scss";
@@ -81,8 +80,12 @@ export const StudentMentors = ({ title }: Props) => {
   const [pending, setPending] = useState<boolean>(true);
   const pageRef = useRef<number>(0);
   const [suspending, setSuspending] = useState<MentorShort | null>(null);
+  const [confirmedSuspending, setConfirmedSuspending] =
+    useState<MentorShort | null>(null);
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
-  const [confirmed, setConfirmed] = useState<MentorShort | null>(null);
+  const [confirmedCanceling, setConfirmedCanceling] =
+    useState<MentorShort | null>(null);
+
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
   const [restoring, setRestoring] = useState<MentorShort | null>(null);
 
@@ -103,24 +106,30 @@ export const StudentMentors = ({ title }: Props) => {
 
   const handleCanceling = () => {
     const c = cancelling ? { ...cancelling } : ({} as MentorShort);
-    setConfirmed(c);
+    setConfirmedCanceling(c);
     setCancelling(null);
   };
-
   const handleCancelConfirm = useCallback(async () => {
-    const c = confirmed ? { ...confirmed } : ({} as MentorShort);
+    const c = confirmedCanceling
+      ? { ...confirmedCanceling }
+      : ({} as MentorShort);
     await cancelMentorship(c.id);
     setCancelled(c);
-    setConfirmed(null);
-  }, [confirmed]);
+    setConfirmedCanceling(null);
+  }, [confirmedCanceling]);
 
+  const handleSuspending = () => {
+    const c = suspending ? { ...suspending } : ({} as MentorShort);
+    setConfirmedSuspending(c);
+    setSuspending(null);
+  };
   const handleSuspendConfirm = useCallback(async () => {
-    if (!suspending) {
+    if (!confirmedSuspending) {
       return;
     }
-    await suspendMentorship(suspending?.id);
-    setSuspending(null);
-  }, [suspending]);
+    await suspendMentorship(confirmedSuspending?.id);
+    setConfirmedSuspending(null);
+  }, [confirmedSuspending]);
 
   const handleRestoreConfirm = useCallback(async () => {
     if (!restoring) {
@@ -133,6 +142,71 @@ export const StudentMentors = ({ title }: Props) => {
   return (
     <>
       <ClientPortal selector="modal-root">
+        {suspending ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Czy jesteś pewny, że chcesz zawiesić swój plan z ${suspending.fullName}?`}
+            closeHandler={() => setSuspending(null)}
+          >
+            <div>
+              {suspending.paidUntil && (
+                <Text classes={styles.info}>
+                  Dostęp do funkcji premium będziesz miał jeszcze do{" "}
+                  {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
+                </Text>
+              )}
+            </div>
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={handleSuspending}
+                fullWidth
+              >
+                Tak, zawieś subskrypcję
+              </Button>
+              <Button
+                onClick={() => setSuspending(null)}
+                variant={ButtonVariant.Light}
+                fullWidth
+              >
+                Nie, jeszcze nie
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+        {confirmedSuspending ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Zawiesiłeś swój plan Pro z ${confirmedSuspending.fullName}?`}
+            closeHandler={() => setConfirmedSuspending(null)}
+          >
+            <Text classes={styles.info}>
+              Przykro nam, że odchodzisz! Zawsze możesz odwiesić swoją
+              subskrypcję.
+            </Text>
+
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={() => setConfirmedSuspending(null)}
+                fullWidth
+              >
+                Odwieś subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={handleSuspendConfirm}
+                fullWidth
+              >
+                Wyjdź
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
         {cancelling ? (
           <Modal
             className={styles.modal}
@@ -165,46 +239,12 @@ export const StudentMentors = ({ title }: Props) => {
             </div>
           </Modal>
         ) : null}
-        {suspending ? (
+        {confirmedCanceling ? (
           <Modal
             className={styles.modal}
             classNameContent={styles.box}
-            title={`Czy jesteś pewny, że chcesz zawiesić swój plan z ${suspending.fullName}?`}
-            closeHandler={() => setSuspending(null)}
-          >
-            <div>
-              {suspending.paidUntil && (
-                <Text classes={styles.info}>
-                  Dostęp do funkcji premium będziesz miał jeszcze do{" "}
-                  {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
-                </Text>
-              )}
-            </div>
-            <div className={styles.btnBox}>
-              <Button
-                classes={styles.mainBtn}
-                variant={ButtonVariant.Transparent}
-                onClick={handleSuspendConfirm}
-                fullWidth
-              >
-                Tak, zawieś subskrypcję
-              </Button>
-              <Button
-                onClick={() => setSuspending(null)}
-                variant={ButtonVariant.Light}
-                fullWidth
-              >
-                Nie, jeszcze nie
-              </Button>
-            </div>
-          </Modal>
-        ) : null}
-        {confirmed ? (
-          <Modal
-            className={styles.modal}
-            classNameContent={styles.box}
-            title={`Anulowałeś swój plan Pro z ${confirmed.fullName}?`}
-            closeHandler={() => setConfirmed(null)}
+            title={`Anulowałeś swój plan Pro z ${confirmedCanceling.fullName}?`}
+            closeHandler={() => setConfirmedCanceling(null)}
           >
             <Text classes={styles.info}>
               Przykro nam, że odchodzisz! Zawsze możesz wznowić swoją
@@ -215,7 +255,7 @@ export const StudentMentors = ({ title }: Props) => {
               <Button
                 classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
-                onClick={()=>setConfirmed(null)}
+                onClick={() => setConfirmedCanceling(null)}
                 fullWidth
               >
                 Wznów subskrypcję
@@ -237,7 +277,10 @@ export const StudentMentors = ({ title }: Props) => {
             title={`Wznów subskrypcję z ${restoring.fullName}`}
             closeHandler={() => setRestoring(null)}
           >
-            <Text classes={styles.info}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus impedit atque numquam cum possimus vel?</Text>
+            <Text classes={styles.info}>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus
+              impedit atque numquam cum possimus vel?
+            </Text>
 
             <div className={styles.btnBox}>
               <Button
@@ -328,11 +371,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </a>
                           }
                         />
-                        <PlanName
-                          plan={m.plan}
-                          pillBg
-                          className={styles.planPill}
-                        />
+                        <PlanName plan={m.plan} pillBg />
                       </div>
                       <div className={styles.hr} />
                       {m.status === "awaiting" ? (

@@ -55,6 +55,14 @@
 		color: $colour-error-100;
 		background-color: transparent;
 	}
+
+	&[data-variant='danger-outline'] {
+		@include hover-effect(#ffffff);
+		color: $colour-error-100;
+		background-color: transparent;
+		border: 1px solid $colour-base-400;
+	}
+
 	&[data-variant='primary'] {
 		@include hover-effect($primary-color);
 		color: $light-color;

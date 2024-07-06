@@ -285,7 +285,7 @@
     & button {
       @extend %text-button-md;
     }
-    & button:first-child {
+    & .mainBtn {
       background-color: $colour-error-200;
       color: $colour-error-100;
     }

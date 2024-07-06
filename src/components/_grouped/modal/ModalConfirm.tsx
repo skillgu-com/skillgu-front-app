@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Modal from "src/components/Modal/Modal";
 import { ClientPortal } from "src/components/portal";
-import styles from './ModalConfirm.module.scss'
+import styles from "./ModalConfirm.module.scss";
 
 type Props = {
   selector?: string;
@@ -29,19 +29,27 @@ export const ModalConfirm = ({
 }: Props) => {
   return (
     <ClientPortal selector={selector}>
-      <Modal classNameContent={styles.wrapper} title={title} closeHandler={handleClose} isOpen={isOpen}>
-        <div>
-          {title ? <span>{title}</span> : null}
-          {description ? <p>{description}</p> : null}
-        </div>
-        <div>
+      <Modal
+        className={styles.modal}
+        classNameContent={styles.box}
+        title={title}
+        closeHandler={handleClose}
+        isOpen={isOpen}
+      >
+        {description && <div className={styles.info}>{description}</div>}
+
+        <div className={styles.btnBox}>
           {submitText && handleSubmit ? (
-            <Button variant={ButtonVariant.Danger} onClick={handleSubmit}>
+            <Button
+              classes={styles.mainBtn}
+              variant={ButtonVariant.Transparent}
+              onClick={handleSubmit}
+            >
               {submitText}
             </Button>
           ) : null}
           {rejectText && handleReject ? (
-            <Button variant={ButtonVariant.Outline} onClick={handleReject}>
+            <Button variant={ButtonVariant.Light} onClick={handleReject}>
               {rejectText}
             </Button>
           ) : null}

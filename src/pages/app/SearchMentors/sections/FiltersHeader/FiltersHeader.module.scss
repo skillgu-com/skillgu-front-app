@@ -1,4 +1,6 @@
 @use "../../../../../scss/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
 
 .wrapper {
   grid-area: resultsHeader;
@@ -142,23 +144,28 @@
   height: 40px;
   width: 208px;
 
+  & div {
+    @extend %text-body-2;
+    color: $colour-base-800;
+  }
+
   :global {
     .css-t3ipsp-control,
     .css-13cymwt-control {
-      height: 40px!important;
+      height: 40px !important;
     }
 
     .css-1nmdiq5-menu {
-        padding-top: 0!important;
+      padding-top: 0 !important;
     }
 
     .css-1jqq78o-placeholder {
-        font-size: 14px!important;
-        color: $colour-base-600!important;
+      font-size: 14px !important;
+      color: $colour-base-600 !important;
     }
 
     .css-qbdosj-Input {
-        height: 30px!important;
+      height: 30px !important;
     }
   }
 }

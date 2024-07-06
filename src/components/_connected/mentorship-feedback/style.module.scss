@@ -125,14 +125,14 @@
       height: unset;
     }
   }
-}
 
-.loaderBox {
-  position: fixed;
-  top: 80px;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  background-color: rgba($colour-base-000, 0.5);
-  z-index: 1001;
+  .loaderBox {
+    position: fixed;
+    top: 80px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    background-color: rgba($colour-base-000, 0.5);
+    z-index: 1001;
+  }
 }

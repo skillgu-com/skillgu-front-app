@@ -18,7 +18,7 @@ export const PlusIcon = ({
       height={size}
       fill="none"
       viewBox="0 0 24 25"
-	  className={className}
+      className={className}
     >
       <path
         fill={color}

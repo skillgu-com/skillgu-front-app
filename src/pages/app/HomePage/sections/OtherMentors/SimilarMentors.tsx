@@ -17,12 +17,12 @@ export const SimilarMentors = () => {
     fetchInitialData();
   }, []);
 
-  return (
+  return (data && data.mentors.length > 0) ? (
     <OtherMentors
       title="Podobni do Ciebie"
       mentors={(data ? data.mentors : []) as unknown as Mentor[]}
       ready={!pending && data !== null}
       pending={pending}
     />
-  );
+  ) : null
 };

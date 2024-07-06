@@ -4,17 +4,22 @@ import { CreateOfferState } from "./types";
 import { useCallback } from "react";
 import { PlanInput } from "@customTypes/create-mentoring";
 
+type ScheduleOption = {
+  value: number
+  label: string
+}
+
 type Output = {
   createOfferState: CreateOfferState;
-  loadSchedules: (schedules: string[]) => void;
+  loadSchedules: (schedules: ScheduleOption[]) => void;
   submitInitial: () => void;
-  submitDetermine: (numberOfPlans: 1 | 2 | 3) => void;
+  submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
   submitBuild: (props: {
     providesMaterials: boolean;
-    base: PlanInput;
+    basic: PlanInput;
     advanced?: PlanInput;
     pro?: PlanInput;
-  }) => void;
+  }, nextStep: boolean) => void;
   updateStatus: (state: {
     errorMessage: string;
     success: boolean;
@@ -34,7 +39,7 @@ export const useCreateOfferReducer = (): Output => {
   const dispatch = useDispatch();
 
   const loadSchedules = useCallback(
-    (availableSchedules: string[]) =>
+    (availableSchedules: ScheduleOption[]) =>
       dispatch({
         type: "LOAD_SCHEDULES",
         payload: {
@@ -53,11 +58,12 @@ export const useCreateOfferReducer = (): Output => {
   );
 
   const submitDetermine = useCallback(
-    (numberOfPlans: 1 | 2 | 3) =>
+    (numberOfPlans: 1 | 2 | 3, nextStep: boolean) =>
       dispatch({
         type: "SUBMIT_DETERMINE",
         payload: {
           numberOfPlans,
+          nextStep,
         },
       }),
     [dispatch]
@@ -66,17 +72,18 @@ export const useCreateOfferReducer = (): Output => {
   const submitBuild = useCallback(
     (props: {
       providesMaterials: boolean;
-      base: PlanInput;
+      basic: PlanInput;
       advanced?: PlanInput;
       pro?: PlanInput;
-    }) =>
+    }, nextStep: boolean) =>
       dispatch({
         type: "SUBMIT_BUILD",
         payload: {
           providesMaterials: props.providesMaterials,
-          base: props.base,
+          basic: props.basic,
           advanced: props.advanced || undefined,
           pro: props.pro || undefined,
+          nextStep,
         },
       }),
     [dispatch]

@@ -1,13 +1,19 @@
 import { PlanInput } from "@customTypes/create-mentoring";
 
+export type ScheduleOption = {
+  label: string;
+  value: number;
+};
+
 export type CreateOfferStepType = "initial" | "determine" | "build" | "summary";
 
 export type CreateOfferState = {
+  fetchedInitial: boolean;
   step: CreateOfferStepType;
-  availableSchedules: string[];
+  availableSchedules: ScheduleOption[];
   numberOfPlans: 1 | 2 | 3;
   providesMaterials: boolean;
-  base: PlanInput;
+  basic: PlanInput;
   advanced: PlanInput;
   pro: PlanInput;
   pending: boolean;
@@ -16,6 +22,8 @@ export type CreateOfferState = {
 };
 
 export type CreateOfferActionType =
+  | "LOGOUT"
+  | "LOGIN"
   | "UPDATE_PENDING"
   | "PREV_STEP"
   | "SUBMIT_INITIAL"
@@ -31,22 +39,24 @@ export type CreateOfferAction =
   | {
       type: "LOAD_SCHEDULES";
       payload: {
-        availableSchedules: string[];
+        availableSchedules: ScheduleOption[];
       };
     }
   | {
       type: "SUBMIT_DETERMINE";
       payload: {
         numberOfPlans: 1 | 2 | 3;
+        nextStep: boolean;
       };
     }
   | {
       type: "SUBMIT_BUILD";
       payload: {
         providesMaterials: boolean;
-        base: PlanInput;
+        basic: PlanInput;
         advanced?: PlanInput;
         pro?: PlanInput;
+        nextStep: boolean;
       };
     }
   | {
@@ -59,4 +69,10 @@ export type CreateOfferAction =
     }
   | {
       type: "RESET";
+    }
+  | {
+      type: "LOGIN";
+    }
+  | {
+      type: "LOGOUT";
     };

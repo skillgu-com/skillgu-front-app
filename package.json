@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.9.0",
-    "@emotion/styled": "11.8.1",
     "@mui/icons-material": "5.6.2",
     "@mui/material": "^5.6.4",
     "@mui/styled-engine-sc": "5.6.1",
@@ -107,6 +105,7 @@
     "@storybook/test": "^8.1.9",
     "@types/react-big-calendar": "^1.8.8",
     "@types/react-slick": "^0.23.13",
+    "@types/webpack": "^5.28.5",
     "axios": "^0.27.2",
     "env-cmd": "^10.1.0",
     "eslint-plugin-storybook": "^0.8.0",

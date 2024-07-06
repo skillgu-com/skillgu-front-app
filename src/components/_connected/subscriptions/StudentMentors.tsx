@@ -139,6 +139,7 @@ export const StudentMentors = ({ title }: Props) => {
     setRestoring(null);
   }, [restoring]);
 
+
   return (
     <>
       <ClientPortal selector="modal-root">
@@ -384,9 +385,9 @@ export const StudentMentors = ({ title }: Props) => {
                             </p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Zobacz aplikację
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}
@@ -426,9 +427,9 @@ export const StudentMentors = ({ title }: Props) => {
                             <p>Mentor odrzucił Twoją aplikację.</p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Zobacz powód odrzucenia
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}
@@ -445,9 +446,9 @@ export const StudentMentors = ({ title }: Props) => {
                             </p>
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.btn}>
+                            <a className={styles.btn} href="/#">
                               Wybierz terminy spotkań
-                            </button>
+                            </a>
                           </div>
                         </>
                       ) : null}

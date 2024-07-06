@@ -22,10 +22,12 @@ export const fetchSimilarMentors = async (props: FetchSimilarMentorsInput): Prom
     const data = response.data;
 
     return {
-      mentors: data.slice(0, props.take),
+      mentors: data ? data.slice(0, props.take) : [],
     };
   } catch (error) {
     console.error('Error fetching similar mentors:', error);
-    throw error;
+    return {
+      mentors: []
+    }
   }
 };

@@ -53,6 +53,7 @@ export const Calendar = (props: BookFormProps) => {
                 const dataFromApi = res.data;
                 const events: CalendarEvent[] = [];
 
+                console.log('tutaj testuje');
                 dataFromApi.forEach((item: any, index: number) => {
                     const startDateTime = new Date(item.sessionDate + "T" + item.hour);
                     const endDateTime = new Date(

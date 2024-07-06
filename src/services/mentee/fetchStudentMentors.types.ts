@@ -16,7 +16,7 @@ export type FetchStudentMentorsOutput = {
         nickname: string 
         avatarUrl: string
         fullName: string
-        status: 'accepted'|'rejected'|'awaiting'
+        status: 'accepted'|'rejected'|'awaiting'|'suspended'
         // date: string
         // status: SubscriptionStatus
         // serviceType: 'session'|'mentoring'

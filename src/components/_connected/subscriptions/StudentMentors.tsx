@@ -4,8 +4,6 @@ import clx from "classnames";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { useSubscriptionsReducer } from "src/reducers/subscriptions";
-
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { ClientPortal } from "src/components/portal";
 import Container from "src/components/Container/Container";
@@ -27,25 +25,11 @@ import styles from "./Subscriptions.module.scss";
 import { formatDate } from "src/utils";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
+import { restoreMentorship } from "@services/mentorship/restoreMentorship";
 import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
 
 const PER_PAGE = 5;
-
-const renderStatus = (status: SubscriptionStatus) => {
-  switch (status) {
-    case "awaiting":
-      return <Status variant="info" text="Aplikacja w toku" />;
-    case "inactive":
-      return <Status variant="danger" text="Aplikacja odrzucona" />;
-    case "suspended":
-      return <Status variant="warning" text="Zawieszona" />;
-    case "active":
-      return <Status variant="success" text="Aplikacja zaakceptowana" />;
-    default:
-      return null;
-  }
-};
 
 type Props = {
   title?: string;
@@ -100,6 +84,7 @@ export const StudentMentors = ({ title }: Props) => {
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
   const [confirmed, setConfirmed] = useState<MentorShort | null>(null);
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
+  const [restoring, setRestoring] = useState<MentorShort | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,6 +122,14 @@ export const StudentMentors = ({ title }: Props) => {
     setSuspending(null);
   }, [suspending]);
 
+  const handleRestoreConfirm = useCallback(async () => {
+    if (!restoring) {
+      return;
+    }
+    await restoreMentorship(restoring?.id);
+    setRestoring(null);
+  }, [restoring]);
+
   return (
     <>
       <ClientPortal selector="modal-root">
@@ -155,6 +148,7 @@ export const StudentMentors = ({ title }: Props) => {
             )}
             <div className={styles.btnBox}>
               <Button
+                classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
                 onClick={handleCanceling}
                 fullWidth
@@ -188,6 +182,7 @@ export const StudentMentors = ({ title }: Props) => {
             </div>
             <div className={styles.btnBox}>
               <Button
+                classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
                 onClick={handleSuspendConfirm}
                 fullWidth
@@ -218,8 +213,9 @@ export const StudentMentors = ({ title }: Props) => {
 
             <div className={styles.btnBox}>
               <Button
+                classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
-                onClick={() => setConfirmed(null)}
+                onClick={()=>setConfirmed(null)}
                 fullWidth
               >
                 Wznów subskrypcję
@@ -230,6 +226,34 @@ export const StudentMentors = ({ title }: Props) => {
                 fullWidth
               >
                 Wyjdź
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+        {restoring ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Wznów subskrypcję z ${restoring.fullName}`}
+            closeHandler={() => setRestoring(null)}
+          >
+            <Text classes={styles.info}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus impedit atque numquam cum possimus vel?</Text>
+
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={handleRestoreConfirm}
+                fullWidth
+              >
+                Wznów subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={() => setRestoring(null)}
+                fullWidth
+              >
+                Anuluj
               </Button>
             </div>
           </Modal>
@@ -327,18 +351,29 @@ export const StudentMentors = ({ title }: Props) => {
                           </div>
                         </>
                       ) : null}
-                         {m.status === "suspended" ? (
+                      {m.status === "suspended" ? (
                         <>
                           <div className={styles.cardStatus}>
-                            <Status text="Mentoring zawieszony" variant="warning" />
-                            <p>
-                              Zawiesiłeś współpracę z mentorem.
-                            </p>
+                            <Status
+                              text="Mentoring zawieszony"
+                              variant="warning"
+                            />
+                            <p>Zawiesiłeś współpracę z mentorem.</p>
                           </div>
                           <div className={styles.buttons}>
-                            <a className={styles.btn} onClick={() => {}}>
+                            <button
+                              className={styles.btn}
+                              onClick={() =>
+                                setRestoring({
+                                  id: m.id,
+                                  fullName: m.fullName,
+                                  plan: m.plan,
+                                  paidUntil: m.paidUntil,
+                                })
+                              }
+                            >
                               Odwieś
-                            </a>
+                            </button>
                           </div>
                         </>
                       ) : null}

@@ -1,71 +1,34 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import styles from "./Subscriptions.module.scss";
-import {
-  HorizontalTabs,
-  HorizontalTabsButton,
-} from "src/components/_base/HorizontalTabs";
-import { SubscriptionStatus } from "@customTypes/subscriptions";
-import { Table, TableCell, TableRow } from "src/components/_base/Table";
-import { Scrollable } from "src/components/_base/Scrollable";
-import { Pagination } from "src/components/_grouped";
-import { formatDate } from "src/utils";
-import { UserIdentity } from "src/components/_base/UserIdentity";
-import { CrownIcon } from "@icons/CrownIcon";
-import { Status } from "src/components/_base/Status";
-import { Tag } from "src/types/tags";
-import Container from "src/components/Container/Container";
-import { SearchSvg2 } from "@icons/SearchSvg2";
-import { SkeletonRow } from "./SkeletonRow";
-import {
-  OverflowMenu,
-  OverflowMenuList,
-  OverflowMenuOption,
-  OverflowMenuToggle,
-} from "src/components/_grouped/overflow-menu";
-import { useNavigate } from "react-router-dom";
-import { useSubscriptionsReducer } from "src/reducers/subscriptions";
-import { Skeleton, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
+import clx from "classnames";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { PlanName } from "src/components/_base/PlanName";
-import SendArrow from "@icons/SendArrow";
-import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
-import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
-import Button from "src/components/Button/Button";
-import Arrow from "@icons/Arrow";
-import { ArrowLongRight } from "@icons/ArrowLongRight";
-import clx from "classnames";
+
+import Button, { ButtonVariant } from "src/components/Button/Button";
 import { ClientPortal } from "src/components/portal";
-import { SubscriptionPlan } from "@customTypes/order";
+import Container from "src/components/Container/Container";
 import Modal from "src/components/Modal/Modal";
+import { PlanName } from "src/components/_base/PlanName";
+import { Status } from "src/components/_base/Status";
+import { Text } from "src/components/typography";
+import { UserIdentity } from "src/components/_base/UserIdentity";
 import { MentorshipFeedbackModal } from "../mentorship-feedback/MentorshipFeedbackModal";
+import { Skeleton, Typography } from "@mui/material";
+import { ArrowLongRight } from "@icons/ArrowLongRight";
+
+import { SubscriptionPlan } from "@customTypes/order";
+import { Tag } from "src/types/tags";
+
+import styles from "./Subscriptions.module.scss";
+
+import { formatDate } from "src/utils";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
-import { resumeMentorship } from "@services/mentorship/resumeMentorship";
+import { restoreMentorship } from "@services/mentorship/restoreMentorship";
+import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
+import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
 
 const PER_PAGE = 5;
-
-const renderStatus = (status: SubscriptionStatus) => {
-  switch (status) {
-    case "awaiting":
-      return <Status variant="info" text="Aplikacja w toku" />;
-    case "inactive":
-      return <Status variant="danger" text="Aplikacja odrzucona" />;
-    case "suspended":
-      return <Status variant="warning" text="Zawieszona" />;
-    case "active":
-      return <Status variant="success" text="Aplikacja zaakceptowana" />;
-    default:
-      return null;
-  }
-};
 
 type Props = {
   title?: string;
@@ -116,10 +79,15 @@ export const StudentMentors = ({ title }: Props) => {
   const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
   const [pending, setPending] = useState<boolean>(true);
   const pageRef = useRef<number>(0);
-  const [resuming, setResuming] = useState<MentorShort | null>(null);
   const [suspending, setSuspending] = useState<MentorShort | null>(null);
+  const [confirmedSuspending, setConfirmedSuspending] =
+    useState<MentorShort | null>(null);
   const [cancelling, setCancelling] = useState<MentorShort | null>(null);
+  const [confirmedCanceling, setConfirmedCanceling] =
+    useState<MentorShort | null>(null);
+
   const [cancelled, setCancelled] = useState<MentorShort | null>(null);
+  const [restoring, setRestoring] = useState<MentorShort | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,70 +104,202 @@ export const StudentMentors = ({ title }: Props) => {
     }
   }, []);
 
-  const handleCancelConfirm = useCallback(async () => {
-    const c = cancelling ? {...cancelling} : {} as MentorShort
-    await cancelMentorship(c.id)
-    setCancelled(c);
+  const handleCanceling = () => {
+    const c = cancelling ? { ...cancelling } : ({} as MentorShort);
+    setConfirmedCanceling(c);
     setCancelling(null);
-  }, [cancelling]);
+  };
+  const handleCancelConfirm = useCallback(async () => {
+    const c = confirmedCanceling
+      ? { ...confirmedCanceling }
+      : ({} as MentorShort);
+    await cancelMentorship(c.id);
+    setCancelled(c);
+    setConfirmedCanceling(null);
+  }, [confirmedCanceling]);
 
-  const handleSuspendConfirm = useCallback(async () => {
-    if(!suspending){
-      return
-    }
-    await suspendMentorship(suspending?.id)
+  const handleSuspending = () => {
+    const c = suspending ? { ...suspending } : ({} as MentorShort);
+    setConfirmedSuspending(c);
     setSuspending(null);
-  }, [suspending]);
-
-  const handleResumeConfirm = useCallback(async () => {
-    if(!resuming){
-      return
+  };
+  const handleSuspendConfirm = useCallback(async () => {
+    if (!confirmedSuspending) {
+      return;
     }
-    await resumeMentorship(resuming?.id)
-    setResuming(null);
-  }, [resuming]);
+    await suspendMentorship(confirmedSuspending?.id);
+    setConfirmedSuspending(null);
+  }, [confirmedSuspending]);
+
+  const handleRestoreConfirm = useCallback(async () => {
+    if (!restoring) {
+      return;
+    }
+    await restoreMentorship(restoring?.id);
+    setRestoring(null);
+  }, [restoring]);
+
 
   return (
     <>
       <ClientPortal selector="modal-root">
-        {cancelling ? (
-          <Modal title="" closeHandler={() => setCancelling(null)}>
+        {suspending ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Czy jesteś pewny, że chcesz zawiesić swój plan z ${suspending.fullName}?`}
+            closeHandler={() => setSuspending(null)}
+          >
             <div>
-              <h2>
-                Czy jesteś pewny, że chcesz anulować swój plan z{" "}
-                {cancelling.fullName}?
-              </h2>
-              <p>
-                Dostęp do funkcji premium będziesz miał jeszcze do{" "}
-                {formatDate(cancelling.paidUntil, "DD MMMM YYYY")} roku.
-              </p>
+              {suspending.paidUntil && (
+                <Text classes={styles.info}>
+                  Dostęp do funkcji premium będziesz miał jeszcze do{" "}
+                  {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
+                </Text>
+              )}
             </div>
-            <button onClick={handleCancelConfirm}>
-              Tak, zakończ subskrypcję
-            </button>
-            <button onClick={() => setCancelling(null)}>
-              Nie, jeszcze nie
-            </button>
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={handleSuspending}
+                fullWidth
+              >
+                Tak, zawieś subskrypcję
+              </Button>
+              <Button
+                onClick={() => setSuspending(null)}
+                variant={ButtonVariant.Light}
+                fullWidth
+              >
+                Nie, jeszcze nie
+              </Button>
+            </div>
           </Modal>
         ) : null}
-        {suspending ? (
-          <Modal title="" closeHandler={() => setSuspending(null)}>
-            <div>
-              <h2>
-                Czy jesteś pewny, że chcesz zawiesić swój plan z{" "}
-                {suspending.fullName}?
-              </h2>
-              <p>
-                Dostęp do funkcji premium będziesz miał jeszcze do{" "}
-                {formatDate(suspending.paidUntil, "DD MMMM YYYY")} roku.
-              </p>
+        {confirmedSuspending ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Zawiesiłeś swój plan Pro z ${confirmedSuspending.fullName}?`}
+            closeHandler={() => setConfirmedSuspending(null)}
+          >
+            <Text classes={styles.info}>
+              Przykro nam, że odchodzisz! Zawsze możesz odwiesić swoją
+              subskrypcję.
+            </Text>
+
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={() => setConfirmedSuspending(null)}
+                fullWidth
+              >
+                Odwieś subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={handleSuspendConfirm}
+                fullWidth
+              >
+                Wyjdź
+              </Button>
             </div>
-            <button onClick={handleSuspendConfirm}>
-              Tak, zawieś subskrypcję
-            </button>
-            <button onClick={() => setSuspending(null)}>
-              Nie, jeszcze nie
-            </button>
+          </Modal>
+        ) : null}
+        {cancelling ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Czy jesteś pewny, że chcesz anulować swój plan z ${cancelling.fullName}?`}
+            closeHandler={() => setCancelling(null)}
+          >
+            {cancelling.paidUntil && (
+              <Text classes={styles.info}>
+                Dostęp do funkcji premium będziesz miał jeszcze do{" "}
+                {formatDate(cancelling.paidUntil, "DD MMMM YYYY")} roku.
+              </Text>
+            )}
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={handleCanceling}
+                fullWidth
+              >
+                Tak, zakończ subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={() => setCancelling(null)}
+                fullWidth
+              >
+                Nie, jeszcze nie
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+        {confirmedCanceling ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Anulowałeś swój plan Pro z ${confirmedCanceling.fullName}?`}
+            closeHandler={() => setConfirmedCanceling(null)}
+          >
+            <Text classes={styles.info}>
+              Przykro nam, że odchodzisz! Zawsze możesz wznowić swoją
+              subskrypcję.
+            </Text>
+
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={() => setConfirmedCanceling(null)}
+                fullWidth
+              >
+                Wznów subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={handleCancelConfirm}
+                fullWidth
+              >
+                Wyjdź
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+        {restoring ? (
+          <Modal
+            className={styles.modal}
+            classNameContent={styles.box}
+            title={`Wznów subskrypcję z ${restoring.fullName}`}
+            closeHandler={() => setRestoring(null)}
+          >
+            <Text classes={styles.info}>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus
+              impedit atque numquam cum possimus vel?
+            </Text>
+
+            <div className={styles.btnBox}>
+              <Button
+                classes={styles.mainBtn}
+                variant={ButtonVariant.Transparent}
+                onClick={handleRestoreConfirm}
+                fullWidth
+              >
+                Wznów subskrypcję
+              </Button>
+              <Button
+                variant={ButtonVariant.Light}
+                onClick={() => setRestoring(null)}
+                fullWidth
+              >
+                Anuluj
+              </Button>
+            </div>
           </Modal>
         ) : null}
         {cancelled ? (
@@ -244,7 +344,6 @@ export const StudentMentors = ({ title }: Props) => {
               </Slider>
             ) : null}
             {!pending &&
-            data &&
             data?.total &&
             data.mentors &&
             data.mentors.length > 0 ? (
@@ -273,11 +372,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </a>
                           }
                         />
-                        <PlanName
-                          plan={m.plan}
-                          pillBg
-                          className={styles.planPill}
-                        />
+                        <PlanName plan={m.plan} pillBg />
                       </div>
                       <div className={styles.hr} />
                       {m.status === "awaiting" ? (
@@ -299,15 +394,26 @@ export const StudentMentors = ({ title }: Props) => {
                       {m.status === "suspended" ? (
                         <>
                           <div className={styles.cardStatus}>
-                            <Status text="Mentoring zawieszony" variant="warning" />
-                            <p>
-                              Zawiesiłeś współpracę z mentorem.
-                            </p>
+                            <Status
+                              text="Mentoring zawieszony"
+                              variant="warning"
+                            />
+                            <p>Zawiesiłeś współpracę z mentorem.</p>
                           </div>
                           <div className={styles.buttons}>
-                            <a className={styles.btn} onClick={() => {}}>
+                            <button
+                              className={styles.btn}
+                              onClick={() =>
+                                setRestoring({
+                                  id: m.id,
+                                  fullName: m.fullName,
+                                  plan: m.plan,
+                                  paidUntil: m.paidUntil,
+                                })
+                              }
+                            >
                               Odwieś
-                            </a>
+                            </button>
                           </div>
                         </>
                       ) : null}
@@ -347,36 +453,34 @@ export const StudentMentors = ({ title }: Props) => {
                         </>
                       ) : null}
                       {m.status === "accepted" && m.scheduled ? (
-                        <>
-                          <div className={styles.buttons}>
-                            <button
-                              onClick={() =>
-                                setSuspending({
-                                  id: m.id,
-                                  fullName: m.fullName,
-                                  plan: m.plan,
-                                  paidUntil: m.paidUntil,
-                                })
-                              }
-                              className={styles.btn}
-                            >
-                              Zawieś subskrypcję
-                            </button>
-                            <button
-                              onClick={() =>
-                                setCancelling({
-                                  id: m.id,
-                                  fullName: m.fullName,
-                                  plan: m.plan,
-                                  paidUntil: m.paidUntil,
-                                })
-                              }
-                              className={clx(styles.btn, styles.btnRed)}
-                            >
-                              Zakończ subskrypcję
-                            </button>
-                          </div>
-                        </>
+                        <div className={styles.buttons}>
+                          <button
+                            onClick={() =>
+                              setSuspending({
+                                id: m.id,
+                                fullName: m.fullName,
+                                plan: m.plan,
+                                paidUntil: m.paidUntil,
+                              })
+                            }
+                            className={styles.btn}
+                          >
+                            Zawieś subskrypcję
+                          </button>
+                          <button
+                            onClick={() =>
+                              setCancelling({
+                                id: m.id,
+                                fullName: m.fullName,
+                                plan: m.plan,
+                                paidUntil: m.paidUntil,
+                              })
+                            }
+                            className={clx(styles.btn, styles.btnRed)}
+                          >
+                            Zakończ subskrypcję
+                          </button>
+                        </div>
                       ) : null}
                     </div>
                   </div>

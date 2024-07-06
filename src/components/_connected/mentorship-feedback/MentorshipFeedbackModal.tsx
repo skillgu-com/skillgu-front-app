@@ -1,6 +1,5 @@
 import React, {
   FormEvent,
-  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -74,7 +73,6 @@ const MentorshipFeedbackModalContent = ({
       feedback,
     });
     setDone(true);
-    // handleClose();
   };
 
   useEffect(() => {

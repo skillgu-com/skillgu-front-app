@@ -40,7 +40,7 @@
       "nickname": "user5",
       "avatarUrl": "/images/img_avatar.png",
       "fullName": "David Wilson",
-      "status": "suspended",
+     "status": "suspended",
       "plan": "advanced",
       "scheduled": true
   },

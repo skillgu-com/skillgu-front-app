@@ -83,7 +83,7 @@ const NavSection = () => {
     return (
         <section className={styles.wrapper}>
             {navList.map((item) => (
-                <NavCard {...item} key={item.text}/>
+                <NavCard {...item} key={item.link}/>
             ))}
         </section>
     );

@@ -25,9 +25,8 @@ type ChatMessageWithOptimistic = ChatMessageType & {
 
 export const ChatPage = () => {
   const userId = 0;
-  const [isMobileMessageShown, setIsMobileMessageShown] = useState<boolean>(
-    false
-  );
+  const [isMobileMessageShown, setIsMobileMessageShown] =
+    useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessageWithOptimistic[]>([]);
   const [contacts, setContacts] = useState<ChatContactType[]>([]);
   const [totalContacts, setTotalContacts] = useState<number | null>(null);
@@ -208,9 +207,11 @@ export const ChatPage = () => {
           >
             Wiadomości
           </Title>
-          <p
-            className={styles.unreadMsg}
-          >{`${unreadMsgQuantity} nieprzeczytanych`}</p>
+          {unreadMsgQuantity ? (
+            <p
+              className={styles.unreadMsg}
+            >{`${unreadMsgQuantity} nieprzeczytanych`}</p>
+          ) : null}
         </header>
 
         <div className={styles.gridContainer}>

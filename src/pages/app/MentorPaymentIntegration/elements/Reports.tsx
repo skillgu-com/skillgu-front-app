@@ -98,7 +98,7 @@ export const Reports = () => {
               current={page}
               last={Math.ceil(data.total / PER_PAGE)}
               onClick={(e) => {
-                const btn = e.target as HTMLButtonElement;
+                const btn = e.currentTarget as HTMLButtonElement;
                 setPage(Number(btn.value));
               }}
               className={styles.pagination}

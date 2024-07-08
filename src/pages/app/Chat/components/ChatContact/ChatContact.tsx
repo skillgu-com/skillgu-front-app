@@ -20,7 +20,7 @@ export const ChatContact = ({
   };
 
   return (
-    <li>
+    <li className={styles.contact}>
       <button
         onClick={switchContact}
         className={clx(styles.button, {

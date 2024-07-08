@@ -5,7 +5,10 @@
 .title {
   @extend %text-button-md;
   color: $colour-primary;
-  margin-bottom: 4px;
+}
+
+.contact {
+  margin-bottom: 20px;
 }
 
 .button {
@@ -13,20 +16,17 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  height:100%;
-  margin-bottom: 20px;
+  height: 100%;
   font-size: 14px;
   text-align: left;
   background-color: transparent;
   cursor: pointer;
-  padding: 4px;
+  padding: 0 12px 0 4px;
 
-  &:hover {
-    background-color: $colour-base-200;
-  }
-
+  &:hover,
   &.isSelected {
-    background-color: $colour-base-400;
+    background-color: $colour-base-200;
+    border-radius: 12px;
   }
 }
 

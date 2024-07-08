@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import clx from "classnames";
 import styles from "./MentorSessionsHistory.module.scss";
-import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { useSessionsReducer, PER_PAGE } from "src/reducers/sessions";
 import { Table, TableCell, TableRow } from "src/components/_base/Table";
 import { Pagination } from "src/components/_grouped";
@@ -22,7 +22,7 @@ export const MentorSessionsHistory = () => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { students, total } = await fetchMentorSessions({
+        const { students, total } = await getMentorMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),

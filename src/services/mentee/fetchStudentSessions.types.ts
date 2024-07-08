@@ -9,7 +9,7 @@ export type FetchStudentSessionsOutput = {
     total: number
     mentors: {
         id: number
-        nickname: string 
+        username: string
         avatarUrl: string
         fullName: string
         date: string

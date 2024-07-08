@@ -25,8 +25,8 @@ import { formatDate } from "src/utils";
 import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
 import { restoreMentorship } from "@services/mentorship/restoreMentorship";
-import { fetchStudentMentors } from "@services/mentee/fetchStudentMentors.service";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
+import {getMenteeMeetingHistory} from "@services/mentee/fetchStudentMentors.service";
 
 const PER_PAGE = 5;
 
@@ -91,7 +91,7 @@ export const StudentMentors = ({ title }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchStudentMentors({
+      const data = await getMenteeMeetingHistory({
         take: PER_PAGE,
         skip: PER_PAGE * (pageRef.current - 1),
       });

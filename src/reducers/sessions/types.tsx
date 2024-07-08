@@ -2,7 +2,7 @@ import { SessionStatus } from "@services/mentor/fetchMentorSessions.types";
 
 export type SessionRowType = {
   id: number,
-  nickname: string,
+  username: string,
   avatarUrl: string,
   fullName: string,
   date: string,

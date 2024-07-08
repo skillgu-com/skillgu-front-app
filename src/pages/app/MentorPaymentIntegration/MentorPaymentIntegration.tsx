@@ -81,12 +81,6 @@ export const MentorPaymentIntegration = () => {
     setAccountLinkCreatePending(false);
   };
 
-  // useState(() => {
-  //   getBalance().then((res)=> {
-  //     setPrice(res)
-  //   })
-  //
-  // })
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -96,7 +90,7 @@ export const MentorPaymentIntegration = () => {
         setPrice(balance);
       } catch (error) {
         console.error('Error retrieving balance:', error);
-        // setError(true);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -116,7 +110,7 @@ export const MentorPaymentIntegration = () => {
 
       {connectedAccountId ? (
         <Connected
-          price={price} // @TODO
+          price={price}
           error={error ? "Error occurred while processing your request." : ""}
           handleCreateAccountLink={handleCreateAccountLink}
         />
@@ -132,5 +126,4 @@ export const MentorPaymentIntegration = () => {
     </>
   );
 };
-
 export default MentorPaymentIntegration;

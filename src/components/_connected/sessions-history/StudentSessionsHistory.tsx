@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from "react";
-import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
 import { fetchStudentSessions } from "@services/mentee/fetchStudentSessions.service";

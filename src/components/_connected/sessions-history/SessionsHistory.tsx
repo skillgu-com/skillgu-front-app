@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./SessionsHistory.module.scss";
-import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { Table, TableCell, TableRow } from "src/components/_base/Table";
 import { Pagination } from "src/components/_grouped";
@@ -55,7 +55,6 @@ export const SessionsHistory = ({
     },
     [sr]
   );
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -71,6 +70,7 @@ export const SessionsHistory = ({
           <TableCell flex={3} heading text="Rodzaj" />
           <TableCell flex={4} heading text="Typ" />
         </TableRow>
+
 
         {sr.sessionsState.pending ? (
           <>

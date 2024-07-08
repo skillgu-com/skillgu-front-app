@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { fetchMentorSessions } from "@services/mentor/fetchMentorSessions.service";
+import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
 
@@ -11,7 +11,7 @@ export const MentorSessionsHistory = () => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { students, total } = await fetchMentorSessions({
+        const { students, total } = await getMentorMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),
@@ -29,5 +29,5 @@ export const MentorSessionsHistory = () => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  return <SessionsHistory getProfileLink={(id: number) => `/mentor/${id}`} />;
+  return <SessionsHistory getProfileLink={(id: number) => `/kutas/${id}`} />;
 };

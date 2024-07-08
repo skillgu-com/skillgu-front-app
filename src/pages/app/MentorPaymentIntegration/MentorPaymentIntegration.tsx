@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   createStripeAccount,
-  createStripeAccountLink,
+  createStripeAccountLink, getBalance,
   getStripeAccount,
 } from "@services/stripe/stripeService";
 import { Connected, NotConnected } from "./screens";
@@ -9,6 +9,8 @@ import { Loader } from "src/components/_grouped/loader";
 import { useNavigate } from "react-router-dom";
 
 export const MentorPaymentIntegration = () => {
+  const [price, setPrice] = useState(0);
+
   const [initialDataPending, setInitialDataPending] = useState<boolean>(true);
   const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
     null
@@ -79,10 +81,33 @@ export const MentorPaymentIntegration = () => {
     setAccountLinkCreatePending(false);
   };
 
+  // useState(() => {
+  //   getBalance().then((res)=> {
+  //     setPrice(res)
+  //   })
+  //
+  // })
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const balance = await getBalance();
+        setPrice(balance);
+      } catch (error) {
+        console.error('Error retrieving balance:', error);
+        // setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBalance();
+  }, []);
+
   return (
     <>
       <Loader
-        open={!!(accountLinkCreatePending || initialDataPending)}
+        open={(accountLinkCreatePending || initialDataPending)}
         spinner
         shadow
         overlay="global"
@@ -91,7 +116,7 @@ export const MentorPaymentIntegration = () => {
 
       {connectedAccountId ? (
         <Connected
-          price={4700} // @TODO
+          price={price} // @TODO
           error={error ? "Error occurred while processing your request." : ""}
           handleCreateAccountLink={handleCreateAccountLink}
         />

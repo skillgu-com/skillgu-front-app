@@ -57,6 +57,7 @@ const routesRaw: Omit<Route, "id">[] = [
     {
         path: paths.mentorProfile,
         element: <MentorProfilePage/>,
+        isProtected: true,
         layoutVersion: "default",
     },
     {
@@ -104,7 +105,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.searchMentors,
         element: <SearchMentors/>,
         layoutVersion: "default",
-        isProtected: true,
+        isProtected: false,
     },
 
     {
@@ -112,7 +113,7 @@ const routesRaw: Omit<Route, "id">[] = [
         element: <BookSession/>,
         layoutVersion: "default",
         // layoutVersion: 'simple',
-        isProtected: true,
+        isProtected: false,
     },
     {
         path: paths.sessionBookPayment,
@@ -255,7 +256,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.mentorshipApplication,
         element: <MentorshipApplicationPage />,
         layoutVersion: 'default',
-    },   
+    },
 ];
 
 // I'm not sure about purpose of this id, but some of them were duplicated, so I added unique id to each route

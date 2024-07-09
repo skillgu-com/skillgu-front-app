@@ -123,7 +123,6 @@ const SchedulesView = () => {
       );
 
     return (
-      <>
         <main className={scheduleStyles.main}>
           <Container as={Tag.Section} classes={scheduleStyles.container}>
             <header className={scheduleStyles.header}>
@@ -190,9 +189,8 @@ const SchedulesView = () => {
             {sessions?.length > 6 && <Pagination name="Sessions" maxPage={3} />}
           </Container>
         </main>
-      </>
     );
-  }, [schedules, sessions]);
+  }, [schedules, sessions, removeItem]);
 
   return (
     <>

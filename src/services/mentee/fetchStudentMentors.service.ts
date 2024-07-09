@@ -6,8 +6,12 @@ export const getMenteeMeetingHistory = async (
     props: FetchStudentMentorsInput
 ): Promise<FetchStudentMentorsOutput> => {
   // const res = await fetch('/sessions-mocked.json')
-  const response = await axios.get('/mentor/home/meeting/history');
-  const data = response.data;
+  // const response = await axios.get('/mentor/home/meeting/history');
+  const response = await fetch('/sessions-mocked.json')
+  // const data = response.data;
+  const data = await response.json()
+
+
 
 
   return {

@@ -27,25 +27,25 @@ const NavSection = () => {
                     link: paths.calendar,
                     icon: <Calendar/>,
                     title: 'Kalendarz',
-                    text: '',
+                    text: 'Sprawdź swoje zaplanowane spotkania',
                 },
                 {
                     link: '/search-mentors',
                     icon: <Find/>,
                     title: 'Znajdź mentora',
-                    text: '',
+                    text: 'Skorzystaj z naszej wyszukiwarki mentorów',
                 },
                 {
                     link: '/raports',
                     icon: <Raports/>,
                     title: 'Raporty',
-                    text: '',
+                    text: 'Zobacz przygotowane przez nas raporty',
                 },
                 {
                     link: '/chat',
                     icon: <Message/>,
                     title: 'Chat',
-                    text: '',
+                    text: 'Masz 9 oczekujących wiadomości',
                 },
             ]
             : [

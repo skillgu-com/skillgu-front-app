@@ -59,9 +59,9 @@ export const MentorReviewsConnected = ({ mentorId }: Props) => {
       ) : null}
       <Reviews.List>
         {pending
-          ? new Array(3).fill(null).map(() => <ReviewSkeleton />)
+          ? new Array(3).fill(null).map((_,ind) => <ReviewSkeleton key={ind} />)
           : reviews.map((r) => {
-              return <Review review={r} />;
+              return <Review key={r.id} review={r} />;
             })}
       </Reviews.List>
       {total ? (

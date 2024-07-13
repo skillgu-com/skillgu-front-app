@@ -36,14 +36,11 @@
         border-radius: 8px;
         border: 1px solid $colour-base-400;
         padding: 8px;
-        resize: none;
+        resize: vertical;
         scrollbar-width: 0;
-        resize: none;
-        // overflow: hidden;
-        scrollbar-width: none;
+        overflow: hidden;
         -ms-overflow-style: none;
         scrollbar-color: transparent transparent;
-        scrollbar-width: none;
         height: auto;
 
         &::-webkit-scrollbar {

@@ -69,7 +69,7 @@ export const MentorProfilePage = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
-        navigate('/student-subscriptions');
+        navigate(`/mentorship/${opt.id}/application`);
 
         console.log("ORDER Mentoring, ", opt);
     };

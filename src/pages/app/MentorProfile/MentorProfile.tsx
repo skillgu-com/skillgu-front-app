@@ -70,6 +70,8 @@ export const MentorProfilePage = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
+        navigate(`/mentorship/${opt.id}/application`);
+
         console.log("ORDER Mentoring, ", opt);
     };
     const handleSelectMentoring = (opt: MentorshipPlan) => setMentoring(opt);
@@ -116,7 +118,6 @@ export const MentorProfilePage = () => {
     //     }
     // }, [mentorId]);
 
-
     useEffect(() => {
         const fetchInitialData = async () => {
             setPending(true);
@@ -127,14 +128,12 @@ export const MentorProfilePage = () => {
                 setMentorData(mentorData);
 
                 const mentorId = mentorResponse.data.mentorId;
-                if (mentorId) {
-                    console.log('tutaj testuje: ', mentorId)
 
+                if (mentorId) {
                     const [sessionResponse, mentoringResponse] = await Promise.all([
                         fetchMentorSession(mentorData.userID),
                         fetchMentorMentorshipPlans({mentorId: mentorId}),
                     ]);
-                    console.log('sessionResponse: ',sessionResponse);
 
                     const formattedSessions = sessionResponse.data.map(
                         (elementFromAPI: any) => ({

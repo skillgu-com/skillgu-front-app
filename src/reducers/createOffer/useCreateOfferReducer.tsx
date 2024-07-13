@@ -16,7 +16,7 @@ type Output = {
   submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
   submitBuild: (props: {
     providesMaterials: boolean;
-    basic: PlanInput;
+      basic: PlanInput;
     advanced?: PlanInput;
     pro?: PlanInput;
   }, nextStep: boolean) => void;

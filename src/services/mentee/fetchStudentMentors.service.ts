@@ -1,8 +1,7 @@
 import {FetchStudentMentorsInput, FetchStudentMentorsOutput,} from "./fetchStudentMentors.types";
 import axios from "axios";
 
-
-export const getMenteeMeetingHistory = async (
+export const fetchStudentMentors = async (
     props: FetchStudentMentorsInput
 ): Promise<FetchStudentMentorsOutput> => {
   // const res = await fetch('/sessions-mocked.json')
@@ -14,8 +13,8 @@ export const getMenteeMeetingHistory = async (
 
 
 
-  return {
-    mentors: data.slice(0, props.take),
-    total: data.length,
-  };
+    return {
+        mentors: data.slice(0, props.take),
+        total: data.length,
+    };
 };

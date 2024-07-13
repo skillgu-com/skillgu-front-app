@@ -1,4 +1,5 @@
-import { MentorDetails, PlanDetails } from "src/reducers/mentorship-application/types"
+import {MentorDetails, PlanDetails} from "src/reducers/mentorship-application/types"
+import axios from "axios";
 
 type Output = {
     mentor: MentorDetails
@@ -8,28 +9,29 @@ type Output = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const getMentorshipDetails = async (mentorshipId: number) : Promise<Output> => {
+export const getMentorshipDetails = async (mentorshipId: number): Promise<Output> => {
     await delay(1000);
 
+    const response = await axios.get(`/api/mentorship/get-selected-mentorship-by/${mentorshipId}`);
+    const mentor = await axios.get(`/api/mentorship/get-selected-mentor-by-mentorshipId/${mentorshipId}`);
+
+    console.log('pizda kolanow', mentor)
     return {
         mentor: {
             id: 1,
-            fullName: 'Anna Stokrotka',
-            avatarUrl: '/images/img_avatar.png',
+            fullName: mentor.data.data.fullName,
+            avatarUrl: mentor.data.data.avatarUrl,
             rate: 4,
-            profession: 'UX/UI Designer',
-            company: 'Google',
+            profession: mentor.data.data.profession,
+            company: mentor.data.data.company,
         },
         plan: {
-            id: 2,
-            plan: 'pro',
-            monthlyPrice: 30000,
-            included: [
-                '4 sesje mentoringowe na miesiąc (60 minut każda)',
-                'Nieograniczony dostęp do pytań i odpowiedzi',
-                'Odpowiedzi na Twoje pytania w ciągu 24h',
-                'Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów',
-            ],
+            id: response.data.data.id,
+            plan: response.data.title,
+            monthlyPrice: response.data.data.price,
+            included: (response.data.data.descriptionRows || []).map((element: any) => {
+                return element.description;
+            })
         },
         availableGoals: [
             'Jestem studentem i szukam pomocy w nauce',
@@ -43,6 +45,9 @@ export const getMentorshipDetails = async (mentorshipId: number) : Promise<Outpu
             'Chce regularnie pracować z tym ekspertem żeby podnieść swoje kompetencje',
             'Chce nabyć nowych kompetencji zawodowych',
             'Nie chcę ujawniać',
+            'Coś innego',
+            'Coś innego',
+            'Coś innego',
             'Coś innego',
         ],
     }

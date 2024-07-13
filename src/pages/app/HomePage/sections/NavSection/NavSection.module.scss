@@ -16,7 +16,7 @@
 		}
 	}
 
-	@media screen and (min-width: $lg) {
+	@media screen and (min-width: $xl) {
 		grid-template-columns: repeat(4, 1fr);
 		grid-column: 1 / -1;
 

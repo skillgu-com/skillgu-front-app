@@ -23,6 +23,8 @@ export enum ButtonVariant {
   Outline = "outline",
   Danger = "danger",
   DangerText = "danger-text",
+  DangerOutline = "danger-outline",
+  Transparent = "transparent",
 }
 
 interface CommonProps extends Common {
@@ -32,10 +34,9 @@ interface CommonProps extends Common {
   variant?: ButtonVariant;
   disableButton?: boolean;
   size?: "sm" | "md" | "lg";
-  fontVariant?: 'button-md'
+  fontVariant?: "button-md";
   btnHref?: string;
-  noWrap?: boolean
-
+  noWrap?: boolean;
 }
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -59,12 +60,12 @@ const Button: React.FC<
   } = props;
 
   const as = customAs
-  ? customAs
-  : href && isInternalURL(href)
-  ? ButtonTag.InternalLink
-  : href
-  ? ButtonTag.ExternalLink
-  : ButtonTag.Button;
+    ? customAs
+    : href && isInternalURL(href)
+      ? ButtonTag.InternalLink
+      : href
+        ? ButtonTag.ExternalLink
+        : ButtonTag.Button;
 
   const config = useMemo(() => {
     const omitedProps = Object.fromEntries(
@@ -86,7 +87,7 @@ const Button: React.FC<
           [styles.buttonFullWidth]: fullWidth,
           [styles.buttonSm]: size === "sm",
           [styles.buttonLg]: size === "lg",
-          [styles.FontButtonMd]: fontVariant === 'button-md',
+          [styles.FontButtonMd]: fontVariant === "button-md",
           [styles.noWrap]: !!noWrap,
         },
         classes

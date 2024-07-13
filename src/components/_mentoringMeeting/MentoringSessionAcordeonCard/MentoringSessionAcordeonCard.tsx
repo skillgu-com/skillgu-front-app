@@ -77,8 +77,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 inputProps: {multiline: true, rows: 3},
             }] : undefined,
         });
-
-        if (decision) cancelMutation.mutate({id, reason: 'asd'});
+        if (true) cancelMutation.mutate({id, reason: 'asd'});
     }
 
     return (
@@ -122,7 +121,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                             color='error'
                             variant='contained'
                         >
-                            Odwołaj
+                            Odwołaj TEST
                         </Button>
                         <Box sx={{gridArea: 'joinMeetingButton'}}>
                             <MentoringSessionJoinButton meetingUrl={meetingLink}/>

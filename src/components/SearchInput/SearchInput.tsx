@@ -26,8 +26,7 @@ export const SearchInput = ({
         value={value}
         onChange={onChangePhrase}
       />
-      <label className={styles.ghost} htmlFor={name}>
-        {name}
+      <label className={styles.ghost} htmlFor={name} aria-labelledby={name}>
       </label>
       <SearchSvg className={styles.icon} />
     </div>

@@ -10,7 +10,7 @@ import styles from "./MentorsList.module.scss";
 import { Tag } from "src/types/tags";
 // Utils
 import { buildMentorLink } from "../../utils";
-import { Mentor } from "@customTypes/mentor";
+import { FiltersSelected, Mentor } from "@customTypes/mentor";
 import {
   MentorListingCard,
   MentorListingCardSkeleton,
@@ -22,6 +22,7 @@ type Props = {
   mentors: Mentor[];
   pending: boolean;
   handleLoadMore: () => void;
+  filters: Partial<FiltersSelected>
 };
 
 export const MentorsList = ({
@@ -29,6 +30,7 @@ export const MentorsList = ({
   hasNextPage,
   mentors,
   pending,
+  filters,
   handleLoadMore,
 }: Props) => {
   const [sentryRef] = useInfiniteScroll({
@@ -44,6 +46,7 @@ export const MentorsList = ({
       <div className={styles.mentorsList}>
         {mentors?.map((item: any) => (
           <MentorListingCard
+            filters={filters}
             key={item.id}
             avatar_url={item.avatar_url}
             description={item.description}

@@ -35,20 +35,21 @@ export const createOfferReducer = (
     case "SUBMIT_DETERMINE":
       return {
         ...state,
-        step: "build",
+        step: action.payload.nextStep ? "build" : "determine",
         numberOfPlans: action.payload.numberOfPlans,
       };
     case "LOAD_SCHEDULES":
       return {
         ...state,
         availableSchedules: action.payload.availableSchedules,
+        fetchedInitial: true,
       };
     case "SUBMIT_BUILD":
       return {
         ...state,
-        step: "summary",
+        step: action.payload.nextStep ? "summary" : "build",
         providesMaterials: action.payload.providesMaterials,
-        base: action.payload.base,
+        basic: action.payload.basic,
         advanced: action.payload.advanced || createOfferInitialState.advanced,
         pro: action.payload.pro || createOfferInitialState.pro,
       };
@@ -63,6 +64,8 @@ export const createOfferReducer = (
         errorMessage: action.payload.errorMessage,
         success: action.payload.success,
       };
+    case "LOGOUT":
+    case "LOGIN": 
     case "RESET":
       return {
         ...createOfferInitialState,

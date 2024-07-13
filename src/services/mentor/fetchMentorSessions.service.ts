@@ -1,16 +1,17 @@
 import {
-  FetchMentorSessionsInput,
-  FetchMentorSessionsOutput,
+    FetchMentorSessionsInput,
+    FetchMentorSessionsOutput,
 } from "./fetchMentorSessions.types";
+import axios from "axios";
 
-export const fetchMentorSessions = async (
-  props: FetchMentorSessionsInput
+export const getMentorMeetingHistory = async (
+    props: FetchMentorSessionsInput
 ): Promise<FetchMentorSessionsOutput> => {
-  const res = await fetch('/sessions-mocked.json')
-  const data = await res.json() 
-
-  return {
-    total: data.length,
-    students: data.slice(props.skip, props.skip + props.take),
-  };
+    console.log('tutaj testujemy teraz')
+    const response = await axios.get('/mentor/home/meeting/history');
+    const data = response.data;
+    return {
+        total: data.length,
+        students: data.slice(props.skip, props.skip + props.take),
+    };
 };

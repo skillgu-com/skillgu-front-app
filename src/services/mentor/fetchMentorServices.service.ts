@@ -39,7 +39,7 @@ export interface MentorshipPlanDTO {
     price: number;
     variant: string;
     descriptionRows: DescriptionRowDTO[];
-    numberOfSessionsPerMonth: number;
+    sessionsPerMonth: number;
     sessionDurationMinutes: number;
     responseTimeHours: number;
     providesMaterials: boolean;
@@ -65,7 +65,6 @@ export const fetchMentorShip = async (input: Input): Promise<OutputSuccess | Out
 }
 
 export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<MentorshipDTO> => {
-
     try {
         const response = await axios.get<any>(`/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`);
         const mentoringData = response.data;
@@ -76,7 +75,7 @@ export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<Mentors
             price: plan.price,
             variant: plan.variant,
             descriptionRows: plan.descriptionRows,
-            numberOfSessionsPerMonth: plan.numberOfSessionsPerMonth,
+            sessionsPerMonth: plan.sessionsPerMonth,
             sessionDurationMinutes: plan.sessionDurationMinutes,
             responseTimeHours: plan.responseTimeHours,
             providesMaterials: plan.providesMaterials,

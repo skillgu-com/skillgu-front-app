@@ -77,7 +77,7 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
     },
     {
       id: "payments-mentor",
-      label: "Płatności",
+      label: "Rozliczenia",
       link: `/payment`,
       icon: <DollarCircleIcon />,
       visibility: "mentor",

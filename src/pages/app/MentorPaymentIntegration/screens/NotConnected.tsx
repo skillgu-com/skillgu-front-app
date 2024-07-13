@@ -15,7 +15,7 @@ type Props = {
 export const NotConnected = ({ error, handleCreateAccount, accountCreatePending }: Props) => {
     return (
         <div className={styles.wrapper}>
-            <h1 className={styles.title}>Płatności</h1>
+            <h1 className={styles.title}>Rozliczenia</h1>
             <p className={styles.description}>
                 Płatności na platformie obsługuje firma Stripe. Po kliknięciu w
                 "Konfiguruj płatności", zostaniesz przekierowany do formularza

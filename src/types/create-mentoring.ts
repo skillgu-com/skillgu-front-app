@@ -2,8 +2,10 @@ export type PlanInput = {
   schedule: string;
   price: number;
   description: string;
-  numberOfSessions: number;
+  sessionsPerMonth: number;
   sessionDuration: number;
   responseTime: number;
-  additional: string[];
+  // additional: string[];
+  planIncludes: string[];
+  planType:string;
 };

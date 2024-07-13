@@ -292,7 +292,7 @@ export const Subscriptions = ({ title, subtitle }: Props) => {
                     current={page}
                     last={Math.ceil(total / PER_PAGE)}
                     onClick={(e) => {
-                      const btn = e.target as HTMLButtonElement;
+                      const btn = e.currentTarget as HTMLButtonElement;
                       sr.updatePage(Number(btn.value));
                     }}
                     className={styles.pagination}

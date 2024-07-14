@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useLocation, useParams} from "react-router-dom";
 import {
     MentorContent,
     MentorLinks,
@@ -38,7 +38,8 @@ type Props = {
 };
 
 export const MentorProfilePage = () => {
-    const {username: username} = useParams();
+    const {username} = useParams();
+    const location = useLocation();
 
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
@@ -86,7 +87,7 @@ export const MentorProfilePage = () => {
     const closePopup = () => setPopupSession(null);
 
     const handleSubmitSession = (opt: ServiceSession) => {
-        navigate(paths.sessionBook, {state: opt});
+        navigate(paths.sessionBook, {state: {opt, from: location?.pathname}});
     };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
@@ -263,6 +264,7 @@ export const MentorProfilePage = () => {
 
                                         {optionsSession && optionsSession.length > 0 && (
                                             <MentorServicesSession
+
                                                 services={optionsSession}
                                                 selected={selectedSession}
                                                 displayRadioInput={!mentorIsLoggedUser}

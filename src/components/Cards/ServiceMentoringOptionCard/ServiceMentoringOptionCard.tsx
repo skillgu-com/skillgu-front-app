@@ -52,8 +52,8 @@ export const ServiceMentoringOptionCard = ({
         <div className={styles.listRow}>
           <h6>Plan obejmuje</h6>
           <ul>
-            {descriptionRows.map((r) => (
-              <li>
+            {descriptionRows.map((r,ind) => (
+              <li key={ind}>
                 <CheckCircleSolidIcon />
                 <span>{r.description}</span>
               </li>

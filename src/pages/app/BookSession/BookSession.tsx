@@ -1,19 +1,22 @@
 // Libraries
 import React, {useEffect, useRef, useState} from "react";
+import {Link, Path, useLocation} from "react-router-dom";
+import {useDispatch} from "react-redux";
 // Components
 import {Actions, Calendar, SelectedDate, SelectedService, Team, UserDetails,} from "./components";
 import {Payment} from "./components/Payment/Payment";
+import Container from "src/components/Container/Container";
+import Arrow from "@icons/Arrow";
 // Types
+import { Tag } from "@customTypes/tags";
 // Styles
 import styles from "./BookSession.module.scss";
-import {useDispatch} from "react-redux";
 import clx from 'classnames'
 //
 import {faqRows} from "./config";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
 import {fetchMentorShip} from "@services/mentor/fetchMentorServices.service";
-import {useLocation} from "react-router-dom";
 
 interface BookSessionProps {
     payment?: boolean;
@@ -28,6 +31,11 @@ interface SessionState {
     mentorID: number;
 }
 
+type LocationStateTypes = {
+    opt: SessionState;
+    from: Path
+}
+
 const BookSession = ({payment}: BookSessionProps) => {
     const [term, setTerm] = useState<Date | undefined>(undefined);
     const selectTermHandler = (term: Date) => {
@@ -37,19 +45,17 @@ const BookSession = ({payment}: BookSessionProps) => {
     const [state] = useBookingReducer();
     const dispatch = useDispatch();
 
-    const location = useLocation();
-
-
     const formattedDate = term ? term.toLocaleDateString() : "";
     const formattedTime = term ? term.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) : "";
 
     const fetchInitialRef = useRef<boolean>(false);
-
-    const element = location.state as SessionState;
-
+    
+    const location = useLocation();
+    const element = location.state as LocationStateTypes;
+    
     useEffect(() => {
-        if (element) {
-            const {id, sessionType, sessionPrice, description, meetTime, mentorID} = element;
+        if (element?.opt) {
+            const {id, sessionType, sessionPrice, description, meetTime, mentorID} = element.opt;
 
             dispatch({
                 type: 'SET_SESSION_IN_FORM',
@@ -113,7 +119,14 @@ const BookSession = ({payment}: BookSessionProps) => {
 
     return (
         <>
-            <div className={styles.wrapper}>
+            {!payment ? <Container as={Tag.Div}>
+                <Link className={styles.backLink} to={element?.from || '/search-mentors'}>
+                    <Arrow /> 
+                    <span> Powrót do profilu mentora</span>
+                </Link>
+            </Container> : null}
+            <Container as={Tag.Div}>
+                <div className={styles.wrapper}>
                 {payment ? null : (
                     <aside>
                         <SelectedService/>
@@ -150,7 +163,8 @@ const BookSession = ({payment}: BookSessionProps) => {
                         <FAQ title="FAQ" elements={faqRows}/>
                     </section>
                 </main>
-            </div>
+                </div>
+            </Container>
         </>
     );
 };

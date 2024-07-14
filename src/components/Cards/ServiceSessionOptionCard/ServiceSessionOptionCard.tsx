@@ -14,7 +14,7 @@ type Props = ServiceSession & {
   selected?: boolean;
   displayRadioInput?: boolean;
   handleSelect?: React.MouseEventHandler<HTMLButtonElement>;
-  handleDetails?: React.MouseEventHandler<HTMLButtonElement>;
+  handleDetails?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export const ServiceSessionOptionCard = ({
@@ -31,7 +31,7 @@ export const ServiceSessionOptionCard = ({
   description,
   displayRadioInput,
 }: Props) => {
-  const detailsRef = useRef<HTMLButtonElement>(null);
+  const detailsRef = useRef<HTMLInputElement>(null);
   const _handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
     if (detailsRef.current && target === detailsRef.current) {
@@ -51,7 +51,9 @@ export const ServiceSessionOptionCard = ({
       value={value}
     >
       <div className={styles.rowTitle}>
-        {handleSelect && displayRadioInput ? <RadioInputIcon filled={selected} /> : null}
+        {handleSelect && displayRadioInput ? (
+          <RadioInputIcon filled={selected} />
+        ) : null}
         <h5 className={styles.title}>{sessionType}</h5>
       </div>
       <div className={styles.rowInfo}>
@@ -69,14 +71,13 @@ export const ServiceSessionOptionCard = ({
         ) : null}
       </div>
       {handleDetails ? (
-        <div className={styles.rowActions}>
-          <button
-            ref={detailsRef}
-            className={styles.detailsBtn}
-            onClick={handleDetails}
-          >
-            Więcej informacji
-          </button>
+        <div
+          className={styles.rowActions}
+          role="button"
+          ref={detailsRef}
+          onClick={handleDetails}
+        >
+          Więcej informacji
         </div>
       ) : null}
     </button>

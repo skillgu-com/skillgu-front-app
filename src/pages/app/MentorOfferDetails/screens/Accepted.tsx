@@ -12,11 +12,11 @@ export const Accepted = () => {
 
   return offer ? (
     <ContentWrapper
-      title={`Zaakceptowałeś nowego studenta!`}
+      title={`Zaakceptowałeś nowego mentee!`}
       description={
         <>
-          Listę wszystkich swoich aktywnych studentów możesz znaleźć{" "}
-          <a href="/#">tutaj</a>.
+          Listę wszystkich swoich aktywnych mentee możesz znaleźć{" "}
+          <a href="/mentor-subscriptions">tutaj</a>.
         </>
       }
       sidebar
@@ -37,7 +37,7 @@ export const Accepted = () => {
             href="/students"
             fontVariant='button-md'
           >
-            Powrót do widoku studentów
+            Powrót do widoku mentee
           </Button>
         </div>
       </div>

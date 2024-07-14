@@ -82,7 +82,7 @@ export const SummaryStep = () => {
           <>
             Powinieneś dostać odpowiedź od Anny w przeciągu najbliższych kilku
             dni. Status swojej aplikacji możesz zawsze sprawdzić w zakładce{" "}
-            <Link to={"/subscriptions"}>Subskrypcje</Link>.
+            <Link to={"/mentee-subscriptions"}>Subskrypcje</Link>.
           </>
         }
         submitText={"Powrót do strony głównej"}

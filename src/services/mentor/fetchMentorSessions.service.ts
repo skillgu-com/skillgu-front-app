@@ -7,7 +7,6 @@ import axios from "axios";
 export const getMentorMeetingHistory = async (
     props: FetchMentorSessionsInput
 ): Promise<FetchMentorSessionsOutput> => {
-    console.log('tutaj testujemy teraz')
     const response = await axios.get('/mentor/home/meeting/history');
     const data = response.data;
     return {

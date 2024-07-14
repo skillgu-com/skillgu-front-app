@@ -14,7 +14,6 @@ export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
   const pageRef = useRef<number>(sr.sessionsState.page);
 
-  console.log("SR", sr);
   // const [data, setData] = useState<FetchMentorSessionsOutput|null>(null)
   // const [pending, setPending] = useState<boolean>(true)
 

@@ -36,10 +36,20 @@ type Output = {
 export const useMentAppReducer = (): Output => {
   const state: MentAppState = useSelector((state) => {
     if (state && typeof state === "object" && "mentApp" in state) {
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.timezone)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.step)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.selectedGoals)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.selectedPlan)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.questions)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.description)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.mentor)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp.location)
+      // console.log('tutaj patrze na to wszystko: ',state?.mentApp)
       return state?.mentApp as MentAppState;
     }
     return mentAppInitialState;
   });
+
 
   const dispatch = useDispatch();
 

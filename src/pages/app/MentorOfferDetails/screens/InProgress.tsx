@@ -59,9 +59,9 @@ export const InProgress = () => {
           <div className={styles.details}>
             <UserIdentity
               avatarSize={40}
-              avatarUrl={offer.userAvatalUrl}
-              avatarAlt={offer.userFullname}
-              title={offer.userFullname}
+              avatarUrl={offer.userAvatarUrl}
+              avatarAlt={offer.userFullName}
+              title={offer.userFullName}
               className={styles.userIdentity}
               noPadding
             />
@@ -99,7 +99,7 @@ export const InProgress = () => {
             <div className={styles.hr} />
 
             <div className={clx(styles.fieldText)}>
-              <label className={styles.label}>O studencie</label>
+              <label className={styles.label}>O mentee</label>
               <div className={styles.readTextarea}>
                 {offer.aboutStudent}
               </div>

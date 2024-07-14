@@ -65,7 +65,6 @@ export const fetchMentorShip = async (input: Input): Promise<OutputSuccess | Out
 }
 
 export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<MentorshipDTO> => {
-
     try {
         const response = await axios.get<any>(`/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`);
         const mentoringData = response.data;

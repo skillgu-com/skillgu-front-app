@@ -70,6 +70,8 @@ export const MentorProfilePage = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
+        navigate(`/mentorship/${opt.id}/application`);
+
         console.log("ORDER Mentoring, ", opt);
     };
     const handleSelectMentoring = (opt: MentorshipPlan) => setMentoring(opt);
@@ -115,8 +117,6 @@ export const MentorProfilePage = () => {
     //         fetchInitialData();
     //     }
     // }, [mentorId]);
-
-    console.log('selectedMentoring', selectedMentoring)
 
     useEffect(() => {
         const fetchInitialData = async () => {

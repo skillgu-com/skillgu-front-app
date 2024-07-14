@@ -43,6 +43,7 @@
 		gap: 24px;
 		background-color: $colour-base-200;
 		padding: 24px 20px 32px;
+		margin: 0 16px;
 	}
 
 	> .main {
@@ -51,7 +52,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 40px;
-		padding: 16px 32px 64px;
+		padding: 16px 16px 64px;
 		overflow: hidden;
 		width: 100%;
 
@@ -80,12 +81,13 @@
 	@media screen and (min-width: $xl) {
 		flex-direction: row;
 		gap: 29px;
-		padding: 43px 32px 72px;
+		padding: 43px 16px 72px;
 
 		> aside {
 			order: 2;
 			padding: 0;
 			background-color: transparent;
+			margin: 0;
 		}
 
 		> .main {
@@ -105,7 +107,7 @@
 	justify-content: space-between;
 	align-items: center;
 	gap: 8px;
-	margin: 24px 0;
+	margin: 24px 16px;
 	padding: 8px 14px;
 	width: fit-content;
 	background-color: $colour-base-000;

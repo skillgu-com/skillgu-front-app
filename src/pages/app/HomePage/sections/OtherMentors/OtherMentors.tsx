@@ -73,7 +73,7 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
         {pending ? (
           <Slider {...settings} className={styles.slick}>
             {mentors.map((m) => (
-              <div key={m.id} className={styles.slickItem}>
+              <div key={m.mentorId} className={styles.slickItem}>
                 <div className={styles.card}>
                   <div className={styles.user}>
                     <Skeleton
@@ -104,7 +104,7 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
         {ready ? (
           <Slider {...settings} className={styles.slick}>
             {mentors.map((m) => (
-              <div key={m.id} className={styles.slickItem}>
+              <div key={m.mentorId} className={styles.slickItem}>
                 <div
                   className={styles.card}
                   ref={addToRefs}

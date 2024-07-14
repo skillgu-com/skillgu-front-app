@@ -122,7 +122,7 @@ const BookSession = ({payment}: BookSessionProps) => {
             {!payment ? <Container as={Tag.Div}>
                 <Link className={styles.backLink} to={element?.from || '/search-mentors'}>
                     <Arrow /> 
-                    <span> Powrót profilu mentora</span>
+                    <span> Powrót do profilu mentora</span>
                 </Link>
             </Container> : null}
             <Container as={Tag.Div}>

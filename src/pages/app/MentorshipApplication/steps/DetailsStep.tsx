@@ -22,7 +22,7 @@ export const DetailsStep = () => {
   }, [availableTimezones, timezone]);
 
   const loc = useMemo(() => {
-    const options = [{ label: "Online", value: "online" }];
+    const options = [{ label: "Online", value: "online" },{label: "Offline", value: "offline"}];
     const value = options.find((o) => o.value === location);
     return { options, value };
   }, [location]);

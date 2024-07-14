@@ -15,10 +15,9 @@ export const getMentorshipDetails = async (mentorshipId: number): Promise<Output
     const response = await axios.get(`/api/mentorship/get-selected-mentorship-by/${mentorshipId}`);
     const mentor = await axios.get(`/api/mentorship/get-selected-mentor-by-mentorshipId/${mentorshipId}`);
 
-    console.log('pizda kolanow', mentor)
     return {
         mentor: {
-            id: 1,
+            id: mentor.data.data.mentorId,
             fullName: mentor.data.data.fullName,
             avatarUrl: mentor.data.data.avatarUrl,
             rate: 4,

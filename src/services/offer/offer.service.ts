@@ -16,8 +16,8 @@ export type OfferDetails = {
   status: OfferStatus
   rejectionFeedback: string
   service: ServiceMentoring;
-  userFullname: string;
-  userAvatalUrl: string;
+  userFullName: string;
+  userAvatarUrl: string;
   mainGoals: string[];
   timezone: string;
   location: string;
@@ -50,8 +50,8 @@ export const fetchOfferDetails = async (
         "Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów",
       ],
     },
-    userFullname: "Anna Kula",
-    userAvatalUrl: "/images/img_avatar.png",
+    userFullName: "Anna Kulaagus",
+    userAvatarUrl: "/images/img_avatar.png",
     mainGoals: [
         'Jestem studentem i szukam pomocy w nauce',
         'Właśnie ukończyłem studia i potrzebuję pomocy w rozpoczęciu kariery',

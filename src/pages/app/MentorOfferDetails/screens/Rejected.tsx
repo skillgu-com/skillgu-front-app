@@ -14,11 +14,11 @@ export const Rejected = () => {
 
   return offer ? (
     <ContentWrapper
-      title={`Odmówiłeś współpracy studentowi`}
+      title={`Odmówiłeś współpracy z mentee`}
       description={
         <>
-          Listę wszystkich swoich aktywnych studentów możesz znaleźć{" "}
-          <a href="/#">tutaj</a>.
+          Listę wszystkich swoich aktywnych mentee możesz znaleźć{" "}
+          <a href="/mentor-subscriptions">tutaj</a>.
         </>
       }
       sidebar
@@ -28,7 +28,7 @@ export const Rejected = () => {
           <div>
             <div className={styles.fieldText}>
               <label className={styles.label}>
-                Twoja odpowiedź wysłana do studenta
+                Twoja odpowiedź wysłana do mentee
               </label>
               <p className={styles.readTextarea}>{offer.rejectionFeedback}</p>
             </div>
@@ -39,17 +39,17 @@ export const Rejected = () => {
                 classes={styles.btn}
                 variant={ButtonVariant.Primary}
                 as={ButtonTag.InternalLink}
-                href="/students"
+                href="/mentor-subscriptions"
                 fontVariant="button-md"
               >
-                Powrót do widoku studentów
+                Powrót do widoku mentee
               </Button>
             </div>
           </div>
         ) : (
           <div>
             <div className={styles.fieldText}>
-              <label className={styles.label}>Odpowiedz studentowi</label>
+              <label className={styles.label}>Odpowiedz mentee</label>
               <textarea
                 className={styles.readTextarea}
                 placeholder="Nie sądze, abyśmy byli dobrym matchem, ponieważ..."

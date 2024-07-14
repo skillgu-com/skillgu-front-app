@@ -87,7 +87,7 @@ export const MentorProfilePage = () => {
     const closePopup = () => setPopupSession(null);
 
     const handleSubmitSession = (opt: ServiceSession) => {
-        navigate(paths.sessionBook, {state: {opt, from: location?.pathname}});
+        navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
     };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
@@ -264,7 +264,6 @@ export const MentorProfilePage = () => {
 
                                         {optionsSession && optionsSession.length > 0 && (
                                             <MentorServicesSession
-
                                                 services={optionsSession}
                                                 selected={selectedSession}
                                                 displayRadioInput={!mentorIsLoggedUser}

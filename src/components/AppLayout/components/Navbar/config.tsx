@@ -99,7 +99,7 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
     {
       id: "subscription-student",
       label: "Subskrypcja",
-      link: `/student-subscriptions`,
+      link: `/mentee-subscriptions`,
       icon: <SubscriptionIcon />,
       visibility: "student",
     },

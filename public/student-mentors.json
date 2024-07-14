@@ -3,7 +3,7 @@
       "id": 1,
       "nickname": "user1",
       "avatarUrl": "/images/img_avatar.png",
-      "fullName": "John Doe",
+      "fullName": "John Does",
       "status": "accepted",
       "plan": "basic",
       "scheduled": true

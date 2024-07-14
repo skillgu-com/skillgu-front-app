@@ -1,4 +1,4 @@
-import { DescriptionRowDTO } from "@services/mentor/fetchMentorServices.service";
+import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 
 // export type OrderStatus = 'awaiting'|'rejected'|'accepted'
 // export type SubscriptionStatus = 'active'|'suspended'|'completed'
@@ -72,4 +72,8 @@ export interface MentorshipPlan {
   responseTimeHours: number;
   providesMaterials: boolean;
   mentoringDescription: string;
+}
+export interface LocationState {
+  opt: ServiceSession;
+  from: string;
 }

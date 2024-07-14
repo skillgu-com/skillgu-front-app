@@ -30,7 +30,7 @@ export const ContentWrapper = (props: Props) => {
             <h1 className={styles.title}>
               {props.backArrow ? (
                 <a
-                  href="/students"
+                  href="/mentor-subscriptions"
                   className={styles.arrow}
                 >
                   <ArrowLongLeft />

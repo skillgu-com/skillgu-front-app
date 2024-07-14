@@ -30,7 +30,6 @@ export const MentorServicesSession = ({
     null
   );
 
-
   return services.length ? (
     <>
       <ClientPortal selector="modal-root" show={!!detailsService}>

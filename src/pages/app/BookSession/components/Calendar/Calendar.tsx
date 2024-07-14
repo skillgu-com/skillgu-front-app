@@ -44,16 +44,12 @@ export const Calendar = (props: BookFormProps) => {
         });
     });
 
-
-
     useEffect(() => {
         id &&
         fetchCalendarSession({mentorID: sessionData?.mentorID, sessionID: Number.parseInt(sessionData?.id)})
             .then((res) => {
                 const dataFromApi = res.data;
                 const events: CalendarEvent[] = [];
-
-                console.log('tutaj testuje');
                 dataFromApi.forEach((item: any, index: number) => {
                     const startDateTime = new Date(item.sessionDate + "T" + item.hour);
                     const endDateTime = new Date(

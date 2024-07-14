@@ -73,3 +73,7 @@ export interface MentorshipPlan {
   providesMaterials: boolean;
   mentoringDescription: string;
 }
+export interface LocationState {
+  opt: ServiceSession;
+  from: string;
+}

@@ -264,7 +264,6 @@ export const MentorProfilePage = () => {
 
                                         {optionsSession && optionsSession.length > 0 && (
                                             <MentorServicesSession
-
                                                 services={optionsSession}
                                                 selected={selectedSession}
                                                 displayRadioInput={!mentorIsLoggedUser}

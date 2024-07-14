@@ -15,7 +15,7 @@ import {
     TitleTag,
     TitleVariant,
 } from "src/components/typography/Title/Title";
-import {ServiceSession} from "@customTypes/order";
+import {LocationState, ServiceSession} from "@customTypes/order";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {CalendarEvent} from "../../../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
 

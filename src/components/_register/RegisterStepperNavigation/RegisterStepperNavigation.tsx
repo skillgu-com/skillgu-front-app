@@ -10,6 +10,7 @@ import {
     StyledList,
     StyledNode
 } from "./RegisterStepperNavigation.styles";
+import Logo from '@icons/Logo';
 
 export type NavigationContentT = {
     title: string;
@@ -39,7 +40,7 @@ const RegisterStepperNavigation: FC<Props> = ({ navigationContent, maxStep, upda
     return (
         <StyledContainer>
             <StyledIconWrapper>
-                <SkillGuruLogo/>
+                <Logo/>
             </StyledIconWrapper>
             <StyledList>
                 {navigationContent.map(({id, subtitle, icon, title, shorthand}, index) => (

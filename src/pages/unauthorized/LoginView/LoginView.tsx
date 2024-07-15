@@ -63,17 +63,18 @@ const LoginView = () => {
     const {onGoogleLogin} = useGoogleLogin(googleButtonRef);
 
     return (
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{display: 'grid', gap: 2}}>
-                <Typography variant='h2' textAlign='center'>Zaloguj się</Typography>
+                <Typography color="#252B61" variant='h2' textAlign='center'>Zaloguj się</Typography>
                 <Tabs
+                
                     sx={{marginBottom: 2}}
                     value={hashValue || 'mentee'}
                     onChange={(_e, value) => updateHash(value)}
                     textColor="inherit"
                     variant="fullWidth"
                 >
-                    <Tab sx={{fontSize: '12px'}} label="Jestem uczniem" value={pathAnchors.loginView.mentee}/>
+                    <Tab  sx={{fontSize: '12px'}} label="Jestem uczniem" value={pathAnchors.loginView.mentee}/>
                     <Tab sx={{fontSize: '12px'}} label="Jestem mentorem" value={pathAnchors.loginView.mentor}/>
                 </Tabs>
                 <FormInputText<LoginFormInput>
@@ -95,7 +96,7 @@ const LoginView = () => {
             </Box>
             <Box sx={{display: 'flex', justifyContent: 'space-between', alignContent: 'center', flexWrap: 'wrap', marginTop: 1}}>
                 <FormInputCheckbox<LoginFormInput>
-                    inputProps={{color: 'secondary'}}
+                    inputProps={{color: 'error'}}
                     label='Zapamiętaj mnie'
                     name="rememberMe"
                     control={control}
@@ -138,7 +139,7 @@ const LoginView = () => {
                     </Button>
                     <Box sx={{visibility: 'hidden', display: 'none'}} ref={googleButtonRef}></Box>
                 </Collapse>
-                <Typography variant='body2' textAlign='center'>Nie masz jeszcze konta?{' '}
+                <Typography color="base.80"  variant='body2' textAlign='center'>Nie masz jeszcze konta?{' '}
                     <TextLink
                         typographyProps={{variant: 'body2'}}
                         linkProps={{to: hashValue === pathAnchors.loginView.mentor ? paths.registerMentor : paths.registerMentee}}

@@ -164,6 +164,7 @@
   color: $colour-base-800;
   border-radius: 8px;
   border: 1px solid $colour-base-400;
+  cursor: pointer;
   & > span {
     @extend %text-body-2;
   }

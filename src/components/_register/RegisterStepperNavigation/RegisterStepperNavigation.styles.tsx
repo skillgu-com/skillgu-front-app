@@ -18,6 +18,7 @@ export const StyledContainer = muiStyled('div')(({theme}) => ({
 export const StyledIconWrapper = muiStyled('div')(({theme}) => ({
     [theme.breakpoints.down('md')]: {
                 padding: theme.spacing(0, 2),
+                margin: 'auto'
     }
 }))
 

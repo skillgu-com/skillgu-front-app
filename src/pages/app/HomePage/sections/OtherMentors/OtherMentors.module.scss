@@ -33,6 +33,11 @@
     border: 1px solid $colour-base-200;
     border-radius: 12px;
     justify-content: space-between;
+    translate: background-color $duration;
+
+    &:hover {
+        background-color: $colour-base-200;
+    }
 
     .user {
         display: flex;

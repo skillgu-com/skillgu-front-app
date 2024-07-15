@@ -9,8 +9,13 @@
 	gap: 10px;
 	padding: 24px 20px;
 	text-decoration: none;
-    border: 1px solid $colour-base-200;
-    border-radius: 12px;
+     	border: 1px solid $colour-base-200;
+    	border-radius: 12px;
+    	transition: background-color;
+
+    	&:hover {
+        	background-color: $colour-base-200;
+    	}
 
 	&Icon {
 		svg {

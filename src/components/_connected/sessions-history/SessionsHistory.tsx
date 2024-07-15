@@ -26,7 +26,7 @@ import { getRole } from "src/redux/selectors/authSelectors";
 type Props = {
   title?: string;
   subtitle?: ReactNode;
-  getProfileLink: (id: number) => string;
+  getProfileLink: (username: string) => string;
 };
 
 export const SessionsHistory = ({
@@ -38,6 +38,7 @@ export const SessionsHistory = ({
   const sr = useSessionsReducer();
   const sessions = sr.sessionsState.sessions;
   const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
+
 
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
     null
@@ -122,7 +123,7 @@ export const SessionsHistory = ({
                     <TableRow
                       key={s.id}
                       onClick={() => {
-                        navigate(getProfileLink(s.id));
+                        navigate(getProfileLink(s.username));
                       }}
                     >
                       <TableCell flex={4}>

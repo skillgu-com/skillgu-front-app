@@ -21,13 +21,13 @@ export const MentorSessionsHistory = () => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { students, total } = await getMentorMeetingHistory({
+        const { mentee, total } = await getMentorMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
-        sr.updateRecords(students, total);
+        sr.updateRecords(mentee, total);
       } catch (e) {
         sr.updateStatus("Wystąpił błąd podczas pobierania danych.");
       }

@@ -6,7 +6,7 @@ import {
 export const fetchMentorStudents = async (
   props: FetchMentorStudentsInput
 ): Promise<FetchMentorStudentsOutput> => {
-  const res = await fetch('/mentor-studentss.json')
+  const res = await fetch('/mentor-students.json')
   const data = await res.json() as FetchMentorStudentsOutput['students']
   const filtered = data.filter(d => d.status === props.status)
 

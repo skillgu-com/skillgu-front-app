@@ -4,7 +4,8 @@ export const StyledCard = styledMui(Card)(({theme}) => ({
     borderRadius: '8px',
     borderColor: theme.palette.base["20"],
     padding: theme.spacing(5, 3),
-
+    maxWidth: '700px',
+    margin: 'auto',
     display: 'grid',
     gap: theme.spacing(4),
     justifyContent: 'stretch',

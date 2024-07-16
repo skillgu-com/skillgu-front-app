@@ -61,14 +61,11 @@
 }
 
 .rowActions {
+    @extend %text-reset-button, %text-button-sm;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
-}
-
-.detailsBtn {
-    @extend %text-reset-button, %text-button-sm;
     color: $colour-secondary;
     cursor: pointer;
 }

@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect, useRef } from "react";
-import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
 import { fetchStudentSessions } from "@services/mentee/fetchStudentSessions.service";
@@ -35,5 +34,5 @@ export const StudentSessionsHistory = ({ title, subtitle } : Props) => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  return <SessionsHistory title={title} subtitle={subtitle} getProfileLink={(id: number) => `/student/${id}`} />;
+  return <SessionsHistory title={title} subtitle={subtitle} getProfileLink={(username: string) => `/student/${username}`} />;
 };

@@ -26,7 +26,7 @@ export const StudentSubscriptionsPage = () => {
       </Container>
 
       <StudentMentors
-        title="Twoi mentorzy "
+        title="Twoi mentorzy"
       />
     </div>
   );

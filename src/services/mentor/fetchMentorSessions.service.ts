@@ -11,6 +11,6 @@ export const getMentorMeetingHistory = async (
     const data = response.data;
     return {
         total: data.length,
-        students: data.slice(props.skip, props.skip + props.take),
+        mentee: data.slice(props.skip, props.skip + props.take),
     };
 };

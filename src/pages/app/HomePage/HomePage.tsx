@@ -22,7 +22,6 @@ import {
 const HomePage = () => {
   const role = useSelector(getRole);
   const dispatch = useDispatch();
-
   useEffect(() => {
     fetchAllUserData()
       .then((res) => {

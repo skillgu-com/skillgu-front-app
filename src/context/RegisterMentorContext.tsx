@@ -64,7 +64,7 @@ const navigationContent: NavigationContentT[] = [
 const resolveStepView = (step: number) => {
     switch (step) {
         case 0:
-            return <RegisterStep1 isMentor title='Zarejestruj sie jako mentor'/>;
+            return <RegisterStep1 isMentor title='Zarejestruj się jako mentor'/>;
         case 1:
             return <RegisterStep2/>;
         case 2:

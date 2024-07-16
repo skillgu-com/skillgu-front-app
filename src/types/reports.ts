@@ -1,4 +1,12 @@
-export type ReportStatus = "error" | "in-progress" | "paid";
+export type ReportStatus =
+    | "requires_payment_method"
+    | "requires_confirmation"
+    | "requires_action"
+    | "processing"
+    | "requires_capture"
+    | "canceled"
+    | "succeeded"
+    | "complete";
 
 export type Report = {
   id: number;

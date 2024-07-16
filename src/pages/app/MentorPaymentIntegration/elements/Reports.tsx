@@ -14,12 +14,22 @@ import { FetchPaymentReportsServiceOutput } from "@services/payments/fetchPaymen
 
 const renderStatus = (status: ReportStatus) => {
   switch (status) {
-    case "error":
-      return <Status variant="danger" text="Błąd karty" />;
-    case "in-progress":
-      return <Status variant="warning" text="Przetwarzanie" />;
-    case "paid":
-      return <Status variant="success" text="Zapłacone" />;
+    case "requires_payment_method":
+      return <Status variant="warning" text="Wymaga metody płatności" />;
+    case "requires_confirmation":
+      return <Status variant="info" text="Wymaga potwierdzenia" />;
+    case "requires_action":
+      return <Status variant="info" text="Wymaga dodatkowych działań" />;
+    case "processing":
+      return <Status variant="info" text="Przetwarzanie" />;
+    case "requires_capture":
+      return <Status variant="info" text="Wymaga zatwierdzenia" />;
+    case "canceled":
+      return <Status variant="danger" text="Anulowane" />;
+    case "succeeded":
+      return <Status variant="success" text="Zakończone sukcesem" />;
+    case "complete":
+      return <Status variant="success" text="Opłacone" />;
     default:
       return null;
   }

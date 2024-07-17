@@ -9,8 +9,9 @@ export const getMentorMeetingHistory = async (
 ): Promise<FetchMentorSessionsOutput> => {
     const response = await axios.get('/mentor/home/meeting/history');
     const data = response.data;
+
     return {
         total: data.length,
-        students: data.slice(props.skip, props.skip + props.take),
+        mentee: data.slice(props.skip, props.skip + props.take),
     };
 };

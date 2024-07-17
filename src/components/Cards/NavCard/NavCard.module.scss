@@ -9,9 +9,13 @@
 	gap: 10px;
 	padding: 24px 20px;
 	text-decoration: none;
-      border: 1px solid $colour-base-200;
-      border-radius: 12px;
-	transition: background-color $duration;
+     	border: 1px solid $colour-base-200;
+    	border-radius: 12px;
+    	transition: background-color;
+
+    	&:hover {
+        	background-color: $colour-base-200;
+    	}
 
 	&:hover {
 		background-color: $colour-base-200;

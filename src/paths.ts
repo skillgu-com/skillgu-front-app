@@ -32,7 +32,7 @@ const paths = {
     accountView: '/account-view',
     createMentoring: '/create-mentoring',
     createSession: '/create-session',
-    reports: '/raports',
+    reports: '/reports',
     accountSettlements: '/account-settlements',
     messages: '/messages',
     bookSuccess: '/book-success',

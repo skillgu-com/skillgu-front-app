@@ -9,7 +9,7 @@ export type SessionStatus = 'in-progress'|'planned'|'cancelled'
 
 export type FetchMentorSessionsOutput = {
     total: number
-    students: {
+    mentee: {
         id: number
         username: string
         avatarUrl: string

@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import clx from "classnames";
+import React, {useEffect, useRef} from "react";
 import styles from "./MentorSessionsHistory.module.scss";
-import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
-import { useSessionsReducer, PER_PAGE } from "src/reducers/sessions";
-import { Table, TableCell, TableRow } from "src/components/_base/Table";
-import { Pagination } from "src/components/_grouped";
-import { formatDate } from "src/utils";
-import { formatPrice } from "src/utils/price";
-import { ReportStatus, Report } from "@customTypes/reports";
-import { Status } from "src/components/_base/Status";
+import {getMentorMeetingHistory} from "@services/mentor/fetchMentorSessions.service";
+import {PER_PAGE, useSessionsReducer} from "src/reducers/sessions";
+import {Table, TableCell, TableRow} from "src/components/_base/Table";
+import {Pagination} from "src/components/_grouped";
+import {formatDate} from "src/utils";
+import {Status} from "src/components/_base/Status";
 
 export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
@@ -21,13 +18,13 @@ export const MentorSessionsHistory = () => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { students, total } = await getMentorMeetingHistory({
+        const { mentee, total } = await getMentorMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
-        sr.updateRecords(students, total);
+        sr.updateRecords(mentee, total);
       } catch (e) {
         sr.updateStatus("Wystąpił błąd podczas pobierania danych.");
       }

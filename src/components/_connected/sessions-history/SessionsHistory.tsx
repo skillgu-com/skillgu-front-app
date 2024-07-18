@@ -120,9 +120,9 @@ export const SessionsHistory = ({
           ) : sessions && sessions.length ? (
             <>
               {sessions
-                ? sessions.map((s) => (
+                ? sessions.map((s, ind) => (
                     <TableRow
-                      key={s.id}
+                      key={`${s.id}-${ind}`}
                       onClick={() => {
                         navigate(getProfileLink(s.username));
                       }}

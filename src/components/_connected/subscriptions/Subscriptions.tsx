@@ -58,8 +58,6 @@ export const Subscriptions = ({title, subtitle}: Props) => {
 
     const {role, tab, pending, errorMessage, page, total, records} = sr.subscriptionsState;
 
-    console.log('chce tutaj cos znalezc:', records)
-
     const handleTabClick = (
         e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
     ) => {

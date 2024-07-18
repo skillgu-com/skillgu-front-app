@@ -8,7 +8,9 @@ export const fetchYoursStudentMentors = async (
   // const response = await axios.get('/mentor/home/meeting/history');
   const response = await fetch('/sessions-mocked.json')
   // const data = response.data;
-  const data = await response.json()
+  const data = await response.json();
+
+  console.log('tutaj testuje: ',data)
 
     return {
         mentors: data.slice(0, props.take),

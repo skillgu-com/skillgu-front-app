@@ -57,7 +57,7 @@ export const MentorPaymentIntegration = () => {
       setAccountCreatePending(false);
     }
   };
-
+  
   const handleCreateAccountLink = async () => {
     setAccountLinkCreatePending(true);
     setError(false);
@@ -90,7 +90,6 @@ export const MentorPaymentIntegration = () => {
         setPrice(balance);
       } catch (error) {
         console.error('Error retrieving balance:', error);
-        setError(true);
       } finally {
         setLoading(false);
       }

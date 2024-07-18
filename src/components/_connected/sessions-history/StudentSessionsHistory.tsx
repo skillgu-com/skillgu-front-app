@@ -34,5 +34,5 @@ export const StudentSessionsHistory = ({ title, subtitle } : Props) => {
     }
   }, [sr, sr.sessionsState.page]);
 
-  return <SessionsHistory title={title} subtitle={subtitle} getProfileLink={(username: string) => `/student/${username}`} />;
+  return <SessionsHistory title={title} subtitle={subtitle} getProfileLink={(username: string) => `/mentor/${username}`} />;
 };

@@ -21,30 +21,30 @@ import {
 
 const HomePage = () => {
   const role = useSelector(getRole);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetchAllUserData()
-      .then((res) => {
-        dispatch({
-          type: "FETCH_ALL_USER_DATA",
-          payload: {
-            firstName: res?.data.firstName,
-            lastName: res?.data.lastName,
-            linkedInURL: res?.data.linkedInURL,
-            youtubeURL: res?.data.youtubeURL,
-            instagramURL: res?.data.instagramURL,
-            facebookURL: res?.data.facebookURL,
-            websiteURL: res?.data.websiteURL,
-            description: res?.data.description,
-            skill: res?.data.skill,
-            jobPosition: res?.data.jobPosition,
-          },
-        });
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user data:", error);
-      });
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   fetchAllUserData()
+  //     .then((res) => {
+  //       dispatch({
+  //         type: "FETCH_ALL_USER_DATA",
+  //         payload: {
+  //           firstName: res?.data.firstName,
+  //           lastName: res?.data.lastName,
+  //           linkedInURL: res?.data.linkedInURL,
+  //           youtubeURL: res?.data.youtubeURL,
+  //           instagramURL: res?.data.instagramURL,
+  //           facebookURL: res?.data.facebookURL,
+  //           websiteURL: res?.data.websiteURL,
+  //           description: res?.data.description,
+  //           skill: res?.data.skill,
+  //           jobPosition: res?.data.jobPosition,
+  //         },
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Failed to fetch user data:", error);
+  //     });
+  // }, [dispatch]);
 
   return (
     <div className={styles.pageWrapper}>

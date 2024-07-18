@@ -36,7 +36,7 @@ const TopBar = () => {
             />
           )}
         </div>
-        <span>{user.email}</span>
+        <span className={styles.email}>{user.email}</span>
       </ProfileLinkTag>
 
       <Notifications />

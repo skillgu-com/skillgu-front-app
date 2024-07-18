@@ -3,7 +3,11 @@
 
 .wrapper {
 	display: none;
-
+	
+	.email {
+		color:$colour-primary;
+	}
+	
 	.profile {
 		@extend %text-reset-button;		
 	}

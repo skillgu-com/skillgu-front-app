@@ -12,7 +12,7 @@ export const Payment = () => {
     createCheckoutSession(bookSession).then((res) => {
       setClientSecret(res.data.clientSecret);
     });
-  }, []);
+  }, [bookSession]);
 
   return (
       <div className="book-payment-stripe">

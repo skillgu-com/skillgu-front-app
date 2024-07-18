@@ -8,7 +8,13 @@
 	max-width: $xl;
 	z-index: 999;
 	transform: translateX(-50%);
-
+	
+	&Logo {
+		color: #262B5E;
+		@media screen and (min-width: $md) {
+			color: $colour-base-000;
+		}
+	}
 	&:before {
 		content: '';
 		position: absolute;
@@ -196,4 +202,6 @@
 			}
 		}
 	}
+	
+	
 }

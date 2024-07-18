@@ -3,8 +3,9 @@ import { Table, TableCell, TableRow } from "src/components/_base/Table";
 import { Pagination } from "src/components/_grouped";
 import { formatDate } from "src/utils";
 import { formatPrice } from "src/utils/price";
-import { ReportStatus, Report } from "@customTypes/reports";
+import { ReportStatus } from "@customTypes/reports";
 import { Status } from "src/components/_base/Status";
+import { EmptyState } from "src/components/EmptyState";
 import styles from "./styles.module.scss";
 import { Scrollable } from "src/components/_base/Scrollable";
 import { PdfIcon } from "@icons/PdfIcon";
@@ -119,8 +120,19 @@ export const Reports = () => {
       </Table>
     </section>
   ) : (
-    <div className={styles.alert}>
-      <p>Brak raportów</p>
-    </div>
+    <Table>
+      <Scrollable minWidth={"400px"}>
+        <TableRow heading className={styles.emptyStateHeading}>
+          <TableCell heading text="Faktura" />
+          <TableCell heading text="Data" />
+          <TableCell heading text="Kwota" />
+          <TableCell heading text="Status" />
+          <TableCell heading text="Sesja" />
+        </TableRow>
+        <TableCell flex className={styles.emptyCell}>
+          <EmptyState text="Nie znaleziono żadnych Twoich raportów" />
+        </TableCell>
+      </Scrollable>
+    </Table>
   );
 };

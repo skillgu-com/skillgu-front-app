@@ -19,7 +19,7 @@ import {CrownIcon} from "@icons/CrownIcon";
 import {Status} from "src/components/_base/Status";
 import {Tag} from "src/types/tags";
 import Container from "src/components/Container/Container";
-import {SearchSvg2} from "@icons/SearchSvg2";
+import { EmptyState } from "src/components/EmptyState";
 import {SkeletonRow} from "./SkeletonRow";
 import {
     OverflowMenu,
@@ -30,6 +30,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import {useSubscriptionsReducer} from "src/reducers/subscriptions";
 import {Skeleton} from "@mui/material";
+
 
 const PER_PAGE = 5;
 
@@ -57,8 +58,6 @@ export const Subscriptions = ({title, subtitle}: Props) => {
     const sr = useSubscriptionsReducer();
 
     const {role, tab, pending, errorMessage, page, total, records} = sr.subscriptionsState;
-
-    console.log('chce tutaj cos znalezc:', records)
 
     const handleTabClick = (
         e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
@@ -148,12 +147,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                         ) : !pending && records && records.length <= 0 ? (
                             <TableRow>
                                 <TableCell flex>
-                                    <div className={styles.emptyState}>
-                                        <div>
-                                            <SearchSvg2/>
-                                        </div>
-                                        <p>Nie znaleziono żadnych aktywnych subskrypcji</p>
-                                    </div>
+                                    <EmptyState text="Nie znaleziono żadnych aktywnych subskrypcji" />
                                 </TableCell>
                             </TableRow>
                         ) : (

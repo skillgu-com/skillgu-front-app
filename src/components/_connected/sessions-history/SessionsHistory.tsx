@@ -22,6 +22,7 @@ import { UserIdentity } from "src/components/_base/UserIdentity";
 import { Scrollable } from "src/components/_base/Scrollable";
 
 import { getRole } from "src/redux/selectors/authSelectors";
+import { EmptyState } from "src/components/EmptyState";
 
 type Props = {
   title?: string;
@@ -119,9 +120,9 @@ export const SessionsHistory = ({
           ) : sessions && sessions.length ? (
             <>
               {sessions
-                ? sessions.map((s) => (
+                ? sessions.map((s, ind) => (
                     <TableRow
-                      key={s.id}
+                      key={`${s.id}-${ind}`}
                       onClick={() => {
                         navigate(getProfileLink(s.username));
                       }}
@@ -169,12 +170,7 @@ export const SessionsHistory = ({
           ) : (
             <TableRow>
               <TableCell flex>
-                <div className={styles.emptyState}>
-                  <div>
-                    <SearchSvg2 />
-                  </div>
-                  <p>Nie znaleziono żadnych Twoich sesji</p>
-                </div>
+                <EmptyState text="Nie znaleziono żadnych Twoich sesji" />
               </TableCell>
             </TableRow>
           )}

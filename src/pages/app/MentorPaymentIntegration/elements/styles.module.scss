@@ -45,3 +45,14 @@
         height: 20px;
     }
 }
+
+
+.emptyStateHeading {
+    display:flex;
+    justify-content: space-between;
+    max-width:900px;
+}
+
+.emptyCell {
+    border-top:1px solid $colour-base-400
+}

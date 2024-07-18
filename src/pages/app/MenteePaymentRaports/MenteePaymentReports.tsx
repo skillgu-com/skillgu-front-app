@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Reports} from "./elements/Reports";
 import {Loader} from "../../../components/_grouped/loader";
-import styles from "../MentorPaymentIntegration/styles.module.scss";
+import styles from "./styles.module.scss";
 import FAQ from "../../../components/FAQ/Accordion/Accordion";
 import {payment} from "../../../components/FAQ/Accordion/content/payment";
+import Container from "src/components/Container/Container";
+import { Tag } from "@customTypes/tags";
 
 export const MenteePaymentReports = () => {
     const [price, setPrice] = useState(0);
@@ -22,7 +24,7 @@ export const MenteePaymentReports = () => {
 
 
     return (
-        <>
+        <Container as={Tag.Main} classes={styles.container}>
             <Loader
                 open={accountLinkCreatePending || initialDataPending}
                 spinner
@@ -39,7 +41,7 @@ export const MenteePaymentReports = () => {
                     <FAQ title="FAQ" elements={payment}/>
                 </div>
             </section>
-        </>
+        </Container>
     );
 };
 export default MenteePaymentReports;

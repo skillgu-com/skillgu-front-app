@@ -56,7 +56,7 @@ const Navbar = () => {
         className={styles.navbarLogo}
         onClick={() => setIsExpanded(false)}
       >
-        <Logo />
+        <Logo color="currentColor" width="108"/>
       </Link>
       <div className={styles.mobile}>
         <Notifications />

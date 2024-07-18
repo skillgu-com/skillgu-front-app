@@ -3,6 +3,13 @@
 @use "../../../scss/main.scss" as *;
 @use "../../../scss/font" as *;
 
+.container {
+  padding: 32px 4px;
+  @include media-xl-and-up {
+    padding: 40px 8px;
+  }
+}
+
 .wrapper {
   margin: auto;
   padding: 20px;

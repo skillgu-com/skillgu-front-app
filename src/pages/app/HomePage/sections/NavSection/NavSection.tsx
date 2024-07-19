@@ -61,11 +61,7 @@ const NavSection = () => {
                     title: 'Tworzenie spotkań',
                     text: 'Zarządzaj swoimi spotkaniami i ustal swój harmonogram',
                 },
-                // {
-                //     link: '/raports',
-                //     icon: <Raports/>,
-                //     text: 'Raporty',
-                // },
+
                 {
                     link: '/chat',
                     icon: icons.chatIcon,

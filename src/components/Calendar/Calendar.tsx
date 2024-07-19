@@ -32,7 +32,7 @@ const Calendar: FC<Props> = ({calendarProps}) => {
         <StyledCalendarWrapper cellSize={CELL_SIZE}>
             <BigCalendar
                 localizer={localizer}
-                view='month'
+                defaultView='month'
                 views={['month']}
                 components={{
                     toolbar: CalendarToolbar,

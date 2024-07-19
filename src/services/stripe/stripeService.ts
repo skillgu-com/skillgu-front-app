@@ -58,7 +58,7 @@ export const fetchPaymentSchedule = async () => {
   };
   
 export const updatePaymentSchedule = async (selected: string) => {
-    //TODO
+    // TODO
     return true;
 };
 

@@ -1,8 +1,8 @@
 // Libraries
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 // Components
-import AppHeader from "src/components/AppHeader/AppHeader";
+// import AppHeader from "src/components/AppHeader/AppHeader";
 import Container from "src/components/Container/Container";
 // Selectors
 import { getRole } from "src/redux/selectors/authSelectors";
@@ -12,7 +12,6 @@ import NavSection from "./sections/NavSection/NavSection";
 import { Tag } from "src/types/tags";
 // Styles
 import styles from "./HomePage.module.scss";
-import { fetchAllUserData } from "../../../services/userProfileService";
 import { SimilarMentors, RecommendedMentors } from "./sections";
 import {
   StudentSessionsHistory,

@@ -14,7 +14,6 @@ export const fetchPaymentReports = async ({
   try {
     const res = await axios.get('/api/payment/reports');
     const data: Report[] = res.data.data; // Assuming the response directly contains an array of Report objects
-    console.log(data)
 
     // Sorting logic if sortBy and sortMethod are provided
     if (sortBy && sortMethod) {

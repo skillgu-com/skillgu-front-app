@@ -16,10 +16,6 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
     const userData = parseUserFromJwt(userJWT);
     if (!userData) return {success: false, errorMessage: errorMsg};
 
-    // const {data: userId} = await fetchUserIDByEmail(email)
-
-    // console.log(email)
-
     localStorage.setItem('jwttoken', userJWT);
     return {
         success: true,
@@ -27,12 +23,12 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
             id: userData.id,
             email: userData.email,
             role: userData.role[0],
-            username: userData.username
+            username: userData.username,
+            stripeIntegrationStatus: userData.stripeIntegrationStatus
 
         }
     };
 }
-
 
 export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginReturn => {
     // co z rememberMe?

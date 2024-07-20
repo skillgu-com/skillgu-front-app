@@ -16,7 +16,8 @@ export const parseUserFromJwt = (token: string) => {
             id: payload.userId,
             email: payload.sub,
             role: payload?.role[0],
-            username: payload?.username
+            username: payload?.username,
+            stripeIntegrationStatus: payload?.stripeIntegrationStatus
         };
     }
     return null;

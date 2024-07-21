@@ -24,7 +24,6 @@ export const fetchYoursStudentMentors = async (
     try {
         const response = await axios.get('/api/subscriptions/mentee/mentor');
         const data = response.data;
-        console.log(data)
 
         return {
             mentors: data.data.slice(0, props.take),

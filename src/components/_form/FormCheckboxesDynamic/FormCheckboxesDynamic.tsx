@@ -79,13 +79,14 @@ const FormCheckboxesDynamic = <T extends FieldValues>({
                 name={name}
                 control={control}
                 render={({field}) => {
+                    const {ref, ...rest} = field;
                     return (
                         <div>
                             {options.map((opt) => {
                                 return (
                                     <div key={opt.value}>
                                         <Checkbox
-                                            {...field}
+                                            {...rest}
                                             value={!!field.value.includes(opt.value)}
                                             // checked={!!field.value.includes(opt.value)}
                                             label={opt.label}

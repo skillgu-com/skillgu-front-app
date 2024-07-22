@@ -16,13 +16,12 @@ import { Pagination } from "src/components/_grouped";
 import { formatDate } from "src/utils";
 import { Status } from "src/components/_base/Status";
 import { SkeletonRow } from "./SkeletonRow";
-import { SearchSvg2 } from "@icons/SearchSvg2";
 import { Skeleton } from "@mui/material";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { Scrollable } from "src/components/_base/Scrollable";
+import { EmptyState } from "src/components/EmptyState";
 
 import { getRole } from "src/redux/selectors/authSelectors";
-import { EmptyState } from "src/components/EmptyState";
 
 type Props = {
   title?: string;
@@ -128,7 +127,8 @@ export const SessionsHistory = ({
                       }}
                     >
                       <TableCell flex={4}>
-                        <UserIdentity
+                        <UserIdentity 
+                          className={styles.userIdentity}
                           avatarUrl={s.avatarUrl}
                           avatarAlt={s.fullName}
                           avatarSize={40}

@@ -1,5 +1,4 @@
-import React from "react";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import {
   Control,
@@ -56,6 +55,7 @@ const FormInputFile = <T extends FieldValues>({
         name={name}
         {...controllerProps}
         render={({ field, fieldState }) => {
+          const {ref, ...rest} = field;
           return (
             <div className={styles.controllerContentWrapper}>
               {withPreview && field.value && field.value.length ? (
@@ -67,7 +67,7 @@ const FormInputFile = <T extends FieldValues>({
                 />
               ) : null}
 
-              <UploadFileInput disabled={disabled} {...field} />
+              <UploadFileInput disabled={disabled} {...rest}/>
             </div>
           );
         }}

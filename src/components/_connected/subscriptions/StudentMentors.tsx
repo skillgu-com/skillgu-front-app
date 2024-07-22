@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Slider from "react-slick";
 import clx from "classnames";
 import "slick-carousel/slick/slick.css";
@@ -13,6 +13,7 @@ import {Status} from "src/components/_base/Status";
 import {Text} from "src/components/typography";
 import {UserIdentity} from "src/components/_base/UserIdentity";
 import {MentorshipFeedbackModal} from "../mentorship-feedback/MentorshipFeedbackModal";
+import { EmptyState } from "src/components/EmptyState";
 import {Skeleton, Typography} from "@mui/material";
 import {ArrowLongRight} from "@icons/ArrowLongRight";
 
@@ -33,40 +34,6 @@ const PER_PAGE = 5;
 
 type Props = {
     title?: string;
-};
-
-const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    responsive: [
-        {
-            breakpoint: 1600,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 2,
-                infinite: true,
-                dots: true,
-            },
-        },
-        {
-            breakpoint: 1060,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2,
-            },
-        },
-        {
-            breakpoint: 560,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
-        },
-    ],
 };
 
 type MentorShort = {
@@ -104,6 +71,34 @@ export const StudentMentors = ({title}: Props) => {
             fetchData();
         }
     }, []);
+
+
+    const settings = useMemo(()=>{
+        return {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: data?.mentors.length ? Math.min(3, data.mentors.length) : 3,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1060,
+                settings: {
+                    slidesToShow: data?.mentors.length ? Math.min(2, data.mentors.length) : 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2,
+                },
+            },
+            {
+                breakpoint: 560,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
+    }}, [data?.mentors.length]);
 
     const handleCanceling = () => {
         const c = cancelling ? {...cancelling} : ({} as MentorShort);
@@ -347,7 +342,7 @@ export const StudentMentors = ({title}: Props) => {
                                 ))}
                             </Slider>
                         ) : null}
-                        {!pending &&
+                        {!pending ?
                         data?.total &&
                         data.mentors &&
                         data.mentors.length > 0 ? (
@@ -494,7 +489,8 @@ export const StudentMentors = ({title}: Props) => {
                                     </div>
                                 ))}
                             </Slider>
-                        ) : null}
+                        ) : <EmptyState text="Nie nawiązano współpracy z żadnym mentorem"/> 
+                        : null}
                     </div>
                 </div>
             </Container>

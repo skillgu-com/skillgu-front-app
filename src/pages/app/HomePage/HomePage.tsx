@@ -2,7 +2,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 // Components
-// import AppHeader from "src/components/AppHeader/AppHeader";
 import Container from "src/components/Container/Container";
 // Selectors
 import { getRole } from "src/redux/selectors/authSelectors";

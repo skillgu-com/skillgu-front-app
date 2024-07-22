@@ -16,7 +16,7 @@ import {MentorshipFeedbackModal} from "../mentorship-feedback/MentorshipFeedback
 import {Skeleton, Typography} from "@mui/material";
 import {ArrowLongRight} from "@icons/ArrowLongRight";
 
-import {SubscriptionPlan} from "@customTypes/order";
+import {ServiceSession, SubscriptionPlan} from "@customTypes/order";
 import {Tag} from "src/types/tags";
 
 import styles from "./Subscriptions.module.scss";
@@ -27,6 +27,7 @@ import {suspendMentorship} from "@services/mentorship/suspendMentorship";
 import {restoreMentorship} from "@services/mentorship/restoreMentorship";
 import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
 import {fetchYoursStudentMentors} from "@services/mentee/fetchStudentMentors.service";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const PER_PAGE = 5;
 
@@ -76,16 +77,15 @@ type MentorShort = {
 };
 
 export const StudentMentors = ({title}: Props) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
     const [pending, setPending] = useState<boolean>(true);
     const pageRef = useRef<number>(0);
     const [suspending, setSuspending] = useState<MentorShort | null>(null);
-    const [confirmedSuspending, setConfirmedSuspending] =
-        useState<MentorShort | null>(null);
+    const [confirmedSuspending, setConfirmedSuspending] = useState<MentorShort | null>(null);
     const [cancelling, setCancelling] = useState<MentorShort | null>(null);
-    const [confirmedCanceling, setConfirmedCanceling] =
-        useState<MentorShort | null>(null);
-
+    const [confirmedCanceling, setConfirmedCanceling] = useState<MentorShort | null>(null);
     const [cancelled, setCancelled] = useState<MentorShort | null>(null);
     const [restoring, setRestoring] = useState<MentorShort | null>(null);
 
@@ -98,6 +98,7 @@ export const StudentMentors = ({title}: Props) => {
             setData(data);
             setPending(false);
         };
+
         if (pageRef.current === 0) {
             pageRef.current = 1;
             fetchData();
@@ -138,6 +139,10 @@ export const StudentMentors = ({title}: Props) => {
         await restoreMentorship(restoring?.id);
         setRestoring(null);
     }, [restoring]);
+
+    const handleSubmitMentorship = (opt: ServiceSession) => {
+        navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
+    };
 
     return (
         <>
@@ -445,9 +450,14 @@ export const StudentMentors = ({title}: Props) => {
                                                         </p>
                                                     </div>
                                                     <div className={styles.buttons}>
-                                                        <a className={styles.btn} href="/#">
+                                                        {/*<a className={styles.btn} href="/session-book/1">*/}
+                                                        {/*    Wybierz terminy spotkań*/}
+                                                        {/*</a>*/}
+                                                        <button
+                                                            className={styles.btn}
+                                                            onClick={() => handleSubmitMentorship(m.serviceSessionDTO)}>
                                                             Wybierz terminy spotkań
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                 </>
                                             ) : null}
@@ -475,8 +485,7 @@ export const StudentMentors = ({title}: Props) => {
                                                                 paidUntil: m.paidUntil,
                                                             })
                                                         }
-                                                        className={clx(styles.btn, styles.btnRed)}
-                                                    >
+                                                        className={clx(styles.btn, styles.btnRed)}>
                                                         Zakończ subskrypcję
                                                     </button>
                                                 </div>

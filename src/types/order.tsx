@@ -58,6 +58,9 @@ export type ServiceSession = {
   sessionPrice: number;
   sessionType: string;
   description: string;
+  avatarUrl: string;
+  fullName: string;
+  reviewsCount: number
 };
 
 export interface MentorshipPlan {

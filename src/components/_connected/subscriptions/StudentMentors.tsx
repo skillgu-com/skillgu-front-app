@@ -27,6 +27,7 @@ import {suspendMentorship} from "@services/mentorship/suspendMentorship";
 import {restoreMentorship} from "@services/mentorship/restoreMentorship";
 import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
 import {fetchYoursStudentMentors} from "@services/mentee/fetchStudentMentors.service";
+import { EmptyState } from "src/components/EmptyState";
 
 const PER_PAGE = 5;
 
@@ -138,6 +139,7 @@ export const StudentMentors = ({title}: Props) => {
         await restoreMentorship(restoring?.id);
         setRestoring(null);
     }, [restoring]);
+
 
     return (
         <>
@@ -485,7 +487,7 @@ export const StudentMentors = ({title}: Props) => {
                                     </div>
                                 ))}
                             </Slider>
-                        ) : null}
+                        ) : <EmptyState text="Nie nawiązano współpracy z żadnym mentorem"/>}
                     </div>
                 </div>
             </Container>

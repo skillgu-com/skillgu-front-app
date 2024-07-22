@@ -6,7 +6,7 @@ export const fetchYoursStudentMentors = async (
 ): Promise<FetchStudentMentorsOutput> => {
   // const res = await fetch('/sessions-mocked.json')
   // const response = await axios.get('/mentor/home/meeting/history');
-  const response = await fetch('/student-mentors.json')
+  const response = await fetch('/sessions-mocked.json')
   // const data = response.data;
   const data = await response.json();
 

@@ -98,7 +98,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
     );
 
     return (
-        <Container as={Tag.Section}>
+        <Container as={Tag.Section} classes={styles.mentorSection}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
                     <h2>{title}</h2>
@@ -169,6 +169,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                                         <TableRow key={s.id}>
                                             <TableCell flex={4}>
                                                 <UserIdentity
+                                                    className={styles.userIdentity}
                                                     avatarUrl={s.avatarUrl}
                                                     avatarSize={40}
                                                     avatarAlt={s.fullName}

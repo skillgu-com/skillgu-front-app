@@ -35,6 +35,7 @@ import { suspendMentorship } from "@services/mentorship/suspendMentorship";
 import { restoreMentorship } from "@services/mentorship/restoreMentorship";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
 import { fetchYoursStudentMentors } from "@services/mentee/fetchStudentMentors.service";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const PER_PAGE = 5;
 

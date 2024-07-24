@@ -14,7 +14,10 @@ export const getMentorshipDetails = async (mentorshipId: number): Promise<Output
 
     const response = await axios.get(`/api/mentorship/get-selected-mentorship-by/${mentorshipId}`);
     const mentor = await axios.get(`/api/mentorship/get-selected-mentor-by-mentorshipId/${mentorshipId}`);
+    const getAllMenteeAvailableGoal = await axios.get('/api/mentorship/get-all-mentee-available-goal');
 
+
+    console.log(mentor)
     return {
         mentor: {
             id: mentor.data.data.mentorId,
@@ -32,22 +35,6 @@ export const getMentorshipDetails = async (mentorshipId: number): Promise<Output
                 return element.description;
             })
         },
-        availableGoals: [
-            'Jestem studentem i szukam pomocy w nauce',
-            'Właśnie ukończyłem studia i potrzebuję pomocy w rozpoczęciu kariery',
-            'Chcę zmienić zawód lub znaleźć nową pracę',
-            'Chcę rozbudować lub poszerzyć moje umiejętności',
-            'Potrzebuję mentorstwa do osobistego projektu',
-            'Potrzebuję mentorstwa dla mojego biznesu/produktu',
-            'Chcę się przebranżowić',
-            'Potrzebuje porady eksperckiej która wykracza poza jedno spotkanie w celu rozwiązania problemów',
-            'Chce regularnie pracować z tym ekspertem żeby podnieść swoje kompetencje',
-            'Chce nabyć nowych kompetencji zawodowych',
-            'Nie chcę ujawniać',
-            'Coś innego',
-            'Coś innego',
-            'Coś innego',
-            'Coś innego',
-        ],
+        availableGoals: getAllMenteeAvailableGoal.data.data,
     }
 }

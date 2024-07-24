@@ -156,7 +156,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                         ) : !pending && records && records.length <= 0 ? (
                             <TableRow>
                                 <TableCell flex>
-                                    <EmptyState text="Nie znaleziono żadnych aktywnych subskrypcji" />
+                                    <EmptyState text="Nie znaleziono żadnych aktywnych subskrypcji"/>
                                 </TableCell>
                             </TableRow>
                         ) : (
@@ -215,55 +215,57 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                                                     >
                                                         Zobacz aplikacje
                                                     </a>
-                                                ) : tab === "inactive" ? (
+                                                ) : tab === "inactive" && "rejected" ? (
                                                     <OverflowMenuToggle disabled/>
-                                                ) : (
-                                                    <OverflowMenu
-                                                        onMouseEnter={() => {
-                                                            overflowMenuTimeRef.current =
-                                                                new Date().getTime();
-                                                            setOverflowMenuIndex(s.id);
-                                                        }}
-                                                        onMouseLeave={() => {
-                                                            setOverflowMenuIndex(null);
-                                                        }}
-                                                    >
-                                                        <OverflowMenuToggle
-                                                            onClick={() => {
-                                                                if (
-                                                                    new Date().getTime() -
-                                                                    overflowMenuTimeRef.current >
-                                                                    500
-                                                                ) {
-                                                                    if (overflowMenuIndex === s.id) {
-                                                                        setOverflowMenuIndex(null);
-                                                                    } else {
-                                                                        setOverflowMenuIndex(s.id);
-                                                                    }
-                                                                }
-                                                                overflowMenuTimeRef.current = 0;
+                                                ) : tab === "rejected" ? (
+                                                        <OverflowMenuToggle disabled/>
+                                                    ) : (
+                                                        <OverflowMenu
+                                                            onMouseEnter={() => {
+                                                                overflowMenuTimeRef.current =
+                                                                    new Date().getTime();
+                                                                setOverflowMenuIndex(s.id);
                                                             }}
-                                                            className={styles.dotsToggle}
-                                                        />
-                                                        {s.id === overflowMenuIndex ? (
-                                                            <OverflowMenuList>
-                                                                <OverflowMenuOption
-                                                                    text="Przełóż spotkanie"
-                                                                    onClick={handleEdit}
-                                                                    name="suspend"
-                                                                    value={String(s.id)}
-                                                                />
-                                                                <OverflowMenuOption
-                                                                    text="Odwołaj"
-                                                                    variant="danger"
-                                                                    onClick={handleEdit}
-                                                                    name="cancel"
-                                                                    value={String(s.id)}
-                                                                />
-                                                            </OverflowMenuList>
-                                                        ) : null}
-                                                    </OverflowMenu>
-                                                )}
+                                                            onMouseLeave={() => {
+                                                                setOverflowMenuIndex(null);
+                                                            }}
+                                                        >
+                                                            <OverflowMenuToggle
+                                                                onClick={() => {
+                                                                    if (
+                                                                        new Date().getTime() -
+                                                                        overflowMenuTimeRef.current >
+                                                                        500
+                                                                    ) {
+                                                                        if (overflowMenuIndex === s.id) {
+                                                                            setOverflowMenuIndex(null);
+                                                                        } else {
+                                                                            setOverflowMenuIndex(s.id);
+                                                                        }
+                                                                    }
+                                                                    overflowMenuTimeRef.current = 0;
+                                                                }}
+                                                                className={styles.dotsToggle}
+                                                            />
+                                                            {s.id === overflowMenuIndex ? (
+                                                                <OverflowMenuList>
+                                                                    <OverflowMenuOption
+                                                                        text="Przełóż spotkanie"
+                                                                        onClick={handleEdit}
+                                                                        name="suspend"
+                                                                        value={String(s.id)}
+                                                                    />
+                                                                    <OverflowMenuOption
+                                                                        text="Odwołaj"
+                                                                        variant="danger"
+                                                                        onClick={handleEdit}
+                                                                        name="cancel"
+                                                                        value={String(s.id)}
+                                                                    />
+                                                                </OverflowMenuList>
+                                                            ) : null}
+                                                        </OverflowMenu>
+                                                    )}
                                             </TableCell>
                                         </TableRow>
                                     ))

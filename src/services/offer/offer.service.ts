@@ -1,4 +1,5 @@
 import { ServiceMentoring, SubscriptionPlan } from "@customTypes/order";
+import axios from "axios";
 
 export type OfferStatus = 'in-progress'|'rejected'|'accepted'
 
@@ -92,4 +93,6 @@ export const sendRejectionFeedback = async (
   console.log(
     `Feedback dla oferty o ID: ${offerId}. Powód odrzucenia: ${reason}`
   );
+  const res = await axios.post(`/api/mentorship/reject/${offerId}`,reason);
+
 };

@@ -44,6 +44,8 @@ const renderStatus = (status: SubscriptionStatus) => {
             return <Status variant="warning" text="Zawieszona"/>;
         case "active":
             return <Status variant="success" text="Aktywna"/>;
+        case "rejected":
+            return <Status variant="danger" text="Odrzucona"/>;
         default:
             return null;
     }
@@ -133,6 +135,13 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                             text="Nieaktywne subskrypcje"
                             name=""
                             value="inactive"
+                            onClick={handleTabClick}
+                        />
+                        <HorizontalTabsButton
+                            isActive={tab === "rejected"}
+                            text="Odrzucone subskrypcje"
+                            name=""
+                            value="rejected"
                             onClick={handleTabClick}
                         />
                     </HorizontalTabs>

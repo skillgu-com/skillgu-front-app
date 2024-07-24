@@ -13,10 +13,10 @@ import Modal from "src/components/Modal/Modal";
 import { ModalConfirm } from "src/components/_grouped/modal/ModalConfirm";
 
 export const InProgress = () => {
-  const { offer, pending, handleAccept, handleReject, handleFeedback } =
-    useMentorOfferDetails();
+  const { offer, pending, handleAccept, handleReject, handleFeedback } = useMentorOfferDetails();
   const [rejecting, setRejecting] = useState<boolean>(false);
   const [accepting, setAccepting] = useState<boolean>(false);
+
 
   return !offer ? null : (
     <>
@@ -29,10 +29,8 @@ export const InProgress = () => {
         isOpen={rejecting}
         handleClose={() => setRejecting(false)}
         handleReject={() => setRejecting(false)}
-        handleSubmit={async () => {
-          handleReject();
-          setRejecting(false);
-        }}
+        handleSubmit={async () => {handleReject();
+          setRejecting(false);}}
       />
       <ModalConfirm
         selector="modal-root"

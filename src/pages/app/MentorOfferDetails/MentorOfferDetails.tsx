@@ -1,18 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import clx from "classnames";
+import React from "react";
 import styles from "./MentorOfferDetails.module.scss";
-import {
-  OfferDetails,
-  acceptOffer,
-  fetchOfferDetails,
-  rejectOffer,
-  sendRejectionFeedback,
-} from "src/services/offer/offer.service";
-import { InProgress, Rejected, Accepted } from "./screens";
-import {} from "./elements";
-import { useParams } from "react-router-dom";
-import { Loader } from "src/components/_grouped/loader";
-import { MentorOfferDetailsProvider, useMentorOfferDetails } from "./context/MentorOfferDetailsContext";
+import {Accepted, InProgress, Rejected} from "./screens";
+import {useParams} from "react-router-dom";
+import {Loader} from "src/components/_grouped/loader";
+import {MentorOfferDetailsProvider, useMentorOfferDetails} from "./context/MentorOfferDetailsContext";
 
 const MentorOfferDetailsContent = () => {
   const { offer, pending, handleAccept, handleReject, handleFeedback } = useMentorOfferDetails();

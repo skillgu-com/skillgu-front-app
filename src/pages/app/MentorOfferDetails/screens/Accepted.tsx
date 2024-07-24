@@ -34,7 +34,7 @@ export const Accepted = () => {
             classes={styles.btn}
             variant={ButtonVariant.Primary}
             as={ButtonTag.InternalLink}
-            href="/students"
+            href="/mentor-subscriptions"
             fontVariant='button-md'
           >
             Powrót do widoku mentee

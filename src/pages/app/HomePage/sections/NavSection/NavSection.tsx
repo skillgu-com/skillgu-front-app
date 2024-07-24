@@ -36,7 +36,7 @@ const NavSection = () => {
                     text: 'Skorzystaj z naszej wyszukiwarki mentorów',
                 },
                 {
-                    link: '/raports',
+                    link: '/reports',
                     icon: <Raports/>,
                     title: 'Raporty',
                     text: 'Zobacz przygotowane przez nas raporty',

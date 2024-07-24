@@ -15,7 +15,6 @@ export const SelectedService = () => {
 
   const sessionData = location.state as ServiceSession;
   const service = location.state as LocationState;
-  console.log(state.mentor)
   return state.mentor && state.service ? (
     <MentorServiceCard
       meetingForm="video"

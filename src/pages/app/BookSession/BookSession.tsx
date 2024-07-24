@@ -91,7 +91,6 @@ const BookSession = ({payment}: BookSessionProps) => {
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                console.log('tutaj ',element)
                 // const mentoring = await fetchMentorShip({mentorId: "1"});
                 const mentors = await fetch(`/search-mentor-results-mocked.json`).then((d) => d.json());
                 dispatch({

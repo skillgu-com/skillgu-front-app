@@ -25,7 +25,7 @@ const HomePage = () => {
       {role === "S" ? (
         <>
           <Container as={Tag.Main} classes={styles.header}>
-            <h2 className={styles.sectionTitle}>Witaj, studencie! 🤓</h2>
+            <h2 className={styles.sectionTitle}>Witaj, mentee!</h2>
             <NavSection />
           </Container>
 

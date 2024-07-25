@@ -20,6 +20,11 @@ type Status = {
   errorMessage?: string
 }
 
+type AvailableGoalsDTO = {
+  value: string,
+  label: string;
+}
+
 type Output = {
   state: MentAppState;
   submitPlan: () => void;
@@ -27,7 +32,7 @@ type Output = {
   submitDetails: (details: Details, isValid: boolean) => void;
   updateMentor: (mentor: MentorDetails) => void;
   updatePlan: (plan: PlanDetails) => void;
-  updateAvailableGoals: (goals: string[]) => void;
+  updateAvailableGoals: (goals: AvailableGoalsDTO[]) => void;
   updateAvailableTimezones: (zones: string[]) => void;
   setStatus: (status: Status) => void;
   reset: () => void;
@@ -122,7 +127,7 @@ export const useMentAppReducer = (): Output => {
   );
   
   const updateAvailableGoals = useCallback(
-    (availableGoals: string[]) => {
+    (availableGoals: AvailableGoalsDTO[]) => {
       dispatch({
         type: "MENTAPP_UPDATE_DATA",
         payload: {

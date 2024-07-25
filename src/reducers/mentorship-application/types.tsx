@@ -18,11 +18,16 @@ export type PlanDetails = {
   included: string[];
 };
 
+type AvailableGoalsDTO = {
+  value: string,
+  label: string;
+}
+
 export type MentAppState = {
   step: MentAppStep;
   mentor: MentorDetails | null;
   selectedPlan: PlanDetails | null;
-  availableGoals: string[];
+  availableGoals: AvailableGoalsDTO[];
   availableTimezones: string[];
   selectedGoals: string[];
   timezone: string;
@@ -54,7 +59,7 @@ export type MentAppAction =
       payload: {
         mentor?: MentorDetails | null;
         selectedPlan?: PlanDetails | null;
-        availableGoals?: string[];
+        availableGoals?: AvailableGoalsDTO[];
         availableTimezones?: string[];
       };
     }

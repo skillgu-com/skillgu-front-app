@@ -1,10 +1,15 @@
 import {MentorDetails, PlanDetails} from "src/reducers/mentorship-application/types"
 import axios from "axios";
 
+type AvailableGoalsDTO = {
+    value: string,
+    label: string;
+}
+
 type Output = {
     mentor: MentorDetails
     plan: PlanDetails
-    availableGoals: string[]
+    availableGoals: AvailableGoalsDTO[]
 }
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -16,8 +21,6 @@ export const getMentorshipDetails = async (mentorshipId: number): Promise<Output
     const mentor = await axios.get(`/api/mentorship/get-selected-mentor-by-mentorshipId/${mentorshipId}`);
     const getAllMenteeAvailableGoal = await axios.get('/api/mentorship/get-all-mentee-available-goal');
 
-
-    console.log(mentor)
     return {
         mentor: {
             id: mentor.data.data.mentorId,
@@ -35,6 +38,10 @@ export const getMentorshipDetails = async (mentorshipId: number): Promise<Output
                 return element.description;
             })
         },
-        availableGoals: getAllMenteeAvailableGoal.data.data,
+
+        availableGoals: getAllMenteeAvailableGoal.data.data.map((goal: any) => ({
+            label: goal.label,
+            value: goal.value
+        })) as AvailableGoalsDTO[],
     }
 }

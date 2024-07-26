@@ -49,10 +49,6 @@ export const MentorOfferDetailsProvider = ({ children } : Props) => {
     getInitialData();
   }, [offerId]);
 
-  console.log('tutaj jest plan: ',plan)
-  console.log('tutaj jest details: ',details)
-
-
   // accept offer
   const handleAccept = async () => {
     setPending(true)

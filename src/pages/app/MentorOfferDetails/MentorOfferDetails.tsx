@@ -26,7 +26,7 @@ const MentorOfferDetailsContent = () => {
     return <Accepted />;
   }
 
-  if (offer.status === "in-progress") {
+  if (offer.status === "awaiting") {
     return (
       <InProgress />
     );

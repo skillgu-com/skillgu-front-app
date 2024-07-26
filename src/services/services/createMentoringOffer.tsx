@@ -16,7 +16,7 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         {type: 'basic', ...input.basic},
         input.advanced && {type: 'advanced', ...input.advanced},
         input.pro && {type: 'pro', ...input.pro},
-    ].filter(Boolean); // Usuwa undefined wartości
+    ].filter(Boolean);
 
     const body = {
         numberOfPlans: input.numberOfPlans,
@@ -25,12 +25,14 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
     };
     try {
         const response = await axios.post('/api/mentorship/create/mentorship-plans', body);
-        if (response.status === 201) {
+        if (response.status === 200) {
             return {success: true};
         } else {
+            console.log('tutaj jeden ')
             return {success: false, errorMessage: `Failed to create mentorship plan. Status code: ${response.status}`};
         }
     } catch (error) {
+        console.log('tutaj dwa ')
         console.error('Failed to create mentorship plan', error);
         return {success: false, errorMessage: 'Failed to create mentorship plan'};
     }

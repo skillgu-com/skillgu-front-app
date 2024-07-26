@@ -1,7 +1,7 @@
 import {ServiceMentoring, SubscriptionPlan} from "@customTypes/order";
 import axios from "axios";
 
-export type OfferStatus = 'in-progress' | 'rejected' | 'accepted'
+export type OfferStatus = 'in-progress' | 'rejected' | 'accepted' | 'awaiting' | '';
 
 type Plan = {
     id: number
@@ -35,11 +35,14 @@ export const fetchOfferDetails = async (
     offerId: number
 ): Promise<Output> => {
 
-    const res = await axios.get(`/api/mentorship/fetch-offer/${offerId}`).then((response) => response.data);
+    const res = await axios.get(`/api/mentorship/fetch-offer/${offerId}`);
+    const media = res.data.data;
+    // console.log(media.plan)
+    console.log(media.offer)
 
     return {
         offer: {
-            status: 'in-progress',
+            status: 'awaiting',
             rejectionFeedback: '',
             service: {
                 id: "1",
@@ -54,17 +57,13 @@ export const fetchOfferDetails = async (
                     "Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów",
                 ],
             },
-            userFullName: "Anna Kulaagus",
-            userAvatarUrl: "/images/img_avatar.png",
-            mainGoals: [
-                'Jestem studentem i szukam pomocy w nauce test',
-                'Właśnie ukończyłem studia i potrzebuję pomocy w rozpoczęciu kariery',
-            ],
-            timezone: "CEST",
-            location: "Online",
-            aboutStudent:
-                "Hej! Jestem studentką i poszukuję pomocy w naucy. Chciałabym również zmienić moją ścieżkę kariery.",
-            questionForMentor: "Jak radzisz sobie z uczniami, którzy mają trudności z materiałem?",
+            userFullName: media?.offer?.userFullName,
+            userAvatarUrl: media?.offer?.userAvatarUrl,
+            mainGoals: [media?.offer.mainGoals,],
+            timezone: media?.offer?.timezone,
+            location: media?.offer?.location,
+            aboutStudent:media?.offer?.aboutStudent,
+            questionForMentor: media?.offer?.questionForMentor,
         },
         plan: {
             id: 1,
@@ -80,6 +79,37 @@ export const fetchOfferDetails = async (
         },
     };
 };
+//     return {
+//         offer: {
+//             status: media.offer.status,
+//             rejectionFeedback: media.offer.rejectionFeedback,
+//             service: {
+//                 id: media.offer.service.id,
+//                 title: media.offer.service.title,
+//                 subtitle: media.offer.service.subtitle,
+//                 price: media.offer.service.price,
+//                 variant: media.offer.service.variant,
+//                 descriptionRows: media.offer.service.descriptionRows,
+//             },
+//             userFullName: media.offer.userFullName,
+//             userAvatarUrl: media.offer.userAvatarUrl,
+//             mainGoals: media.offer.mainGoals,
+//             timezone: media.offer.timezone,
+//             location: media.offer.location,
+//             aboutStudent: media.offer.aboutStudent,
+//             questionForMentor: media.offer.questionForMentor,
+//         },
+//         plan: {
+//             id: media.plan.id,
+//             price: media.plan.price,
+//             sessionDuration: media.plan.sessionDuration,
+//             responseTime: media.plan.responseTime,
+//             sessionsPerMonth: media.plan.sessionsPerMonth,
+//             planIncludes: media.plan.planIncludes,
+//             subscriptionVariant: media.plan.subscriptionVariant,
+//         },
+//     };
+// };
 
 export const acceptOffer = async (offerId: number): Promise<void> => {
     console.log(`Zaakceptowałeś ofertę o ID: ${offerId}.`);

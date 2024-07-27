@@ -40,7 +40,7 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
   const isSidebarOpen = !!value
   const handleOpen = useCallback(() => setValue(true), [setValue]);
   const handleClose = () => setValue(false);
-  const handleSwitch = () => setValue(value);
+  const handleSwitch = () => setValue(!value);
 
   const { width } = useViewportSize();
   const widthRef = useRef<number>(0);

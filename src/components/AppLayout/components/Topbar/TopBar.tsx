@@ -29,7 +29,12 @@ const TopBar = () => {
       <div className={styles.left}>
         <HamburgerButton className={styles.hamLeft} />
         <Link to={"/"} className={styles.navbarLogo}>
-          <Logo color="currentColor" width="108" />
+          <Logo
+            color="rgb(37, 43, 97)"
+            circleColor="rgb(255, 106, 61)"
+            width="108"
+            className={styles.navbarLogoIcon}
+          />
         </Link>
       </div>
       <div className={styles.right}>

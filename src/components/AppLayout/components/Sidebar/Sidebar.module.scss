@@ -1,6 +1,9 @@
 @use '@styles/variables' as *;
 @use '@styles/font' as *;
 
+$sidebar-bg: $colour-primary;
+$sidebar-text: $colour-base-200;
+
 .quickSidebar {
   position: fixed;
   top: $layout-topbar-height;
@@ -11,8 +14,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: $colour-primary;
+  background-color: $sidebar-bg;
   z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media screen and (min-width: $sm) {
     display: flex;
@@ -29,7 +39,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  background-color: $colour-primary;
+  background-color: $sidebar-bg;
   z-index: 3;
   overflow-y: auto;
   transition: 0.2s;
@@ -73,10 +83,6 @@
         left: 0;
     }
   }
-
-  @media screen and (min-width: $md) {
-    // background-color: green;
-  }
 }
 
 .list {
@@ -84,14 +90,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   padding: 4px;
 }
 
 .btn {
   cursor: pointer;
   align-items: center;
-  background-color: $colour-primary;
+  background-color: $sidebar-bg;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -113,11 +119,11 @@
   }
 
   &:hover {
-    background-color: lighten($colour-primary, 10%);
+    background-color: lighten($sidebar-bg, 10%);
   }
 
   span {
-    color: $colour-base-200;
+    color: $sidebar-text;
     font-size: 10px;
     overflow: hidden;
     text-align: center;
@@ -127,7 +133,7 @@
   }
 
   svg {
-    color: $colour-base-200;
+    color: $sidebar-text;
     height: 24px;
     width: 24px;
   }

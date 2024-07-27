@@ -11,12 +11,6 @@
 		margin-left: $layout-quick-sidebar-width;
 	}
 
-	// @media screen and (min-width: $md) {
-	// 	min-height: 100vh;
-	// 	margin-top: 0;
-	// 	margin-left: 322px;
-	// }
-
 	&.isSidebarOpen {
 		@media screen and (min-width: $lg) {
 			margin-left: $layout-full-sidebar-width;

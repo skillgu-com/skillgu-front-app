@@ -8,6 +8,8 @@ import { ReactComponent as CalendarIcon } from "src/assets/icons/svg/calendar.sv
 import paths from "src/paths";
 import { DollarCircleIcon } from "@icons/DollarCircleIcon";
 import SubscriptionIcon from "@icons/SubscriptionIcon";
+import Message from "@icons/Message";
+import { MessagesIcon } from "@icons/MessagesIcon";
 
 export type Visibility = "student" | "mentor" | "authenticated" | "all";
 
@@ -59,7 +61,7 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       id: "chat",
       label: "Wiadomości",
       link: paths.calendar,
-      icon: <CalendarIcon />,
+      icon: <MessagesIcon />,
       visibility: "authenticated",
     },
     {

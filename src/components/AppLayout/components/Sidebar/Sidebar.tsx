@@ -50,8 +50,8 @@ export const Sidebar = () => {
               to={item.link}
               title={item.label}
             >
-              {Icon && <Icon />}
-              {/* {item.icon} */}
+              {/* {Icon && <Icon />} */}
+              {item.icon}
               <span>{item.label}</span>
             </Link>
           ))}

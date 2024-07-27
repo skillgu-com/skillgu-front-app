@@ -1,14 +1,16 @@
 @use '../../../../scss/variables' as *;
 
+$hamburger-size: 24px;
+
 .navbarButton {
-  height: 24px; //$layout-topbar-inner-height;
-  width: 24px; //$layout-topbar-inner-height;
+  height: $hamburger-size;
+  width: $hamburger-size;
   position: relative;
   background-color: transparent;
   cursor: pointer;
 
   span {
-    width: 24px; //$layout-topbar-inner-height;
+    width: $hamburger-size;
     height: 2px;
     background-color: $dark-color;
     display: block;
@@ -24,17 +26,17 @@
     }
   }
 
-  &.navbarButtonOpen {
-    span {
-      &:nth-child(1) {
-        transform: rotate(45deg);
-        top: 50%;
-      }
+  // &.navbarButtonOpen {
+  //   span {
+  //     &:nth-child(1) {
+  //       transform: rotate(45deg);
+  //       top: 50%;
+  //     }
 
-      &:nth-child(2) {
-        transform: rotate(-45deg);
-        top: 50%;
-      }
-    }
-  }
+  //     &:nth-child(2) {
+  //       transform: rotate(-45deg);
+  //       top: 50%;
+  //     }
+  //   }
+  // }
 }

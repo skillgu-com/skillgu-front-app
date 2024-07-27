@@ -1,6 +1,10 @@
 @use '@styles/variables' as *;
 @use '../../../../scss/font' as *;
 
+.navbarLogoIcon {
+  color: red; //$colour-primary;
+}
+
 .topbar {
   width: 100%;
   height: $layout-topbar-height;
@@ -25,7 +29,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
 
     .hamLeft {

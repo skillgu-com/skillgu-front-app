@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useCreateOfferReducer } from "src/reducers/createOffer";
 import { CreateOfferTemplates } from "../CreateOfferTemplates";
@@ -9,7 +9,11 @@ import styles from "../CreateMentoringOffer.module.scss";
 export const Initial = ({ step }: { step: string }) => {
   const co = useCreateOfferReducer();
 
-  console.log("Initial state", co.createOfferState);
+  useEffect(() => {
+    if(co.createOfferState.saved){
+      co.submitInitial()
+    }
+  }, [co])
 
   return (
     <CreateOfferTemplates

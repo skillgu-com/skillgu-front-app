@@ -6,59 +6,79 @@ import Container from "src/components/Container/Container";
 import { Tag } from "@customTypes/tags";
 import { Loader } from "src/components/_grouped/loader";
 import { fetchAllSchedules } from "@services/scheduleService";
+import { fetchMentoringOffer } from "@services/services/fetchMentoringOffer";
+import Button from "src/components/Button/Button";
 
 export const CreateMentoringOffer = () => {
-  const [initialPending, setInitialPending] = useState<boolean>(true)
-  const { createOfferState: state, loadSchedules, setPending, updateStatus } = useCreateOfferReducer();
-  const isScheduled = state.availableSchedules.length > 0
+  const [initialPending, setInitialPending] = useState<boolean>(true);
+  const {
+    createOfferState: state,
+    reset,
+    loadOffers,
+    loadSchedules,
+    setPending,
+    updateStatus,
+  } = useCreateOfferReducer();
+  const isScheduled = state.availableSchedules.length > 0;
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      setPending(true)
+      setPending(true);
       try {
-        const { status, data } = await fetchAllSchedules()
-        if(String(status).startsWith('20')){
+        const [resSchedules, resOffers] = await Promise.all([
+          fetchAllSchedules(),
+          fetchMentoringOffer(),
+        ]);
+        const { status, data } = resSchedules;
+        if (String(status).startsWith("20")) {
           const parsed = data.map((d) => {
-            return ({
+            return {
               value: d.id,
-              label: d.scheduleName
-            })
-          })
-          loadSchedules(parsed)
+              label: d.scheduleName,
+            };
+          });
+          loadSchedules(parsed);
+        }
+        if (resOffers.success) {
+          loadOffers(resOffers.data);
         }
       } catch (e) {
-        updateStatus({ 
-          errorMessage: 'Wystąpił błąd podczas komunikacji z serwerem.',
+        updateStatus({
+          errorMessage: "Wystąpił błąd podczas komunikacji z serwerem.",
           success: false,
-        })
-        loadSchedules([])
+        });
+        loadSchedules([]);
       }
-      setPending(false)
-      setInitialPending(false)
-    }
-    if(!state.fetchedInitial){
-      fetchInitialData()
+      setPending(false);
+      setInitialPending(false);
+    };
+    if (!state.fetchedInitial) {
+      fetchInitialData();
     } else {
-      setInitialPending(false)
+      setInitialPending(false);
     }
-  }, [state.fetchedInitial, loadSchedules, setPending, setInitialPending, updateStatus])
+  }, [state.fetchedInitial, loadSchedules, setPending, setInitialPending, updateStatus, loadOffers]);
+
+  console.log("state", state);
 
   return (
     <main className={styles.main}>
       <Container as={Tag.Section} classes={styles.containerOuter}>
-        {state.pending ? (
-          <Loader overlay shadow spinner />
-        ) : null}
+        {state.pending ? <Loader overlay shadow spinner /> : null}
         {state.errorMessage ? (
           <div className={styles.errorMessage}>
-            <p>state.errorMessage</p>
+            <p>{state.errorMessage}</p>
+            <div>
+              <Button className={styles.btn} onClick={reset}>
+                Spróbuj od początku
+              </Button>
+            </div>
           </div>
-        ) :
-        initialPending ? (<Loader spinner />) : isScheduled ? (
+        ) : initialPending ? (
+          <Loader spinner />
+        ) : isScheduled ? (
           <>
-            {state.step === "initial" ? (
-              <Initial step={state.step} />
-            ) : null}
+            {state.step === "initial" ? <Initial step={state.step} /> : null}
             {state.step === "determine" ? <Determine /> : null}
             {state.step === "build" ? <Build /> : null}
             {state.step === "summary" ? <Summary /> : null}

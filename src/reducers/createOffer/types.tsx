@@ -7,6 +7,15 @@ export type ScheduleOption = {
 
 export type CreateOfferStepType = "initial" | "determine" | "build" | "summary";
 
+export type Data = {
+  saved: boolean;
+  numberOfPlans: 1 | 2 | 3;
+  providesMaterials: boolean;
+  basic: PlanInput;
+  advanced?: PlanInput;
+  pro?: PlanInput;
+}
+
 export type CreateOfferState = {
   fetchedInitial: boolean;
   step: CreateOfferStepType;
@@ -19,6 +28,7 @@ export type CreateOfferState = {
   pending: boolean;
   errorMessage: string;
   success: boolean;
+  saved: boolean;
 };
 
 export type CreateOfferActionType =
@@ -30,10 +40,22 @@ export type CreateOfferActionType =
   | "LOAD_SCHEDULES"
   | "SUBMIT_DETERMINE"
   | "SUBMIT_BUILD"
+  | "LOAD_OFFERS"
   | "UPDATE_STATUS"
   | "RESET";
 
 export type CreateOfferAction =
+  | {
+      type: "LOAD_OFFERS";
+      payload: {
+        numberOfPlans: 1 | 2 | 3;
+        providesMaterials: boolean;
+        basic: PlanInput;
+        advanced?: PlanInput;
+        pro?: PlanInput;
+        saved: boolean;
+      };
+    }
   | { type: "PREV_STEP" }
   | { type: "SUBMIT_INITIAL" }
   | {

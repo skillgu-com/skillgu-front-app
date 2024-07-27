@@ -7,5 +7,5 @@ export type PlanInput = {
   responseTime: number;
   // additional: string[];
   planIncludes: string[];
-  planType:string;
+  planType: 'basic'|'advanced'|'pro';
 };

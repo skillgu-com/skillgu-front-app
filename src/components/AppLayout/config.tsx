@@ -45,14 +45,14 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
     },
     {
       id: "schedules",
-      label: "Tworzenie spotkań",
+      label: "Sesje i harmonogramy",
       link: "/schedules",
       icon: <CreateSchedules />,
       visibility: "mentor",
     },
     {
       id: "create-plan",
-      label: "Ustal swoje plany",
+      label: "Twój mentoring",
       link: paths.createMentoring,
       icon: <CreateSchedules />,
       visibility: "mentor",

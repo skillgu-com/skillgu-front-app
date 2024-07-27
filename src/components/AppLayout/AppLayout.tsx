@@ -13,16 +13,20 @@ import { useViewportSize } from "src/hooks/useViewportSize";
 
 const AppLayout = (props: Common) => {
   const { children } = props;
-  const { layoutState, handleOpen } = useLayoutReducer()
+  const { layoutState, handleOpen, handleClose } = useLayoutReducer()
   const { width } = useViewportSize()
   const widthRef = useRef<number>(0)
 
   useEffect(() => {
-    if(width && width > 1200 && widthRef.current !== width){
-      handleOpen()
+    if(width && widthRef.current !== width){
+      if(width > 1200){
+        handleOpen()
+      } else {
+        handleClose()
+      }     
       widthRef.current = width
     }
-  }, [width, handleOpen])
+  }, [width, handleOpen, handleClose])
 
   return (
     <div data-sidebar-open={layoutState.isSidebarOpen ? "1" : "0"}>

@@ -26,8 +26,10 @@ const TopBar = () => {
 
   return (
     <div className={styles.topbar}>
+      <div  className={styles.hamFix} >
+      <HamburgerButton className={styles.ham} />
+      </div>
       <div className={styles.left}>
-        <HamburgerButton className={styles.hamLeft} />
         <Link to={"/"} className={styles.navbarLogo}>
           <Logo
             color="rgb(37, 43, 97)"

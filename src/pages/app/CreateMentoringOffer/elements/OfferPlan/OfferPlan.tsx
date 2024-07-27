@@ -25,9 +25,10 @@ type Props = {
   selected: boolean;
   errors: MentorshipPlanFormErrors;
   setSelected: (plan: SubscriptionPlan) => void;
+  onRemove?: (plan: SubscriptionPlan) => void;
 };
 
-export const OfferPlan = ({ errors, plan, selected, setSelected }: Props) => {
+export const OfferPlan = ({ errors, plan, selected, setSelected, onRemove }: Props) => {
   const { createOfferState, submitBuild } = useCreateOfferReducer();
   const planState = createOfferState[plan];
   const errorValues = Array.from(Object.values(errors)).filter((e) => !!e);
@@ -70,6 +71,7 @@ export const OfferPlan = ({ errors, plan, selected, setSelected }: Props) => {
         values={planState}
         selected={selected}
         errors={errors}
+        handleRemove={onRemove}
         handleChange={(props: MentorshipPlanFormChangeProp) => {
           const newValues = { ...planState };
 

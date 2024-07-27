@@ -1,12 +1,20 @@
 import React from "react";
 
-const Logo = ({ width = "139", color = "white", circleColor = "#ED734B" }) => {
+type Props = {
+  width?: string
+  color?: string
+  circleColor?: string
+  className?: string
+}
+
+const Logo = ({ className, width = "139", color = "white", circleColor = "#ED734B" } : Props) => {
   return (
     <svg
       width={width}
       viewBox="0 0 673 198"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M589.209 36.6941H615.072V95.9352C615.072 128.429 589.872 154.955 559.367 154.955C528.642 154.955 503.663 128.429 503.663 95.9352V36.9151H529.305V95.9352C529.305 114.282 542.789 129.314 559.367 129.314C575.725 129.314 589.209 114.282 589.209 95.9352V36.6941Z"

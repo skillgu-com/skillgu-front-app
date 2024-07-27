@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Container
-import Container from "../../../Container/Container";
 import Notifications from "../Notifications/Notifications";
 // Types
-import { Tag } from "@customTypes/tags";
 // Styles
 import styles from "./Topbar.module.scss";
 import { useSelector } from "react-redux";
 import { fetchUserImageFile } from "@services/files/files.service";
+import { Link } from "react-router-dom";
+import Logo from "@icons/Logo";
+import { HamburgerButton } from "../../elements";
 
 const TopBar = () => {
   const user = useSelector((state: any) => state.auth?.user);
@@ -24,23 +25,38 @@ const TopBar = () => {
   const ProfileLinkTag = userProfileLink ? "a" : "div";
 
   return (
-    <Container as={Tag.Aside} classes={styles.wrapper}>
-      <ProfileLinkTag className={styles.profile} href={userProfileLink}>
-        <div className={styles.profileImage}>
-          {image ? (
-            <img src={image} alt={user.email} />
-          ) : (
-            <img
-              src="https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
-              alt={user.email}
-            />
-          )}
-        </div>
-        <span className={styles.email}>{user.email}</span>
-      </ProfileLinkTag>
+    <div className={styles.topbar}>
+      <div className={styles.left}>
+        <HamburgerButton className={styles.hamLeft} />
+        <Link to={"/"} className={styles.navbarLogo}>
+          <Logo
+            color="rgb(37, 43, 97)"
+            circleColor="rgb(255, 106, 61)"
+            width="108"
+            className={styles.navbarLogoIcon}
+          />
+        </Link>
+      </div>
+      <div className={styles.right}>
+        <ProfileLinkTag className={styles.profile} href={userProfileLink}>
+          <div className={styles.profileImage}>
+            {image ? (
+              <img src={image} alt={user.email} />
+            ) : (
+              <img
+                src="https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
+                alt={user.email}
+              />
+            )}
+          </div>
+          <span className={styles.email}>{user.email}</span>
+        </ProfileLinkTag>
 
-      <Notifications />
-    </Container>
+        <Notifications />
+
+        <HamburgerButton className={styles.hamRight} />
+      </div>
+    </div>
   );
 };
 

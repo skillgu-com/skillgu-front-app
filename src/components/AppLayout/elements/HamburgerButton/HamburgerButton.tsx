@@ -1,14 +1,14 @@
 import React from "react";
 import clx from "classnames";
 import styles from "./HamburgerButton.module.scss";
-import { useLayout } from "src/context/LayoutContext";
+import { useLayoutReducer } from "src/reducers/layout";
 
 type Props = {
   className?: string;
 };
 
 export const HamburgerButton = ({ className }: Props) => {
-  const { isSidebarOpen, handleSwitch } = useLayout();
+  const { layoutState, handleClose, handleSwitch } = useLayoutReducer()
 
   return (
     <button
@@ -16,7 +16,7 @@ export const HamburgerButton = ({ className }: Props) => {
       className={clx(
         styles.navbarButton,
         {
-          [styles.navbarButtonOpen]: isSidebarOpen,
+          [styles.navbarButtonOpen]: layoutState.isSidebarOpen,
         },
         className
       )}

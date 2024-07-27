@@ -1,7 +1,5 @@
 // Libraries
-import React from "react";
-// Context
-import { LayoutProvider, useLayout } from "src/context/LayoutContext";
+import React, { useEffect, useRef } from "react";
 // Components
 import TopBar from "./components/Topbar/TopBar";
 // Types
@@ -10,31 +8,34 @@ import { Common } from "../../types/main";
 import styles from "./AppLayout.module.scss";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import clx from "classnames";
+import { useLayoutReducer } from "src/reducers/layout";
+import { useViewportSize } from "src/hooks/useViewportSize";
 
-const AppLayoutContent = (props: Common) => {
+const AppLayout = (props: Common) => {
   const { children } = props;
-  const { isSidebarOpen, isInitialized } = useLayout();
+  const { layoutState, handleOpen } = useLayoutReducer()
+  const { width } = useViewportSize()
+  const widthRef = useRef<number>(0)
 
-  return isInitialized ? (
-    <div data-sidebar-open={isSidebarOpen ? "1" : "0"}>
+  useEffect(() => {
+    if(width && width > 1200 && widthRef.current !== width){
+      handleOpen()
+      widthRef.current = width
+    }
+  }, [width, handleOpen])
+
+  return (
+    <div data-sidebar-open={layoutState.isSidebarOpen ? "1" : "0"}>
       <TopBar />
       <Sidebar />
       <div
         className={clx(styles.content, {
-          [styles.isSidebarOpen]: isSidebarOpen,
+          [styles.isSidebarOpen]: layoutState.isSidebarOpen,
         })}
       >
         {children}
       </div>
     </div>
-  ) : null;
-};
-
-const AppLayout = (props: Common) => {
-  return (
-    <LayoutProvider>
-      <AppLayoutContent {...props} />
-    </LayoutProvider>
   );
 };
 

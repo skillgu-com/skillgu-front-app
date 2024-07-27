@@ -3,7 +3,6 @@ import clx from "classnames";
 import styles from "./Sidebar.module.scss";
 import { FC, useState } from "react";
 import { SidebarButtonProps } from "./types";
-import { useLayout } from "src/context/LayoutContext";
 import { getMenuItems } from "../../config";
 import { useSelector } from "react-redux";
 import { getRole } from "src/redux/selectors/authSelectors";
@@ -14,17 +13,19 @@ import Help from "@icons/Help";
 import Logout from "@icons/Logout";
 import { useLogout } from "./hooks";
 import Notifications from "../Notifications/Notifications";
+import { useLayoutReducer } from "src/reducers/layout";
 
 type Props = {
   defaultOpen?: boolean
 }
 
 export const Sidebar = () => {
-  const { isSidebarOpen, handleClose } = useLayout();
+  // const { isSidebarOpen, handleClose } = useLayout();
   const userFromRedux = useSelector((state: any) => state.auth.user);
   const role: "M" | "S" | "" = useSelector(getRole) || "";
   const { pathname } = useLocation();
   const handleLogout = useLogout();
+  const { layoutState, handleClose, handleSwitch } = useLayoutReducer()
 
   const menuItems = getMenuItems({
     username: userFromRedux.username,
@@ -36,7 +37,7 @@ export const Sidebar = () => {
       <div
         onClick={handleClose}
         className={clx(styles.shadow, {
-          [styles.isSidebarOpen]: isSidebarOpen,
+          [styles.isSidebarOpen]: layoutState.isSidebarOpen,
         })}
       />
 
@@ -77,7 +78,7 @@ export const Sidebar = () => {
 
       <div
         className={clx(styles.fullSidebar, {
-          [styles.fullSidebarOpen]: isSidebarOpen,
+          [styles.fullSidebarOpen]: layoutState.isSidebarOpen,
         })}
       >
         <div className={clx(styles.list, styles.topItems)}>

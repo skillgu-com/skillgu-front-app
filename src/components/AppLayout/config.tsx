@@ -53,14 +53,14 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
     {
       id: "create-plan",
       label: "Ustal swoje plany",
-      link: paths.calendar,
+      link: paths.createMentoring,
       icon: <CreateSchedules />,
       visibility: "mentor",
     },
     {
       id: "chat",
       label: "Wiadomości",
-      link: paths.calendar,
+      link: paths.chat,
       icon: <MessagesIcon />,
       visibility: "authenticated",
     },

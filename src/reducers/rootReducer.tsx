@@ -13,6 +13,7 @@ import { createOfferReducer } from './createOffer';
 import { sessionsReducer } from './sessions'
 import { subscriptionsReducer } from './subscriptions';
 import { mentAppReducer } from './mentorship-application';
+import { layoutReducer } from './layout';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     sessions: sessionsReducer,
     subscriptions: subscriptionsReducer,
     mentApp: mentAppReducer,
+    layout: layoutReducer,
     // Add other reducers if you have them
 });
 

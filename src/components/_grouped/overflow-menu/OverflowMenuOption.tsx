@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from "react";
+import React, { FC, MouseEventHandler, ReactNode } from "react";
 import styles from "./OverflowMenu.module.scss";
 import clx from "classnames";
 
@@ -9,6 +9,7 @@ type Props = {
   text?: string;
   name?: string 
   value?: string
+  LeadingIcon?: FC<{ className?: string }>
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -19,6 +20,7 @@ export const OverflowMenuOption = ({
   name,
   variant,
   value,
+  LeadingIcon,
   onClick,
 }: Props) => {
   return (
@@ -33,7 +35,8 @@ export const OverflowMenuOption = ({
         },
         className
       )}
-    >
+    > 
+      {LeadingIcon ? (<LeadingIcon className={styles.btnLeadingIcon} />) : null}
       {text}
       {children}
     </button>

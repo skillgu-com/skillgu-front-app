@@ -60,6 +60,15 @@
     text-align: left;
     padding: 16px 12px;
     min-width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+
+    .btnLeadingIcon {
+        width: 16px;
+        height: 16px;
+    }
 
     &.btnDanger {
         color: $colour-error-100;

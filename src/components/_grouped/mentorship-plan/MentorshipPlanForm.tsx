@@ -28,6 +28,7 @@ import {
 import { parseNameAndIndex } from "./utils";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 import Button, { ButtonVariant } from "src/components/Button/Button";
+import { BinIcon } from "@icons/BinIcon";
 
 type Props = {
   subscriptionVariant: SubscriptionPlan;
@@ -60,6 +61,8 @@ export const MentorshipPlanForm = ({
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
     null
   );
+  const [planOverflow, setPlanOverflow] = useState<boolean>(false);
+  const switchPlanOverflow = () => setPlanOverflow((s) => !s);
 
   const menuClickHandler = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget as HTMLButtonElement;
@@ -217,13 +220,19 @@ export const MentorshipPlanForm = ({
             noPadding
           />
           {handleRemove ? (
-            <Button
-              variant={ButtonVariant.Danger}
-              size="sm"
-              onClick={() => handleRemove(subscriptionVariant)}
-            >
-              Usuń plan
-            </Button>
+            <OverflowMenu onMouseLeave={() => setPlanOverflow(false)}>
+              <OverflowMenuToggle onClick={switchPlanOverflow} />
+              {planOverflow ? (
+                <OverflowMenuList>
+                  <OverflowMenuOption
+                    variant="danger"
+                    LeadingIcon={BinIcon}
+                    text="Usuń plan"
+                    onClick={() => handleRemove(subscriptionVariant)}
+                  />
+                </OverflowMenuList>
+              ) : null}
+            </OverflowMenu>
           ) : null}
         </div>
         <div className={clx(styles.row, styles.priceRow)}>

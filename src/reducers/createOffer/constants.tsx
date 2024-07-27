@@ -4,6 +4,7 @@ export const createOfferInitialState: CreateOfferState = {
   fetchedInitial: false,
   step: "initial",
   availableSchedules: [],
+  saved: false,
   numberOfPlans: 1,
   providesMaterials: true,
   pending: false,

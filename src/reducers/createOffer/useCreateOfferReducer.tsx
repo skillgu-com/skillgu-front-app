@@ -1,6 +1,6 @@
 import { createOfferInitialState } from "./constants";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateOfferState } from "./types";
+import { CreateOfferState, Data } from "./types";
 import { useCallback } from "react";
 import { PlanInput } from "@customTypes/create-mentoring";
 
@@ -12,6 +12,7 @@ type ScheduleOption = {
 type Output = {
   createOfferState: CreateOfferState;
   loadSchedules: (schedules: ScheduleOption[]) => void;
+  loadOffers: (data: Data) => void
   submitInitial: () => void;
   submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
   submitBuild: (props: {
@@ -37,6 +38,15 @@ export const useCreateOfferReducer = (): Output => {
     return createOfferInitialState;
   });
   const dispatch = useDispatch();
+
+  const loadOffers = useCallback(
+    (data: Data) =>
+      dispatch({
+        type: "LOAD_OFFERS",
+        payload: data,
+      }),
+    [dispatch]
+  );
 
   const loadSchedules = useCallback(
     (availableSchedules: ScheduleOption[]) =>
@@ -129,6 +139,7 @@ export const useCreateOfferReducer = (): Output => {
   );
 
   return {
+    loadOffers,
     createOfferState,
     prevStep,
     loadSchedules,

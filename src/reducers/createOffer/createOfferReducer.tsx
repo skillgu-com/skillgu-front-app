@@ -64,6 +64,16 @@ export const createOfferReducer = (
         errorMessage: action.payload.errorMessage,
         success: action.payload.success,
       };
+    case "LOAD_OFFERS":
+      return {
+        ...state,
+        numberOfPlans: action.payload.numberOfPlans,
+        providesMaterials: action.payload.providesMaterials,
+        basic: action.payload.basic,
+        advanced: action.payload.advanced || createOfferInitialState.advanced,
+        pro: action.payload.pro || createOfferInitialState.pro,
+        saved: action.payload.saved,
+      };      
     case "LOGOUT":
     case "LOGIN": 
     case "RESET":

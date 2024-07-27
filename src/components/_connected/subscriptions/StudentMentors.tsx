@@ -442,7 +442,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </div>
                           </>
                         ) : null}
-                        {m.status === "accepted" && !m.scheduled ? (
+                        {m.status === "accepted" && !m.isScheduleSet ? (
                           <>
                             <div className={styles.cardStatus}>
                               <Status
@@ -466,7 +466,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </div>
                           </>
                         ) : null}
-                        {m.status === "accepted" && m.scheduled ? (
+                        {m.status === "accepted" && m.isScheduleSet ? (
                           <>
                             <div className={styles.cardStatus}>
                               <Status

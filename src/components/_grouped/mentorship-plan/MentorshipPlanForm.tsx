@@ -212,7 +212,9 @@ export const MentorshipPlanForm = ({
       <div className={styles.rows}>
         <div className={styles.headline}>
           <PlanName
-            className={styles.planName}
+            className={clx(styles.planName, {
+              [styles.planNameWithMenu]: !!handleRemove,
+            })}
             plan={subscriptionVariant}
             fontVariant="subtitle-1"
             iconSize={20}
@@ -220,10 +222,10 @@ export const MentorshipPlanForm = ({
             noPadding
           />
           {handleRemove ? (
-            <OverflowMenu onMouseLeave={() => setPlanOverflow(false)}>
-              <OverflowMenuToggle onClick={switchPlanOverflow} />
+            <OverflowMenu onMouseLeave={() => setPlanOverflow(false)} className={styles.menuOverflow}>
+              <OverflowMenuToggle className={styles.menuOverflowToggle} onClick={switchPlanOverflow} />
               {planOverflow ? (
-                <OverflowMenuList>
+                <OverflowMenuList className={styles.menuOverflowList} style={{ top: '26px' }}> 
                   <OverflowMenuOption
                     variant="danger"
                     LeadingIcon={BinIcon}

@@ -11,6 +11,8 @@
     gap: 16px;
     height: 54px;
     justify-content: space-between;
+    display: flex!important;
+    justify-content: space-between!important;
 
     .toggleText {
         @extend %text-body-2;

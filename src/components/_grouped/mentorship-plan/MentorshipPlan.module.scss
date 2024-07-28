@@ -15,15 +15,44 @@
     &.selected {
         border-color: $colour-secondary;
         border-width: 2px;
+        padding: 23px 19px;
     }
 }
 
 .headline {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 100%; 
+    position: relative;
+
+    .menuOverflow {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        .menuOverflowList {
+            top: 26px;
+        }
+
+        .menuOverflowToggle {
+            width: 26px;
+            height: 26px;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    &.planNameWithMenu {
+        padding-right: 48px;
+    }    
+
+    .planName {
+        flex: 1;
+    }
 }
 
 .rows {

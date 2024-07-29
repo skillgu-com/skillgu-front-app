@@ -7,6 +7,7 @@ import { Skeleton } from "@mui/material";
 import { Mentor } from "./types";
 import { useViewportSize } from "src/hooks/useViewportSize";
 import { useTallestElementHeight } from "src/hooks/useTallestElementHeight";
+import {Link} from "react-router-dom";
 
 const settings = {
   dots: true,
@@ -104,7 +105,7 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
         {ready ? (
           <Slider {...settings} className={styles.slick}>
             {mentors.map((m) => (
-              <div key={m.mentorId} className={styles.slickItem}>
+              <Link to={`/mentor/${m.userName}`} key={m.mentorId} className={styles.slickItem}>
                 <div
                   className={styles.card}
                   ref={addToRefs}
@@ -127,16 +128,16 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
                   </div>
                   <ul className={styles.tags}>
                     <li className={styles.tag}>
-                      <a href={`/mentor/${m.userName}`} className={styles.link}>
+                      <span className={styles.link}>
                         Zobacz profil
-                      </a>
+                      </span>
                     </li>
                     {/*{m.skill.map((t) => (*/}
                     {/*  <li className={styles.tag}>{t}</li>*/}
                     {/*  ))}*/}
                   </ul>
                 </div>
-              </div>
+              </Link>
             ))}
           </Slider>
         ) : null}

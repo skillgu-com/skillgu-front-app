@@ -249,7 +249,14 @@ const components: Components<Omit<Theme, "components">> = {
                 fontSize: '14px',
             }
         }
-    }
+    },
+    MuiTooltip: {
+        styleOverrides: {
+            tooltip: {
+                fontSize: typography.caption?.fontSize,
+            }
+        }
+    },
 }
 
 const theme = createTheme({

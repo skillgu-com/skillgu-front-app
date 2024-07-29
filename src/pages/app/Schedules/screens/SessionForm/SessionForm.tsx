@@ -10,11 +10,10 @@ import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
 import {
     createSession,
-    getSessionTypes,
     SessionFormInput, getSingleSession
 } from "@services/session/sessionService";
 import {useForm} from "react-hook-form";
-import {Button} from "@mui/material";
+import {Button, Tooltip} from "@mui/material";
 import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
 import FormInputSelect from "../../../../../components/_form/FormInputSelect/FormInputSelect";
 import {DropdownOption} from "@customTypes/dropdownOption";
@@ -22,11 +21,18 @@ import Typography from "@mui/material/Typography";
 import resolvePolishNumeralFactory from "../../../../../helpers/resolvePolishNumeralFactory";
 import {useSnackbar} from "notistack";
 import {useQuery} from "@tanstack/react-query";
+import getSessionTypesDictionary from "@services/dictionaries/sessionTypesDictionary/sessionTypesDictionary";
+import getSessionCategoriesDictionary
+    from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary";
+import {SessionCategoryT} from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
+import getSessionDescriptionTemplatesDictionary
+    from "@services/dictionaries/sessionDescriptionTemplatesDictionary/sessionDescriptionTemplatesDictionary";
 
 interface DirtySessionFormInput {
     name: string;
     price: string | number;
-    type: string | number;
+    type: string;
+    category: SessionCategoryT | '';
     scheduleId: string | number;
     description: string;
 }
@@ -35,6 +41,7 @@ const defaultValues: DirtySessionFormInput = {
     name: '',
     price: '',
     type: '',
+    category: '',
     scheduleId: '',
     description: ''
 };
@@ -42,13 +49,6 @@ const defaultValues: DirtySessionFormInput = {
 const maxDescriptionCharacters = 1000;
 const minDescriptionCharacters = 30;
 
-const getSessionTypesQuery = async (): Promise<DropdownOption[]> => {
-    const {data} = await getSessionTypes();
-    return data.map((element) => ({
-        value: element.id,
-        label: element.name
-    }));
-}
 
 const getScheduleNamesQuery = async (): Promise<DropdownOption[]> => {
     const {data} = await fetchAllSchedules();
@@ -66,6 +66,7 @@ export const getSingleSessionQueryOptions = (sessionId: string) => ({
             name: sessionData.sessionName,
             price: sessionData.sessionPrice,
             type: sessionData.sessionType,
+            category: sessionData.sessionCategory,
             scheduleId: sessionData.scheduleID,
             description: sessionData.sessionDescription
         }
@@ -105,10 +106,28 @@ const SessionForm = () => {
         handleSubmit,
         formState,
         watch,
-        reset
+        reset,
+        setValue,
+        getValues
     } = useForm<DirtySessionFormInput, void, SessionFormInput>({
         defaultValues,
-    })
+    });
+    const selectedCategory = watch('category');
+    const selectedType = watch('type');
+    useEffect(() => {
+        // Clear type when Category changes
+        setValue('type', '');
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        // Set description template when selected Type changes
+        const shouldOverrideDescription = !formState.dirtyFields.description || getValues('description') === '';
+        console.log(shouldOverrideDescription)
+        console.log(selectedType)
+        if (selectedType && shouldOverrideDescription) {
+            setValue('description', getSessionDescriptionTemplatesDictionary(selectedType));
+        }
+    }, [selectedType, formState.dirtyFields.description]);
 
     useEffect(() => {
         if (initialData) reset(initialData);
@@ -163,14 +182,28 @@ const SessionForm = () => {
                     }}
                 />
                 <FormInputSelect
-                    label='Typ spotkania'
-                    name='type'
+                    label='Kategoria spotkania'
+                    name='category'
                     control={control}
                     formState={formState}
-                    getOptions={getSessionTypesQuery}
-                    inputProps={{placeholder: 'Wybierz typ spotkania'}}
-                    controllerProps={{rules: {required: 'Typ spotkania jest wymagany'}}}
+                    getOptions={getSessionCategoriesDictionary}
+                    inputProps={{placeholder: 'Wybierz kategorie spotkania'}}
+                    controllerProps={{rules: {required: 'Kategoria spotkania jest wymagany'}}}
                 />
+                <Tooltip title={!selectedCategory ? 'Wybierz kategorię, aby określić typ spoktania.' : ''}>
+                    <span>
+                        <FormInputSelect
+                            label='Typ spotkania'
+                            name='type'
+                            control={control}
+                            formState={formState}
+                            // Options are bind to selected Category value
+                            getOptions={() => getSessionTypesDictionary(selectedCategory)}
+                            inputProps={{placeholder: 'Wybierz typ spotkania', disabled: !selectedCategory}}
+                            controllerProps={{rules: {required: 'Typ spotkania jest wymagany'}}}
+                        />
+                    </span>
+                </Tooltip>
                 <FormInputSelect
                     label='Harmonogram'
                     name='scheduleId'

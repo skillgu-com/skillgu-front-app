@@ -1,9 +1,11 @@
 import axios from "axios";
+import {SessionCategoryT} from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
 
 export interface SessionFormInput {
     name: string;
     price: number;
-    type: number;
+    category: SessionCategoryT | '';
+    type: string;
     scheduleId: number;
     description: string;
 }
@@ -11,7 +13,8 @@ export interface SessionFormInput {
 export interface SessionDTO {
     sessionName: string;
     sessionPrice: number;
-    sessionType: number;
+    sessionCategory: SessionCategoryT | '';
+    sessionType: string;
     scheduleID: number;
     sessionDescription: string;
 }
@@ -20,6 +23,7 @@ const parseSessionFormDataToSessionDTO = (session: SessionFormInput): SessionDTO
     return {
         sessionName: session.name,
         sessionPrice: session.price,
+        sessionCategory: session.category,
         sessionType: session.type,
         scheduleID: session.scheduleId,
         sessionDescription: session.description
@@ -57,7 +61,8 @@ export const getSingleSession = async (sessionId: string | number): Promise<Sess
     return {
         sessionName: 'test',
         sessionPrice: 220,
-        sessionType: 1,
+        sessionType: 'training',
+        sessionCategory: 'it',
         scheduleID: 1,
         sessionDescription: 'test'
     }
@@ -68,6 +73,7 @@ export const editMentorSingleSession = async (sessionId: string, updatedData: Se
         const response = await axios.put(`/api/1.0/session/edit/${sessionId}`, {
             sessionName: updatedData.sessionName,
             sessionPrice: updatedData.sessionPrice,
+            sessionCategory: updatedData.sessionCategory,
             sessionType: updatedData.sessionType,
             scheduleID: updatedData.scheduleID,
             sessionDescription: updatedData.sessionDescription

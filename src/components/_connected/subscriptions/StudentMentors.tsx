@@ -146,6 +146,7 @@ export const StudentMentors = ({ title }: Props) => {
     setRestoring(null);
   }, [restoring]);
     const handleSubmitMentorship = (opt: ServiceSession) => {
+      console.log('tutaj opt', opt)
         navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
     };
   return (

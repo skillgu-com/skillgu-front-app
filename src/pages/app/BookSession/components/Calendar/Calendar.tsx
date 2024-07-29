@@ -35,6 +35,9 @@ export const Calendar = (props: BookFormProps) => {
   const locationState = location.state as LocationStateType;
   const sessionData = locationState.opt;
 
+  console.log('sessionData',sessionData)
+  console.log('locationState',locationState)
+
   const [currentEvent, setCurrentEvent] = useState<null | number>(null);
   // TODO is it necessary to use state here (value is unused)?
   const [term, setTerm] = useState<null | Date>(null);

@@ -92,8 +92,8 @@ export const validateState = (state: CreateOfferState) : ValidateStateOutput => 
   try {
     const basicErrors = validatePlan(state.basic);
     const avancedErrors =
-      state.numberOfPlans > 2 ? validatePlan(state.advanced) : {...defaultErrors};
-    const proErrors = state.numberOfPlans > 1 ? validatePlan(state.pro) : {...defaultErrors};
+      state.numberOfPlans > 1 ? validatePlan(state.advanced) : {...defaultErrors};
+    const proErrors = state.numberOfPlans > 2 ? validatePlan(state.pro) : {...defaultErrors};
     const joined = [
       ...Object.values(basicErrors),
       ...Object.values(avancedErrors),

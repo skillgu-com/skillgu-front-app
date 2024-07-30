@@ -92,7 +92,7 @@ export const Build = () => {
             onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
           />
 
-          {co.createOfferState.numberOfPlans > 2 ? (
+          {co.createOfferState.numberOfPlans > 1 ? (
             <OfferPlan
               errors={valid.errors.advanced}
               plan="advanced"
@@ -102,7 +102,7 @@ export const Build = () => {
             />
           ) : null}
 
-          {co.createOfferState.numberOfPlans > 1 && (
+          {co.createOfferState.numberOfPlans > 2 && (
             <OfferPlan
               errors={valid.errors.pro}
               plan="pro"

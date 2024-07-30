@@ -25,16 +25,14 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         providesMaterials: input.providesMaterials,
         plans,
     };
-    console.log('body:', body)
     try {
-        const response = await axios.post('/api/mentorship/create/mentorship-plansTEST', body);
+        const response = await axios.post('/api/mentorship/create/mentorship-plans', body);
         if (response.status === 200) {
             return {success: true};
         } else {
             return {success: false, errorMessage: `Failed to create mentorship plan. Status code: ${response.status}`};
         }
     } catch (error) {
-        console.log('tutaj dwa ')
         console.error('Failed to create mentorship plan', error);
         return {success: false, errorMessage: 'Failed to create mentorship plan'};
     }

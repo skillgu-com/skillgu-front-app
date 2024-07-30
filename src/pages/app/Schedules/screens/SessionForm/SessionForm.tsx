@@ -24,7 +24,7 @@ import {useQuery} from "@tanstack/react-query";
 import getSessionTypesDictionary from "@services/dictionaries/sessionTypesDictionary/sessionTypesDictionary";
 import getSessionCategoriesDictionary
     from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary";
-import {SessionCategoryT} from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
+import {MentorCategoryT} from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
 import getSessionDescriptionTemplatesDictionary
     from "@services/dictionaries/sessionDescriptionTemplatesDictionary/sessionDescriptionTemplatesDictionary";
 
@@ -32,7 +32,7 @@ interface DirtySessionFormInput {
     name: string;
     price: string | number;
     type: string;
-    category: SessionCategoryT | '';
+    category: MentorCategoryT | '';
     scheduleId: string | number;
     description: string;
 }

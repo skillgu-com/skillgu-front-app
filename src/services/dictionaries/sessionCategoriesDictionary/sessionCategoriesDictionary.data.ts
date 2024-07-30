@@ -1,12 +1,12 @@
 // TODO CHANGE ME:
 const sessionCategoriesDictionaryData = {
-    business: 'Biznes',
-    design: 'Design',
-    it: 'IT',
-    marketing: 'Marketing',
-    carrier: 'Kariera'
+    BUSINESS: 'BUSINESS',
+    DESIGN: 'DESIGN',
+    IT: 'IT',
+    MARKETING: 'MARKETING',
+    CAREER: 'CAREER'
 };
 
-export type SessionCategoryT = keyof typeof sessionCategoriesDictionaryData;
+export type MentorCategoryT = keyof typeof sessionCategoriesDictionaryData;
 
 export default sessionCategoriesDictionaryData;

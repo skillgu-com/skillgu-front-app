@@ -8,6 +8,7 @@ import { Loader } from "src/components/_grouped/loader";
 import { fetchAllSchedules } from "@services/scheduleService";
 import { fetchMentoringOffer } from "@services/services/fetchMentoringOffer";
 import Button from "src/components/Button/Button";
+import {useSelector} from "react-redux";
 
 export const CreateMentoringOffer = () => {
   const [initialPending, setInitialPending] = useState<boolean>(true);
@@ -20,6 +21,8 @@ export const CreateMentoringOffer = () => {
     updateStatus,
   } = useCreateOfferReducer();
   const isScheduled = state.availableSchedules.length > 0;
+  const mentor = useSelector((state: any) => state.auth.user);
+
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -27,7 +30,7 @@ export const CreateMentoringOffer = () => {
       try {
         const [resSchedules, resOffers] = await Promise.all([
           fetchAllSchedules(),
-          fetchMentoringOffer(),
+          fetchMentoringOffer(mentor.id),
         ]);
         const { status, data } = resSchedules;
         if (String(status).startsWith("20")) {
@@ -59,7 +62,6 @@ export const CreateMentoringOffer = () => {
     }
   }, [state.fetchedInitial, loadSchedules, setPending, setInitialPending, updateStatus, loadOffers]);
 
-  console.log("state", state);
 
   return (
     <main className={styles.main}>

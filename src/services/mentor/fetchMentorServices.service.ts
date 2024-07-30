@@ -64,7 +64,7 @@ export const fetchMentorShip = async (input: Input): Promise<OutputSuccess | Out
     }
 }
 
-export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<MentorshipDTO> => {
+export const fetchMentorMentorshipPlansForMentorProfile = async (mentorId: any): Promise<MentorshipDTO> => {
     try {
         const response = await axios.get<any>(`/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`);
         const mentoringData = response.data;
@@ -81,7 +81,7 @@ export const fetchMentorMentorshipPlans = async (mentorId: any): Promise<Mentors
             providesMaterials: plan.providesMaterials,
             mentoringDescription: plan.mentoringDescription
         }));
-        return { mentorships };
+        return {mentorships};
     } catch (error) {
         console.error("Error fetching mentorship plans", error);
         throw error;

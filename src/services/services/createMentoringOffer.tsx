@@ -14,8 +14,10 @@ type Input = {
 export const createMentoringOffer = async (input: Input): Promise<Response> => {
     const plans = [
         {type: 'basic', ...input.basic},
-        input.advanced && {type: 'advanced', ...input.advanced},
-        input.pro && {type: 'pro', ...input.pro},
+        input.advanced &&
+        {type: 'advanced', ...input.advanced},
+        input.pro &&
+        {type: 'pro', ...input.pro},
     ].filter(Boolean);
 
     const body = {
@@ -23,12 +25,12 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         providesMaterials: input.providesMaterials,
         plans,
     };
+    console.log('body:', body)
     try {
-        const response = await axios.post('/api/mentorship/create/mentorship-plans', body);
+        const response = await axios.post('/api/mentorship/create/mentorship-plansTEST', body);
         if (response.status === 200) {
             return {success: true};
         } else {
-            console.log('tutaj jeden ')
             return {success: false, errorMessage: `Failed to create mentorship plan. Status code: ${response.status}`};
         }
     } catch (error) {

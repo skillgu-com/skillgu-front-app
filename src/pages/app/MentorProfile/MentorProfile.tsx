@@ -18,7 +18,7 @@ import {
     ServiceType,
 } from "@customTypes/order";
 import {
-    fetchMentorMentorshipPlans,
+    fetchMentorMentorshipPlansForMentorProfile,
     getMentorByUsername,
     MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
@@ -132,7 +132,7 @@ export const MentorProfilePage = () => {
                 if (mentorId) {
                     const [sessionResponse, mentoringResponse] = await Promise.all([
                         fetchMentorSession(mentorData.userID),
-                        fetchMentorMentorshipPlans({mentorId: mentorId}),
+                        fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
                     ]);
 
                     const formattedSessions = sessionResponse.data.map(

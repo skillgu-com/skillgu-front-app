@@ -47,7 +47,8 @@ const paths = {
     payment: '/payment',
     mentorOfferDetails: '/mentor-offer-details/:id',
     mentorSubscriptions: '/mentor-subscriptions',
-    studentSubscriptions: 'mentee-subscriptions',
+    studentSubscriptions: '/mentee-subscriptions',
+    studentSubscriptionDetail: '/mentee-subscriptions/:subscriptionId',
     mentorshipApplication: '/mentorship/:id/application',
 } as const;
 

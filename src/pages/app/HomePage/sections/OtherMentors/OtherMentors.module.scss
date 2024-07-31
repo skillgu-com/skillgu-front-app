@@ -16,6 +16,7 @@
         padding-left: 16px;
         padding-right: 16px;
         cursor: pointer;
+        text-decoration: none;
     }
 
     :global(.slick-dots) {
@@ -33,7 +34,7 @@
     border: 1px solid $colour-base-200;
     border-radius: 12px;
     justify-content: space-between;
-    transition: background-color;
+    transition: 0.15s ease-in-out;
 
     &:hover {
         background-color: $colour-base-200;
@@ -85,7 +86,7 @@
             @extend %text-button-sm;
             color: $colour-secondary;
             padding: 8px 12px;
-            a {
+            .link {
                 @extend .tag;
                 color: $colour-secondary;
                 text-decoration: none;

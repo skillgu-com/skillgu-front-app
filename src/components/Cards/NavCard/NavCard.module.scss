@@ -11,7 +11,8 @@
 	text-decoration: none;
      	border: 1px solid $colour-base-200;
     	border-radius: 12px;
-    	transition: background-color;
+    transition: 0.15s ease-in-out;
+
 
     	&:hover {
         	background-color: $colour-base-200;

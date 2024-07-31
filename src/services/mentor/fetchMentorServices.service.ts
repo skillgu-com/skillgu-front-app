@@ -68,9 +68,20 @@ export const fetchMentorMentorshipPlansForMentorProfile = async (mentorId: any):
     try {
         const response = await axios.get<any>(`/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`);
         const mentoringData = response.data;
-        const mentorships: MentorshipPlanDTO[] = mentoringData.map((plan: any) => ({
+        const translateTitle = (title: string) => {
+            switch (title) {
+                case 'BASIC':
+                    return 'Plan podstawowy';
+                case 'ADVANCED':
+                    return 'Plan zaawansowany';
+                case 'PRO':
+                    return 'Plan pro';
+                default:
+                    return title;
+            }
+        };        const mentorships: MentorshipPlanDTO[] = mentoringData.map((plan: any) => ({
             id: plan.id,
-            title: plan.title,
+            title: translateTitle(plan.title),
             subtitle: plan.subtitle,
             price: plan.price,
             variant: plan.variant,

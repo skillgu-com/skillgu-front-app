@@ -35,7 +35,8 @@ import { suspendMentorship } from "@services/mentorship/suspendMentorship";
 import { restoreMentorship } from "@services/mentorship/restoreMentorship";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
 import { fetchYoursStudentMentors } from "@services/mentee/fetchStudentMentors.service";
-import {useLocation, useNavigate} from "react-router-dom";
+import {generatePath, Link, useLocation, useNavigate} from "react-router-dom";
+import paths from "../../../paths";
 
 const PER_PAGE = 5;
 
@@ -145,10 +146,7 @@ export const StudentMentors = ({ title }: Props) => {
     await restoreMentorship(restoring?.id);
     setRestoring(null);
   }, [restoring]);
-    const handleSubmitMentorship = (opt: ServiceSession) => {
-      console.log('tutaj opt', opt)
-        navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
-    };
+
   return (
     <>
       <ClientPortal selector="modal-root">
@@ -456,14 +454,11 @@ export const StudentMentors = ({ title }: Props) => {
                               </p>
                             </div>
                             <div className={styles.buttons}>
-                              {/*<a className={styles.btn} href="/#">*/}
-                              {/*  Wybierz terminy spotkań*/}
-                              {/*</a>*/}
-                                <button
-                                    className={styles.btn}
-                                    onClick={() => handleSubmitMentorship(m.serviceSessionDTO)}>
+                              <Link to={generatePath(paths.studentSubscriptionDetail, { subscriptionId: m.serviceSessionDTO.id })}>
+                                <button className={styles.btn}>
                                     Wybierz terminy spotkań
                                 </button>
+                              </Link>
                             </div>
                           </>
                         ) : null}

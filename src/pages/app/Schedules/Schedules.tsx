@@ -119,7 +119,9 @@ const SchedulesView = () => {
           title="Harmonogram spotkań"
           text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
           button={{ text: "Nowy harmonogram", link: "/schedules/add-schedule" }}
+
         />
+
       );
 
     return (

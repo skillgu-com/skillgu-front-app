@@ -54,7 +54,7 @@ export const Build = () => {
       newData.basic = state.pro;
       newData.numberOfPlans = 1;
     }
-    if (state.numberOfPlans === 2 && plan === "pro") {
+    if (state.numberOfPlans === 2 && plan === "advanced") {
       newData.basic = state.basic;
       newData.numberOfPlans = 1;
     }

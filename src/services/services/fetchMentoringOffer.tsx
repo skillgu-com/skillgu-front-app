@@ -14,12 +14,11 @@ type OutputData = {
 type Response = { data: OutputData, success: true } | { success: false, errorMessage: string };
 
 export const fetchMentoringOffer = async (mentorId: any): Promise<Response> => {
-    console.log('a tutaj moze cos posprawdzam !!! ')
     try {
         const response = await axios.post(`/api/mentorship/${mentorId}/edit/mentorship-plans`);
 
-        if (response.status === 201) {
-            const mentoringData = response.data;
+        if (response.status === 200) {
+            const mentoringData = response.data.data;
             return {
                 success: true,
                 data: {

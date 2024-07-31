@@ -9,7 +9,7 @@ const StudentSubscriptionDetailPage: FC = () => {
     // TODO: fetch subscription data based on subscriptionId
     // A:
     // 1. subscription data should contain mentor id, and info about billing period
-    //      - why not just mentor free slots? because we neet to display calendar with multiple pages,
+    //      - why not just mentor free slots? because we need to display calendar with multiple pages,
     //      so every page should fetch mentor free slots separately
     // 2. subscription data should contain integer representing number of time slots to use by mentee in the billing period
     // 3. subscription data should contain integer representing number of the remaining time slots in current billing period

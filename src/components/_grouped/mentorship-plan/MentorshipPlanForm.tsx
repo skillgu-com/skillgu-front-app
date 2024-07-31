@@ -99,6 +99,7 @@ export const MentorshipPlanForm = ({
   );
 
   const handleRemoveAdditionalRow = useCallback(
+
     (e: MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget as HTMLButtonElement;
       const i = Number(btn.value);

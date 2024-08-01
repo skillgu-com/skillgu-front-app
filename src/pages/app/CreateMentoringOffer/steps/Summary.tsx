@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import styles from "../CreateMentoringOffer.module.scss";
 import {useCreateOfferReducer} from "src/reducers/createOffer";
-import {createMentoringOffer} from "@services/services/createMentoringOffer";
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonTag, ButtonVariant} from "src/components/Button/Button";
 import {useNavigate} from "react-router-dom";
+import {createMentoringOffer} from "@services/offer/createMentoringOffer";
 
 export const Summary = () => {
   const co = useCreateOfferReducer();

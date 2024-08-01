@@ -12,4 +12,5 @@ export type ScheduleFormInputT = {
     dateTo: Date;
     participantsNumber: number; // only for group
     weekdays: Record<WeekdayT, WeekdayInputT>,
+    resign: boolean
 }

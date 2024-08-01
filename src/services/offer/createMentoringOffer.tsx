@@ -26,7 +26,11 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         plans,
     };
     try {
-        const response = await axios.post('/api/mentorship/create/mentorship-plans', body);
+        const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         if (response.status === 200) {
             return {success: true};
         } else {

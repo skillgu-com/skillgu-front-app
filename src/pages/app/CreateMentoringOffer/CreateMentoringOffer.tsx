@@ -6,9 +6,9 @@ import Container from "src/components/Container/Container";
 import { Tag } from "@customTypes/tags";
 import { Loader } from "src/components/_grouped/loader";
 import { fetchAllSchedules } from "@services/scheduleService";
-import { fetchMentoringOffer } from "@services/services/fetchMentoringOffer";
 import Button from "src/components/Button/Button";
 import {useSelector} from "react-redux";
+import {fetchMentoringOffer} from "@services/offer/fetchMentoringOffer";
 
 export const CreateMentoringOffer = () => {
   const [initialPending, setInitialPending] = useState<boolean>(true);

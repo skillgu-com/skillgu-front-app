@@ -30,6 +30,7 @@ const defaultValues: ScheduleFormInputT = {
     dateFrom: today,
     dateTo: addMonths(today, 1),
     participantsNumber: 1,
+    resign: true,
     weekdays: weekdays.reduce((acc, day) => {
         acc[day] = {
             isActivated: false,

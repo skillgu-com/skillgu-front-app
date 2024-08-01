@@ -1,7 +1,7 @@
 import axios from "axios";
 import {MeetingTypeT, ScheduleFormInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/ScheduleFormInputT";
-import {weekdays } from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
-import { format, setHours, setMinutes} from "date-fns";
+import {weekdays} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
+import {format, setHours, setMinutes} from "date-fns";
 import type {WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
 import {WeekdayInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayInputT";
 
@@ -43,7 +43,16 @@ const extractTimeIntervalsFromDays = (weekdays: ScheduleFormInputT['weekdays']):
 }
 
 export const createScheduleMeeting = async (currentState: ScheduleFormInputT) => {
-    const {scheduleName, dateFrom, dateTo, cancelAvailable, type, meetingLength, participantsNumber, weekdays} = currentState;
+    const {
+        scheduleName,
+        dateFrom,
+        dateTo,
+        cancelAvailable,
+        type,
+        meetingLength,
+        participantsNumber,
+        weekdays
+    } = currentState;
     const weekTimes = extractTimeIntervalsFromDays(weekdays);
 
     return await axios.post('/api/1.0/schedule', {
@@ -77,12 +86,12 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
     console.log('FETCHING SCHEDULE DATA with id: ' + scheduleId);
 
     const mock: ScheduleDTO = {
-        scheduleName: 'Nowy Harmonogram test',
+        scheduleName: 'Nowy Harmonogram test ELDO',
         scheduleStartDay: '2024-07-01',
         scheduleEndDay: '2024-07-31',
         meetTime: 50,
-        resign: false,
-        type: 'group',
+        resign: true,
+        type: 'individual',
         participant: 5,
         weekTimes: {
             monday: [
@@ -142,6 +151,7 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
         dateFrom: new Date(data.scheduleStartDay),
         dateTo: new Date(data.scheduleEndDay),
         participantsNumber: data.participant,
+        resign: data.resign,
         weekdays: weekdays.reduce((acc, day) => {
             acc[day] = {
                 isActivated: !!data.weekTimes[day],
@@ -161,15 +171,16 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
 export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleFormInputT) => {
     try {
         const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
-            // scheduleName: updatedData.scheduleName,
-            // scheduleStartDay: updatedData.scheduleStartDay,
-            // scheduleEndDay: updatedData.scheduleEndDay,
-            // meetTime: updatedData.meetTime,
-            // resign: updatedData.resign,
-            // type: updatedData.type,
-            // participant: updatedData.participant,
-            // weekTimes: updatedData.weekTimes
+            scheduleName: updatedData.scheduleName,
+            dateFrom: updatedData.dateFrom,
+            dateTo: updatedData.dateTo,
+            meetTime: updatedData.meetingLength,
+            resign: updatedData.resign,
+            type: updatedData.type,
+            participantsNumber: updatedData.participantsNumber,
+            weekdays: updatedData.weekdays
         });
+
         return response.data;
     } catch (error) {
         throw new Error('Failed to update schedule');

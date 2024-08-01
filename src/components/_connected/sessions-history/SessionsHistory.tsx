@@ -123,7 +123,7 @@ export const SessionsHistory = ({
                     <TableRow
                       key={`${s.id}-${ind}`}
                       onClick={() => {
-                        navigate(getProfileLink(s.username));
+                        navigate(getProfileLink(s.userName));
                       }}
                     >
                       <TableCell flex={4}>

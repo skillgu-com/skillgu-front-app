@@ -11,7 +11,7 @@ export type FetchMentorSessionsOutput = {
     total: number
     mentee: {
         id: number
-        username: string
+        userName: string
         avatarUrl: string
         fullName: string
         date: string

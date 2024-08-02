@@ -25,7 +25,6 @@ import {
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import paths from "../../../paths";
 import {MentorData} from "../MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";

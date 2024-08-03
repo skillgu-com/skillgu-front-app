@@ -18,7 +18,7 @@ import axios from "axios";
 //     };
 // };
 
-export const fetchYoursStudentMentors = async (
+export const fetchMenteeSubscription = async (
     props: FetchStudentMentorsInput
 ): Promise<FetchStudentMentorsOutput> => {
     try {

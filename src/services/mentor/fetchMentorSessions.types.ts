@@ -5,7 +5,7 @@ export type FetchMentorSessionsInput = {
     take: number
 }
 
-export type SessionStatus = 'in-progress'|'planned'|'cancelled'
+export type SessionStatus = 'in-progress' | 'planned' | 'cancelled' | 'completed';
 
 export type FetchMentorSessionsOutput = {
     total: number

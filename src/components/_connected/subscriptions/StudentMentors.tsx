@@ -34,7 +34,7 @@ import { cancelMentorship } from "@services/mentorship/cancelMentorship";
 import { suspendMentorship } from "@services/mentorship/suspendMentorship";
 import { restoreMentorship } from "@services/mentorship/restoreMentorship";
 import { FetchStudentMentorsOutput } from "@services/mentee/fetchStudentMentors.types";
-import { fetchYoursStudentMentors } from "@services/mentee/fetchStudentMentors.service";
+import { fetchMenteeSubscription } from "@services/mentee/fetchStudentMentors.service";
 import {generatePath, Link, useLocation, useNavigate} from "react-router-dom";
 import paths from "../../../paths";
 
@@ -69,7 +69,7 @@ export const StudentMentors = ({ title }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchYoursStudentMentors({
+      const data = await fetchMenteeSubscription({
         take: PER_PAGE,
         skip: PER_PAGE * (pageRef.current - 1),
       });

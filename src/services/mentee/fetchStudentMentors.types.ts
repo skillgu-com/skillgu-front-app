@@ -29,7 +29,7 @@ export type FetchStudentMentorsOutput = {
         nickname: string;
         avatarUrl: string;
         fullName: string;
-        status: 'accepted' | 'rejected' | 'awaiting' | 'suspended';
+        status: 'accepted' | 'rejected' | 'awaiting' | 'suspended' | 'active';
         plan: SubscriptionPlan;
         isScheduleSet: boolean;
         paidUntil: string;

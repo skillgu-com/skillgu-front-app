@@ -1,12 +1,28 @@
 import React, {FC} from "react";
 import {ServiceMentoringOptionCard} from "../../../components/Cards/ServiceMentoringOptionCard";
-import {Container} from "@mui/material";
-import {useParams} from "react-router-dom";
-import {Calendar} from "../BookSession/components";
+import {Button, Container} from "@mui/material";
 
-const StudentSubscriptionDetailPage: FC = () => {
-    const { subscriptionId } = useParams() as { subscriptionId: string };
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {Calendar} from "../BookSession/components";
+import {useQuery} from "@tanstack/react-query";
+import getSubscriptionService, {
+    getSubscriptionServiceKeyGenerator
+} from "@services/subscription/getSubscription.service";
+import Box from "@mui/material/Box";
+import styles from "../BookSession/BookSession.module.scss";
+import Arrow from "@icons/Arrow";
+import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
+
+const MenteeSubscriptionDetailPage: FC = () => {
+
+    const {subscriptionId} = useParams() as { subscriptionId: string };
+
+    const {data} = useQuery({
+        queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
+        queryFn: () => getSubscriptionService(subscriptionId),
+    });
     // TODO: fetch subscription data based on subscriptionId
+    // TODO: fetch mentor free slots based on mentorId from subscription data (getMentorAvailabilityByMentorIdService)
     // A:
     // 1. subscription data should contain mentor id, and info about billing period
     //      - why not just mentor free slots? because we neet to display calendar with multiple pages,
@@ -29,21 +45,28 @@ const StudentSubscriptionDetailPage: FC = () => {
 
     return (
         <Container>
-            <div>
+            <Box sx={{margin: '24px 16px'}}>
+                <NavigateBackButton/>
+            </Box>
+            <Box>
                 <main>
-                    <div>Calendar [refactor of 'BookSession/Calendar' component, to make it reusable, or just write new one *TBD*]</div>
+                    <div>Calendar [refactor of 'BookSession/Calendar' component, to make it reusable, or just write new
+                        one *TBD*]
+                    </div>
                     <div>UserDetail [look on Actions desc]</div>
                     <div>Team [look on Actions desc]</div>
-                    <div>Actions [use existing components, but refactor it firstly or find way to reuse/share redux store]</div>
+                    <div>Actions [use existing components, but refactor it firstly or find way to reuse/share redux
+                        store]
+                    </div>
                     <div>FAQ [use existing FAQ component]</div>
                 </main>
                 <aside>
                     <div>Mentorship Card [I'm counting on just pass data to 'ServiceMentoringOptionCard']</div>
                     <div>Selected slots card [new component]</div>
                 </aside>
-            </div>
+            </Box>
         </Container>
     );
 }
 
-export default StudentSubscriptionDetailPage;
+export default MenteeSubscriptionDetailPage;

@@ -10,13 +10,16 @@ import Arrow from "@icons/Arrow";
 // Types
 import {Tag} from "@customTypes/tags";
 // Styles
-import styles from "./BookSession.module.scss";
+import bookSessionStyles from "./BookSession.module.scss";
+import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.module.scss";
 import clx from 'classnames'
 //
 import {faqRows} from "./config";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
 import {fetchMentorShip} from "@services/mentor/fetchMentorServices.service";
+import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
+import Box from "@mui/material/Box";
 
 interface BookSessionProps {
     payment?: boolean;
@@ -119,13 +122,12 @@ const BookSession = ({payment}: BookSessionProps) => {
     return (
         <>
             {!payment ? <Container as={Tag.Div}>
-                <Link className={styles.backLink} to={element?.from || '/search-mentors'}>
-                    <Arrow/>
-                    <span> Powrót do profilu mentora</span>
-                </Link>
+                <Box sx={{ margin: '24px 16px' }}>
+                    <NavigateBackButton label='Powrót do profilu mentora' customTarget={element?.from || '/search-mentors'} />
+                </Box>
             </Container> : null}
             <Container as={Tag.Div}>
-                <div className={styles.wrapper}>
+                <div className={sharedStyles.wrapper}>
                     {payment ? null : (
                         <aside>
                             <SelectedService/>
@@ -133,20 +135,20 @@ const BookSession = ({payment}: BookSessionProps) => {
                         </aside>
                     )}
 
-                    <main className={clx(styles.main, {
-                        [styles.mainFullWidth]: payment,
+                    <main className={clx(sharedStyles.main, {
+                        [bookSessionStyles.mainFullWidth]: payment,
                     })}>
                         {payment ? (
-                            <section className={styles.sectionPayment}>
+                            <section className={bookSessionStyles.sectionPayment}>
                                 <Payment/>
                             </section>
                         ) : (
                             <section>
                                 <Calendar selectTermHandler={selectTermHandler}/>
                                 <div>
-                                    <h3 className={styles.title}>Szczegóły sesji</h3>
+                                    <h3 className={sharedStyles.title}>Szczegóły sesji</h3>
 
-                                    <div className={styles.formWrapper}>
+                                    <div className={sharedStyles.formWrapper}>
                                         <UserDetails/>
                                         <Team/>
                                     </div>

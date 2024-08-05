@@ -35,7 +35,7 @@ import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleS
 import { MentorSubscriptionsPage, StudentSubscriptionsPage } from "./pages/app/Subscriptions";
 import { MentorshipApplicationPage } from "./pages/app/MentorshipApplication";
 import {MenteePaymentReports} from "./pages/app/MenteePaymentRaports";
-import StudentSubscriptionDetailPage from "./pages/app/StudentSubscriptionDetailPage/StudentSubscriptionDetailPage";
+import MenteeSubscriptionDetailPage from "./pages/app/MenteeSubscriptionDetailPage/MenteeSubscriptionDetailPage";
 
 type Route = {
     id: string;
@@ -260,7 +260,7 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.studentSubscriptionDetail,
-        element: <StudentSubscriptionDetailPage />,
+        element: <MenteeSubscriptionDetailPage />,
         layoutVersion: 'default',
     },
     {

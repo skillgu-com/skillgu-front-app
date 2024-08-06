@@ -1,8 +1,10 @@
 import React, {FC} from "react";
 import {ServiceMentoringOptionCard} from "../../../components/Cards/ServiceMentoringOptionCard";
-import {Button, Container} from "@mui/material";
+import {Button} from "@mui/material";
 
 import {Link, useNavigate, useParams} from "react-router-dom";
+import Container from "src/components/Container/Container";
+
 import {Calendar} from "../BookSession/components";
 import {useQuery} from "@tanstack/react-query";
 import getSubscriptionService, {
@@ -12,16 +14,28 @@ import Box from "@mui/material/Box";
 import styles from "../BookSession/BookSession.module.scss";
 import Arrow from "@icons/Arrow";
 import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
+import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.module.scss";
+import {Tag} from "@customTypes/tags";
+import {getMentorProfileByID, getMentorProfileByIDKeyGenerator} from "@services/mentor/fetchMentorServices.service";
+
 
 const MenteeSubscriptionDetailPage: FC = () => {
 
     const {subscriptionId} = useParams() as { subscriptionId: string };
 
-    const {data} = useQuery({
+    const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
         queryFn: () => getSubscriptionService(subscriptionId),
     });
-    // TODO: fetch subscription data based on subscriptionId
+
+    const {data: mentorData} = useQuery({
+        // subscriptionData will be defined, it's checked in the enabled property
+        queryKey: getMentorProfileByIDKeyGenerator(subscriptionData?.mentorId!),
+        // subscriptionData will be defined, it's checked in the enabled property
+        queryFn: () => getMentorProfileByID(subscriptionData?.mentorId!),
+        enabled: !!subscriptionData?.mentorId,
+    });
+
     // TODO: fetch mentor free slots based on mentorId from subscription data (getMentorAvailabilityByMentorIdService)
     // A:
     // 1. subscription data should contain mentor id, and info about billing period
@@ -44,12 +58,12 @@ const MenteeSubscriptionDetailPage: FC = () => {
     // TODO: Provider for pass selected slots to the 'Selected slots card' to avoid unnecessary rerenders
 
     return (
-        <Container>
+        <Container as={Tag.Div}>
             <Box sx={{margin: '24px 16px'}}>
                 <NavigateBackButton/>
             </Box>
-            <Box>
-                <main>
+            <div className={sharedStyles.wrapper}>
+                <main className={sharedStyles.main}>
                     <div>Calendar [refactor of 'BookSession/Calendar' component, to make it reusable, or just write new
                         one *TBD*]
                     </div>
@@ -61,10 +75,32 @@ const MenteeSubscriptionDetailPage: FC = () => {
                     <div>FAQ [use existing FAQ component]</div>
                 </main>
                 <aside>
-                    <div>Mentorship Card [I'm counting on just pass data to 'ServiceMentoringOptionCard']</div>
+                    {subscriptionData && (
+                        <ServiceMentoringOptionCard
+                            mentorProfileReview={mentorData && {
+                                firstName: mentorData.firstName,
+                                lastName: mentorData.lastName,
+                                profileImage: mentorData.profileImage,
+                                jobPosition: mentorData.jobPosition,
+                                reviewsAvgRate: mentorData.reviewsAvgRate,
+                            }}
+                            id={subscriptionData.mentorId}
+                            title={subscriptionData.mentorshipPlan.title}
+                            subtitle={subscriptionData.mentorshipPlan.subtitle}
+                            price={subscriptionData.mentorshipPlan.price}
+                            descriptionRows={subscriptionData.mentorshipPlan.descriptionRows}
+                            variant={subscriptionData.mentorshipPlan.variant}
+                            providesMaterials={subscriptionData.mentorshipPlan.providesMaterials}
+                            mentoringDescription={subscriptionData.mentorshipPlan.mentoringDescription}
+                            responseTimeHours={subscriptionData.mentorshipPlan.responseTimeHours}
+                            sessionDurationMinutes={subscriptionData.mentorshipPlan.sessionDurationMinutes}
+                            sessionsPerMonth={subscriptionData.mentorshipPlan.sessionsPerMonth}
+                            selected
+                        />
+                    )}
                     <div>Selected slots card [new component]</div>
                 </aside>
-            </Box>
+            </div>
         </Container>
     );
 }

@@ -1,10 +1,13 @@
 import React from "react";
-import {MentorshipPlan, ServiceMentoring} from "@customTypes/order";
+import {MentorshipPlan} from "@customTypes/order";
 import styles from "./ServiceMentoringOptionCard.module.scss";
 import clx from "classnames";
 import { RadioInputIcon } from "@icons/RadioInput";
 import { CrownIcon } from "@icons/CrownIcon";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
+import Typography from "@mui/material/Typography";
+import StarSvg from "@icons/StarSvg";
+import {Collapse} from "@mui/material";
 
 type Props = MentorshipPlan & {
   name?: string;
@@ -12,6 +15,13 @@ type Props = MentorshipPlan & {
   selected?: boolean;
   displayRadioInput?: boolean;
   handleSelect?: React.MouseEventHandler<HTMLButtonElement>;
+  mentorProfileReview?: {
+    profileImage: string | null;
+    firstName: string;
+    lastName: string;
+    jobPosition: string;
+    reviewsAvgRate: number | null;
+  };
 };
 
 export const ServiceMentoringOptionCard = ({
@@ -26,6 +36,7 @@ export const ServiceMentoringOptionCard = ({
   selected,
   displayRadioInput,
   handleSelect,
+    mentorProfileReview,
 }: Props) => {
   return (
     <button
@@ -36,9 +47,26 @@ export const ServiceMentoringOptionCard = ({
       name={name}
       value={value}
     >
+      {mentorProfileReview && (
+          <Collapse in={!!mentorProfileReview} className={styles.mentorProfileReview}>
+            <img className={styles.avatarImage} src={mentorProfileReview.profileImage || "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"} alt="mentor" />
+            <div>
+              <div className={styles.nameRow}>
+                <Typography>{[mentorProfileReview.firstName, mentorProfileReview.lastName].filter(Boolean).join(' ')}</Typography>
+                <div>
+                  <StarSvg />
+                  <Typography>{mentorProfileReview.reviewsAvgRate}</Typography>
+                </div>
+              </div>
+              <Typography className={styles.positionRow}>
+                {mentorProfileReview.jobPosition}
+              </Typography>
+            </div>
+          </Collapse>
+      )}
       <div className={styles.rowTitle}>
         {handleSelect && displayRadioInput ? <RadioInputIcon filled={selected} /> : null}
-        <h5 className={styles.title}>{title}</h5> 
+        <h5 className={styles.title}>{title}</h5>
         {variant === "pro" ? <CrownIcon className={styles.crown} /> : null}
       </div>
       {subtitle ? <p className={styles.subtitle}> {subtitle}</p> : null}

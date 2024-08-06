@@ -7,5 +7,7 @@ export type SubscriptionDTO = {
 };
 
 export type Subscription = {
-
+    mentorId: string;
+    mentorshipPlan: MentorshipPlan;
+    availableSessionSlots: number;
 };

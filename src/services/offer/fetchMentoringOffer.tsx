@@ -15,7 +15,7 @@ type Response = { data: OutputData, success: true } | { success: false, errorMes
 
 export const fetchMentoringOffer = async (mentorId: any): Promise<Response> => {
     try {
-        const response = await axios.post(`/api/mentorship/${mentorId}/edit/mentorship-plans`);
+        const response = await axios.post(`/api/mentorship/${mentorId}/fetch/mentorship-plans`);
 
         if (response.status === 200) {
             const mentoringData = response.data.data;
@@ -34,27 +34,30 @@ export const fetchMentoringOffer = async (mentorId: any): Promise<Response> => {
                         responseTime: mentoringData.basic.responseTime,
                         planIncludes: mentoringData.basic.planIncludes,
                         planType: mentoringData.basic.planType,
+                        mentorshipId: mentoringData.basic.mentorshipId
                     },
-                    advanced: {
-                        schedule: mentoringData.advanced.schedule,
-                        price: mentoringData.advanced.price,
-                        description: mentoringData.advanced.description,
-                        sessionsPerMonth: mentoringData.advanced.sessionsPerMonth,
-                        sessionDuration: mentoringData.advanced.sessionDuration,
-                        responseTime: mentoringData.advanced.responseTime,
-                        planIncludes: mentoringData.advanced.planIncludes,
-                        planType: mentoringData.advanced.planType,
-                    },
-                    pro: {
-                        schedule: mentoringData.pro.schedule,
-                        price: mentoringData.pro.price,
-                        description: mentoringData.pro.description,
-                        sessionsPerMonth: mentoringData.pro.sessionsPerMonth,
-                        sessionDuration: mentoringData.pro.sessionDuration,
-                        responseTime: mentoringData.pro.responseTime,
-                        planIncludes: mentoringData.pro.planIncludes,
-                        planType: mentoringData.pro.planType,
-                    },
+                    advanced: mentoringData.advanced ? {
+                        schedule: mentoringData.advanced?.schedule,
+                        price: mentoringData.advanced?.price,
+                        description: mentoringData.advanced?.description,
+                        sessionsPerMonth: mentoringData.advanced?.sessionsPerMonth,
+                        sessionDuration: mentoringData.advanced?.sessionDuration,
+                        responseTime: mentoringData.advanced?.responseTime,
+                        planIncludes: mentoringData.advanced?.planIncludes,
+                        planType: mentoringData.advanced?.planType,
+                        mentorshipId: mentoringData.advanced?.mentorshipId
+                    } : null || undefined,
+                    pro: mentoringData.pro ? {
+                        schedule: mentoringData.pro?.schedule,
+                        price: mentoringData.pro?.price,
+                        description: mentoringData.pro?.description,
+                        sessionsPerMonth: mentoringData.pro?.sessionsPerMonth,
+                        sessionDuration: mentoringData.pro?.sessionDuration,
+                        responseTime: mentoringData.pro?.responseTime,
+                        planIncludes: mentoringData.pro?.planIncludes,
+                        planType: mentoringData.pro?.planType,
+                        mentorshipId: mentoringData.pro?.mentorshipId
+                    } : null || undefined,
                 }
             };
         } else {

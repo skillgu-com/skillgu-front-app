@@ -31,7 +31,7 @@ export type FetchStudentMentorsOutput = {
         fullName: string;
         status: 'accepted' | 'rejected' | 'awaiting' | 'suspended' | 'active';
         plan: SubscriptionPlan;
-        isScheduleSet: boolean;
+        scheduleSet: boolean;
         paidUntil: string;
         mentorshipId: number;
         mentorId: number;

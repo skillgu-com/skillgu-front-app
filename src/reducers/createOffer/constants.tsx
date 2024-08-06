@@ -18,7 +18,8 @@ export const createOfferInitialState: CreateOfferState = {
     sessionDuration: 45,
     responseTime: 48,
     planIncludes: ["Nieograniczony dostęp do pytań i odpowiedzi"],
-    planType: "basic"
+    planType: "basic",
+    mentorshipId: -1,
   },
   advanced: {
     schedule: "",
@@ -28,7 +29,8 @@ export const createOfferInitialState: CreateOfferState = {
     sessionDuration: 60,
     responseTime: 48,
     planIncludes: ["Nieograniczony dostęp do pytań i odpowiedzi"],
-    planType: "advanced"
+    planType: "advanced",
+    mentorshipId: -1,
 
   },
   pro: {
@@ -39,6 +41,7 @@ export const createOfferInitialState: CreateOfferState = {
     sessionDuration: 60,
     responseTime: 24,
     planIncludes: ["Nieograniczony dostęp do pytań i odpowiedzi"],
-    planType: "pro"
+    planType: "pro",
+    mentorshipId: -1,
   },
 };

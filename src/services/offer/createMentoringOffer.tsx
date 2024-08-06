@@ -6,12 +6,13 @@ type Response = { success: true } | { success: false, errorMessage: string };
 type Input = {
     numberOfPlans: 1 | 2 | 3;
     providesMaterials: boolean;
-    basic: PlanInput;
-    advanced?: PlanInput;
-    pro?: PlanInput;
+    basic: PlanInput | undefined | null;
+    advanced?: PlanInput | undefined | null;
+    pro?: PlanInput | undefined | null;
 }
 
 export const createMentoringOffer = async (input: Input): Promise<Response> => {
+
     const plans = [
         {type: 'basic', ...input.basic},
         input.advanced &&
@@ -25,6 +26,8 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         providesMaterials: input.providesMaterials,
         plans,
     };
+        console.log('ja teraz bede testowal tutaj: ',body)
+        console.log('ja teraz bede testowal ilosc planow: ',body.numberOfPlans)
     try {
         const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
             headers: {

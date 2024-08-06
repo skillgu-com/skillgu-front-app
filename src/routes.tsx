@@ -32,7 +32,7 @@ import SchedulesView from "./pages/app/Schedules/Schedules";
 import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
 import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffer";
 import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
-import { MentorSubscriptionsPage, StudentSubscriptionsPage } from "./pages/app/Subscriptions";
+import { MentorSubscriptionsPage, MenteeSubscriptionsPage } from "./pages/app/Subscriptions";
 import { MentorshipApplicationPage } from "./pages/app/MentorshipApplication";
 import {MenteePaymentReports} from "./pages/app/MenteePaymentRaports";
 import StudentSubscriptionDetailPage from "./pages/app/StudentSubscriptionDetailPage/StudentSubscriptionDetailPage";
@@ -255,7 +255,7 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.studentSubscriptions,
-        element: <StudentSubscriptionsPage />,
+        element: <MenteeSubscriptionsPage />,
         layoutVersion: 'default',
     },
     {

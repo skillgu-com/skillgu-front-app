@@ -81,6 +81,7 @@ export const StudentMentors = ({ title }: Props) => {
       fetchData();
     }
   }, []);
+   console.log('data tutaj testuje !',data?.mentors[1]?.scheduleSet)
 
   const settings = useMemo(() => {
     return {
@@ -370,7 +371,7 @@ export const StudentMentors = ({ title }: Props) => {
                             subtitle={
                               <a
                                 className={styles.profileLink}
-                                href={`/mentor/${m.id}`}
+                                href={`/mentor/${m.fullName}`}
                               >
                                 Zobacz profil
                                 <ArrowLongRight />
@@ -441,7 +442,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </div>
                           </>
                         ) : null}
-                        {m.status === "accepted" && !m.isScheduleSet ? (
+                        {m.status === "accepted" && !m.scheduleSet ? (
                           <>
                             <div className={styles.cardStatus}>
                               <Status
@@ -462,7 +463,7 @@ export const StudentMentors = ({ title }: Props) => {
                             </div>
                           </>
                         ) : null}
-                        {m.status === "accepted" && m.isScheduleSet ? (
+                        {m.status === "active" && m.scheduleSet ? (
                           <>
                             <div className={styles.cardStatus}>
                               <Status

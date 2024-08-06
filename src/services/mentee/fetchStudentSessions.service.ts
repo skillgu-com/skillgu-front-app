@@ -29,3 +29,15 @@ export const fetchStudentSessions = async (
     total: data.length,
   };
 };
+
+export const fetchMenteeSubscriptionHistory = async (
+    props: FetchStudentSessionsInput
+): Promise<FetchStudentSessionsOutput> => {
+
+  const response = await axios.get('/mentee/home/meeting/subscription/history');
+  const data = response.data;
+  return {
+    mentors: data.slice(0, props.take),
+    total: data.length,
+  };
+};

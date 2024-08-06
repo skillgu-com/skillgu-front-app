@@ -1,20 +1,15 @@
 import React from "react";
-import {
-  StudentMentors,
-} from "src/components/_connected";
-import {
-  StudentSessionsHistory,
-  MentorSessionsHistory,
-} from "src/components/_connected/sessions-history";
+import {StudentMentors,} from "src/components/_connected";
 import Container from "src/components/Container/Container";
-import { Tag } from "src/types/tags";
+import {Tag} from "src/types/tags";
 import styles from "./Subscriptions.module.scss";
+import {MenteeSubscriptionHistory} from "../../../components/_connected/sessions-history/MenteeSubscriptionHistory";
 
-export const StudentSubscriptionsPage = () => {
+export const MenteeSubscriptionsPage = () => {
   return (
     <div className={styles.pageWrapper}>
       <Container as={Tag.Main}>
-        <StudentSessionsHistory
+        <MenteeSubscriptionHistory
           title="Twoje subskrypcje"
           subtitle={
             <>

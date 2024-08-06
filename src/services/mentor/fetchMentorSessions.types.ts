@@ -1,11 +1,11 @@
 export type FetchMentorSessionsInput = {
     sortBy: 'status'
-    sortMethod: 'ASC'|'DESC'
-    skip: number 
+    sortMethod: 'ASC' | 'DESC'
+    skip: number
     take: number
 }
 
-export type SessionStatus = 'in-progress' | 'planned' | 'cancelled' | 'completed';
+export type SessionStatus = 'in-progress' | 'planned' | 'cancelled' | 'completed' | 'accepted' | 'rejected' | 'awaiting' | 'active' | 'suspended';
 
 export type FetchMentorSessionsOutput = {
     total: number
@@ -16,7 +16,7 @@ export type FetchMentorSessionsOutput = {
         fullName: string
         date: string
         status: SessionStatus
-        serviceType: 'session'|'mentoring'
+        serviceType: 'session' | 'mentoring'
         serviceName: string
     }[]
 }

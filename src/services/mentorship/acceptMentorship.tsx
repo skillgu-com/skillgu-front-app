@@ -1,5 +1,4 @@
 import axios from "axios";
-import {FetchMentorStudentsOutput} from "@services/mentor/fetchMentorStudents.types";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

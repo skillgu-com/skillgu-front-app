@@ -42,25 +42,32 @@ export const ServiceMentoringOptionCard = ({
     <button
       className={clx(styles.card, {
         [styles.selected]: selected,
+        [styles.selectable]: !!handleSelect,
       })}
       onClick={handleSelect}
       name={name}
       value={value}
     >
       {mentorProfileReview && (
-          <Collapse in={!!mentorProfileReview} className={styles.mentorProfileReview}>
-            <img className={styles.avatarImage} src={mentorProfileReview.profileImage || "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"} alt="mentor" />
-            <div>
-              <div className={styles.nameRow}>
-                <Typography>{[mentorProfileReview.firstName, mentorProfileReview.lastName].filter(Boolean).join(' ')}</Typography>
-                <div>
-                  <StarSvg />
-                  <Typography>{mentorProfileReview.reviewsAvgRate}</Typography>
+          <Collapse in={!!mentorProfileReview}>
+            <div className={styles.mentorProfileReview}>
+                <img className={styles.avatarImage} src={mentorProfileReview.profileImage || "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"} alt="mentor" />
+                <div className={styles.mentorDescription}>
+                  <div className={styles.nameRow}>
+                      <Typography variant='buttonMd' align='left' >
+                        {[mentorProfileReview.firstName, mentorProfileReview.lastName].filter(Boolean).join(' ')}
+                      </Typography>
+                      {!!mentorProfileReview.reviewsAvgRate && (
+                        <>
+                          <StarSvg />
+                          <Typography variant='buttonMd' sx={{ ml: 1 }}>{mentorProfileReview.reviewsAvgRate}</Typography>
+                        </>
+                      )}
+                  </div>
+                  <Typography variant='caption'>
+                    {mentorProfileReview.jobPosition}
+                  </Typography>
                 </div>
-              </div>
-              <Typography className={styles.positionRow}>
-                {mentorProfileReview.jobPosition}
-              </Typography>
             </div>
           </Collapse>
       )}

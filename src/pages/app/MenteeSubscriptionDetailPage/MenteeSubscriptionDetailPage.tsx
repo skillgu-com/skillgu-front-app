@@ -17,6 +17,7 @@ import NavigateBackButton from "../../../components/NavigateBackButton/NavigateB
 import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.module.scss";
 import {Tag} from "@customTypes/tags";
 import {getMentorProfileByID, getMentorProfileByIDKeyGenerator} from "@services/mentor/fetchMentorServices.service";
+import SelectedSlotsCounter from "../../../components/SelectedSlotsCounter/SelectedSlotsCounter";
 
 
 const MenteeSubscriptionDetailPage: FC = () => {
@@ -98,7 +99,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             selected
                         />
                     )}
-                    <div>Selected slots card [new component]</div>
+                    <SelectedSlotsCounter selectedSlots={[ new Date()]} slotsToSelect={4} />
                 </aside>
             </div>
         </Container>

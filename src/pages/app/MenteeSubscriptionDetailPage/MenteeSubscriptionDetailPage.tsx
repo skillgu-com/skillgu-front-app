@@ -28,6 +28,7 @@ import WeeklyCalendarPicker, {
 import {endOfWeek, startOfWeek} from "date-fns";
 import {Slot} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
 import Typography from "@mui/material/Typography";
+import {useSnackbar} from "notistack";
 
 
 const calculateWeekRange = (date: Date) => {
@@ -50,6 +51,7 @@ const phoneRegex = /^.{9,}$/;
 const MenteeSubscriptionDetailPage: FC = () => {
     const mainRef = useRef<HTMLElement>(null);
     const {subscriptionId} = useParams() as { subscriptionId: string };
+    const { enqueueSnackbar } = useSnackbar();
 
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
@@ -72,10 +74,15 @@ const MenteeSubscriptionDetailPage: FC = () => {
         const prevState = bookingState.slots;
         let slots = [];
 
-        if (isSlotsLimitReached(prevState.length)) return;
         if (prevState.some(({id}) => id === event.id)) {
+            // Removing
             slots = prevState.filter(({id}) => id !== event.id);
         } else {
+            if (isSlotsLimitReached(prevState.length)) {
+                enqueueSnackbar('Osiągnięto limit wybranych slotów', {variant: 'warning'});
+                return;
+            };
+            // Adding
             slots = [...prevState, {date: event.start, id: event.id}];
         }
 

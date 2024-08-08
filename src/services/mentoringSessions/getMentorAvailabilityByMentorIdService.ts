@@ -23,35 +23,35 @@ const getMock = (): Promise<SlotDTO[]> => new Promise((res) => {
             "available": true
         },
         {
-            "id": 1211,
-            "start": "2024-08-08T17:30:00",
-            "end": "2024-08-08T18:30:00",
+            "id": 123532,
+            "start": "2024-08-08T12:30:00",
+            "end": "2024-08-08T13:30:00",
             "available": true
         },
         {
-            "id": 1222,
-            "start": "2024-08-08T17:30:00",
-            "end": "2024-08-08T18:30:00",
+            "id": 1233211,
+            "start": "2024-08-08T11:30:00",
+            "end": "2024-08-08T12:30:00",
             "available": true
         },
         {
-            "id": 1223,
-            "start": "2024-8-08T18:30:00",
-            "end": "2024-8-08T19:30:00",
+            "id": 12367541,
+            "start": "2024-08-08T10:30:00",
+            "end": "2024-08-08T11:30:00",
             "available": true
         },
-        // {
-        //     "id": 2132,
-        //     "start": "2024-08-08T17:30:00",
-        //     "end": "2024-08-08T18:30:00",
-        //     "available": true
-        // },
-        // {
-        //     "id": 1219,
-        //     "start": "2024-08-08T18:30:00",
-        //     "end": "2024-08-08T19:30:00",
-        //     "available": true
-        // }
+        {
+            "id": 1211231,
+            "start": "2024-05-28T16:30:00",
+            "end": "2024-05-28T17:30:00",
+            "available": true
+        },
+        {
+            "id": 12665451,
+            "start": "2024-05-29T16:30:00",
+            "end": "2024-05-29T17:30:00",
+            "available": true
+        }
     ];
 
     setTimeout(() => res(mock), 300);
@@ -83,5 +83,3 @@ export const getMentorAvailabilityByMeetingIdServiceKeyGenerator = (mentorId: st
 }
 
 export default getMentorAvailabilityByMentorIdService;
-
-

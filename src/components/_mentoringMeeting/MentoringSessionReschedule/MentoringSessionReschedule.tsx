@@ -124,7 +124,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
     return (
         <Box sx={{pt: {sm: 0, md: 4}}}>
             <WeeklyCalendarPicker onNavigate={moveSelectedRange} onEventClick={onEventClick}
-                                  selectedEventId={currentEvent} events={combinedData}/>
+                                  selectedEventsId={currentEvent ? [currentEvent] : null} events={combinedData}/>
             <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Button onClick={onAcceptClick} disabled={!selectedEvent} sx={{mt: 3, ml: 'auto'}} variant='contained'>
                     Potwierdź nowy termin

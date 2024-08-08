@@ -134,7 +134,7 @@ export const Calendar = (props: BookFormProps) => {
       </Title>
       <WeeklyCalendarPicker
         onEventClick={onEventClick}
-        selectedEventId={currentEvent}
+        selectedEventsId={currentEvent ? [currentEvent] : null}
         events={combinedData}
       />
     </section>

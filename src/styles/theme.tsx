@@ -240,7 +240,7 @@ const components: Components<Omit<Theme, "components">> = {
             },
             deleteIcon: {
                 background: 'none'
-            }
+            },
         }
     },
     MuiTab: {

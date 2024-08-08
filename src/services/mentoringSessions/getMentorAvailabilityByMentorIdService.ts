@@ -12,14 +12,14 @@ const getMock = (): Promise<SlotDTO[]> => new Promise((res) => {
     const mock = [
         {
             "id": 12441,
-            "start": "2024-05-21T16:30:00",
-            "end": "2024-05-21T17:30:00",
+            "start": "2024-08-07T16:30:00",
+            "end": "2024-08-07T17:30:00",
             "available": true
         },
         {
             "id": 1231,
-            "start": "2024-05-29T15:30:00",
-            "end": "2024-05-29T16:30:00",
+            "start": "2024-08-08T15:30:00",
+            "end": "2024-08-08T16:30:00",
             "available": true
         },
         {

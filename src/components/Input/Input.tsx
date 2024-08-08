@@ -7,6 +7,10 @@ import Chip from "../Tag/Tag";
 import validation from "../../helpers/improovedValidation";
 // Styles
 import styles from "./Input.module.scss";
+import {Collapse} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import {StyledFeedbackWrapper} from "../_form/FormInputSwitcher/FormInputSwitcher.styles";
+import InputFeedback from "../_form/InputFeedback/InputFeedback";
 
 interface InputProps {
   id: string;
@@ -156,7 +160,11 @@ const Input = (props: InputProps) => {
           </div>
         )}
       </label>
-      {/* <span className={styles.inputError}>{errorMessage}</span> */}
+      <Collapse in={!!errorMessage}>
+          <StyledFeedbackWrapper>
+              {errorMessage && (<InputFeedback message={errorMessage} severity='error'/>)}
+          </StyledFeedbackWrapper>
+      </Collapse>
       {textMaxLength && typeof value === "string" ? (
         <span className={styles.textMaxLength}>
           Pozostało {Math.max(0, textMaxLength - value.length)} znaków

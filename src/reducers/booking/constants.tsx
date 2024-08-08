@@ -15,4 +15,5 @@ export const bookingInitialState: BookingState = {
   inviteTeam: false,
   teamMembers: [],
   consents: false,
+  slotsError: "",
 };

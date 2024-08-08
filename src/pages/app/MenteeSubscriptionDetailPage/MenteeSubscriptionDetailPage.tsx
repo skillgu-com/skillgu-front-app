@@ -1,27 +1,54 @@
-import React, {FC} from "react";
+import React, {FC, useCallback, useRef, useState} from "react";
 import {ServiceMentoringOptionCard} from "../../../components/Cards/ServiceMentoringOptionCard";
-import {Button} from "@mui/material";
 
-import {Link, useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import Container from "src/components/Container/Container";
 
-import {Calendar} from "../BookSession/components";
+import {Actions, Team, UserDetails} from "../BookSession/components";
 import {useQuery} from "@tanstack/react-query";
 import getSubscriptionService, {
     getSubscriptionServiceKeyGenerator
 } from "@services/subscription/getSubscription.service";
 import Box from "@mui/material/Box";
-import styles from "../BookSession/BookSession.module.scss";
-import Arrow from "@icons/Arrow";
 import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
 import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.module.scss";
 import {Tag} from "@customTypes/tags";
 import {getMentorProfileByID, getMentorProfileByIDKeyGenerator} from "@services/mentor/fetchMentorServices.service";
 import SelectedSlotsCounter from "../../../components/SelectedSlotsCounter/SelectedSlotsCounter";
+import FAQ from "../../../components/FAQ/Accordion/Accordion";
+import {faqRows} from "../BookSession/config";
+import getMentorAvailabilityByMentorIdService, {
+    getMentorAvailabilityByMeetingIdServiceKeyGenerator
+} from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
+import {useBookingReducer} from "../../../reducers/booking";
+import WeeklyCalendarPicker, {
+    CalendarEvent,
+    ExtendedEvent
+} from "../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
+import {endOfWeek, startOfWeek} from "date-fns";
+import {Slot} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
+import Typography from "@mui/material/Typography";
 
+
+const calculateWeekRange = (date: Date) => {
+    return {from: startOfWeek(date, {weekStartsOn: 1}), to: endOfWeek(date, {weekStartsOn: 1})}
+}
+
+const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
+    return slots.map(({start, end, id, title, available}) => ({
+        id,
+        start,
+        end,
+        title,
+        available,
+        allDay: true,
+    }));
+}
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+const phoneRegex = /^.{9,}$/;
 
 const MenteeSubscriptionDetailPage: FC = () => {
-
+    const mainRef = useRef<HTMLElement>(null);
     const {subscriptionId} = useParams() as { subscriptionId: string };
 
     const {data: subscriptionData} = useQuery({
@@ -37,26 +64,84 @@ const MenteeSubscriptionDetailPage: FC = () => {
         enabled: !!subscriptionData?.mentorId,
     });
 
-    // TODO: fetch mentor free slots based on mentorId from subscription data (getMentorAvailabilityByMentorIdService)
-    // A:
-    // 1. subscription data should contain mentor id, and info about billing period
-    //      - why not just mentor free slots? because we neet to display calendar with multiple pages,
-    //      so every page should fetch mentor free slots separately
-    // 2. subscription data should contain integer representing number of time slots to use by mentee in the billing period
-    // 3. subscription data should contain integer representing number of the remaining time slots in current billing period
-    // summary: more work needed, but it's final solution
+    const [bookingState, dispatchBookingAction] = useBookingReducer();
 
-    // B:
-    // 1. subscription data should contain mentor free slots until the end of billing period,
-    // there is no possibility to book a slot in the next billing period
-    // 2. subscription data should contain integer representing time slots count to use by mentee in current billing period
-    // summary: easier to implement, but less user friendly
+    const isSlotsLimitReached = useCallback((selectedSlotsLength: number) => subscriptionData?.availableSessionSlots && selectedSlotsLength >= subscriptionData?.availableSessionSlots, [subscriptionData]);
 
-    // both A and B:
-    // 1. subscription data should contain selected mentorship option data required for mentorship card
+    const onEventClick = (event: CalendarEvent) => {
+        const prevState = bookingState.slots;
+        let slots = [];
 
-    // TODO: state for store selected slots
-    // TODO: Provider for pass selected slots to the 'Selected slots card' to avoid unnecessary rerenders
+        if (isSlotsLimitReached(prevState.length)) return;
+        if (prevState.some(({id}) => id === event.id)) {
+            slots = prevState.filter(({id}) => id !== event.id);
+        } else {
+            slots = [...prevState, {date: event.start, id: event.id}];
+        }
+
+        dispatchBookingAction({type: 'SLOTS_SELECT', payload: {slots}})
+    }
+
+    const [visibleWeekRange, setVisibleWeekRange] = useState<{
+        from: Date,
+        to: Date
+    }>(calculateWeekRange(new Date()));
+
+    const onCalendarNavigate = (date: Date) => {
+        setVisibleWeekRange(calculateWeekRange(date));
+    }
+
+    const {data: mentorAvailabilitySlots} = useQuery({
+        // subscriptionData will be defined, it's checked in the enabled property
+        queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(subscriptionData?.mentorId!, visibleWeekRange),
+        // subscriptionData will be defined, it's checked in the enabled property
+        queryFn: () => getMentorAvailabilityByMentorIdService(subscriptionData?.mentorId!, visibleWeekRange),
+        enabled: !!subscriptionData?.mentorId,
+    });
+
+
+    const validate = () => {
+        // TODO if needed move that validation to src/pages/app/BookSession/components/Actions/Actions.tsx
+        let isValid = true;
+
+        if (!bookingState.customerEmail) {
+            dispatchBookingAction({type: 'SET_EMAIL', payload: {customerEmailError: 'Email jest wymagany'}})
+            isValid = false;
+        } else if (!emailRegex.test(bookingState.customerEmail)) {
+            dispatchBookingAction({type: 'SET_EMAIL', payload: {customerEmailError: 'Email jest niepoprawny'}})
+            isValid = false;
+        }
+
+
+        if (!bookingState.customerPhone) {
+            dispatchBookingAction({type: 'SET_PHONE', payload: {customerPhoneError: 'Numer telefonu jest wymagany'}})
+            isValid = false;
+        } else if (!phoneRegex.test(bookingState.customerPhone)) {
+            dispatchBookingAction({type: 'SET_PHONE', payload: {customerPhoneError: 'Numer telefonu jest niepoprawny'}})
+            isValid = false;
+        }
+
+        if (!bookingState.customerMessage) {
+            dispatchBookingAction({type: 'SET_MESSAGE', payload: {customerMessageError: 'Wiadomość jest wymagana'}})
+            isValid = false;
+        }
+
+        if (bookingState.slots.length !== subscriptionData?.availableSessionSlots) {
+            dispatchBookingAction({type: 'SLOTS_ERROR', payload: {slotsError: 'Wybierz wszystkie dostępne sloty'}})
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    const onSubmit = () => {
+        const isValid = validate();
+        if (isValid) {
+            alert({email: bookingState.customerEmail, phone: bookingState.customerPhone, topic: bookingState.customerMessage})
+        } else if (mainRef.current) {
+            mainRef.current.scrollIntoView({behavior: 'smooth', inline: 'start', block: 'start'});
+        }
+    }
 
     return (
         <Container as={Tag.Div}>
@@ -64,16 +149,22 @@ const MenteeSubscriptionDetailPage: FC = () => {
                 <NavigateBackButton/>
             </Box>
             <div className={sharedStyles.wrapper}>
-                <main className={sharedStyles.main}>
-                    <div>Calendar [refactor of 'BookSession/Calendar' component, to make it reusable, or just write new
-                        one *TBD*]
-                    </div>
-                    <div>UserDetail [look on Actions desc]</div>
-                    <div>Team [look on Actions desc]</div>
-                    <div>Actions [use existing components, but refactor it firstly or find way to reuse/share redux
-                        store]
-                    </div>
-                    <div>FAQ [use existing FAQ component]</div>
+                <main ref={mainRef} className={sharedStyles.main}>
+                    <Typography variant='subtitle2'>Wybierz terminy i godziny zajęć w ramach mentoringu</Typography>
+                    <section>
+                        <WeeklyCalendarPicker
+                            onEventClick={onEventClick}
+                            onNavigate={onCalendarNavigate}
+                            events={parseSlotsToCalendarEvents(mentorAvailabilitySlots || [])}
+                            selectedEventsId={bookingState.slots ? bookingState.slots.map(({id}) => id) : null}
+                        />
+                        <div className={sharedStyles.formWrapper}>
+                            <UserDetails/>
+                            <Team/>
+                        </div>
+                        <Actions onSubmit={onSubmit}/>
+                        <FAQ title="FAQ" elements={faqRows}/>
+                    </section>
                 </main>
                 <aside>
                     {subscriptionData && (
@@ -99,7 +190,11 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             selected
                         />
                     )}
-                    <SelectedSlotsCounter selectedSlots={[ new Date()]} slotsToSelect={4} />
+                    <SelectedSlotsCounter
+                        selectedSlots={bookingState.slots.map(({date}) => date)}
+                        slotsToSelect={subscriptionData?.availableSessionSlots || 0}
+                        errorMessage={bookingState.slotsError}
+                    />
                 </aside>
             </div>
         </Container>

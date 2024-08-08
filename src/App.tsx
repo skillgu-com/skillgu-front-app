@@ -22,6 +22,7 @@ import {pl} from 'date-fns/locale/pl';
 import globalStylesOverride from "./styles/globalStylesOverride";
 import AuthLayout from "./components/_layouts/AuthLayout/AuthLayout";
 import SimpleLayout from "./components/SimpleLayout/SimpleLayout";
+import LocationChangeListener from "./components/LocationChangeListener/LocationChangeListener";
 
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
@@ -55,6 +56,7 @@ function App() {
                     <ConfirmationModalProvider>
                         <SnackbarProvider maxSnack={3} style={{fontSize: '14px'}}>
                             <BrowserRouter>
+                                <LocationChangeListener />
                                 <AuthContextProvider>
                                     <Elements stripe={stripePromise}>
                                         <Routes>

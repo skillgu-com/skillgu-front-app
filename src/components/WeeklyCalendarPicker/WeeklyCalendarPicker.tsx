@@ -2,7 +2,13 @@ import React, {FC} from "react";
 import styles from "../../pages/app/BookSession/components/Calendar/BookForm.module.scss";
 import {Calendar as ReactCalendar, momentLocalizer} from "react-big-calendar";
 import moment from "moment";
+import {get} from "react-hook-form";
 
+moment.updateLocale("pl", {
+    week: {
+        dow: 1,
+    },
+});
 
 const localizer = momentLocalizer(moment);
 
@@ -19,13 +25,13 @@ export type ExtendedEvent = CalendarEvent & {
 }
 
 type Props = {
-    selectedEventId: number | null;
-    events: CalendarEvent[];
+    selectedEventsId: number[] | null;
+    events: (CalendarEvent | ExtendedEvent)[];
     onEventClick: (event: CalendarEvent) => void;
     onNavigate?: (date: Date) => void;
 }
 
-const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventId, onEventClick, onNavigate}) => {
+const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventsId, onEventClick, onNavigate}) => {
 
     return (
         <section className={styles.wrapper}>
@@ -47,18 +53,18 @@ const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventId, onEventClick,
                   </span>
                                 <small>
                                     {date.getDate()}{" "}
-                                    {date.toLocaleString("default", {month: "long"})}
+                                    {date.toLocaleString("pl-PL", {month: "long"})}
                                 </small>
                             </p>
                         );
                     },
                     eventWrapper: ({event}) => {
-                        const {available} = event as ExtendedEvent;
+                        const available = get(event, "available", false);
 
                         return (
                             <button
                                 disabled={!available}
-                                data-is-current={event.id === selectedEventId}
+                                data-is-current={selectedEventsId?.includes(event.id)}
                                 className={styles.hour}
                                 onClick={() => onEventClick(event)}
                             >

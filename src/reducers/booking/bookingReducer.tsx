@@ -1,5 +1,6 @@
 import { bookingInitialState } from "./constants";
 import { type BookingAction, type BookingState } from "./types";
+import {get} from "react-hook-form";
 
 export const bookingReducer = (
   state = bookingInitialState,
@@ -22,31 +23,71 @@ export const bookingReducer = (
         calendarFirstDay:
           action.payload.calendarFirstDay || state.calendarFirstDay || "",
       };
-    case "SET_SLOTS":
+    case "SLOTS_SELECT":
       return {
         ...state,
         slots: action.payload.slots,
+        slotsError: "",
       };
-    case "SELECT_SLOT":
+    case "SLOTS_ERROR":
       return {
         ...state,
-        selectedDate: action.payload.selectedDate,
+        slotsError: action.payload.slotsError,
       };
-    case "SET_EMAIL":
-      return {
-        ...state,
-        customerEmail: action.payload.customerEmail,
-      };
-    case "SET_PHONE":
-      return {
-        ...state,
-        customerPhone: action.payload.customerPhone,
-      };
-    case "SET_MESSAGE":
-      return {
-        ...state,
-        customerMessage: action.payload.customerMessage,
-      };
+    case "SET_EMAIL": {
+      const customerEmail = get(action.payload, "customerEmail", null);
+      if(customerEmail) {
+        return {
+          ...state,
+          customerEmail,
+          customerEmailError: "",
+        };
+      }
+      const customerEmailError = get(action.payload, "customerEmailError", null);
+      if(customerEmailError) {
+        return {
+          ...state,
+          customerEmailError,
+        };
+      }
+      return state;
+    }
+    case "SET_PHONE": {
+      const customerPhone = get(action.payload, "customerPhone", null);
+      if(customerPhone) {
+        return {
+          ...state,
+          customerPhone,
+          customerPhoneError: "",
+        };
+      }
+      const customerPhoneError = get(action.payload, "customerPhoneError", null);
+      if(customerPhoneError) {
+        return {
+          ...state,
+          customerPhoneError,
+        };
+      }
+      return state;
+    }
+    case "SET_MESSAGE": {
+      const customerMessage = get(action.payload, "customerMessage", null);
+      if(customerMessage) {
+        return {
+          ...state,
+          customerMessage,
+          customerMessageError: "",
+        };
+      }
+      const customerMessageError = get(action.payload, "customerMessageError", null);
+      if(customerMessageError) {
+        return {
+          ...state,
+          customerMessageError,
+        };
+      }
+      return state;
+    }
     case "SWITCH_CONSENTS":
       return {
         ...state,
@@ -62,7 +103,8 @@ export const bookingReducer = (
         ...state,
         teamMembers: action.payload.teamMembers,
       };
-
+    case "RESET_STATE":
+      return bookingInitialState;
     default:
       return state;
   }

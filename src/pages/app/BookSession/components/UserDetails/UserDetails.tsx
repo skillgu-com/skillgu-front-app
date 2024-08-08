@@ -21,7 +21,7 @@ export const UserDetails = () => {
           valueChangeHandler={(name, value) =>
             dispatch({
               type: "SET_EMAIL",
-              payload: { customerEmail: value.value, customerEmailError: "" },
+              payload: { customerEmail: value.value },
             })
           }
         />
@@ -37,7 +37,7 @@ export const UserDetails = () => {
           valueChangeHandler={(name, value) =>
             dispatch({
               type: "SET_PHONE",
-              payload: { customerPhone: value.value, customerPhoneError: "" },
+              payload: { customerPhone: value.value },
             })
           }
         />
@@ -57,7 +57,6 @@ export const UserDetails = () => {
               type: "SET_MESSAGE",
               payload: {
                 customerMessage: value.value.slice(0, 500),
-                customerMessageError: "",
               },
             })
           }

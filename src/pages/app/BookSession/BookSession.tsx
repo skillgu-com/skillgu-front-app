@@ -1,6 +1,6 @@
 // Libraries
 import React, {useEffect, useRef, useState} from "react";
-import {Link, Path, useLocation} from "react-router-dom";
+import {Link, Path, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 // Components
 import {Actions, Calendar, SelectedDate, SelectedService, Team, UserDetails,} from "./components";
@@ -119,6 +119,12 @@ const BookSession = ({payment}: BookSessionProps) => {
         }
     }, [dispatch]);
 
+
+    const navigate = useNavigate();
+    const onSubmit = () => {
+        navigate(`/session-book/1/payment`);
+    }
+
     return (
         <>
             {!payment ? <Container as={Tag.Div}>
@@ -153,7 +159,7 @@ const BookSession = ({payment}: BookSessionProps) => {
                                         <Team/>
                                     </div>
                                 </div>
-                                <Actions/>
+                                <Actions onSubmit={onSubmit}/>
                             </section>
                         )}
 

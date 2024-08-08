@@ -79,9 +79,10 @@ const MenteeSubscriptionDetailPage: FC = () => {
             slots = prevState.filter(({id}) => id !== event.id);
         } else {
             if (isSlotsLimitReached(prevState.length)) {
+                // Limit reached
                 enqueueSnackbar('Osiągnięto limit wybranych slotów', {variant: 'warning'});
                 return;
-            };
+            }
             // Adding
             slots = [...prevState, {date: event.start, id: event.id}];
         }

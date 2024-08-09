@@ -18,24 +18,11 @@ import SelectedSlotsCounter from "src/components/SelectedSlotsCounter/SelectedSl
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import {faqRows} from "../BookSession/config";
 import {useBookingReducer} from "src/reducers/booking";
-import WeeklyCalendarPicker, {
-    ExtendedEvent
-} from "src/components/WeeklyCalendarPicker/WeeklyCalendarPicker";
-import {Slot} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
+import WeeklyCalendarPicker from "src/components/WeeklyCalendarPicker/WeeklyCalendarPicker";
 import Typography from "@mui/material/Typography";
 import useCalendarLogic from "./_logic/useCalendarLogic";
 import useUserInputLogic from "./_logic/useUserInputLogic";
 
-const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
-    return slots.map(({start, end, id, title, available}) => ({
-        id,
-        start,
-        end,
-        title,
-        available,
-        allDay: true,
-    }));
-}
 
 const MenteeSubscriptionDetailPage: FC = () => {
     const {subscriptionId} = useParams() as { subscriptionId: string };
@@ -75,7 +62,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                         <WeeklyCalendarPicker
                             onEventClick={onEventClick}
                             onNavigate={onCalendarNavigate}
-                            events={parseSlotsToCalendarEvents(mentorAvailabilitySlots)}
+                            events={mentorAvailabilitySlots}
                             selectedEventsId={bookingState.slots ? bookingState.slots.map(({id}) => id) : null}
                         />
                         <div className={sharedStyles.formWrapper}>

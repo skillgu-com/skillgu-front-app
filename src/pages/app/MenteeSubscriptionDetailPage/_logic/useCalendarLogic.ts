@@ -4,9 +4,21 @@ import getMentorAvailabilityByMentorIdService, {
     getMentorAvailabilityByMeetingIdServiceKeyGenerator
 } from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
 import {endOfWeek, startOfWeek} from "date-fns";
+import {Slot} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
+import {ExtendedEvent} from "src/components/WeeklyCalendarPicker/WeeklyCalendarPicker";
 
 const calculateWeekRange = (date: Date) => {
     return {from: startOfWeek(date, {weekStartsOn: 1}), to: endOfWeek(date, {weekStartsOn: 1})}
+}
+const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
+    return slots.map(({start, end, id, title, available}) => ({
+        id,
+        start,
+        end,
+        title,
+        available,
+        allDay: true,
+    }));
 }
 
 const useCalendarLogic = (mentorId?: string) => {
@@ -28,7 +40,7 @@ const useCalendarLogic = (mentorId?: string) => {
         enabled: !!mentorId,
     });
 
-    return { onCalendarNavigate, mentorAvailabilitySlots: mentorAvailabilitySlots || []}
+    return { onCalendarNavigate, mentorAvailabilitySlots: parseSlotsToCalendarEvents(mentorAvailabilitySlots || [])}
 }
 
 export default useCalendarLogic;

@@ -32,14 +32,6 @@ export type MentorhsipPlanType = {
   planIncludes: string[];
 };
 
-// export type ServiceSession = {
-//     id: string
-//     title: string
-//     descriptionHtml: string
-//     price: number
-//     durationMinutes: number
-// }
-
 export type ServiceMentoring = {
   id: string;
   title: string;
@@ -75,8 +67,4 @@ export interface MentorshipPlan {
   responseTimeHours: number;
   providesMaterials: boolean;
   mentoringDescription: string;
-}
-export interface LocationState {
-  opt: ServiceSession;
-  from: string;
 }

@@ -70,8 +70,10 @@ export const MentorProfilePage = () => {
 
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
         navigate(`/mentorship/${opt.id}/application`);
+    };
 
-        console.log("ORDER Mentoring, ", opt);
+    const handleSubmitSession = (opt: ServiceSession) => {
+        navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
     };
     const handleSelectMentoring = (opt: MentorshipPlan) => setMentoring(opt);
 
@@ -85,9 +87,6 @@ export const MentorProfilePage = () => {
 
     const closePopup = () => setPopupSession(null);
 
-    const handleSubmitSession = (opt: ServiceSession) => {
-        navigate(`/session-book/${opt.id}`, {state: {opt, from: location?.pathname}});
-    };
 
     // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
     // useEffect(() => {

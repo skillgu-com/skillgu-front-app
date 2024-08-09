@@ -1,7 +1,7 @@
 import React, {FC, useCallback, useRef, useState} from "react";
 import {ServiceMentoringOptionCard} from "../../../components/Cards/ServiceMentoringOptionCard";
 
-import { useParams} from "react-router-dom";
+import {Path, useLocation, useParams} from "react-router-dom";
 import Container from "src/components/Container/Container";
 
 import {Actions, Team, UserDetails} from "../BookSession/components";
@@ -13,7 +13,11 @@ import Box from "@mui/material/Box";
 import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
 import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.module.scss";
 import {Tag} from "@customTypes/tags";
-import {getMentorProfileByID, getMentorProfileByIDKeyGenerator} from "@services/mentor/fetchMentorServices.service";
+import {
+    DescriptionRowDTO,
+    getMentorProfileByID,
+    getMentorProfileByIDKeyGenerator
+} from "@services/mentor/fetchMentorServices.service";
 import SelectedSlotsCounter from "../../../components/SelectedSlotsCounter/SelectedSlotsCounter";
 import FAQ from "../../../components/FAQ/Accordion/Accordion";
 import {faqRows} from "../BookSession/config";
@@ -26,14 +30,22 @@ import WeeklyCalendarPicker, {
     ExtendedEvent
 } from "../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
 import {endOfWeek, startOfWeek} from "date-fns";
-import {Slot} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
+import {Slot, SlotDTO} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
 import Typography from "@mui/material/Typography";
 import {useSnackbar} from "notistack";
+import {MentorshipPlan} from "@customTypes/order";
 
 
 const calculateWeekRange = (date: Date) => {
     return {from: startOfWeek(date, {weekStartsOn: 1}), to: endOfWeek(date, {weekStartsOn: 1})}
 }
+
+type LocationStateTypes = {
+    opt: MentorshipPlan;
+    from: Path
+}
+
+
 
 const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
     return slots.map(({start, end, id, title, available}) => ({
@@ -48,15 +60,18 @@ const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
 const phoneRegex = /^.{9,}$/;
 
+
 const MenteeSubscriptionDetailPage: FC = () => {
     const mainRef = useRef<HTMLElement>(null);
     const {subscriptionId} = useParams() as { subscriptionId: string };
-    const { enqueueSnackbar } = useSnackbar();
+    const {enqueueSnackbar} = useSnackbar();
+
 
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
         queryFn: () => getSubscriptionService(subscriptionId),
     });
+
 
     const {data: mentorData} = useQuery({
         // subscriptionData will be defined, it's checked in the enabled property
@@ -67,6 +82,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
     });
 
     const [bookingState, dispatchBookingAction] = useBookingReducer();
+
 
     const isSlotsLimitReached = useCallback((selectedSlotsLength: number) => subscriptionData?.availableSessionSlots && selectedSlotsLength >= subscriptionData?.availableSessionSlots, [subscriptionData]);
 
@@ -111,6 +127,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
     const validate = () => {
         // TODO if needed move that validation to src/pages/app/BookSession/components/Actions/Actions.tsx
         let isValid = true;
+        dispatchBookingAction({type: 'UPDATE_MENTORSHIP_ID', payload: {mentorshipId: subscriptionData?.mentorshipPlan?.id || "",},});
 
         if (!bookingState.customerEmail) {
             dispatchBookingAction({type: 'SET_EMAIL', payload: {customerEmailError: 'Email jest wymagany'}})

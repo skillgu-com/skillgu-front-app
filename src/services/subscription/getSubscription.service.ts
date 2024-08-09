@@ -9,9 +9,9 @@ const axiosMock = {
             mentorId: '1',
             mentorshipPlan: {
                 id: '1',
-                title: 'Testowy mentorszip',
+                title: 'Testowy Margot',
                 subtitle: 'Zrobie wszystko co tylko zechcesz',
-                price: 100,
+                price: 666,
                 variant: 'classic',
                 descriptionRows: [
                     {description: 'Lorem ipsum, ut labore et dolore magna aliqua.'},

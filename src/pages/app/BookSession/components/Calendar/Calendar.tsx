@@ -13,7 +13,7 @@ import styles from "./BookForm.module.scss";
 // Types
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { ServiceSession } from "@customTypes/order";
-import { fetchCalendarSession } from "@services/calendar/calendarService";
+import {fetchCalendarMentorship, fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {
   CalendarEvent,
 } from "../../../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
@@ -34,9 +34,6 @@ export const Calendar = (props: BookFormProps) => {
 
   const locationState = location.state as LocationStateType;
   const sessionData = locationState.opt;
-
-  console.log('sessionData',sessionData)
-  console.log('locationState',locationState)
 
   const [currentEvent, setCurrentEvent] = useState<null | number>(null);
   // TODO is it necessary to use state here (value is unused)?

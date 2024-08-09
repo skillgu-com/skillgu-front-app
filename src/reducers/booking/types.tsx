@@ -30,7 +30,8 @@ export type BookingState = {
   teamMembers: { fullName: string, email: string }[]
   consents: boolean
   slots: { date: Date, id: number }[]
-  slotsError: string
+  slotsError: string,
+  mentorshipId: string
 };
 
 export type BookingAction = 
@@ -45,4 +46,5 @@ export type BookingAction =
 { type: 'SWITCH_CONSENTS', payload?: Pick<BookingState, 'consents'> }  |
 { type: 'SWITCH_INVITE_TEAM', payload?: Pick<BookingState, 'inviteTeam'> }  |
 { type: 'UPDATE_TEAM_MEMBERS', payload: Pick<BookingState, 'teamMembers'> } |
+{ type: 'UPDATE_MENTORSHIP_ID', payload: Pick<BookingState, 'mentorshipId'> } |
 { type: 'RESET_STATE' }

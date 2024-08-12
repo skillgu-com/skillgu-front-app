@@ -21,7 +21,6 @@ type Props = {
 
 export const Connected = ({price, error, handleCreateAccountLink}: Props) => {
 
-    console.log('jestem w Connected i price wynosi: ', price)
     const formattedPrice = price
         ? (price / 100).toLocaleString("pl-PL", {
             minimumFractionDigits: 2,

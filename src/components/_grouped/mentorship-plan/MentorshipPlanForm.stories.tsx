@@ -40,7 +40,7 @@ export const Basic: Story = {
     values: {
       description: "",
       price: 119,
-      sessionDuration: 45,
+      sessionDuration: 100,
       sessionsPerMonth: 3,
       responseTime: 72,
       planIncludes: [
@@ -72,7 +72,7 @@ export const Selected: Story = {
     values: {
       description: "",
       price: 119,
-      sessionDuration: 45,
+      sessionDuration: 100,
       sessionsPerMonth: 3,
       responseTime: 72,
       planIncludes: [

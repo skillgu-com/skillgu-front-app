@@ -12,6 +12,7 @@ import {fetchMentoringOffer} from "@services/offer/fetchMentoringOffer";
 
 export const CreateMentoringOffer = () => {
     const [initialPending, setInitialPending] = useState<boolean>(true);
+    const [schedulesData, setSchedulesData] = useState([]); // State to hold the schedule data
     const {
         createOfferState: state,
         reset,
@@ -37,9 +38,12 @@ export const CreateMentoringOffer = () => {
                         return {
                             value: d.id,
                             label: d.scheduleName,
+                            meetTime: d.meetTime,
+                            participant: d.participant
                         };
                     });
                     loadSchedules(parsed);
+                    // setSchedulesData(parsed); // Also set the data in the local state
                 }
                 if (resOffers.success) {
                     loadOffers(resOffers.data);
@@ -60,6 +64,7 @@ export const CreateMentoringOffer = () => {
             setInitialPending(false);
         }
     }, [state.fetchedInitial, loadSchedules, setPending, setInitialPending, updateStatus, loadOffers]);
+
 
     return (
         <main className={styles.main}>

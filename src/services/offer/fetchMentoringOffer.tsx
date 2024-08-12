@@ -16,9 +16,9 @@ type Response = { data: OutputData, success: true } | { success: false, errorMes
 export const fetchMentoringOffer = async (mentorId: any): Promise<Response> => {
     try {
         const response = await axios.post(`/api/mentorship/${mentorId}/fetch/mentorship-plans`);
-
         if (response.status === 200) {
             const mentoringData = response.data.data;
+
             return {
                 success: true,
                 data: {

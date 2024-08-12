@@ -69,7 +69,7 @@ export const createScheduleMeeting = async (currentState: ScheduleFormInputT) =>
 
 export const fetchAllSchedules = async () => {
     // TODO type response tightly and eventually parse it
-    return await axios.get<{ id: number, scheduleName: string }[]>('/api/1.0/schedule/fetch-all');
+    return await axios.get<{ id: number, scheduleName: string, meetTime: number, participant: number }[]>('/api/1.0/schedule/fetch-all')
 }
 
 export const deleteSchedule = async (scheduleID: string) => {

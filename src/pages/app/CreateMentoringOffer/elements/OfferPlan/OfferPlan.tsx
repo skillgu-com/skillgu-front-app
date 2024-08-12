@@ -1,24 +1,11 @@
-import Container from "src/components/Container/Container";
 import React from "react";
-import { Tag } from "@customTypes/tags";
 import styles from "../../CreateMentoringOffer.module.scss";
-import { PlanInput } from "@customTypes/create-mentoring";
-import { ListStyleIcon } from "@icons/ListStyleIcon";
-import DropdownIcon from "@icons/DropdownIcon";
-import { ProPlanIcon } from "@icons/ProPlanIcon";
-import Add from "@icons/Add";
-import { Dropdown } from "src/components/_grouped/dropdown";
-import { useForm } from "react-hook-form";
-import { responseTimeOptions, sessionDurationOptions } from "../../config";
-import { MentorshipPlanForm } from "src/components/_grouped/mentorship-plan";
-import { SubscriptionPlan } from "@customTypes/order";
-import { useCreateOfferReducer } from "src/reducers/createOffer";
-import { Select } from "../../form/select";
-import { ScheduleOption } from "src/reducers/createOffer/types";
-import {
-  MentorshipPlanFormChangeProp,
-  MentorshipPlanFormErrors,
-} from "src/components/_grouped/mentorship-plan/types";
+import {MentorshipPlanForm} from "src/components/_grouped/mentorship-plan";
+import {SubscriptionPlan} from "@customTypes/order";
+import {useCreateOfferReducer} from "src/reducers/createOffer";
+import {Select} from "../../form/select";
+import {ScheduleOption} from "src/reducers/createOffer/types";
+import {MentorshipPlanFormChangeProp, MentorshipPlanFormErrors,} from "src/components/_grouped/mentorship-plan/types";
 
 type Props = {
   plan: SubscriptionPlan;

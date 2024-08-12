@@ -29,6 +29,7 @@ import { parseNameAndIndex } from "./utils";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { BinIcon } from "@icons/BinIcon";
+import {useCreateOfferReducer} from "../../../reducers/createOffer";
 
 type Props = {
   subscriptionVariant: SubscriptionPlan;
@@ -47,17 +48,23 @@ type Props = {
 const checkIcon = <CheckCircleSolidIcon className={styles.checkIcon} />;
 
 export const MentorshipPlanForm = ({
-  subscriptionVariant,
-  values,
-  errors,
-  touched,
-  selected,
-  handleClick,
-  handleBlur,
-  handleChange,
-  handleRemove,
-  setValues,
+                                     subscriptionVariant,
+                                     values,
+                                     errors,
+                                     touched,
+                                     selected,
+                                     handleClick,
+                                     handleBlur,
+                                     handleChange,
+                                     handleRemove,
+                                     setValues,
 }: Props) => {
+
+
+  const { createOfferState } = useCreateOfferReducer();
+
+  console.log(createOfferState.availableSchedules)
+
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
     null
   );

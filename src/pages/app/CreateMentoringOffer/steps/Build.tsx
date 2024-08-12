@@ -21,7 +21,6 @@ export const Build = () => {
 
   const validMsg = getStateErrorMessage(valid);
 
-
   const addPlan = () => {
     const newData: Data = {
       saved: state.saved,

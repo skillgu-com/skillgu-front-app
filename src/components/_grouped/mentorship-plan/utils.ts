@@ -28,7 +28,7 @@ export const initialTouched: MentorshipPlanFormTouched = {
 export const defaultPlanValues: MentorshipPlanFormValues = {
   description: "",
   price: 159,
-  sessionDuration: 45,
+  sessionDuration: 15,
   responseTime: 48,
   sessionsPerMonth: 3,
   planIncludes: [
@@ -50,7 +50,7 @@ export const getDefaultPlanValues = (plan?: SubscriptionPlan) => {
   if (plan === "pro") {
     defaultValues.price = 300;
     defaultValues.responseTime = 24;
-    defaultValues.sessionDuration = 60;
+    defaultValues.sessionDuration = 75;
     defaultValues.sessionsPerMonth = 4;
   }
   return { ...defaultValues };

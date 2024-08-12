@@ -36,7 +36,7 @@ export const Basic: Story = {
     subscriptionVariant: 'pro',
     description: '',
     price: 119,
-    sessionDuration: 45,
+    sessionDuration: 70,
     sessionsPerMonth: 3,
     responseTime: 72,
     planIncludes: [
@@ -48,34 +48,13 @@ export const Basic: Story = {
   },
 };
 
-// export const Pro: Story = {
-//   args: {
-//     variant: 'danger',
-//     text: 'Nieaktywny',
-//   },
-// };
-
-// export const WithDetailsAndAdditional: Story = {
-//   args: {
-//     variant: 'warning',
-//     text: 'W trakcie',
-//   },
-// };
-
-// export const WithUserIdentity: Story = {
-//   args: {
-//     variant: 'warning',
-//     text: 'W trakcie',
-//   },
-// };
-
 export const WithUserIdentity: Story = {
   args: {
     id: 1,
     subscriptionVariant: 'pro',
     description: '',
     price: 119,
-    sessionDuration: 45,
+    sessionDuration: 90,
     sessionsPerMonth: 3,
     responseTime: 72,
     planIncludes: [

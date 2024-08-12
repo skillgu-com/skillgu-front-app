@@ -81,8 +81,6 @@ export const StudentMentors = ({ title }: Props) => {
       fetchData();
     }
   }, []);
-   console.log('data tutaj testuje !',data?.mentors[1]?.scheduleSet)
-
   const settings = useMemo(() => {
     return {
       dots: true,

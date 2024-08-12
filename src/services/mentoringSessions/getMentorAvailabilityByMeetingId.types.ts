@@ -17,3 +17,10 @@ export type Slot = {
     end: Date,
     available: boolean
 }
+
+export type SessionCalendarEventResponse = {
+    calendarEventId: number;
+    sessionDate: string;
+    hour: string;
+    available: boolean;
+};

@@ -21,7 +21,7 @@ const parseSlotsToCalendarEvents = (slots: Slot[]): ExtendedEvent[] => {
     }));
 }
 
-const useCalendarLogic = (mentorId?: string) => {
+const useCalendarLogic = (mentorId?: string,subscriptionId? : string ) => {
 
     const [visibleWeekRange, setVisibleWeekRange] = useState<{
         from: Date,
@@ -36,7 +36,7 @@ const useCalendarLogic = (mentorId?: string) => {
         // subscriptionData will be defined, it's checked in the enabled property
         queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(mentorId!, visibleWeekRange),
         // subscriptionData will be defined, it's checked in the enabled property
-        queryFn: () => getMentorAvailabilityByMentorIdService(mentorId!, visibleWeekRange),
+        queryFn: () => getMentorAvailabilityByMentorIdService(mentorId!,subscriptionId!, visibleWeekRange),
         enabled: !!mentorId,
     });
 

@@ -45,7 +45,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
 
     const {data} = useQuery({
         queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(meetingId, queryParams),
-        queryFn: () => getMentorAvailabilityByMentorIdService(meetingId, queryParams)
+        queryFn: () => getMentorAvailabilityByMentorIdService(meetingId,sessionId, queryParams)
     })
     const location = useLocation();
     const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);

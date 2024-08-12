@@ -1,14 +1,14 @@
 import {Subscription, SubscriptionDTO} from "@services/subscription/subscription.types";
-import {AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
 import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 
 
 const axiosMock = {
     get: async <T>(url: string): Promise<AxiosResponse<T>> => {
         const returnData: SubscriptionDTO = {
-            mentorId: '1',
+            mentorId: '4',
             mentorshipPlan: {
-                id: '1',
+                id: '20',
                 title: 'Testowy Margot',
                 subtitle: 'Zrobie wszystko co tylko zechcesz',
                 price: 666,
@@ -29,10 +29,18 @@ const axiosMock = {
     },
 }
 
-const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
-    // TODO 1. use real API endpoint, 2. use real axios, 3. remove axiosMock
-    const {data} = await axiosMock.get<SubscriptionDTO>(`/api/1.0/subscriptions/${subscriptionId}`);
+// const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
+//     // TODO 1. use real API endpoint, 2. use real axios, 3. remove axiosMock
+//     // const {data} = await axiosMock.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+//     const test = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+//
+//     // console.log('test',test.data)
+//     return test.data;
+// }
 
+const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
+    const { data } = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+    console.log('Received data from API:', data);
     return data;
 }
 

@@ -26,6 +26,7 @@ import useUserInputLogic from "./_logic/useUserInputLogic";
 
 const MenteeSubscriptionDetailPage: FC = () => {
     const {subscriptionId} = useParams() as { subscriptionId: string };
+    const [bookingState] = useBookingReducer();
 
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
@@ -41,9 +42,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
         enabled: !!subscriptionData?.mentorId,
     });
 
-    const [bookingState] = useBookingReducer();
-
-    const {onCalendarNavigate, mentorAvailabilitySlots} = useCalendarLogic(subscriptionData?.mentorId);
+    const {onCalendarNavigate, mentorAvailabilitySlots} = useCalendarLogic(subscriptionData?.mentorId,subscriptionData?.mentorshipPlan.id);
 
     const {
         onSubmit,

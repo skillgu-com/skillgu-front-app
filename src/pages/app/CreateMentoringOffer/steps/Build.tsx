@@ -1,15 +1,14 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {useMemo, useState} from "react";
 import styles from "../CreateMentoringOffer.module.scss";
-import { useCreateOfferReducer } from "src/reducers/createOffer";
-import { CreateOfferTemplates } from "../CreateOfferTemplates";
-import Button, { ButtonVariant } from "src/components/Button/Button";
-import { RadioButton } from "../elements/RadioButton";
-import { OfferPlan } from "../elements/OfferPlan";
-import { SubscriptionPlan } from "@customTypes/order";
-import { PlanInput } from "@customTypes/create-mentoring";
-import { CreateOfferState, Data } from "src/reducers/createOffer/types";
-import { getStateErrorMessage, validateState } from "../utils";
-import { createOfferInitialState } from "src/reducers/createOffer/constants";
+import {useCreateOfferReducer} from "src/reducers/createOffer";
+import {CreateOfferTemplates} from "../CreateOfferTemplates";
+import Button, {ButtonVariant} from "src/components/Button/Button";
+import {RadioButton} from "../elements/RadioButton";
+import {OfferPlan} from "../elements/OfferPlan";
+import {SubscriptionPlan} from "@customTypes/order";
+import {Data} from "src/reducers/createOffer/types";
+import {getStateErrorMessage, validateState} from "../utils";
+import {createOfferInitialState} from "src/reducers/createOffer/constants";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -21,6 +20,7 @@ export const Build = () => {
   }, [state]);
 
   const validMsg = getStateErrorMessage(valid);
+
 
   const addPlan = () => {
     const newData: Data = {

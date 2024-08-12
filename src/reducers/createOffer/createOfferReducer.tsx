@@ -23,8 +23,7 @@ export const createOfferReducer = (
 ): CreateOfferState => {
   switch (action.type) {
     case "PREV_STEP":
-      return {
-        ...state,
+      return {...state,
         step: getPrevStep(state.step),
       };
     case "SUBMIT_INITIAL":

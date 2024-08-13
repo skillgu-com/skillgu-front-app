@@ -4,94 +4,113 @@
 $sidebar-bg: $colour-primary;
 $sidebar-text: $colour-base-200;
 
-.quickSidebar {
-  position: fixed;
-  top: $layout-topbar-height;
-  left: 0;
-  height: calc(100vh - $layout-topbar-height);
-  width: $layout-quick-sidebar-width;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $sidebar-bg;
-  z-index: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: 0;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (min-width: $sm) {
-    display: flex;
-  }
-}
-
 .fullSidebar {
+  --transition-base: 0.3s;
+
   position: fixed;
-  top: $layout-topbar-height;
-  left: 0;
-  height: calc(100vh - $layout-topbar-height);
+  height: 100vh;
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   background-color: $sidebar-bg;
-  z-index: 3;
-  overflow-y: auto;
-  transition: 0.2s;
+  z-index: 30;
+  transition: var(--transition-base);
+  left: 0;
+  top: 0;
+  max-width: $layout-quick-sidebar-width;
 
-  .top {
-    display: none;
-  }
-
-  &.fullSidebarOpen {
-    display: flex;
+  .logo {
+    height: $layout-topbar-height;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 0 24px;
+    cursor: pointer;
   }
 
   .list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     gap: 12px;
-    padding: 24px;
+    overflow: hidden;
+    padding: 24px 12px;
+    transition: var(--transition-base);
+  }
+
+  .topItems {
+    flex-grow: 1;
   }
 
   .btn {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 24px 1fr;
     width: 100%;
     gap: 12px;
+    padding-left: 17px;
+    transition: calc(var(--transition-base) * 0.5);
 
     span {
       text-align: left;
       font-size: 14px;
     }
-
-    svg {
-    }
   }
 
-  @media screen and (min-width: $sm) {
-    // background-color: blue;
-    max-width: $layout-full-sidebar-width;
-    position: fixed;
-    display: flex;
-    left: -$layout-full-sidebar-width;
+  @media screen and (max-width: $sm - 1) {
+    transform: translateX(-100%);
+  }
 
-    &.fullSidebarOpen {
-        left: 0;
+  &.fullSidebarOpen {
+    left: 0;
+    max-width: $layout-full-sidebar-width;
+
+    .list {
+      padding: 24px;
+    }
+
+    .btn {
+      padding-left: 8px;
+    }
+
+
+    @media screen and (max-width: $sm - 1) {
+      transform: translateX(0);
+      width: 100vw;
+      max-width: unset;
     }
   }
 }
 
-.list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 8px;
-  padding: 4px;
+.tooltip {
+  background-color: $sidebar-bg !important;
+  padding: 10px !important;
+}
+
+.tooltipArrow {
+  color: $sidebar-bg !important;
+}
+
+.hamburger {
+  opacity: 0;
+  transform: translateY(-300%);
+  transition: var(--transition-base);
+  pointer-events: none;
+
+  span {
+    background-color: $sidebar-text;
+  }
+}
+
+.fullSidebarOpen {
+  .hamburger {
+    pointer-events: auto;
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .btn {
@@ -136,24 +155,5 @@ $sidebar-text: $colour-base-200;
     color: $sidebar-text;
     height: 24px;
     width: 24px;
-  }
-}
-
-.shadow {
-  display: none;
-  transition: 0.2s;
-
-  &.isSidebarOpen {
-    display: block;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    content: "";
-    z-index: 1;
-
-    @media screen and (min-width: $lg) {
-      display: none;
-    }
   }
 }

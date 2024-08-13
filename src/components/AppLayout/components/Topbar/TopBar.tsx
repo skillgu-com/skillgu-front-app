@@ -6,8 +6,6 @@ import Notifications from "../Notifications/Notifications";
 import styles from "./Topbar.module.scss";
 import { useSelector } from "react-redux";
 import { fetchUserImageFile } from "@services/files/files.service";
-import { Link } from "react-router-dom";
-import Logo from "@icons/Logo";
 import { HamburgerButton } from "../../elements";
 
 const TopBar = () => {
@@ -26,19 +24,6 @@ const TopBar = () => {
 
   return (
     <div className={styles.topbar}>
-      <div  className={styles.hamFix} >
-      <HamburgerButton className={styles.ham} />
-      </div>
-      <div className={styles.left}>
-        <Link to={"/"} className={styles.navbarLogo}>
-          <Logo
-            color="rgb(37, 43, 97)"
-            circleColor="rgb(255, 106, 61)"
-            width="108"
-            className={styles.navbarLogoIcon}
-          />
-        </Link>
-      </div>
       <div className={styles.right}>
         <ProfileLinkTag className={styles.profile} href={userProfileLink}>
           <div className={styles.profileImage}>

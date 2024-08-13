@@ -1,31 +1,32 @@
 import React, {useEffect, useReducer, useState} from "react";
 import {EmbeddedCheckout, EmbeddedCheckoutProvider, useStripe,} from "@stripe/react-stripe-js";
-import {useSelector} from "react-redux";
-import {createCheckoutSubscription} from "@services/paymentService";
-import {bookingReducer, useBookingReducer} from "../../../../../reducers/booking";
-import {bookingInitialState} from "../../../../../reducers/booking/constants";
+import {createCheckoutSubscription, MentorshipData} from "@services/paymentService";
+import { useBookingReducer} from "../../../../../reducers/booking";
 
 export const PaymentMentorship = () => {
     const stripe = useStripe();
     const [clientSecret, setClientSecret] = useState("");
-    const bookSession = useSelector((state: any) => state.book.bookSessionState);
     const [bookingState] = useBookingReducer();
 
-    console.log(bookingState)
+    const prepareMentorshipDataRequest = (): MentorshipData => {
+        const { mentorId, mentorshipId, slots } = bookingState;
 
-    const mockBookSession = {
-        mentorId: 1,
-        mentorshipId: 2,
-        calendarEventId: [101, 102, 103],
+        const mentorshipDataRequest: MentorshipData = {
+            mentorId: mentorId ? mentorId : "",
+            mentorshipId: mentorshipId ? mentorshipId : "",  
+            calendarEventId: slots.map(slot => slot.id),
+        };
+
+        return mentorshipDataRequest;
     };
 
+    const mentorshipDataRequest = prepareMentorshipDataRequest();
 
     useEffect(() => {
-        createCheckoutSubscription(mockBookSession).then((res) => {
+        createCheckoutSubscription(mentorshipDataRequest).then((res) => {
             setClientSecret(res.data.clientSecret);
         });
-    }, [bookSession]);
-
+    }, [bookingState]);
 
     return (
         <div className="book-payment-stripe">

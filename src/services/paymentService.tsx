@@ -1,8 +1,8 @@
 import axios from "axios";
 
-interface MentorshipData {
-    mentorId: number;
-    mentorshipId: number;
+export interface MentorshipData {
+    mentorId: string;
+    mentorshipId: string;
     calendarEventId: number[];
 }
 

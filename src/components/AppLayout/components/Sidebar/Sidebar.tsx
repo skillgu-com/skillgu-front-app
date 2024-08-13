@@ -15,6 +15,7 @@ import {useLogout} from "./hooks";
 import Notifications from "../Notifications/Notifications";
 import {useLayoutReducer} from "src/reducers/layout";
 import {Tooltip, TooltipProps, useMediaQuery} from "@mui/material";
+import {ReactComponent as ChevronIcon} from "src/assets/icons/svg/chevron_up.svg"
 
 type Props = {
     defaultOpen?: boolean
@@ -62,6 +63,7 @@ export const Sidebar = () => {
                     [styles.fullSidebarOpen]: layoutState.isSidebarOpen,
                 })}
             >
+                <button className={styles.arrow} onClick={handleSwitch}><ChevronIcon /></button>
                 <div className={styles.logo}>
                     <div onClick={isMobile ? undefined : handleSwitch}>
                         <Logo
@@ -74,13 +76,13 @@ export const Sidebar = () => {
                 </div>
                 <div className={clx(styles.list, styles.topItems)}>
                     {menuItems.map(({Icon, ...item}) => (
-                        <Tooltip title={layoutState.isSidebarOpen ? '' : item.label} {...commonTooltipProps}>
+                        <Tooltip key={item.id}
+                                 title={layoutState.isSidebarOpen ? '' : item.label} {...commonTooltipProps}>
                             <Link
-                                key={item.id}
+
                                 className={styles.btn}
                                 data-is-current={pathname.includes(item.link)}
                                 to={item.link}
-                                title={item.label}
                             >
                                 {item.icon}
                                 <span>{item.label}</span>
@@ -101,7 +103,6 @@ export const Sidebar = () => {
                             <button
                                 className={styles.btn}
                                 onClick={handleLogout}
-                                title="Wyloguj się"
                             >
                                 <Logout/>
                                 <span>Wyloguj się</span>

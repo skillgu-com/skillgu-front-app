@@ -30,13 +30,14 @@ const AppLayout = (props: Common) => {
 
   return (
     <div data-sidebar-open={layoutState.isSidebarOpen ? "1" : "0"}>
-      <TopBar />
       <Sidebar />
       <div
         className={clx(styles.content, {
           [styles.isSidebarOpen]: layoutState.isSidebarOpen,
         })}
       >
+      <TopBar />
+
         {children}
       </div>
     </div>

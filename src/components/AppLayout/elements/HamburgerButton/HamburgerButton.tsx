@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const HamburgerButton = ({ className }: Props) => {
-  const { layoutState, handleClose, handleSwitch } = useLayoutReducer()
+  const { layoutState, handleSwitch } = useLayoutReducer()
 
   return (
     <button

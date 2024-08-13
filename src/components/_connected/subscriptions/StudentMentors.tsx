@@ -111,6 +111,8 @@ export const StudentMentors = ({ title }: Props) => {
     };
   }, [data?.mentors.length]);
 
+  console.log('tutaj sprawdzam w Twoim Mentorzy data: ',data)
+
   const handleCanceling = () => {
     const c = cancelling ? { ...cancelling } : ({} as MentorShort);
     setConfirmedCanceling(c);

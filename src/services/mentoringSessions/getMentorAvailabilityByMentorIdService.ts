@@ -19,7 +19,7 @@ const dataParser = (dto: SessionCalendarEventResponse): Slot => {
 };
 
 const getMentorAvailabilityByMentorIdService = async (mentorId: string,subscriptionId: string, params: GetMentorAvailabilityParams) => {
-    const {data} = await axios.post<SessionCalendarEventResponse[]>('/api/1.0/fetch-calendar-session', {mentorId: mentorId, sessionId: subscriptionId});
+    const {data} = await axios.post<SessionCalendarEventResponse[]>('/api/1.0/fetch-calendar-session', {mentorID: mentorId, sessionID: subscriptionId});
     return data.map(dataParser);
 };
 

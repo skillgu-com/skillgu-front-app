@@ -20,6 +20,8 @@ export const Actions: FC<Props> = ({onSubmit}) => {
         onSubmit();
     };
 
+    console.log('te dane chce popnac dalej', state)
+
     return (
         <div className={styles.wrapper}>
             <Checkbox

@@ -87,20 +87,6 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
             });
     }, [meetingId]);
 
-    // console.log('teraz to chce przetestowac:', unavailableEvents)
-
-    // const onEventClick = (event: CalendarEvent) => {
-    //     setCurrentEvent(event.id);
-    //     // selectTermHandler(event.start);
-    //     // updateFormHandler("term", event.start);
-    //     // setTerm(event.start);
-    // }
-
-    useEffect(() => {
-        if (currentEvent !== null) {
-            // updateFormHandler("term", new Date());
-        }
-    }, [currentEvent]);
 
     // reschedule
     const rescheduleMutation = useMutation({

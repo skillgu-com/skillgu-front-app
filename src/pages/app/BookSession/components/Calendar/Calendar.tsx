@@ -13,7 +13,7 @@ import styles from "./BookForm.module.scss";
 // Types
 import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
 import { ServiceSession } from "@customTypes/order";
-import {fetchCalendarMentorship, fetchCalendarSession} from "@services/calendar/calendarService";
+import {fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {
   CalendarEvent,
 } from "../../../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";

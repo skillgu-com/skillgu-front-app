@@ -108,6 +108,11 @@ export const bookingReducer = (
         ...state,
         mentorshipId: action.payload.mentorshipId || "",
       };
+    case "UPDATE_MENTOR_ID":
+      return {
+        ...state,
+        mentorId: action.payload.mentorId || "",
+      };
     case "RESET_STATE":
       return bookingInitialState;
     default:

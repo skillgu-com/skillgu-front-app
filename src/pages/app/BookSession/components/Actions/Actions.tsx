@@ -19,9 +19,6 @@ export const Actions: FC<Props> = ({onSubmit}) => {
         navigate(`/mentorship-book/1/payment`);
         onSubmit();
     };
-
-    console.log('te dane chce popnac dalej', state)
-
     return (
         <div className={styles.wrapper}>
             <Checkbox

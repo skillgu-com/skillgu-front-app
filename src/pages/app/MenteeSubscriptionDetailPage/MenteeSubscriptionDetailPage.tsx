@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import {ServiceMentoringOptionCard} from "src/components/Cards/ServiceMentoringOptionCard";
 
 import {useParams} from "react-router-dom";
@@ -26,33 +26,43 @@ import useUserInputLogic from "./_logic/useUserInputLogic";
 
 const MenteeSubscriptionDetailPage: FC = () => {
     const {subscriptionId} = useParams() as { subscriptionId: string };
-    const [bookingState] = useBookingReducer();
+    const [bookingState, dispatchBookingAction] = useBookingReducer();
+
 
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
         queryFn: () => getSubscriptionService(subscriptionId),
     });
 
-
     const {data: mentorData} = useQuery({
         // subscriptionData will be defined, it's checked in the enabled property
         queryKey: getMentorProfileByIDKeyGenerator(subscriptionData?.mentorId!),
         // subscriptionData will be defined, it's checked in the enabled property
-        queryFn: () => getMentorProfileByID(subscriptionData?.mentorId!),
-        enabled: !!subscriptionData?.mentorId,
+        queryFn: () => getMentorProfileByID(subscriptionData?.userId!),
+        enabled: !!subscriptionData?.userId,
     });
-
-    const planTitlesMap = {
-        basic: 'Podstawowy',
-        advanced: 'Zaawansowany',
-        pro: 'Pro'
-    };
+    const planTitlesMap = {basic: 'Podstawowy', advanced: 'Zaawansowany', pro: 'Pro'};
     type PlanKey = keyof typeof planTitlesMap;
-
     const getPlanTitle = (plan: string): string => {
         return planTitlesMap[plan as PlanKey] || '';
+    };
 
-    };    const {
+    useEffect(() => {
+        if (subscriptionData?.mentorId) {
+            dispatchBookingAction({
+                type: 'UPDATE_MENTOR_ID',
+                payload: { mentorId: subscriptionData.mentorId }
+            });
+        }
+
+        if (subscriptionData?.mentorshipPlan?.id) {
+            dispatchBookingAction({
+                type: 'UPDATE_MENTORSHIP_ID',
+                payload: { mentorshipId: subscriptionData?.mentorshipPlan?.id }
+            });
+        }
+    }, [subscriptionData?.mentorId, subscriptionData?.mentorshipPlan?.id]);
+    const {
         onCalendarNavigate,
         mentorAvailabilitySlots
     } = useCalendarLogic(subscriptionData?.mentorId, subscriptionData?.mentorshipPlan.id);

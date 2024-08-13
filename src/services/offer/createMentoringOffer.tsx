@@ -27,9 +27,8 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         plans,
     };
 
-    console.log('BODY:',body)
     try {
-        const response = await axios.put('/api/mentorship/create/mentorship-plansTEST', body, {
+        const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
             headers: {
                 'Content-Type': 'application/json'
             }

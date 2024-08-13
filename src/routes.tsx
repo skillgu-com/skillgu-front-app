@@ -29,13 +29,14 @@ import {MenteeProfileEditPage} from './pages/app/MenteeProfileEdit';
 import {ChatPage} from './pages/app/Chat';
 import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
-import { MentorOfferDetails } from "./pages/app/MentorOfferDetails";
-import { CreateMentoringOffer } from "./pages/app/CreateMentoringOffer";
+import {MentorOfferDetails} from "./pages/app/MentorOfferDetails";
+import {CreateMentoringOffer} from "./pages/app/CreateMentoringOffer";
 import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
-import { MentorSubscriptionsPage, MenteeSubscriptionsPage } from "./pages/app/Subscriptions";
-import { MentorshipApplicationPage } from "./pages/app/MentorshipApplication";
+import {MentorSubscriptionsPage, MenteeSubscriptionsPage} from "./pages/app/Subscriptions";
+import {MentorshipApplicationPage} from "./pages/app/MentorshipApplication";
 import {MenteePaymentReports} from "./pages/app/MenteePaymentRaports";
 import MenteeSubscriptionDetailPage from "./pages/app/MenteeSubscriptionDetailPage/MenteeSubscriptionDetailPage";
+import {PaymentMentorship} from "./pages/app/BookSession/components/Payment/PaymentMentorship";
 
 type Route = {
     id: string;
@@ -117,6 +118,13 @@ const routesRaw: Omit<Route, "id">[] = [
         isProtected: false,
     },
     {
+        path: paths.mentorshipBookPayment,
+        element: <PaymentMentorship/>,
+        layoutVersion: "simple",
+        isProtected: true,
+    },
+
+    {
         path: paths.sessionBookPayment,
         element: <BookSession payment/>,
         layoutVersion: "simple",
@@ -136,7 +144,7 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.schedulesEditSchedule,
-        element: <ScheduleScreen />,
+        element: <ScheduleScreen/>,
         layoutVersion: "default",
         isProtected: true,
     },
@@ -240,32 +248,32 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.mentorOfferDetails,
-        element: <MentorOfferDetails />,
+        element: <MentorOfferDetails/>,
         layoutVersion: 'default',
     },
     {
         path: paths.createMentoring,
-        element: <CreateMentoringOffer />,
+        element: <CreateMentoringOffer/>,
         layoutVersion: 'default',
     },
     {
         path: paths.mentorSubscriptions,
-        element: <MentorSubscriptionsPage />,
+        element: <MentorSubscriptionsPage/>,
         layoutVersion: 'default',
     },
     {
         path: paths.studentSubscriptions,
-        element: <MenteeSubscriptionsPage />,
+        element: <MenteeSubscriptionsPage/>,
         layoutVersion: 'default',
     },
     {
         path: paths.studentSubscriptionDetail,
-        element: <MenteeSubscriptionDetailPage />,
+        element: <MenteeSubscriptionDetailPage/>,
         layoutVersion: 'default',
     },
     {
         path: paths.mentorshipApplication,
-        element: <MentorshipApplicationPage />,
+        element: <MentorshipApplicationPage/>,
         layoutVersion: 'default',
     },
 ];

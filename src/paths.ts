@@ -19,6 +19,7 @@ const paths = {
     searchMentors: '/search-mentors',
     sessionBook: '/session-book/:id',
     sessionBookPayment: '/session-book/:id/payment',
+    mentorshipBookPayment: '/mentorship-book/:id/payment',
     schedules: '/schedules',
     schedulesAddSchedule: '/schedules/add-schedule',
     schedulesEditSchedule: '/schedules/edit-schedule/:scheduleId',

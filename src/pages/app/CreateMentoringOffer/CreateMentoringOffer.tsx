@@ -43,7 +43,6 @@ export const CreateMentoringOffer = () => {
                         };
                     });
                     loadSchedules(parsed);
-                    // setSchedulesData(parsed); // Also set the data in the local state
                 }
                 if (resOffers.success) {
                     loadOffers(resOffers.data);

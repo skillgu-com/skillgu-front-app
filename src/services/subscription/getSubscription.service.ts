@@ -23,7 +23,7 @@ const axiosMock = {
                 providesMaterials: true,
                 mentoringDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             },
-            availableSessionSlots: 4,
+            availableSessionSlots: 1,
         };
         return {data: returnData} as AxiosResponse<T>
     },
@@ -31,16 +31,15 @@ const axiosMock = {
 
 // const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
 //     // TODO 1. use real API endpoint, 2. use real axios, 3. remove axiosMock
-//     // const {data} = await axiosMock.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
-//     const test = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+//     const {data} = await axiosMock.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+//     // const test = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
 //
 //     // console.log('test',test.data)
-//     return test.data;
+//     return data;
 // }
 
 const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
     const { data } = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
-    console.log('Received data from API:', data);
     return data;
 }
 

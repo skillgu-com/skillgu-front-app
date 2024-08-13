@@ -16,9 +16,7 @@ export const Actions: FC<Props> = ({onSubmit}) => {
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        // TODO: validation?
-        navigate(`/session-book/1/payment`);
-
+        navigate(`/mentorship-book/1/payment`);
         onSubmit();
     };
 

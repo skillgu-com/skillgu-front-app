@@ -42,7 +42,20 @@ const MenteeSubscriptionDetailPage: FC = () => {
         enabled: !!subscriptionData?.mentorId,
     });
 
-    const {onCalendarNavigate, mentorAvailabilitySlots} = useCalendarLogic(subscriptionData?.mentorId,subscriptionData?.mentorshipPlan.id);
+    const planTitlesMap = {
+        basic: 'Podstawowy',
+        advanced: 'Zaawansowany',
+        pro: 'Pro'
+    };
+    type PlanKey = keyof typeof planTitlesMap;
+
+    const getPlanTitle = (plan: string): string => {
+        return planTitlesMap[plan as PlanKey] || '';
+
+    };    const {
+        onCalendarNavigate,
+        mentorAvailabilitySlots
+    } = useCalendarLogic(subscriptionData?.mentorId, subscriptionData?.mentorshipPlan.id);
 
     const {
         onSubmit,
@@ -84,7 +97,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                                 reviewsAvgRate: mentorData.reviewsAvgRate,
                             }}
                             id={subscriptionData.mentorId}
-                            title={subscriptionData.mentorshipPlan.title}
+                            title={getPlanTitle(subscriptionData.mentorshipPlan.title)}
                             subtitle={subscriptionData.mentorshipPlan.subtitle}
                             price={subscriptionData.mentorshipPlan.price}
                             descriptionRows={subscriptionData.mentorshipPlan.descriptionRows}

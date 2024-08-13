@@ -37,8 +37,6 @@ export const fetchOfferDetails = async (
 
     const res = await axios.get(`/api/mentorship/fetch-offer/${offerId}`);
     const media = res.data.data;
-    // console.log(media.plan)
-    console.log(media.offer)
 
     return {
         offer: {
@@ -51,10 +49,7 @@ export const fetchOfferDetails = async (
                 price: 30000,
                 variant: "pro",
                 descriptionRows: [
-                    "4 sesje mentoringowe na miesiąc (60 minut każda)",
-                    "Nieograniczony dostęp do pytań i odpowiedzi",
-                    "Odpowiedzi na Twoje pytania w ciągu 24h",
-                    "Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów",
+                    media?.offer?.descriptionRows
                 ],
             },
             userFullName: media?.offer?.userFullName,
@@ -66,16 +61,13 @@ export const fetchOfferDetails = async (
             questionForMentor: media?.offer?.questionForMentor,
         },
         plan: {
-            id: 1,
-            price: 300,
-            sessionDuration: 60,
-            responseTime: 24,
-            sessionsPerMonth: 4,
-            planIncludes: [
-                'Nieograniczony dostęp do pytań i odpowiedzi',
-                'Bezpośrednie wsparcie praktyczne w realizacji Twoich projektów',
-            ],
-            subscriptionVariant: 'pro',
+            id: media?.plan.id,
+            price: media?.plan.price,
+            sessionDuration: media?.plan?.sessionDuration,
+            responseTime: media?.plan?.responseTime,
+            sessionsPerMonth: media?.plan?.sessionDuration,
+            planIncludes: media?.plan?.planIncludes,
+            subscriptionVariant: media?.plan?.subscriptionVariant,
         },
     };
 };
@@ -127,5 +119,4 @@ export const sendRejectionFeedback = async (
         `Feedback dla oferty o ID: ${offerId}. Powód odrzucenia: ${reason}`
     );
     const res = await axios.post(`/api/mentorship/reject/${offerId}`, reason);
-
 };

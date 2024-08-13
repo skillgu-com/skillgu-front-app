@@ -28,6 +28,8 @@ const useUserInputLogic = (availableSessionSlots: number) => {
             slots = [...prevState, {date: event.start, id: event.id}];
         }
 
+
+
         dispatchBookingAction({type: 'SLOTS_SELECT', payload: {slots}})
     }
 

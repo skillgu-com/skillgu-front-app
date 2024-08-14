@@ -32,6 +32,7 @@ export type BookingState = {
   slots: { date: Date, id: number }[]
   slotsError: string,
   mentorshipId: string
+  mentorId: string
 };
 
 export type BookingAction = 
@@ -47,4 +48,5 @@ export type BookingAction =
 { type: 'SWITCH_INVITE_TEAM', payload?: Pick<BookingState, 'inviteTeam'> }  |
 { type: 'UPDATE_TEAM_MEMBERS', payload: Pick<BookingState, 'teamMembers'> } |
 { type: 'UPDATE_MENTORSHIP_ID', payload: Pick<BookingState, 'mentorshipId'> } |
+{ type: 'UPDATE_MENTOR_ID', payload: Pick<BookingState, 'mentorId'> } |
 { type: 'RESET_STATE' }

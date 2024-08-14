@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useMemo} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
@@ -37,6 +37,7 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
 
     const onSubmit: SubmitHandler<ScheduleFormInputT> = useCallback((data) => {
         if (scheduleId) {
+            console.log(1, data)
             editMentorSchedule(scheduleId, data)
                 .then(() => {
                     navigate('/schedules');
@@ -53,7 +54,7 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
                     console.error('Error creating schedule meeting:', error.message);
                 });
         }
-    }, [navigate]);
+    }, [navigate, scheduleId]);
 
     const revalidate = useCallback((path: string) => () => {
         const timeoutId = revalidatingTimeout[path]
@@ -62,17 +63,17 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         revalidatingTimeout[path] = setTimeout(() => {
             trigger(path as keyof ScheduleFormInputT);
         }, 10);
-    }, []);
+    }, [trigger]);
 
 
     useEffect(() => {
         // revalidate weekdays when meeting length changes
         revalidate('weekdays')();
-    }, [meetingLengthValue]);
+    }, [meetingLengthValue, revalidate]);
 
     useEffect(() => {
         setFocus('scheduleName');
-    }, []);
+    }, [setFocus]);
 
     return (
         <form className={stylesSessions.form} onSubmit={handleSubmit(onSubmit)}>

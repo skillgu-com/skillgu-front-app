@@ -169,6 +169,7 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
 }
 
 export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleFormInputT) => {
+
     try {
         const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
             scheduleName: updatedData.scheduleName,

@@ -6,7 +6,7 @@
   height: $layout-topbar-height;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 16px;
   position: fixed;
   top: 0;
@@ -15,9 +15,18 @@
   border-bottom: 1px solid #eee;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
   z-index: 10;
-  
+
   @media screen and (min-width: $sm) {
     padding-left: calc($layout-quick-sidebar-width + 12px);
+    justify-content: flex-end;
+  }
+
+  .left {
+    display: block;
+
+    @media screen and (min-width: $sm) {
+      display: none;
+    }
   }
 
   .right {
@@ -25,7 +34,10 @@
     align-items: center;
     justify-content: flex-end;
     gap: 16px;
-    margin-right: 7vw;
+
+    @media screen and (min-width: $sm) {
+      margin-right: 7vw;
+    }
 
 
     > * {
@@ -91,4 +103,9 @@
     font-weight: 600;
     line-height: 21px;
   }
+}
+
+.navbarLogo {
+  position: relative;
+  top: 4px;
 }

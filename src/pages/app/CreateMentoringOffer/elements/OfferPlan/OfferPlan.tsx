@@ -61,7 +61,7 @@ export const OfferPlan = ({errors, plan, selected, setSelected, onRemove}: Props
                 handleRemove={onRemove}
                 handleChange={(props: MentorshipPlanFormChangeProp) => {
                     const newValues = {...planState};
-
+console.log('new', newValues)
                     switch (props.name) {
                         case "description":
                             newValues[props.name] = String(props.value);

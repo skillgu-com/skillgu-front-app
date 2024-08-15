@@ -16,6 +16,7 @@ export const Summary = () => {
     const run = async () => {
       setPending(true);
       try {
+        console.log('create')
         const resData = await createMentoringOffer({
           numberOfPlans: co.createOfferState.numberOfPlans,
           providesMaterials: co.createOfferState.providesMaterials,
@@ -23,6 +24,7 @@ export const Summary = () => {
           advanced: co.createOfferState.advanced,
           pro: co.createOfferState.pro,
         });
+        
         if (resData.success === false) {
           throw new Error("");
         }

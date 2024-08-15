@@ -1,14 +1,14 @@
-import React, {useMemo, useState} from "react";
+import React, { useMemo, useState } from "react";
 import styles from "../CreateMentoringOffer.module.scss";
-import {useCreateOfferReducer} from "src/reducers/createOffer";
-import {CreateOfferTemplates} from "../CreateOfferTemplates";
-import Button, {ButtonVariant} from "src/components/Button/Button";
-import {RadioButton} from "../elements/RadioButton";
-import {OfferPlan} from "../elements/OfferPlan";
-import {SubscriptionPlan} from "@customTypes/order";
-import {Data} from "src/reducers/createOffer/types";
-import {getStateErrorMessage, validateState} from "../utils";
-import {createOfferInitialState} from "src/reducers/createOffer/constants";
+import { useCreateOfferReducer } from "src/reducers/createOffer";
+import { CreateOfferTemplates } from "../CreateOfferTemplates";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import { RadioButton } from "../elements/RadioButton";
+import { OfferPlan } from "../elements/OfferPlan";
+import { SubscriptionPlan } from "@customTypes/order";
+import { Data } from "src/reducers/createOffer/types";
+import { getStateErrorMessage, validateState } from "../utils";
+import { createOfferInitialState } from "src/reducers/createOffer/constants";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -74,7 +74,31 @@ export const Build = () => {
     }
     co.loadOffers(newData);
   };
+  const submitBuild = () => {
+    console.log(8888888888888888, "submit build", co.createOfferState);
 
+    if (co.createOfferState.numberOfPlans === 1) {
+      const mentorshipdata = {
+        ...co.createOfferState,
+        advanced: undefined,
+        pro: undefined,
+      };
+      console.log(6, mentorshipdata);
+      co.submitBuild(mentorshipdata, true);
+    }
+    if (co.createOfferState.numberOfPlans === 2) {
+      const mentorshipdata = {
+        ...co.createOfferState,
+        pro: createOfferInitialState.pro,
+      };
+      console.log(6, mentorshipdata);
+      return co.submitBuild(mentorshipdata, true);
+    }
+
+    if (co.createOfferState.numberOfPlans === 3) {
+      console.log("yeeeeeeeeeeeeeees");
+    }
+  };
   return (
     <div>
       <CreateOfferTemplates
@@ -171,15 +195,13 @@ export const Build = () => {
             Wróć
           </Button>
           <Button
-            onClick={() => {
-              co.submitBuild(co.createOfferState, true);
-            }}
+            onClick={submitBuild}
             variant={ButtonVariant.Primary}
             type="button"
             fullWidth
             disableButton={!valid.isValid}
           >
-            Dalej
+            Daleje
           </Button>
         </div>
       </CreateOfferTemplates>

@@ -35,6 +35,8 @@ type Output = {
 export const useCreateOfferReducer = (): Output => {
     const createOfferState: CreateOfferState = useSelector((state) => {
         if (state && typeof state === "object" && "createOffer" in state) {
+            console.log('useCrearte', state)
+            console.log(7, state)
             return state?.createOffer as CreateOfferState;
         }
         return createOfferInitialState;

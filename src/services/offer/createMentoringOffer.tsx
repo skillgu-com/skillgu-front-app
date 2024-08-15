@@ -1,45 +1,43 @@
-import {PlanInput} from "@customTypes/create-mentoring";
+import { PlanInput } from "@customTypes/create-mentoring";
 import axios from "axios";
 
-type Response = { success: true } | { success: false, errorMessage: string };
+type Response = { success: true } | { success: false; errorMessage: string };
 
 type Input = {
-    numberOfPlans: 1 | 2 | 3;
-    providesMaterials: boolean;
-    basic: PlanInput | undefined | null;
-    advanced?: PlanInput | undefined | null;
-    pro?: PlanInput | undefined | null;
-}
+  numberOfPlans: 1 | 2 | 3;
+  providesMaterials: boolean;
+  basic: PlanInput | undefined | null;
+  advanced?: PlanInput | undefined | null;
+  pro?: PlanInput | undefined | null;
+};
 
 export const createMentoringOffer = async (input: Input): Promise<Response> => {
+  const plans = [
+    { type: "basic", ...input.basic },
+    input.advanced && { type: "advanced", ...input.advanced },
+    input.pro && { type: "pro", ...input.pro },
+  ].filter(Boolean);
 
-    const plans = [
-        {type: 'basic', ...input.basic},
-        input.advanced &&
-        {type: 'advanced', ...input.advanced},
-        input.pro &&
-        {type: 'pro', ...input.pro},
-    ].filter(Boolean);
+  const body = {
+    numberOfPlans: input.numberOfPlans,
+    providesMaterials: input.providesMaterials,
+    plans:[plans[0], null, null]
+  };
 
-    const body = {
-        numberOfPlans: input.numberOfPlans,
-        providesMaterials: input.providesMaterials,
-        plans,
-    };
-
-    try {
-        const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (response.status === 200) {
-            return {success: true};
-        } else {
-            return {success: false, errorMessage: `Failed to create mentorship plan. Status code: ${response.status}`};
+  try {
+    console.log(1111, body);
+    const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
+        headers: {
+            'Content-Type': 'application/json'
         }
-    } catch (error) {
-        console.error('Failed to create mentorship plan', error);
-        return {success: false, errorMessage: 'Failed to create mentorship plan'};
+    });
+    if (response.status === 200) {
+        return {success: true};
+    } else {
+        return {success: false, errorMessage: `Failed to create mentorship plan. Status code: ${response.status}`};
     }
+  } catch (error) {
+    console.error("Failed to create mentorship plan", error);
+    return { success: false, errorMessage: "Failed to create mentorship plan" };
+  }
 };

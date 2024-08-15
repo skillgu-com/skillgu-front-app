@@ -58,7 +58,9 @@ export const createOfferReducer = (
         pending: action.payload.pending,
       };
     case "UPDATE_STATUS":
+      console.log( "UPDATE_STATUS")
       return {
+    
         ...state,
         errorMessage: action.payload.errorMessage,
         success: action.payload.success,

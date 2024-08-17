@@ -30,7 +30,7 @@ export const CreateMentoringOffer = () => {
     } = useCreateOfferReducer();
     const isScheduled = state.availableSchedules.length > 0;
     const mentor:MentorData = useSelector((state: any) => state.auth.user);
-console.log(state.step)
+
     useEffect(() => {
         const fetchInitialData = async () => {
             setPending(true);
@@ -89,7 +89,7 @@ console.log(state.step)
                     <Loader spinner/>
                 ) : isScheduled ? (
                     <>
-                        {state.step === "initial" ? <Initial step={state.step}/> : null}
+                        {state.step === "initial" ? <Initial/> : null}
                         {state.step === "determine" ? <Determine/> : null}
                         {state.step === "build" ? <Build/> : null}
                         {state.step === "summary" ? <Summary/> : null}

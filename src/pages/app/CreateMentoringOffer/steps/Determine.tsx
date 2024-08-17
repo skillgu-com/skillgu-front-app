@@ -23,14 +23,9 @@ const planList: PlanTypes[] = [
 ];
 
 export const Determine = () => {
-    const {createOfferState: state, submitDetermine, createOfferState} = useCreateOfferReducer();
+    const {createOfferState: state, submitDetermine} = useCreateOfferReducer();
     const {numberOfPlans} = state
 
-    useEffect(() => {
-        if(createOfferState.saved){
-            submitDetermine(numberOfPlans, true)
-        }
-      }, [createOfferState.saved, numberOfPlans, submitDetermine])
 
     const onRadioButtonClick = (number: Quantity) => {
         if (!number) return;
@@ -42,8 +37,6 @@ export const Determine = () => {
             submitDetermine(numberOfPlans, true);
         }
     }, [numberOfPlans, submitDetermine]);
-
-
 
     return (
         <CreateOfferTemplates

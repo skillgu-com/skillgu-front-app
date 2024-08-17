@@ -51,6 +51,11 @@ export const Sidebar = () => {
     const {layoutState, handleSwitch} = useLayoutReducer();
     const isMobile = useMediaQuery("(max-width: 575px)");
 
+    const onLogout = () => {
+        if(isMobile) handleSwitch();
+        handleLogout();
+    }
+
     const menuItems = getMenuItems({
         username: userFromRedux.username,
         role,
@@ -63,7 +68,7 @@ export const Sidebar = () => {
                     [styles.fullSidebarOpen]: layoutState.isSidebarOpen,
                 })}
             >
-                <button className={styles.arrow} onClick={handleSwitch}><ChevronIcon /></button>
+                <button className={styles.arrow} onClick={handleSwitch}><ChevronIcon/></button>
                 <div className={styles.logo}>
                     <div onClick={isMobile ? undefined : handleSwitch}>
                         <Logo
@@ -79,7 +84,7 @@ export const Sidebar = () => {
                         <Tooltip key={item.id}
                                  title={layoutState.isSidebarOpen ? '' : item.label} {...commonTooltipProps}>
                             <Link
-
+                                onClick={isMobile ? handleSwitch : undefined}
                                 className={styles.btn}
                                 data-is-current={pathname.includes(item.link)}
                                 to={item.link}
@@ -93,7 +98,11 @@ export const Sidebar = () => {
 
                 <div className={styles.list}>
                     <Tooltip title={layoutState.isSidebarOpen ? '' : 'Pomoc'} {...commonTooltipProps}>
-                        <Link className={styles.btn} to="/help">
+                        <Link
+                            onClick={isMobile ? handleSwitch : undefined}
+                            className={styles.btn}
+                            to="/help"
+                        >
                             <Help/>
                             <span>Pomoc</span>
                         </Link>
@@ -102,7 +111,7 @@ export const Sidebar = () => {
                         <Tooltip title={layoutState.isSidebarOpen ? '' : 'Wyloguj się'} {...commonTooltipProps} >
                             <button
                                 className={styles.btn}
-                                onClick={handleLogout}
+                                onClick={onLogout}
                             >
                                 <Logout/>
                                 <span>Wyloguj się</span>

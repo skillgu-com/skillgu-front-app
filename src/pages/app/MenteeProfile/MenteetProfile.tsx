@@ -6,8 +6,6 @@ import {MenteeDTO} from "../MenteeProfileEdit/sections";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
 
-
-
 export const MenteeProfilePage = () => {
     const {id: studentId} = useParams();
     const {username: username} = useParams();
@@ -21,15 +19,16 @@ export const MenteeProfilePage = () => {
         setError('')
         setPending(true)
         try {
-            getMenteeByUserName(studentId).then((res)=>{
-                setMentee(res.data)
-            })
+            if (studentId) {
+                getMenteeByUserName(studentId).then((res)=>{
+                    setMentee(res.data)
+                })                
+            }
         } catch (e) {
             setError('Wystąpił błąd podczas pobierania danych')
         }
         setPending(false)
     }, [studentId]);
-
 
     return (
         <>

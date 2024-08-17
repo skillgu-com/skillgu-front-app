@@ -10,6 +10,13 @@ import Button from "src/components/Button/Button";
 import {useSelector} from "react-redux";
 import {fetchMentoringOffer} from "@services/offer/fetchMentoringOffer";
 
+type MentorData = {
+    email: string;
+    id: number;
+    role: "M" | "S";
+    username: string;
+};
+
 export const CreateMentoringOffer = () => {
     const [initialPending, setInitialPending] = useState<boolean>(true);
     const [schedulesData, setSchedulesData] = useState([]); // State to hold the schedule data
@@ -22,7 +29,7 @@ export const CreateMentoringOffer = () => {
         updateStatus,
     } = useCreateOfferReducer();
     const isScheduled = state.availableSchedules.length > 0;
-    const mentor = useSelector((state: any) => state.auth.user);
+    const mentor:MentorData = useSelector((state: any) => state.auth.user);
 
     useEffect(() => {
         const fetchInitialData = async () => {

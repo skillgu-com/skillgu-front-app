@@ -132,18 +132,18 @@ export const MentorProfileEditPage = () => {
 
 
     useEffect(() => {
-        const fetchInitialData = async () => {
+        const fetchInitialData = async (name:string) => {
             setLoading(true);
-            await getMentorByUsername(username).then((res) => {
+            await getMentorByUsername(name).then((res) => {
                 setMentorData(res.data as MentorData);
             });
             setLoading(false);
         };
-        if (!initialDataFetched.current) {
-            fetchInitialData();
+        if (!initialDataFetched.current && username) {
+            fetchInitialData(username);
             initialDataFetched.current = true;
         }
-    }, [mentorId]);
+    }, [mentorId, username]);
 
 
     return loading ? (

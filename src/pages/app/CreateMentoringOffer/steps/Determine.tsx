@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback} from "react";
 
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonVariant} from "src/components/Button/Button";

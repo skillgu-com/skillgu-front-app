@@ -10,12 +10,6 @@ export const Initial = () => {
   const { submitInitial, submitDetermine, createOfferState } =
     useCreateOfferReducer();
 
-  // useEffect(() => {
-  //   if (createOfferState.saved) {
-  //     submitInitial();
-  //   }
-  // }, [co]);
-
   useEffect(() => {
     if (createOfferState.saved) {
       submitDetermine(createOfferState.numberOfPlans, true);

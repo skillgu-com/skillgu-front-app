@@ -7,7 +7,7 @@ export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
         axios.get('/api/mentor/get-all-language')
 
             .then(response => {
-                const data: DropdownOption[] = response.data.map((item: any) => ({
+                const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
                     label: item.label,
                     value: item.value
                 }));

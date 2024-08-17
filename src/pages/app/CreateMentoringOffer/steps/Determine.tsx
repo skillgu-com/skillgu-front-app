@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonVariant} from "src/components/Button/Button";
@@ -23,8 +23,14 @@ const planList: PlanTypes[] = [
 ];
 
 export const Determine = () => {
-    const {createOfferState: state, submitDetermine} = useCreateOfferReducer();
+    const {createOfferState: state, submitDetermine, createOfferState} = useCreateOfferReducer();
     const {numberOfPlans} = state
+
+    useEffect(() => {
+        if(createOfferState.saved){
+            submitDetermine(numberOfPlans, true)
+        }
+      }, [createOfferState.saved, numberOfPlans, submitDetermine])
 
     const onRadioButtonClick = (number: Quantity) => {
         if (!number) return;
@@ -36,6 +42,8 @@ export const Determine = () => {
             submitDetermine(numberOfPlans, true);
         }
     }, [numberOfPlans, submitDetermine]);
+
+
 
     return (
         <CreateOfferTemplates

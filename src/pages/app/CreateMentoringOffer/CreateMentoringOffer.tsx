@@ -30,7 +30,7 @@ export const CreateMentoringOffer = () => {
     } = useCreateOfferReducer();
     const isScheduled = state.availableSchedules.length > 0;
     const mentor:MentorData = useSelector((state: any) => state.auth.user);
-
+console.log(state.step)
     useEffect(() => {
         const fetchInitialData = async () => {
             setPending(true);

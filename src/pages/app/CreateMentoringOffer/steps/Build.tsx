@@ -30,13 +30,13 @@ export const Build = () => {
     };
     if (state.numberOfPlans === 1) {
       newData.basic = state.basic;
-      newData.pro = createOfferInitialState.pro;
+      newData.advanced = createOfferInitialState.advanced;
       newData.numberOfPlans = 2;
     }
     if (state.numberOfPlans === 2) {
       newData.basic = state.basic;
-      newData.advanced = createOfferInitialState.advanced;
-      newData.pro = state.pro;
+      newData.advanced = state.advanced;
+      newData.pro = createOfferInitialState.pro;
       newData.numberOfPlans = 3;
     }
     co.loadOffers(newData);

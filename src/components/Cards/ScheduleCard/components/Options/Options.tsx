@@ -8,7 +8,7 @@ import clx from 'classnames'
 export interface Option {
   icon: React.ReactNode;
   text: string;
-  onClick: (...props: any) => void;
+  onClick: () => void;
   className?: string;
   onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
 }

@@ -1,9 +1,4 @@
-import React, {
-  FormEvent,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import { type Config, type Feedback } from "./types";
 import Modal from "src/components/Modal/Modal";
 import { sendMentorshipFeedback } from "@services/mentorship/mentorshipFeedback";
@@ -101,7 +96,8 @@ const MentorshipFeedbackModalContent = ({
           Dziękujemy!
         </Title>
         <Text classes={styles.info}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi, praesentium!
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi,
+          praesentium!
         </Text>
         <div className={styles.imgBox}>
           <Thanks />
@@ -120,7 +116,7 @@ const MentorshipFeedbackModalContent = ({
   }
 
   /* Error status */
-   if (!config && !pending) {
+  if (!config && !pending) {
     return (
       <div>
         <Title
@@ -130,9 +126,7 @@ const MentorshipFeedbackModalContent = ({
         >
           Wystąpił błąd podczas pobierania danych
         </Title>
-        <Text classes={styles.info}>
-          Spróbój ponownie za kilka minut
-        </Text>
+        <Text classes={styles.info}>Spróbój ponownie za kilka minut</Text>
         <Button
           classes={styles.btn}
           variant={ButtonVariant.Light}
@@ -188,22 +182,24 @@ const MentorshipFeedbackModalContent = ({
               </label>
             ))}
           </fieldset>
-          <fieldset className={styles.fieldBox}>
-            <legend className={styles.fieldTitle}>
-              {config.subscriptionEndReasons.question}
-            </legend>
-            <Select
-              classes={styles.select}
-              name="subscriptionEndReasons"
-              id="subscriptionEndReasons"
-              value={subscriptionEndReasons}
-              valueChangeHandler={(_: string, value: string) => {
-                setSubscriptionEndReasons(value);
-              }}
-              options={subscriptionEndReasonsOptions}
-              label={subscriptionEndReasons}
-            />
-          </fieldset>
+          {subscriptionEndReasonsOptions ? (
+            <fieldset className={styles.fieldBox}>
+              <legend className={styles.fieldTitle}>
+                {config.subscriptionEndReasons.question}
+              </legend>
+              <Select
+                classes={styles.select}
+                name="subscriptionEndReasons"
+                id="subscriptionEndReasons"
+                value={subscriptionEndReasons}
+                valueChangeHandler={(_: string, value: string) => {
+                  setSubscriptionEndReasons(value);
+                }}
+                options={subscriptionEndReasonsOptions}
+                label={subscriptionEndReasons}
+              />
+            </fieldset>
+          ) : null}
           <fieldset className={styles.fieldBox}>
             <legend className={styles.fieldTitle}>
               {config.serviceDescription.question}

@@ -63,9 +63,11 @@ export const MenteeProfileEditPage = () => {
     const [mentee, setMentee] = useState<MenteeDTO | null>(null);
 
     useEffect(() => {
-        getMenteeByUserName(menteeId).then((res) => {
-            setMentee(res.data);
-        });
+        if (menteeId) {
+            getMenteeByUserName(menteeId).then((res) => {
+                setMentee(res.data);
+            });            
+        }
     }, [menteeId]);
 
     if (!mentee) {

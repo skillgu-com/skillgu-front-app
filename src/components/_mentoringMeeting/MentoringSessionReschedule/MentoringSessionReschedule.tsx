@@ -11,6 +11,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import paths from "../../../paths";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {CalendarEvent} from "../../WeeklyCalendarPicker/WeeklyCalendarPicker";
+import { CalendarSlot } from "@customTypes/booking";
 
 type Props = {
     meetingId: string;
@@ -22,7 +23,7 @@ const dateFnOptions: StartOfWeekOptions | EndOfWeekOptions = {weekStartsOn: 1};
 
 const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId}) => {
     const {enqueueSnackbar} = useSnackbar()
-    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
     const navigate = useNavigate();
 
     const [selectedRange, setSelectedRange] = useState(
@@ -60,7 +61,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
                 const dataFromApi = res.data;
                 const events: CalendarEvent[] = [];
 
-                dataFromApi.forEach((item: any, index: number) => {
+                dataFromApi.forEach((item: CalendarSlot, index: number) => {
                     const startDateTime = new Date(item.sessionDate + "T" + item.hour);
                     const endDateTime = new Date(
                         startDateTime.getTime() + 60 * 60 * 1000
@@ -102,7 +103,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
         if (selectedEvent) rescheduleMutation.mutate({id: meetingId, body: {timeSlotId: selectedEvent}});
     }
 
-    const onEventClick = (event: any) => {
+    const onEventClick = (event: CalendarEvent) => {
         setCurrentEvent(event.id);
         setSelectedEvent(event.id);
     }

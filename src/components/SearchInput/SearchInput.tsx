@@ -1,13 +1,13 @@
 import SearchSvg from "@icons/SearchSvg";
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 
 import styles from "./SearchInput.module.scss";
 
 type SearchInputProps = {
   placeholder?: string;
   name: string;
-  value?: any;
-  onChangePhrase?: any;
+  value?: string;
+  onChangePhrase?: ChangeEventHandler<HTMLInputElement>;
 };
 
 export const SearchInput = ({

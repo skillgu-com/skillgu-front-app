@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonVariant} from "src/components/Button/Button";
@@ -25,6 +25,7 @@ const planList: PlanTypes[] = [
 export const Determine = () => {
     const {createOfferState: state, submitDetermine} = useCreateOfferReducer();
     const {numberOfPlans} = state
+
 
     const onRadioButtonClick = (number: Quantity) => {
         if (!number) return;

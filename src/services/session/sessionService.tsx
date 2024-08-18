@@ -43,7 +43,7 @@ export const getSessionNumber = async () => {
     return await axios.get('/api/1.0/get-session-number')
 }
 
-export const fetchMentorSession = async (userID: any) => {
+export const fetchMentorSession = async (userID: number) => {
     return await axios.get(`/api/1.0/mentor-sessions`, {params: {userID}});
 }
 
@@ -52,7 +52,7 @@ export const getSessionTypes = async () => {
     return await axios.get<{id: number, name: string}[]>('/api/session-types/get-all')
 }
 
-export const deleteSession = async (sessionId: any) => {
+export const deleteSession = async (sessionId: string) => {
     return await axios.post(`/api/1.0/session/delete/${sessionId}`);
 };
 

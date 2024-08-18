@@ -64,7 +64,7 @@ export const fetchMentorShip = async (input: Input): Promise<OutputSuccess | Out
     }
 }
 
-export const fetchMentorMentorshipPlansForMentorProfile = async (mentorId: any): Promise<MentorshipDTO> => {
+export const fetchMentorMentorshipPlansForMentorProfile = async (mentorId: {mentorId: string}): Promise<MentorshipDTO> => {
     try {
         const response = await axios.get<any>(`/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`);
         const mentoringData = response.data;
@@ -151,7 +151,7 @@ export const getMentorProfileByIDKeyGenerator = (mentorID: number | string) => {
     return ['Get mentor profile by mentor ID', `${mentorID}`];
 }
 
-export const getMentorByUsername = async (username: any) => {
+export const getMentorByUsername = async (username: string) => {
     return await axios.get(`/api/mentor/get-mentor-by-mentor-username/${username}`);
 }
 

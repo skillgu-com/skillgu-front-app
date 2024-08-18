@@ -17,6 +17,7 @@ import {fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {
   CalendarEvent,
 } from "../../../../../components/WeeklyCalendarPicker/WeeklyCalendarPicker";
+import { CalendarSlot } from "@customTypes/booking";
 
 interface BookFormProps {
   selectTermHandler: (term: Date) => void;
@@ -58,7 +59,7 @@ export const Calendar = (props: BookFormProps) => {
       .then((res) => {
         const dataFromApi = res.data;
         const events: CalendarEvent[] = [];
-        dataFromApi.forEach((item: any, index: number) => {
+        dataFromApi.forEach((item: CalendarSlot) => {
           const startDateTime = new Date(item.sessionDate + "T" + item.hour);
           const endDateTime = new Date(
             startDateTime.getTime() + 60 * 60 * 1000

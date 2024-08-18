@@ -32,28 +32,14 @@ import {MentorReviewsConnected} from "../../../components/_connected";
 import {fetchMentorSession} from "@services/session/sessionService";
 import Button, {ButtonVariant} from "src/components/Button/Button";
 
-type Props = {
-    isLoggedMentor: boolean;
-};
-
 export const MentorProfilePage = () => {
     const {username} = useParams();
     const location = useLocation();
-
+    const navigate = useNavigate();
+    
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
     const [pending, setPending] = useState<boolean>(true);
-
-    const useIsMentorLoggedUser = (mentorDat: MentorData) => {
-        const userFromRedux = useSelector((state: any) => state.auth.user);
-
-        const mentorIsLoggedUser = useMemo(() => {
-            return userFromRedux?.id === mentorData?.userID;
-        }, [userFromRedux, mentorData]);
-
-        return mentorIsLoggedUser;
-    };
-    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
     // @TODO: get user id from sesion/jwt
 
@@ -62,7 +48,6 @@ export const MentorProfilePage = () => {
     );
     const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
     const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
-
 
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
@@ -80,8 +65,6 @@ export const MentorProfilePage = () => {
     const [selectedSession, setSession] = useState<null | ServiceSession>(null);
     const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
     const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-
-    const navigate = useNavigate();
 
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
 
@@ -117,38 +100,42 @@ export const MentorProfilePage = () => {
     // }, [mentorId]);
 
     useEffect(() => {
-        const fetchInitialData = async () => {
+        const fetchInitialData = async (name:string) => {
             setPending(true);
             setLoading(false);
             try {
-                const mentorResponse = await getMentorByUsername(username);
-                const mentorData = mentorResponse.data as MentorData;
-                setMentorData(mentorData);
+                if (name) {
+                    const mentorResponse = await getMentorByUsername(name);
+                    const mentorData = mentorResponse.data as MentorData;
+                    setMentorData(mentorData);
+    
+                    const mentorId = mentorResponse.data?.mentorId;
 
-                const mentorId = mentorResponse.data.mentorId;
-
-                if (mentorId) {
-                    const [sessionResponse, mentoringResponse] = await Promise.all([
-                        fetchMentorSession(mentorData.userID),
-                        fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
-                    ]);
-
-                    const formattedSessions = sessionResponse.data.map(
-                        (elementFromAPI: any) => ({
-                            id: elementFromAPI?.id,
-                            sessionType: elementFromAPI?.sessionType,
-                            sessionPrice: elementFromAPI?.sessionPrice,
-                            description: elementFromAPI?.description,
-                            meetTime: elementFromAPI?.meetTime,
-                            mentorID: mentorId,
-                        })
-                    );
-                    setOptionsSession(formattedSessions);
-
-                    if (mentoringResponse) {
-                        setOptionsMentoring(mentoringResponse.mentorships);
+                    if (mentorId) {
+                    
+                        const [sessionResponse, mentoringResponse] = await Promise.all([
+                            fetchMentorSession(mentorData.userID),
+                            fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
+                        ]);
+    
+                        const formattedSessions = sessionResponse.data.map(
+                            (elementFromAPI: any) => ({
+                                id: elementFromAPI?.id,
+                                sessionType: elementFromAPI?.sessionType,
+                                sessionPrice: elementFromAPI?.sessionPrice,
+                                description: elementFromAPI?.description,
+                                meetTime: elementFromAPI?.meetTime,
+                                mentorID: mentorId,
+                            })
+                        );
+                        setOptionsSession(formattedSessions);
+    
+                        if (mentoringResponse) {
+                            setOptionsMentoring(mentoringResponse.mentorships);
+                        }
                     }
                 }
+
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -158,9 +145,19 @@ export const MentorProfilePage = () => {
         };
 
         if (username) {
-            fetchInitialData();
+            fetchInitialData(username);
         }
     }, [username]);
+
+    const useIsMentorLoggedUser = (data: MentorData) => {
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        const mentorIsLoggedUser = useMemo(() => {
+            return userFromRedux?.id === data?.userID;
+        }, [userFromRedux, data.userID]);
+        return mentorIsLoggedUser;
+    };
+    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
     return loading ? null : (
         <>

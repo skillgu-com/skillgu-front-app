@@ -25,13 +25,12 @@ import useUserInputLogic from "./_logic/useUserInputLogic";
 
 
 const MenteeSubscriptionDetailPage: FC = () => {
-    const {subscriptionId} = useParams() as { subscriptionId: string };
+    const {mentorshipId, subscriptionId} = useParams() as { mentorshipId: string, subscriptionId: string };
     const [bookingState, dispatchBookingAction] = useBookingReducer();
 
-
     const {data: subscriptionData} = useQuery({
-        queryKey: getSubscriptionServiceKeyGenerator(subscriptionId),
-        queryFn: () => getSubscriptionService(subscriptionId),
+        queryKey: getSubscriptionServiceKeyGenerator(mentorshipId),
+        queryFn: () => getSubscriptionService(mentorshipId),
     });
 
     const {data: mentorData} = useQuery({
@@ -48,20 +47,23 @@ const MenteeSubscriptionDetailPage: FC = () => {
     };
 
     useEffect(() => {
-        if (subscriptionData?.mentorId) {
-            dispatchBookingAction({
-                type: 'UPDATE_MENTOR_ID',
-                payload: { mentorId: subscriptionData.mentorId }
-            });
-        }
+        dispatchBookingAction({
+            type: 'UPDATE_MENTOR_ID',
+            payload: {mentorId: subscriptionData?.mentorId || ''}
+        });
 
-        if (subscriptionData?.mentorshipPlan?.id) {
+        dispatchBookingAction({
+            type: 'UPDATE_MENTORSHIP_ID',
+            payload: {mentorshipId: subscriptionData?.mentorshipPlan?.id || ''}
+        });
+
+        if (subscriptionId != null) {
             dispatchBookingAction({
-                type: 'UPDATE_MENTORSHIP_ID',
-                payload: { mentorshipId: subscriptionData?.mentorshipPlan?.id }
+                type: 'UPDATE_SUBSCRIPTION_ID',
+                payload: {subscriptionId: subscriptionId || ''}
             });
         }
-    }, [subscriptionData?.mentorId, subscriptionData?.mentorshipPlan?.id]);
+    }, [subscriptionData?.mentorId, subscriptionData?.mentorshipPlan?.id, subscriptionId]);
     const {
         onCalendarNavigate,
         mentorAvailabilitySlots

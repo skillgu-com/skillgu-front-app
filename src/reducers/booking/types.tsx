@@ -32,7 +32,8 @@ export type BookingState = {
   slots: { date: Date, id: number }[]
   slotsError: string,
   mentorshipId: string
-  mentorId: string
+  mentorId: string,
+  subscriptionId:string
 };
 
 export type BookingAction = 
@@ -49,4 +50,5 @@ export type BookingAction =
 { type: 'UPDATE_TEAM_MEMBERS', payload: Pick<BookingState, 'teamMembers'> } |
 { type: 'UPDATE_MENTORSHIP_ID', payload: Pick<BookingState, 'mentorshipId'> } |
 { type: 'UPDATE_MENTOR_ID', payload: Pick<BookingState, 'mentorId'> } |
+{ type: 'UPDATE_SUBSCRIPTION_ID', payload: Pick<BookingState, 'subscriptionId'> } |
 { type: 'RESET_STATE' }

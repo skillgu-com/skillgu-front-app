@@ -4,6 +4,7 @@ export interface MentorshipData {
     mentorId: string;
     mentorshipId: string;
     calendarEventId: number[];
+    subscriptionId:string
 }
 
 export const createCheckoutSession = async (sessionData:any) => {

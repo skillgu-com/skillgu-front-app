@@ -43,9 +43,11 @@ export const MentorOfferDetailsProvider = ({ children } : Props) => {
         const data = await fetchOfferDetails(offerId);
         setDetails(data.offer);
         setPlan(data.plan)
+
       } catch (e) {}
       setPending(false);
     };
+
     getInitialData();
   }, [offerId]);
 

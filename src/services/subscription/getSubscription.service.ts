@@ -38,8 +38,8 @@ import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 //     return data;
 // }
 
-const getSubscriptionService = async (subscriptionId: string): Promise<Subscription> => {
-    const { data } = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
+const getSubscriptionService = async (mentorshipId: string): Promise<Subscription> => {
+    const { data } = await axios.get<SubscriptionDTO>(`/api/subscriptions/${mentorshipId}`);
     return data;
 }
 

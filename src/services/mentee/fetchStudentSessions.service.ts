@@ -2,7 +2,6 @@ import {
   FetchStudentSessionsInput,
   FetchStudentSessionsOutput,
 } from "./fetchStudentSessions.types";
-import {FetchStudentMentorsInput, FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
 import axios from "axios";
 
 // export const fetchStudentSessions = async (

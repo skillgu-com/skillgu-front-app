@@ -32,6 +32,7 @@ import {
   deleteSession,
   fetchMentorSession,
 } from "@services/session/sessionService";
+import styles from "../MentorPaymentIntegration/styles.module.scss";
 
 const SchedulesView = () => {
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
@@ -124,74 +125,79 @@ const SchedulesView = () => {
 
       );
 
-    return (
-        <main className={scheduleStyles.main}>
-          <Container as={Tag.Section} classes={scheduleStyles.container}>
-            <header className={scheduleStyles.header}>
-              <Title
-                tag={TitleTag.h2}
-                variant={TitleVariant.section}
-                classes={scheduleStyles.title}
-              >
-                Harmonogramy
-              </Title>
-              <Button
-                noWrap
-                as={ButtonTag.InternalLink}
-                variant={ButtonVariant.Outline}
-                href="/schedules/add-schedule"
-                classes={scheduleStyles.btn}
-              >
-                Nowy harmonogram <Add color="currentColor" />
-              </Button>
-            </header>
-            <div className={scheduleStyles.list}>
-              {schedules.map((item) => (
-                <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
-              ))}
-            </div>
-            {sessions?.length > 3 && (
-              <Pagination name="Schedules" maxPage={0} />
-            )}
-          </Container>
-          <Container as={Tag.Section} classes={scheduleStyles.container}>
-            <header className={scheduleStyles.header}>
-              <Title tag={TitleTag.h2} variant={TitleVariant.section}>
-                Sesje
-              </Title>
-              {!!sessions?.length && (
-                <Button
-                  as={ButtonTag.InternalLink}
-                  variant={ButtonVariant.Outline}
-                  href="/schedules/add-session"
-                  classes={scheduleStyles.btn}
-                >
-                  Nowa sesja <Add color="currentColor" />
-                </Button>
-              )}
-            </header>
-            {!sessions?.length ? (
-              <Empty
-                text="Dodałeś właśnie swój pierwszy harmonogram!
+      return (
+          <main className={scheduleStyles.main}>
+              <Container as={Tag.Section} classes={scheduleStyles.container}>
+                  <header className={scheduleStyles.header}>
+                      <Title
+                          tag={TitleTag.h2}
+                          variant={TitleVariant.section}
+                          classes={scheduleStyles.title}
+                      >
+                          Harmonogramy
+                      </Title>
+                      <Button
+                          noWrap
+                          as={ButtonTag.InternalLink}
+                          variant={ButtonVariant.Outline}
+                          href="/schedules/add-schedule"
+                          classes={scheduleStyles.btn}
+                      >
+                          Nowy harmonogram <Add color="currentColor" />
+                      </Button>
+                  </header>
+                  <p className={styles.description}>
+                      Zdefiniuj podstawowe założenia spotkań oraz kiedy jesteś dostępny dla mentee. Utworzone harmonogramy wykorzystasz wielokrotnie tworząc konkretne sesje mentoringowe.
+                  </p>
+                  <div className={scheduleStyles.list}>
+                      {schedules.map((item) => (
+                          <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
+                      ))}
+                  </div>
+                  {sessions?.length > 3 && <Pagination name="Schedules" maxPage={0} />}
+              </Container>
+
+              <Container as={Tag.Section} classes={scheduleStyles.container}>
+                  <header className={scheduleStyles.header}>
+                      <Title tag={TitleTag.h2} variant={TitleVariant.section}>
+                          Sesje
+                      </Title>
+                      {!!sessions?.length && (
+                          <Button
+                              as={ButtonTag.InternalLink}
+                              variant={ButtonVariant.Outline}
+                              href="/schedules/add-session"
+                              classes={scheduleStyles.btn}
+                          >
+                              Nowa sesja <Add color="currentColor" />
+                          </Button>
+                      )}
+                  </header>
+                  <p className={styles.description}>
+                      Zaplanuj sesje monitoringowe określając cenę i ich dokładną tematykę.
+                  </p>
+                  {!sessions?.length ? (
+                      <Empty
+                          text="Dodałeś właśnie swój pierwszy harmonogram!
 					Utwórz teraz nową sesję"
-                button={{ text: "Nowa sesja", link: "/schedules/add-session" }}
-                icon={<Sessions />}
-              />
-            ) : (
-              <div className={scheduleStyles.list}>
-                {sessions.map((item) => (
-                  <ScheduleCard
-                    key={item.id}
-                    removeItem={removeItem}
-                    {...item}
-                  />
-                ))}
-              </div>
-            )}
-            {sessions?.length > 6 && <Pagination name="Sessions" maxPage={3} />}
-          </Container>
-        </main>
-    );
+                          button={{ text: "Nowa sesja", link: "/schedules/add-session" }}
+                          icon={<Sessions />}
+                      />
+                  ) : (
+                      <div className={scheduleStyles.list}>
+                          {sessions.map((item) => (
+                              <ScheduleCard
+                                  key={item.id}
+                                  removeItem={removeItem}
+                                  {...item}
+                              />
+                          ))}
+                      </div>
+                  )}
+                  {sessions?.length > 6 && <Pagination name="Sessions" maxPage={3} />}
+              </Container>
+          </main>
+      );
   }, [schedules, sessions, removeItem]);
 
   return (

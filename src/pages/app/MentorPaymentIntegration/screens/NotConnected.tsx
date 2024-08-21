@@ -17,9 +17,8 @@ export const NotConnected = ({ error, handleCreateAccount, accountCreatePending 
         <div className={styles.wrapper}>
             <h1 className={styles.title}>Rozliczenia</h1>
             <p className={styles.description}>
-                Płatności na platformie obsługuje firma Stripe. Po kliknięciu w
-                "Konfiguruj płatności", zostaniesz przekierowany do formularza
-                konfiguracji. Stripe poprosi Cię o dane niezbędne do wypłacenia środków.
+                Płatności na platformie Skillgu obsługuje Stripe. Wybierz poniżej "Konfiguruj płatności",
+                zostaniesz przekierowany do formularza Stripe, gdzie będziesz mógł podać dane, niezbędne do wypłacenia środków.
             </p>
             <div className={clx(styles.cols2, styles.cols2Reverse)}>
                 <div className={styles.imgCtaWrapper}>

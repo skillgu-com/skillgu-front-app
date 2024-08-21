@@ -39,11 +39,11 @@ export const MentorSubscriptions = () => {
 
   return (
     <Subscriptions
-      title="Status subskrypcji Twoich studentów"
+      title="Status subskrypcji Twoich mentee"
       subtitle={
         <>
-          Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-          <a href="/reports">Raportów</a>.
+          Tutaj masz wykaz aktualnie wykupionych przez mentee Subskrypcji, a jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
+          <a href="/payment">Płatnosci</a>.
         </>
       }
     />

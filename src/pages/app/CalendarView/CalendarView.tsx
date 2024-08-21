@@ -12,7 +12,7 @@ import {Container, Theme, useMediaQuery} from "@mui/material";
 import {Event, NavigateAction} from "react-big-calendar";
 import Calendar from "../../../components/Calendar/Calendar";
 import CalendarMobile from "../../../components/Calendar/_mobile/CalendarMobile/CalendarMobile";
-import {useLocation} from "react-router-dom";
+import styles from "../MentorPaymentIntegration/styles.module.scss";
 
 export type MeetingInCalendar = Event & {
     metadata: {
@@ -96,6 +96,9 @@ const CalendarView = () => {
     return (
         <Container>
             <Typography sx={{pt: 5, pb: {sm: 2, md: 3}}} variant='h2'>Kalendarz</Typography>
+            <p className={styles.description}>
+                Znajdziesz tutaj pełną rozpiskę zaplanowanych zajęć. Dodaj nowe Harmonogramy i sesje, aby dać możliwość mentee skorzystania z Twoich skilli.
+            </p>
             {isMD ? (
                 <Calendar
                     calendarProps={{

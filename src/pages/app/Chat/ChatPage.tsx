@@ -207,13 +207,19 @@ export const ChatPage = () => {
           >
             Wiadomości
           </Title>
+
           {unreadMsgQuantity ? (
             <p
               className={styles.unreadMsg}
             >{`${unreadMsgQuantity} nieprzeczytanych`}</p>
           ) : null}
         </header>
-
+        <div className={styles.wrapper}>
+          <p className={styles.description}>
+            Bezpośrednie konwersacje z mentorami znajdziesz właśnie tutaj, a wykaz zaplanowany zajęć masz pod ręką w {" "}
+            <a href="/calendar">Kalendarz</a>.
+          </p>
+        </div>
         <div className={styles.gridContainer}>
           <ChatContacts
             pending={pendingContacts}

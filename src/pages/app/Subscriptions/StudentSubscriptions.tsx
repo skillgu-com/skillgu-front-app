@@ -21,7 +21,7 @@ export const MenteeSubscriptionsPage = () => {
       </Container>
 
       <StudentMentors
-        title="Twoi mentorzy"
+        title="Twoi aktywni mentorzy"
       />
     </div>
   );

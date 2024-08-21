@@ -9,12 +9,16 @@ import { Loader } from "src/components/_grouped/loader";
 import { PdfIcon } from "@icons/PdfIcon";
 
 import styles from "./styles.module.scss";
+
 import { ReportStatus } from "@customTypes/reports";
+
 
 import { formatDate } from "src/utils";
 import { formatPrice } from "src/utils/price";
 import { fetchPaymentReports } from "@services/payments/fetchPaymentReports.service";
 import { FetchPaymentReportsServiceOutput } from "@services/payments/fetchPaymentReports.types";
+import Title, {TitleTag, TitleVariant} from "../../../../components/typography/Title/Title";
+import scheduleStyles from "../../Schedules/Schedules.module.scss";
 
 const renderStatus = (status: ReportStatus) => {
   switch (status) {
@@ -63,12 +67,26 @@ export const Reports = () => {
 
   return pending ? (
     <Loader spinner spinnerSize="lg" shadow overlay="global" />
+
   ) : data === null ? (
     <div className={styles.alert}>
       <p>Brak danych</p>
     </div>
   ) : data && data.success && data.reports.length ? (
     <section>
+      <Title
+          tag={TitleTag.h2}
+          variant={TitleVariant.section}
+          classes={scheduleStyles.title}>
+        Raporty
+      </Title>
+      <div className={styles.wrapper}>
+        <p className={styles.description}>
+          Poniżej znajdziesz historię swoich dotychczasowych rozliczeń. Przedłużysz swoje plany mentoringowe w zakładce {" "}
+          <a href="/mentee-subscriptions">Subskrypcja</a>.
+        </p>
+      </div>
+
       <Table>
         <Scrollable minWidth={"920px"}>
           <TableRow heading>

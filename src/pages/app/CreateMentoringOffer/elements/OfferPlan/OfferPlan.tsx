@@ -6,6 +6,7 @@ import {useCreateOfferReducer} from "src/reducers/createOffer";
 import {Select} from "../../form/select";
 import {ScheduleOption} from "src/reducers/createOffer/types";
 import {MentorshipPlanFormChangeProp, MentorshipPlanFormErrors,} from "src/components/_grouped/mentorship-plan/types";
+import { useSchedulesReducer } from "src/reducers/schedules";
 
 type Props = {
     plan: SubscriptionPlan;
@@ -19,6 +20,16 @@ export const OfferPlan = ({errors, plan, selected, setSelected, onRemove}: Props
     const {createOfferState, submitBuild} = useCreateOfferReducer();
     const planState = createOfferState[plan];
     const errorValues = Array.from(Object.values(errors)).filter((e) => !!e);
+    const sr = useSchedulesReducer()
+
+    const scheduleOptions : ScheduleOption[] = sr.schedulesState.schedules.map((sch) => {
+        return {
+            label: sch.scheduleName,
+            value: sch.id,
+            meetTime: sch.meetTime,
+            participant: sch.participant,
+        }
+    })
 
     return (
         <div onClick={() => setSelected(plan)}>
@@ -34,11 +45,11 @@ export const OfferPlan = ({errors, plan, selected, setSelected, onRemove}: Props
                 <Select
                     className={styles.select}
                     name={`schedule-${plan}`}
-                    value={createOfferState.availableSchedules.find(
+                    value={scheduleOptions.find(
                         (s) => String(s.value) === String(planState.schedule)
                     )}
                     placeholder="Wybierz harmonogram"
-                    options={createOfferState.availableSchedules}
+                    options={scheduleOptions}
                     handleSelect={(name, opt) => {
                         submitBuild(
                             {

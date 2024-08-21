@@ -4,6 +4,7 @@ import {weekdays} from "../pages/app/Schedules/screens/ScheduleForm/_types/Weekd
 import {format, setHours, setMinutes} from "date-fns";
 import type {WeekdayT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayT";
 import {WeekdayInputT} from "../pages/app/Schedules/screens/ScheduleForm/_types/WeekdayInputT";
+import { ScheduleType } from "@customTypes/schedule";
 
 type WeekTimes = Record<WeekdayT, {
     from: { time: string },
@@ -69,7 +70,7 @@ export const createScheduleMeeting = async (currentState: ScheduleFormInputT) =>
 
 export const fetchAllSchedules = async () => {
     // TODO type response tightly and eventually parse it
-    return await axios.get<{ id: number, scheduleName: string, meetTime: number, participant: number }[]>('/api/1.0/schedule/fetch-all')
+    return await axios.get<ScheduleType[]>('/api/1.0/schedule/fetch-all')
 }
 
 export const deleteSchedule = async (scheduleID: string) => {

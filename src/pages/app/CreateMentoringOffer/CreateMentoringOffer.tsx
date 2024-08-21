@@ -9,6 +9,7 @@ import {fetchAllSchedules} from "@services/scheduleService";
 import Button from "src/components/Button/Button";
 import {useSelector} from "react-redux";
 import {fetchMentoringOffer} from "@services/offer/fetchMentoringOffer";
+import { useSchedulesReducer } from "src/reducers/schedules";
 
 type MentorData = {
     email: string;
@@ -28,7 +29,8 @@ export const CreateMentoringOffer = () => {
         setPending,
         updateStatus,
     } = useCreateOfferReducer();
-    const isScheduled = state.availableSchedules.length > 0;
+    const sr = useSchedulesReducer()
+    const isScheduled = sr.schedulesState.schedules.length > 0
     const mentor:MentorData = useSelector((state: any) => state.auth.user);
 
     useEffect(() => {
@@ -70,7 +72,6 @@ export const CreateMentoringOffer = () => {
             setInitialPending(false);
         }
     }, [state.fetchedInitial, loadSchedules, setPending, setInitialPending, updateStatus, loadOffers]);
-
 
     return (
         <main className={styles.main}>

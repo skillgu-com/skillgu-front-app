@@ -114,7 +114,7 @@ export const fetchMentorFilteredList = async (take: number, skip: number, filter
 
         const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
 
-
+console.log(111, response)
         const {total, mentors} = response.data;
         const filteredMentors = mentors.slice(skip, skip + take);
 

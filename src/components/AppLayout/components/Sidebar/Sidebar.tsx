@@ -17,10 +17,6 @@ import {useLayoutReducer} from "src/reducers/layout";
 import {Tooltip, TooltipProps, useMediaQuery} from "@mui/material";
 import {ReactComponent as ChevronIcon} from "src/assets/icons/svg/chevron_up.svg"
 
-type Props = {
-    defaultOpen?: boolean
-}
-
 const commonTooltipProps: Partial<TooltipProps> = {
     placement: 'left',
     arrow: true,
@@ -57,12 +53,11 @@ export const Sidebar = () => {
     }
 
     const menuItems = getMenuItems({
-        username: userFromRedux.username,
+        username: userFromRedux?.username,
         role,
     }).filter((item) => item.link !== "");
 
     return (
-        <>
             <div
                 className={clx(styles.fullSidebar, {
                     [styles.fullSidebarOpen]: layoutState.isSidebarOpen,
@@ -120,6 +115,5 @@ export const Sidebar = () => {
                     ) : null}
                 </div>
             </div>
-        </>
     );
 };

@@ -25,12 +25,13 @@ import {
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import {MentorData} from "../MentorProfileEdit";
+import { MentorData } from "src/pages/app/MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
 import {fetchMentorSession} from "@services/session/sessionService";
 import Button, {ButtonVariant} from "src/components/Button/Button";
+
 
 export const MentorProfilePage = () => {
     const {username} = useParams();

@@ -22,7 +22,6 @@ export const fetchMentoringOffer = async (
     const response = await axios.post(
       `/api/mentorship/${mentorId}/fetch/mentorship-plans`
     );
-    console.log("XXXXXXQQWEQW", response)
 
     if (response.status === 200) {
       const mentoringData = response.data.data;

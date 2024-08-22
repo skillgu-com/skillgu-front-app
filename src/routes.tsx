@@ -120,14 +120,14 @@ const routesRaw: Omit<Route, "id">[] = [
     {
         path: paths.mentorshipBookPayment,
         element: <PaymentMentorship/>,
-        layoutVersion: "simple",
+        layoutVersion: "default",
         isProtected: true,
     },
 
     {
         path: paths.sessionBookPayment,
         element: <BookSession payment/>,
-        layoutVersion: "simple",
+        layoutVersion: "default",
         isProtected: true,
     },
     {

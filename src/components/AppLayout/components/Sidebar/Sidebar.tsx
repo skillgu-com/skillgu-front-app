@@ -109,6 +109,7 @@ export const Sidebar = () => {
                 onClick={isMobile ? handleSwitch : undefined}
                 className={styles.btn}
                 to="/search-mentors"
+                data-is-current={pathname.includes("search-mentors")}
               >
                 <SearchMentorsSvg />
                 <span>Znajdź mentora</span>
@@ -122,6 +123,7 @@ export const Sidebar = () => {
                 onClick={isMobile ? handleSwitch : undefined}
                 className={styles.btn}
                 to="/help"
+                data-is-current={pathname.includes("help")}
               >
                 <Help />
                 <span>Pomoc</span>

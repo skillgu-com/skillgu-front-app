@@ -40,22 +40,23 @@ const TopBar = () => {
       </div>
       <div className={styles.right}>
         {user ? (
-          <ProfileLinkTag className={styles.profile} href={userProfileLink}>
-            <div className={styles.profileImage}>
-              {image ? (
-                <img src={image} alt={user.email} />
-              ) : (
-                <img
-                  src="https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
-                  alt={user.email}
-                />
-              )}
-            </div>
-            <span className={styles.email}>{user.email}</span>
-          </ProfileLinkTag>
+          <>
+            <ProfileLinkTag className={styles.profile} href={userProfileLink}>
+              <div className={styles.profileImage}>
+                {image ? (
+                  <img src={image} alt={user.email} />
+                ) : (
+                  <img
+                    src="https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
+                    alt={user.email}
+                  />
+                )}
+              </div>
+              <span className={styles.email}>{user.email}</span>
+            </ProfileLinkTag>
+            <Notifications />
+          </>
         ) : null}
-
-        <Notifications />
 
         <HamburgerButton className={styles.hamRight} />
       </div>

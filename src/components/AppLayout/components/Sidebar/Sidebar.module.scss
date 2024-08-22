@@ -1,5 +1,5 @@
-@use '@styles/variables' as *;
-@use '@styles/font' as *;
+@use "@styles/variables" as *;
+@use "@styles/font" as *;
 
 $sidebar-bg: $colour-primary;
 $sidebar-text: $colour-base-200;
@@ -75,7 +75,6 @@ $sidebar-text: $colour-base-200;
     .btn {
       padding-left: 8px;
     }
-
 
     @media screen and (max-width: $sm - 1) {
       transform: translateX(0);
@@ -153,7 +152,6 @@ $sidebar-text: $colour-base-200;
   }
 
   .arrow {
-
     svg {
       transform: rotate(-90deg);
     }
@@ -202,5 +200,33 @@ $sidebar-text: $colour-base-200;
     color: $sidebar-text;
     height: 24px;
     width: 24px;
+  }
+}
+.btnBox {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  width: 100%;
+  gap: 12px;
+  border-top: 1px solid rgba($colour-base-000, 0.1);
+  .btn {
+    padding: 10px 8px 10px 17px !important;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .btnLogin {
+    @extend %text-button-md;
+
+    text-align: center;
+    border-radius: 100px;
+    display: block;
+    span {
+      text-align: center;
+    }
+  }
+  .btnRegister {
+    background: #ffffff08;
+    color: $colour-secondary;
+    border-radius: 100px;
   }
 }

@@ -1,26 +1,27 @@
-import React from "react";
+import React, { FC, useState } from "react";
 import clx from "classnames";
-import styles from "./Sidebar.module.scss";
-import { FC, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+
 import { SidebarButtonProps } from "./types";
 import { getMenuItems } from "../../config";
-import { useSelector } from "react-redux";
-import { getRole } from "src/redux/selectors/authSelectors";
-import { Link, useLocation } from "react-router-dom";
+
 import { HamburgerButton } from "../../elements";
 import Logo from "@icons/Logo";
 import Help from "@icons/Help";
 import Logout from "@icons/Logout";
-import { useLogout } from "./hooks";
-import paths from "src/paths";
-import Notifications from "../Notifications/Notifications";
 import { useLayoutReducer } from "src/reducers/layout";
 import { Tooltip, TooltipProps, useMediaQuery } from "@mui/material";
 import { ReactComponent as ChevronIcon } from "src/assets/icons/svg/chevron_up.svg";
 import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
-import Schedules from "@icons/Schedules";
 import CreateSchedules from "@icons/CreateSchedules";
 import { SearchMentorsSvg } from "@icons/SearchMentors";
+
+import styles from "./Sidebar.module.scss";
+
+import { getRole } from "src/redux/selectors/authSelectors";
+import { useLogout } from "./hooks";
+import paths from "src/paths";
 
 const commonTooltipProps: Partial<TooltipProps> = {
   placement: "left",
@@ -109,7 +110,7 @@ export const Sidebar = () => {
                 className={styles.btn}
                 to="/search-mentors"
               >
-                <SearchMentorsSvg/>
+                <SearchMentorsSvg />
                 <span>Znajdź mentora</span>
               </Link>
             </Tooltip>

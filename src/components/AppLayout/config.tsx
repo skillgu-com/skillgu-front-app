@@ -10,6 +10,7 @@ import { DollarCircleIcon } from "@icons/DollarCircleIcon";
 import SubscriptionIcon from "@icons/SubscriptionIcon";
 import Message from "@icons/Message";
 import { MessagesIcon } from "@icons/MessagesIcon";
+import { SearchMentorsSvg } from "@icons/SearchMentors";
 
 export type Visibility = "student" | "mentor" | "authenticated" | "all";
 
@@ -42,6 +43,13 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       link: paths.calendar,
       icon: <CalendarIcon />,
       visibility: "authenticated",
+    },
+    {
+      id: "search-mentors",
+      label: "Znajdź mentora",
+      link: paths.searchMentors,
+      icon: <SearchMentorsSvg/>,
+      visibility: "student",
     },
     {
       id: "schedules",

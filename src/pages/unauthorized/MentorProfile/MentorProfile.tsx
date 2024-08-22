@@ -113,13 +113,12 @@ export const MentorProfilePage = () => {
                     const mentorId = mentorResponse.data?.mentorId;
 
                     if (mentorId) {
-                    
                         const [sessionResponse, mentoringResponse] = await Promise.all([
-                            fetchMentorSession(mentorData.userID),
+                            fetchMentorSession(mentorId),
                             fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
     
-                        const formattedSessions = sessionResponse.data.map(
+                        const formattedSessions = sessionResponse?.data.map(
                             (elementFromAPI: any) => ({
                                 id: elementFromAPI?.id,
                                 sessionType: elementFromAPI?.sessionType,
@@ -155,7 +154,7 @@ export const MentorProfilePage = () => {
 
         const mentorIsLoggedUser = useMemo(() => {
             return userFromRedux?.id === data?.userID;
-        }, [userFromRedux, data.userID]);
+        }, [userFromRedux, data?.userID]);
         return mentorIsLoggedUser;
     };
     const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);

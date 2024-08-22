@@ -43,7 +43,7 @@ export const MentorSubscriptions = () => {
       subtitle={
         <>
           Tutaj masz wykaz aktualnie wykupionych przez mentee Subskrypcji, a jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-          <a href="/payment">Płatnosci</a>.
+          <a href="/payment">Płatnosci.</a>
         </>
       }
     />

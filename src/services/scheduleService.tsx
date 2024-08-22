@@ -82,7 +82,6 @@ export const deleteSchedule = async (scheduleID: string) => {
     }
 };
 
-
 export const getScheduleFormInitialData = async (scheduleId: string): Promise<ScheduleFormInputT> => {
     console.log('FETCHING SCHEDULE DATA with id: ' + scheduleId);
 

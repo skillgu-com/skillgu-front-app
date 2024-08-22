@@ -12,14 +12,11 @@ type Input = {
 }
 
 export const createMentoringOffer = async (input: Input): Promise<Response> => {
-
-    const plans = [
-        {type: 'basic', ...input.basic},
-        input.advanced &&
-        {type: 'advanced', ...input.advanced},
-        input.pro &&
-        {type: 'pro', ...input.pro},
-    ].filter(Boolean);
+    const plans = {
+        basic: input.basic,
+        advanced: input.advanced,
+        pro: input.pro,
+    }
 
     const body = {
         numberOfPlans: input.numberOfPlans,

@@ -1,155 +1,179 @@
-import {createOfferInitialState} from "./constants";
-import {useDispatch, useSelector} from "react-redux";
-import {CreateOfferState, Data} from "./types";
-import {useCallback} from "react";
-import {PlanInput} from "@customTypes/create-mentoring";
+import { createOfferInitialState } from "./constants";
+import { useDispatch, useSelector } from "react-redux";
+import { CreateOfferState, Data } from "./types";
+import { useCallback, useEffect, useMemo } from "react";
+import { PlanInput } from "@customTypes/create-mentoring";
+import { useSchedulesReducer } from "../schedules";
 
 type ScheduleOption = {
-    value: number
-    label: string,
-    meetTime: number,
-    participant: number
-}
+  value: number;
+  label: string;
+  meetTime: number;
+  participant: number;
+};
 
 type Output = {
-    createOfferState: CreateOfferState;
-    loadSchedules: (schedules: ScheduleOption[]) => void;
-    loadOffers: (data: Data) => void
-    submitInitial: () => void;
-    submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
-    submitBuild: (props: {
-        providesMaterials: boolean;
-        basic: PlanInput;
-        advanced?: PlanInput;
-        pro?: PlanInput;
-    }, nextStep: boolean) => void;
-    updateStatus: (state: {
-        errorMessage: string;
-        success: boolean;
-    }) => void;
-    setPending: (pending: boolean) => void;
-    reset: () => void;
-    prevStep: () => void;
+  createOfferState: CreateOfferState;
+  loadSchedules: (schedules: ScheduleOption[]) => void;
+  loadOffers: (data: Data) => void;
+  submitInitial: () => void;
+  submitDetermine: (numberOfPlans: 1 | 2 | 3, nextStep: boolean) => void;
+  submitBuild: (
+    props: {
+      providesMaterials: boolean;
+      basic: PlanInput|null;
+      advanced?: PlanInput|null;
+      pro?: PlanInput|null;
+    },
+    nextStep: boolean
+  ) => void;
+  updateStatus: (state: { errorMessage: string; success: boolean }) => void;
+  setPending: (pending: boolean) => void;
+  reset: () => void;
+  prevStep: () => void;
 };
 
 export const useCreateOfferReducer = (): Output => {
-    const createOfferState: CreateOfferState = useSelector((state) => {
-        if (state && typeof state === "object" && "createOffer" in state) {
-            return state?.createOffer as CreateOfferState;
-        }
-        return createOfferInitialState;
-    });
-    const dispatch = useDispatch();
+  const createOfferState: CreateOfferState = useSelector((state) => {
+    if (state && typeof state === "object" && "createOffer" in state) {
+      return state?.createOffer as CreateOfferState;
+    }
+    return createOfferInitialState;
+  });
+  const dispatch = useDispatch();
 
-    const loadOffers = useCallback(
-        (data: Data) =>
-            dispatch({
-                type: "LOAD_OFFERS",
-                payload: data,
-            }),
-        [dispatch]
-    );
+  // useEffect(() => {
+  //   const hasAnyPlan = !!(createOfferState.basic || createOfferState.advanced || createOfferState.pro)
+  //   if(hasAnyPlan && (createOfferState.step === 'initial' || createOfferState.step === 'determine')){
+  //     submitDetermine()
+  //   }
+  // }, [state])
 
-    const loadSchedules = useCallback(
-        (availableSchedules: ScheduleOption[]) =>
-            dispatch({
-                type: "LOAD_SCHEDULES",
-                payload: {
-                    availableSchedules,
-                },
-            }),
-        [dispatch]
-    );
+  const { schedulesState } = useSchedulesReducer();
+  const schedules = useMemo(() => schedulesState.schedules, [schedulesState]);
 
-    const submitInitial = useCallback(
-        () =>
-            dispatch({
-                type: "SUBMIT_INITIAL",
-            }),
-        [dispatch]
-    );
+  const loadOffers = useCallback(
+    (data: Data) =>
+      dispatch({
+        type: "LOAD_OFFERS",
+        payload: data,
+      }),
+    [dispatch]
+  );
 
-    const submitDetermine = useCallback(
-        (numberOfPlans: 1 | 2 | 3, nextStep: boolean) =>
-            dispatch({
-                type: "SUBMIT_DETERMINE",
-                payload: {
-                    numberOfPlans,
-                    nextStep,
-                },
-            }),
-        [dispatch]
-    );
+  const loadSchedules = useCallback(
+    (availableSchedules: ScheduleOption[]) =>
+      dispatch({
+        type: "LOAD_SCHEDULES",
+        payload: {
+          availableSchedules,
+        },
+      }),
+    [dispatch]
+  );
 
-    const submitBuild = useCallback(
-        (props: {
-            providesMaterials: boolean;
-            basic: PlanInput;
-            advanced?: PlanInput;
-            pro?: PlanInput;
-        }, nextStep: boolean) =>
-            dispatch({
-                type: "SUBMIT_BUILD",
-                payload: {
-                    providesMaterials: props.providesMaterials,
-                    basic: props.basic,
-                    advanced: props.advanced || undefined,
-                    pro: props.pro || undefined,
-                    nextStep,
-                },
-            }),
-        [dispatch]
-    );
+  useEffect(() => {
+    const schedulesOptions: ScheduleOption[] = schedules.map((sch) => ({
+      label: sch.scheduleName,
+      value: sch.id,
+      meetTime: sch.meetTime,
+      participant: sch.participant,
+    }));
+    loadSchedules(schedulesOptions);
+  }, [schedules, loadSchedules]);
 
-    const setPending = useCallback(
-        (pending: boolean) =>
-            dispatch({
-                type: "UPDATE_PENDING",
-                payload: {
-                    pending,
-                },
-            }),
-        [dispatch]
-    );
+  const submitInitial = useCallback(
+    () =>
+      dispatch({
+        type: "SUBMIT_INITIAL",
+      }),
+    [dispatch]
+  );
 
-    const updateStatus = useCallback(
-        (state: { errorMessage?: string; success?: boolean }) =>
-            dispatch({
-                type: "UPDATE_STATUS",
-                payload: {
-                    errorMessage: state.errorMessage || undefined,
-                    success: state.success || undefined,
-                },
-            }),
-        [dispatch]
-    );
+  const submitDetermine = useCallback(
+    (numberOfPlans: 1 | 2 | 3, nextStep: boolean) =>
+      dispatch({
+        type: "SUBMIT_DETERMINE",
+        payload: {
+          numberOfPlans,
+          nextStep,
+        },
+      }),
+    [dispatch]
+  );
 
-    const reset = useCallback(
-        () =>
-            dispatch({
-                type: "RESET",
-            }),
-        [dispatch]
-    );
+  const submitBuild = useCallback(
+    (
+      props: {
+        providesMaterials: boolean;
+        basic: PlanInput|null;
+        advanced?: PlanInput|null;
+        pro?: PlanInput|null;
+      },
+      nextStep: boolean
+    ) =>
+      dispatch({
+        type: "SUBMIT_BUILD",
+        payload: {
+          providesMaterials: props.providesMaterials,
+          basic: props.basic,
+          advanced: props.advanced || undefined,
+          pro: props.pro || undefined,
+          nextStep,
+        },
+      }),
+    [dispatch]
+  );
 
-    const prevStep = useCallback(
-        () =>
-            dispatch({
-                type: "PREV_STEP",
-            }),
-        [dispatch]
-    );
+  const setPending = useCallback(
+    (pending: boolean) =>
+      dispatch({
+        type: "UPDATE_PENDING",
+        payload: {
+          pending,
+        },
+      }),
+    [dispatch]
+  );
 
-    return {
-        loadOffers,
-        createOfferState,
-        prevStep,
-        loadSchedules,
-        submitInitial,
-        submitDetermine,
-        submitBuild,
-        setPending,
-        updateStatus,
-        reset,
-    };
+  const updateStatus = useCallback(
+    (state: { errorMessage?: string; success?: boolean }) =>
+      dispatch({
+        type: "UPDATE_STATUS",
+        payload: {
+          errorMessage: state.errorMessage || undefined,
+          success: state.success || undefined,
+        },
+      }),
+    [dispatch]
+  );
+
+  const reset = useCallback(
+    () =>
+      dispatch({
+        type: "RESET",
+      }),
+    [dispatch]
+  );
+
+  const prevStep = useCallback(
+    () =>
+      dispatch({
+        type: "PREV_STEP",
+      }),
+    [dispatch]
+  );
+
+  return {
+    loadOffers,
+    createOfferState,
+    prevStep,
+    loadSchedules,
+    submitInitial,
+    submitDetermine,
+    submitBuild,
+    setPending,
+    updateStatus,
+    reset,
+  };
 };

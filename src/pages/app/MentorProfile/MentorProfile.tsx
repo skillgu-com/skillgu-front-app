@@ -227,7 +227,7 @@ export const MentorProfilePage = () => {
                                             <Button
                                                 variant={ButtonVariant.PrimaryLight}
                                                 fontVariant="button-md"
-                                                href={selectedMentoring ? `/schedules/edit-mentorship/${selectedMentoring.id}` : undefined}
+                                                href={selectedMentoring ? `/create-mentoring` : undefined}
                                                 disabled={!selectedMentoring}
                                                 disableButton={!selectedMentoring}>Edytuj plan</Button>
                                         ) : null}

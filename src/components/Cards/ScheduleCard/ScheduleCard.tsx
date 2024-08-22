@@ -106,8 +106,6 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 
     const handleDeleteClick = () => {
         !!removeItem && removeItem(id, !!session ? 'sessions' : 'schedules');
-        window.location.reload();
-
     };
 
     return (

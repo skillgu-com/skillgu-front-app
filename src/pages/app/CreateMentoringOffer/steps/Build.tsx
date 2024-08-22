@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import styles from "../CreateMentoringOffer.module.scss";
 import {useCreateOfferReducer} from "src/reducers/createOffer";
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
@@ -8,12 +8,20 @@ import {OfferPlan} from "../elements/OfferPlan";
 import {SubscriptionPlan} from "@customTypes/order";
 import {Data} from "src/reducers/createOffer/types";
 import {getStateErrorMessage, validateState} from "../utils";
-import {createOfferInitialState} from "src/reducers/createOffer/constants";
+import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
   const state = co.createOfferState;
   const [selected, setSelected] = useState<SubscriptionPlan | null>(null);
+
+  useEffect(() => {
+    const hasAnyPlan = !!(state.basic || state.advanced || state.pro)
+    if(!hasAnyPlan){
+      // co.prevStep()
+      // co.prevStep()
+    }
+  }, [co, state.advanced, state.basic, state.pro])
 
   const valid = useMemo(() => {
     return validateState(state);
@@ -28,15 +36,20 @@ export const Build = () => {
       providesMaterials: state.providesMaterials,
       basic: state.basic,
     };
-    if (state.numberOfPlans === 1) {
+    const plansCount = [state.basic, state.advanced, state.pro].filter(s => s !== null).length
+    if (plansCount === 0) {
+      newData.basic = initialStep.basic;
+      newData.numberOfPlans = 1;
+    }
+    if (plansCount === 1) {
       newData.basic = state.basic;
-      newData.advanced = createOfferInitialState.advanced;
+      newData.advanced = initialStep.advanced;
       newData.numberOfPlans = 2;
     }
-    if (state.numberOfPlans === 2) {
+    if (plansCount === 2) {
       newData.basic = state.basic;
       newData.advanced = state.advanced;
-      newData.pro = createOfferInitialState.pro;
+      newData.pro = initialStep.pro;
       newData.numberOfPlans = 3;
     }
     co.loadOffers(newData);
@@ -48,30 +61,21 @@ export const Build = () => {
       numberOfPlans: state.numberOfPlans,
       providesMaterials: state.providesMaterials,
       basic: state.basic,
+      advanced: state.advanced,
+      pro: state.pro,
     };
-    if (state.numberOfPlans === 2 && plan === "basic") {
-      newData.basic = state.pro;
-      newData.numberOfPlans = 1;
+    if (plan === "basic") {
+      newData.basic = null;
     }
-    if (state.numberOfPlans === 2 && plan === "advanced") {
-      newData.basic = state.basic;
-      newData.numberOfPlans = 1;
+    if (plan === "advanced") {
+      newData.advanced = null;
     }
-    if (state.numberOfPlans === 3 && plan === "basic") {
-      newData.basic = state.advanced;
-      newData.pro = state.pro;
-      newData.numberOfPlans = 2;
+    if (plan === "pro") {
+      newData.pro = null;
     }
-    if (state.numberOfPlans === 3 && plan === "advanced") {
-      newData.basic = state.basic;
-      newData.pro = state.pro;
-      newData.numberOfPlans = 2;
-    }
-    if (state.numberOfPlans === 3 && plan === "pro") {
-      newData.basic = state.basic;
-      newData.pro = state.advanced;
-      newData.numberOfPlans = 2;
-    }
+    const numberOfPlans = [newData.basic, newData.advanced, newData.pro].filter(s => s !== null).length
+    const parsedNumberOfPlans = Math.min(1, Math.max(3, numberOfPlans)) as (1|2|3)
+    newData.numberOfPlans = parsedNumberOfPlans
     co.loadOffers(newData);
   };
 
@@ -88,7 +92,7 @@ export const Build = () => {
             plan="basic"
             selected={selected === "basic"}
             setSelected={setSelected}
-            onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+            onRemove={state.numberOfPlans === 1 ? removePlan : undefined}
           />
 
           {co.createOfferState.numberOfPlans > 1 ? (
@@ -97,7 +101,7 @@ export const Build = () => {
               plan="advanced"
               selected={selected === "advanced"}
               setSelected={setSelected}
-              onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+              onRemove={state.numberOfPlans === 2 ? removePlan : undefined}
             />
           ) : null}
 
@@ -107,7 +111,7 @@ export const Build = () => {
               plan="pro"
               selected={selected === "pro"}
               setSelected={setSelected}
-              onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+              onRemove={state.numberOfPlans === 3 ? removePlan : undefined}
             />
           )}
 

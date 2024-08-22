@@ -22,10 +22,13 @@ const defaultErrors : Errors = {
     schedule: "",
 }
 
-const validatePlan = (inp: PlanInput) => {
+const validatePlan = (inp: PlanInput|null) => {
   const errors: Errors = {
     ...defaultErrors,
   } as Errors;
+  if(inp === null){
+    return errors
+  }
   if (!inp.schedule) {
     errors.schedule = "Wybierz harmonogram";
   }

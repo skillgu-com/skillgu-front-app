@@ -70,7 +70,7 @@ const SchedulesView = () => {
         const assignedSession =
           schedules.find((schedule) => schedule.id === id)?.schedule
             ?.assignedSession || 0;
-
+        console.log("BEFORE Delete", {  id, arrayType, assignedSession })
         if (assignedSession > 0) {
           setIsModalOpen(true);
         } else {
@@ -147,7 +147,7 @@ const SchedulesView = () => {
             konkretne sesje mentoringowe.
           </p>
           <div className={scheduleStyles.list}>
-            {schedules.map((item) => (
+            {Array.isArray(schedules) && schedules.map((item) => (
               <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
             ))}
           </div>

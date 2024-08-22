@@ -11,6 +11,7 @@ import SubscriptionIcon from "@icons/SubscriptionIcon";
 import Message from "@icons/Message";
 import { MessagesIcon } from "@icons/MessagesIcon";
 import { SearchMentorsSvg } from "@icons/SearchMentors";
+import { Session } from "@icons/Session";
 
 export type Visibility = "student" | "mentor" | "authenticated" | "all";
 
@@ -55,7 +56,7 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       id: "schedules",
       label: "Harmonogramy i sesje",
       link: "/schedules",
-      icon: <CreateSchedules />,
+      icon: <Session />,
       visibility: "mentor",
     },
     {

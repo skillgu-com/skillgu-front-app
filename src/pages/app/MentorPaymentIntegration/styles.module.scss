@@ -16,11 +16,19 @@
 }
 
 .title {
-  @extend %text-heading-3;
+  font-size: 28px !important;
+  padding-top: 32px;
   color: $colour-primary;
+  @include media-xl-and-up {
+    font-size: 32px !important;
+    padding-top: 40px;
+  }
+}
 
-  @include media-lg-and-up {
-    font-size: 32px;
+.container {
+  padding: 0 4px;
+  @include media-xl-and-up { 
+    padding: 0 8px;
   }
 }
 

@@ -35,7 +35,7 @@ export const Connected = ({price, error, handleCreateAccountLink}: Props) => {
 
 
     return (
-        <Container as={Tag.Section} classes={styles.wrapper}>
+        <Container as={Tag.Section} classes={styles.container}>
             <h1 className={styles.title}>Płatności</h1>
             <p className={styles.description}>
                 Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować

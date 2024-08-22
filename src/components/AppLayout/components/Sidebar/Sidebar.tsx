@@ -16,6 +16,7 @@ import { ReactComponent as ChevronIcon } from "src/assets/icons/svg/chevron_up.s
 import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
 import CreateSchedules from "@icons/CreateSchedules";
 import { SearchMentorsSvg } from "@icons/SearchMentors";
+import Home from "@icons/Home";
 
 import styles from "./Sidebar.module.scss";
 
@@ -82,25 +83,39 @@ export const Sidebar = () => {
         {isMobile && <HamburgerButton className={styles.hamburger} />}
       </div>
       <div className={clx(styles.list, styles.topItems)}>
-        {menuItems.map(({ Icon, ...item }) => (
-          <Tooltip
-            key={item.id}
-            title={layoutState.isSidebarOpen ? "" : item.label}
-            {...commonTooltipProps}
-          >
-            <Link
-              onClick={isMobile ? handleSwitch : undefined}
-              className={styles.btn}
-              data-is-current={pathname.includes(item.link)}
-              to={item.link}
+        {userFromRedux &&
+          menuItems.map(({ Icon, ...item }) => (
+            <Tooltip
+              key={item.id}
+              title={layoutState.isSidebarOpen ? "" : item.label}
+              {...commonTooltipProps}
             >
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
-          </Tooltip>
-        ))}
+              <Link
+                onClick={isMobile ? handleSwitch : undefined}
+                className={styles.btn}
+                data-is-current={pathname.includes(item.link)}
+                to={item.link}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </Link>
+            </Tooltip>
+          ))}
         {!userFromRedux ? (
           <>
+            <Tooltip
+              title={layoutState.isSidebarOpen ? "" : "Strona główna"}
+              {...commonTooltipProps}
+            >
+              <a
+                onClick={isMobile ? handleSwitch : undefined}
+                className={styles.btn}
+                href="http://www.skillgu.com"
+              >
+                <Home />
+                <span>Strona główna</span>
+              </a>
+            </Tooltip>
             <Tooltip
               title={layoutState.isSidebarOpen ? "" : "Znajdź mentora"}
               {...commonTooltipProps}

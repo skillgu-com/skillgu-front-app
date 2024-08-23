@@ -40,7 +40,7 @@ export const initialStep : Record<'basic'|'advanced'|'pro', null|PlanInput> = {
 
 export const createOfferInitialState: CreateOfferState = {
   fetchedInitial: false,
-  step: "initial",
+  step: "build",
   availableSchedules: [],
   saved: false,
   numberOfPlans: 1,

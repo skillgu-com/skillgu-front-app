@@ -4,12 +4,40 @@
 
 .main {
   min-height: calc(100vh - 74px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
   @include media-md-and-up {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    gap: 48px;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     padding: 24px 0;
+  }
+}
+
+.mainContainer {
+  display: flex;
+  gap: 48px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainInner {
+  display: flex;
+  gap: 48px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  .description {
+    color: #56658F;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 180%;
   }
 }
 

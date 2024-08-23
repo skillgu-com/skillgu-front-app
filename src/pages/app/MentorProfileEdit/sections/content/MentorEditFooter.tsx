@@ -40,7 +40,7 @@ export const MentorEditFooter = () => {
         handleReject={() => setOpen(false)}
         handleSubmit={handleSubmit}
       />
-      {<Loader overlay className={styles.footerLoader} shadow spinner />}
+      {pending && <Loader overlay className={styles.footerLoader} shadow spinner />}
       <div className={styles.Footer}>
         <Button onClick={(() => setOpen(true))} classes={styles.Btn} variant={ButtonVariant.DangerText}>
           <BinIcon />

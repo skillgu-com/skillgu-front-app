@@ -30,6 +30,7 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
                 'Content-Type': 'application/json'
             }
         });
+        console.log('wysylam plany: ', body)
         if (response.status === 200) {
             return {success: true};
         } else {

@@ -2,13 +2,14 @@ import React, {useEffect, useMemo, useState} from "react";
 import styles from "../CreateMentoringOffer.module.scss";
 import {useCreateOfferReducer} from "src/reducers/createOffer";
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
-import Button, {ButtonVariant} from "src/components/Button/Button";
+import Button, {ButtonTag, ButtonVariant} from "src/components/Button/Button";
 import {RadioButton} from "../elements/RadioButton";
 import {OfferPlan} from "../elements/OfferPlan";
 import {SubscriptionPlan} from "@customTypes/order";
 import {Data} from "src/reducers/createOffer/types";
 import {getStateErrorMessage, validateState} from "../utils";
 import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
+import { PlusIcon } from "@icons/PlusIcon";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -117,8 +118,15 @@ export const Build = () => {
 
           {state.numberOfPlans < 3 ? (
             <div>
-              <Button variant={ButtonVariant.Primary} onClick={addPlan}>
-                Dodaj plan
+              <Button
+                as={ButtonTag.Button}
+                onClick={addPlan}
+                variant={ButtonVariant.Outline}
+                type="button"
+                classes={styles.addPlanBtn}
+              >
+                <span>Dodaj plan</span>
+                <PlusIcon size={"24px"} />
               </Button>
             </div>
           ) : null}

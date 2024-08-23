@@ -294,3 +294,10 @@
     color: $colour-error-100;  
   }
 }
+
+.addPlanBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

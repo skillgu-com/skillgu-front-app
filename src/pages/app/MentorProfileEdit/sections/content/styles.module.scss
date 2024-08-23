@@ -3,6 +3,11 @@
 @use "../../../../../scss/main" as *;
 @use "../../../../../scss/font" as *;
 
+.footerLoader {
+    align-items: flex-end;
+    padding-bottom: 100px;
+}
+
 .Inputs {
     display: flex;
     flex-direction: column;

@@ -18,7 +18,7 @@ import {
     ServiceType,
 } from "@customTypes/order";
 import {
-    fetchMentorMentorshipPlansForMentorProfile,
+    getMentorshipPlansForMentorProfile,
     getMentorByUsername,
     MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
@@ -71,35 +71,6 @@ export const MentorProfilePage = () => {
 
     const closePopup = () => setPopupSession(null);
 
-
-    // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
-    // useEffect(() => {
-    //     const run = async () => {
-    //         const resp = await fetchMentoring({mentorId: mentorId || ""});
-    //         if (resp.success) {
-    //             setOptionsMentoring(resp.mentoring);
-    //             // setOptionsSession(resp.session);
-    //         }
-    //         setLoading(false);
-    //     };
-    //     if (mentorId) {
-    //         run();
-    //     }
-    // }, [mentorId]);
-
-    // useEffect(() => {
-    //     const fetchInitialData = async () => {
-    //         setPending(true);
-    //         await getMentorProfileByID(mentorId).then((res) => {
-    //             setMentorData(res.data as MentorData);
-    //         });
-    //         setPending(false);
-    //     };
-    //     if (mentorId) {
-    //         fetchInitialData();
-    //     }
-    // }, [mentorId]);
-
     useEffect(() => {
         const fetchInitialData = async (name:string) => {
             setPending(true);
@@ -115,9 +86,13 @@ export const MentorProfilePage = () => {
                     if (mentorId) {
                         const [sessionResponse, mentoringResponse] = await Promise.all([
                             fetchMentorSession(mentorId),
-                            fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
+                            getMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
-    
+
+                        console.log('patrze tutaj na sesje mentora:',sessionResponse)
+                        console.log('patrze tutaj na mentorship mentora:',mentoringResponse)
+
+
                         const formattedSessions = sessionResponse?.data.map(
                             (elementFromAPI: any) => ({
                                 id: elementFromAPI?.id,

@@ -69,40 +69,83 @@ export const fetchMentorShip = async (
     return { success: false, error: "Error" };
   }
 };
-
-export const fetchMentorMentorshipPlansForMentorProfile = async (mentorId: {
+export const getMentorshipPlansForMentorProfile = async (mentorId: {
   mentorId: string;
 }): Promise<MentorshipDTO> => {
   try {
     const response = await axios.get<any>(
-      `/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`
+        `/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`
     );
     const mentoringData = response.data;
+
     const translateTitle = (title: string) => {
-      switch (title) {
-        case "BASIC":
+      switch (title.toLowerCase()) {
+        case "basic":
           return "Plan podstawowy";
-        case "ADVANCED":
+        case "advanced":
           return "Plan zaawansowany";
-        case "PRO":
+        case "pro":
           return "Plan pro";
         default:
           return title;
       }
     };
-    const mentorships: MentorshipPlanDTO[] = mentoringData.map((plan: any) => ({
-      id: plan.id,
-      title: translateTitle(plan.title),
-      subtitle: plan.subtitle,
-      price: plan.price,
-      variant: plan.variant,
-      descriptionRows: plan.descriptionRows,
-      sessionsPerMonth: plan.sessionsPerMonth,
-      sessionDurationMinutes: plan.sessionDurationMinutes,
-      responseTimeHours: plan.responseTimeHours,
-      providesMaterials: plan.providesMaterials,
-      mentoringDescription: plan.mentoringDescription,
-    }));
+    const mentorships: MentorshipPlanDTO[] = [];
+
+    if (mentoringData.basic) {
+      mentorships.push({
+        id: mentoringData.basic.mentorshipId.toString(),
+        title: translateTitle(mentoringData.basic.planType),
+        subtitle: mentoringData.basic.description,
+        price: mentoringData.basic.price,
+        variant: mentoringData.basic.planType,
+        descriptionRows: mentoringData.basic.planIncludes.map((item: any) => ({
+          description: item,
+        })),
+        sessionsPerMonth: mentoringData.basic.sessionsPerMonth,
+        sessionDurationMinutes: mentoringData.basic.sessionDuration,
+        responseTimeHours: mentoringData.basic.responseTime,
+        providesMaterials: mentoringData.providesMaterials,
+        mentoringDescription: mentoringData.basic.description,
+      });
+    }
+
+    if (mentoringData.advanced) {
+      mentorships.push({
+        id: mentoringData.advanced.mentorshipId.toString(),
+        title: translateTitle(mentoringData.advanced.planType),
+        subtitle: mentoringData.advanced.description,
+        price: mentoringData.advanced.price,
+        variant: mentoringData.advanced.planType,
+        descriptionRows: mentoringData.advanced.planIncludes.map((item: any) => ({
+          description: item,
+        })),
+        sessionsPerMonth: mentoringData.advanced.sessionsPerMonth,
+        sessionDurationMinutes: mentoringData.advanced.sessionDuration,
+        responseTimeHours: mentoringData.advanced.responseTime,
+        providesMaterials: mentoringData.providesMaterials,
+        mentoringDescription: mentoringData.advanced.description,
+      });
+    }
+
+    if (mentoringData.pro) {
+      mentorships.push({
+        id: mentoringData.pro.mentorshipId.toString(),
+        title: translateTitle(mentoringData.pro.planType),
+        subtitle: mentoringData.pro.description,
+        price: mentoringData.pro.price,
+        variant: mentoringData.pro.planType,
+        descriptionRows: mentoringData.pro.planIncludes.map((item: any) => ({
+          description: item,
+        })),
+        sessionsPerMonth: mentoringData.pro.sessionsPerMonth,
+        sessionDurationMinutes: mentoringData.pro.sessionDuration,
+        responseTimeHours: mentoringData.pro.responseTime,
+        providesMaterials: mentoringData.providesMaterials,
+        mentoringDescription: mentoringData.pro.description,
+      });
+    }
+
     return { mentorships };
   } catch (error) {
     console.error("Error fetching mentorship plans", error);

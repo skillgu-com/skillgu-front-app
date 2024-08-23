@@ -35,6 +35,7 @@ import {
 import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
+import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
 
 const SchedulesView = () => {
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
@@ -110,6 +111,8 @@ const SchedulesView = () => {
     });
   }, [userFromRedux.id]);
 
+  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
+
   const currentView = useMemo(() => {
     if (!!!schedules?.length)
       return (
@@ -137,6 +140,7 @@ const SchedulesView = () => {
               variant={ButtonVariant.Outline}
               href="/schedules/add-schedule"
               classes={scheduleStyles.btn}
+              disableButton={!userStripeIntegrationStatus}
             >
               Nowy harmonogram <Add color="currentColor" />
             </Button>

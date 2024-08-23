@@ -37,7 +37,7 @@ export const authReducer = (state = initialState, action: any) => {
                     email: action.payload.email,
                     role: action.payload.role,
                     username: action.payload.username,
-
+                    stripeIntegrationStatus: action.payload.stripeIntegrationStatus,
                 },
 
             };

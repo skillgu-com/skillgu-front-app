@@ -108,8 +108,8 @@ export const CreateMentoringOffer = () => {
               <Loader spinner />
             ) : isScheduled ? (
               <>
-                {state.step === "initial" ? <Initial /> : null}
-                {state.step === "determine" ? <Determine /> : null}
+                {state.step === "initial" ? <Build /> : null}
+                {state.step === "determine" ? <Build /> : null}
                 {state.step === "build" ? <Build /> : null}
                 {state.step === "summary" ? <Summary /> : null}
               </>

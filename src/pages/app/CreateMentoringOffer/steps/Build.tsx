@@ -174,14 +174,14 @@ export const Build = () => {
         {validMsg ? <p className={styles.validMsg}>{validMsg}</p> : null}
 
         <div className={styles.btnBox}>
-          <Button
+          {/* <Button
             onClick={co.prevStep}
             variant={ButtonVariant.PrimaryLight}
             type="button"
             fullWidth
           >
             Wróć
-          </Button>
+          </Button> */}
           <Button
             onClick={() => {
               co.submitBuild(co.createOfferState, true);

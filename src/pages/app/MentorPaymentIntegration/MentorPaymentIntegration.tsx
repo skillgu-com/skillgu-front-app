@@ -98,7 +98,7 @@ export const MentorPaymentIntegration = () => {
   }, []);
 
   return (
-    <>
+    <main>
       <Loader
         open={(accountLinkCreatePending || initialDataPending)}
         spinner
@@ -122,7 +122,7 @@ export const MentorPaymentIntegration = () => {
           accountCreatePending={accountCreatePending} // Przekazanie stanu ładowania
         />
       ) : null}
-    </>
+    </main>
   );
 };
 export default MentorPaymentIntegration;

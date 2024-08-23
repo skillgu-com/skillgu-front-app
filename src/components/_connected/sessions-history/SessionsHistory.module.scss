@@ -45,6 +45,7 @@
         color: $colour-base-800;
 
         a {
+            @extend %text-button-md;
             color: $colour-secondary;
             text-decoration: none;
 

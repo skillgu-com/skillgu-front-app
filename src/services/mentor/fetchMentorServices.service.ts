@@ -125,13 +125,10 @@ export const fetchMentorFilteredList = async (
       filters: filters || null,
     };
 
-    const response = await axios.post(
-      "/api/mentor/filtered-mentors",
-      filterMentorToSend
-    );
 
-    const { total, mentors } = response.data;
-    const filteredMentors = mentors.slice(skip, skip + take);
+        const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
+        const {total, mentors} = response.data;
+        const filteredMentors = mentors.slice(skip, skip + take);
 
     return { total, mentors: filteredMentors };
   } catch (error) {

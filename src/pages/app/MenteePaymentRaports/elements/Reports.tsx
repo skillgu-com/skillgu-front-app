@@ -83,7 +83,7 @@ export const Reports = () => {
       <div className={styles.wrapper}>
         <p className={styles.description}>
           Poniżej znajdziesz historię swoich dotychczasowych rozliczeń. Przedłużysz swoje plany mentoringowe w zakładce {" "}
-          <a href="/mentee-subscriptions">Subskrypcja</a>.
+          <a className={styles.link} href="/mentee-subscriptions">Subskrypcja.</a>
         </p>
       </div>
 

@@ -14,7 +14,7 @@ export const MenteeSubscriptionsPage = () => {
           subtitle={
             <>
               Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-              <a href="/reports">Raportów</a>.
+              <a href="/reports">Raportów.</a>
             </>
           }
         />

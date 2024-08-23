@@ -25,12 +25,13 @@ import {
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import {MentorData} from "../MentorProfileEdit";
+import { MentorData } from "src/pages/app/MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
 import {fetchMentorSession} from "@services/session/sessionService";
 import Button, {ButtonVariant} from "src/components/Button/Button";
+
 
 export const MentorProfilePage = () => {
     const {username} = useParams();
@@ -112,13 +113,12 @@ export const MentorProfilePage = () => {
                     const mentorId = mentorResponse.data?.mentorId;
 
                     if (mentorId) {
-                    
                         const [sessionResponse, mentoringResponse] = await Promise.all([
-                            fetchMentorSession(mentorData.userID),
+                            fetchMentorSession(mentorId),
                             fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
     
-                        const formattedSessions = sessionResponse.data.map(
+                        const formattedSessions = sessionResponse?.data.map(
                             (elementFromAPI: any) => ({
                                 id: elementFromAPI?.id,
                                 sessionType: elementFromAPI?.sessionType,
@@ -154,7 +154,7 @@ export const MentorProfilePage = () => {
 
         const mentorIsLoggedUser = useMemo(() => {
             return userFromRedux?.id === data?.userID;
-        }, [userFromRedux, data.userID]);
+        }, [userFromRedux, data?.userID]);
         return mentorIsLoggedUser;
     };
     const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);

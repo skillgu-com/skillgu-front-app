@@ -8,7 +8,7 @@ import Button, { ButtonVariant } from "../../Button/Button";
 import { Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Arrow from "@icons/Arrow";
-import { LocationTypes } from "src/pages/app/SearchMentors/SearchMentors";
+import { LocationTypes } from "src/pages/unauthorized/SearchMentors/SearchMentors";
 
 type Props = {
   avatarUrl?: string;

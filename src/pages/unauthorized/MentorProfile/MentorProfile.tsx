@@ -29,7 +29,7 @@ import { MentorData } from "src/pages/app/MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
-import {fetchMentorSession} from "@services/session/sessionService";
+import {getMentorSessions} from "@services/session/sessionService";
 import Button, {ButtonVariant} from "src/components/Button/Button";
 
 
@@ -41,12 +41,12 @@ export const MentorProfilePage = () => {
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
     const [pending, setPending] = useState<boolean>(true);
+    const userFromRedux = useSelector((state: any) => state.auth.user);
+
 
     // @TODO: get user id from sesion/jwt
 
-    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
-        []
-    );
+    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>([]);
     const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
     const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
 
@@ -85,13 +85,9 @@ export const MentorProfilePage = () => {
 
                     if (mentorId) {
                         const [sessionResponse, mentoringResponse] = await Promise.all([
-                            fetchMentorSession(mentorId),
+                            getMentorSessions(userFromRedux.id),
                             getMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
-
-                        console.log('patrze tutaj na sesje mentora:',sessionResponse)
-                        console.log('patrze tutaj na mentorship mentora:',mentoringResponse)
-
 
                         const formattedSessions = sessionResponse?.data.map(
                             (elementFromAPI: any) => ({

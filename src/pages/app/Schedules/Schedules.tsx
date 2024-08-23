@@ -30,7 +30,7 @@ import Button, {
 import { deleteSchedule, fetchAllSchedules } from "@services/scheduleService";
 import {
   deleteSession,
-  fetchMentorSession,
+  getMentorSessions,
 } from "@services/session/sessionService";
 import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
@@ -88,7 +88,7 @@ const SchedulesView = () => {
   );
 
   useEffect(() => {
-    fetchMentorSession(userFromRedux.id).then((res) => {
+    getMentorSessions(userFromRedux.id).then((res) => {
       const formattedSessions = res?.data.map(
         (elementFromAPI: ScheduleCardProps) => ({
           id: elementFromAPI?.id.toString(),

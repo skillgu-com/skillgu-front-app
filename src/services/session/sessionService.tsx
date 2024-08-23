@@ -43,7 +43,7 @@ export const getSessionNumber = async () => {
     return await axios.get('/api/1.0/get-session-number')
 }
 
-export const fetchMentorSession = async (userID: number) => {
+export const getMentorSessions = async (userID: number) => {
     return await axios.get(`/api/1.0/mentor-sessions`, {params: {userID}});
 }
 

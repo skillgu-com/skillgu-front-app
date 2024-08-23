@@ -8,7 +8,6 @@ import HomeScreen from "./pages/app/HomePage/HomePage";
 import SearchMentors from "./pages/unauthorized/SearchMentors/SearchMentors";
 import BookSession from "./pages/app/BookSession/BookSession";
 import Schedules from "./pages/app/Schedules/Schedules";
-import ScheduleForm from "./pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
 import SessionForm from "./pages/app/Schedules/screens/SessionForm/SessionForm";
 import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";

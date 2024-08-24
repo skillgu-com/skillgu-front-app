@@ -27,7 +27,7 @@ import Button, {
   ButtonTag,
   ButtonVariant,
 } from "../../../components/Button/Button";
-import { deleteSchedule, fetchAllSchedules } from "@services/scheduleService";
+import { deleteSchedule } from "@services/scheduleService";
 import {
   deleteSession,
   getMentorSessions,
@@ -35,6 +35,7 @@ import {
 import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
+
 
 const SchedulesView = () => {
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);

@@ -12,7 +12,7 @@ import { Tag } from "@customTypes/tags";
 // Styles
 import scheduleStyles from "./Schedules.module.scss";
 
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ScheduleCard, {
   ScheduleCardProps,
 } from "../../../components/Cards/ScheduleCard/ScheduleCard";
@@ -36,9 +36,12 @@ import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
 import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
+import {SchedulesAction} from "../../../reducers/schedules/types";
 
 
 const SchedulesView = () => {
+  // const dispatch = useDispatch();
+
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const userFromRedux = useSelector((state: any) => state.auth.user);
@@ -112,6 +115,7 @@ const SchedulesView = () => {
     });
   }, [userFromRedux.id]);
 
+
   const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
   const currentView = useMemo(() => {
@@ -124,6 +128,12 @@ const SchedulesView = () => {
         />
       );
 
+//     console.log('testuje tutaj:',schedules)
+// //TODO to delete
+//     // const resetSchedules = () => {
+//     //   const action: SchedulesAction = { type: "SCHEDULES_RESET" };
+//     //   dispatch(action);
+//     // };
     return (
       <main className={scheduleStyles.main}>
         <Container as={Tag.Section} classes={scheduleStyles.container}>
@@ -135,6 +145,10 @@ const SchedulesView = () => {
             >
               Harmonogramy
             </Title>
+            //TODO delete this button !!
+            {/*<div>*/}
+            {/*  <button onClick={resetSchedules}>Reset Schedules</button>*/}
+            {/*</div>*/}
             <Button
               noWrap
               as={ButtonTag.InternalLink}

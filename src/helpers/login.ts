@@ -13,9 +13,9 @@ type LoginReturn = Promise<SuccessResponse | ErrorResponse>;
 
 
 const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMsg: string): LoginReturn => {
+
     const userData = parseUserFromJwt(userJWT);
     if (!userData) return {success: false, errorMessage: errorMsg};
-
     localStorage.setItem('jwttoken', userJWT);
     return {
         success: true,

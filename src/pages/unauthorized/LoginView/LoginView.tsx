@@ -75,7 +75,7 @@ const LoginView = () => {
                     textColor="inherit"
                     variant="fullWidth"
                 >
-                    <Tab  sx={{fontSize: '12px'}} label="Jestem uczniem" value={pathAnchors.loginView.mentee}/>
+                    <Tab  sx={{fontSize: '12px'}} label="Jestem mentee" value={pathAnchors.loginView.mentee}/>
                     <Tab sx={{fontSize: '12px'}} label="Jestem mentorem" value={pathAnchors.loginView.mentor}/>
                 </Tabs>
                 <FormInputText<LoginFormInput>

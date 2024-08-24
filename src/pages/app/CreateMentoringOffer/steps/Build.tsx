@@ -10,6 +10,8 @@ import {Data} from "src/reducers/createOffer/types";
 import {getStateErrorMessage, validateState} from "../utils";
 import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
 import { PlusIcon } from "@icons/PlusIcon";
+import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
+import { useSelector } from "react-redux";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
@@ -80,6 +82,9 @@ export const Build = () => {
     co.loadOffers(newData);
   };
 
+  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
+
+
   return (
     <div>
       <CreateOfferTemplates
@@ -121,6 +126,7 @@ export const Build = () => {
               <Button
                 as={ButtonTag.Button}
                 onClick={addPlan}
+                disableButton={!userStripeIntegrationStatus}
                 variant={ButtonVariant.Outline}
                 type="button"
                 classes={styles.addPlanBtn}

@@ -50,7 +50,8 @@ const LoginView = () => {
                     id: response.userData.id,
                     email: response.userData.email,
                     role: response.userData.role[0],
-                    username: response.userData.username
+                    username: response.userData.username,
+                    stripeIntegrationStatus: response.userData.stripeIntegrationStatus,
                 },
             });
             navigate(paths.home);

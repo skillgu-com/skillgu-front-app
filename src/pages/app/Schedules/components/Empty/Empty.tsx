@@ -21,6 +21,8 @@ interface EmptyProps {
 	button: {
 		text: string;
 		link: string;
+		disabled?: boolean;
+
 	};
 }
 
@@ -45,12 +47,13 @@ const Empty = (props: EmptyProps) => {
 				</Title>
 			)}
 			{icon ?? <Schedules />}
-			{/*<Text classes={styles.text}>{text}</Text>*/}
 			<Button
 				as={ButtonTag.InternalLink}
 				variant={ButtonVariant.Outline}
 				href={link}
-				classes={styles.button}>
+				classes={styles.button}
+				disabled={props.button.disabled} // Obsługa disabled
+			>
 				{buttonText} <Add />
 			</Button>
 		</Container>

@@ -22,6 +22,7 @@ import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service"
 import {ScheduleType} from "@customTypes/schedule";
 import {useSchedulesReducer} from "src/reducers/schedules";
 import {getUserStripeIntegrationStatus} from "src/redux/selectors/authSelectors";
+import {Tooltip} from "@mui/material";
 
 const SchedulesView = () => {
     const {username} = useParams<{ username: string }>();
@@ -44,12 +45,10 @@ const SchedulesView = () => {
         fetchMentorData();
     }, [username, userFromRedux.username]);
 
-    // Fetch mentor sessions based on mentorId
     useEffect(() => {
         if (!mentorData || !mentorData.mentorId) {
-            return; // If mentorData or mentorId is null/undefined, do not proceed
+            return;
         }
-
         getMentorSessions(mentorData.mentorId).then((res) => {
             const formattedSessions = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
@@ -93,6 +92,7 @@ const SchedulesView = () => {
         }
     );
 
+
     // Remove item callback function
     const removeItem = useCallback(
         (id: string, arrayType: "schedules" | "sessions") => {
@@ -120,6 +120,7 @@ const SchedulesView = () => {
     // Stripe integration status from Redux
     const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
+
     // Determine what to display based on the state of schedules and sessions
     const currentView = useMemo(() => {
         if (!schedules?.length) {
@@ -129,14 +130,22 @@ const SchedulesView = () => {
                         title="Harmonogramy spotkań"
                         description="Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu"
                     >
-                        <Empty
-                            title=""
-                            text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
-                            button={{
-                                text: "Nowy harmonogram",
-                                link: "/schedules/add-schedule",
-                            }}
-                        />
+                        <Tooltip
+                            title="Najpierw musisz się zintegrować ze Stripe"
+                            placement="bottom-start"
+                        >
+                            <div style={{ opacity: userStripeIntegrationStatus ? 1 : 0.5 }}>
+                                <Empty
+                                    title=""
+                                    text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
+                                    button={{
+                                        text: "Nowy harmonogram",
+                                        link: "/schedules/add-schedule",
+                                        disabled: !userStripeIntegrationStatus,
+                                    }}
+                                />
+                            </div>
+                        </Tooltip>
                     </SectionTemplate>
                 </main>
             );

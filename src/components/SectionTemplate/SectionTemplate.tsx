@@ -15,7 +15,7 @@ type SectionTemplatePropsType = {
   description?: ReactNode;
   children: ReactNode;
   className?: string;
-  additionalClassName?: string;
+  fullWidth?: boolean;
 };
 
 export const SectionTemplate = ({
@@ -24,12 +24,17 @@ export const SectionTemplate = ({
   description,
   children,
   className,
-  additionalClassName,
+  fullWidth,
 }: SectionTemplatePropsType) => {
   return (
     <Container as={Tag.Section} classes={clx(styles.container, className)}>
       <header className={styles.header}>
-        <div className={clx(styles.titleWrapper, additionalClassName)}>
+        <div
+          className={clx(
+            styles.titleWrapper,
+            fullWidth ? styles.fullWidth : null
+          )}
+        >
           <Title
             tag={TitleTag.h2}
             variant={TitleVariant.section}

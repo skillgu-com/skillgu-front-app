@@ -20,7 +20,6 @@
       justify-content: space-between;
       gap: 24px;
     }
-
     @include media-xl-and-up {
       font-size: 32px !important;
       margin-bottom: 16px !important;
@@ -35,6 +34,10 @@
         font-size: 32px !important;
       }
     }
+  }
+
+  .fullWidth {
+    width: 100%;
   }
 
   .description {

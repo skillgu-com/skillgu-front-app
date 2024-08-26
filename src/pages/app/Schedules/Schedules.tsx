@@ -12,7 +12,7 @@ import { Tag } from "@customTypes/tags";
 // Styles
 import scheduleStyles from "./Schedules.module.scss";
 
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ScheduleCard, {
   ScheduleCardProps,
 } from "../../../components/Cards/ScheduleCard/ScheduleCard";
@@ -27,15 +27,18 @@ import Button, {
   ButtonTag,
   ButtonVariant,
 } from "../../../components/Button/Button";
-import { deleteSchedule, fetchAllSchedules } from "@services/scheduleService";
+import { deleteSchedule } from "@services/scheduleService";
 import {
   deleteSession,
   getMentorSessions,
 } from "@services/session/sessionService";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
+import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
+
 
 const SchedulesView = () => {
+
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const userFromRedux = useSelector((state: any) => state.auth.user);
@@ -62,6 +65,8 @@ const SchedulesView = () => {
     }
   );
 
+  console.log('tutaj sprawdzam jaki schedule przychodzi z api:',schedules)
+
   const removeItem = useCallback(
     (id: string, arrayType: "schedules" | "sessions") => {
       if (arrayType === "schedules") {
@@ -87,7 +92,7 @@ const SchedulesView = () => {
   );
 
   useEffect(() => {
-    getMentorSessions(userFromRedux.id).then((res) => {
+    getMentorSessions(userFromRedux.id,"empty_user").then((res) => {
       const formattedSessions = res?.data.map(
         (elementFromAPI: ScheduleCardProps) => ({
           id: elementFromAPI?.id.toString(),
@@ -108,6 +113,9 @@ const SchedulesView = () => {
       setSessions(formattedSessions);
     });
   }, [userFromRedux.id]);
+
+
+  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
   const currentView = useMemo(() => {
     if (!!!schedules?.length) {
@@ -156,6 +164,7 @@ const SchedulesView = () => {
               variant={ButtonVariant.Outline}
               href="/schedules/add-schedule"
               classes={scheduleStyles.btn}
+              disableButton={!userStripeIntegrationStatus}
             >
               Nowy harmonogram <Add color="currentColor" />
             </Button>

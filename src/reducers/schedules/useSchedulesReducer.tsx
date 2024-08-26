@@ -34,9 +34,11 @@ export const useSchedulesReducer = (): Output => {
   );
 
   useEffect(() => {
-    if(schedulesState.lastUpdate !== 0){
-      return
-    }
+      if (schedulesState.lastUpdate !== 0) {
+          return;
+      }
+      setPending(true);
+
     fetchAllSchedules().then((res) => {
       if (res.data) {
         const schedules : ScheduleType[] = res.data.map((elementFromAPI) => ({

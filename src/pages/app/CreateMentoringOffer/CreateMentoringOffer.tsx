@@ -5,12 +5,10 @@ import { Initial, Build, Determine, Summary, AddScheduleMsg } from "./steps";
 import Container from "src/components/Container/Container";
 import { Tag } from "@customTypes/tags";
 import { Loader } from "src/components/_grouped/loader";
-import { fetchAllSchedules } from "@services/scheduleService";
 import Button from "src/components/Button/Button";
 import { useSelector } from "react-redux";
 import { fetchMentoringOffer } from "@services/offer/fetchMentoringOffer";
 import { useSchedulesReducer } from "src/reducers/schedules";
-import { ScheduleOption } from "src/reducers/createOffer/types";
 import { Typography } from "@mui/material";
 
 type MentorData = {
@@ -108,8 +106,8 @@ export const CreateMentoringOffer = () => {
               <Loader spinner />
             ) : isScheduled ? (
               <>
-                {state.step === "initial" ? <Initial /> : null}
-                {state.step === "determine" ? <Determine /> : null}
+                {state.step === "initial" ? <Build /> : null}
+                {state.step === "determine" ? <Build /> : null}
                 {state.step === "build" ? <Build /> : null}
                 {state.step === "summary" ? <Summary /> : null}
               </>

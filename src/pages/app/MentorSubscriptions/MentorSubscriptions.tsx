@@ -19,6 +19,7 @@ import { Loader } from "src/components/_grouped/loader";
 import { Tag } from "src/types/tags";
 import Container from "src/components/Container/Container";
 import SearchSvg from "@icons/SearchSvg";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 const PER_PAGE = 8;
 
@@ -51,7 +52,7 @@ export const MentorSubscriptions = () => {
   useEffect(() => {
     const fetchData = async () => {
       setPending(true);
-      setData(null)
+      setData(null);
       const data = await fetchMentorStudents({
         take: PER_PAGE,
         skip: PER_PAGE * (page - 1),
@@ -66,119 +67,117 @@ export const MentorSubscriptions = () => {
   }, [page, tab]);
 
   return (
-    <Container as={Tag.Section}>
-      <div className={styles.wrapper}>
-        <div className={styles.header}>
-          <h2>Status subskrypcji Twoich studentów</h2>
-          <p>
-            Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-            <a href="/payments">Raportów.</a>
-          </p>
-        </div>
+    <SectionTemplate
+      title="Status subskrypcji Twoich studentów"
+      description={
+        <>
+          Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
+          <a href="/payments">Raportów.</a>
+        </>
+      }
+    >
+      <div className={styles.body}>
+        <HorizontalTabs className={styles.tabs}>
+          <HorizontalTabsButton
+            isActive={tab === "active"}
+            text="Aktywne subskrypcje"
+            name=""
+            value="active"
+            onClick={handleClick}
+          />
+          <HorizontalTabsButton
+            isActive={tab === "suspended"}
+            text="Zawieszone subskrypcje"
+            name=""
+            value="suspended"
+            onClick={handleClick}
+          />
+          <HorizontalTabsButton
+            isActive={tab === "inactive"}
+            text="Nieaktywne subskrypcje"
+            name=""
+            value="inactive"
+            onClick={handleClick}
+          />
+        </HorizontalTabs>
 
-        <div className={styles.body}>
-          <HorizontalTabs className={styles.tabs}>
-            <HorizontalTabsButton
-              isActive={tab === "active"}
-              text="Aktywne subskrypcje"
-              name=""
-              value="active"
-              onClick={handleClick}
-            />
-            <HorizontalTabsButton
-              isActive={tab === "suspended"}
-              text="Zawieszone subskrypcje"
-              name=""
-              value="suspended"
-              onClick={handleClick}
-            />
-            <HorizontalTabsButton
-              isActive={tab === "inactive"}
-              text="Nieaktywne subskrypcje"
-              name=""
-              value="inactive"
-              onClick={handleClick}
-            />
-          </HorizontalTabs>
-
-          <Table>
-            {pending ? (
-              <Loader spinner overlay shadow spinnerSize="lg" />
-            ) : data === null ? (
-              <div className={styles.alert}>
-                <p>Brak danych</p>
+        <Table>
+          {pending ? (
+            <Loader spinner overlay shadow spinnerSize="lg" />
+          ) : data === null ? (
+            <div className={styles.alert}>
+              <p>Brak danych</p>
+            </div>
+          ) : data.students.length === 0 ? (
+            <div className={styles.alert2}>
+              <div className={styles.icon}>
+                <SearchSvg />
               </div>
-            ) : data.students.length === 0 ? (
-              <div className={styles.alert2}>
-                <div className={styles.icon}>
-                  <SearchSvg />
-                </div>
-                <p>Nie znaleziono żadnych aktywnych subskrypcji</p>
-              </div>
-            ) : (
-              <Scrollable minWidth={"920px"}>
-                <TableRow heading>
-                  <TableCell flex={4} heading text="Student" />
-                  <TableCell flex={3} heading text="Data" />
-                  <TableCell flex={3} heading text="Status" />
-                  <TableCell flex={3} heading text="Rodzaj" />
-                  <TableCell flex={3} heading text="Typ" />
-                </TableRow>
-
-                {data.students
-                  ? data.students.map((s) => (
-                      <TableRow>
-                        <TableCell flex={4}>
-                          <UserIdentity
-                            avatarUrl={s.avatarUrl}
-                            avatarSize={40}
-                            avatarAlt={s.fullName}
-                            title={
-                              <span className={styles.userName}>
-                                {s.fullName}asdsa
-                              </span>
-                            }
-                          />
-                        </TableCell>
-                        <TableCell flex={3}>
-                          {formatDate(s.date, "DD.MM.YYYY")}
-                        </TableCell>
-                        <TableCell flex={3}>{renderStatus(s.status)}</TableCell>
-                        <TableCell flex={3} className={styles.service}>
-                          {s.serviceType}
-                        </TableCell>
-                        <TableCell flex={3}>
-                          <div className={styles.isPro}>
-                            {s.isPro ? <CrownIcon /> : null}
-                            {s.serviceName}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  : null}
-              </Scrollable>
-            )}
-
-            {data && data.total ? (
-              <TableRow heading borderTop>
-                <TableCell flex>
-                  <Pagination
-                    name="mentor-subscriptions-pagination"
-                    current={page}
-                    last={Math.ceil(data.total / PER_PAGE)}
-                    onClick={(e) => {
-                      const btn = e.target as HTMLButtonElement;
-                      setPage(Number(btn.value));
-                    }}
-                    className={styles.pagination}
-                    fullWidth
-                  />
-                </TableCell>
+              <p>Nie znaleziono żadnych aktywnych subskrypcji</p>
+            </div>
+          ) : (
+            <Scrollable minWidth={"920px"}>
+              <TableRow heading>
+                <TableCell flex={4} heading text="Student" />
+                <TableCell flex={3} heading text="Data" />
+                <TableCell flex={3} heading text="Status" />
+                <TableCell flex={3} heading text="Rodzaj" />
+                <TableCell flex={3} heading text="Typ" />
               </TableRow>
-            ) : null}
-          </Table>
-        </div>
+
+              {data.students
+                ? data.students.map((s) => (
+                    <TableRow>
+                      <TableCell flex={4}>
+                        <UserIdentity
+                          avatarUrl={s.avatarUrl}
+                          avatarSize={40}
+                          avatarAlt={s.fullName}
+                          title={
+                            <span className={styles.userName}>
+                              {s.fullName}asdsa
+                            </span>
+                          }
+                        />
+                      </TableCell>
+                      <TableCell flex={3}>
+                        {formatDate(s.date, "DD.MM.YYYY")}
+                      </TableCell>
+                      <TableCell flex={3}>{renderStatus(s.status)}</TableCell>
+                      <TableCell flex={3} className={styles.service}>
+                        {s.serviceType}
+                      </TableCell>
+                      <TableCell flex={3}>
+                        <div className={styles.isPro}>
+                          {s.isPro ? <CrownIcon /> : null}
+                          {s.serviceName}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                : null}
+            </Scrollable>
+          )}
+
+          {data && data.total ? (
+            <TableRow heading borderTop>
+              <TableCell flex>
+                <Pagination
+                  name="mentor-subscriptions-pagination"
+                  current={page}
+                  last={Math.ceil(data.total / PER_PAGE)}
+                  onClick={(e) => {
+                    const btn = e.target as HTMLButtonElement;
+                    setPage(Number(btn.value));
+                  }}
+                  className={styles.pagination}
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+          ) : null}
+        </Table>
       </div>
-    </Container>
+    </SectionTemplate>
   );
 };

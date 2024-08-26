@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
 // Components
-import AppHeader from "src/components/AppHeader/AppHeader";
 import {
   FiltersHeader,
   FiltersPopup,
@@ -24,6 +23,7 @@ import { mentorsInitialState } from "src/reducers/mentors/constants";
 import { FilterName, FiltersSelected, Option } from "@customTypes/mentor";
 import { fetchMentorFilteredList } from "src/services/mentor/fetchMentorServices.service";
 import { fetchTerms } from "../../../services/terms.service";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 
 export type LocationTypes = {
@@ -256,11 +256,7 @@ const SearchMentors = () => {
   );
 
   return (
-    <>
-      <AppHeader
-        title="Znajdź mentora dla siebie"
-        text="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania."
-      />
+    <SectionTemplate title="Znajdź mentora dla siebie" description="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania.">
       <FiltersPopup
         terms={terms}
         filters={state.filters}
@@ -301,7 +297,7 @@ const SearchMentors = () => {
           </div>
         </div>
       </Container>
-    </>
+    </SectionTemplate>
   );
 };
 

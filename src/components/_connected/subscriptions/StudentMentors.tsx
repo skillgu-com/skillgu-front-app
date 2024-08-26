@@ -12,7 +12,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Button, {ButtonVariant} from "src/components/Button/Button";
 import {ClientPortal} from "src/components/portal";
-import Container from "src/components/Container/Container";
 import Modal from "src/components/Modal/Modal";
 import {PlanName} from "src/components/_base/PlanName";
 import {Status} from "src/components/_base/Status";
@@ -25,7 +24,6 @@ import {ArrowLongRight} from "@icons/ArrowLongRight";
 
 import {SubscriptionPlan} from "@customTypes/order";
 import {ServiceSession} from "@customTypes/order";
-import {Tag} from "src/types/tags";
 
 import styles from "./Subscriptions.module.scss";
 
@@ -321,8 +319,7 @@ export const StudentMentors = ({title}: Props) => {
                 ) : null}
             </ClientPortal>
 
-            <SectionTemplate title={title || ''}>
-                    <div className={styles.body}>
+            <SectionTemplate title={title || ''}>                    
                         {pending ? (
                             <Slider {...settings} className={styles.slick}>
                                 {new Array(PER_PAGE).fill(null).map((_, i) => (
@@ -510,7 +507,7 @@ export const StudentMentors = ({title}: Props) => {
                                 <EmptyState text="Nie nawiązano współpracy z żadnym mentorem"/>
                             )
                         ) : null}
-                    </div>
+                    
             
             </SectionTemplate>
         </>

@@ -32,7 +32,6 @@ import {
   deleteSession,
   getMentorSessions,
 } from "@services/session/sessionService";
-import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
 
@@ -40,9 +39,9 @@ const SchedulesView = () => {
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-  const sr = useSchedulesReducer()
+  const sr = useSchedulesReducer();
 
-  const schedules : ScheduleCardProps[] = sr.schedulesState.schedules.map(
+  const schedules: ScheduleCardProps[] = sr.schedulesState.schedules.map(
     (elementFromAPI: ScheduleType) => {
       return {
         id: elementFromAPI.id.toString(),
@@ -59,9 +58,9 @@ const SchedulesView = () => {
           scheduleName: elementFromAPI?.scheduleName,
           participant: elementFromAPI?.participant,
         },
-      } as unknown as ScheduleCardProps
+      } as unknown as ScheduleCardProps;
     }
-  )
+  );
 
   const removeItem = useCallback(
     (id: string, arrayType: "schedules" | "sessions") => {
@@ -70,12 +69,12 @@ const SchedulesView = () => {
         const assignedSession =
           schedules.find((schedule) => schedule.id === id)?.schedule
             ?.assignedSession || 0;
-        console.log("BEFORE Delete", {  id, arrayType, assignedSession })
+        console.log("BEFORE Delete", { id, arrayType, assignedSession });
         if (assignedSession > 0) {
           setIsModalOpen(true);
         } else {
           deleteSchedule(id).then(() => {
-            sr.reset()
+            sr.reset();
           });
         }
       } else {
@@ -111,14 +110,34 @@ const SchedulesView = () => {
   }, [userFromRedux.id]);
 
   const currentView = useMemo(() => {
-    if (!!!schedules?.length)
+    if (!!!schedules?.length) {
       return (
-        <Empty
-          title="Harmonogram spotkań"
-          text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
-          button={{ text: "Nowy harmonogram", link: "/schedules/add-schedule" }}
-        />
+        <main className={scheduleStyles.main}>
+          <Container as={Tag.Section} classes={scheduleStyles.container}>
+            <header className={scheduleStyles.header}>
+              <Title
+                tag={TitleTag.h2}
+                variant={TitleVariant.section}
+                classes={scheduleStyles.title}
+              >
+                Harmonogramy spotkań
+              </Title>
+            </header>
+            <p className={scheduleStyles.description}>
+            Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu
+            </p>
+            <Empty
+              title=""
+              text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
+              button={{
+                text: "Nowy harmonogram",
+                link: "/schedules/add-schedule",
+              }}
+            />
+          </Container>
+        </main>
       );
+    }
 
     return (
       <main className={scheduleStyles.main}>
@@ -141,22 +160,23 @@ const SchedulesView = () => {
               Nowy harmonogram <Add color="currentColor" />
             </Button>
           </header>
-          <p className={styles.description}>
+          <p className={scheduleStyles.description}>
             Zdefiniuj podstawowe założenia spotkań oraz kiedy jesteś dostępny
             dla mentee. Utworzone harmonogramy wykorzystasz wielokrotnie tworząc
             konkretne sesje mentoringowe.
           </p>
           <div className={scheduleStyles.list}>
-            {Array.isArray(schedules) && schedules.map((item) => (
-              <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
-            ))}
+            {Array.isArray(schedules) &&
+              schedules.map((item) => (
+                <ScheduleCard key={item.id} removeItem={removeItem} {...item} />
+              ))}
           </div>
           {sessions?.length > 3 && <Pagination name="Schedules" maxPage={0} />}
         </Container>
 
         <Container as={Tag.Section} classes={scheduleStyles.container}>
           <header className={scheduleStyles.header}>
-            <Title tag={TitleTag.h2} variant={TitleVariant.section}>
+            <Title tag={TitleTag.h2} variant={TitleVariant.section}  >
               Sesje
             </Title>
             {!!sessions?.length && (
@@ -170,7 +190,7 @@ const SchedulesView = () => {
               </Button>
             )}
           </header>
-          <p className={styles.description}>
+          <p className={scheduleStyles.description}>
             Zaplanuj sesje monitoringowe określając cenę i ich dokładną
             tematykę.
           </p>

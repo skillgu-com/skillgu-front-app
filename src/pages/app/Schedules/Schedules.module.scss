@@ -33,16 +33,14 @@
 
 	.title {
 		margin-bottom: 0;
+		color:$colour-primary;
 	}
 }
 
-.modalContent {
-	h3 {
-		margin-top:40px;
-	}	
+.description {
+	@extend %text-button-md;
+	color: $colour-base-800;
 }
-
-
 
 .modalText {
 	font-size: 16px;

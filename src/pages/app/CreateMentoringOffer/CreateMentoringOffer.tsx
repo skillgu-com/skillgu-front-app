@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { fetchMentoringOffer } from "@services/offer/fetchMentoringOffer";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { SectionTemplate } from "src/components/SectionTemplate";
+import {Tooltip} from "@mui/material";
+import {getUserStripeIntegrationStatus} from "../../../redux/selectors/authSelectors";
 
 type MentorData = {
   email: string;
@@ -30,6 +32,8 @@ export const CreateMentoringOffer = () => {
   const sr = useSchedulesReducer();
   const isScheduled = sr.schedulesState.schedules.length > 0;
   const mentor: MentorData = useSelector((state: any) => state.auth.user);
+  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
+
 
   useEffect(() => {
     const hasAnyPlan = !!(state.basic || state.advanced || state.pro);
@@ -79,33 +83,63 @@ export const CreateMentoringOffer = () => {
   return (
     <main>
       <SectionTemplate
-        title="Twój mentoring"
-        description="Ustal, jak będzie wyglądał Twój mentoring. Plany, które zaraz utworzysz będą się pojawiały po prawej stronie Twojego profilu"
+          title="Twój mentoring"
+          description="Ustal, jak będzie wyglądał Twój mentoring. Plany, które zaraz utworzysz będą się pojawiały po prawej stronie Twojego profilu"
       >
-        <div className={styles.containerOuter}>
-          {state.pending ? <Loader overlay shadow spinner /> : null}
-          {state.errorMessage ? (
-            <div className={styles.errorMessage}>
-              <p>{state.errorMessage}</p>
-              <div>
-                <Button className={styles.btn} onClick={reset}>
-                  Spróbuj od początku
-                </Button>
-              </div>
-            </div>
-          ) : initialPending ? (
-            <Loader spinner />
-          ) : isScheduled ? (
-            <>
-              {/* {state.step === "initial" ? <Build /> : null}
-              {state.step === "determine" ? <Build /> : null} */}
-              {state.step === "build" ? <Build /> : null}
-              {state.step === "summary" ? <Summary /> : null}
-            </>
+        <div style={{ opacity: userStripeIntegrationStatus ? 1 : 0.5 }}>
+          {!userStripeIntegrationStatus ? (
+              <Tooltip
+                  title="Najpierw przejdź do rozliczeń aby zintegrować się ze Stripe"
+                  placement="bottom-start"
+              >
+                <div className={styles.containerOuter}>
+                  {state.pending ? <Loader overlay shadow spinner /> : null}
+                  {state.errorMessage ? (
+                      <div className={styles.errorMessage}>
+                        <p>{state.errorMessage}</p>
+                        <div>
+                          <Button className={styles.btn} onClick={reset}>
+                            Spróbuj od początku
+                          </Button>
+                        </div>
+                      </div>
+                  ) : initialPending ? (
+                      <Loader spinner />
+                  ) : isScheduled ? (
+                      <>
+                        {state.step === "build" ? <Build /> : null}
+                        {state.step === "summary" ? <Summary /> : null}
+                      </>
+                  ) : (
+                      <AddScheduleMsg />
+                  )}
+                </div>
+              </Tooltip>
           ) : (
-            <AddScheduleMsg />
+              <div className={styles.containerOuter}>
+                {state.pending ? <Loader overlay shadow spinner /> : null}
+                {state.errorMessage ? (
+                    <div className={styles.errorMessage}>
+                      <p>{state.errorMessage}</p>
+                      <div>
+                        <Button className={styles.btn} onClick={reset}>
+                          Spróbuj od początku
+                        </Button>
+                      </div>
+                    </div>
+                ) : initialPending ? (
+                    <Loader spinner />
+                ) : isScheduled ? (
+                    <>
+                      {state.step === "build" ? <Build /> : null}
+                      {state.step === "summary" ? <Summary /> : null}
+                    </>
+                ) : (
+                    <AddScheduleMsg />
+                )}
+              </div>
           )}
-        </div>
+        </div> {/* Domknięcie div, które obsługuje opacity */}
       </SectionTemplate>
     </main>
   );

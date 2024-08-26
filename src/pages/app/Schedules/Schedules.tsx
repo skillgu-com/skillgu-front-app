@@ -132,7 +132,7 @@ const SchedulesView = () => {
                         <div style={{ opacity: userStripeIntegrationStatus ? 1 : 0.5 }}>
                             {!userStripeIntegrationStatus ? (
                                 <Tooltip
-                                    title="Aby stworzyć harmonogram najpierw musisz zintegrować się ze Stripe"
+                                    title="Najpierw przejdź do rozliczeń aby zintegrować się ze Stripe"
                                     placement="bottom-start"
                                 >
                                     <div>

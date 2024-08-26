@@ -6,7 +6,8 @@ import { PlusIcon } from "@icons/PlusIcon";
 
 export const AddScheduleMsg = () => {
   return (
-    <CreateOfferTemplates title="Harmonogram spotkań" subtitle="" step={1}>
+    <CreateOfferTemplates title="Harmonogram spotkań
+    " subtitle="" step={1}>
       <div className={styles.addSchedule}>
         <div className={styles.scheduleMsgImgBox}>
           <img
@@ -25,6 +26,7 @@ export const AddScheduleMsg = () => {
             variant={ButtonVariant.Outline}
             type="button"
             classes={styles.scheduleBtn}
+
           >
             <span>Nowy harmonogram</span>
             <PlusIcon size={"24px"} />

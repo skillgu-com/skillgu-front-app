@@ -86,11 +86,10 @@ export const Build = () => {
 
 
   return (
-    <div>
       <CreateOfferTemplates
         title="Setup Twoich planów"
         subtitle="Uzupełnij pola."
-        step={3}
+        step={2}
       >
         <div className={styles.plansWrapper}>
           <OfferPlan
@@ -201,6 +200,5 @@ export const Build = () => {
           </Button>
         </div>
       </CreateOfferTemplates>
-    </div>
   );
 };

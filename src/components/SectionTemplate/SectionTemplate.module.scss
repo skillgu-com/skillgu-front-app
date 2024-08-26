@@ -1,0 +1,54 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.container {
+  margin: 32px 4px;
+  @include media-xl-and-up {
+    margin: 40px 8px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .titleWrapper {
+    margin-bottom: 24px !important;
+    @include media-md-and-up {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    @include media-xl-and-up {
+      font-size: 32px !important;
+      margin-bottom: 16px !important;
+    }
+
+    .title {
+      font-size: 28px !important;
+      letter-spacing: -1px;
+      color: $colour-primary;
+      margin-bottom: 0 !important;
+      @include media-xl-and-up {
+        font-size: 32px !important;
+      }
+    }
+  }
+
+  .description {
+    @extend %text-button-md;
+    color: $colour-base-800;
+
+    a {
+      @extend %text-button-md;
+      color: $colour-secondary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

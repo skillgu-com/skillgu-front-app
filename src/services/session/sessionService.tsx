@@ -40,9 +40,9 @@ export const editSession = async ({ sessionId, session }: { sessionId: string, s
 }
 
 
-export const getMentorSessions = async (userID: number, username: string) => {
+export const getMentorSessions = async (mentorId: number) => {
     return await axios.get(`/api/1.0/mentor-sessions`, {
-        params: { userID, username }
+        params: { mentorId }
     });
 }
 export const getSessionTypes = async () => {

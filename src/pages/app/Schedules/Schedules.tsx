@@ -36,14 +36,39 @@ import styles from "../MentorPaymentIntegration/styles.module.scss";
 import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
 import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
+import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
+import {useParams} from "react-router-dom";
 
 
 const SchedulesView = () => {
+  const { username } = useParams<{ username: string }>();
+  const [mentorData, setMentorData] = useState<any>(null);  // Dodajemy stan na dane mentora
 
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const userFromRedux = useSelector((state: any) => state.auth.user);
   const sr = useSchedulesReducer()
+
+  useEffect(() => {
+    const fetchMentorData = async () => {
+      // if (!username) {
+      //   console.error("Username is undefined");
+      //   return;
+      // }
+
+      console.log()
+      try {
+        const mentorResponse = await getMentorByUsername(userFromRedux.userName);
+        console.log('tutaj testuje: ',mentorResponse);
+        setMentorData(mentorResponse.data);  // Zapisujemy dane mentora w stanie
+      } catch (error) {
+        console.error("Error fetching mentor data:", error);
+      }
+    };
+    fetchMentorData();
+  }, [username]);
+
+
 
   const schedules : ScheduleCardProps[] = sr.schedulesState.schedules.map(
     (elementFromAPI: ScheduleType) => {
@@ -66,7 +91,6 @@ const SchedulesView = () => {
     }
   )
 
-  console.log('tutaj sprawdzam jaki schedule przychodzi z api:',schedules)
 
   const removeItem = useCallback(
     (id: string, arrayType: "schedules" | "sessions") => {
@@ -93,7 +117,7 @@ const SchedulesView = () => {
   );
 
   useEffect(() => {
-    getMentorSessions(userFromRedux.id,"empty_user").then((res) => {
+    getMentorSessions(4).then((res) => {
       const formattedSessions = res?.data.map(
         (elementFromAPI: ScheduleCardProps) => ({
           id: elementFromAPI?.id.toString(),

@@ -73,6 +73,7 @@ export const MentorProfilePage = () => {
 
     const closePopup = () => setPopupSession(null);
 
+
     useEffect(() => {
         const fetchInitialData = async (name:string) => {
             setPending(true);
@@ -88,7 +89,7 @@ export const MentorProfilePage = () => {
                     if (mentorId) {
                         const [sessionResponse, mentoringResponse] = await Promise.all([
                             //TODO it can`t be here userFromRedux ! what if we want get mentorprofile when you are logg via mentee ?
-                            getMentorSessions(userFromRedux.id,safeUsername),
+                            getMentorSessions(mentorId),
                             getMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
 
@@ -117,6 +118,8 @@ export const MentorProfilePage = () => {
                 setLoading(false);
             }
         };
+
+        console.log('ty kurwo dwa',optionsSession)
 
         if (username) {
             fetchInitialData(username);

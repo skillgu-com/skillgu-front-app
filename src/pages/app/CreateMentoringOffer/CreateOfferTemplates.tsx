@@ -15,7 +15,7 @@ export const CreateOfferTemplates = ({
   step,
   children,
 }: CreateOfferTemplatesProps) => {
-  const progressSteps = Array.from(Array(4).keys());
+  const progressSteps = Array.from(Array(3).keys());
   return (
     <>
       <div className={styles.progressBar}>

@@ -53,7 +53,7 @@ export const Summary = () => {
     <CreateOfferTemplates
       title="Wszystko gotowe"
       subtitle="Zajrzyj na swój profil, aby zobaczyć swoje nowe plany."
-      step={4}
+      step={3}
     >
       {success && (
         <div className={styles.summaryImgBox}>

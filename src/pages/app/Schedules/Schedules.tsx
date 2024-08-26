@@ -40,7 +40,6 @@ import {SchedulesAction} from "../../../reducers/schedules/types";
 
 
 const SchedulesView = () => {
-  // const dispatch = useDispatch();
 
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -93,7 +92,7 @@ const SchedulesView = () => {
   );
 
   useEffect(() => {
-    getMentorSessions(userFromRedux.id).then((res) => {
+    getMentorSessions(userFromRedux.id,"empty_user").then((res) => {
       const formattedSessions = res?.data.map(
         (elementFromAPI: ScheduleCardProps) => ({
           id: elementFromAPI?.id.toString(),

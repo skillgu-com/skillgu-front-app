@@ -34,6 +34,7 @@ export const useSchedulesReducer = (): Output => {
   );
 
   useEffect(() => {
+      console.log(schedulesState)
     if(schedulesState.lastUpdate !== 0){
       return
     }

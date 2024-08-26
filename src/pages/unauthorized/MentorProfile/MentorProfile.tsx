@@ -34,7 +34,9 @@ import Button, {ButtonVariant} from "src/components/Button/Button";
 
 
 export const MentorProfilePage = () => {
-    const {username} = useParams();
+    const { username } = useParams<{ username: string }>();
+    const safeUsername = username || ''; // lub 'unknown' lub inny string, który ma sens w twoim kontekście
+
     const location = useLocation();
     const navigate = useNavigate();
     
@@ -85,7 +87,8 @@ export const MentorProfilePage = () => {
 
                     if (mentorId) {
                         const [sessionResponse, mentoringResponse] = await Promise.all([
-                            getMentorSessions(userFromRedux.id),
+                            //TODO it can`t be here userFromRedux ! what if we want get mentorprofile when you are logg via mentee ?
+                            getMentorSessions(userFromRedux.id,safeUsername),
                             getMentorshipPlansForMentorProfile({mentorId: mentorId}),
                         ]);
 

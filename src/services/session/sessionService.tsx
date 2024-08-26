@@ -39,14 +39,12 @@ export const editSession = async ({ sessionId, session }: { sessionId: string, s
     return await axios.post(`/api/1.0/session/${sessionId}`, parseSessionFormDataToSessionDTO(session));
 }
 
-export const getSessionNumber = async () => {
-    return await axios.get('/api/1.0/get-session-number')
-}
 
-export const getMentorSessions = async (userID: number) => {
-    return await axios.get(`/api/1.0/mentor-sessions`, {params: {userID}});
+export const getMentorSessions = async (userID: number, username: string) => {
+    return await axios.get(`/api/1.0/mentor-sessions`, {
+        params: { userID, username }
+    });
 }
-
 export const getSessionTypes = async () => {
     // TODO type response tightly and eventually parse it
     return await axios.get<{id: number, name: string}[]>('/api/session-types/get-all')

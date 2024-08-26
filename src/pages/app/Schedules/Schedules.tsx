@@ -120,7 +120,6 @@ const SchedulesView = () => {
     // Stripe integration status from Redux
     const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
-
     // Determine what to display based on the state of schedules and sessions
     const currentView = useMemo(() => {
         if (!schedules?.length) {
@@ -130,23 +129,41 @@ const SchedulesView = () => {
                         title="Harmonogramy spotkań"
                         description="Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu"
                     >
-                        <Tooltip
-                            title="Najpierw musisz się zintegrować ze Stripe"
-                            placement="bottom-start"
-                        >
-                            <div style={{ opacity: userStripeIntegrationStatus ? 1 : 0.5 }}>
-                                <Empty
-                                    title=""
-                                    text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
-                                    button={{
-                                        text: "Nowy harmonogram",
-                                        link: "/schedules/add-schedule",
-                                        disabled: !userStripeIntegrationStatus,
-                                    }}
-                                />
-                            </div>
-                        </Tooltip>
+                        <div style={{ opacity: userStripeIntegrationStatus ? 1 : 0.5 }}>
+                            {!userStripeIntegrationStatus ? (
+                                <Tooltip
+                                    title="Aby stworzyć harmonogram najpierw musisz zintegrować się ze Stripe"
+                                    placement="bottom-start"
+                                >
+                                    <div>
+                                        <Empty
+                                            title=""
+                                            text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
+                                            button={{
+                                                text: "Nowy harmonogram",
+                                                link: "/schedules/add-schedule",
+                                                disabled: !userStripeIntegrationStatus,
+                                            }}
+                                        />
+                                    </div>
+                                </Tooltip>
+                            ) : (
+                                <div>
+                                    <Empty
+                                        title=""
+                                        text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
+                                        button={{
+                                            text: "Nowy harmonogram",
+                                            link: "/schedules/add-schedule",
+                                            disabled: !userStripeIntegrationStatus,
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </div> {/* Domknięcie div, które obsługuje opacity */}
                     </SectionTemplate>
+
+
                 </main>
             );
         }

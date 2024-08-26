@@ -52,7 +52,7 @@ const Empty = (props: EmptyProps) => {
 				variant={ButtonVariant.Outline}
 				href={link}
 				classes={styles.button}
-				disabled={props.button.disabled} // Obsługa disabled
+				style={{ pointerEvents: props.button.disabled ? 'none' : 'auto', cursor: props.button.disabled ? 'not-allowed' : 'pointer' }}
 			>
 				{buttonText} <Add />
 			</Button>

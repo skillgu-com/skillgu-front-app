@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
 // Components
-import AppHeader from "src/components/AppHeader/AppHeader";
 import {
   FiltersHeader,
   FiltersPopup,
@@ -10,21 +9,20 @@ import {
   FiltersSidebar,
 } from "./sections";
 import Container from "src/components/Container/Container";
+import { SectionTemplate } from "src/components/SectionTemplate";
 // Types
-import { SortOption } from "@customTypes/mentor";
+import { FilterName, FiltersSelected, Option, SortOption } from "@customTypes/mentor";
 import { Tag } from "src/types/tags";
 // Variables
 import { PAGE_SIZE, SEARCH_DELAY } from "./config";
+import styles from "./SearchMentors.module.scss";
 // Utils
 import { termsReducer } from "src/reducers/terms";
 import { termsInitialState } from "src/reducers/terms/constants";
-import styles from "./SearchMentors.module.scss";
 import { mentorsReducer } from "src/reducers/mentors";
 import { mentorsInitialState } from "src/reducers/mentors/constants";
-import { FilterName, FiltersSelected, Option } from "@customTypes/mentor";
 import { fetchMentorFilteredList } from "src/services/mentor/fetchMentorServices.service";
 import { fetchTerms } from "../../../services/terms.service";
-
 
 export type LocationTypes = {
   pathname: string;
@@ -256,11 +254,7 @@ const SearchMentors = () => {
   );
 
   return (
-    <>
-      <AppHeader
-        title="Znajdź mentora dla siebie"
-        text="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania."
-      />
+    <SectionTemplate title="Znajdź mentora dla siebie" description="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania.">
       <FiltersPopup
         terms={terms}
         filters={state.filters}
@@ -301,7 +295,7 @@ const SearchMentors = () => {
           </div>
         </div>
       </Container>
-    </>
+    </SectionTemplate>
   );
 };
 

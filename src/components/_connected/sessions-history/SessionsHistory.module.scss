@@ -34,6 +34,7 @@
     .title {
         @extend %text-subtitle-2;
         color: $colour-primary;
+        font-weight: 700;
     }
 
     .title + .subtitle {

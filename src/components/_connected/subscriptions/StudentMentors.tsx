@@ -12,7 +12,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Button, {ButtonVariant} from "src/components/Button/Button";
 import {ClientPortal} from "src/components/portal";
-import Container from "src/components/Container/Container";
 import Modal from "src/components/Modal/Modal";
 import {PlanName} from "src/components/_base/PlanName";
 import {Status} from "src/components/_base/Status";
@@ -25,7 +24,6 @@ import {ArrowLongRight} from "@icons/ArrowLongRight";
 
 import {SubscriptionPlan} from "@customTypes/order";
 import {ServiceSession} from "@customTypes/order";
-import {Tag} from "src/types/tags";
 
 import styles from "./Subscriptions.module.scss";
 
@@ -37,6 +35,7 @@ import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.ty
 import {fetchMenteeSubscription} from "@services/mentee/fetchStudentMentors.service";
 import {generatePath, Link, useLocation, useNavigate} from "react-router-dom";
 import paths from "../../../paths";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 const PER_PAGE = 5;
 
@@ -320,13 +319,7 @@ export const StudentMentors = ({title}: Props) => {
                 ) : null}
             </ClientPortal>
 
-            <Container as={Tag.Section}>
-                <div className={styles.wrapper}>
-                    <div className={styles.header}>
-                        <h2>{title}</h2>
-                    </div>
-
-                    <div className={styles.body}>
+            <SectionTemplate title={title || ''}>                    
                         {pending ? (
                             <Slider {...settings} className={styles.slick}>
                                 {new Array(PER_PAGE).fill(null).map((_, i) => (
@@ -514,9 +507,9 @@ export const StudentMentors = ({title}: Props) => {
                                 <EmptyState text="Nie nawiązano współpracy z żadnym mentorem"/>
                             )
                         ) : null}
-                    </div>
-                </div>
-            </Container>
+                    
+            
+            </SectionTemplate>
         </>
     );
 };

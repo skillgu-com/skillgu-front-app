@@ -25,17 +25,6 @@
   }
 }
 
-.container {
-  padding: 0 4px;
-  @include media-xl-and-up { 
-    padding: 0 8px;
-  }
-}
-
-.title + .description {
-  margin-top: 16px;
-}
-
 .description {
   @extend %text-button-md;
   color: $colour-base-800;
@@ -163,4 +152,13 @@
   width: 100%;
   padding-top: 24px;
   border-top: 1px solid $colour-base-400;
+}
+
+.stripeContainer {
+  position: relative;
+  svg {
+    position: absolute;
+    bottom:-25px;
+    left:-20px;
+  }
 }

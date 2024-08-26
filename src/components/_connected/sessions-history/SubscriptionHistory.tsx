@@ -22,6 +22,7 @@ import {Scrollable} from "src/components/_base/Scrollable";
 import {EmptyState} from "src/components/EmptyState";
 
 import {getRole} from "src/redux/selectors/authSelectors";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 type Props = {
     title?: string;
@@ -69,12 +70,7 @@ export const SubscriptionHistory = ({
         [sr]
     );
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.header}>
-                <h2 className={styles.title}>{title}</h2>
-                {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
-            </div>
-
+        <SectionTemplate title={title} description={subtitle}>
             <Table className={styles.table}>
                 <Scrollable minWidth="920px">
                     <TableRow heading>
@@ -180,6 +176,6 @@ export const SubscriptionHistory = ({
                     )}
                 </Scrollable>
             </Table>
-        </div>
+        </SectionTemplate>
     );
 };

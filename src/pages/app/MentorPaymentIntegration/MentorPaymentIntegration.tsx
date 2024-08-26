@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  createStripeAccount,
-  createStripeAccountLink, getBalance,
-  getStripeAccount,
-} from "@services/stripe/stripeService";
+// import { useNavigate } from "react-router-dom";
+
 import { Connected, NotConnected } from "./screens";
 import { Loader } from "src/components/_grouped/loader";
-import { useNavigate } from "react-router-dom";
+
+import {
+  createStripeAccount,
+  createStripeAccountLink,
+  getBalance,
+  getStripeAccount,
+} from "@services/stripe/stripeService";
 
 export const MentorPaymentIntegration = () => {
   const [price, setPrice] = useState(0);
@@ -19,8 +22,7 @@ export const MentorPaymentIntegration = () => {
   const [accountLinkCreatePending, setAccountLinkCreatePending] =
     useState(false);
   const [error, setError] = useState(false);
-
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStripeAccount = async () => {
@@ -57,7 +59,7 @@ export const MentorPaymentIntegration = () => {
       setAccountCreatePending(false);
     }
   };
-  
+
   const handleCreateAccountLink = async () => {
     setAccountLinkCreatePending(true);
     setError(false);
@@ -73,7 +75,7 @@ export const MentorPaymentIntegration = () => {
       }
 
       // navigate(url);
-      window.location.href = url
+      window.location.href = url;
     } catch (error) {
       console.error("Error creating Stripe account link:", error);
       setError(true);
@@ -89,7 +91,7 @@ export const MentorPaymentIntegration = () => {
         const balance = await getBalance();
         setPrice(balance);
       } catch (error) {
-        console.error('Error retrieving balance:', error);
+        console.error("Error retrieving balance:", error);
       } finally {
         setLoading(false);
       }
@@ -100,7 +102,7 @@ export const MentorPaymentIntegration = () => {
   return (
     <main>
       <Loader
-        open={(accountLinkCreatePending || initialDataPending)}
+        open={accountLinkCreatePending || initialDataPending}
         spinner
         shadow
         overlay="global"

@@ -17,8 +17,6 @@ import {formatDate} from "src/utils";
 import {UserIdentity} from "src/components/_base/UserIdentity";
 import {CrownIcon} from "@icons/CrownIcon";
 import {Status} from "src/components/_base/Status";
-import {Tag} from "src/types/tags";
-import Container from "src/components/Container/Container";
 import { EmptyState } from "src/components/EmptyState";
 import {SkeletonRow} from "./SkeletonRow";
 import {
@@ -30,6 +28,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import {useSubscriptionsReducer} from "src/reducers/subscriptions";
 import {Skeleton} from "@mui/material";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 
 const PER_PAGE = 5;
@@ -100,13 +99,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
     );
 
     return (
-        <Container as={Tag.Section} classes={styles.mentorSection}>
-            <div className={styles.wrapper}>
-                <div className={styles.header}>
-                    <h2>{title}</h2>
-                    <p>{subtitle}</p>
-                </div>
-
+        <SectionTemplate title={title || ''} description={subtitle}>
                 <div className={styles.body}>
                     <HorizontalTabs className={styles.tabs}>
                         <HorizontalTabsButton
@@ -310,7 +303,6 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                         </TableRow>
                     </Table>
                 </div>
-            </div>
-        </Container>
+        </SectionTemplate>
     );
 };

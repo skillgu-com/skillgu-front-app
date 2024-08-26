@@ -7,17 +7,14 @@ import React, {
 } from "react";
 import { ChatMessages, ChatContacts } from "./components";
 import { ChatMessagesVariant } from "./components/ChatMessages";
-import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
-import { Title } from "src/components/typography";
-import Container from "src/components/Container/Container";
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
-import { Tag } from "@customTypes/tags";
 import styles from "./ChatPage.module.scss";
 import WebSocketInstance from "@services/chat/chat.service";
 import {
   ChatContactsOutput,
   ChatMessagesOutput,
 } from "@services/chat/chat.service.types";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 type ChatMessageWithOptimistic = ChatMessageType & {
   optimistic?: true;
@@ -36,11 +33,6 @@ export const ChatPage = () => {
   const [pendingContacts, setPendingContacts] = useState<boolean>(false);
   const [pendingMessages, setPendingMessages] = useState<boolean>(false);
   const lastMsgId = useRef<number | null>(null);
-  const unreadMessages = useMemo(() => {
-    return contacts
-      .map((c) => c.unreadMessages)
-      .reduce((sum, curr) => sum + curr, 0);
-  }, [contacts]);
 
   const sendMessage = useCallback(
     (text: string) => {
@@ -198,28 +190,23 @@ export const ChatPage = () => {
 
   return (
     <main>
-      <Container as={Tag.Section} classes={styles.container}>
-        <header className={styles.header}>
-          <Title
-            tag={TitleTag.h2}
-            variant={TitleVariant.section}
-            classes={styles.title}
-          >
-            Wiadomości
-          </Title>
-
-          {unreadMsgQuantity ? (
+      <SectionTemplate
+        title="Wiadomości"
+        additionalContent={
+          unreadMsgQuantity ? (
             <p
               className={styles.unreadMsg}
             >{`${unreadMsgQuantity} nieprzeczytanych`}</p>
-          ) : null}
-        </header>
-        <div className={styles.wrapper}>
-          <p className={styles.description}>
-            Bezpośrednie konwersacje z mentorami znajdziesz właśnie tutaj, a wykaz zaplanowany zajęć masz pod ręką w {" "}
+          ) : null
+        }
+        description={
+          <>
+            Bezpośrednie konwersacje z mentorami znajdziesz właśnie tutaj, a
+            wykaz zaplanowany zajęć masz pod ręką w{" "}
             <a href="/calendar">Kalendarz</a>.
-          </p>
-        </div>
+          </>
+        }
+      >
         <div className={styles.gridContainer}>
           <ChatContacts
             pending={pendingContacts}
@@ -252,7 +239,7 @@ export const ChatPage = () => {
             />
           ) : null}
         </div>
-      </Container>
+      </SectionTemplate>
     </main>
   );
 };

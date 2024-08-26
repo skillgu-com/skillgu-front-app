@@ -1,14 +1,13 @@
 import React from "react";
 import clx from "classnames";
-import styles from "../styles.module.scss";
+
 import Button, { ButtonVariant } from "src/components/Button/Button";
-import FAQ from "../../../../components/FAQ/Accordion/Accordion";
-import { stripeIntegration } from "../../../../components/FAQ/Accordion/content/stripe-integration";
+import FAQ from "src/components/FAQ/Accordion/Accordion";
+import { stripeIntegration } from "src/components/FAQ/Accordion/content/stripe-integration";
 import { Box, CircularProgress } from "@mui/material";
-import { Tag } from "@customTypes/tags";
-import Container from "src/components/Container/Container";
-import { Title } from "src/components/typography";
-import { TitleTag, TitleVariant } from "src/components/typography/Title/Title";
+import { SectionTemplate } from "src/components/SectionTemplate";
+
+import styles from "../styles.module.scss";
 
 type Props = {
   error: string;
@@ -22,19 +21,10 @@ export const NotConnected = ({
   accountCreatePending,
 }: Props) => {
   return (
-    <Container as={Tag.Section} classes={styles.container}>
-      <Title
-        tag={TitleTag.h2}
-        variant={TitleVariant.sectionConst}
-        classes={styles.title}
-      >
-        Rozliczenia
-      </Title>
-      <p className={styles.description}>
-        Płatności na platformie Skillgu obsługuje Stripe. Wybierz poniżej
-        "Konfiguruj płatności", zostaniesz przekierowany do formularza Stripe,
-        gdzie będziesz mógł podać dane, niezbędne do wypłacenia środków.
-      </p>
+    <SectionTemplate
+      title="Rozliczenia"
+      description='Płatności na platformie Skillgu obsługuje Stripe. Wybierz poniżej "Konfiguruj płatności", zostaniesz przekierowany do formularza Stripe, gdzie będziesz mógł podać dane, niezbędne do wypłacenia środków.'
+    >
       <div className={clx(styles.cols2, styles.cols2Reverse)}>
         <div className={styles.imgCtaWrapper}>
           <div className={styles.imgCtaBox}>
@@ -76,6 +66,6 @@ export const NotConnected = ({
           <FAQ title="FAQ" elements={stripeIntegration} />
         </div>
       </section>
-    </Container>
+    </SectionTemplate>
   );
 };

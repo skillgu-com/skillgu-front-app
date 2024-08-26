@@ -1,44 +1,32 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 // Sections
 import Empty from "./components/Empty/Empty";
 // Components
-
+import { SectionTemplate } from "src/components/SectionTemplate";
+import ScheduleCard, {
+  ScheduleCardProps,
+} from "src/components/Cards/ScheduleCard/ScheduleCard";
+import Modal from "src/components/Modal/Modal";
+import Pagination from "src/components/Pagination/Pagination";
+import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
 // Icons
 import Add from "@icons/Add";
 import Sessions from "@icons/Sessions";
-// Types
-import { Tag } from "@customTypes/tags";
 
 // Styles
 import scheduleStyles from "./Schedules.module.scss";
 
-import {useDispatch, useSelector} from "react-redux";
-import ScheduleCard, {
-  ScheduleCardProps,
-} from "../../../components/Cards/ScheduleCard/ScheduleCard";
-import Title, {
-  TitleTag,
-  TitleVariant,
-} from "../../../components/typography/Title/Title";
-import Modal from "../../../components/Modal/Modal";
-import Pagination from "../../../components/Pagination/Pagination";
-import Container from "../../../components/Container/Container";
-import Button, {
-  ButtonTag,
-  ButtonVariant,
-} from "../../../components/Button/Button";
 import { deleteSchedule } from "@services/scheduleService";
 import {
   deleteSession,
   getMentorSessions,
 } from "@services/session/sessionService";
-import { useSchedulesReducer } from "src/reducers/schedules";
 import { ScheduleType } from "@customTypes/schedule";
+import { useSchedulesReducer } from "src/reducers/schedules";
 import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
 
-
 const SchedulesView = () => {
-
   const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const userFromRedux = useSelector((state: any) => state.auth.user);
@@ -65,7 +53,7 @@ const SchedulesView = () => {
     }
   );
 
-  console.log('tutaj sprawdzam jaki schedule przychodzi z api:',schedules)
+  console.log("tutaj sprawdzam jaki schedule przychodzi z api:", schedules);
 
   const removeItem = useCallback(
     (id: string, arrayType: "schedules" | "sessions") => {
@@ -88,11 +76,11 @@ const SchedulesView = () => {
         });
       }
     },
-    [schedules, sessions]
+    [schedules, sr, sessions]
   );
 
   useEffect(() => {
-    getMentorSessions(userFromRedux.id,"empty_user").then((res) => {
+    getMentorSessions(userFromRedux.id, "empty_user").then((res) => {
       const formattedSessions = res?.data.map(
         (elementFromAPI: ScheduleCardProps) => ({
           id: elementFromAPI?.id.toString(),
@@ -114,26 +102,18 @@ const SchedulesView = () => {
     });
   }, [userFromRedux.id]);
 
-
-  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
+  const userStripeIntegrationStatus = useSelector(
+    getUserStripeIntegrationStatus
+  );
 
   const currentView = useMemo(() => {
-    if (!!!schedules?.length) {
+    if (!schedules?.length) {
       return (
         <main className={scheduleStyles.main}>
-          <Container as={Tag.Section} classes={scheduleStyles.container}>
-            <header className={scheduleStyles.header}>
-              <Title
-                tag={TitleTag.h2}
-                variant={TitleVariant.section}
-                classes={scheduleStyles.title}
-              >
-                Harmonogramy spotkań
-              </Title>
-            </header>
-            <p className={scheduleStyles.description}>
-            Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu
-            </p>
+          <SectionTemplate
+            title="Harmonogramy spotkań"
+            description="Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu"
+          >
             <Empty
               title=""
               text="Aby dodać sesję, najpierw ustal choć 1 harmonogram"
@@ -142,38 +122,34 @@ const SchedulesView = () => {
                 link: "/schedules/add-schedule",
               }}
             />
-          </Container>
+          </SectionTemplate>
         </main>
       );
     }
 
     return (
       <main className={scheduleStyles.main}>
-        <Container as={Tag.Section} classes={scheduleStyles.container}>
-          <header className={scheduleStyles.header}>
-            <Title
-              tag={TitleTag.h2}
-              variant={TitleVariant.section}
-              classes={scheduleStyles.title}
-            >
-              Harmonogramy
-            </Title>
-            <Button
-              noWrap
-              as={ButtonTag.InternalLink}
-              variant={ButtonVariant.Outline}
-              href="/schedules/add-schedule"
-              classes={scheduleStyles.btn}
-              disableButton={!userStripeIntegrationStatus}
-            >
-              Nowy harmonogram <Add color="currentColor" />
-            </Button>
-          </header>
-          <p className={scheduleStyles.description}>
-            Zdefiniuj podstawowe założenia spotkań oraz kiedy jesteś dostępny
-            dla mentee. Utworzone harmonogramy wykorzystasz wielokrotnie tworząc
-            konkretne sesje mentoringowe.
-          </p>
+        <SectionTemplate
+          title="Harmonogramy"
+          description="Zdefiniuj podstawowe założenia spotkań oraz kiedy jesteś dostępny
+          dla mentee. Utworzone harmonogramy wykorzystasz wielokrotnie tworząc
+          konkretne sesje mentoringowe."
+          fullWidth
+          additionalContent={
+            <div className={scheduleStyles.btnBox}>
+              <Button
+                noWrap
+                as={ButtonTag.InternalLink}
+                variant={ButtonVariant.Outline}
+                href="/schedules/add-schedule"
+                classes={scheduleStyles.btn}
+                disableButton={!userStripeIntegrationStatus}
+              >
+                Nowy harmonogram <Add color="currentColor" />
+              </Button>
+            </div>
+          }
+        >
           <div className={scheduleStyles.list}>
             {Array.isArray(schedules) &&
               schedules.map((item) => (
@@ -181,28 +157,28 @@ const SchedulesView = () => {
               ))}
           </div>
           {sessions?.length > 3 && <Pagination name="Schedules" maxPage={0} />}
-        </Container>
+        </SectionTemplate>
 
-        <Container as={Tag.Section} classes={scheduleStyles.container}>
-          <header className={scheduleStyles.header}>
-            <Title tag={TitleTag.h2} variant={TitleVariant.section}  >
-              Sesje
-            </Title>
-            {!!sessions?.length && (
-              <Button
-                as={ButtonTag.InternalLink}
-                variant={ButtonVariant.Outline}
-                href="/schedules/add-session"
-                classes={scheduleStyles.btn}
-              >
-                Nowa sesja <Add color="currentColor" />
-              </Button>
-            )}
-          </header>
-          <p className={scheduleStyles.description}>
-            Zaplanuj sesje monitoringowe określając cenę i ich dokładną
-            tematykę.
-          </p>
+        <SectionTemplate
+          title="Sesje"
+          description="Zaplanuj sesje monitoringowe określając cenę i ich dokładną
+            tematykę."
+          fullWidth
+          additionalContent={
+            !!sessions?.length && (
+              <div className={scheduleStyles.btnBox}>
+                <Button
+                  as={ButtonTag.InternalLink}
+                  variant={ButtonVariant.Outline}
+                  href="/schedules/add-session"
+                  classes={scheduleStyles.btn}
+                >
+                  Nowa sesja <Add color="currentColor" />
+                </Button>
+              </div>
+            )
+          }
+        >
           {!sessions?.length ? (
             <Empty
               text="Dodałeś właśnie swój pierwszy harmonogram!
@@ -218,7 +194,7 @@ const SchedulesView = () => {
             </div>
           )}
           {sessions?.length > 6 && <Pagination name="Sessions" maxPage={3} />}
-        </Container>
+        </SectionTemplate>
       </main>
     );
   }, [schedules, sessions, removeItem]);

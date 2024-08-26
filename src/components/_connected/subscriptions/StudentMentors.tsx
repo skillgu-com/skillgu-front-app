@@ -37,6 +37,7 @@ import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.ty
 import {fetchMenteeSubscription} from "@services/mentee/fetchStudentMentors.service";
 import {generatePath, Link, useLocation, useNavigate} from "react-router-dom";
 import paths from "../../../paths";
+import { SectionTemplate } from "src/components/SectionTemplate";
 
 const PER_PAGE = 5;
 
@@ -320,12 +321,7 @@ export const StudentMentors = ({title}: Props) => {
                 ) : null}
             </ClientPortal>
 
-            <Container as={Tag.Section}>
-                <div className={styles.wrapper}>
-                    <div className={styles.header}>
-                        <h2>{title}</h2>
-                    </div>
-
+            <SectionTemplate title={title || ''}>
                     <div className={styles.body}>
                         {pending ? (
                             <Slider {...settings} className={styles.slick}>
@@ -515,8 +511,8 @@ export const StudentMentors = ({title}: Props) => {
                             )
                         ) : null}
                     </div>
-                </div>
-            </Container>
+            
+            </SectionTemplate>
         </>
     );
 };

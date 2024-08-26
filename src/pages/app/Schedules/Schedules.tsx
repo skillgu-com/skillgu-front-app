@@ -66,6 +66,8 @@ const SchedulesView = () => {
     }
   )
 
+  console.log('tutaj sprawdzam jaki schedule przychodzi z api:',schedules)
+
   const removeItem = useCallback(
     (id: string, arrayType: "schedules" | "sessions") => {
       if (arrayType === "schedules") {

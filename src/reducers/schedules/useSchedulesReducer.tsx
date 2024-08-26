@@ -34,10 +34,10 @@ export const useSchedulesReducer = (): Output => {
   );
 
   useEffect(() => {
-      console.log(schedulesState)
-    if(schedulesState.lastUpdate !== 0){
-      return
-    }
+      if (schedulesState.lastUpdate !== 0) {
+          return;
+      }
+      setPending(true);
 
     fetchAllSchedules().then((res) => {
       if (res.data) {

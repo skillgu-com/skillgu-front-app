@@ -8,6 +8,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { SectionTemplate } from "src/components/SectionTemplate";
 
 import styles from "../styles.module.scss";
+import { StripeSvg } from "@icons/StripeSvg";
 
 type Props = {
   error: string;
@@ -24,6 +25,7 @@ export const NotConnected = ({
     <SectionTemplate
       title="Rozliczenia"
       description='Płatności na platformie Skillgu obsługuje Stripe. Wybierz poniżej "Konfiguruj płatności", zostaniesz przekierowany do formularza Stripe, gdzie będziesz mógł podać dane, niezbędne do wypłacenia środków.'
+      additionalContent={<div className={styles.stripeContainer}><StripeSvg/></div>}
     >
       <div className={clx(styles.cols2, styles.cols2Reverse)}>
         <div className={styles.imgCtaWrapper}>

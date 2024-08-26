@@ -25,7 +25,6 @@
   }
 }
 
-
 .description {
   @extend %text-button-md;
   color: $colour-base-800;
@@ -153,4 +152,13 @@
   width: 100%;
   padding-top: 24px;
   border-top: 1px solid $colour-base-400;
+}
+
+.stripeContainer {
+  position: relative;
+  svg {
+    position: absolute;
+    bottom:-25px;
+    left:-20px;
+  }
 }

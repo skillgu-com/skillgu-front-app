@@ -9,6 +9,7 @@ import FAQ from "src/components/FAQ/Accordion/Accordion";
 import styles from "../styles.module.scss";
 
 import { SectionTemplate } from "src/components/SectionTemplate";
+import { StripeSvg } from "@icons/StripeSvg";
 
 type Props = {
   price: number;
@@ -33,6 +34,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
     <SectionTemplate
       title="Płatności"
       description='Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".'
+      additionalContent={<div className={styles.stripeContainer}><StripeSvg/></div>}
     >
       <div className={styles.priceCtaWrapper}>
         <div className={styles.priceCtaBox}>

@@ -9,22 +9,20 @@ import {
   FiltersSidebar,
 } from "./sections";
 import Container from "src/components/Container/Container";
+import { SectionTemplate } from "src/components/SectionTemplate";
 // Types
-import { SortOption } from "@customTypes/mentor";
+import { FilterName, FiltersSelected, Option, SortOption } from "@customTypes/mentor";
 import { Tag } from "src/types/tags";
 // Variables
 import { PAGE_SIZE, SEARCH_DELAY } from "./config";
+import styles from "./SearchMentors.module.scss";
 // Utils
 import { termsReducer } from "src/reducers/terms";
 import { termsInitialState } from "src/reducers/terms/constants";
-import styles from "./SearchMentors.module.scss";
 import { mentorsReducer } from "src/reducers/mentors";
 import { mentorsInitialState } from "src/reducers/mentors/constants";
-import { FilterName, FiltersSelected, Option } from "@customTypes/mentor";
 import { fetchMentorFilteredList } from "src/services/mentor/fetchMentorServices.service";
 import { fetchTerms } from "../../../services/terms.service";
-import { SectionTemplate } from "src/components/SectionTemplate";
-
 
 export type LocationTypes = {
   pathname: string;

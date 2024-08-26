@@ -22,7 +22,6 @@ export const MentorPaymentIntegration = () => {
   const [accountLinkCreatePending, setAccountLinkCreatePending] =
     useState(false);
   const [error, setError] = useState(false);
-
   // const navigate = useNavigate();
 
   useEffect(() => {

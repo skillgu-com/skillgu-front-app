@@ -76,10 +76,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
           <PaymentSchedule setPayoff={setPayoff} />
         </div>
       </div>
-
-      <section>
-        <Reports />
-      </section>
+      <Reports />
       <section>
         <div className={styles.faqBox}>
           <FAQ title="FAQ" elements={payment} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import clx from "classnames";
+
 import styles from "./MentorSubscriptions.module.scss";
 import {
   HorizontalTabs,
@@ -16,8 +16,6 @@ import { UserIdentity } from "src/components/_base/UserIdentity";
 import { CrownIcon } from "@icons/CrownIcon";
 import { Status } from "src/components/_base/Status";
 import { Loader } from "src/components/_grouped/loader";
-import { Tag } from "src/types/tags";
-import Container from "src/components/Container/Container";
 import SearchSvg from "@icons/SearchSvg";
 import { SectionTemplate } from "src/components/SectionTemplate";
 
@@ -159,7 +157,7 @@ export const MentorSubscriptions = () => {
             </Scrollable>
           )}
 
-          {data && data.total ? (
+          {data && data?.total ? (
             <TableRow heading borderTop>
               <TableCell flex>
                 <Pagination

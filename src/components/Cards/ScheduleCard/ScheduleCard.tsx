@@ -34,6 +34,7 @@ export interface ScheduleCardProps {
     description: string;
     sessionPrice: number;
     sessionName: string;
+    scheduleId:number
 
     schedule?: {
         type: 'individual' | 'group';
@@ -50,6 +51,7 @@ export interface ScheduleCardProps {
         meetTime: number;
         sessionTypeName: string;
         scheduleName: string;
+        scheduleId:number
     };
 }
 

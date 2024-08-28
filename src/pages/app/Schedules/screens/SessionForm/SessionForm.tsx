@@ -29,7 +29,6 @@ import getSessionTypesDictionary from "@services/dictionaries/sessionTypesDictio
 import getSessionCategoriesDictionary from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary";
 import { MentorCategoryT } from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
 import getSessionDescriptionTemplatesDictionary from "@services/dictionaries/sessionDescriptionTemplatesDictionary/sessionDescriptionTemplatesDictionary";
-import { ScheduleFormInputT } from "../ScheduleForm/_types/ScheduleFormInputT";
 import { useSchedulesReducer } from "src/reducers/schedules";
 
 interface DirtySessionFormInput {
@@ -117,9 +116,7 @@ const SessionForm = () => {
         return item;
       }
     });
-
     sr.updateRecords(copySchedules);
-
   };
 
   const {

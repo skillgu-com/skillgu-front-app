@@ -31,7 +31,6 @@ const parseSessionFormDataToSessionDTO = (session: SessionFormInput): SessionDTO
 }
 
 export const createSession = async (session: SessionFormInput) => {
-    console.log('tutaj sesja: ',session)
     return await axios.post('/api/1.0/session', parseSessionFormDataToSessionDTO(session));
 }
 

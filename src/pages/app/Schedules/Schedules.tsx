@@ -63,12 +63,14 @@ const SchedulesView = () => {
                         sessionName: elementFromAPI?.sessionName,
                         sessionTypeName: elementFromAPI?.sessionType,
                         scheduleName: elementFromAPI?.scheduleName || "brak przypisanego harmonogramu",
+                        scheduleId: elementFromAPI?.scheduleId
                     },
                 })
             );
             setSessions(formattedSessions);
         });
     }, [mentorData]);
+    console.log('sesja z api:', sessions)
 
     // Map schedules from the state
     const schedules: ScheduleCardProps[] = sr.schedulesState.schedules.map(

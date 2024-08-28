@@ -15,7 +15,7 @@ import Sessions from "@icons/Sessions";
 // Styles
 import scheduleStyles from "./Schedules.module.scss";
 // Services
-import {deleteSchedule} from "@services/scheduleService";
+import {deleteSchedule, editMentorSchedule} from "@services/scheduleService";
 import {deleteSession, getMentorSessions} from "@services/session/sessionService";
 import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
 // Reducers & Types
@@ -29,6 +29,7 @@ const SchedulesView = () => {
     const [mentorData, setMentorData] = useState<any>(null);
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    // const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const sr = useSchedulesReducer();
 
@@ -57,6 +58,7 @@ const SchedulesView = () => {
                     dateEnd: new Date(elementFromAPI?.scheduleEndDay),
                     meetTime: elementFromAPI?.meetTime,
                     session: {
+
                         description: elementFromAPI?.description,
                         sessionPrice: elementFromAPI?.sessionPrice,
                         meetTime: elementFromAPI?.meetTime,
@@ -69,28 +71,31 @@ const SchedulesView = () => {
             setSessions(formattedSessions);
         });
     }, [mentorData]);
-
+    
     // Map schedules from the state
-    const schedules: ScheduleCardProps[] = sr.schedulesState.schedules.map(
-        (elementFromAPI: ScheduleType) => {
-            return {
-                id: elementFromAPI.id.toString(),
-                dateStart: new Date(elementFromAPI?.scheduleStartDay),
-                dateEnd: new Date(elementFromAPI?.scheduleEndDay),
-                scheduleStartDay: new Date(elementFromAPI?.scheduleStartDay),
-                scheduleEndDay: new Date(elementFromAPI?.scheduleEndDay),
-                meetTime: elementFromAPI.meetTime,
-                participant: elementFromAPI?.participant,
-                schedule: {
-                    type: elementFromAPI?.type,
-                    created: new Date(),
-                    assignedSession: elementFromAPI.assignedSession ?? 0,
-                    scheduleName: elementFromAPI?.scheduleName,
+    const [schedules, setSchedules] = useState(()=>{
+        return sr.schedulesState.schedules.map(
+            (elementFromAPI: ScheduleType) => {
+                console.log()
+                return {
+                    id: elementFromAPI.id.toString(),
+                    dateStart: new Date(elementFromAPI?.scheduleStartDay),
+                    dateEnd: new Date(elementFromAPI?.scheduleEndDay),
+                    scheduleStartDay: new Date(elementFromAPI?.scheduleStartDay),
+                    scheduleEndDay: new Date(elementFromAPI?.scheduleEndDay),
+                    meetTime: elementFromAPI.meetTime,
                     participant: elementFromAPI?.participant,
-                },
-            } as unknown as ScheduleCardProps;
-        }
-    );
+                    schedule: {
+                        type: elementFromAPI?.type,
+                        created: new Date(),
+                        assignedSession: elementFromAPI.assignedSession ?? 0,
+                        scheduleName: elementFromAPI?.scheduleName,
+                        participant: elementFromAPI?.participant,
+                    },
+                } as unknown as ScheduleCardProps;
+            }
+    )});
+
 
 
     // Remove item callback function
@@ -109,14 +114,31 @@ const SchedulesView = () => {
                     });
                 }
             } else {
-                deleteSession(id).then(() => {
-                    setSessions(sessions.filter((item) => item.id !== id));
-                });
+                // deleteSession(id).then(() => {
+                //     setSessions(sessions.filter((item) => item.id !== id));
+                // });
+                const scheduleId = sessions.find((item) => item.id === id);
+                console.log(scheduleId, sessions)
+                // const copySchedules = sr.schedulesState.schedules.map((item) => {
+                //     if (item.id === id) {
+                //       const { assignedSession, ...rest } = item;
+                //       return {
+                //         assignedSession: assignedSession + 1,
+                //         ...rest,
+                //       };
+                //     } else {
+                //       return item;
+                //     }
+                //   });
+            
+                //   sr.updateRecords(copySchedules);
             }
         },
         [schedules, sr, sessions]
     );
 
+console.log("session", sessions)
+console.log("schedules", schedules)
     // Stripe integration status from Redux
     const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
@@ -162,8 +184,6 @@ const SchedulesView = () => {
                             )}
                         </div> {/* Domknięcie div, które obsługuje opacity */}
                     </SectionTemplate>
-
-
                 </main>
             );
         }
@@ -238,7 +258,7 @@ const SchedulesView = () => {
                 </SectionTemplate>
             </main>
         );
-    }, [schedules, sessions, removeItem]);
+    }, [schedules, sessions, removeItem, userStripeIntegrationStatus]);
 
     return (
         <>

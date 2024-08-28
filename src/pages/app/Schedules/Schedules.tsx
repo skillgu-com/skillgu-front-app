@@ -54,6 +54,10 @@ const SchedulesView = () => {
   }, [username, userFromRedux.username]);
 
   useEffect(() => {
+    sr.reset();
+  }, []);
+
+  useEffect(() => {
     if (!mentorData || !mentorData.mentorId) {
       return;
     }

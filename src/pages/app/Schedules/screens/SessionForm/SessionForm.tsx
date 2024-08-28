@@ -96,27 +96,25 @@ const SessionForm = () => {
       } else {
         await createSession(data);
         enqueueSnackbar("Sesja została utworzona", { variant: "success" });
+        const copySchedules = sr.schedulesState.schedules.map((item) => {
+          if (item.id === data.scheduleId) {
+            const { assignedSession, ...rest } = item;
+            return {
+              assignedSession: assignedSession + 1,
+              ...rest,
+            };
+          } else {
+            return item;
+          }
+        });
+        sr.updateRecords(copySchedules);
         navigate("/schedules");
       }
-
     } catch (error) {
       enqueueSnackbar("Wystąpił błąd podczas zapisywania sesji", {
         variant: "error",
       });
     }
-
-    const copySchedules = sr.schedulesState.schedules.map((item) => {
-      if (item.id === data.scheduleId) {
-        const { assignedSession, ...rest } = item;
-        return {
-          assignedSession: assignedSession + 1,
-          ...rest,
-        };
-      } else {
-        return item;
-      }
-    });
-    sr.updateRecords(copySchedules);
   };
 
   const {

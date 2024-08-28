@@ -23,7 +23,6 @@ import {Skeleton, Typography} from "@mui/material";
 import {ArrowLongRight} from "@icons/ArrowLongRight";
 
 import {SubscriptionPlan} from "@customTypes/order";
-import {ServiceSession} from "@customTypes/order";
 
 import styles from "./Subscriptions.module.scss";
 
@@ -82,7 +81,6 @@ export const StudentMentors = ({title}: Props) => {
         }
     }, []);
 
-    console.log('data tutaj:', data)
     const settings = useMemo(() => {
         return {
             dots: true,

@@ -48,6 +48,7 @@
     "react-dropzone": "^14.2.3",
     "react-gallery-carousel": "0.3.0",
     "react-hook-form": "^7.51.3",
+    "react-icons": "^5.3.0",
     "react-indiana-drag-scroll": "^3.0.3-alpha",
     "react-infinite-scroll-hook": "^4.1.1",
     "react-paginate": "^8.2.0",

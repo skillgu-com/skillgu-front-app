@@ -1,4 +1,4 @@
-export const closeMentorAccount = async () => {
+export const closeUserAccount = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true);

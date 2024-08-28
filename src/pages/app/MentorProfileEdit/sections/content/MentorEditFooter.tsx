@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { Typography } from "@mui/material";
 import Button, { ButtonVariant } from "../../../../../components/Button/Button";
-import { ClientPortal } from "src/components/portal";
 import { ModalConfirm } from "src/components/_grouped/modal";
-import { closeMentorAccount } from "@services/mentor/closeMentorAccount.service";
+import { closeUserAccount } from "@services/user/closeUserAccount.service";
 import { logout } from "src/helpers/login";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,13 +17,13 @@ export const MentorEditFooter = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setPending(true)
+    setPending(true);
     try {
-        setOpen(false)
-        await closeMentorAccount();
-        logout(dispatch, navigate)
+      setOpen(false);
+      await closeUserAccount();
+      logout(dispatch, navigate);
     } catch (e) {}
-    setPending(false)
+    setPending(false);
   };
 
   return (
@@ -40,9 +39,15 @@ export const MentorEditFooter = () => {
         handleReject={() => setOpen(false)}
         handleSubmit={handleSubmit}
       />
-      {pending && <Loader overlay className={styles.footerLoader} shadow spinner />}
+      {pending && (
+        <Loader overlay className={styles.footerLoader} shadow spinner />
+      )}
       <div className={styles.Footer}>
-        <Button onClick={(() => setOpen(true))} classes={styles.Btn} variant={ButtonVariant.DangerText}>
+        <Button
+          onClick={() => setOpen(true)}
+          classes={styles.Btn}
+          variant={ButtonVariant.DangerText}
+        >
           <BinIcon />
           <Typography variant="buttonMd" color="error">
             Usuń swoje konto

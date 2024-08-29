@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Pricing = ({ title, subtitle }: Props) => {
-    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>('Free'); // Default to 'Free'
 
     const handleSelectPlan = (plan: string) => {
         setSelectedPlan(plan);
@@ -21,9 +21,12 @@ export const Pricing = ({ title, subtitle }: Props) => {
         <SectionTemplate title={title || 'Twoje subskrypcje'} description={subtitle}>
             <section className={styles.pricingSection}>
                 <div className={styles.flex}>
-                    <div className={styles.pricingCard} onClick={() => handleSelectPlan('Free')}>
+                    <div
+                        className={`${styles.pricingCard} ${selectedPlan === 'Free' ? styles.selected : ''}`}
+                        onClick={() => handleSelectPlan('Free')}
+                    >
                         <div className={styles.planHeader}>
-                            <span className={styles.iconPlaceholder}></span> {/* Placeholder for no icon */}
+                            <span className={styles.iconPlaceholder}></span>
                             <h4>Darmowy</h4>
                         </div>
                         <p className={styles.price}>0 zł <span className={styles.priceDetails}>/ miesiąc</span></p>
@@ -40,7 +43,10 @@ export const Pricing = ({ title, subtitle }: Props) => {
                         </ul>
                     </div>
 
-                    <div className={styles.pricingCard} onClick={() => handleSelectPlan('Mid')}>
+                    <div
+                        className={`${styles.pricingCard} ${selectedPlan === 'Mid' ? styles.selected : ''}`}
+                        onClick={() => handleSelectPlan('Mid')}
+                    >
                         <div className={styles.planHeader}>
                             <StarIcon className={styles.icon} />
                             <h4>Basic</h4>
@@ -59,7 +65,10 @@ export const Pricing = ({ title, subtitle }: Props) => {
                         </ul>
                     </div>
 
-                    <div className={styles.pricingCard} onClick={() => handleSelectPlan('Pro')}>
+                    <div
+                        className={`${styles.pricingCard} ${selectedPlan === 'Pro' ? styles.selected : ''}`}
+                        onClick={() => handleSelectPlan('Pro')}
+                    >
                         <div className={styles.planHeader}>
                             <KingIcon className={styles.icon} />
                             <h4>Pro</h4>

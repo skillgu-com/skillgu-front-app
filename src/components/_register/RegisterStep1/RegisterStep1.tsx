@@ -122,7 +122,6 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                             pattern: {value: /\S+@\S+\.\S+/, message: 'Niepoprawny email'},
                             validate: async (value) => {
                                 const isEmailAvailable = await emailCheckService(value.toString());
-                                console.log('Z backendu leci: ', isEmailAvailable)
                                 return isEmailAvailable || 'Email jest już zajęty'
                             }
                         }

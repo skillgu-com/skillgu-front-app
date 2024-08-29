@@ -83,7 +83,6 @@ const SchedulesView = () => {
             setSessions(formattedSessions);
         });
     }, [mentorData]);
-    console.log("sesja z api:", sessions);
 
     const schedules = sr.schedulesState.schedules.map(
         (elementFromAPI: ScheduleType) => {

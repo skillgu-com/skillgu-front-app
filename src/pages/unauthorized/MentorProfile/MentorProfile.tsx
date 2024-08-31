@@ -119,8 +119,6 @@ export const MentorProfilePage = () => {
             }
         };
 
-        console.log('ty kurwo dwa',optionsSession)
-
         if (username) {
             fetchInitialData(username);
         }

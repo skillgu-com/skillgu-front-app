@@ -66,13 +66,13 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       icon: <CreateSchedules />,
       visibility: "mentor",
     },
-    {
-      id: "chat",
-      label: "Wiadomości",
-      link: paths.chat,
-      icon: <MessagesIcon />,
-      visibility: "authenticated",
-    },
+    // {
+    //   id: "chat",
+    //   label: "Wiadomości",
+    //   link: paths.chat,
+    //   icon: <MessagesIcon />,
+    //   visibility: "authenticated",
+    // },
     {
       id: "profile-student",
       label: "Profil",

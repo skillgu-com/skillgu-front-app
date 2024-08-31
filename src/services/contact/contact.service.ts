@@ -10,6 +10,6 @@ export const contactService = async ({ senderEmail, message }: ContactServiceInp
 
     // return {
     //     success: false, 
-    //     errorMessage: 'Nie udało się wysłać wiadomości z powodu błędu serwera. Skontaktuj się z nami na email support@skillguru.pl ', // @TODO
+    //     errorMessage: 'Nie udało się wysłać wiadomości z powodu błędu serwera. Skontaktuj się z nami na email support@skillgu.com ', // @TODO
     // }
 };

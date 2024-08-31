@@ -51,7 +51,7 @@ export const MentorSubscriptions = () => {
                 }
             />
             <Pricing
-                title="Twoje subskrypcje"
+                title="Twoje Plany"
                 subtitle={
                     <>
                         Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}

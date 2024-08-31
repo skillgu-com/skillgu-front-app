@@ -152,13 +152,64 @@
   width: 100%;
   padding-top: 24px;
   border-top: 1px solid $colour-base-400;
+  position: relative;
 }
 
 .stripeContainer {
   position: relative;
   svg {
     position: absolute;
-    bottom:0px;
-    left:-20px;
+    bottom: 0px;
+    left: -20px;
   }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+
+  .disabled:hover + .tooltip {
+    display: block;
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $colour-base-800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: $colour-base-800 transparent transparent transparent;
+  }
+}
+
+.buttonWrapper .tooltipContainer:hover .tooltip {
+  display: block;
+  opacity: 1;
 }

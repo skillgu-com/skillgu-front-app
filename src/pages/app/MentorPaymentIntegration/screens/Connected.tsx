@@ -19,71 +19,90 @@ type Props = {
 
 export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
   const formattedPrice = price
-    ? (price / 100).toLocaleString("pl-PL", {
+      ? (price / 100).toLocaleString("pl-PL", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
-    : "";
+      : "";
   const [payoff, setPayoff] = useState<string>();
 
   const withdrawPayment = () => {
     // TODO
   };
 
+  const isDisabled = true; // Ustawienie na true, aby wyłączyć funkcje
+
   return (
-    <SectionTemplate
-      title="Płatności"
-      description='Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".'
-      additionalContent={<div className={styles.stripeContainer}><StripeSvg/></div>}
-    >
-      <div className={styles.priceCtaWrapper}>
-        <div className={styles.priceCtaBox}>
-          {formattedPrice ? (
-            <div className={styles.flex}>
-              <p className={styles.priceLabel}>
-                Obecne saldo wynosi
-                <span className={styles.priceAmount}>{formattedPrice} zł</span>
-              </p>
-              {/* TODO */}
-              <p className={styles.payoff}>
-                Wypłata środków zaplanowana na <span>{payoff}</span>
-              </p>
+      <SectionTemplate
+          title="Płatności"
+          description='Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".'
+          additionalContent={
+            <div className={styles.stripeContainer}>
+              <StripeSvg />
             </div>
-          ) : null}
-          <div>
-            <div className={styles.buttonWrapper}>
-              <Button
-                onClick={handleCreateAccountLink}
-                variant={ButtonVariant.Light}
-                classes={styles.paymentBtn}
-              >
-                Przejdż do Stripe
-              </Button>
-              <Button
-                onClick={withdrawPayment}
-                variant={ButtonVariant.Light}
-                classes={styles.paymentBtn}
-              >
-                Wypłać
-              </Button>
+          }
+      >
+        <div className={styles.priceCtaWrapper}>
+          <div className={styles.priceCtaBox}>
+            {formattedPrice ? (
+                <div className={styles.flex}>
+                  <p className={styles.priceLabel}>
+                    Obecne saldo wynosi
+                    <span className={styles.priceAmount}>{formattedPrice} zł</span>
+                  </p>
+                  <p className={styles.payoff}>
+                    Wypłata środków zaplanowana na <span>{payoff}</span>
+                  </p>
+                </div>
+            ) : null}
+            <div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                    onClick={handleCreateAccountLink}
+                    variant={ButtonVariant.Light}
+                    classes={styles.paymentBtn}
+                >
+                  Przejdż do Stripe
+                </Button>
+                <div className={styles.tooltipContainer}>
+                  <Button
+                      onClick={isDisabled ? undefined : withdrawPayment}
+                      variant={ButtonVariant.Light}
+                      classes={`${styles.paymentBtn} ${isDisabled ? styles.disabled : ''}`}
+                      disabled={isDisabled}
+                  >
+                    Wypłać
+                  </Button>
+                  {isDisabled && (
+                      <span className={styles.tooltip}>
+                    Funkcja chwilowo dostępna tylko z konta Stripe
+                  </span>
+                  )}
+                </div>
+              </div>
+              {error && (
+                  <p className={styles.error}>
+                    Error occurred while processing your request.
+                  </p>
+              )}
             </div>
-            {error && (
-              <p className={styles.error}>
-                Error occurred while processing your request.
-              </p>
-            )}
           </div>
+          {/*TODO add payment schedule in next release !!!! */}
+          {/*<div className={`${styles.scheduleWrapper}  ''}`}>*/}
+          {/*  <PaymentSchedule setPayoff={setPayoff} />*/}
+          {/*  {isDisabled && (*/}
+          {/*      <span className={styles.tooltip}>*/}
+          {/*    Harmonogram chwilowo niedostępny*/}
+          {/*  </span>*/}
+          {/*  )}*/}
+          {/*</div>*/}
         </div>
-        <div className={styles.scheduleWrapper}>
-          <PaymentSchedule setPayoff={setPayoff} />
-        </div>
-      </div>
-      <Reports />
-      <section>
-        <div className={styles.faqBox}>
-          <FAQ title="FAQ" elements={payment} />
-        </div>
-      </section>
-    </SectionTemplate>
+        <Reports />
+        <section>
+          <div className={styles.faqBox}>
+            <FAQ title="FAQ" elements={payment} />
+          </div>
+        </section>
+      </SectionTemplate>
   );
 };

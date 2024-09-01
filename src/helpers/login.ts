@@ -11,12 +11,43 @@ type ErrorResponse = { success: false, errorMessage: string };
 
 type LoginReturn = Promise<SuccessResponse | ErrorResponse>;
 
+export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginReturn => {
+    try {
+        const response = await loginUser(email, password);
 
-const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMsg: string): LoginReturn => {
+        if (response.status === 200 && response.data?.data) {
+            const userJWT = response.data.data;
+            return await getStoreAndReturnUserData(userJWT, email);
+        } else {
+            return { success: false, errorMessage: 'Nie udało się zalogować.' };
+        }
+    } catch (err: any) {
+        if (err.isAxiosError && err.response) {
+            const status = err.response.status; // np. 401
+            const message = err.response.data?.message || 'Wystąpił problem z zalogowaniem';
 
+            if (status === 401) {
+                console.log('złe hasło');
+            } else {
+                console.log(`Inny błąd: ${status}`);
+            }
+
+            return { success: false, errorMessage: message };
+        } else {
+            return { success: false, errorMessage: 'Wystąpił nieznany problem z zalogowaniem.' };
+        }
+    }
+};
+
+
+const getStoreAndReturnUserData = async (userJWT: string, email: string): LoginReturn => {
     const userData = parseUserFromJwt(userJWT);
-    if (!userData) return {success: false, errorMessage: errorMsg};
+    if (!userData) {
+        return {success: false, errorMessage: 'Nie udało się pobrać danych użytkownika'};
+    }
+
     localStorage.setItem('jwttoken', userJWT);
+
     return {
         success: true,
         userData: {
@@ -24,27 +55,16 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string, errorMs
             email: userData.email,
             role: userData.role[0],
             username: userData.username,
-            stripeIntegrationStatus: userData.stripeIntegrationStatus
-
-        }
+            stripeIntegrationStatus: userData.stripeIntegrationStatus,
+        },
     };
-}
+};
 
-export const loginUserByEmail = async (email: string, password: string, rememberMe: boolean): LoginReturn => {
-    // co z rememberMe?
-
-    try {
-        const {data: userJWT} = await loginUser(email, password);
-        return getStoreAndReturnUserData(userJWT, email, 'Dane logowania są niepoprawne');
-    } catch (err) {
-        return {success: false, errorMessage: typeof err === 'string' ? err : 'Wystąpił problem z zalogowaniem'};
-    }
-}
 
 export const loginUserByGoogle = async (email: string, token: string): LoginReturn => {
     try {
         const {data: {body: userJWT}} = await loginGoogleUser(token);
-        return getStoreAndReturnUserData(userJWT, email, 'Nie udało się zalogować przez Google');
+        return getStoreAndReturnUserData(userJWT, email);
     } catch (err) {
         return {
             success: false,

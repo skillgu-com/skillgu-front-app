@@ -1,4 +1,5 @@
 export const parseUserFromJwt = (token: string) => {
+    console.log('czy to jest token?', token)
 
     try {
         const base64Url = token.split('.')[1];

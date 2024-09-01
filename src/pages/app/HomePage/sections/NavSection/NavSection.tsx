@@ -46,6 +46,7 @@ const NavSection = () => {
                     icon: <Message/>,
                     title: 'Chat',
                     text: 'Masz 9 oczekujących wiadomości',
+                    disabled: true
                 },
             ]
             : [

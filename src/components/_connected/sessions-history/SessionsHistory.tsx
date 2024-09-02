@@ -40,6 +40,8 @@ export const SessionsHistory = ({
     const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
 
+    console.log(sr.sessionsState);
+
     const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
         null
     );

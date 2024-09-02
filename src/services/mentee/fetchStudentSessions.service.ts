@@ -36,7 +36,6 @@ export const fetchMenteeSubscriptionHistory = async (
 
   const response = await axios.get('/mentee/home/meeting/subscription/history');
   const data = response.data;
-  console.log(data)
   return {
     mentors: data.slice(0, props.take),
     total: data.length,

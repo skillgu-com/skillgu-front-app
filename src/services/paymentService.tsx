@@ -18,45 +18,9 @@ export type CombinedData = {
     customerEmail: string;
     customerPhone: string;
     customerMessage: string;
-    teamMembers: { fullName: string, email: string }[];
+    guestMentee: { fullName: string, email: string }[];
 }
-
-
-// // Funkcja tworząca sesję checkout w Stripe z zabezpieczeniami
-// export const createCheckoutSession = async (sessionData: Partial<CombinedData>) => {
-//     const {
-//         sessionID = null,
-//         name = null,
-//         time = null,
-//         sessionPrice = null,
-//         description = null,
-//         mentorID = null,
-//         calendarEventId = null,
-//         customerEmail = "",
-//         customerPhone = "",
-//         customerMessage = "",
-//         teamMembers = [],
-//     } = sessionData;
-//
-//     // Tworzenie payloadu do wysyłki
-//     const payload: CombinedData = {
-//         sessionID,
-//         name,
-//         time,
-//         sessionPrice,
-//         description,
-//         mentorID,
-//         calendarEventId,
-//         customerEmail,
-//         customerPhone,
-//         customerMessage,
-//         teamMembers
-//     };
-//
-//     return await axios.post('/api/stripe/create-checkout-session', payload);
-// }
-
-export const createCheckoutSession = async (sessionData: any) => {
+export const createCheckoutSession = async (sessionData: CombinedData) => {
     return await axios.post('/api/stripe/create-checkout-session', sessionData);
 }
 

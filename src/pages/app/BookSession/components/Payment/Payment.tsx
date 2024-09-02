@@ -10,7 +10,7 @@ export const Payment = () => {
   const customerEmail = useSelector((state: any) => state.booking.customerEmail);
   const customerPhone = useSelector((state: any) => state.booking.customerPhone);
   const customerMessage = useSelector((state: any) => state.booking.customerMessage);
-  const teamMembers = useSelector((state: any) => state.booking.teamMembers);
+  const GuestMentee = useSelector((state: any) => state.booking.teamMembers);
 
   const combinedData: CombinedData = {
     sessionID: bookSession.sessionID,
@@ -23,12 +23,12 @@ export const Payment = () => {
     customerEmail: customerEmail || '',
     customerPhone: customerPhone || '',
     customerMessage: customerMessage || '',
-    teamMembers: teamMembers || []
+    guestMentee: GuestMentee || []
   };
 
   console.log(combinedData);
   useEffect(() => {
-    createCheckoutSession(bookSession).then((res) => {
+    createCheckoutSession(combinedData).then((res) => {
       setClientSecret(res.data.clientSecret);
     });
   }, [bookSession]);

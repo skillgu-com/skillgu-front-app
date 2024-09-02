@@ -9,13 +9,18 @@
   margin: 0 auto;
 }
 
-.pricingTitle {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: $colour-primary;
-  text-align: center;
-  margin-bottom: 40px;
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    gap: 32px;
+  }
 }
 
 .pricingCard {
@@ -23,52 +28,54 @@
   border: 1px solid $colour-base-400;
   border-radius: 12px;
   padding: 40px 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left; /* Align content to the left */
   width: 100%;
   margin-bottom: 24px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensure equal height */
+  min-height: 500px; /* Set minimum height to ensure consistency across cards */
 
   @media (min-width: 992px) {
     max-width: 380px;
   }
 
+  &:hover {
+    transform: scale(1.05);
+  }
+
   &.selected {
     border: 2px solid $colour-secondary;
     border-radius: 24px;
-    box-shadow: 0 0 0 4px rgba($colour-secondary, 0.2);
   }
 }
 
 .pricingCard h4 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   color: $colour-primary;
+  margin-left: 8px; /* Add margin to the left */
   margin-bottom: 16px;
-}
 
-.pricingCard p {
-  font-size: 16px;
-  font-weight: 400;
-  color: $colour-base-800;
-  margin-bottom: 8px;
+  @media (min-width: 992px) {
+    font-size: 32px;
+    line-height: 48px;
+  }
 }
 
 .pricingCard .price {
-  font-size: 48px;
+  font-size: 29px;
   font-weight: 600;
-  color: #252B61;  /* Zmieniony kolor ceny */
+  color: #FF6A3D; /* Updated color for prices */
   margin-bottom: 8px;
+  margin-left: 0; /* Align price to the left */
 }
 
 .pricingCard .priceDetails {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   color: $colour-base-600;
   margin-bottom: 24px;
@@ -77,33 +84,20 @@
 .pricingCard .btn {
   font-size: 16px;
   font-weight: 600;
-  background-color: $colour-secondary;
+  background-color: #252B61; /* Button color */
   color: $colour-base-000;
-  padding: 16px 50px;
+  padding: 12px 0;
   border-radius: 24px;
   border: 2px solid transparent;
-  display: inline-block;
-  margin-bottom: 24px;
   text-decoration: none;
   cursor: pointer;
+  width: 100%; /* Ensure button takes full width */
+  display: inline-block;
+  margin-bottom: 24px;
 
   &:hover {
-    background-color: darken($colour-secondary, 5%);
+    background-color: darken(#252B61, 5%);
   }
-}
-
-.pricingCard .selectedBtn {
-  background-color: transparent;
-  color: $colour-secondary;
-  border: 2px solid $colour-secondary;
-}
-
-.pricingCard .cancelPlan {
-  font-size: 14px;
-  font-weight: 600;
-  color: $colour-error-100;
-  margin-top: 8px;
-  cursor: pointer;
 }
 
 .pricingCard ul {
@@ -111,6 +105,7 @@
   padding: 0;
   margin: 0;
   text-align: left;
+  flex-grow: 1;
 }
 
 .pricingCard li {
@@ -128,31 +123,10 @@
   font-size: 20px;
 }
 
-h5 {
-  font-size: 18px;
-  font-weight: 600;
-  color: $colour-primary;
-  margin-bottom: 16px;
-}
-
-.flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-
-  @media (min-width: 992px) {
-    flex-direction: row;
-    gap: 32px;
-  }
-}
-
 .planHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin-bottom: 16px;
 
   h4 {
@@ -160,6 +134,11 @@ h5 {
     font-size: 24px;
     font-weight: bold;
     line-height: 1.2;
+
+    @media (min-width: 992px) {
+      font-size: 32px;
+      line-height: 48px;
+    }
   }
 
   .icon {
@@ -173,4 +152,11 @@ h5 {
     width: 28px;
     height: 28px;
   }
+}
+
+.pricingCard h5 {
+  font-size: 18px;
+  font-weight: 600;
+  color: $colour-primary;
+  margin-bottom: 16px;
 }

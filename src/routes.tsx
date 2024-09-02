@@ -127,7 +127,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.sessionBookPayment,
         element: <BookSession payment/>,
         layoutVersion: "default",
-        isProtected: true,
+        // isProtected: false,
     },
     {
         path: paths.schedules,

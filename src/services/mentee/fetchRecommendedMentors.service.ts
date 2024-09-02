@@ -22,6 +22,8 @@ export const fetchRecommendedMentors = async (props: FetchRecommendedMentorsInpu
         const response = await axios.get('/mentee/home/suggested');
         const data = response.data;
 
+        console.log(data)
+
         return {
             mentors: data.slice(0, props.take),
         };

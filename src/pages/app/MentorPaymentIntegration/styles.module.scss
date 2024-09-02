@@ -72,14 +72,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%; // Dodane, aby wrapper miał pełną szerokość
+  height: 100%; // Dodane, aby wrapper miał pełną wysokość
+}
 
-  .imgCtaBox {
-    max-width: 350px;
+.imgCtaBox {
+  max-width: 350px;
+  width: 100%;
+  display: flex;
+  justify-content: center; // Wycentrowanie obrazka w poziomie
+  align-items: center;     // Wycentrowanie obrazka w pionie
+  text-align: center;      // Wycentrowanie tekstu poniżej obrazka
+
+  > div {
     width: 100%;
+  }
 
-    > div {
-      width: 100%;
-    }
+  img {
+    max-width: 100%; // Zapewnia, że obrazek nie przekroczy maksymalnej szerokości wrappera
+    height: auto;    // Utrzymuje proporcje obrazka
+    cursor: pointer; // Styl kursora wskazujący, że obrazek jest interaktywny
   }
 }
 

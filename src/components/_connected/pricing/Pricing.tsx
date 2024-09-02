@@ -32,7 +32,7 @@ export const Pricing = ({title, subtitle}: Props) => {
                         <button className={`${styles.btn} ${selectedPlan === 'Free' ? styles.selectedBtn : ''}`}>
                             {selectedPlan === 'Free' ? 'Twój aktualny plan' : 'Wybierz ten plan'}
                         </button>
-                        <h5>Co zawiera ten plan?</h5>
+                        <h5 className={styles.planSubtitle}>Co zawiera ten plan?</h5>
                         <ul>
                             <li><FaCheckCircle className={styles.icon}/>Pełny dostęp do aplikacji</li>
                             <li><FaCheckCircle className={styles.icon}/>Nieograniczona liczba mentee</li>

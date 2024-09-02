@@ -7,7 +7,6 @@ import { Box, CircularProgress } from "@mui/material";
 import { SectionTemplate } from "src/components/SectionTemplate";
 
 import styles from "../styles.module.scss";
-import { StripeSvg } from "@icons/StripeSvg";
 
 type Props = {
   error: string;

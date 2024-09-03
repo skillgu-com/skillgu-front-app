@@ -15,6 +15,7 @@ import Modal from "../../Modal/Modal";
 import {useQueryClient} from "@tanstack/react-query";
 import {getScheduleQueryOptions} from "../../../pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 import {getSingleSessionQueryOptions} from "../../../pages/app/Schedules/screens/SessionForm/SessionForm";
+import FreeIcon from "./components/icons/FreeIcon";
 
 export interface ScheduleCardProps {
     id: string;
@@ -166,22 +167,23 @@ const ScheduleCard = (props: ScheduleCardProps) => {
                         </>
                     )}
                 </div>
-
                 <div className={styles.bottom}>
                     {schedule?.type && (
                         <p>
-                            <Person/> {schedule.type === 'group' ? 'Grupowe' : '1:1'}
+                            <Person /> {schedule.type === 'group' ? 'Grupowe' : '1:1'}
                         </p>
                     )}
-                    {session?.sessionPrice && (
+                    {session?.sessionPrice !== undefined && (
                         <p>
-                            <Money/> {session.sessionPrice} zł
-                        </p>
-                    )}
-                    {!session && dateStart && dateEnd && (
-                        <p>
-                            <Calendar/> {dateStart.toLocaleDateString()} -{' '}
-                            {dateEnd.toLocaleDateString()}
+                            {session.sessionPrice === 0 ? (
+                                <>
+                                    <Money /> Free
+                                </>
+                            ) : (
+                                <>
+                                    <Money /> {session.sessionPrice} zł
+                                </>
+                            )}
                         </p>
                     )}
                     {meetTime && (

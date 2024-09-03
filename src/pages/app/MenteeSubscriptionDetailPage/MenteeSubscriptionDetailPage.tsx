@@ -28,6 +28,8 @@ const MenteeSubscriptionDetailPage: FC = () => {
     const {mentorshipId, subscriptionId} = useParams() as { mentorshipId: string, subscriptionId: string };
     const [bookingState, dispatchBookingAction] = useBookingReducer();
 
+
+
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(mentorshipId),
         queryFn: () => getSubscriptionService(mentorshipId),
@@ -45,6 +47,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
     const getPlanTitle = (plan: string): string => {
         return planTitlesMap[plan as PlanKey] || '';
     };
+
 
     useEffect(() => {
         dispatchBookingAction({

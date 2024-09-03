@@ -196,9 +196,16 @@ export const fetchMentorReviews = async ({
   }
 };
 
-export const getMentorProfileByID = async (mentorID: number | string) => {
+export const getMentorProfileByID = async (userId: number | string) => {
   const { data } = await axios.get(
-    `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
+    `/api/mentor/get-mentor-by-user-id/${userId}`
+  );
+  return data;
+};
+
+export const getMentorProfileByMentorId = async (mentorID: number | string) => {
+  const { data } = await axios.get(
+      `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
   );
   return data;
 };

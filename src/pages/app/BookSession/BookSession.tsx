@@ -17,7 +17,11 @@ import clx from 'classnames'
 import {faqRows} from "./config";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import {useBookingReducer} from "src/reducers/booking";
-import {fetchMentorShip} from "@services/mentor/fetchMentorServices.service";
+import {
+    fetchMentorShip,
+    getMentorProfileByID,
+    getMentorProfileByMentorId
+} from "@services/mentor/fetchMentorServices.service";
 import NavigateBackButton from "../../../components/NavigateBackButton/NavigateBackButton";
 import Box from "@mui/material/Box";
 
@@ -75,50 +79,45 @@ const BookSession = ({payment}: BookSessionProps) => {
         }
     }, [dispatch, element]);
 
-    const mentorTest = {
-        avatar_url: "https://cdn.pixabay.com/photo/2023/03/29/19/32/man-7886201_1280.jpg",
-        description: "Figma ipsum component variant main layer. Boolean distribute pencil content scrolling blur outline variant. Frame rotate device draft variant italic plugin union stroke.",
-        id: "1",
-        name: "Chujek",
-        price: 50,
-        profession: "UX/UI Designer w Google",
-        reviewsAvgRate: 5,
-        reviewsCount: 10,
-        skills: ['Figma', 'UX Design', 'UI Design', 'Design Thinking', 'Tag 1', 'Tag 2', 'Tag 3'],
-        special: "Szybko odpowiada",
-        specialVariant: "success",
-        title: "Nauczę Cię dizajnować jak PRO"
-    };
-
 
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                // const mentoring = await fetchMentorShip({mentorId: "1"});
-                const mentors = await fetch(`/search-mentor-results-mocked.json`).then((d) => d.json());
+                // Fetch mentor data from API
+                const mentorData = await getMentorProfileByMentorId(element?.opt.mentorID);
                 dispatch({
                     type: "SET_SERVICE",
-                    payload: {service: element?.opt},
+                    payload: { service: element?.opt },
                 });
-                if (
-                    mentors && "mentors" in mentors && mentors.mentors && Array.isArray(mentors.mentors) && mentors.mentors.length
-                ) {
+                if (mentorData && mentorData.firstName && mentorData.lastName) {
+                    // Structure the data as needed for the dispatch
+                    const mentor = {
+                        avatar_url: mentorData.profileImage || "default_avatar_url", // Add a default URL if needed
+                        description: mentorData.description || "No description available",
+                        id: mentorData.id || "N/A",
+                        name: `${mentorData.firstName} ${mentorData.lastName}`,
+                        price: mentorData.price || 0,
+                        profession: mentorData.jobPosition || "No profession specified",
+                        reviewsAvgRate: mentorData.reviewsAvgRate || 0,
+                        reviewsCount: mentorData.reviewsCount || 0,
+                        skills: mentorData.skills || [],
+                        special: mentorData.special || "",
+                        specialVariant: mentorData.specialVariant || "success",
+                        title: mentorData.title || "No title available"
+                    };
                     dispatch({
                         type: "SET_MENTOR",
-                        payload: {mentor: mentorTest},
+                        payload: { mentor },
                     });
                 }
             } catch (e) {
-                console.error("Failed to load mentor/service data.");
+                console.error("Failed to load mentor/service data.", e);
             }
             fetchInitialRef.current = true;
         };
 
-        if (!fetchInitialRef.current) {
-            fetchInitialData();
-        }
-    }, [dispatch]);
-
+        fetchInitialData();
+    }, [element?.opt.mentorID, dispatch]);
 
     const navigate = useNavigate();
     const onSubmit = () => {

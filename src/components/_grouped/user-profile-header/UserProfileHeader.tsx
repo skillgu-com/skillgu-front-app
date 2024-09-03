@@ -57,13 +57,13 @@ export const UserProfileHeader = ({
 
   return (
     <div className={clx(styles.wrapper, className)}>
-      {state?.from === "/search-mentors" ? (
-        <Container as={Tag.Div}>
-          <button className={styles.backBtn} onClick={handleGoBack}>
+      {/*{state?.from === "/search-mentors" ? (*/}
+      {/*  // <Container as={Tag.Div}>*/}
+          {/*<button className={styles.backBtn} onClick={handleGoBack}>*/}
             {/*<Arrow /> <span> Powrót do listy mentorów</span>*/}
-          </button>
-        </Container>
-      ) : null}
+          {/*</button>*/}
+        {/*</Container>*/}
+      {/*) : null}*/}
 
       <img
         className={styles.bg}

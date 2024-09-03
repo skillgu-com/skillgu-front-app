@@ -60,7 +60,7 @@ export const UserProfileHeader = ({
       {state?.from === "/search-mentors" ? (
         <Container as={Tag.Div}>
           <button className={styles.backBtn} onClick={handleGoBack}>
-            <Arrow /> <span> Powrót do listy mentorów</span>
+            {/*<Arrow /> <span> Powrót do listy mentorów</span>*/}
           </button>
         </Container>
       ) : null}

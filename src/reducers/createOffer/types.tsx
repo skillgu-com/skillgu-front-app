@@ -13,9 +13,9 @@ export type Data = {
     saved: boolean;
     numberOfPlans: 1 | 2 | 3;
     providesMaterials: boolean;
-    basic: PlanInput;
-    advanced?: PlanInput;
-    pro?: PlanInput;
+    basic: PlanInput|null;
+    advanced?: PlanInput|null;
+    pro?: PlanInput|null;
 }
 
 export type CreateOfferState = {
@@ -24,9 +24,9 @@ export type CreateOfferState = {
     availableSchedules: ScheduleOption[];
     numberOfPlans: 1 | 2 | 3;
     providesMaterials: boolean;
-    basic: PlanInput;
-    advanced: PlanInput;
-    pro: PlanInput;
+    basic: PlanInput|null;
+    advanced: PlanInput|null;
+    pro: PlanInput|null;
     pending: boolean;
     errorMessage: string;
     success: boolean;

@@ -1,5 +1,5 @@
 // Libraries
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import classNames from "classnames";
 // Components
 import Chip from "../Tag/Tag";
@@ -8,7 +8,6 @@ import validation from "../../helpers/improovedValidation";
 // Styles
 import styles from "./Input.module.scss";
 import {Collapse} from "@mui/material";
-import Typography from "@mui/material/Typography";
 import {StyledFeedbackWrapper} from "../_form/FormInputSwitcher/FormInputSwitcher.styles";
 import InputFeedback from "../_form/InputFeedback/InputFeedback";
 
@@ -73,7 +72,7 @@ const Input = (props: InputProps) => {
     }
   };
 
-  const handleEnterPressHandler = (e: any) => {
+  const handleEnterPressHandler = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (
       type !== "multi" ||
       e.key !== "Enter" ||

@@ -69,7 +69,7 @@ const RangeInput = (props: RangeInputProps) => {
 					label=''
 					type='number'
 					value={currentMinValue}
-					valueChangeHandler={(name: any, value) => changeHandler('min', value)}
+					valueChangeHandler={(name, value) => changeHandler('min', value)}
 				/>
 				<span>-</span>
 				<Input
@@ -79,7 +79,7 @@ const RangeInput = (props: RangeInputProps) => {
 					label=''
 					type='number'
 					value={currentMaxValue}
-					valueChangeHandler={(name: any, value) => changeHandler('max', value)}
+					valueChangeHandler={(name, value) => changeHandler('max', value)}
 				/>
 				<span>zł</span>
 			</div>

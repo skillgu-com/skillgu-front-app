@@ -17,6 +17,7 @@ export const MentorSessionsHistory = () => {
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
+
         sr.updateRecords(mentee, total);
       } catch (e) {
         sr.updateStatus("Wystąpił błąd podczas pobierania danych.");

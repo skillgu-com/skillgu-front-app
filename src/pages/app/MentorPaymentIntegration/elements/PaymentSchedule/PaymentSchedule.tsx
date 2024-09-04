@@ -25,8 +25,8 @@ type ScheduleType = {
 };
 
 export const PaymentSchedule = ({
-  setPayoff,
-}: {
+                                  setPayoff,
+                                }: {
   setPayoff: (state: string) => void;
 }) => {
   const [schedule, setSchedule] = useState<ScheduleType>();
@@ -38,9 +38,9 @@ export const PaymentSchedule = ({
   const openDropdown = () => setIsOpenDropdown(true);
 
   const selectedPayment = useMemo(
-    () =>
-      schedule?.options.find((option) => option.value === schedule.selected),
-    [schedule?.selected, schedule?.options]
+      () =>
+          schedule?.options.find((option) => option.value === schedule.selected),
+      [schedule?.selected, schedule?.options]
   );
 
   const [paymentFrequency, setPaymentFrequency] = useState(selectedPayment);
@@ -50,7 +50,7 @@ export const PaymentSchedule = ({
     const value = target instanceof HTMLButtonElement ? target.value : "1/w";
 
     const selectedPaymentFreq = schedule?.options.find(
-      (option) => option.value === value
+        (option) => option.value === value
     );
     if (!selectedPaymentFreq) return;
     setPaymentFrequency(selectedPaymentFreq);
@@ -92,52 +92,63 @@ export const PaymentSchedule = ({
     setPaymentFrequency(selectedPayment);
   }, [selectedPayment]);
 
+  const isDisabled = true; // Ustawienie na true, aby wyłączyć funkcje
+
   return (
-    <>
-      <p className={styles.scheduleLabel}>Harmonogram wypłat</p>
-      <div className={styles.dropdownWrapper}>
-        <Dropdown className={styles.dropdown}>
-          {isPending && <div className={styles.pending}></div>}
-          <Dropdown.Toggle
-            onClick={openDropdown}
-            className={clx(styles.btn, styles.toogle)}
-            toggleRef={toggleRef}
-          >
-            <p>
-              {paymentFrequency?.label}
-              <span>{` (następna ${schedule?.nextPayment})`}</span>
-            </p>
-            <DropdownIcon />
-          </Dropdown.Toggle>
-          {isOpenDropdown ? (
-            <Dropdown.Menu
-              toggleRef={toggleRef}
-              onClickOutside={closeDropdown}
-              className={styles.menu}
+      <>
+        <p className={styles.scheduleLabel}>Harmonogram wypłat</p>
+        <div className={clx(styles.dropdownWrapper, isDisabled && styles.disabled)}>
+          <Dropdown className={styles.dropdown}>
+            {isPending && <div className={styles.pending}></div>}
+            <Dropdown.Toggle
+                onClick={openDropdown}
+                className={clx(styles.btn, styles.toogle)}
+                toggleRef={toggleRef}
             >
-              {schedule?.options.map((option) => (
-                <Dropdown.Option
-                  key={option.value}
-                  value={option.value}
-                  onClick={handleClick}
-                  className={clx(styles.btn, styles.option)}
+              <p>
+                {paymentFrequency?.label}
+                <span>{` (następna ${schedule?.nextPayment})`}</span>
+              </p>
+              <DropdownIcon />
+            </Dropdown.Toggle>
+            {isOpenDropdown ? (
+                <Dropdown.Menu
+                    toggleRef={toggleRef}
+                    onClickOutside={closeDropdown}
+                    className={styles.menu}
                 >
-                  <p className={styles.text}>{option.label}</p>
-                </Dropdown.Option>
-              ))}
-            </Dropdown.Menu>
-          ) : null}
-        </Dropdown>
-        <Button
-          className={styles.btnSave}
-          onClick={saveChanges}
-          variant={ButtonVariant.Light}
-          disableButton={isPending}
-        >
-          Zmień
-        </Button>
-      </div>
-      {error && <p className={styles.error}>{error}</p>}
-    </>
+                  {schedule?.options.map((option) => (
+                      <Dropdown.Option
+                          key={option.value}
+                          value={option.value}
+                          onClick={handleClick}
+                          className={clx(styles.btn, styles.option)}
+                      >
+                        <p className={styles.text}>{option.label}</p>
+                      </Dropdown.Option>
+                  ))}
+                </Dropdown.Menu>
+            ) : null}
+          </Dropdown>
+          <div className={styles.tooltipContainer}>
+            <div className={styles.btnWrapper}>
+              <Button
+                  className={styles.btnSave}
+                  onClick={isDisabled ? undefined : saveChanges}
+                  variant={ButtonVariant.Light}
+                  disableButton={isPending || isDisabled}
+              >
+                Zmień
+              </Button>
+              {isDisabled && (
+                  <span className={styles.tooltip}>
+                Funkcja chwilowo dostępna tylko z konta Stripe
+              </span>
+              )}
+            </div>
+          </div>
+        </div>
+        {error && <p className={styles.error}>{error}</p>}
+      </>
   );
 };

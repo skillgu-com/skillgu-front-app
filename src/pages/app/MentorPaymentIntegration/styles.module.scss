@@ -8,24 +8,14 @@
   padding: 20px;
 }
 
-.faqBox {
-  padding: 24px;
-  border: 1px solid #eaecf0;
-  border-radius: 8px;
-  margin: 36px 0 48px;
-}
-
 .title {
-  @extend %text-heading-3;
+  font-size: 28px !important;
+  padding-top: 32px;
   color: $colour-primary;
-
-  @include media-lg-and-up {
-    font-size: 32px;
+  @include media-xl-and-up {
+    font-size: 32px !important;
+    padding-top: 40px;
   }
-}
-
-.title + .description {
-  margin-top: 16px;
 }
 
 .description {
@@ -60,13 +50,53 @@
   }
 }
 
-.faqWrapper {
-  display: flex;
-  gap: 24px;
-  flex-direction: column;
+.faqSection {
+  margin: 32px 4px;
 
+  .faqContainer {
+    max-width: calc(1200px + 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    gap: 32px;
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+  }
+
+  .faqTitle {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    color: $colour-primary;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .faqSubtitle {
+    margin-bottom: 24px;
+    line-height: 21.6px;
+    color: $colour-base-600;
+    font-size: 12px;
+    font-weight: 600;
+  }
   .faq {
-    padding: 32px 20px;
+    width: 100%;
+  }
+  .faqBtn {
+    padding: 12px 40px;
+    font-weight: 500;
+  }
+
+  @include media-lg-and-up {
+    margin: 40px 8px;
+    .faqContainer {
+      flex-direction: row;
+    }
+    .faqHeader {
+      width: 360px;
+    }
+    .faq {
+      max-width: 700px;
+    }
   }
 }
 
@@ -75,14 +105,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%; // Dodane, aby wrapper miał pełną szerokość
+  height: 100%; // Dodane, aby wrapper miał pełną wysokość
+}
 
-  .imgCtaBox {
-    max-width: 350px;
+.imgCtaBox {
+  max-width: 350px;
+  width: 100%;
+  display: flex;
+  justify-content: center; // Wycentrowanie obrazka w poziomie
+  align-items: center; // Wycentrowanie obrazka w pionie
+  text-align: center; // Wycentrowanie tekstu poniżej obrazka
+
+  > div {
     width: 100%;
+  }
 
-    > div {
-      width: 100%;
-    }
+  img {
+    max-width: 100%; // Zapewnia, że obrazek nie przekroczy maksymalnej szerokości wrappera
+    height: auto; // Utrzymuje proporcje obrazka
+    cursor: pointer; // Styl kursora wskazujący, że obrazek jest interaktywny
   }
 }
 
@@ -155,4 +197,64 @@
   width: 100%;
   padding-top: 24px;
   border-top: 1px solid $colour-base-400;
+  position: relative;
+}
+
+.stripeContainer {
+  position: relative;
+  svg {
+    position: absolute;
+    bottom: 0px;
+    left: -20px;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+
+  .disabled:hover + .tooltip {
+    display: block;
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $colour-base-800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: $colour-base-800 transparent transparent transparent;
+  }
+}
+
+.buttonWrapper .tooltipContainer:hover .tooltip {
+  display: block;
+  opacity: 1;
 }

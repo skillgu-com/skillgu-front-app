@@ -1,7 +1,7 @@
 export interface Common {
 	id?: string;
 	classes?: string;
-	children?: any;
+	children?: React.ReactNode;
 }
 
 export enum FontColors {

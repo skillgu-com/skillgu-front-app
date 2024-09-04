@@ -5,10 +5,9 @@ import {ReactNode} from "react";
 import {Navigate} from "react-router-dom";
 // NEW Screens
 import HomeScreen from "./pages/app/HomePage/HomePage";
-import SearchMentors from "./pages/app/SearchMentors/SearchMentors";
+import SearchMentors from "./pages/unauthorized/SearchMentors/SearchMentors";
 import BookSession from "./pages/app/BookSession/BookSession";
 import Schedules from "./pages/app/Schedules/Schedules";
-import ScheduleForm from "./pages/app/Schedules/screens/ScheduleForm/ScheduleForm";
 import SessionForm from "./pages/app/Schedules/screens/SessionForm/SessionForm";
 import RegisterMentorView from "./pages/unauthorized/RegisterMentorView/RegisterMentorView";
 import RegisterMenteeView from "./pages/unauthorized/RegisterMenteeView/RegisterMenteeView";
@@ -20,7 +19,7 @@ import LoginView from "./pages/unauthorized/LoginView/LoginView";
 import PasswordResetLinkSentView from "./pages/unauthorized/PasswordResetLinkSentView/PasswordResetLinkSentView";
 import SetNewPasswordView from "./pages/unauthorized/SetNewPasswordView/SetNewPasswordView";
 import {LayoutVersion} from "@customTypes/layoutVersion";
-import {MentorProfilePage} from "./pages/app/MentorProfile";
+import {MentorProfilePage} from "./pages/unauthorized/MentorProfile";
 import CalendarDailyView from "./pages/app/CalendarDailyView/CalendarDailyView";
 import RescheduleMeetingView from "./pages/app/RescheduleMeetingView/RescheduleMeetingView";
 import {MentorProfileEditPage} from "./pages/app/MentorProfileEdit";
@@ -60,7 +59,7 @@ const routesRaw: Omit<Route, "id">[] = [
     {
         path: paths.mentorProfile,
         element: <MentorProfilePage/>,
-        isProtected: true,
+        // isProtected: false,
         layoutVersion: "default",
     },
     {
@@ -108,27 +107,27 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.searchMentors,
         element: <SearchMentors/>,
         layoutVersion: "default",
-        isProtected: false,
+        // isProtected: false,
     },
     {
         path: paths.sessionBook,
         element: <BookSession/>,
         layoutVersion: "default",
         // layoutVersion: 'simple',
-        isProtected: false,
+        // isProtected: false,
     },
     {
         path: paths.mentorshipBookPayment,
         element: <PaymentMentorship/>,
-        layoutVersion: "simple",
+        layoutVersion: "default",
         isProtected: true,
     },
 
     {
         path: paths.sessionBookPayment,
         element: <BookSession payment/>,
-        layoutVersion: "simple",
-        isProtected: true,
+        layoutVersion: "default",
+        // isProtected: false,
     },
     {
         path: paths.schedules,

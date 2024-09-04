@@ -1,19 +1,30 @@
-import React, { useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import styles from "../CreateMentoringOffer.module.scss";
-import { useCreateOfferReducer } from "src/reducers/createOffer";
-import { CreateOfferTemplates } from "../CreateOfferTemplates";
-import Button, { ButtonVariant } from "src/components/Button/Button";
-import { RadioButton } from "../elements/RadioButton";
-import { OfferPlan } from "../elements/OfferPlan";
-import { SubscriptionPlan } from "@customTypes/order";
-import { Data } from "src/reducers/createOffer/types";
-import { getStateErrorMessage, validateState } from "../utils";
-import { createOfferInitialState } from "src/reducers/createOffer/constants";
+import {useCreateOfferReducer} from "src/reducers/createOffer";
+import {CreateOfferTemplates} from "../CreateOfferTemplates";
+import Button, {ButtonTag, ButtonVariant} from "src/components/Button/Button";
+import {RadioButton} from "../elements/RadioButton";
+import {OfferPlan} from "../elements/OfferPlan";
+import {SubscriptionPlan} from "@customTypes/order";
+import {Data} from "src/reducers/createOffer/types";
+import {getStateErrorMessage, validateState} from "../utils";
+import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
+import { PlusIcon } from "@icons/PlusIcon";
+import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
+import { useSelector } from "react-redux";
 
 export const Build = () => {
   const co = useCreateOfferReducer();
   const state = co.createOfferState;
   const [selected, setSelected] = useState<SubscriptionPlan | null>(null);
+
+  useEffect(() => {
+    const hasAnyPlan = !!(state.basic || state.advanced || state.pro)
+    if(!hasAnyPlan){
+      // co.prevStep()
+      // co.prevStep()
+    }
+  }, [co, state.advanced, state.basic, state.pro])
 
   const valid = useMemo(() => {
     return validateState(state);
@@ -28,15 +39,20 @@ export const Build = () => {
       providesMaterials: state.providesMaterials,
       basic: state.basic,
     };
-    if (state.numberOfPlans === 1) {
+    const plansCount = [state.basic, state.advanced, state.pro].filter(s => s !== null).length
+    if (plansCount === 0) {
+      newData.basic = initialStep.basic;
+      newData.numberOfPlans = 1;
+    }
+    if (plansCount === 1) {
       newData.basic = state.basic;
-      newData.pro = createOfferInitialState.pro;
+      newData.advanced = initialStep.advanced;
       newData.numberOfPlans = 2;
     }
-    if (state.numberOfPlans === 2) {
+    if (plansCount === 2) {
       newData.basic = state.basic;
-      newData.advanced = createOfferInitialState.advanced;
-      newData.pro = state.pro;
+      newData.advanced = state.advanced;
+      newData.pro = initialStep.pro;
       newData.numberOfPlans = 3;
     }
     co.loadOffers(newData);
@@ -48,63 +64,32 @@ export const Build = () => {
       numberOfPlans: state.numberOfPlans,
       providesMaterials: state.providesMaterials,
       basic: state.basic,
+      advanced: state.advanced,
+      pro: state.pro,
     };
-    if (state.numberOfPlans === 2 && plan === "basic") {
-      newData.basic = state.pro;
-      newData.numberOfPlans = 1;
+    if (plan === "basic") {
+      newData.basic = null;
     }
-    if (state.numberOfPlans === 2 && plan === "advanced") {
-      newData.basic = state.basic;
-      newData.numberOfPlans = 1;
+    if (plan === "advanced") {
+      newData.advanced = null;
     }
-    if (state.numberOfPlans === 3 && plan === "basic") {
-      newData.basic = state.advanced;
-      newData.pro = state.pro;
-      newData.numberOfPlans = 2;
+    if (plan === "pro") {
+      newData.pro = null;
     }
-    if (state.numberOfPlans === 3 && plan === "advanced") {
-      newData.basic = state.basic;
-      newData.pro = state.pro;
-      newData.numberOfPlans = 2;
-    }
-    if (state.numberOfPlans === 3 && plan === "pro") {
-      newData.basic = state.basic;
-      newData.pro = state.advanced;
-      newData.numberOfPlans = 2;
-    }
+    const numberOfPlans = [newData.basic, newData.advanced, newData.pro].filter(s => s !== null).length
+    const parsedNumberOfPlans = Math.min(1, Math.max(3, numberOfPlans)) as (1|2|3)
+    newData.numberOfPlans = parsedNumberOfPlans
     co.loadOffers(newData);
   };
-  const submitBuild = () => {
-    console.log(8888888888888888, "submit build", co.createOfferState);
 
-    if (co.createOfferState.numberOfPlans === 1) {
-      const mentorshipdata = {
-        ...co.createOfferState,
-        advanced: undefined,
-        pro: undefined,
-      };
-      console.log(6, mentorshipdata);
-      co.submitBuild(mentorshipdata, true);
-    }
-    if (co.createOfferState.numberOfPlans === 2) {
-      const mentorshipdata = {
-        ...co.createOfferState,
-        pro: createOfferInitialState.pro,
-      };
-      console.log(6, mentorshipdata);
-      return co.submitBuild(mentorshipdata, true);
-    }
+  const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
-    if (co.createOfferState.numberOfPlans === 3) {
-      console.log("yeeeeeeeeeeeeeees");
-    }
-  };
+
   return (
-    <div>
       <CreateOfferTemplates
         title="Setup Twoich planów"
         subtitle="Uzupełnij pola."
-        step={3}
+        step={2}
       >
         <div className={styles.plansWrapper}>
           <OfferPlan
@@ -112,7 +97,7 @@ export const Build = () => {
             plan="basic"
             selected={selected === "basic"}
             setSelected={setSelected}
-            onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+            onRemove={state.numberOfPlans === 1 ? removePlan : undefined}
           />
 
           {co.createOfferState.numberOfPlans > 1 ? (
@@ -121,7 +106,7 @@ export const Build = () => {
               plan="advanced"
               selected={selected === "advanced"}
               setSelected={setSelected}
-              onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+              onRemove={state.numberOfPlans === 2 ? removePlan : undefined}
             />
           ) : null}
 
@@ -131,14 +116,22 @@ export const Build = () => {
               plan="pro"
               selected={selected === "pro"}
               setSelected={setSelected}
-              onRemove={state.numberOfPlans > 1 ? removePlan : undefined}
+              onRemove={state.numberOfPlans === 3 ? removePlan : undefined}
             />
           )}
 
           {state.numberOfPlans < 3 ? (
             <div>
-              <Button variant={ButtonVariant.Primary} onClick={addPlan}>
-                Dodaj plan
+              <Button
+                as={ButtonTag.Button}
+                onClick={addPlan}
+                disableButton={!userStripeIntegrationStatus}
+                variant={ButtonVariant.Outline}
+                type="button"
+                classes={styles.addPlanBtn}
+              >
+                <span>Dodaj plan</span>
+                <PlusIcon size={"24px"} />
               </Button>
             </div>
           ) : null}
@@ -186,16 +179,18 @@ export const Build = () => {
         {validMsg ? <p className={styles.validMsg}>{validMsg}</p> : null}
 
         <div className={styles.btnBox}>
-          <Button
+          {/* <Button
             onClick={co.prevStep}
             variant={ButtonVariant.PrimaryLight}
             type="button"
             fullWidth
           >
             Wróć
-          </Button>
+          </Button> */}
           <Button
-            onClick={submitBuild}
+            onClick={() => {
+              co.submitBuild(co.createOfferState, true);
+            }}
             variant={ButtonVariant.Primary}
             type="button"
             fullWidth
@@ -205,6 +200,5 @@ export const Build = () => {
           </Button>
         </div>
       </CreateOfferTemplates>
-    </div>
   );
 };

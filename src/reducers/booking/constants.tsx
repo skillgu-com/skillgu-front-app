@@ -17,5 +17,6 @@ export const bookingInitialState: BookingState = {
     consents: false,
     slotsError: "",
     mentorshipId: "",
-    mentorId: ""
+    mentorId: "",
+    subscriptionId: ""
 };

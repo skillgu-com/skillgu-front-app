@@ -47,11 +47,27 @@
   }
 }
 .emptyStateHeading {
-    display:flex;
-    justify-content: space-between;
-    max-width:900px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
 }
 
 .emptyCell {
-    border-top:1px solid $colour-base-400
+  border-top: 1px solid $colour-base-400;
+}
+
+.description {
+  @extend %text-button-md;
+  color: $colour-base-800;
+  margin-bottom: 32px;
+
+  & > .link {
+    @extend %text-button-md;
+    color: $colour-secondary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

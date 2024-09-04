@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonVariant} from "src/components/Button/Button";
@@ -7,6 +7,7 @@ import {RadioButton} from "../elements/RadioButton";
 import styles from "../CreateMentoringOffer.module.scss";
 
 import {useCreateOfferReducer} from "src/reducers/createOffer";
+import { initialStep } from "src/reducers/createOffer/constants";
 
 type Quantity = 1 | 2 | 3;
 
@@ -23,8 +24,9 @@ const planList: PlanTypes[] = [
 ];
 
 export const Determine = () => {
-    const {createOfferState: state, submitDetermine} = useCreateOfferReducer();
+    const {createOfferState: state, submitDetermine, submitBuild} = useCreateOfferReducer();
     const {numberOfPlans} = state
+
 
     const onRadioButtonClick = (number: Quantity) => {
         if (!number) return;
@@ -33,9 +35,30 @@ export const Determine = () => {
 
     const handleSubmit = useCallback(() => {
         if (numberOfPlans) {
+            if(numberOfPlans === 1) {
+                submitBuild({
+                    providesMaterials: state.providesMaterials,
+                    basic: initialStep.basic,
+                }, false)
+            }
+            if(numberOfPlans === 2) {
+                submitBuild({
+                    providesMaterials: state.providesMaterials,
+                    basic: initialStep.basic,
+                    advanced: initialStep.advanced,
+                }, false)
+            }
+            if(numberOfPlans === 3) {
+                submitBuild({
+                    providesMaterials: state.providesMaterials,
+                    basic: initialStep.basic,
+                    advanced: initialStep.advanced,
+                    pro: initialStep.pro,
+                }, false)
+            }
             submitDetermine(numberOfPlans, true);
         }
-    }, [numberOfPlans, submitDetermine]);
+    }, [numberOfPlans, state.providesMaterials, submitBuild, submitDetermine]);
 
     return (
         <CreateOfferTemplates

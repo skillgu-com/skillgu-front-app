@@ -6,14 +6,15 @@ import Button, { ButtonVariant } from "src/components/Button/Button";
 
 import styles from "../CreateMentoringOffer.module.scss";
 
-export const Initial = ({ step }: { step: string }) => {
-  const co = useCreateOfferReducer();
+export const Initial = () => {
+  const { submitInitial, submitDetermine, createOfferState } =
+    useCreateOfferReducer();
 
   useEffect(() => {
-    if(co.createOfferState.saved){
-      co.submitInitial()
+    if (createOfferState.saved) {
+      submitDetermine(createOfferState.numberOfPlans, true);
     }
-  }, [co])
+  }, [submitDetermine, createOfferState.numberOfPlans, createOfferState.saved]);
 
   return (
     <CreateOfferTemplates
@@ -37,7 +38,7 @@ export const Initial = ({ step }: { step: string }) => {
       </div>
       <div className={styles.btnBox}>
         <Button
-          onClick={co.submitInitial}
+          onClick={submitInitial}
           fullWidth
           variant={ButtonVariant.Primary}
           type="button"

@@ -15,3 +15,8 @@
     @extend %text-button-sm; 
     color: $colour-base-800;
 }
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

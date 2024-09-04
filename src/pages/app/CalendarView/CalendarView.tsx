@@ -1,18 +1,16 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import React, { useMemo, useState} from 'react';
+import {useQuery} from "@tanstack/react-query";
 import {getMonth, lastDayOfMonth, setDate, setMonth} from "date-fns";
+import {Event, NavigateAction} from "react-big-calendar";
 
 import
-    getMentoringSessionsInDatesService
-    , {
+    getMentoringSessionsInDatesService, {
     getMentoringSessionsInDatesServiceKeyGenerator
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
-import Typography from "@mui/material/Typography";
-import {Container, Theme, useMediaQuery} from "@mui/material";
-import {Event, NavigateAction} from "react-big-calendar";
+import {Theme, useMediaQuery} from "@mui/material";
 import Calendar from "../../../components/Calendar/Calendar";
 import CalendarMobile from "../../../components/Calendar/_mobile/CalendarMobile/CalendarMobile";
-import {useLocation} from "react-router-dom";
+import { SectionTemplate } from 'src/components/SectionTemplate';
 
 export type MeetingInCalendar = Event & {
     metadata: {
@@ -48,8 +46,6 @@ const CalendarView = () => {
         setSelectedRange({from, to});
     }
 
-
-
     const queryParams = useMemo(() => ({
         from: selectedRange.from,
         to: selectedRange.to,
@@ -58,8 +54,6 @@ const CalendarView = () => {
     const {data} = useQuery({
         queryKey: getMentoringSessionsInDatesServiceKeyGenerator(queryParams),
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
-
-
     });
 
     const events: MeetingInCalendar[] = useMemo(() => {
@@ -94,8 +88,7 @@ const CalendarView = () => {
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));
 
     return (
-        <Container>
-            <Typography sx={{pt: 5, pb: {sm: 2, md: 3}}} variant='h2'>Kalendarz</Typography>
+        <SectionTemplate title="Kalendarz" description="Znajdziesz tutaj pełną rozpiskę zaplanowanych zajęć. Dodaj nowe Harmonogramy i sesje, aby dać możliwość mentee skorzystania z Twoich skilli.">
             {isMD ? (
                 <Calendar
                     calendarProps={{
@@ -109,7 +102,7 @@ const CalendarView = () => {
                     selectedRange={selectedRange}
                 />
             )}
-        </Container>
+        </SectionTemplate>
     );
 };
 

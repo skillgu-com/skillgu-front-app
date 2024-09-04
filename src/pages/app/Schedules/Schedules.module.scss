@@ -1,90 +1,96 @@
-@use 'src/scss/variables' as *;
-@use 'src/scss/font' as *;
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
 
 .main {
-	min-height: calc(100vh - 73px);
-	background-color: $light-color;
+  min-height: calc(100vh - 73px);
+  background-color: $light-color;
 }
+.btnBox {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  @include media-md-and-up {
+    margin-top: 0;
+  }
 
-.btn {
-	@extend %text-button-md;
-	color: $colour-secondary;
-	display: flex;
-	padding: 8px 24px;
-	gap: 8px;
-	align-items: center;
-	justify-content: center;
-	height: 41px;
+  .btn {
+    @extend %text-button-md;
+    color: $colour-secondary;
+    display: flex;
+    padding: 8px 24px;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    height: 41px;
+    width: max-content;
 
-	&:hover {
-		color: #fff;
-	}
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 24px;
-	row-gap: 8px;
-	padding-top: 40px;
-	margin-bottom: 16px;
-	flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  row-gap: 8px;
+  padding-top: 40px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 
-	.title {
-		margin-bottom: 0;
-	}
+  .title {
+    margin-bottom: 0;
+    color: $colour-primary;
+  }
 }
 
-.modalContent {
-	h3 {
-		margin-top:40px;
-	}	
+.description {
+  @extend %text-button-md;
+  color: $colour-base-800;
 }
-
-
 
 .modalText {
-	font-size: 16px;
-	font-weight: 400;
-	line-height: 28.8px;
-	text-align: left;
-	max-width: 536px;
-	color:$colour-base-800;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28.8px;
+  text-align: left;
+  max-width: 536px;
+  color: $colour-base-800;
 
-	span {
-		font-weight: 600;
-		color: $primary-color;
-	}
+  span {
+    font-weight: 600;
+    color: $primary-color;
+  }
 }
 
-.container {
-	.list {
-		display: grid;
-		grid-template-columns: repeat(6, 1fr);
-		gap: 32px 20px;
-		margin-top: 32px;
+.list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 32px 20px;
+  margin-top: 32px;
 
-		> * {
-			grid-column: 1/-1;
-		}
+  > * {
+    grid-column: 1/-1;
+  }
 
-		@media screen and (min-width: $md) {
-			> * {
-				grid-column: 1/-1;
-			}
-		}
+  @media screen and (min-width: $md) {
+    > * {
+      grid-column: 1/-1;
+    }
+  }
 
-		@media screen and (min-width: $lg) {
-			> * {
-				grid-column: span 3;
-			}
-		}
+  @media screen and (min-width: $lg) {
+    > * {
+      grid-column: span 3;
+    }
+  }
 
-		@media screen and (min-width: $xxl) {
-			> * {
-				grid-column: span 2;
-			}
-		}
-	}
+  @media screen and (min-width: $xxl) {
+    > * {
+      grid-column: span 2;
+    }
+  }
 }

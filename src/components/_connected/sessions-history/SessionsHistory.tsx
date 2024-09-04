@@ -30,7 +30,7 @@ type Props = {
 };
 
 export const SessionsHistory = ({
-                                    title = "Historia Twoich sesji",
+                                    title = "Historia Twoich spotkań",
                                     subtitle,
                                     getProfileLink,
                                 }: Props) => {
@@ -68,6 +68,7 @@ export const SessionsHistory = ({
         },
         [sr]
     );
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -139,15 +140,24 @@ export const SessionsHistory = ({
                                             {formatDate(s.date, "DD.MM.YYYY")}
                                         </TableCell>
                                         <TableCell flex={3}>
-
                                             {s.status === "planned" ? (
                                                 <Status noWrap variant="warning" text="Zaplanowane"/>
                                             ) : s.status === "cancelled" ? (
                                                 <Status noWrap variant="danger" text="Odwołana"/>
                                             ) : s.status === "in-progress" ? (
-                                                <Status noWrap variant="success" text="W trakcie"/>
+                                                <Status noWrap variant="info" text="W trakcie"/>
                                             ) : s.status === "completed" ? (
                                                 <Status noWrap variant="success" text="Zrealizowana"/>
+                                            ) : s.status === "active" ? (
+                                                <Status noWrap variant="success" text="AKTYWNA"/>
+                                            ) : s.status === "awaiting" ? (
+                                                <Status noWrap variant="warning" text="OCZEKUJĄCA"/>
+                                            ) : s.status === "rejected" ? (
+                                                <Status noWrap variant="danger" text="ODRZUCONA"/>
+                                            ) : s.status === "accepted" ? (
+                                                <Status noWrap variant="success" text="ZAAKCEPTOWANA"/>
+                                            ) : s.status === "suspended" ? (
+                                                <Status noWrap variant="warning" text="ZAWIESZONA"/>
                                             ) : null}
                                         </TableCell>
                                         <TableCell flex={3} className={styles.capitalize}>

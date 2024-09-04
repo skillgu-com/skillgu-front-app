@@ -18,51 +18,39 @@ import {
     ServiceType,
 } from "@customTypes/order";
 import {
-    fetchMentorMentorshipPlansForMentorProfile,
+    getMentorshipPlansForMentorProfile,
     getMentorByUsername,
     MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import {MentorData} from "../MentorProfileEdit";
+import { MentorData } from "src/pages/app/MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
-import {fetchMentorSession} from "@services/session/sessionService";
+import {getMentorSessions} from "@services/session/sessionService";
 import Button, {ButtonVariant} from "src/components/Button/Button";
 
-type Props = {
-    isLoggedMentor: boolean;
-};
 
 export const MentorProfilePage = () => {
-    const {username} = useParams();
-    const location = useLocation();
+    const { username } = useParams<{ username: string }>();
+    const safeUsername = username || ''; // lub 'unknown' lub inny string, który ma sens w twoim kontekście
 
+    const location = useLocation();
+    const navigate = useNavigate();
+    
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
     const [pending, setPending] = useState<boolean>(true);
+    const userFromRedux = useSelector((state: any) => state.auth.user);
 
-    const useIsMentorLoggedUser = (mentorDat: MentorData) => {
-        const userFromRedux = useSelector((state: any) => state.auth.user);
-
-        const mentorIsLoggedUser = useMemo(() => {
-            return userFromRedux?.id === mentorData?.userID;
-        }, [userFromRedux, mentorData]);
-
-        return mentorIsLoggedUser;
-    };
-    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
     // @TODO: get user id from sesion/jwt
 
-    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
-        []
-    );
+    const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>([]);
     const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
     const [selectedMentoring, setMentoring] = useState<null | MentorshipPlanDTO>(null);
-
 
     const toggleTab = () =>
         setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
@@ -81,74 +69,48 @@ export const MentorProfilePage = () => {
     const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
     const handleSelectSession = (opt: ServiceSession) => setSession(opt);
 
-    const navigate = useNavigate();
-
     const openPopup = (opt: ServiceSession) => setPopupSession(opt);
 
     const closePopup = () => setPopupSession(null);
 
 
-    // TODO do usuniecia ten hook albo ten ponizej, nalezy to ustawic!
-    // useEffect(() => {
-    //     const run = async () => {
-    //         const resp = await fetchMentoring({mentorId: mentorId || ""});
-    //         if (resp.success) {
-    //             setOptionsMentoring(resp.mentoring);
-    //             // setOptionsSession(resp.session);
-    //         }
-    //         setLoading(false);
-    //     };
-    //     if (mentorId) {
-    //         run();
-    //     }
-    // }, [mentorId]);
-
-    // useEffect(() => {
-    //     const fetchInitialData = async () => {
-    //         setPending(true);
-    //         await getMentorProfileByID(mentorId).then((res) => {
-    //             setMentorData(res.data as MentorData);
-    //         });
-    //         setPending(false);
-    //     };
-    //     if (mentorId) {
-    //         fetchInitialData();
-    //     }
-    // }, [mentorId]);
-
     useEffect(() => {
-        const fetchInitialData = async () => {
+        const fetchInitialData = async (name:string) => {
             setPending(true);
             setLoading(false);
             try {
-                const mentorResponse = await getMentorByUsername(username);
-                const mentorData = mentorResponse.data as MentorData;
-                setMentorData(mentorData);
+                if (name) {
+                    const mentorResponse = await getMentorByUsername(name);
+                    const mentorData = mentorResponse.data as MentorData;
+                    setMentorData(mentorData);
+    
+                    const mentorId = mentorResponse.data?.mentorId;
 
-                const mentorId = mentorResponse.data.mentorId;
+                    if (mentorId) {
+                        const [sessionResponse, mentoringResponse] = await Promise.all([
+                            //TODO it can`t be here userFromRedux ! what if we want get mentorprofile when you are logg via mentee ?
+                            getMentorSessions(mentorId),
+                            getMentorshipPlansForMentorProfile({mentorId: mentorId}),
+                        ]);
 
-                if (mentorId) {
-                    const [sessionResponse, mentoringResponse] = await Promise.all([
-                        fetchMentorSession(mentorData.userID),
-                        fetchMentorMentorshipPlansForMentorProfile({mentorId: mentorId}),
-                    ]);
-
-                    const formattedSessions = sessionResponse.data.map(
-                        (elementFromAPI: any) => ({
-                            id: elementFromAPI?.id,
-                            sessionType: elementFromAPI?.sessionType,
-                            sessionPrice: elementFromAPI?.sessionPrice,
-                            description: elementFromAPI?.description,
-                            meetTime: elementFromAPI?.meetTime,
-                            mentorID: mentorId,
-                        })
-                    );
-                    setOptionsSession(formattedSessions);
-
-                    if (mentoringResponse) {
-                        setOptionsMentoring(mentoringResponse.mentorships);
+                        const formattedSessions = sessionResponse?.data.map(
+                            (elementFromAPI: any) => ({
+                                id: elementFromAPI?.id,
+                                sessionType: elementFromAPI?.sessionType,
+                                sessionPrice: elementFromAPI?.sessionPrice,
+                                description: elementFromAPI?.description,
+                                meetTime: elementFromAPI?.meetTime,
+                                mentorID: mentorId,
+                            })
+                        );
+                        setOptionsSession(formattedSessions);
+    
+                        if (mentoringResponse) {
+                            setOptionsMentoring(mentoringResponse.mentorships);
+                        }
                     }
                 }
+
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -158,9 +120,19 @@ export const MentorProfilePage = () => {
         };
 
         if (username) {
-            fetchInitialData();
+            fetchInitialData(username);
         }
     }, [username]);
+
+    const useIsMentorLoggedUser = (data: MentorData) => {
+        const userFromRedux = useSelector((state: any) => state.auth.user);
+
+        const mentorIsLoggedUser = useMemo(() => {
+            return userFromRedux?.id === data?.userID;
+        }, [userFromRedux, data?.userID]);
+        return mentorIsLoggedUser;
+    };
+    const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
     return loading ? null : (
         <>
@@ -230,7 +202,7 @@ export const MentorProfilePage = () => {
                                             <Button
                                                 variant={ButtonVariant.PrimaryLight}
                                                 fontVariant="button-md"
-                                                href={selectedMentoring ? `/schedules/edit-mentorship/${selectedMentoring.id}` : undefined}
+                                                href={selectedMentoring ? `/create-mentoring` : undefined}
                                                 disabled={!selectedMentoring}
                                                 disableButton={!selectedMentoring}>Edytuj plan</Button>
                                         ) : null}

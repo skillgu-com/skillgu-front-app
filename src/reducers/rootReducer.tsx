@@ -14,6 +14,7 @@ import { sessionsReducer } from './sessions'
 import { subscriptionsReducer } from './subscriptions';
 import { mentAppReducer } from './mentorship-application';
 import { layoutReducer } from './layout';
+import { schedulesReducer } from './schedules';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     subscriptions: subscriptionsReducer,
     mentApp: mentAppReducer,
     layout: layoutReducer,
+    schedules: schedulesReducer,
     // Add other reducers if you have them
 });
 

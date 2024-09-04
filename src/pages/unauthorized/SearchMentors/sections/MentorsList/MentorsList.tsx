@@ -44,7 +44,7 @@ export const MentorsList = ({
   return (
     <Container as={Tag.Section} classes={styles.wrapper}>
       <div className={styles.mentorsList}>
-        {mentors?.map((item: any) => (
+        {mentors?.map((item: Mentor) => (
           <MentorListingCard
             filters={filters}
             key={item.id}

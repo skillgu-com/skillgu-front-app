@@ -31,7 +31,6 @@ const parseSessionFormDataToSessionDTO = (session: SessionFormInput): SessionDTO
 }
 
 export const createSession = async (session: SessionFormInput) => {
-    console.log('tutaj sesja: ',session)
     return await axios.post('/api/1.0/session', parseSessionFormDataToSessionDTO(session));
 }
 
@@ -39,20 +38,18 @@ export const editSession = async ({ sessionId, session }: { sessionId: string, s
     return await axios.post(`/api/1.0/session/${sessionId}`, parseSessionFormDataToSessionDTO(session));
 }
 
-export const getSessionNumber = async () => {
-    return await axios.get('/api/1.0/get-session-number')
-}
 
-export const fetchMentorSession = async (userID: any) => {
-    return await axios.get(`/api/1.0/mentor-sessions`, {params: {userID}});
+export const getMentorSessions = async (mentorId: number) => {
+    return await axios.get(`/api/1.0/mentor-sessions`, {
+        params: { mentorId }
+    });
 }
-
 export const getSessionTypes = async () => {
     // TODO type response tightly and eventually parse it
     return await axios.get<{id: number, name: string}[]>('/api/session-types/get-all')
 }
 
-export const deleteSession = async (sessionId: any) => {
+export const deleteSession = async (sessionId: string) => {
     return await axios.post(`/api/1.0/session/delete/${sessionId}`);
 };
 

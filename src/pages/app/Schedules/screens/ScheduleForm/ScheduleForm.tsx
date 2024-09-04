@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useMemo} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import stylesSessions from '../SessionForm/SessionForm.module.scss';
@@ -8,6 +8,7 @@ import {ScheduleFormInputT} from "./_types/ScheduleFormInputT";
 import ScheduleFormGeneralSettings from "./_components/ScheduleFormGeneralSettings/ScheduleFormGeneralSettings";
 import {createScheduleMeeting, editMentorSchedule} from "@services/scheduleService";
 import ScheduleFormWeekDays from "./_components/ScheduleFormWeekDays/ScheduleFormWeekDays";
+import { useSchedulesReducer } from 'src/reducers/schedules';
 
 const revalidatingTimeout: Record<string, ReturnType<typeof setTimeout>> = {};
 
@@ -31,14 +32,16 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         defaultValues,
         mode: 'all',
     })
-
+    const sr = useSchedulesReducer()
 
     const meetingLengthValue = watch('meetingLength');
 
     const onSubmit: SubmitHandler<ScheduleFormInputT> = useCallback((data) => {
         if (scheduleId) {
+            console.log(1, data)
             editMentorSchedule(scheduleId, data)
                 .then(() => {
+                    sr.reset()
                     navigate('/schedules');
                 })
                 .catch(error => {
@@ -47,13 +50,14 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         } else {
             createScheduleMeeting(data)
                 .then(() => {
+                    sr.reset()
                     navigate('/schedules');
                 })
                 .catch(error => {
                     console.error('Error creating schedule meeting:', error.message);
                 });
         }
-    }, [navigate]);
+    }, [navigate, scheduleId, sr]);
 
     const revalidate = useCallback((path: string) => () => {
         const timeoutId = revalidatingTimeout[path]
@@ -62,17 +66,17 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
         revalidatingTimeout[path] = setTimeout(() => {
             trigger(path as keyof ScheduleFormInputT);
         }, 10);
-    }, []);
+    }, [trigger]);
 
 
     useEffect(() => {
         // revalidate weekdays when meeting length changes
         revalidate('weekdays')();
-    }, [meetingLengthValue]);
+    }, [meetingLengthValue, revalidate]);
 
     useEffect(() => {
         setFocus('scheduleName');
-    }, []);
+    }, [setFocus]);
 
     return (
         <form className={stylesSessions.form} onSubmit={handleSubmit(onSubmit)}>

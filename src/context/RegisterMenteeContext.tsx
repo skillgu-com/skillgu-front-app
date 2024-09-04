@@ -23,7 +23,7 @@ const navigationContent: NavigationContentT[] = [
         id: 0,
         title: 'Rejestracja',
         shorthand: 'Rejestracja',
-        subtitle: 'Uzupełnij swoje dane, aby zarejestrować się jako mentor',
+        subtitle: 'Uzupełnij swoje dane, aby zarejestrować się jako mentee',
         icon: <TeacherIcon/>
     },
     {
@@ -38,7 +38,7 @@ const navigationContent: NavigationContentT[] = [
 const resolveStepView = (step: number) => {
     switch (step) {
         case 0:
-            return <RegisterStep1 isMentor={false} title='Zarejestruj się jako uczeń'/>;
+            return <RegisterStep1 isMentor={false} title='Zarejestruj się jako mentee'/>;
         case 1:
             return <RegisterStep5 isMentor={false}/>;
         default: {

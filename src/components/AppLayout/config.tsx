@@ -10,6 +10,8 @@ import { DollarCircleIcon } from "@icons/DollarCircleIcon";
 import SubscriptionIcon from "@icons/SubscriptionIcon";
 import Message from "@icons/Message";
 import { MessagesIcon } from "@icons/MessagesIcon";
+import { SearchMentorsSvg } from "@icons/SearchMentors";
+import { Session } from "@icons/Session";
 
 export type Visibility = "student" | "mentor" | "authenticated" | "all";
 
@@ -44,10 +46,17 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       visibility: "authenticated",
     },
     {
+      id: "search-mentors",
+      label: "Znajdź mentora",
+      link: paths.searchMentors,
+      icon: <SearchMentorsSvg/>,
+      visibility: "student",
+    },
+    {
       id: "schedules",
-      label: "Sesje i harmonogramy",
+      label: "Harmonogramy i sesje",
       link: "/schedules",
-      icon: <CreateSchedules />,
+      icon: <Session />,
       visibility: "mentor",
     },
     {
@@ -57,13 +66,13 @@ export const getMenuItems = ({ username, role }: Props): MenuItemType[] => {
       icon: <CreateSchedules />,
       visibility: "mentor",
     },
-    {
-      id: "chat",
-      label: "Wiadomości",
-      link: paths.chat,
-      icon: <MessagesIcon />,
-      visibility: "authenticated",
-    },
+    // {
+    //   id: "chat",
+    //   label: "Wiadomości",
+    //   link: paths.chat,
+    //   icon: <MessagesIcon />,
+    //   visibility: "authenticated",
+    // },
     {
       id: "profile-student",
       label: "Profil",

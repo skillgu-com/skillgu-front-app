@@ -11,10 +11,11 @@ import verifyEmailAddressService, {
 } from "../../../services/verifyEmailAddress/verifyEmailAddress.service";
 
 import useRegisterMenteeContext from "../../../context/RegisterMenteeContext";
-import {buildAfterRegisterLin} from "src/pages/app/SearchMentors/utils";
+
 import StepContentWrapper from "../StepContentWrapper/StepContentWrapper";
 import {StyledFallbackWrapper, StyledInputsWrapper} from "./RegisterStep5.styles";
 import InputFeedback from "../../_form/InputFeedback/InputFeedback";
+import { buildAfterRegisterLin } from 'src/pages/unauthorized/SearchMentors/utils';
 
 
 type InputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;

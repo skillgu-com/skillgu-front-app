@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import {format} from "date-fns";
 
 import {ReactComponent as ChevronIcon} from "../../../assets/icons/svg/chevron_up.svg"
-import {Box, Button, Collapse} from "@mui/material";
+import {Box, Button, Collapse, Tooltip} from "@mui/material";
 
 import useConfirmationModalContext from "../../../context/ConfirmationModalContext";
 import cancelMentoringSessionById from "@services/mentoringSessions/cancelMentoringSessionById.service";
@@ -107,7 +107,11 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                     <StyledButtonsWrapper>
                         <Button
                             component={Link}
-                            to={generatePath(paths.rescheduleMeeting, {meetingId: id, sessionId: sessionId, mentorId: mentorId})}
+                            to={generatePath(paths.rescheduleMeeting, {
+                                meetingId: id,
+                                sessionId: sessionId,
+                                mentorId: mentorId
+                            })}
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'
@@ -115,14 +119,19 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                         >
                             Przełóż spotkanie
                         </Button>
-                        <Button
-                            onClick={onCancel}
-                            sx={{gridArea: 'cancelMeetingButton'}}
-                            color='error'
-                            variant='contained'
-                        >
-                            Odwołaj TEST
-                        </Button>
+                        <Tooltip title="Ta funkcja chwilowo niedostępna">
+    <span> {}
+        <Button
+            onClick={onCancel}
+            sx={{gridArea: 'cancelMeetingButton'}}
+            color="error"
+            variant="contained"
+            disabled
+        >
+            Odwołaj
+        </Button>
+    </span>
+                        </Tooltip>
                         <Box sx={{gridArea: 'joinMeetingButton'}}>
                             <MentoringSessionJoinButton meetingUrl={meetingLink}/>
                         </Box>

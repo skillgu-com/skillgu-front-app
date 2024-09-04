@@ -42,7 +42,8 @@ axios.interceptors.request.use(
 				...config.headers,
 				Authorization: `Bearer ${localStorage.getItem('jwttoken')}`,
 			};
-		}
+			
+		} 
 		return config;
 	},
 	(error) => {

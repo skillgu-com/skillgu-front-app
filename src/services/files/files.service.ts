@@ -7,3 +7,4 @@ export const fetchUserImageFile = async (userId: number) => {
 export const fetchUserCoverFile = async (userId: number) => {
    return  await axios.get(`/api/file/cover/${userId}`);
 }
+

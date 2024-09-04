@@ -2,7 +2,6 @@ import {
   FetchStudentSessionsInput,
   FetchStudentSessionsOutput,
 } from "./fetchStudentSessions.types";
-import {FetchStudentMentorsInput, FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
 import axios from "axios";
 
 // export const fetchStudentSessions = async (
@@ -24,8 +23,9 @@ export const fetchStudentSessions = async (
 
   const response = await axios.get('/mentee/home/meeting/history');
   const data = response.data;
+
   return {
-    mentors: data.slice(0, props.take),
+    mentors: data.slice(0, 10),
     total: data.length,
   };
 };

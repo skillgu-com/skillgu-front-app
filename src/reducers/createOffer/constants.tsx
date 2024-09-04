@@ -1,15 +1,7 @@
+import { PlanInput } from "@customTypes/create-mentoring";
 import { CreateOfferState } from "./types";
 
-export const createOfferInitialState: CreateOfferState = {
-  fetchedInitial: false,
-  step: "initial",
-  availableSchedules: [],
-  saved: false,
-  numberOfPlans: 1,
-  providesMaterials: true,
-  pending: false,
-  errorMessage: "",
-  success: false,
+export const initialStep : Record<'basic'|'advanced'|'pro', null|PlanInput> = {
   basic: {
     schedule: "",
     price: 159,
@@ -44,4 +36,19 @@ export const createOfferInitialState: CreateOfferState = {
     planType: "pro",
     mentorshipId: -1,
   },
+}
+
+export const createOfferInitialState: CreateOfferState = {
+  fetchedInitial: false,
+  step: "build",
+  availableSchedules: [],
+  saved: false,
+  numberOfPlans: 1,
+  providesMaterials: true,
+  pending: false,
+  errorMessage: "",
+  success: false,
+  basic: null,
+  advanced: null,
+  pro: null,
 };

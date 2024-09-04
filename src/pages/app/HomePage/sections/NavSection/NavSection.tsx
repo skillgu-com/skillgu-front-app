@@ -46,6 +46,7 @@ const NavSection = () => {
                     icon: <Message/>,
                     title: 'Chat',
                     text: 'Masz 9 oczekujących wiadomości',
+                    disabled: true
                 },
             ]
             : [
@@ -67,6 +68,7 @@ const NavSection = () => {
                     icon: icons.chatIcon,
                     title: 'Wiadomości',
                     text: 'Masz 9 oczekujących wiadomości',
+                    disabled: true,
                 },
                 {
                     link: '/payment',

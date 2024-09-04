@@ -43,10 +43,10 @@ export const fetchOfferDetails = async (
             status: 'awaiting',
             rejectionFeedback: '',
             service: {
-                id: "1",
-                title: "Plan pro",
+                id: offerId.toString(),
+                title: "Plan pro ++",
                 subtitle: "",
-                price: 30000,
+                price: 666,
                 variant: "pro",
                 descriptionRows: [
                     media?.offer?.descriptionRows

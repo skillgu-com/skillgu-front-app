@@ -2,30 +2,15 @@
 @use "@styles/mixins" as *;
 @use "@styles/font" as *;
 
-.title,
 .subtitle {
   color: $colour-primary;
-}
-
-.title {
-  font-size: 28px !important;
-  padding-top: 32px;
-  @include media-xl-and-up {
-    font-size: 32px !important;
-    padding-top: 40px;
-  }
 }
 
 .subtitle {
   @extend %text-subtitle-1;
   margin-bottom: 1.5rem;
 }
-.container {
-  padding: 0 4px;
-  @include media-xl-and-up { 
-    padding: 0 8px;
-  }
-}
+
 .gridContainer {
   @include media-xl-and-up {
     display: grid;

@@ -8,7 +8,7 @@ import Button, { ButtonVariant } from "../../Button/Button";
 import { Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Arrow from "@icons/Arrow";
-import { LocationTypes } from "src/pages/app/SearchMentors/SearchMentors";
+import { LocationTypes } from "src/pages/unauthorized/SearchMentors/SearchMentors";
 
 type Props = {
   avatarUrl?: string;
@@ -57,13 +57,13 @@ export const UserProfileHeader = ({
 
   return (
     <div className={clx(styles.wrapper, className)}>
-      {state?.from === "/search-mentors" ? (
-        <Container as={Tag.Div}>
-          <button className={styles.backBtn} onClick={handleGoBack}>
-            <Arrow /> <span> Powrót do listy mentorów</span>
-          </button>
-        </Container>
-      ) : null}
+      {/*{state?.from === "/search-mentors" ? (*/}
+      {/*  // <Container as={Tag.Div}>*/}
+          {/*<button className={styles.backBtn} onClick={handleGoBack}>*/}
+            {/*<Arrow /> <span> Powrót do listy mentorów</span>*/}
+          {/*</button>*/}
+        {/*</Container>*/}
+      {/*) : null}*/}
 
       <img
         className={styles.bg}

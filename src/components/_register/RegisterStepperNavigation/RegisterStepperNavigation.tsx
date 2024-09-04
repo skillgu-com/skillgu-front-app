@@ -47,7 +47,8 @@ const RegisterStepperNavigation: FC<Props> = ({ navigationContent, maxStep, upda
                     <StyledNode
                         clickable={index <= maxStep}
                         onClick={() => updateStep(index)}
-                        ref={ref => refsObject.current[id] = ref} active={index === currentStep}
+                        ref={(ref: HTMLLIElement | null) => refsObject.current[id] = ref} 
+                        active={index === currentStep}
                         key={id}
                     >
                         <StyledIcon>{icon}</StyledIcon>

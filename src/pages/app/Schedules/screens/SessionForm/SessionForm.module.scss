@@ -15,6 +15,17 @@
 		&Button {
 			margin-top: 10px;
 		}
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-size: 1.25rem;
+
+			.switcherLabel {
+				font-size: 1.25rem;
+			}
+		}
 	}
 
 	@media screen and (min-width: $md) {

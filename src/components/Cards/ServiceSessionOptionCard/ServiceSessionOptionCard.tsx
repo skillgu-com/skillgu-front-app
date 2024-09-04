@@ -18,19 +18,19 @@ type Props = ServiceSession & {
 };
 
 export const ServiceSessionOptionCard = ({
-  name,
-  value,
-  selected,
-  handleDetails,
-  handleSelect,
-  meetTime,
-  scheduleName,
-  sessionName,
-  sessionPrice,
-  sessionType,
-  description,
-  displayRadioInput,
-}: Props) => {
+                                           name,
+                                           value,
+                                           selected,
+                                           handleDetails,
+                                           handleSelect,
+                                           meetTime,
+                                           scheduleName,
+                                           sessionName,
+                                           sessionPrice,
+                                           sessionType,
+                                           description,
+                                           displayRadioInput,
+                                         }: Props) => {
   const detailsRef = useRef<HTMLInputElement>(null);
   const _handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
@@ -41,45 +41,50 @@ export const ServiceSessionOptionCard = ({
   };
 
   return (
-    <button
-      className={clx(styles.card, {
-        [styles.selected]: selected,
-        [styles.selectable]: !!handleSelect,
-      })}
-      onClick={_handleSelect}
-      name={name}
-      value={value}
-    >
-      <div className={styles.rowTitle}>
-        {handleSelect && displayRadioInput ? (
-          <RadioInputIcon filled={selected} />
-        ) : null}
-        <h5 className={styles.title}>{sessionType}</h5>
-      </div>
-      <div className={styles.rowInfo}>
-        {sessionPrice ? (
-          <div className={styles.infoCell}>
-            <DollarCircleIcon />
-            {Math.ceil(sessionPrice)} zł/h
-          </div>
-        ) : null}
-        {meetTime ? (
-          <div className={styles.infoCell}>
-            <ClockSolidCircleIcon />
-            {meetTime} min
-          </div>
-        ) : null}
-      </div>
-      {handleDetails ? (
-        <div
-          className={styles.rowActions}
-          role="button"
-          ref={detailsRef}
-          onClick={handleDetails}
-        >
-          Więcej informacji
+      <button
+          className={clx(styles.card, {
+            [styles.selected]: selected,
+            [styles.selectable]: !!handleSelect,
+          })}
+          onClick={_handleSelect}
+          name={name}
+          value={value}
+      >
+        <div className={styles.rowTitle}>
+          {handleSelect && displayRadioInput ? (
+              <RadioInputIcon filled={selected} />
+          ) : null}
+          <h5 className={styles.title}>{sessionType}</h5>
         </div>
-      ) : null}
-    </button>
+        <div className={styles.rowInfo}>
+          {sessionPrice === 0 ? (
+              <div className={styles.infoCell}>
+                <DollarCircleIcon />
+                Free
+              </div>
+          ) : sessionPrice ? (
+              <div className={styles.infoCell}>
+                <DollarCircleIcon />
+                {Math.ceil(sessionPrice)} zł/h
+              </div>
+          ) : null}
+          {meetTime ? (
+              <div className={styles.infoCell}>
+                <ClockSolidCircleIcon />
+                {meetTime} min
+              </div>
+          ) : null}
+        </div>
+        {handleDetails ? (
+            <div
+                className={styles.rowActions}
+                role="button"
+                ref={detailsRef}
+                onClick={handleDetails}
+            >
+              Więcej informacji
+            </div>
+        ) : null}
+      </button>
   );
 };

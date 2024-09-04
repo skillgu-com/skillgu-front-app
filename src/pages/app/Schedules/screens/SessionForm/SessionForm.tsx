@@ -1,35 +1,26 @@
-import React, { useEffect, useMemo } from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// Components
-// Types
-import { Tag } from "@customTypes/tags";
-// Styles
-import styles from "./SessionForm.module.scss";
-import {
-  editMentorSchedule,
-  fetchAllSchedules,
-} from "@services/scheduleService";
+import { useForm } from "react-hook-form";
+import { Button, Tooltip, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
+import { useQuery } from "@tanstack/react-query";
 import Container from "../../../../../components/Container/Container";
 import NavTitle from "../../../../../components/typography/NavTitle/NavTitle";
-import {
-  createSession,
-  SessionFormInput,
-  getSingleSession,
-} from "@services/session/sessionService";
-import { useForm } from "react-hook-form";
-import { Button, Tooltip } from "@mui/material";
 import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
 import FormInputSelect from "../../../../../components/_form/FormInputSelect/FormInputSelect";
 import { DropdownOption } from "@customTypes/dropdownOption";
-import Typography from "@mui/material/Typography";
-import resolvePolishNumeralFactory from "../../../../../helpers/resolvePolishNumeralFactory";
-import { useSnackbar } from "notistack";
-import { useQuery } from "@tanstack/react-query";
+import { useSchedulesReducer } from "src/reducers/schedules";
+import { Switcher } from "../../../../../components/_base/Switcher";
+import { useBookingReducer } from "../../../../../reducers/booking";
+import { createSession, getSingleSession, SessionFormInput } from "@services/session/sessionService";
+import { fetchAllSchedules } from "@services/scheduleService";
 import getSessionTypesDictionary from "@services/dictionaries/sessionTypesDictionary/sessionTypesDictionary";
 import getSessionCategoriesDictionary from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary";
-import { MentorCategoryT } from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
 import getSessionDescriptionTemplatesDictionary from "@services/dictionaries/sessionDescriptionTemplatesDictionary/sessionDescriptionTemplatesDictionary";
-import { useSchedulesReducer } from "src/reducers/schedules";
+import resolvePolishNumeralFactory from "../../../../../helpers/resolvePolishNumeralFactory";
+import { MentorCategoryT } from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
+import styles from "./SessionForm.module.scss";
+import {Tag} from "@customTypes/tags";
 
 interface DirtySessionFormInput {
   name: string;
@@ -87,10 +78,10 @@ const SessionForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const isEdit = useMemo(() => !!sessionId, [sessionId]);
   const sr = useSchedulesReducer();
+
   const onSubmit = async (data: SessionFormInput) => {
     try {
       if (isEdit) {
-        alert("ACTION on EDIT");
         enqueueSnackbar("Sesja została zaktualizowana", { variant: "success" });
         navigate("/schedules");
       } else {
@@ -128,23 +119,24 @@ const SessionForm = () => {
   } = useForm<DirtySessionFormInput, void, SessionFormInput>({
     defaultValues,
   });
+
   const selectedCategory = watch("category");
   const selectedType = watch("type");
+  const sessionPrice = watch("price");
+  const [state, dispatch] = useBookingReducer();
+
   useEffect(() => {
-    // Clear type when Category changes
     setValue("type", "");
   }, [selectedCategory]);
 
   useEffect(() => {
-    // Set description template when selected Type changes
     const shouldOverrideDescription =
-      !formState.dirtyFields.description || getValues("description") === "";
-    console.log(shouldOverrideDescription);
-    console.log(selectedType);
+        !formState.dirtyFields.description || getValues("description") === "";
+
     if (selectedType && shouldOverrideDescription) {
       setValue(
-        "description",
-        getSessionDescriptionTemplatesDictionary(selectedType)
+          "description",
+          getSessionDescriptionTemplatesDictionary(selectedType)
       );
     }
   }, [selectedType, formState.dirtyFields.description]);
@@ -153,13 +145,27 @@ const SessionForm = () => {
     if (initialData) reset(initialData);
   }, [initialData]);
 
+  useEffect(() => {
+    if (state.inviteTeam) {
+      setValue("price", 0);
+    }
+  }, [state.inviteTeam, setValue]);
+
+  const switchHandler = useCallback(() => {
+    const isFree = watch("price") === 0;
+    if (isFree) {
+      setValue("price", 100);
+    } else {
+      setValue("price", 0);
+    }
+  }, [setValue, watch]);
   const description = watch("description");
   const descriptionFeedback = useMemo(() => {
     const descriptionLength = description.length;
     const getPolishNumeral = resolvePolishNumeralFactory(
-      "znak",
-      "znaki",
-      "znaków"
+        "znak",
+        "znaki",
+        "znaków"
     );
 
     if (descriptionLength === 0) {
@@ -181,112 +187,120 @@ const SessionForm = () => {
   }, [description]);
 
   return (
-    <Container as={Tag.Section} classes={styles.wrapper}>
-      <NavTitle>{isEdit ? "Edytuj sesję" : "Utwórz nową sesję"}</NavTitle>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <FormInputText<DirtySessionFormInput>
-          name="name"
-          control={control}
-          formState={formState}
-          label="Nazwa"
-          inputProps={{ placeholder: "nazwa sesji" }}
-          controllerProps={{ rules: { required: "Nazwa jest wymagana" } }}
-        />
-        <FormInputText<DirtySessionFormInput>
-          name="price"
-          control={control}
-          formState={formState}
-          inputProps={{ type: "number", placeholder: "100" }}
-          label="Cena za sesję [zł]"
-          controllerProps={{
-            rules: {
-              required: "Cena jest wymagana",
-              min: { value: 0, message: "Cena nie może być ujemna" },
-            },
-          }}
-        />
-        <FormInputSelect
-          label="Kategoria spotkania"
-          name="category"
-          control={control}
-          formState={formState}
-          getOptions={getSessionCategoriesDictionary}
-          inputProps={{ placeholder: "Wybierz kategorie spotkania" }}
-          controllerProps={{
-            rules: { required: "Kategoria spotkania jest wymagany" },
-          }}
-        />
-        <Tooltip
-          title={
-            !selectedCategory
-              ? "Wybierz kategorię, aby określić typ spoktania."
-              : ""
-          }
-        >
-          <span>
-            <FormInputSelect
-              label="Typ spotkania"
-              name="type"
+      <Container as={Tag.Section} classes={styles.wrapper}>
+        <NavTitle>{isEdit ? "Edytuj sesję" : "Utwórz nową sesję"}</NavTitle>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <FormInputText<DirtySessionFormInput>
+              name="name"
               control={control}
               formState={formState}
-              // Options are bind to selected Category value
-              getOptions={() => getSessionTypesDictionary(selectedCategory)}
+              label="Nazwa"
+              inputProps={{ placeholder: "nazwa sesji" }}
+              controllerProps={{ rules: { required: "Nazwa jest wymagana" } }}
+          />
+          <FormInputText<DirtySessionFormInput>
+              name="price"
+              control={control}
+              formState={formState}
               inputProps={{
-                placeholder: "Wybierz typ spotkania",
-                disabled: !selectedCategory,
+                type: "number",
+                placeholder: "100",
+                disabled: watch("price") === 0 // Pole ceny jest zablokowane, gdy cena jest 0
               }}
+              label="Cena za sesję [zł]"
               controllerProps={{
-                rules: { required: "Typ spotkania jest wymagany" },
+                rules: {
+                  required: "Cena jest wymagana",
+                  min: { value: 0, message: "Cena nie może być ujemna" },
+                },
               }}
+          />
+          <label>
+            <Switcher checked={watch("price") === 0} onChange={switchHandler} />
+            <span className={styles.switcherLabel}>{`Darmowe spotkanie`}</span>
+          </label>
+
+          <FormInputSelect
+              label="Kategoria spotkania"
+              name="category"
+              control={control}
+              formState={formState}
+              getOptions={getSessionCategoriesDictionary}
+              inputProps={{ placeholder: "Wybierz kategorie spotkania" }}
+              controllerProps={{
+                rules: { required: "Kategoria spotkania jest wymagany" },
+              }}
+          />
+          <Tooltip
+              title={
+                !selectedCategory
+                    ? "Wybierz kategorię, aby określić typ spoktania."
+                    : ""
+              }
+          >
+          <span>
+            <FormInputSelect
+                label="Typ spotkania"
+                name="type"
+                control={control}
+                formState={formState}
+                getOptions={() => getSessionTypesDictionary(selectedCategory)}
+                inputProps={{
+                  placeholder: "Wybierz typ spotkania",
+                  disabled: !selectedCategory,
+                }}
+                controllerProps={{
+                  rules: { required: "Typ spotkania jest wymagany" },
+                }}
             />
           </span>
-        </Tooltip>
-        <FormInputSelect
-          label="Harmonogram"
-          name="scheduleId"
-          control={control}
-          formState={formState}
-          getOptions={getScheduleNamesQuery}
-          inputProps={{ placeholder: "Wybierz harmonogram" }}
-          controllerProps={{ rules: { required: "Harmonogram jest wymagany" } }}
-        />
-        <FormInputText<DirtySessionFormInput>
-          name="description"
-          control={control}
-          formState={formState}
-          inputProps={{
-            multiline: true,
-            rows: 4,
-            placeholder: "Opisz sesję...",
-          }}
-          label="Opis sesji"
-          controllerProps={{
-            rules: {
-              required: "Opis sesji jest wymagany",
-              maxLength: {
-                value: maxDescriptionCharacters,
-                message: `Maksymalna liczba znaków to ${maxDescriptionCharacters}`,
-              },
-              minLength: {
-                value: minDescriptionCharacters,
-                message: `Minimalna liczba znaków to ${minDescriptionCharacters}`,
-              },
-            },
-          }}
-        />
-        <Typography variant="caption" color="base.60">
-          {descriptionFeedback}
-        </Typography>
-        <Button
-          fullWidth
-          type="submit"
-          variant="contained"
-          disabled={!formState.isValid && formState.isSubmitted}
-        >
-          {isEdit ? "Zapisz zmiany" : "Utwórz sesję"}
-        </Button>
-      </form>
-    </Container>
+          </Tooltip>
+          <FormInputSelect
+              label="Harmonogram"
+              name="scheduleId"
+              control={control}
+              formState={formState}
+              getOptions={getScheduleNamesQuery}
+              inputProps={{ placeholder: "Wybierz harmonogram" }}
+              controllerProps={{ rules: { required: "Harmonogram jest wymagany" } }}
+          />
+          <FormInputText<DirtySessionFormInput>
+              name="description"
+              control={control}
+              formState={formState}
+              inputProps={{
+                multiline: true,
+                rows: 4,
+                placeholder: "Opisz sesję...",
+              }}
+              label="Opis sesji"
+              controllerProps={{
+                rules: {
+                  required: "Opis sesji jest wymagany",
+                  maxLength: {
+                    value: maxDescriptionCharacters,
+                    message: `Maksymalna liczba znaków to ${maxDescriptionCharacters}`,
+                  },
+                  minLength: {
+                    value: minDescriptionCharacters,
+                    message: `Minimalna liczba znaków to ${minDescriptionCharacters}`,
+                  },
+                },
+              }}
+          />
+          <Typography variant="caption" color="base.60">
+            {descriptionFeedback}
+          </Typography>
+          <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              disabled={!formState.isValid && formState.isSubmitted}
+          >
+            {isEdit ? "Zapisz zmiany" : "Utwórz sesję"}
+          </Button>
+        </form>
+      </Container>
   );
 };
 

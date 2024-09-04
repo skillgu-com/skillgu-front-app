@@ -29,18 +29,31 @@ export const NotConnected = ({
         <div className={styles.imgCtaWrapper}>
           <div
             className={styles.imgCtaBox}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{
+              display: "flex",
+              position: "relative",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <Box
               sx={{
+                position: "absolute",
+                backgroundColor: accountCreatePending
+                  ? "rgba(255,255,255,0.3)"
+                  : "transparent",
+                top: "30px",
+                bottom: "60px",
+                left: 0,
+                right: 0,
+                margin: "auto",
                 display: "flex",
                 alignItems: "center",
-                width: accountCreatePending ? "60px" : "0px", // Zarezerwowanie miejsca
+                justifyContent: "center",
                 transition: "width 0.3s ease", // Dodanie płynnej animacji zmiany szerokości
-                marginRight: "24px", // Większy margines między loaderem a obrazkiem
               }}
             >
-              {accountCreatePending && <CircularProgress size={45} />}
+              {accountCreatePending && <CircularProgress size={85} />}
             </Box>
             <img
               width="400px"

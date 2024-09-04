@@ -140,6 +140,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.51.3
     version: 7.51.5(react@18.1.0)
+  react-icons:
+    specifier: ^5.3.0
+    version: 5.3.0(react@18.1.0)
   react-indiana-drag-scroll:
     specifier: ^3.0.3-alpha
     version: 3.0.3-alpha(react-dom@18.1.0)(react@18.1.0)
@@ -12074,6 +12077,14 @@ packages:
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.1.0
+    dev: false
+
+  /react-icons@5.3.0(react@18.1.0):
+    resolution: {integrity: sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==}
+    peerDependencies:
+      react: '*'
     dependencies:
       react: 18.1.0
     dev: false

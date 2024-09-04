@@ -8,13 +8,6 @@
   padding: 20px;
 }
 
-.faqBox {
-  padding: 24px;
-  border: 1px solid #eaecf0;
-  border-radius: 8px;
-  margin: 36px 0 48px;
-}
-
 .title {
   font-size: 28px !important;
   padding-top: 32px;
@@ -57,13 +50,53 @@
   }
 }
 
-.faqWrapper {
-  display: flex;
-  gap: 24px;
-  flex-direction: column;
+.faqSection {
+  margin: 32px 4px;
 
+  .faqContainer {
+    max-width: calc(1200px + 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    gap: 32px;
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+  }
+
+  .faqTitle {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    color: $colour-primary;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .faqSubtitle {
+    margin-bottom: 24px;
+    line-height: 21.6px;
+    color: $colour-base-600;
+    font-size: 12px;
+    font-weight: 600;
+  }
   .faq {
-    padding: 32px 20px;
+    width: 100%;
+  }
+  .faqBtn {
+    padding: 12px 40px;
+    font-weight: 600;
+  }
+
+  @include media-lg-and-up {
+    margin: 40px 8px;
+    .faqContainer {
+      flex-direction: row;
+    }
+    .faqHeader {
+      width: 360px;
+    }
+    .faq {
+      max-width: 700px;
+    }
   }
 }
 
@@ -81,8 +114,8 @@
   width: 100%;
   display: flex;
   justify-content: center; // Wycentrowanie obrazka w poziomie
-  align-items: center;     // Wycentrowanie obrazka w pionie
-  text-align: center;      // Wycentrowanie tekstu poniżej obrazka
+  align-items: center; // Wycentrowanie obrazka w pionie
+  text-align: center; // Wycentrowanie tekstu poniżej obrazka
 
   > div {
     width: 100%;
@@ -90,7 +123,7 @@
 
   img {
     max-width: 100%; // Zapewnia, że obrazek nie przekroczy maksymalnej szerokości wrappera
-    height: auto;    // Utrzymuje proporcje obrazka
+    height: auto; // Utrzymuje proporcje obrazka
     cursor: pointer; // Styl kursora wskazujący, że obrazek jest interaktywny
   }
 }
@@ -210,7 +243,7 @@
   transition: opacity 0.3s ease-in-out;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;

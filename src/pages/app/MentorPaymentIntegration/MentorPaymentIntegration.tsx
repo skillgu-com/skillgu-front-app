@@ -10,6 +10,14 @@ import {
   getBalance,
   getStripeAccount,
 } from "@services/stripe/stripeService";
+import Button from "src/components/Button/Button";
+import FAQ from "src/components/FAQ/Accordion/Accordion";
+import { stripeIntegration } from "src/components/FAQ/Accordion/content/stripe-integration";
+import { payment } from "src/components/FAQ/Accordion/content/payment";
+
+import styles from "./styles.module.scss";
+import Container from "src/components/Container/Container";
+import { Tag } from "@customTypes/tags";
 
 export const MentorPaymentIntegration = () => {
   const [price, setPrice] = useState(0);
@@ -124,6 +132,23 @@ export const MentorPaymentIntegration = () => {
           accountCreatePending={accountCreatePending} // Przekazanie stanu ładowania
         />
       ) : null}
+      <Container as={Tag.Section} classes={styles.faqSection}>
+        <div className={styles.faqContainer}>
+          <div className={styles.faqHeader}>
+            <h4 className={styles.faqTitle}>Najczęściej zadawane pytania</h4>
+            <p className={styles.faqSubtitle}>
+              Nie znalazłeś odpowiedzi na swoje pytanie? Napisz do nas, a
+              odpowiemy najszybciej jak to możliwe.
+            </p>
+            <Button classes={styles.faqBtn}>Wyślij zapytanie</Button>
+          </div>
+          <FAQ
+            className={styles.faq}
+            title=""
+            elements={connectedAccountId ? payment : stripeIntegration}
+          />
+        </div>
+      </Container>
     </main>
   );
 };

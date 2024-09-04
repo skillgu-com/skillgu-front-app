@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
 import { Reports } from "../elements/Reports";
-import { PaymentSchedule } from "../elements/PaymentSchedule";
+// import { PaymentSchedule } from "../elements/PaymentSchedule";
 import Button, { ButtonVariant } from "src/components/Button/Button";
-import { payment } from "src/components/FAQ/Accordion/content/payment";
-import FAQ from "src/components/FAQ/Accordion/Accordion";
 
 import styles from "../styles.module.scss";
 
@@ -98,11 +96,6 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
           {/*</div>*/}
         </div>
         <Reports />
-        <section>
-          <div className={styles.faqBox}>
-            <FAQ title="FAQ" elements={payment} />
-          </div>
-        </section>
       </SectionTemplate>
   );
 };

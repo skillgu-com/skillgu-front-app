@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
 import { Connected, NotConnected } from "./screens";
@@ -12,15 +12,20 @@ import {
 } from "@services/stripe/stripeService";
 import Button from "src/components/Button/Button";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
+import Container from "src/components/Container/Container";
+import { AddQuestionPopup } from "src/components/AddQuestionPopup/AddQuestionPopup";
 import { stripeIntegration } from "src/components/FAQ/Accordion/content/stripe-integration";
 import { payment } from "src/components/FAQ/Accordion/content/payment";
 
 import styles from "./styles.module.scss";
-import Container from "src/components/Container/Container";
+
 import { Tag } from "@customTypes/tags";
 
 export const MentorPaymentIntegration = () => {
   const [price, setPrice] = useState(0);
+  const [popupOpen, setPopupOpen] = useState<boolean>(false);
+
+  const toogleModalOpened = useCallback(() => setPopupOpen((s) => !s), []);
 
   const [initialDataPending, setInitialDataPending] = useState<boolean>(true);
   const [connectedAccountId, setConnectedAccountId] = useState<string | null>(
@@ -109,6 +114,7 @@ export const MentorPaymentIntegration = () => {
 
   return (
     <main>
+      <AddQuestionPopup isOpen={popupOpen} handleClose={toogleModalOpened} />
       <Loader
         open={accountLinkCreatePending || initialDataPending}
         spinner
@@ -140,7 +146,9 @@ export const MentorPaymentIntegration = () => {
               Nie znalazłeś odpowiedzi na swoje pytanie? Napisz do nas, a
               odpowiemy najszybciej jak to możliwe.
             </p>
-            <Button classes={styles.faqBtn}>Wyślij zapytanie</Button>
+            <Button onClick={toogleModalOpened} classes={styles.faqBtn}>
+              Wyślij zapytanie
+            </Button>
           </div>
           <FAQ
             className={styles.faq}

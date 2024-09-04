@@ -1,5 +1,6 @@
 // Libraries
 import React, {useState} from 'react';
+import clx from 'classnames'
 // Components
 import {Title} from '../../typography';
 import AccordionItem from './components/AccordionItem/AccordionItem';
@@ -12,17 +13,18 @@ import styles from './Accordion.module.scss';
 interface AccordionProps {
 	title?: string;
 	elements: AccordionItemModel[];
+	className?:string
 }
 
 const Accordion = (props: AccordionProps) => {
-	const {title, elements} = props;
+	const {title, elements, className} = props;
 
 	const [currentId, setCurrentId] = useState<string | undefined>(undefined);
 
 	const changeIdHandler = (id: string | undefined) => setCurrentId(id);
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={clx(styles.wrapper, className)}>
 			<Title
 				classes={styles.title}
 				tag={TitleTag.h3}

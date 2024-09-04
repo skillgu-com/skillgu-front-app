@@ -327,7 +327,7 @@ export const MentorshipPlanForm = ({
                     </div>
                 ) : null}
                 {"planIncludes" in values &&
-                    values.planIncludes.map((r, i) => (
+                    values.planIncludes.slice(2).map((r, i) => (
                         <div className={clx(styles.row)} key={i}>
                             {checkIcon}
                             <textarea

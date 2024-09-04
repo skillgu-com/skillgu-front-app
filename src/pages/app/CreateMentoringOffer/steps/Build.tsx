@@ -201,7 +201,7 @@ export const Build = () => {
             fullWidth
             disableButton={!valid.isValid}
           >
-            Daleje
+            Dalej
           </Button>
         </div>
       </CreateOfferTemplates>

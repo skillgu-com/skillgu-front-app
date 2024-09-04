@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {ServiceMentoringOptionCard} from "src/components/Cards/ServiceMentoringOptionCard";
 
 import {useParams} from "react-router-dom";
@@ -27,6 +27,9 @@ import useUserInputLogic from "./_logic/useUserInputLogic";
 const MenteeSubscriptionDetailPage: FC = () => {
     const {mentorshipId, subscriptionId} = useParams() as { mentorshipId: string, subscriptionId: string };
     const [bookingState, dispatchBookingAction] = useBookingReducer();
+    const [isUserDetailsFilled, setIsUserDetailsFilled] = useState(false);
+    const [state] = useBookingReducer();
+
 
 
 
@@ -94,10 +97,10 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             selectedEventsId={bookingState.slots ? bookingState.slots.map(({id}) => id) : null}
                         />
                         <div className={sharedStyles.formWrapper}>
-                            <UserDetails/>
+                            {/*<UserDetails/>*/}
                             <Team/>
                         </div>
-                        <Actions onSubmit={onSubmit}/>
+                        <Actions onSubmit={onSubmit} disabled={!isUserDetailsFilled || !state.consents} />
                         <FAQ title="FAQ" elements={faqRows}/>
                     </section>
                 </main>

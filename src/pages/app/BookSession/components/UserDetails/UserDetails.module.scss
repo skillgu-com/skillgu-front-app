@@ -20,12 +20,12 @@
         > * {
             &:nth-child(1),
             &:nth-child(2) {
-                grid-column: span 1; 
+                grid-column: span 1;
             }
 
             &:nth-child(3) {
                 @media screen and (min-width: $md) {
-                    grid-column: span 2; 
+                    grid-column: span 2;
                 }
             }
         }

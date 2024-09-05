@@ -9,23 +9,6 @@
   align-items: center;
 }
 
-.flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  width: 100%;
-  height: 100%;
-
-  @include media-md-and-up {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  @include media-lg-and-up {
-    flex-wrap: nowrap;
-  }
-}
-
 .pricingCard {
   display: flex;
   flex-direction: column;
@@ -38,11 +21,10 @@
   width: 100%;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  height: 100%; /* Ensure equal height */
 
   @include media-md-and-up {
     width: calc(50% - 30px);
-    min-height: 500px; /* Set minimum height to ensure consistency across cards */
+    min-height: 100%; /* Set minimum height to ensure consistency across cards */
   }
 
   &:hover {

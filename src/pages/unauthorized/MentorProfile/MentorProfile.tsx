@@ -139,14 +139,14 @@ export const MentorProfilePage = () => {
             <UserProfileHeader
                 avatarUrl={
                     mentorData?.profileImage ||
-                    "https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
+                    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
                 }
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
                 btnHref={
                     mentorIsLoggedUser ? `/edit-mentor/${username}` : ""
                 }
                 company={mentorData?.company}
-                coverUrl={mentorData?.coverImage || "/images/header-banner-bg.jpg"}
+                coverUrl={mentorData?.coverImage || "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={
                     <MentorLangs

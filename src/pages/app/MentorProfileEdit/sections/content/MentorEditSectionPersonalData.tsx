@@ -16,6 +16,14 @@ export type MentorEditPersonalDataFormInput = {
     coverUrl: File[];
 };
 
+
+export type MentorEditPersonalDataFormInputTest = {
+    firstName: string;
+    surname: string;
+    avatarUrl: string;
+    coverUrl:string;
+};
+
 interface FormData {
     firstName: HTMLInputElement;
     surname: HTMLInputElement;
@@ -46,7 +54,6 @@ export const MentorEditSectionPersonalData = ({ mentorData }: Props) => {
             },
         });
 
-
     const inputProps = {
         formState: formState,
         control: control,
@@ -63,16 +70,16 @@ export const MentorEditSectionPersonalData = ({ mentorData }: Props) => {
             const mentorPersonalData: MentorPersonalData = {
                 firstName: data.firstName,
                 surname: data.surname,
-                avatarUrl: avatarValue,
-                coverUrl: coverValue,
+                avatarUrl: data.avatarUrl,
+                coverUrl: data.coverUrl,
             };
             const response = await updateUserPersonalData(mentorPersonalData);
             window.location.reload();
-
         } catch (error) {
             console.error('Failed to update personal data', error);
         }
     };
+
 
     return (
         <UserEditSection

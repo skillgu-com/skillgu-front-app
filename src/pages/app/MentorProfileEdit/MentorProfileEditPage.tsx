@@ -152,6 +152,7 @@ export const MentorProfileEditPage = () => {
         </Container>
     ) : (
         <>
+            {/*//TODO dodane chwilowo defaultowe avatarUrl oraz coverUrl jako linki dlatego nie widzimy zmian w ustawnieach*/}
             <UserProfileHeader
                 avatarUrl={
                     "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg" ||

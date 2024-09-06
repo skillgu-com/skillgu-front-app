@@ -38,7 +38,6 @@ const ScheduleForm: FC<Props> = ({defaultValues}) => {
 
     const onSubmit: SubmitHandler<ScheduleFormInputT> = useCallback((data) => {
         if (scheduleId) {
-            console.log(1, data)
             editMentorSchedule(scheduleId, data)
                 .then(() => {
                     sr.reset()

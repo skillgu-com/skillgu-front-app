@@ -27,7 +27,6 @@ import {
 } from "./types";
 import { parseNameAndIndex } from "./utils";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
-import Button, { ButtonVariant } from "src/components/Button/Button";
 import { BinIcon } from "@icons/BinIcon";
 import { useCreateOfferReducer } from "../../../reducers/createOffer";
 
@@ -42,7 +41,7 @@ type Props = {
   handleBlur?: (name: string) => void;
   handleChange?: (chProps: MentorshipPlanFormChangeProp) => void; //(name: string, value: string | null, index?: number) => void;
   setAdditional?: React.Dispatch<React.SetStateAction<string[]>>;
-  setValues?: React.Dispatch<React.SetStateAction<MentorshipPlanFormValues>>; //(cb: (values: Values) => Values) => void;
+  // setValues?: React.Dispatch<React.SetStateAction<MentorshipPlanFormValues>>; //(cb: (values: Values) => Values) => void;
 };
 
 const checkIcon = <CheckCircleSolidIcon className={styles.checkIcon} />;
@@ -57,7 +56,7 @@ export const MentorshipPlanForm = ({
   handleBlur,
   handleChange,
   handleRemove,
-  setValues,
+  // setValues,
 }: Props) => {
   const { createOfferState } = useCreateOfferReducer();
   const variantData = createOfferState[subscriptionVariant];
@@ -67,9 +66,12 @@ export const MentorshipPlanForm = ({
     const matchedValue = createOfferState.availableSchedules.find(
       ({ value }) => schedule.toString() === value.toString()
     );
-    if (matchedValue) return matchedValue.meetTime;
+    if (matchedValue) {
+      return matchedValue.meetTime;
+    }
+
     return 0;
-  }, [createOfferState, subscriptionVariant]);
+  }, [createOfferState, schedule]);
 
   const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
     null
@@ -102,13 +104,14 @@ export const MentorshipPlanForm = ({
         return;
       }
       handleChange && handleChange({ name: "planIncludes", value: "", i });
-      setValues &&
-        setValues((curr: MentorshipPlanFormValues) => ({
-          ...curr,
-          planIncludes: [...curr.planIncludes, ""],
-        }));
+      // setValues &&
+      //   setValues((curr: MentorshipPlanFormValues) => ({
+      //     ...curr,
+      //     planIncludes: [...curr.planIncludes, ""],
+      //   }));
     },
-    [handleChange, setValues]
+    // [handleChange, setValues]
+    [handleChange]
   );
 
   const handleRemoveAdditionalRow = useCallback(
@@ -123,13 +126,14 @@ export const MentorshipPlanForm = ({
           name: "planIncludes",
           i,
         });
-      setValues &&
-        setValues((curr: MentorshipPlanFormValues) => ({
-          ...curr,
-          planIncludes: curr.planIncludes.filter((_, j) => j !== i),
-        }));
+      // setValues &&
+      //   setValues((curr: MentorshipPlanFormValues) => ({
+      //     ...curr,
+      //     planIncludes: curr.planIncludes.filter((_, j) => j !== i),
+      //   }));
     },
-    [handleChange, setValues]
+    // [handleChange, setValues]
+    [handleChange]
   );
 
   const inputBlurHandler = useCallback(
@@ -150,11 +154,11 @@ export const MentorshipPlanForm = ({
         case "description":
           const strValue = String(inp.value);
           handleChange && handleChange({ name, value: strValue });
-          setValues &&
-            setValues((curr: MentorshipPlanFormValues) => ({
-              ...curr,
-              [name]: strValue,
-            }));
+          // setValues &&
+          //   setValues((curr: MentorshipPlanFormValues) => ({
+          //     ...curr,
+          //     [name]: strValue,
+          //   }));
           break;
         case "price":
         case "responseTime":
@@ -162,11 +166,11 @@ export const MentorshipPlanForm = ({
         case "sessionsPerMonth":
           const numValue = Number(inp.value);
           handleChange && handleChange({ name, value: numValue });
-          setValues &&
-            setValues((curr: MentorshipPlanFormValues) => ({
-              ...curr,
-              [name]: numValue,
-            }));
+          // setValues &&
+          //   setValues((curr: MentorshipPlanFormValues) => ({
+          //     ...curr,
+          //     [name]: numValue,
+          //   }));
           break;
         case "planIncludes":
           if (typeof i !== "number" || isNaN(i)) {
@@ -174,17 +178,18 @@ export const MentorshipPlanForm = ({
           }
           const strValue2 = String(inp.value);
           handleChange && handleChange({ name, value: strValue2, i });
-          setValues &&
-            setValues((curr: MentorshipPlanFormValues) => ({
-              ...curr,
-              planIncludes: curr.planIncludes.map((c, j) =>
-                j === i ? strValue2 : c
-              ),
-            }));
+          // setValues &&
+          //   setValues((curr: MentorshipPlanFormValues) => ({
+          //     ...curr,
+          //     planIncludes: curr.planIncludes.map((c, j) =>
+          //       j === i ? strValue2 : c
+          //     ),
+          //   }));
           return;
       }
     },
-    [handleChange, setValues]
+    // [handleChange, setValues]
+    [handleChange]
   );
 
   const inputReactSelectHandler = useCallback(
@@ -196,15 +201,16 @@ export const MentorshipPlanForm = ({
         case "sessionDuration":
           const numValue = Number(value);
           handleChange && handleChange({ name, value: numValue });
-          setValues &&
-            setValues((curr: MentorshipPlanFormValues) => ({
-              ...curr,
-              [name]: numValue,
-            }));
+          // setValues &&
+          //   setValues((curr: MentorshipPlanFormValues) => ({
+          //     ...curr,
+          //     [name]: numValue,
+          //   }));
           break;
       }
     },
-    [handleChange, setValues]
+    // [handleChange, setValues]
+    [handleChange]
   );
 
   const hasEmptyRow = useMemo(() => {

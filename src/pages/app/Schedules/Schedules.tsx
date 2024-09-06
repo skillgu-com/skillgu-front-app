@@ -28,7 +28,7 @@ import {ScheduleType} from "@customTypes/schedule";
 import {useSchedulesReducer} from "src/reducers/schedules";
 import {getUserStripeIntegrationStatus} from "src/redux/selectors/authSelectors";
 import {Tooltip} from "@mui/material";
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
 
 
 const SchedulesView = () => {

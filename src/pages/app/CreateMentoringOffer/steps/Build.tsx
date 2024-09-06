@@ -8,7 +8,7 @@ import {OfferPlan} from "../elements/OfferPlan";
 import {SubscriptionPlan} from "@customTypes/order";
 import {Data} from "src/reducers/createOffer/types";
 import {getStateErrorMessage, validateState} from "../utils";
-import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
+import { initialStep} from "src/reducers/createOffer/constants";
 import { PlusIcon } from "@icons/PlusIcon";
 import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
 import { useSelector } from "react-redux";

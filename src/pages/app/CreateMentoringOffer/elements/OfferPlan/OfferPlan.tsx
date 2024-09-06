@@ -52,7 +52,7 @@ export const OfferPlan = ({
   }
 
   return (
-    <div onClick={() => setSelected(plan)}>
+    <button className={styles.offerPlan} onClick={() => setSelected(plan)}>
       <div className={styles.containerSchedule}>
         <p className={styles.scheduleSubtitle}>
           Harmonogram dla Planu{" "}
@@ -132,6 +132,6 @@ export const OfferPlan = ({
           )}
         </ul>
       ) : null}
-    </div>
+    </button>
   );
 };

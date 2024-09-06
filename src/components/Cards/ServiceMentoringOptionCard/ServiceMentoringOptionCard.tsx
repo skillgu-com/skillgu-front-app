@@ -32,7 +32,6 @@ export const ServiceMentoringOptionCard = ({
   value,
   title,
   price,
-  id,
   subtitle,
   variant,
   descriptionRows,
@@ -44,9 +43,6 @@ export const ServiceMentoringOptionCard = ({
   responseTimeHours,
   mentorProfileReview,
 }: Props) => {
-  console.log(  sessionsPerMonth,
-    sessionDurationMinutes,
-    responseTimeHours,)
   return (
     <button
       className={clx(styles.card, {
@@ -125,8 +121,8 @@ export const ServiceMentoringOptionCard = ({
             </span>
           </li>
           {descriptionRows && descriptionRows.length > 0
-            ? descriptionRows.map((r, ind) => (
-                <li key={ind}>
+            ? descriptionRows.map((r) => (
+                <li key={r.description.replace(" ", "")}>
                   <CheckCircleSolidIcon />
                   <span>{r.description}</span>
                 </li>

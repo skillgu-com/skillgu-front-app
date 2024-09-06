@@ -28,7 +28,6 @@ import {ScheduleType} from "@customTypes/schedule";
 import {useSchedulesReducer} from "src/reducers/schedules";
 import {getUserStripeIntegrationStatus} from "src/redux/selectors/authSelectors";
 import {Tooltip} from "@mui/material";
-// import { useQuery } from 'react-query';
 
 
 const SchedulesView = () => {
@@ -36,7 +35,6 @@ const SchedulesView = () => {
     const [mentorData, setMentorData] = useState<any>(null);
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    // const [schedules, setSchedules] = useState<ScheduleCardProps[]>([]);
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const sr = useSchedulesReducer();
 

@@ -24,6 +24,7 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         plans,
     };
 
+    console.log('to idzie na backend: ', body)
     try {
         const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
             headers: {

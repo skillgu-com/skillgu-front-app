@@ -84,7 +84,6 @@ export const Build = () => {
 
   const userStripeIntegrationStatus = useSelector(getUserStripeIntegrationStatus);
 
-
   return (
       <CreateOfferTemplates
         title="Setup Twoich planów"

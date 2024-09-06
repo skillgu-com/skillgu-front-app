@@ -33,6 +33,8 @@ type Props = {
 
 const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventsId, onEventClick, onNavigate}) => {
 
+    console.log(events)
+
     return (
         <section className={styles.wrapper}>
             <ReactCalendar

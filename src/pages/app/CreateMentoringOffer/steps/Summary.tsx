@@ -3,20 +3,17 @@ import styles from "../CreateMentoringOffer.module.scss";
 import {useCreateOfferReducer} from "src/reducers/createOffer";
 import {CreateOfferTemplates} from "../CreateOfferTemplates";
 import Button, {ButtonTag, ButtonVariant} from "src/components/Button/Button";
-import {useNavigate} from "react-router-dom";
 import {createMentoringOffer} from "@services/offer/createMentoringOffer";
 
 export const Summary = () => {
   const co = useCreateOfferReducer();
   const { createOfferState, reset, updateStatus, setPending} = co;
   const { errorMessage, success, pending } = co.createOfferState;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const run = async () => {
       setPending(true);
       try {
-        console.log('create')
         const resData = await createMentoringOffer({
           numberOfPlans: co.createOfferState.numberOfPlans,
           providesMaterials: co.createOfferState.providesMaterials,

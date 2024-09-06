@@ -1,92 +1,61 @@
-import React, {ReactNode, useState} from 'react';
-import {FaCheckCircle} from 'react-icons/fa';
+import React from "react";
 import styles from "./Pricing.module.scss";
-import {SectionTemplate} from 'src/components/SectionTemplate';
-import {ReactComponent as KingIcon} from 'src/assets/icons/svg/king.svg';
-import {StarIcon} from "@icons/StarIcon";
+import { Pro } from "@icons/Pro";
+import { Basic } from "@icons/Basic";
+import { CheckCircle } from "@icons/CheckCircle";
 
-type Props = {
-    title?: string;
-    subtitle?: ReactNode;
+type PricingPropsType = {
+  planTitle: string;
+  price: number;
+  values: string[];
+  selectedPlan: string;
+  handleSelectPlan: (plan: string) => void;
 };
 
-export const Pricing = ({title, subtitle}: Props) => {
-    const [selectedPlan, setSelectedPlan] = useState<string | null>('Free'); // Default to 'Free'
+export const Pricing = ({
+  planTitle,
+  values,
+  price,
+  selectedPlan,
+  handleSelectPlan,
+}: PricingPropsType) => {
+  return (
+    <div
+      className={`${styles.pricingCard} ${selectedPlan === planTitle ? styles.selected : ""}`}
+      onClick={() => handleSelectPlan(planTitle)}
+    >
+      <div className={styles.planHeader}>
+        {planTitle !== "Free" ? (
+          <div className={styles.iconBox}>
+            {planTitle === "Mid" && <Basic />}
+            {planTitle === "Pro" && <Pro />}
+          </div>
+        ) : null}
+        <h4 className={styles.title}>{planTitle}</h4>
+      </div>
+      <p className={styles.price}>
+        {`${price} zł `}
+        <span className={styles.priceDetails}>/miesiąc</span>
+      </p>
+      <button
+        className={`${styles.btn} ${selectedPlan === planTitle ? styles.btnSelected : ""}`}
+      >
+        {selectedPlan === planTitle ? "Twój aktualny plan" : "Wybierz ten plan"}
+      </button>
 
-    const handleSelectPlan = (plan: string) => {
-        setSelectedPlan(plan);
-    };
-
-    return (
-        <SectionTemplate title={title || 'Twoje Plany'} description={subtitle}>
-            <section className={styles.pricingSection}>
-                <div className={styles.flex}>
-                    <div
-                        className={`${styles.pricingCard} ${selectedPlan === 'Free' ? styles.selected : ''}`}
-                        onClick={() => handleSelectPlan('Free')}>
-                        <div className={styles.planHeader}>
-                            <span className={styles.iconPlaceholder}></span>
-                            <h4>Free</h4>
-                        </div>
-                        <p className={styles.price}>0 zł <span className={styles.priceDetails}>/ miesiąc</span></p>
-                        <button className={`${styles.btn} ${selectedPlan === 'Free' ? styles.selectedBtn : ''}`}>
-                            {selectedPlan === 'Free' ? 'Twój aktualny plan' : 'Wybierz ten plan'}
-                        </button>
-                        <h5 className={styles.planSubtitle}>Co zawiera ten plan?</h5>
-                        <ul>
-                            <li><FaCheckCircle className={styles.icon}/>Pełny dostęp do aplikacji</li>
-                            <li><FaCheckCircle className={styles.icon}/>Nieograniczona liczba mentee</li>
-                            <li><FaCheckCircle className={styles.icon}/>18% prowizji od spotkania</li>
-                            <li><FaCheckCircle className={styles.icon}/> Brak darmowych spotkań</li>
-                        </ul>
-                    </div>
-
-                    <div
-                        className={`${styles.pricingCard} ${selectedPlan === 'Mid' ? styles.selected : ''}`}
-                        onClick={() => handleSelectPlan('Mid')}
-                    >
-                        <div className={styles.planHeader}>
-                            <StarIcon className={styles.icon}/>
-                            <h4>Basic</h4>
-                        </div>
-                        <p className={styles.price}>89 zł <span className={styles.priceDetails}>/ miesiąc</span></p>
-                        <button className={`${styles.btn} ${selectedPlan === 'Mid' ? styles.selectedBtn : ''}`}>
-                            {selectedPlan === 'Mid' ? 'Twój aktualny plan' : 'Wybierz ten plan'}
-                        </button>
-                        <h5>Co zawiera ten plan?</h5>
-                        <ul>
-                            <li><FaCheckCircle className={styles.icon}/>5 darmowych spotkań w miesiącu</li>
-                            <li><FaCheckCircle className={styles.icon}/>Gwarancja stałej opłaty miesięcznej</li>
-                            <li><FaCheckCircle className={styles.icon}/>Niższa prowizja: 10%</li>
-                            <li><FaCheckCircle className={styles.icon}/>Pełny dostęp do aplikacji</li>
-                            <li><FaCheckCircle className={styles.icon}/>Nieograniczona liczba mentee</li>
-                        </ul>
-                    </div>
-
-                    <div
-                        className={`${styles.pricingCard} ${selectedPlan === 'Pro' ? styles.selected : ''}`}
-                        onClick={() => handleSelectPlan('Pro')}
-                    >
-                        <div className={styles.planHeader}>
-                            <KingIcon className={styles.icon}/>
-                            <h4>Pro</h4>
-                        </div>
-                        <p className={styles.price}>190 zł <span className={styles.priceDetails}>/ miesiąc</span></p>
-                        <button className={`${styles.btn} ${selectedPlan === 'Pro' ? styles.selectedBtn : ''}`}>
-                            {selectedPlan === 'Pro' ? 'Twój aktualny plan' : 'Wybierz ten plan'}
-                        </button>
-                        <h5>Co zawiera ten plan?</h5>
-                        <ul>
-                            <li><FaCheckCircle className={styles.icon}/>Darmowe spotkania bez limitu</li>
-                            <li><FaCheckCircle className={styles.icon}/>Gwarancja stałej opłaty miesięcznej</li>
-                            <li><FaCheckCircle className={styles.icon}/>Brak prowizji</li>
-                            <li><FaCheckCircle className={styles.icon}/>Nieograniczona liczba mentee</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </SectionTemplate>
-    );
+      <ul className={styles.list}>
+        <h5 className={styles.planSubtitle}>Co zawiera ten plan?</h5>
+        {values.map((item) => (
+          <li className={styles.listItem}>
+            <span className={styles.icon}>
+              <CheckCircle />
+            </span>
+            <p className={styles.value}>{item}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Pricing;

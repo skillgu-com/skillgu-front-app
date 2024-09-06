@@ -1,162 +1,134 @@
-@use "../../../scss/variables" as *;
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
 
 .pricingSection {
   padding: 44px 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-
-  @media (min-width: 992px) {
-    flex-direction: row;
-    gap: 32px;
-  }
 }
 
 .pricingCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   background-color: $colour-base-000;
   border: 1px solid $colour-base-400;
   border-radius: 12px;
-  padding: 40px 32px;
+  padding: 32px 24px;
   text-align: left; /* Align content to the left */
   width: 100%;
-  margin-bottom: 24px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%; /* Ensure equal height */
-  min-height: 500px; /* Set minimum height to ensure consistency across cards */
 
-  @media (min-width: 992px) {
-    max-width: 380px;
+  @include media-md-and-up {
+    width: calc(50% - 30px);
+    min-height: 100%; /* Set minimum height to ensure consistency across cards */
   }
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   &.selected {
     border: 2px solid $colour-secondary;
     border-radius: 24px;
   }
-}
 
-.pricingCard h4 {
-  font-size: 24px;
-  font-weight: bold;
-  color: $colour-primary;
-  margin-left: 8px; /* Add margin to the left */
-  margin-bottom: 16px;
-
-  @media (min-width: 992px) {
-    font-size: 32px;
-    line-height: 48px;
-  }
-}
-
-.pricingCard .price {
-  font-size: 29px;
-  font-weight: 600;
-  color: #FF6A3D; /* Updated color for prices */
-  margin-bottom: 8px;
-  margin-left: 0; /* Align price to the left */
-}
-
-.pricingCard .priceDetails {
-  font-size: 16px;
-  font-weight: 400;
-  color: $colour-base-600;
-  margin-bottom: 24px;
-}
-
-.pricingCard .btn {
-  font-size: 16px;
-  font-weight: 600;
-  background-color: #252B61; /* Button color */
-  color: $colour-base-000;
-  padding: 12px 0;
-  border-radius: 24px;
-  border: 2px solid transparent;
-  text-decoration: none;
-  cursor: pointer;
-  width: 100%; /* Ensure button takes full width */
-  display: inline-block;
-  margin-bottom: 24px;
-
-  &:hover {
-    background-color: darken(#252B61, 5%);
-  }
-}
-
-.pricingCard ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  flex-grow: 1;
-}
-
-.pricingCard li {
-  font-size: 16px;
-  font-weight: 400;
-  color: $colour-base-800;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-}
-
-.pricingCard li .icon {
-  color: $colour-primary;
-  margin-right: 8px;
-  font-size: 20px;
-}
-
-.planHeader {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  margin-bottom: 16px;
-
-  h4 {
-    margin-left: 8px;
-    font-size: 24px;
-    font-weight: bold;
+  .title {
     line-height: 1.2;
-
+    font-size: 24px;
+    font-weight: 700;
+    color: $colour-primary;
     @media (min-width: 992px) {
       font-size: 32px;
       line-height: 48px;
     }
   }
-
-  .icon {
-    width: 45px;
-    height: 48px;
-    position: relative;
-    top: -4px;
+  .price {
+    font-size: 29px;
+    font-weight: 700;
+    color: $colour-secondary; /* Updated color for prices */
   }
 
-  .iconPlaceholder {
-    width: 28px;
-    height: 28px;
-  }
-}
+  .planHeader {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
 
-.pricingCard h5 {
-  font-size: 18px;
-  font-weight: 600;
-  color: $colour-primary;
-  margin-bottom: 16px;
+    .iconBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid $colour-base-400;
+      border-radius: 50%;
+      background-color: $colour-base-200;
+    }
+  }
+
+  .priceDetails {
+    font-size: 14px;
+    font-weight: 600;
+    color: $colour-base-800;
+  }
+  .planSubtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: $colour-primary;
+    margin-bottom: 8px;
+    @include media-md-and-up {
+      font-size: 16px;
+    }
+  }
+
+  .list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    @include media-md-and-up {
+      flex-grow: 1;
+    }
+    .listItem {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .value {
+      font-size: 14px;
+      font-weight: 500;
+      color: $colour-base-800;
+      display: flex;
+      align-items: center;
+    }
+    .icon {
+      color: $colour-primary;
+    }
+  }
+  .btn {
+    font-size: 16px;
+    font-weight: 600;
+    background-color: $colour-base-000;
+    color: $colour-primary;
+    padding: 12px;
+    border-radius: 24px;
+    border: 2px solid $colour-primary;
+    cursor: pointer;
+    width: 100%; /* Ensure button takes full width */
+    display: inline-block;
+    transition:
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+
+    &:hover,
+    &Selected {
+      color: $colour-base-000;
+      background-color: $colour-primary;
+    }
+  }
 }

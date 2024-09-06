@@ -29,7 +29,7 @@ export const Build = () => {
   const valid = useMemo(() => {
     return validateState(state);
   }, [state]);
-console.log(676, state)
+
   const validMsg = getStateErrorMessage(valid);
 
   const addPlan = () => {

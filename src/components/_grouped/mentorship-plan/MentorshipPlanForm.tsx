@@ -130,7 +130,6 @@ export const MentorshipPlanForm = ({
     },
     [handleBlur]
   );
-
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const inp = e.currentTarget as HTMLInputElement | HTMLTextAreaElement;

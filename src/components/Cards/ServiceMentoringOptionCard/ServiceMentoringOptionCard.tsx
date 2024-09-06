@@ -121,12 +121,14 @@ export const ServiceMentoringOptionCard = ({
             </span>
           </li>
           {descriptionRows && descriptionRows.length > 0
-            ? descriptionRows.map((r) => (
-                <li key={r.description.replace(" ", "")}>
-                  <CheckCircleSolidIcon />
-                  <span>{r.description}</span>
-                </li>
-              ))
+            ? descriptionRows.map((r) =>
+                r.description ? (
+                  <li key={r.description.replace(" ", "")}>
+                    <CheckCircleSolidIcon />
+                    <span>{r.description}</span>
+                  </li>
+                ) : null
+              )
             : null}
         </ul>
       </div>

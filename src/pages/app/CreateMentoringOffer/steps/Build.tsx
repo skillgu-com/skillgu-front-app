@@ -8,7 +8,7 @@ import {OfferPlan} from "../elements/OfferPlan";
 import {SubscriptionPlan} from "@customTypes/order";
 import {Data} from "src/reducers/createOffer/types";
 import {getStateErrorMessage, validateState} from "../utils";
-import {createOfferInitialState, initialStep} from "src/reducers/createOffer/constants";
+import { initialStep} from "src/reducers/createOffer/constants";
 import { PlusIcon } from "@icons/PlusIcon";
 import { getUserStripeIntegrationStatus } from "src/redux/selectors/authSelectors";
 import { useSelector } from "react-redux";
@@ -59,6 +59,7 @@ export const Build = () => {
   };
 
   const removePlan = (plan: "basic" | "advanced" | "pro") => {
+    console.log(6, plan)
     const newData: Data = {
       saved: state.saved,
       numberOfPlans: state.numberOfPlans,
@@ -79,6 +80,7 @@ export const Build = () => {
     const numberOfPlans = [newData.basic, newData.advanced, newData.pro].filter(s => s !== null).length
     const parsedNumberOfPlans = Math.min(1, Math.max(3, numberOfPlans)) as (1|2|3)
     newData.numberOfPlans = parsedNumberOfPlans
+    console.log(7,newData)
     co.loadOffers(newData);
   };
 
@@ -99,7 +101,7 @@ export const Build = () => {
             onRemove={state.numberOfPlans === 1 ? removePlan : undefined}
           />
 
-          {co.createOfferState.numberOfPlans > 1 ? (
+          {co.createOfferState.advanced ? (
             <OfferPlan
               errors={valid.errors.advanced}
               plan="advanced"
@@ -109,7 +111,7 @@ export const Build = () => {
             />
           ) : null}
 
-          {co.createOfferState.numberOfPlans > 2 && (
+          {co.createOfferState.pro && (
             <OfferPlan
               errors={valid.errors.pro}
               plan="pro"

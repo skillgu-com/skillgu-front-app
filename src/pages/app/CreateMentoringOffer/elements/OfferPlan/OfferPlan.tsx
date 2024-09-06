@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "../../CreateMentoringOffer.module.scss";
 import { MentorshipPlanForm } from "src/components/_grouped/mentorship-plan";
 import { SubscriptionPlan } from "@customTypes/order";
@@ -41,13 +41,18 @@ export const OfferPlan = ({
       };
     }
   );
+  const choosenSchedule = useMemo(() => {
+    return scheduleOptions.find(
+      (s) => String(s.value) === String(planState?.schedule)
+    );
+  }, [scheduleOptions, planState?.schedule]);
 
   if (planState === null) {
     return null;
   }
 
   return (
-    <div onClick={() => setSelected(plan)}>
+    <div role="button" onClick={() => setSelected(plan)}>
       <div className={styles.containerSchedule}>
         <p className={styles.scheduleSubtitle}>
           Harmonogram dla Planu{" "}
@@ -60,9 +65,7 @@ export const OfferPlan = ({
         <Select
           className={styles.select}
           name={`schedule-${plan}`}
-          value={scheduleOptions.find(
-            (s) => String(s.value) === String(planState.schedule)
-          )}
+          value={choosenSchedule}
           placeholder="Wybierz harmonogram"
           options={scheduleOptions}
           handleSelect={(name, opt) => {
@@ -72,6 +75,7 @@ export const OfferPlan = ({
                 [plan]: {
                   ...planState,
                   schedule: String(opt.value),
+                  sessionDuration: choosenSchedule?.meetTime
                 },
               },
               false

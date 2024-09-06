@@ -1,7 +1,7 @@
 import { SubscriptionPlan } from "@customTypes/order";
 import { ChangeEvent } from "react";
-import { MentorshipPlanFormFieldName } from "./types";
 import {
+  MentorshipPlanFormFieldName,
   MentorshipPlanFormValues,
   MentorshipPlanFormErrors,
   MentorshipPlanFormTouched,
@@ -18,7 +18,7 @@ export const initialErrors: MentorshipPlanFormErrors = {
 
 export const initialTouched: MentorshipPlanFormTouched = {
   description: false,
-  price: false, 
+  price: false,
   sessionDuration: false,
   sessionsPerMonth: false,
   responseTime: false,

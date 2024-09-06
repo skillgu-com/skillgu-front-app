@@ -20,7 +20,7 @@ export const Pricing = ({
   handleSelectPlan,
 }: PricingPropsType) => {
   return (
-    <div
+    <button
       className={`${styles.pricingCard} ${selectedPlan === planTitle ? styles.selected : ""}`}
       onClick={() => handleSelectPlan(planTitle)}
     >
@@ -46,7 +46,7 @@ export const Pricing = ({
       <ul className={styles.list}>
         <h5 className={styles.planSubtitle}>Co zawiera ten plan?</h5>
         {values.map((item) => (
-          <li className={styles.listItem}>
+          <li key={item.replace(" ", "")} className={styles.listItem}>
             <span className={styles.icon}>
               <CheckCircle />
             </span>
@@ -54,7 +54,7 @@ export const Pricing = ({
           </li>
         ))}
       </ul>
-    </div>
+    </button>
   );
 };
 

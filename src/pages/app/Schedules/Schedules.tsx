@@ -107,6 +107,8 @@ const SchedulesView = () => {
         }
     );
 
+    console.log(schedules)
+
     // Remove item callback function
     const removeItem = useCallback(
         (id: string, arrayType: "schedules" | "sessions") => {
@@ -156,7 +158,7 @@ const SchedulesView = () => {
             return (
                 <main className={scheduleStyles.main}>
                     <SectionTemplate
-                        title="Harmonogramy spotkań"
+                        title="Harmonogramy spotkań "
                         description="Twoje harmonogramy i sesje, które utworzysz, pojawią się po prawej stronie Twojego profilu"
                     >
                         <div style={{opacity: userStripeIntegrationStatus ? 1 : 0.5}}>

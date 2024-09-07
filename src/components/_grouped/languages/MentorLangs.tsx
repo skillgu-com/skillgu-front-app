@@ -37,6 +37,7 @@ const renderFlag = (opt: LangOption) => {
       className={styles.flag}
       countryCode={countryCode}
       svg
+      alt={`${countryCode} flag`}
     />
   );
 };

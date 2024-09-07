@@ -19,6 +19,8 @@ export type CombinedData = {
     customerPhone: string;
     customerMessage: string;
     guestMentee: { fullName: string, email: string }[];
+    hour: string | null
+    term: string | null
 }
 export const createCheckoutSession = async (sessionData: CombinedData) => {
     return await axios.post('/api/stripe/create-checkout-session', sessionData);

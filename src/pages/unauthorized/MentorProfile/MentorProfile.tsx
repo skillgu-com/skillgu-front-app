@@ -25,7 +25,7 @@ import {
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
 import {useSelector} from "react-redux";
-import { MentorData } from "src/pages/app/MentorProfileEdit";
+import {MentorData} from "src/pages/app/MentorProfileEdit";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {MentorReviewsConnected} from "../../../components/_connected";
@@ -138,7 +138,7 @@ export const MentorProfilePage = () => {
         <>
             <UserProfileHeader
                 avatarUrl={
-                    mentorData?.profileImage ||
+                    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg" ||
                     "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
                 }
                 btnText={mentorIsLoggedUser ? "Edytuj profil" : ""}
@@ -146,7 +146,7 @@ export const MentorProfilePage = () => {
                     mentorIsLoggedUser ? `/edit-mentor/${username}` : ""
                 }
                 company={mentorData?.company}
-                coverUrl={mentorData?.coverImage || "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png"}
+                coverUrl={"https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png" || "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={
                     <MentorLangs

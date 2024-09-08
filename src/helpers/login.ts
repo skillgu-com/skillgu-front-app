@@ -15,30 +15,31 @@ export const loginUserByEmail = async (email: string, password: string, remember
     try {
         const response = await loginUser(email, password);
 
-        if (response.status === 200 && response.data?.data) {
+        const status = response?.request?.status;
+
+        if (status === 200 && response.data?.data) {
             const userJWT = response.data.data;
             return await getStoreAndReturnUserData(userJWT, email);
-        } else {
-            return { success: false, errorMessage: 'Nie udało się zalogować.' };
         }
+
+        if (status === 401) {
+            console.log('złe hasło');
+            return { success: false, errorMessage: 'Złe hasło. Spróbuj ponownie.' };
+        }
+
+        if (status === 404) {
+            console.log('Taki email nie istnieje w naszej bazie.');
+            return { success: false, errorMessage: 'Taki email nie istnieje w naszej bazie.' };
+        }
+
+        console.log(`Inny status: ${status}`);
+        return { success: false, errorMessage: `Wystąpił problem: Status ${status}` };
+
     } catch (err: any) {
-        if (err.isAxiosError && err.response) {
-            const status = err.response.status; // np. 401
-            const message = err.response.data?.message || 'Wystąpił problem z zalogowaniem';
-
-            if (status === 401) {
-                console.log('złe hasło');
-            } else {
-                console.log(`Inny błąd: ${status}`);
-            }
-
-            return { success: false, errorMessage: message };
-        } else {
-            return { success: false, errorMessage: 'Wystąpił nieznany problem z zalogowaniem.' };
-        }
+        console.log('Nieznany błąd:', err);
+        return { success: false, errorMessage: 'Wystąpił nieznany problem z zalogowaniem.' };
     }
 };
-
 
 const getStoreAndReturnUserData = async (userJWT: string, email: string): LoginReturn => {
     const userData = parseUserFromJwt(userJWT);

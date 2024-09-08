@@ -81,6 +81,7 @@ export const MentorProfilePage = () => {
             try {
                 if (name) {
                     const mentorResponse = await getMentorByUsername(name);
+                    console.log(mentorResponse)
                     const mentorData = mentorResponse.data as MentorData;
                     setMentorData(mentorData);
     

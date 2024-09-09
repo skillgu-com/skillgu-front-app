@@ -75,7 +75,7 @@ export const OfferPlan = ({
                 [plan]: {
                   ...planState,
                   schedule: String(opt.value),
-                  sessionDuration: choosenSchedule?.meetTime
+                  sessionDuration: opt.meetTime,
                 },
               },
               false

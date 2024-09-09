@@ -95,14 +95,14 @@ export const MentorshipPlan = ({
             </div>
           </div>
         ) : null}
-        {planIncludes.map((r, i) => (
+        {planIncludes.map((r, i) => { return r ? (
           <div className={clx(styles.row)} key={r + "_" + i}>
             {checkIcon}
             <div className={styles.text}>
               <span>{replaceSpacesWithNonBreaking(r)}</span>
             </div>
           </div>
-        ))}
+        ) : null})}
       </div>
     </div>
   );

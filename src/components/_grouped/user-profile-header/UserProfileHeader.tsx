@@ -6,9 +6,8 @@ import { Tag } from "src/types/tags";
 import Container from "src/components/Container/Container";
 import Button, { ButtonVariant } from "../../Button/Button";
 import { Typography } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import Arrow from "@icons/Arrow";
-import { LocationTypes } from "src/pages/unauthorized/SearchMentors/SearchMentors";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { LocationTypes } from "src/pages/unauthorized/SearchMentors/SearchMentors";
 
 type Props = {
   avatarUrl?: string;
@@ -39,21 +38,21 @@ export const UserProfileHeader = ({
   profession,
   handleBtnClick,
 }: Props) => {
-  const navigate = useNavigate();
-  const loc = useLocation();
-  const { state } = loc as LocationTypes;
+  // const navigate = useNavigate();
+  // const loc = useLocation();
+  // const { state } = loc as LocationTypes;
 
-  const handleGoBack = () => {
-    if (state?.filters && state?.from) {
-      navigate(state?.from, {
-        state: {
-          filters: state?.filters,
-        },
-      });
-    } else {
-      navigate("/search-mentors");
-    }
-  };
+  // const handleGoBack = () => {
+  //   if (state?.filters && state?.from) {
+  //     navigate(state?.from, {
+  //       state: {
+  //         filters: state?.filters,
+  //       },
+  //     });
+  //   } else {
+  //     navigate("/search-mentors");
+  //   }
+  // };
 
   return (
     <div className={clx(styles.wrapper, className)}>

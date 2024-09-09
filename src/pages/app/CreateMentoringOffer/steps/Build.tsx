@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "../CreateMentoringOffer.module.scss";
 import { useCreateOfferReducer } from "src/reducers/createOffer";
 import { CreateOfferTemplates } from "../CreateOfferTemplates";
@@ -17,14 +17,6 @@ export const Build = () => {
   const co = useCreateOfferReducer();
   const state = co.createOfferState;
   const [selected, setSelected] = useState<SubscriptionPlan | null>(null);
-
-  useEffect(() => {
-    const hasAnyPlan = !!(state.basic || state.advanced || state.pro);
-    if (!hasAnyPlan) {
-      // co.prevStep()
-      // co.prevStep()
-    }
-  }, [co, state.advanced, state.basic, state.pro]);
 
   const valid = useMemo(() => {
     return validateState(state);
@@ -61,7 +53,6 @@ export const Build = () => {
   };
 
   const removePlan = (plan: "basic" | "advanced" | "pro") => {
-    console.log(6, plan);
     const newData: Data = {
       saved: state.saved,
       numberOfPlans: state.numberOfPlans,
@@ -166,6 +157,7 @@ export const Build = () => {
             name="materials-provider"
             label="Tak"
             onChange={() => {
+              
               co.submitBuild(
                 {
                   ...state,
@@ -207,7 +199,10 @@ export const Build = () => {
           </Button> */}
         <Button
           onClick={() => {
-            co.submitBuild(co.createOfferState, true);
+            co.submitBuild( {
+              ...state,
+            
+            }, true);
           }}
           variant={ButtonVariant.Primary}
           type="button"

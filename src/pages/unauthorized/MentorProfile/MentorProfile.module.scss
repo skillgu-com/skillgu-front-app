@@ -3,37 +3,74 @@
 @use "../../../scss/main.scss" as *;
 
 .onlyDesktopFlex {
-    display: none;
+  display: none;
 
-    @include media-lg-and-up {
-        display: flex;
-    }
+  @include media-lg-and-up {
+    display: flex;
+  }
 }
 
 .onlyMobileFlex {
-    display: flex;
+  display: flex;
 
-    @include media-lg-and-up {
-        display: none;
-    }
+  @include media-lg-and-up {
+    display: none;
+  }
 }
 
 .onlyDesktop {
-    display: none;
+  display: none;
 
-    @include media-lg-and-up {
-        display: block;
-    }
+  @include media-lg-and-up {
+    display: block;
+  }
 }
 
 .onlyMobile {
-    display: block;
+  display: block;
 
-    @include media-lg-and-up {
-        display: none;
-    }
+  @include media-lg-and-up {
+    display: none;
+  }
 }
 
 .socialLinksMobile {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
+}
+
+.boxContentSkeleton {
+  padding: 24px;
+  @include media-lg-and-up {
+    height: 202px;
+    border: 1px solid #e2e9fc;
+    // border-radius: 12px;
+  }
+}
+.boxLinksSkeleton {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 24px;
+  @include media-md-and-up {
+    margin-top: 32px;
+  }
+  @include media-lg-and-up {
+    border: 1px solid #e2e9fc;
+    border-radius: 12px;
+  }
+}
+
+.linksSkeleton {
+  display: flex;
+  gap: 12px;
+}
+
+.boxSessionSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px 24px 24px;
+  max-width: 458px;
+  border: 1px solid #e2e9fc;
+  border-radius: 12px;
 }

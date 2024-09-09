@@ -16,6 +16,9 @@ export type PlanDetails = {
   plan: SubscriptionPlan;
   monthlyPrice: number;
   included: string[];
+  sessionDuration:number;
+  sessionsPerMonth: number;
+  responseTime:number;
 };
 
 type AvailableGoalsDTO = {

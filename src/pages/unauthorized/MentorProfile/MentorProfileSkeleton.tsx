@@ -75,12 +75,6 @@ export const MentorProfilePageSkeleton = () => {
           </aside>
         </MentorMainWrapper>
       </Container>
-      {/* 
-      {!pending && mentorData.mentorId ? (
-        <Container as={Tag.Section}>
-          <MentorReviewsConnected mentorId={mentorData.mentorId} />
-        </Container>
-      ) : null} */}
     </>
   );
 };

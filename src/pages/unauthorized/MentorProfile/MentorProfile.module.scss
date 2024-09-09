@@ -38,23 +38,33 @@
   margin-bottom: 32px;
 }
 
+.mainSkeleton {
+  display:flex;
+  flex-direction:column;
+  gap:32px;
+}
+
 .boxContentSkeleton {
-  padding: 24px;
+  order: 5;
+  display: flex;
+  flex-direction: column;
+  gap:24px;
   @include media-lg-and-up {
+    padding: 24px;
+    order:1;
     height: 202px;
     border: 1px solid #e2e9fc;
-    // border-radius: 12px;
   }
 }
 .boxLinksSkeleton {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
-  padding: 24px;
   @include media-md-and-up {
     margin-top: 32px;
   }
   @include media-lg-and-up {
+    padding: 24px;
+    order:1;
     border: 1px solid #e2e9fc;
     border-radius: 12px;
   }

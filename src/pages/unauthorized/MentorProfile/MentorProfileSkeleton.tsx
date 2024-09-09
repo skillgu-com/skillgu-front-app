@@ -12,19 +12,20 @@ export const MentorProfilePageSkeleton = () => {
       <UserProfileHeaderSkeleton />
       <Container as={Tag.Div}>
         <MentorMainWrapper>
-          <main>
+          <main className={styles.mainSkeleton}>
             <div className={styles.boxContentSkeleton}>
+              <div></div>
               <Skeleton
                 variant="text"
-                style={{ width: "100px", height: "32px" }}
+                style={{ width: "160px", height: "32px" }}
               />
               <Skeleton
                 variant="text"
                 style={{ width: "100px", height: "32px" }}
               />
               <Skeleton
-                variant="text"
-                style={{ width: "100px", height: "32px" }}
+                variant="rounded"
+                style={{ width: "140px", height: "32px", borderRadius: "50px" }}
               />
             </div>
             <div className={styles.boxLinksSkeleton}>

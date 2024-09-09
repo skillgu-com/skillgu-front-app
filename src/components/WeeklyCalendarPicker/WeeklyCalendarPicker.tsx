@@ -31,8 +31,7 @@ type Props = {
     onNavigate?: (date: Date) => void;
 }
 
-const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventsId, onEventClick, onNavigate}) => {
-
+const WeeklyCalendarPicker: FC<Props> = ({ events, selectedEventsId = [], onEventClick, onNavigate }) => {
     return (
         <section className={styles.wrapper}>
             <ReactCalendar
@@ -45,26 +44,26 @@ const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventsId, onEventClick
                 endAccessor="end"
                 onNavigate={onNavigate}
                 components={{
-                    header: ({date}) => {
+                    header: ({ date }) => {
                         return (
                             <p className={styles.header}>
-                  <span>
-                    {date.toLocaleDateString("pl-PL", {weekday: "short"})}
-                  </span>
+                                <span>
+                                    {date.toLocaleDateString("pl-PL", { weekday: "short" })}
+                                </span>
                                 <small>
                                     {date.getDate()}{" "}
-                                    {date.toLocaleString("pl-PL", {month: "long"})}
+                                    {date.toLocaleString("pl-PL", { month: "long" })}
                                 </small>
                             </p>
                         );
                     },
-                    eventWrapper: ({event}) => {
+                    eventWrapper: ({ event }) => {
                         const available = get(event, "available", false);
 
                         return (
                             <button
                                 disabled={!available}
-                                data-is-current={selectedEventsId?.includes(event.id)}
+                                data-is-current={selectedEventsId && selectedEventsId.includes(event.id)} // Now we ensure selectedEventsId is not null
                                 className={styles.hour}
                                 onClick={() => onEventClick(event)}
                             >
@@ -80,7 +79,9 @@ const WeeklyCalendarPicker: FC<Props> = ({events, selectedEventsId, onEventClick
                 }}
             />
         </section>
-    )
+    );
 }
+
+
 
 export default WeeklyCalendarPicker;

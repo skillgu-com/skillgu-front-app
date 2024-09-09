@@ -14,10 +14,13 @@ const TopBar = () => {
   const user = useSelector((state: any) => state.auth?.user);
   const [image, setImage] = useState("");
 
+  //TODO setImage jest zahardcodowane
+
   useEffect(() => {
     if (user) {
+      console.log(" setImage jest zahardcodowane, podmienic jak sie profil odmuli. Komponent: TopBar")
       fetchUserImageFile(user.id).then((res) => {
-        setImage(res?.data);
+        setImage("https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg");
       });
     }
   }, [user]);

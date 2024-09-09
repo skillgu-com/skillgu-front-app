@@ -7,6 +7,8 @@ const initialState = {
         description: null,
         mentorID: null,
         calendarEventId: null,
+        hour: null,
+        term: null
     }
 }
 
@@ -18,7 +20,8 @@ const bookSessionReducer = (state = initialState, action) => {
                 bookSessionState: {
                     ...state.bookSessionState,
                     calendarEventId: action.payload.calendarEventId,
-                    // term: action.payload.term,
+                    hour: action.payload.hour,
+                    term: action.payload.term
                 }
             }
         case 'SET_SESSION_IN_FORM':

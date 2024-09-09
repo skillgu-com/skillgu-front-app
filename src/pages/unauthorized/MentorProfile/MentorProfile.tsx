@@ -34,12 +34,12 @@ import Button, {ButtonVariant} from "src/components/Button/Button";
 
 
 export const MentorProfilePage = () => {
-    const { username } = useParams<{ username: string }>();
+    const {username} = useParams<{ username: string }>();
     const safeUsername = username || ''; // lub 'unknown' lub inny string, który ma sens w twoim kontekście
 
     const location = useLocation();
     const navigate = useNavigate();
-    
+
     const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
     const [pending, setPending] = useState<boolean>(true);
@@ -57,7 +57,8 @@ export const MentorProfilePage = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const handleSubmitMentoring = (opt: MentorshipPlan) => {
-        navigate(`/mentorship/${opt.id}/application`);
+        // navigate(`/mentorship/${opt.id}/application`);
+        navigate(`/mentorship/2/application`);
     };
 
     const handleSubmitSession = (opt: ServiceSession) => {
@@ -75,7 +76,7 @@ export const MentorProfilePage = () => {
 
 
     useEffect(() => {
-        const fetchInitialData = async (name:string) => {
+        const fetchInitialData = async (name: string) => {
             setPending(true);
             setLoading(false);
             try {
@@ -84,7 +85,7 @@ export const MentorProfilePage = () => {
                     console.log(mentorResponse)
                     const mentorData = mentorResponse.data as MentorData;
                     setMentorData(mentorData);
-    
+
                     const mentorId = mentorResponse.data?.mentorId;
 
                     if (mentorId) {
@@ -105,7 +106,7 @@ export const MentorProfilePage = () => {
                             })
                         );
                         setOptionsSession(formattedSessions);
-    
+
                         if (mentoringResponse) {
                             setOptionsMentoring(mentoringResponse.mentorships);
                         }

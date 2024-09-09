@@ -21,22 +21,15 @@ export const loginUserByEmail = async (email: string, password: string, remember
             const userJWT = response.data.data;
             return await getStoreAndReturnUserData(userJWT, email);
         }
-
         if (status === 401) {
             console.log('złe hasło');
             return { success: false, errorMessage: 'Złe hasło. Spróbuj ponownie.' };
         }
-
         if (status === 404) {
-            console.log('Taki email nie istnieje w naszej bazie.');
             return { success: false, errorMessage: 'Taki email nie istnieje w naszej bazie.' };
         }
-
-        console.log(`Inny status: ${status}`);
         return { success: false, errorMessage: `Wystąpił problem: Status ${status}` };
-
     } catch (err: any) {
-        console.log('Nieznany błąd:', err);
         return { success: false, errorMessage: 'Wystąpił nieznany problem z zalogowaniem.' };
     }
 };

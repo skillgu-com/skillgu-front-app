@@ -48,7 +48,7 @@ export const Calendar = (props: BookFormProps) => {
             payload: {
                 calendarEventId: currentEvent,
                 hour: hour,
-                term:term
+                term: term
             },
         });
     });
@@ -119,7 +119,7 @@ export const Calendar = (props: BookFormProps) => {
     };
 
     const onEventClick = (event: CalendarEvent) => {
-        console.log(event)
+        console.log('tutaj: ', event)
         setCurrentEvent(event.id);
         selectTermHandler(event.start);
         updateFormHandler("term", event.start);

@@ -8,7 +8,7 @@ const initialState = {
         mentorID: null,
         calendarEventId: null,
         hour: null,
-        term:null
+        term: null
     }
 }
 

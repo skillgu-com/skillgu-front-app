@@ -303,7 +303,7 @@ export const MentorshipPlanForm = ({
           </div>
         ) : null}
         {"planIncludes" in values &&
-          values.planIncludes.map((r, i) => {return r ? (
+          values.planIncludes.map((r, i) => (
             <div className={clx(styles.row)} key={i}>
               {checkIcon}
               <textarea
@@ -339,7 +339,7 @@ export const MentorshipPlanForm = ({
                 ) : null}
               </OverflowMenu>
             </div>
-          ): null})}
+          ))}
       </div>
 
       <div className={styles.action}>

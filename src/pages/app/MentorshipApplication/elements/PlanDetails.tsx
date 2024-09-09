@@ -1,6 +1,4 @@
 import React from "react";
-import styles from "../MentorshipApplication.module.scss";
-import clx from "classnames";
 import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { MentorshipPlan } from "src/components/_grouped/mentorship-plan";
@@ -8,13 +6,15 @@ import { MentorshipPlan } from "src/components/_grouped/mentorship-plan";
 export const PlanDetails = () => {
   const { state } = useMentAppReducer();
   const { mentor, selectedPlan } = state;
-
   return selectedPlan && mentor ? (
     <MentorshipPlan
       id={selectedPlan?.id}
       price={selectedPlan.monthlyPrice}
       planIncludes={selectedPlan.included}
       subscriptionVariant={selectedPlan.plan}
+      sessionDuration={selectedPlan.sessionDuration}
+      sessionsPerMonth={selectedPlan.sessionsPerMonth}
+      responseTime={selectedPlan.responseTime}
       userIdentity={
         mentor ? (
           <UserIdentity

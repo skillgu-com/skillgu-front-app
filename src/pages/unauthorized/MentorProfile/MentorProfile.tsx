@@ -32,7 +32,6 @@ import { MentorReviewsConnected } from "../../../components/_connected";
 import { getMentorSessions } from "@services/session/sessionService";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { MentorProfilePageSkeleton } from "./MentorProfileSkeleton";
-import { Loader } from "src/components/_grouped/loader";
 
 export const MentorProfilePage = () => {
   const { username } = useParams<{ username: string }>();
@@ -132,10 +131,19 @@ export const MentorProfilePage = () => {
   const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
 
   if (mentorData && Object.keys(mentorData).length === 0 && !pending)
-    return <p> nie znaleziomp</p>;
+    return (
+      <Container as={Tag.Section} classes={styles.container}>
+        <p className={styles.paragraf}>Szukany Mentor nie istnieje.</p>
+        <p className={styles.paragraf}>
+          Na Skillgu znajdziesz mentora, który najbardziej odpowiada Twoim
+          potrzebom.
+        </p>
+        <Button href="/search-mentors" classes={styles.btn}>Znajdź mentora</Button>
+      </Container>
+    );
 
   return pending ? (
-    <MentorProfilePageSkeleton/>
+    <MentorProfilePageSkeleton />
   ) : (
     <>
       <UserProfileHeader

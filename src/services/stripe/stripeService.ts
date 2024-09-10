@@ -25,12 +25,7 @@ export const createStripeAccount = async () => {
     }
 };
 
-/**
- * Creates a Stripe account link for onboarding.
- * @param {string} accountId - The Stripe account ID.
- * @returns {Promise<string>} The URL for the Stripe account onboarding.
- * @throws {Error} If there is an error creating the Stripe account link.
- */
+
 export const createStripeAccountLink = async (accountId: string) => {
     try {
         const response = await axios.post(`api/stripe/create-account-link`, {

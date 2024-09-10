@@ -42,7 +42,6 @@ const LoginView = () => {
     const onSubmit: SubmitHandler<LoginFormInput> = async ({password, email, rememberMe}) => {
         setGlobalError(null);
         const response = await loginUserByEmail(email, password, rememberMe);
-
         if (response.success) {
             dispatch({
                 type: 'LOGIN',

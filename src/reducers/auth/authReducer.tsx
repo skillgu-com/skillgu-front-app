@@ -41,6 +41,15 @@ export const authReducer = (state = initialState, action: any) => {
                 },
 
             };
+        case 'UPDATE_STRIPE_STATUS':
+            console.log('UPDATE_STRIPE_STATUS is: ', action.payload.stripeIntegrationStatus)
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    stripeIntegrationStatus: action.payload.stripeIntegrationStatus,
+                },
+            };
         case 'LOGOUT':
             return {
                 ...state,

@@ -40,7 +40,7 @@ export const MenteeProfilePage = () => {
             ) : null}
             {mentee ? (<UserProfileHeader
                 avatarUrl={mentee.avatarUrl}
-                company={'Skillguru'}
+                company={'Skillgu.'}
                 coverUrl={mentee.coverUrl}
                 fullname={mentee.firstName + " " + mentee?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}

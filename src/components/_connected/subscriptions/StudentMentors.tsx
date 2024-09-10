@@ -387,8 +387,11 @@ export const StudentMentors = ({title}: Props) => {
                                                             </p>
                                                         </div>
                                                         <div className={styles.buttons}>
-                                                            <a className={styles.btn} href="/#">
-                                                                Zobacz aplikację
+                                                            <a
+                                                                href={`/mentor-offer-details/${1}`}
+                                                                className={styles.tableBtn}
+                                                            >
+                                                                Zobacz aplikację mentee
                                                             </a>
                                                         </div>
                                                     </>

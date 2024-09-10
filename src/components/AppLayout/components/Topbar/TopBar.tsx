@@ -14,13 +14,11 @@ const TopBar = () => {
   const user = useSelector((state: any) => state.auth?.user);
   const [image, setImage] = useState("");
 
-  //TODO setImage jest zahardcodowane
 
   useEffect(() => {
     if (user) {
-      console.log(" setImage jest zahardcodowane, podmienic jak sie profil odmuli. Komponent: TopBar")
       fetchUserImageFile(user.id).then((res) => {
-        setImage("https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg");
+        setImage(res.data);
       });
     }
   }, [user]);
@@ -47,15 +45,15 @@ const TopBar = () => {
             <ProfileLinkTag className={styles.profile} href={userProfileLink}>
               <div className={styles.profileImage}>
                 {image ? (
-                  <img src={image} alt={user.email} />
+                  <img src={image} alt={user?.image} />
                 ) : (
                   <img
-                    src="https://cdn.pixabay.com/photo/2023/04/21/15/42/portrait-7942151_640.jpg"
-                    alt={user.email}
+                    src={user?.image}
+                    alt={user?.email}
                   />
                 )}
               </div>
-              <span className={styles.email}>{user.email}</span>
+              <span className={styles.email}>{user?.email}</span>
             </ProfileLinkTag>
             <Notifications />
           </>

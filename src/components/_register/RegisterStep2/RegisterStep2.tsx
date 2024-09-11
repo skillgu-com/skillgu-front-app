@@ -3,8 +3,6 @@ import {AboutFormInput} from "@customTypes/registerFlow";
 import {SubmitHandler, useForm} from "react-hook-form";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
 
-
-
 import getAvailableLanguage from "@services/language/getAvailableLanguage.service";
 import StepContentWrapper from "../StepContentWrapper/StepContentWrapper";
 import FormInputText from "../../_form/FormInputText/FormInputText";

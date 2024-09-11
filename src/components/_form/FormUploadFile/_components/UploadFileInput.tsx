@@ -22,7 +22,7 @@ const UploadFileInput: FC<Props> = ({ name, onChange, disabled }) => {
 
     const onDropRejected = (fileRejections: FileRejection[]): void => {
         fileRejections.forEach(({errors, file}) => {
-            const [fileType] = file.name.split('.').reverse();
+            // const [fileType] = file.name.split('.').reverse();
             errors.forEach(({code}) => {
                 // eslint-disable-next-line default-case
                 switch (code) {

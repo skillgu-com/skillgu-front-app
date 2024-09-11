@@ -2,15 +2,7 @@ import React from "react";
 import styles from "./Sidebar.module.scss";
 import { ServiceMentoringOptionCard } from "../../../../../components/Cards/ServiceMentoringOptionCard";
 import { ServiceInfoBox } from "../../../../../components/_grouped";
-import {
-  MentorshipDTO,
-  MentorshipPlanDTO,
-} from "@services/mentor/fetchMentorServices.service";
-import {
-  MentorshipPlan,
-  ServiceMentoring,
-  ServiceSession,
-} from "@customTypes/order";
+import { MentorshipPlanDTO } from "@services/mentor/fetchMentorServices.service";
 
 type Props = {
   services: MentorshipPlanDTO[];

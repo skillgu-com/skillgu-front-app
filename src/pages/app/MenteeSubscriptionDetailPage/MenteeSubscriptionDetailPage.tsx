@@ -4,7 +4,7 @@ import {ServiceMentoringOptionCard} from "src/components/Cards/ServiceMentoringO
 import {useParams} from "react-router-dom";
 import Container from "src/components/Container/Container";
 
-import {Actions, Team, UserDetails} from "../BookSession/components";
+import {Actions, Team} from "../BookSession/components";
 import {useQuery} from "@tanstack/react-query";
 import getSubscriptionService, {
     getSubscriptionServiceKeyGenerator

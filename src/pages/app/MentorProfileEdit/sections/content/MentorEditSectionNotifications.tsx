@@ -23,12 +23,12 @@ export const MentorEditSectionNotifications = () => {
       },
     });
 
-  const inputProps = {
-    formState: formState,
-    control: control,
-    inputProps: { placeholder: "https://example.com" },
-    controllerProps: { rules: { required: "Imię jest wymagane" } },
-  };
+  // const inputProps = {
+  //   formState: formState,
+  //   control: control,
+  //   inputProps: { placeholder: "https://example.com" },
+  //   controllerProps: { rules: { required: "Imię jest wymagane" } },
+  // };
 
   return (
     <UserEditSection

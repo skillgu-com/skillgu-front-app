@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Container from "src/components/Container/Container";
 import {Tag} from "src/types/tags";
 import {useParams} from "react-router-dom";
@@ -10,7 +10,6 @@ import {
     MentorEditSectionPersonalData,
     MentorEditSectionProfile,
 } from "./sections/content";
-import {ServiceMentoring, ServiceSession, ServiceType,} from "@customTypes/order";
 import {Typography} from "@mui/material";
 import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
@@ -64,36 +63,36 @@ export interface MentorData {
 
 export const MentorProfileEditPage = () => {
     const {id: mentorId} = useParams();
-    const {username: username} = useParams();
+    const {username} = useParams();
 
-    const [tab, setTab] = useState<ServiceType>("mentoring");
+    // const [tab, setTab] = useState<ServiceType>("mentoring");
     const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
-    const updateMentorDataPartial = useCallback((data: Partial<MentorData>) => {
-        setMentorData((md) => ({...md, ...data}));
-    }, []);
+    // const updateMentorDataPartial = useCallback((data: Partial<MentorData>) => {
+    //     setMentorData((md) => ({...md, ...data}));
+    // }, []);
 
-    const toggleTab = () =>
-        setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
+    // const toggleTab = () =>
+    //     setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
     const [loading, setLoading] = useState<boolean>(true);
-    const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
-        []
-    );
-    const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-    const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
-        null
-    );
-    const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-    const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-    const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
-    const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-    const handleSubmitMentoring = (opt: ServiceMentoring) => {
-        console.log("ORDER Mentoring, ", opt);
-    };
-    const handleSubmitSession = (opt: ServiceSession) => {
-        console.log("ORDER Session, ", opt);
-    };
-    const openPopup = (opt: ServiceSession) => setPopupSession(opt);
-    const closePopup = () => setPopupSession(null);
+    // const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
+    //     []
+    // );
+    // const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
+    // const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
+    //     null
+    // );
+    // const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+    // const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
+    // const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
+    // const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+    // const handleSubmitMentoring = (opt: ServiceMentoring) => {
+    //     console.log("ORDER Mentoring, ", opt);
+    // };
+    // const handleSubmitSession = (opt: ServiceSession) => {
+    //     console.log("ORDER Session, ", opt);
+    // };
+    // const openPopup = (opt: ServiceSession) => setPopupSession(opt);
+    // const closePopup = () => setPopupSession(null);
     //
     // useEffect(() => {
     //     const run = async () => {
@@ -111,24 +110,23 @@ export const MentorProfileEditPage = () => {
 
     const initialDataFetched = useRef<boolean>(false);
 
-    // useEffect(() => {
-    //     const fetchInitialData = async () => {
-    //         setLoading(false);
-    //         try {
-    //             const resp =  await getMentorByUsername(username);
-    //             const mentorData = resp.data as MentorData;
-    //             setMentorData(mentorData);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //
-    //     if (username) {
-    //         fetchInitialData();
-    //     }
-    // }, [username]);
+    useEffect(() => {
+        if (username) {
+            const fetchInitialData = async () => {
+                setLoading(false);
+                try {
+                    const resp =  await getMentorByUsername(username);
+                    const mentorData = resp.data as MentorData;
+                    setMentorData(mentorData);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchInitialData();
+        }
+    }, [username]);
 
 
     useEffect(() => {

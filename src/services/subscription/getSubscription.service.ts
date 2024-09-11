@@ -1,6 +1,6 @@
 import {Subscription, SubscriptionDTO} from "@services/subscription/subscription.types";
 import axios, {AxiosResponse} from "axios";
-import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
+// import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 
 
 // const axiosMock = {
@@ -33,8 +33,6 @@ import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
 //     // TODO 1. use real API endpoint, 2. use real axios, 3. remove axiosMock
 //     const {data} = await axiosMock.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
 //     // const test = await axios.get<SubscriptionDTO>(`/api/subscriptions/${subscriptionId}`);
-//
-//     // console.log('test',test.data)
 //     return data;
 // }
 

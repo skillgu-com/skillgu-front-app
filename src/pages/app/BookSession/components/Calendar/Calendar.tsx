@@ -119,7 +119,6 @@ export const Calendar = (props: BookFormProps) => {
     };
 
     const onEventClick = (event: CalendarEvent) => {
-        console.log('tutaj: ', event)
         setCurrentEvent(event.id);
         selectTermHandler(event.start);
         updateFormHandler("term", event.start);

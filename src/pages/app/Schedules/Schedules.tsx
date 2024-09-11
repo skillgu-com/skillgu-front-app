@@ -112,7 +112,6 @@ const SchedulesView = () => {
                 const assignedSession =
                     schedules.find((schedule) => schedule.id === id)?.schedule
                         ?.assignedSession || 0;
-                console.log("BEFORE Delete", {id, arrayType, assignedSession});
                 if (assignedSession > 0) {
                     setIsModalOpen(true);
                 } else {

@@ -1,7 +1,5 @@
 import React from "react";
-import clx from "classnames";
 import styles from "../MentorOfferDetails.module.scss";
-import { ServiceMentoring } from "@customTypes/order";
 import { useMentorOfferDetails } from "../context/MentorOfferDetailsContext";
 import { ContentWrapper } from "../elements";
 import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";

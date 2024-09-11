@@ -20,7 +20,7 @@ type MentorData = {
 
 export const CreateMentoringOffer = () => {
   const [initialPending, setInitialPending] = useState<boolean>(true);
-  const [schedulesData, setSchedulesData] = useState([]); // State to hold the schedule data
+  // const [schedulesData, setSchedulesData] = useState([]); // State to hold the schedule data
   const {
     createOfferState: state,
     reset,

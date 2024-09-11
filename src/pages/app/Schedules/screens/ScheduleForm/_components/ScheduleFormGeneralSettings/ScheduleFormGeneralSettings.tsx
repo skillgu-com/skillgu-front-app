@@ -1,5 +1,5 @@
 import React, {FC, memo, useMemo} from "react";
-import {Box, Collapse, useMediaQuery} from "@mui/material";
+import {Box, Collapse} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {Control, Controller, FormState, UseFormWatch} from "react-hook-form";
 import MeetingType from "../../../../components/MeetingType/MeetingType";
@@ -10,8 +10,7 @@ import FormInputText from "../../../../../../../components/_form/FormInputText/F
 import StepInput from "../../../../../../../components/StepInput/StepInput";
 import Checkbox from "../../../../../../../components/Checkbox/Checkbox";
 import {ScheduleFormInputT} from "../../_types/ScheduleFormInputT";
-import {debounce} from "lodash";
-import {StyledFeedbackWrapper} from "../../../../../../../components/_form/_common/FormInput.styles";
+
 import InputFeedback from "../../../../../../../components/_form/InputFeedback/InputFeedback";
 
 type Props = {

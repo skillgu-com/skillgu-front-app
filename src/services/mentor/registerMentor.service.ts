@@ -1,19 +1,19 @@
-import {RegisterMentorDTO} from "./registerMentor.types";
+// import {RegisterMentorDTO} from "./registerMentor.types";
 import axios from "axios";
 import {MergedRegisterMentorFormInput} from "@customTypes/registerFlow";
 
-const parseDataForAPI = (inputData: MergedRegisterMentorFormInput): RegisterMentorDTO => {
-    return {
-        ...inputData,
-        personalWebsite: inputData.personalWebsite || null,
-        linkedin: inputData.linkedin || null,
-        twitter: inputData.twitter || null,
-        github: inputData.github || null,
-        dribble: inputData.dribble || null,
-        behance: inputData.behance || null,
+// const parseDataForAPI = (inputData: MergedRegisterMentorFormInput): RegisterMentorDTO => {
+//     return {
+//         ...inputData,
+//         personalWebsite: inputData.personalWebsite || null,
+//         linkedin: inputData.linkedin || null,
+//         twitter: inputData.twitter || null,
+//         github: inputData.github || null,
+//         dribble: inputData.dribble || null,
+//         behance: inputData.behance || null,
 
-    };
-}
+//     };
+// }
 
 const registerMentorService = async (inputData: MergedRegisterMentorFormInput) => {
     try {

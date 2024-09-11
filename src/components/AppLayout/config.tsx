@@ -8,8 +8,8 @@ import { ReactComponent as CalendarIcon } from "src/assets/icons/svg/calendar.sv
 import paths from "src/paths";
 import { DollarCircleIcon } from "@icons/DollarCircleIcon";
 import SubscriptionIcon from "@icons/SubscriptionIcon";
-import Message from "@icons/Message";
-import { MessagesIcon } from "@icons/MessagesIcon";
+// import Message from "@icons/Message";
+// import { MessagesIcon } from "@icons/MessagesIcon";
 import { SearchMentorsSvg } from "@icons/SearchMentors";
 import { Session } from "@icons/Session";
 

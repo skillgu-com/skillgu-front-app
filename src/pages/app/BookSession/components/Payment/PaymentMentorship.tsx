@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {EmbeddedCheckout, EmbeddedCheckoutProvider, useStripe,} from "@stripe/react-stripe-js";
 import {createCheckoutSubscription, MentorshipData} from "@services/paymentService";
 import { useBookingReducer} from "../../../../../reducers/booking";
@@ -10,8 +10,6 @@ export const PaymentMentorship = () => {
 
     const prepareMentorshipDataRequest = (): MentorshipData => {
         const { mentorId, mentorshipId, subscriptionId,slots } = bookingState;
-
-        console.log('bookingState!!!!',bookingState)
 
         const mentorshipDataRequest: MentorshipData = {
             mentorId:mentorId,

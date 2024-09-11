@@ -25,7 +25,6 @@ export const MentorReviewsConnected = ({ mentorId }: Props) => {
   useEffect(() => {
     const run = async (page: number) => {
       setPending(true);
-      // setReviews([]);
       setError("");
       try {
         const { total, reviews, avgRate } = await fetchMentorReviews({

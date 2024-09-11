@@ -10,7 +10,7 @@ import {
 } from "./sections/content";
 import {Typography} from "@mui/material";
 
-import {getMenteeByUserName, getMenteeProfileById} from "@services/mentee/fetchMenteeServices.service";
+import {getMenteeByUserName} from "@services/mentee/fetchMenteeServices.service";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
 
@@ -19,7 +19,7 @@ import {LangSwitcherConnected} from "../../../components/_connected/lang-switche
  */
 export const MenteeProfileEditPage = () => {
     const {id: menteeId} = useParams();
-    const {username: username} = useParams();
+    // const {username: username} = useParams();
 
 
     // const [tab, setTab] = useState<ServiceType>("mentoring");

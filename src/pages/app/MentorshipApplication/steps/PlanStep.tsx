@@ -1,11 +1,7 @@
 import React from "react";
-import styles from '../MentorshipApplication.module.scss'
-import clx from 'classnames'
 import { useMentAppReducer } from "src/reducers/mentorship-application";
-import { Link } from "react-router-dom";
 import { ContentWrapper } from "../elements/ContentWrapper";
 import { PlanDetails } from "../elements";
-import { MentorshipPlan } from "src/components/_grouped/mentorship-plan";
 
 export const PlanStep = () => {
     const { state, ...actions } = useMentAppReducer()

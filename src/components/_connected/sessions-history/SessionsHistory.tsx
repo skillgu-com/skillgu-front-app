@@ -1,15 +1,12 @@
 import React, {
     ReactNode,
     useCallback,
-    useEffect,
-    useRef,
-    useState,
+    // useState,
 } from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 import styles from "./SessionsHistory.module.scss";
-import {getMentorMeetingHistory} from "@services/mentor/fetchMentorSessions.service";
 import {PER_PAGE, useSessionsReducer} from "src/reducers/sessions";
 import {Table, TableCell, TableRow} from "src/components/_base/Table";
 import {Pagination} from "src/components/_grouped";
@@ -40,22 +37,22 @@ export const SessionsHistory = ({
     const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
 
-    const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
-        null
-    );
+    // const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
+    //     null
+    // );
 
-    const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-        const btn = e.currentTarget as HTMLButtonElement;
-        const id = Number(btn.value);
-        const action = btn.name as "suspend" | "cancel";
-        if (id && action === "suspend") {
-            console.log("Przełóż spotkanie o id: ", id);
-        }
-        if (id && action === "cancel") {
-            console.log("Odwołaj spotkanie o id: ", id);
-        }
-        setOverflowMenuIndex(null);
-    }, []);
+    // const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    //     const btn = e.currentTarget as HTMLButtonElement;
+    //     const id = Number(btn.value);
+    //     const action = btn.name as "suspend" | "cancel";
+    //     if (id && action === "suspend") {
+    //         console.log("Przełóż spotkanie o id: ", id);
+    //     }
+    //     if (id && action === "cancel") {
+    //         console.log("Odwołaj spotkanie o id: ", id);
+    //     }
+    //     setOverflowMenuIndex(null);
+    // }, []);
 
     const navigate = useNavigate();
 

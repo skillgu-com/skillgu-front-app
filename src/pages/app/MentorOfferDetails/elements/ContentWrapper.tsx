@@ -2,10 +2,6 @@ import React, { ReactNode } from "react";
 import styles from "../MentorOfferDetails.module.scss";
 import clx from "classnames";
 import { PlanDetails } from "./PlanDetails";
-import { ProgressBarStepper } from "src/components/_base/progress-bar";
-import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
-import { ArrowLeftIcon } from "@mui/x-date-pickers";
-import { useMentorOfferDetails } from "../context/MentorOfferDetailsContext";
 import { ArrowLongLeft } from "@icons/ArrowLongLeft";
 
 type Props = {

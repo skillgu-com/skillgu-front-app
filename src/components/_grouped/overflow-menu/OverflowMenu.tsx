@@ -1,7 +1,6 @@
-import React, { MouseEvent, ReactNode, TouchEvent, useRef } from "react";
+import React, { MouseEvent, ReactNode, TouchEvent } from "react";
 import styles from "./OverflowMenu.module.scss";
 import clx from "classnames";
-import { useClickOutside } from "src/hooks/useClickOutside";
 
 type Props = {
   children?: ReactNode;

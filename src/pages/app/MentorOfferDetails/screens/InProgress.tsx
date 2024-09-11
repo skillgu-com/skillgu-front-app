@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import clx from "classnames";
 import styles from "../MentorOfferDetails.module.scss";
-import { ServiceMentoring } from "@customTypes/order";
-import { OfferDetails, OfferStatus } from "@services/offer/offer.service";
+// import { ServiceMentoring } from "@customTypes/order";
+// import { OfferDetails, OfferStatus } from "@services/offer/offer.service";
 import { ContentWrapper } from "../elements";
 import { useMentorOfferDetails } from "../context/MentorOfferDetailsContext";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { CheckboxIcon } from "@icons/CheckboxIcon";
-import { ClientPortal } from "src/components/portal";
-import Modal from "src/components/Modal/Modal";
+// import { ClientPortal } from "src/components/portal";
+// import Modal from "src/components/Modal/Modal";
 import { ModalConfirm } from "src/components/_grouped/modal/ModalConfirm";
 
 export const InProgress = () => {

@@ -13,7 +13,6 @@ import {
   Collapse,
   FormControlLabel,
 } from "@mui/material";
-import CheckBox from "src/components/Checkbox/Checkbox";
 import Typography from "@mui/material/Typography";
 import InputFeedback, {
   InputFeedbackProps,

@@ -8,12 +8,9 @@ import {LangSwitcherConnected} from "../../../components/_connected/lang-switche
 
 export const MenteeProfilePage = () => {
     const {id: studentId} = useParams();
-    const {username: username} = useParams();
     const [mentee, setMentee] = useState<null | MenteeDTO>(null);
     const [pending, setPending] = useState<boolean>(true)
     const [error, setError] = useState<string>('')
-
-    const studentIsLoggedUser = true;
 
     useEffect(() => {
         setError('')

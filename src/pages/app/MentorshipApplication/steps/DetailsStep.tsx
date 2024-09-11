@@ -2,9 +2,7 @@ import React, { useMemo } from "react";
 import styles from "../MentorshipApplication.module.scss";
 import clx from "classnames";
 import { useMentAppReducer } from "src/reducers/mentorship-application";
-import { Link } from "react-router-dom";
 import { ContentWrapper } from "../elements/ContentWrapper";
-import ReactSelect from "react-select";
 import { Select } from "../form/select";
 
 export const DetailsStep = () => {

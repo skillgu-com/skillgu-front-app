@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from "react";
 import {MentoringSessionInListT} from "@services/mentoringSessions/mentoringSession.types";
 import {Box, Skeleton} from "@mui/material";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {QueryKey} from "@tanstack/react-query";
 import MentoringSessionAcordeonCard
     from "../_mentoringMeeting/MentoringSessionAcordeonCard/MentoringSessionAcordeonCard";

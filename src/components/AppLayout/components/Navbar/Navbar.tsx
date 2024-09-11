@@ -1,5 +1,5 @@
 // Libraries
-import React, { FC, ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,20 +14,17 @@ import { logout } from "src/helpers/login";
 import { Tag } from "../../../../types/tags";
 // Icons
 import Logo from "../../../../assets/icons/Logo";
-import Doc from "../../../../assets/icons/Doc";
-import Home from "../../../../assets/icons/Home";
-import Settings from "../../../../assets/icons/Settings";
-import CreateSchedules from "../../../../assets/icons/CreateSchedules";
+// import Doc from "../../../../assets/icons/Doc";
+// import Home from "../../../../assets/icons/Home";
+// import Settings from "../../../../assets/icons/Settings";
+// import CreateSchedules from "../../../../assets/icons/CreateSchedules";
 import Help from "../../../../assets/icons/Help";
 import Logout from "../../../../assets/icons/Logout";
-import { ReactComponent as CalendarIcon } from "../../../../assets/icons/svg/calendar.svg";
 import { getMenuItems } from "./config";
 // Styles
 import styles from "./Navbar.module.scss";
-import paths from "../../../../paths";
 import { getRole } from "../../../../redux/selectors/authSelectors";
-import Payment from "@icons/Payment";
-import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+
 
 const Navbar = () => {
   const dispatch = useDispatch();

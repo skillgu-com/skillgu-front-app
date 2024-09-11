@@ -1,5 +1,5 @@
 // Libraries
-import {Dispatch, useEffect} from 'react';
+import {Dispatch} from 'react';
 import {NavigateFunction} from 'react-router-dom';
 // Service
 import {parseUserFromJwt} from './parseUserFromJwt';
@@ -22,7 +22,6 @@ export const loginUserByEmail = async (email: string, password: string, remember
             return await getStoreAndReturnUserData(userJWT, email);
         }
         if (status === 401) {
-            console.log('złe hasło');
             return { success: false, errorMessage: 'Złe hasło. Spróbuj ponownie.' };
         }
         if (status === 404) {

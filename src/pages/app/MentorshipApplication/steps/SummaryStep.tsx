@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "../MentorshipApplication.module.scss";
-import clx from "classnames";
+import React, { useEffect, useRef } from "react";
 import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { Link, useNavigate } from "react-router-dom";
 import { ContentWrapper } from "../elements/ContentWrapper";

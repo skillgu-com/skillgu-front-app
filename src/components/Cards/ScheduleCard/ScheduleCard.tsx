@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom';
 import Options from './components/Options/Options';
 // Icons
 import Money from './components/icons/Money';
-import Calendar from './components/icons/Calendar';
 import Timer from './components/icons/Timer';
 import Person from './components/icons/Person';
 import Pencil from 'src/pages/app/Schedules/components/icons/Pencil';
@@ -15,7 +14,6 @@ import Modal from "../../Modal/Modal";
 import {useQueryClient} from "@tanstack/react-query";
 import {getScheduleQueryOptions} from "../../../pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 import {getSingleSessionQueryOptions} from "../../../pages/app/Schedules/screens/SessionForm/SessionForm";
-import FreeIcon from "./components/icons/FreeIcon";
 
 export interface ScheduleCardProps {
     id: string;

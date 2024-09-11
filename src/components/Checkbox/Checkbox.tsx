@@ -1,5 +1,5 @@
 // Libraries
-import React, {ChangeEvent, InputHTMLAttributes} from "react";
+import React, {ChangeEvent} from "react";
 import clx from "classnames";
 // Helpers
 import validation from "../../helpers/improovedValidation";

@@ -7,7 +7,6 @@ import {
   OverflowMenuToggle,
 } from "src/components/_grouped/overflow-menu";
 import styles from "./Select.module.scss";
-import clx from "classnames";
 import { SearchSvg2 } from "@icons/SearchSvg2";
 
 type Option = { value: string | number; label: string };

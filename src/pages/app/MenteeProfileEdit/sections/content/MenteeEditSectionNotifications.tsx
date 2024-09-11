@@ -23,13 +23,6 @@ export const MenteeEditSectionNotifications = () => {
       },
     });
 
-  const inputProps = {
-    formState: formState,
-    control: control,
-    inputProps: { placeholder: "https://example.com" },
-    controllerProps: { rules: { required: "Imię jest wymagane" } },
-  };
-
   return (
     <UserEditSection
       title="Powiadomienia i widoczność"

@@ -1,9 +1,9 @@
 import {
     GetMentorAvailabilityParams, SessionCalendarEventResponse,
     Slot,
-    SlotDTO
+    // SlotDTO
 } from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
-import {format} from "date-fns";
+// import {format} from "date-fns";
 import axios from "axios";
 
 const dataParser = (dto: SessionCalendarEventResponse): Slot => {

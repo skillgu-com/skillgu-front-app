@@ -25,7 +25,7 @@ import {
     OverflowMenuOption,
     OverflowMenuToggle,
 } from "src/components/_grouped/overflow-menu";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 import {useSubscriptionsReducer} from "src/reducers/subscriptions";
 import {Skeleton} from "@mui/material";
 import { SectionTemplate } from "src/components/SectionTemplate";
@@ -72,7 +72,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
     );
     const overflowMenuTimeRef = useRef<number>(0);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleEdit = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,7 +95,7 @@ export const Subscriptions = ({title, subtitle}: Props) => {
             }
             setOverflowMenuIndex(null);
         },
-        [navigate, sr]
+        [sr]
     );
 
     return (

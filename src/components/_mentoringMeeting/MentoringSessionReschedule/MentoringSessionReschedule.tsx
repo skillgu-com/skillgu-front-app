@@ -7,8 +7,6 @@ import getMentorAvailabilityByMentorIdService, {
     getMentorAvailabilityByMeetingIdServiceKeyGenerator
 } from "@services/mentoringSessions/getMentorAvailabilityByMentorIdService";
 import {endOfWeek, EndOfWeekOptions, startOfWeek, StartOfWeekOptions} from "date-fns";
-import {useLocation, useNavigate} from "react-router-dom";
-import paths from "../../../paths";
 import {fetchCalendarSession} from "@services/calendar/calendarService";
 import WeeklyCalendarPicker, {CalendarEvent} from "../../WeeklyCalendarPicker/WeeklyCalendarPicker";
 import { CalendarSlot } from "@customTypes/booking";
@@ -24,7 +22,6 @@ const dateFnOptions: StartOfWeekOptions | EndOfWeekOptions = {weekStartsOn: 1};
 const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId}) => {
     const {enqueueSnackbar} = useSnackbar()
     const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
-    const navigate = useNavigate();
 
     const [selectedRange, setSelectedRange] = useState(
         {
@@ -48,7 +45,6 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
         queryKey: getMentorAvailabilityByMeetingIdServiceKeyGenerator(meetingId, queryParams),
         queryFn: () => getMentorAvailabilityByMentorIdService(meetingId,sessionId, queryParams)
     })
-    const location = useLocation();
     const [combinedData, setCombinedData] = useState<CalendarEvent[]>([]);
     const [currentEvent, setCurrentEvent] = useState<null | number>(null);
     const [unavailableEvents, setUnavailableEvents] = useState<CalendarEvent[]>([]);
@@ -61,7 +57,7 @@ const MentoringSessionReschedule: FC<Props> = ({meetingId, sessionId, mentorId})
                 const dataFromApi = res.data;
                 const events: CalendarEvent[] = [];
 
-                dataFromApi.forEach((item: CalendarSlot, index: number) => {
+                dataFromApi.forEach((item: CalendarSlot) => {
                     const startDateTime = new Date(item.sessionDate + "T" + item.hour);
                     const endDateTime = new Date(
                         startDateTime.getTime() + 60 * 60 * 1000

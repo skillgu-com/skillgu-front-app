@@ -48,6 +48,7 @@ export interface MentorshipPlanDTO {
   responseTimeHours: number;
   providesMaterials: boolean;
   mentoringDescription: string;
+  scheduleId:number;
 }
 
 export interface MentorshipDTO {
@@ -107,6 +108,7 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         responseTimeHours: mentoringData.basic.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.basic.description,
+        scheduleId: mentoringData.basic.scheduleId
       });
     }
 
@@ -125,6 +127,8 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         responseTimeHours: mentoringData.advanced.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.advanced.description,
+        scheduleId: mentoringData.advanced.scheduleId
+
       });
     }
 
@@ -143,6 +147,8 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         responseTimeHours: mentoringData.pro.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.pro.description,
+        scheduleId: mentoringData.pro.scheduleId
+
       });
     }
 

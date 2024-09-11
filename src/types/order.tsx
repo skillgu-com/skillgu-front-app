@@ -67,4 +67,5 @@ export interface MentorshipPlan {
   responseTimeHours: number;
   providesMaterials: boolean;
   mentoringDescription: string;
+  scheduleId: number;
 }

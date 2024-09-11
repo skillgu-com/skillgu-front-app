@@ -15,6 +15,7 @@ export type ActionType =
     | "UPDATE_TEAM_MEMBERS"
     | "RESET_STATE"
     | "UPDATE_HOURS"
+    | "UPDATE_SUBSCRIPTION_SCHEDULE_ID"
 
 export type BookingState = {
     mentor: null | Mentor
@@ -36,6 +37,7 @@ export type BookingState = {
     mentorId: string,
     subscriptionId: string
     hours: string[] | [];
+    scheduleId: number;
 };
 
 export type BookingAction =
@@ -68,5 +70,7 @@ export type BookingAction =
     { type: 'UPDATE_SUBSCRIPTION_ID', payload: Pick<BookingState, 'subscriptionId'> }
     |
     { type: 'UPDATE_HOURS', payload: Pick<BookingState, 'hours'> }
+    |
+    { type: 'UPDATE_SUBSCRIPTION_SCHEDULE_ID', payload: Pick<BookingState, 'scheduleId'> }
     |
     { type: 'RESET_STATE' }

@@ -69,18 +69,23 @@ const MenteeSubscriptionDetailPage: FC = () => {
         setIsUserDetailsFilled(filled);
     };
 
-
     useEffect(() => {
+        console.log('mistrzu drogi')
         dispatchBookingAction({
             type: 'UPDATE_MENTOR_ID',
             payload: {mentorId: subscriptionData?.mentorId || ''}
         });
+
 
         dispatchBookingAction({
             type: 'UPDATE_MENTORSHIP_ID',
             payload: {mentorshipId: subscriptionData?.mentorshipPlan?.id || ''}
         });
 
+        dispatchBookingAction({
+            type: 'UPDATE_SUBSCRIPTION_SCHEDULE_ID',
+            payload: { scheduleId: subscriptionData?.mentorshipPlan?.scheduleId || 100 }
+        });
 
         if (subscriptionId != null) {
             dispatchBookingAction({
@@ -116,10 +121,10 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             selectedEventsId={bookingState.slots ? bookingState.slots.map(({id}) => id) : null}
                         />
                         <div className={sharedStyles.formWrapper}>
-                            <UserDetails onFilled={handleUserDetailsFilled} isLoggedIn={isLoggedIn} />
+                            <UserDetails onFilled={handleUserDetailsFilled} isLoggedIn={isLoggedIn}/>
                             <Team/>
                         </div>
-                        <Actions onSubmit={onSubmit} disabled={!isUserDetailsFilled || !state.consents} />
+                        <Actions onSubmit={onSubmit} disabled={!isUserDetailsFilled || !state.consents}/>
                         <FAQ title="FAQ" elements={faqRows}/>
                     </section>
                 </main>
@@ -144,6 +149,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             responseTimeHours={subscriptionData.mentorshipPlan.responseTimeHours}
                             sessionDurationMinutes={subscriptionData.mentorshipPlan.sessionDurationMinutes}
                             sessionsPerMonth={subscriptionData.mentorshipPlan.sessionsPerMonth}
+                            scheduleId={subscriptionData.mentorshipPlan.scheduleId}
                             selected
                         />
                     )}

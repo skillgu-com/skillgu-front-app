@@ -16,7 +16,7 @@ import resolvePolishNumeralFactory from "../../../helpers/resolvePolishNumeralFa
 
 const formId = 'ProfileFormInput'
 
-const maxBioCharacters = 500;
+const maxBioCharacters = 1000;
 
 const RegisterStep3 = () => {
     const {registerMentorDispatch, registerMentorState} = useRegisterMentorContext();

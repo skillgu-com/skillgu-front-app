@@ -19,5 +19,6 @@ export const bookingInitialState: BookingState = {
     mentorshipId: "",
     mentorId: "",
     subscriptionId: "",
-    hours: []
+    hours: [],
+    scheduleId: 0
 };

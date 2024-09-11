@@ -5,6 +5,7 @@ export interface MentorshipData {
     mentorshipId: string;
     subscriptionId: string;
     slots: { date: Date; calendarEventId: number; hour: string }[];
+    scheduleId: number;
 }
 
 export type CombinedData = {

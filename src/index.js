@@ -33,7 +33,6 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-console.log('server running on ',process.env.REACT_APP_BASE_URL);
 
 axios.interceptors.request.use(
 	(config) => {

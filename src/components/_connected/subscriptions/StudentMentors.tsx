@@ -32,7 +32,7 @@ import {suspendMentorship} from "@services/mentorship/suspendMentorship";
 import {restoreMentorship} from "@services/mentorship/restoreMentorship";
 import {FetchStudentMentorsOutput} from "@services/mentee/fetchStudentMentors.types";
 import {fetchMenteeSubscription} from "@services/mentee/fetchStudentMentors.service";
-import {generatePath, Link, useLocation, useNavigate} from "react-router-dom";
+import {generatePath, Link } from "react-router-dom";
 import paths from "../../../paths";
 import { SectionTemplate } from "src/components/SectionTemplate";
 
@@ -50,8 +50,6 @@ type MentorShort = {
 };
 
 export const StudentMentors = ({title}: Props) => {
-    const navigate = useNavigate();
-    const location = useLocation();
     const [data, setData] = useState<null | FetchStudentMentorsOutput>(null);
     const [pending, setPending] = useState<boolean>(true);
     const pageRef = useRef<number>(0);

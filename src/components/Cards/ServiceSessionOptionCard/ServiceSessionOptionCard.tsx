@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { ServiceSession } from "@customTypes/order";
-import Camera from "@icons/Camera";
-import People from "@icons/People";
+// import Camera from "@icons/Camera";
+// import People from "@icons/People";
 import styles from "./ServiceSessionOptionCard.module.scss";
 import clx from "classnames";
 import { RadioInputIcon } from "@icons/RadioInput";

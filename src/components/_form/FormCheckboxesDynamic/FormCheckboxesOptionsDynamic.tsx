@@ -43,17 +43,17 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
   getOptions,
 }: Props<T>) => {
   const [options, setOptions] = useState<readonly DropdownOption[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const abortController = useMemo(() => new AbortController(), []);
 
   const updateOptions = useCallback(
     async (query: string) => {
-      setIsLoading(true);
+      // setIsLoading(true);
       // TODO test API call cancelations
       abortController.abort();
       const newOptions = await getOptions(query, abortController);
       setOptions(newOptions);
-      setIsLoading(false);
+      // setIsLoading(false);
     },
     [abortController, getOptions]
   );

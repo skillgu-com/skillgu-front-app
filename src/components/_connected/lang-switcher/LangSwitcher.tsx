@@ -1,4 +1,4 @@
-import React, { TouchEvent, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./style.module.scss";
 import clx from "classnames";
 import {Dropdown} from "../../_grouped/dropdown";

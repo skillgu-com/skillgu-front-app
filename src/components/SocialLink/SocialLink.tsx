@@ -33,7 +33,6 @@ const SocialLink = (props: SocialLinkProps) => {
             case 'instagram':
                 return <Instagram/>;
             case 'youtube':
-            case 'youtube':
                 return <YouTube/>;
             default:
                 return <Website/>;
@@ -46,7 +45,6 @@ const SocialLink = (props: SocialLinkProps) => {
                 return 'Linkedin';
             case 'instagram':
                 return 'Instagram';
-            case 'youtube':
             case 'youtube':
                 return 'youtube';
             default:

@@ -1,5 +1,4 @@
 import React, {FC, useEffect, useRef} from 'react';
-import {ReactComponent as SkillGuruLogo} from '@icons/svg/logo_skillguru.svg';
 
 import Typography from "@mui/material/Typography";
 import {Theme, useMediaQuery} from "@mui/material";

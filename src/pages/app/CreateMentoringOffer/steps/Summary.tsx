@@ -7,7 +7,7 @@ import {createMentoringOffer} from "@services/offer/createMentoringOffer";
 
 export const Summary = () => {
   const co = useCreateOfferReducer();
-  const { createOfferState, reset, updateStatus, setPending} = co;
+  const { updateStatus, setPending} = co;
   const { errorMessage, success, pending } = co.createOfferState;
 
   useEffect(() => {

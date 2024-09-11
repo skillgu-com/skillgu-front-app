@@ -8,8 +8,6 @@ import NavCard from 'src/components/Cards/NavCard/NavCard';
 import Calendar from 'src/assets/icons/Calendar';
 import Message from 'src/assets/icons/Message';
 import Raports from 'src/assets/icons/Raports';
-import Meet from 'src/assets/icons/Meet';
-import Payment from 'src/assets/icons/Payment';
 import Find from 'src/assets/icons/Find';
 // Styles
 import styles from './NavSection.module.scss';

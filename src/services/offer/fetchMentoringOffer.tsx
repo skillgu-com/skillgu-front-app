@@ -1,6 +1,5 @@
 import { PlanInput } from "@customTypes/create-mentoring";
 import axios from "axios";
-import { MentorshipPlanDTO } from "@services/mentor/fetchMentorServices.service";
 
 type OutputData = {
   numberOfPlans: 1 | 2 | 3;

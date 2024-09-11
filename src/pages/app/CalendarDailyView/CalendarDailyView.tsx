@@ -1,11 +1,11 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import Typography from "@mui/material/Typography";
 import {Box, Container, Theme, useMediaQuery, useTheme} from "@mui/material";
 import {ReactComponent as ArrowLeft} from '@icons/svg/arrow-left.svg';
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import paths from "../../../paths";
 import {format, set} from "date-fns";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import getMentoringSessionsInDatesService, {
     getMentoringSessionsInDatesServiceKeyGenerator
 } from "@services/mentoringSessions/getMentoringSessionsInDates.service";
@@ -14,9 +14,6 @@ import CalendarDailyAgenda from "../../../components/CalendarDailyAgenda/Calenda
 
 const CalendarDailyView = () => {
     const theme = useTheme();
-    const queryClient = useQueryClient();
-
-
     const {year, month, day} = useParams() as { year: string, month: string, day: string };
 
     const date = useMemo(() => new Date(+year, +month - 1, +day), [year, month, day]);
@@ -25,8 +22,6 @@ const CalendarDailyView = () => {
         from: set(date, {hours: 0, minutes: 0, seconds: 0}),
         to: set(date, {hours: 23, minutes: 59, seconds: 59}),
     }), [date]);
-
-
 
     const queryKey = useMemo(() => getMentoringSessionsInDatesServiceKeyGenerator(queryParams), [queryParams]);
 

@@ -1,7 +1,4 @@
-import { type Review as ReviewType } from "@customTypes/mentor";
 import React from "react";
-import { Stars } from "../stars";
-import { formatDate } from "src/utils";
 import clx from "classnames";
 import styles from "./Reviews.module.scss";
 import { Skeleton } from "@mui/material";

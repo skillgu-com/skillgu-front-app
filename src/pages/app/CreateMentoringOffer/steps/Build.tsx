@@ -78,7 +78,6 @@ export const Build = () => {
       | 2
       | 3;
     newData.numberOfPlans = parsedNumberOfPlans;
-    console.log(7, newData);
     co.loadOffers(newData);
   };
 

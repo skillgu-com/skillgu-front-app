@@ -24,14 +24,12 @@ export const createMentoringOffer = async (input: Input): Promise<Response> => {
         plans,
     };
 
-    console.log('to idzie na backend: ', body)
     try {
         const response = await axios.put('/api/mentorship/create/mentorship-plans', body, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        console.log('wysylam plany: ', body)
         if (response.status === 200) {
             return {success: true};
         } else {

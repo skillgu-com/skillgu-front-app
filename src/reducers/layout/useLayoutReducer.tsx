@@ -1,7 +1,6 @@
 import { layoutInitialState } from "./constants";
 import { useDispatch, useSelector } from "react-redux";
-import { LayoutAction, LayoutState } from "./types";
-import { Dispatch } from "redux";
+import { LayoutState } from "./types";
 
 type UseLayoutReducerState = {
   layoutState: LayoutState

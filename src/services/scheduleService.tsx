@@ -138,10 +138,10 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
         const today = new Date();
 
 
-        const defaultSlot = {
-            dateFrom: setHours(setMinutes(today, 0), 9),
-            dateTo: setHours(setMinutes(today, 0), 17)
-        };
+        // const defaultSlot = {
+        //     dateFrom: setHours(setMinutes(today, 0), 9),
+        //     dateTo: setHours(setMinutes(today, 0), 17)
+        // };
 
 
         return {
@@ -170,7 +170,6 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
     }
 
     export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleFormInputT) => {
-        console.log('tutaj idzie edit')
         try {
             const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
                 scheduleName: updatedData.scheduleName,

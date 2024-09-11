@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import Slider from "react-slick";
-import clx from "classnames";
 import styles from "./SimilarMentors.module.scss";
 import {FetchSimilarMentorsOutput} from "@services/mentor/fetchSimilarMentors.types";
 import {fetchSimilarMentors} from "@services/mentor/fetchSimilarMentors.service";

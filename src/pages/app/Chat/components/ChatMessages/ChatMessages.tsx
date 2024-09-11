@@ -1,9 +1,7 @@
 import React, {
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
-  useState,
 } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { Message, MessageVariant, MessageRowSkeleton } from "../Message";
@@ -11,10 +9,10 @@ import { Avatar } from "src/components/Avatar/Avatar";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import SendArrow from "@icons/SendArrow";
 import BackIcon from "@icons/BackIcon";
-import WebSocketInstance from "@services/chat/chat.service";
+// import WebSocketInstance from "@services/chat/chat.service";
 import styles from "./ChatMessages.module.scss";
 import { ChatContactType, ChatMessageType } from "@customTypes/chat";
-import { ChatMessagesOutput } from "@services/chat/chat.service.types";
+// import { ChatMessagesOutput } from "@services/chat/chat.service.types";
 
 export enum ChatMessagesVariant {
   mobile = "mobile",
@@ -32,11 +30,9 @@ type ChatMessagesProps = {
   setIsMobileMessageShown?: (state: boolean) => void;
 };
 
-type ChatMessageWithOptimistic = ChatMessageType & {
-  optimistic?: true;
-};
-
-const initialLoadSize = 2
+// type ChatMessageWithOptimistic = ChatMessageType & {
+//   optimistic?: true;
+// };
 
 export const ChatMessages = ({
   selected,

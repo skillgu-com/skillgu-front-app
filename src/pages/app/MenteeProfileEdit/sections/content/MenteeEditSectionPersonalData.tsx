@@ -14,14 +14,6 @@ export type MentorEditPersonalDataFormInput = {
     coverUrl: File[];
 };
 
-interface FormData {
-    firstname: HTMLInputElement;
-    surname: HTMLInputElement;
-    avatarUrl: HTMLInputElement;
-    coverUrl: HTMLInputElement;
-}
-
-
 type MenteePersonalData = {
     firstName: string;
     surname: string;

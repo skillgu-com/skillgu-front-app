@@ -9,5 +9,4 @@ const getSessionCategoriesDictionary = async (): Promise<DropdownOption<undefine
         resolve(parseDictionaryToDropdown(sessionCategoriesDictionaryData));
     });
 }
-
 export default getSessionCategoriesDictionary;

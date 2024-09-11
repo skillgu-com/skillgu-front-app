@@ -4,7 +4,7 @@ import {ServiceMentoringOptionCard} from "src/components/Cards/ServiceMentoringO
 import {useParams} from "react-router-dom";
 import Container from "src/components/Container/Container";
 
-import {Actions, Team} from "../BookSession/components";
+import {Actions, Team, UserDetails} from "../BookSession/components";
 import {useQuery} from "@tanstack/react-query";
 import getSubscriptionService, {
     getSubscriptionServiceKeyGenerator
@@ -22,6 +22,7 @@ import WeeklyCalendarPicker from "src/components/WeeklyCalendarPicker/WeeklyCale
 import Typography from "@mui/material/Typography";
 import useCalendarLogic from "./_logic/useCalendarLogic";
 import useUserInputLogic from "./_logic/useUserInputLogic";
+import {parseUserFromJwt} from "../../../helpers/parseUserFromJwt";
 
 
 const MenteeSubscriptionDetailPage: FC = () => {
@@ -29,8 +30,8 @@ const MenteeSubscriptionDetailPage: FC = () => {
     const [bookingState, dispatchBookingAction] = useBookingReducer();
     const [isUserDetailsFilled, setIsUserDetailsFilled] = useState(false);
     const [state] = useBookingReducer();
-
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userEmail, setUserEmail] = useState(""); // To store user's email from token if logged in
 
 
     const {data: subscriptionData} = useQuery({
@@ -53,6 +54,23 @@ const MenteeSubscriptionDetailPage: FC = () => {
 
 
     useEffect(() => {
+        const token = localStorage.getItem("jwttoken");
+        if (token) {
+            setIsLoggedIn(true);
+            const userData = parseUserFromJwt(token);
+            setUserEmail(userData?.email);
+            setIsUserDetailsFilled(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+    const handleUserDetailsFilled = (filled: boolean) => {
+        setIsUserDetailsFilled(filled);
+    };
+
+
+    useEffect(() => {
         dispatchBookingAction({
             type: 'UPDATE_MENTOR_ID',
             payload: {mentorId: subscriptionData?.mentorId || ''}
@@ -62,6 +80,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
             type: 'UPDATE_MENTORSHIP_ID',
             payload: {mentorshipId: subscriptionData?.mentorshipPlan?.id || ''}
         });
+
 
         if (subscriptionId != null) {
             dispatchBookingAction({
@@ -97,7 +116,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                             selectedEventsId={bookingState.slots ? bookingState.slots.map(({id}) => id) : null}
                         />
                         <div className={sharedStyles.formWrapper}>
-                            {/*<UserDetails/>*/}
+                            <UserDetails onFilled={handleUserDetailsFilled} isLoggedIn={isLoggedIn} />
                             <Team/>
                         </div>
                         <Actions onSubmit={onSubmit} disabled={!isUserDetailsFilled || !state.consents} />

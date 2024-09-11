@@ -9,13 +9,19 @@ export const PaymentMentorship = () => {
     const [bookingState] = useBookingReducer();
 
     const prepareMentorshipDataRequest = (): MentorshipData => {
-        const { mentorId, mentorshipId, subscriptionId,slots } = bookingState;
+        const { mentorId, mentorshipId, subscriptionId, slots } = bookingState;
+
+        const slotRequests = slots.map(slot => ({
+            calendarEventId: slot.id,
+            date: slot.date,
+            hour: slot.hour
+        }));
 
         const mentorshipDataRequest: MentorshipData = {
-            mentorId:mentorId,
-            mentorshipId:mentorshipId,
-            calendarEventId: slots.map(slot => slot.id),
+            mentorId: mentorId,
+            mentorshipId: mentorshipId,
             subscriptionId: subscriptionId,
+            slots: slotRequests
         };
 
         return mentorshipDataRequest;

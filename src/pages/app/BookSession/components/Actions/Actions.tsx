@@ -18,7 +18,6 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setFormTouched(true);
-
         if (isFormValid) {
             onSubmit();
         }

@@ -18,5 +18,6 @@ export const bookingInitialState: BookingState = {
     slotsError: "",
     mentorshipId: "",
     mentorId: "",
-    subscriptionId: ""
+    subscriptionId: "",
+    hours: []
 };

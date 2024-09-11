@@ -15,7 +15,6 @@ export const UserDetails: React.FC<UserDetailsProps> = ({
   const [state, dispatch] = useBookingReducer();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Walidacja tylko gdy użytkownik nie jest zalogowany
   const isEmailValid =
     !isLoggedIn &&
     !!state.customerEmail &&

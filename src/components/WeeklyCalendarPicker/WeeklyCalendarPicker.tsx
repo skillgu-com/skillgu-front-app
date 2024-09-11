@@ -63,7 +63,7 @@ const WeeklyCalendarPicker: FC<Props> = ({ events, selectedEventsId = [], onEven
                         return (
                             <button
                                 disabled={!available}
-                                data-is-current={selectedEventsId && selectedEventsId.includes(event.id)} // Now we ensure selectedEventsId is not null
+                                data-is-current={selectedEventsId && selectedEventsId.includes(event.id)}
                                 className={styles.hour}
                                 onClick={() => onEventClick(event)}
                             >
@@ -81,7 +81,5 @@ const WeeklyCalendarPicker: FC<Props> = ({ events, selectedEventsId = [], onEven
         </section>
     );
 }
-
-
 
 export default WeeklyCalendarPicker;

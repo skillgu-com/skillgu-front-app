@@ -3,8 +3,8 @@ import axios from "axios";
 export interface MentorshipData {
     mentorId: string;
     mentorshipId: string;
-    calendarEventId: number[];
-    subscriptionId: string
+    subscriptionId: string;
+    slots: { date: Date; calendarEventId: number; hour: string }[];
 }
 
 export type CombinedData = {

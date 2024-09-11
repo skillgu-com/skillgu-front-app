@@ -3,6 +3,7 @@ import {useBookingReducer} from "src/reducers/booking";
 import {useCallback, useRef} from "react";
 import {useSnackbar} from "notistack";
 import regexPattern from "src/helpers/regexPattern";
+import {useNavigate} from "react-router-dom";
 
 const useUserInputLogic = (availableSessionSlots: number) => {
     const [bookingState, dispatchBookingAction] = useBookingReducer();
@@ -15,21 +16,20 @@ const useUserInputLogic = (availableSessionSlots: number) => {
         const prevState = bookingState.slots;
         let slots = [];
 
-        if (prevState.some(({id}) => id === event.id)) {
-            // Removing
-            slots = prevState.filter(({id}) => id !== event.id);
+        if (prevState.some(({ id }) => id === event.id)) {
+            // Usuwanie eventu
+            slots = prevState.filter(({ id }) => id !== event.id);
         } else {
             if (isSlotsLimitReached(prevState.length)) {
-                // Limit reached
-                enqueueSnackbar('Osiągnięto limit wybranych slotów', {variant: 'warning'});
+                enqueueSnackbar('Osiągnięto limit wybranych slotów', { variant: 'warning' });
                 return;
             }
-            // Adding
-            slots = [...prevState, {date: event.start, id: event.id}];
+            // Dodawanie eventu
+            slots = [...prevState, { date: event.start, id: event.id, hour: event.title }];
         }
+        dispatchBookingAction({ type: 'SLOTS_SELECT', payload: { slots } });
+    };
 
-        dispatchBookingAction({type: 'SLOTS_SELECT', payload: {slots}})
-    }
 
     const validate = () => {
         let isValid = true;
@@ -63,22 +63,26 @@ const useUserInputLogic = (availableSessionSlots: number) => {
 
         return isValid;
     }
+    var navigate = useNavigate();
 
     const onSubmit = () => {
         const isValid = validate();
+        navigate(`/mentorship-book/1/payment`);
         if (isValid) {
             alert({
                 email: bookingState.customerEmail,
                 phone: bookingState.customerPhone,
                 topic: bookingState.customerMessage
             })
+
         } else if (refToScrollOrError.current) {
             refToScrollOrError.current.scrollIntoView({behavior: 'smooth', inline: 'start', block: 'start'});
         }
     }
 
-    return { onSubmit, onEventClick, refToScrollOrError }
+    return {onSubmit, onEventClick, refToScrollOrError}
 
 }
 
-export  default useUserInputLogic;
+
+export default useUserInputLogic;

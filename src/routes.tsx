@@ -217,7 +217,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.schedules,
         element: <SchedulesView/>,
         isProtected: true,
-        layoutVersion: 'none',
+        layoutVersion: 'default',
     },
 
     {
@@ -239,6 +239,7 @@ const routesRaw: Omit<Route, "id">[] = [
         path: paths.payment,
         element: <MentorPaymentIntegration/>,
         layoutVersion: 'default',
+        isProtected: true,
     },
     {
         path: paths.reports,

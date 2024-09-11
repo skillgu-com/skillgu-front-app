@@ -12,7 +12,9 @@ import Logo from "@icons/Logo";
 
 const TopBar = () => {
   const user = useSelector((state: any) => state.auth?.user);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(
+    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
+  );
 
 
   useEffect(() => {
@@ -44,14 +46,7 @@ const TopBar = () => {
           <>
             <ProfileLinkTag className={styles.profile} href={userProfileLink}>
               <div className={styles.profileImage}>
-                {image ? (
-                  <img src={image} alt={user?.image} />
-                ) : (
-                  <img
-                    src={user?.image}
-                    alt={user?.email}
-                  />
-                )}
+                <img src={image} alt={user.email} />
               </div>
               <span className={styles.email}>{user?.email}</span>
             </ProfileLinkTag>

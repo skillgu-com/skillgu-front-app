@@ -16,7 +16,6 @@ const TopBar = () => {
     "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
   );
 
-  //TODO setImage jest zahardcodowane
 
   useEffect(() => {
     if (user) {
@@ -49,7 +48,7 @@ const TopBar = () => {
               <div className={styles.profileImage}>
                 <img src={image} alt={user.email} />
               </div>
-              <span className={styles.email}>{user.email}</span>
+              <span className={styles.email}>{user?.email}</span>
             </ProfileLinkTag>
             <Notifications />
           </>

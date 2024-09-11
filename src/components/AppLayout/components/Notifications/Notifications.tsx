@@ -12,7 +12,7 @@ type Props = {
 
 const Notifications = ({ className } : Props) => {
   const [nots, setNots] = useState<any[]>([
-    { id: "d01", text: "Otrzymałeś wiadomość" },
+    // { id: "d01", text: "Otrzymałeś wiadomość" },
   ]);
   const [isVisible, setIsVisible] = useState(false);
 

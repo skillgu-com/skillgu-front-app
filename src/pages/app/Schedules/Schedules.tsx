@@ -105,9 +105,6 @@ const SchedulesView = () => {
         }
     );
 
-    console.log(schedules)
-
-    // Remove item callback function
     const removeItem = useCallback(
         (id: string, arrayType: "schedules" | "sessions") => {
             if (arrayType === "schedules") {

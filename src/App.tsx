@@ -24,10 +24,11 @@ import SimpleLayout from "./components/SimpleLayout/SimpleLayout";
 import LocationChangeListener from "./components/LocationChangeListener/LocationChangeListener";
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
+
 if (!stripeKey)
   throw new Error("Stripe key not provided, check environment variables");
 const stripePromise = loadStripe(stripeKey);
-
+console.log("App working under server: ", process.env.REACT_APP_BASE_URL);
 const ResolveLayout = ({
   children,
   version,
@@ -95,7 +96,6 @@ function App() {
 
 const ProtectedRoute: FC<{ children: ReactNode }> = ({ children }) => {
   const isAuthenticated = !!localStorage.getItem("jwttoken");
-
   if (!isAuthenticated) return <Navigate to={paths.login} replace />;
   return <>{children}</>;
 };

@@ -18,9 +18,6 @@ import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
 import { ProfileEditPageSkeleton } from "src/components/ProfileEditSkeleton";
 
-/**
- *
- */
 
 export interface MentorData {
     timeZone: string;
@@ -143,7 +140,7 @@ export const MentorProfileEditPage = () => {
             initialDataFetched.current = true;
         }
     }, [mentorId, username]);
-console.log(1, mentorData)
+
 
     return loading ? (
       <ProfileEditPageSkeleton />

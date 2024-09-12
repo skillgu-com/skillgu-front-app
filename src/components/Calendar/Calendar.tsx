@@ -24,7 +24,15 @@ type Props = {
     calendarProps: Pick<CalendarProps, 'events' | 'onNavigate'>
 }
 
-const CELL_SIZE = 150
+const CELL_SIZE = 160
+
+const now = new Date();
+const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);
+const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 0, 0);
+
+const event = { start, end, title: 'test', allDay: false, metadata: {eventInDayNumber: 0} }
+const event2 = { start, end, title: 'test', allDay: false, metadata: {eventInDayNumber: 1} }
+const event3 = { start, end, title: 'test', allDay: false, metadata: {eventInDayNumber: 2, eventInDayCount: 7} }
 
 const Calendar: FC<Props> = ({calendarProps}) => {
 
@@ -38,11 +46,13 @@ const Calendar: FC<Props> = ({calendarProps}) => {
                     toolbar: CalendarToolbar,
                     header: CalendarHeader,
                     month: {dateHeader: CalendarDateHeader},
+                    // @ts-ignore
                     eventWrapper: CalendarEvent,
                 }}
                  // In RBC show more logic is messy, so I need to achieve it in other way
                 messages={{showMore: () => ''}}
                 {...calendarProps}
+                events={[event, event2, event3]}
             />
         </StyledCalendarWrapper>
     )

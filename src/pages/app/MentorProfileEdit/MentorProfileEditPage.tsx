@@ -16,6 +16,7 @@ import {DropdownOption} from "@customTypes/dropdownOption";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
+import { ProfileEditPageSkeleton } from "src/components/ProfileEditSkeleton";
 
 /**
  *
@@ -145,9 +146,7 @@ export const MentorProfileEditPage = () => {
 
 
     return loading ? (
-        <Container as={Tag.Section}>
-            <p>Loading...</p>
-        </Container>
+      <ProfileEditPageSkeleton />
     ) : (
         <>
             {/*//TODO dodane chwilowo defaultowe avatarUrl oraz coverUrl jako linki dlatego nie widzimy zmian w ustawnieach*/}

@@ -16,10 +16,8 @@ import {DropdownOption} from "@customTypes/dropdownOption";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
 import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
+import { ProfileEditPageSkeleton } from "src/components/ProfileEditSkeleton";
 
-/**
- *
- */
 
 export interface MentorData {
     timeZone: string;
@@ -145,21 +143,21 @@ export const MentorProfileEditPage = () => {
 
 
     return loading ? (
-        <Container as={Tag.Section}>
-            <p>Loading...</p>
-        </Container>
+      <ProfileEditPageSkeleton />
     ) : (
         <>
             {/*//TODO dodane chwilowo defaultowe avatarUrl oraz coverUrl jako linki dlatego nie widzimy zmian w ustawnieach*/}
             <UserProfileHeader
                 avatarUrl={
-                    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg" ||
-                    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
+                  mentorData?.profileImage ||
+                  "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528576/default/avatar.jpg"
                 }
                 btnText="Zobacz profil"
                 btnHref={`/mentor/${username}`}
                 company={mentorData?.company}
-                coverUrl={"https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png" || "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png"}
+                coverUrl={
+                    mentorData?.coverImage ||
+                    "https://res.cloudinary.com/dkclg8ppw/image/upload/v1725528618/default/cover.png"}
                 fullname={mentorData?.firstName + " " + mentorData?.lastName}
                 langSwitcher={
                     <MentorLangs

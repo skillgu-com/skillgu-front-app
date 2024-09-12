@@ -1,0 +1,57 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  @include media-lg-and-up {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .colTitle {
+    @include media-lg-and-up {
+      width: 200px;
+    }
+
+    @include media-xl-and-up {
+      width: 240px;
+    }
+
+    @include media-xxl-and-up {
+      width: 280px;
+    }
+  }
+
+  .colContent {
+    flex: 1;
+  }
+}
+
+.colContent {
+  border-radius: 8px;
+
+  @include media-lg-and-up {
+    padding: 24px;
+    border: 1px solid $colour-base-400;
+  }
+
+  .InputsCols2 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    > * {
+      flex: 1;
+    }
+
+    @include media-lg-and-up {
+      flex-direction: row;
+      gap: 24px;
+    }
+  }
+}

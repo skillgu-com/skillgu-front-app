@@ -2,7 +2,7 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
 import updateUserPersonalData from "../../../../../services/mentor/settingMentor.service";
-import {useParams} from "react-router-dom";
+// import {useParams} from "react-router-dom";
 import {MentorData} from "../../MentorProfileEditPage";
 import {UserEditSection} from "../../../../../components/_grouped";
 import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
@@ -24,12 +24,12 @@ export type MentorEditPersonalDataFormInputTest = {
     coverUrl:string;
 };
 
-interface FormData {
-    firstName: HTMLInputElement;
-    surname: HTMLInputElement;
-    avatarUrl: HTMLInputElement;
-    coverUrl: HTMLInputElement;
-}
+// interface FormData {
+//     firstName: HTMLInputElement;
+//     surname: HTMLInputElement;
+//     avatarUrl: HTMLInputElement;
+//     coverUrl: HTMLInputElement;
+// }
 
 type MentorPersonalData = {
     firstName: string;
@@ -61,9 +61,9 @@ export const MentorEditSectionPersonalData = ({ mentorData }: Props) => {
         controllerProps: {}
     };
 
-    const avatarValue = watch('avatarUrl')
-    const coverValue = watch('coverUrl')
-    const {id: userID} = useParams();
+    // const avatarValue = watch('avatarUrl')
+    // const coverValue = watch('coverUrl')
+    // const {id: userID} = useParams();
 
     const onSubmit = async (data: MentorEditPersonalDataFormInput) => {
         try {

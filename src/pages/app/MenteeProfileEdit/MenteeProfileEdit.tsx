@@ -13,6 +13,7 @@ import {Typography} from "@mui/material";
 import {getMenteeByUserName} from "@services/mentee/fetchMenteeServices.service";
 import {UserProfileHeader} from "../../../components/_grouped";
 import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
+import { ProfileEditPageSkeleton } from "src/components/ProfileEditSkeleton";
 
 /**
  *
@@ -71,7 +72,7 @@ export const MenteeProfileEditPage = () => {
     }, [menteeId]);
 
     if (!mentee) {
-        return <div>Loading...</div>; // Możesz dodać tu bardziej zaawansowany komponent ładowania
+        return <ProfileEditPageSkeleton/>; // Możesz dodać tu bardziej zaawansowany komponent ładowania
     }
 
     return (

@@ -4,9 +4,11 @@ import {Accepted, InProgress, Rejected} from "./screens";
 import {useParams} from "react-router-dom";
 import {Loader} from "src/components/_grouped/loader";
 import {MentorOfferDetailsProvider, useMentorOfferDetails} from "./context/MentorOfferDetailsContext";
+import { useAccountType } from "src/hooks/useAccountType";
 
-const MentorOfferDetailsContent = () => {
+const OfferDetailsContent = () => {
   const { offer, pending, handleAccept, handleReject, handleFeedback } = useMentorOfferDetails();
+  const {isMentor} = useAccountType();
 
   if (pending) {
     return <Loader className={styles.loader} spinner />;
@@ -28,20 +30,24 @@ const MentorOfferDetailsContent = () => {
 
   if (offer.status === "awaiting") {
     return (
-      <InProgress />
+      <InProgress isMentor={isMentor} />
     );
   }
 
   return null;
 };
 
-export const MentorOfferDetails = () => {
+export const OfferDetails = () => {
   const { id } = useParams();
   const offerId = Number(id);
 
-  return isNaN(offerId) ? null : (
+  if(!offerId || isNaN(offerId)){
+    return null
+  }
+
+  return (
     <MentorOfferDetailsProvider>
-      <MentorOfferDetailsContent />
+      <OfferDetailsContent />
     </MentorOfferDetailsProvider>
-  );
+  )
 };

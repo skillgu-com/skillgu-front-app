@@ -28,7 +28,7 @@ import {MenteeProfileEditPage} from './pages/app/MenteeProfileEdit';
 import {ChatPage} from './pages/app/Chat';
 import {MentorPaymentIntegration} from './pages/app/MentorPaymentIntegration';
 import SchedulesView from "./pages/app/Schedules/Schedules";
-import {MentorOfferDetails} from "./pages/app/MentorOfferDetails";
+import {OfferDetails} from "./pages/app/OfferDetails";
 import {CreateMentoringOffer} from "./pages/app/CreateMentoringOffer";
 import ScheduleScreen from "./pages/app/Schedules/screens/ScheduleForm/ScheduleScreen";
 import {MentorSubscriptionsPage, MenteeSubscriptionsPage} from "./pages/app/Subscriptions";
@@ -248,7 +248,12 @@ const routesRaw: Omit<Route, "id">[] = [
     },
     {
         path: paths.mentorOfferDetails,
-        element: <MentorOfferDetails/>,
+        element: <OfferDetails/>,
+        layoutVersion: 'default',
+    },
+    {
+        path: paths.studentOfferDetails,
+        element: <OfferDetails/>,
         layoutVersion: 'default',
     },
     {

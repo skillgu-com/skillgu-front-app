@@ -47,6 +47,7 @@ const paths = {
     chat: '/chat',
     payment: '/payment',
     mentorOfferDetails: '/mentor-offer-details/:id',
+    studentOfferDetails: '/student-offer-details/:id',
     mentorSubscriptions: '/mentor-subscriptions',
     studentSubscriptions: '/mentee-subscriptions',
     studentSubscriptionDetail: '/mentee-subscriptions/:mentorshipId/:subscriptionId',

@@ -12,11 +12,15 @@ import { CheckboxIcon } from "@icons/CheckboxIcon";
 // import Modal from "src/components/Modal/Modal";
 import { ModalConfirm } from "src/components/_grouped/modal/ModalConfirm";
 
-export const InProgress = () => {
-  const { offer, pending, handleAccept, handleReject, handleFeedback } = useMentorOfferDetails();
+type Props = {
+  isMentor: boolean;
+};
+
+export const InProgress = ({ isMentor }: Props) => {
+  const { offer, pending, handleAccept, handleReject, handleFeedback } =
+    useMentorOfferDetails();
   const [rejecting, setRejecting] = useState<boolean>(false);
   const [accepting, setAccepting] = useState<boolean>(false);
-
 
   return !offer ? null : (
     <>
@@ -26,11 +30,13 @@ export const InProgress = () => {
         description=""
         rejectText="Zaczekaj"
         submitText="Tak, zrezygnuj"
-        isOpen={rejecting}
+        isOpen={isMentor && rejecting}
         handleClose={() => setRejecting(false)}
         handleReject={() => setRejecting(false)}
-        handleSubmit={async () => {handleReject();
-          setRejecting(false);}}
+        handleSubmit={async () => {
+          handleReject();
+          setRejecting(false);
+        }}
       />
       <ModalConfirm
         selector="modal-root"
@@ -38,7 +44,7 @@ export const InProgress = () => {
         description="Przyjęcie oferty oznacza rozpoczęcie współpracy ze studentem."
         rejectText="Zaczekaj"
         submitText="Tak, rozpocznij mentoring"
-        isOpen={accepting}
+        isOpen={isMentor && accepting}
         handleClose={() => setAccepting(false)}
         handleReject={() => setAccepting(false)}
         handleSubmit={async () => {
@@ -98,9 +104,7 @@ export const InProgress = () => {
 
             <div className={clx(styles.fieldText)}>
               <label className={styles.label}>O mentee</label>
-              <div className={styles.readTextarea}>
-                {offer.aboutStudent}
-              </div>
+              <div className={styles.readTextarea}>{offer.aboutStudent}</div>
             </div>
 
             <div className={clx(styles.fieldText)}>
@@ -111,28 +115,30 @@ export const InProgress = () => {
             </div>
           </div>
 
-          <div className={styles.actions}>
-            <Button
-              size="sm"
-              classes={styles.btn}
-              variant={ButtonVariant.DangerOutline}
-              onClick={() => setRejecting(true)}
-              noWrap
-              fontVariant='button-md'
-            >
-              Odrzuć
-            </Button>
-            <Button
-              size="sm"
-              noWrap
-              classes={styles.btn}
-              variant={ButtonVariant.Primary}
-              onClick={() => setAccepting(true)}
-              fontVariant='button-md'
-            >
-              Zaakceptuj aplikację
-            </Button>
-          </div>
+          {isMentor && (
+            <div className={styles.actions}>
+              <Button
+                size="sm"
+                classes={styles.btn}
+                variant={ButtonVariant.DangerOutline}
+                onClick={() => setRejecting(true)}
+                noWrap
+                fontVariant="button-md"
+              >
+                Odrzuć
+              </Button>
+              <Button
+                size="sm"
+                noWrap
+                classes={styles.btn}
+                variant={ButtonVariant.Primary}
+                onClick={() => setAccepting(true)}
+                fontVariant="button-md"
+              >
+                Zaakceptuj aplikację
+              </Button>
+            </div>
+          )}
         </div>
       </ContentWrapper>
     </>

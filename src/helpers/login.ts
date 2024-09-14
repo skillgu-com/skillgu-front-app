@@ -40,6 +40,7 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string): LoginR
     }
 
     localStorage.setItem('jwttoken', userJWT);
+
     return {
         success: true,
         userData: {

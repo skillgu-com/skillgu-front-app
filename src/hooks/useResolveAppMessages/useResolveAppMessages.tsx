@@ -10,6 +10,7 @@ const useResolveAppMessages = () => {
 
     const authState = useSelector((state: any) => state.auth);
 
+    // message based on user authentication state
     useEffect(() => {
         if (!authState.user?.stripeIntegrationStatus && authState.user?.role === "M") {
             dispatchMessage({
@@ -22,11 +23,12 @@ const useResolveAppMessages = () => {
                             <Link to={paths.payment}>Przejdź do konfiguracji</Link>
                         </span>
                     ),
-                    severity: "warning"
+                    severity: "warning",
+                    messageKey: "missingStripeIntegration"
                 }
             });
         } else {
-            dispatchMessage({type: "CLEAR_MESSAGE"});
+            dispatchMessage({type: "CLEAR_MESSAGE", payload: {messageKey: "missingStripeIntegration"}});
         }
     }, [authState]);
 

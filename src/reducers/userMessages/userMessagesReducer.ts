@@ -6,10 +6,14 @@ export const userMessagesReducer = (
   action: UserMessagesAction
 ): UserMessagesState => {
   switch (action.type) {
-    case "CLEAR_MESSAGE":
-      return {
-        currentMessage: null,
-      };
+    case "CLEAR_MESSAGE": {
+      if(action.payload.messageKey === state.currentMessage?.messageKey) {
+        return {
+          currentMessage: null,
+        };
+      }
+      return state;
+    }
     case "SET_MESSAGE": {
       return {
         ...state,

@@ -27,8 +27,7 @@ const UserInfoTopBar = () => {
     const [userMessage] = useUserMessages();
     const {layoutState} = useLayoutReducer();
 
-    if (!userMessage.currentMessage) return null;
-
+    if (!userMessage.currentMessage || !userMessage.currentMessage.message) return null;
 
     return (
         <div
@@ -45,7 +44,7 @@ const UserInfoTopBar = () => {
             <div className={styles.content}>
             {resolveIcon(userMessage.currentMessage.severity)}
             <Typography className={styles.text} variant='buttonMd'>
-                {userMessage.currentMessage.message}
+                {userMessage.currentMessage.message()}
             </Typography>
             </div>
         </div>

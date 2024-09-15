@@ -10,28 +10,26 @@ const useResolveAppMessages = () => {
 
     const authState = useSelector((state: any) => state.auth);
 
+    // message based on user authentication state
     useEffect(() => {
         console.log('authState.user?.stripeIntegrationStatus', !authState.user?.stripeIntegrationStatus && authState.user?.role === "M")
         if (!authState.user?.stripeIntegrationStatus && authState.user?.role === "M") {
             dispatchMessage({
                 type: "SET_MESSAGE",
                 payload: {
-                    message: "Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji",
-                    severity: "warning"
+                    message: () => (
+                        <span>
+                            Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
+                            {' '}
+                            <Link to={paths.payment}>Przejdź do konfiguracji</Link>
+                        </span>
+                    ),
+                    severity: "warning",
+                    messageKey: "missingStripeIntegration"
                 }
             });
         } else {
-            // dispatchMessage({type: "CLEAR_MESSAGE"});
-            dispatchMessage({
-                type: "SET_MESSAGE",
-                payload: {
-                    message: <div>
-                        Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
-                        <Link to={paths.accountView}>Przejdź do konfiguracji</Link>
-                    </div>,
-                    severity: "warning"
-                }
-            });
+            dispatchMessage({type: "CLEAR_MESSAGE", payload: {messageKey: "missingStripeIntegration"}});
         }
     }, [authState]);
 

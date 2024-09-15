@@ -11,25 +11,43 @@
   justify-content: center;
   align-items: center;
   transition: 0.3s;
-  padding: 12px 24px 12px $layout-quick-sidebar-width;
+  padding: 12px 24px 12px calc($layout-quick-sidebar-width + 12px);
+
+  @media screen and (max-width: $sm) {
+    padding-left: 12px;
+  }
 }
 
 .content {
   color: $colour-base-000;
   display: grid;
-  gap: 16px;
+  align-items: center;
+  gap: 12px;
   grid-template-columns: auto 1fr;
 }
 
 .isSidebarOpen {
-  padding-left: $layout-full-sidebar-width;
+  padding-left: calc($layout-full-sidebar-width + 12px);
+
+  @media screen and (max-width: $sm) {
+    padding-left: 12px;
+  }
+}
+
+%font {
+  color: $colour-base-000 !important;
+  font-weight: 600;
+  @media screen and (max-width: $md) {
+    font-size: 1.25rem !important;
+    line-height: 140% !important;
+  }
 }
 
 .text {
-  color: $colour-base-000 !important;
+  @extend %font;
 
   & a {
-    color: $colour-base-000 !important;
+    @extend %font
   }
 }
 

@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 export type UserMessageSeverity = 'error' | 'warning' | 'info';
 
 type Message = {
-        message: ReactNode;
+        message: () => ReactNode;
         severity: UserMessageSeverity;
     }
 

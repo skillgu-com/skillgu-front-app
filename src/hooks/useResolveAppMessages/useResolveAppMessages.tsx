@@ -15,22 +15,18 @@ const useResolveAppMessages = () => {
             dispatchMessage({
                 type: "SET_MESSAGE",
                 payload: {
-                    message: "Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji",
+                    message: () => (
+                        <span>
+                            Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
+                            {' '}
+                            <Link to={paths.payment}>Przejdź do konfiguracji</Link>
+                        </span>
+                    ),
                     severity: "warning"
                 }
             });
         } else {
-            // dispatchMessage({type: "CLEAR_MESSAGE"});
-            dispatchMessage({
-                type: "SET_MESSAGE",
-                payload: {
-                    message: <div>
-                        Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
-                        <Link to={paths.accountView}>Przejdź do konfiguracji</Link>
-                    </div>,
-                    severity: "warning"
-                }
-            });
+            dispatchMessage({type: "CLEAR_MESSAGE"});
         }
     }, [authState]);
 

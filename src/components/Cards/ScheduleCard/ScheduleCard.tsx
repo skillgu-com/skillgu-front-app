@@ -120,13 +120,14 @@ const ScheduleCard = (props: ScheduleCardProps) => {
 
                         <Options
                             options={[
-                                {
-                                    icon: <Pencil/>,
-                                    text: 'Edytuj',
-                                    onClick: handleEditClick,
-                                    className: styles.option,
-                                    onMouseEnter: prefetchData,
-                                },
+                                // {
+                                //     icon: <Pencil/>,
+                                //     text: 'Edytuj',
+                                //     onClick: handleEditClick,
+                                //     className: styles.option,
+                                //     onMouseEnter: prefetchData,
+                                //     disabled: true,
+                                // },
                                 {
                                     icon: <Trash/>,
                                     text: 'Usuń',

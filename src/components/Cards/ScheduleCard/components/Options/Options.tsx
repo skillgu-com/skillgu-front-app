@@ -11,6 +11,8 @@ export interface Option {
   onClick: () => void;
   className?: string;
   onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean; // Add disabled property
+
 }
 
 interface OptionsProps {

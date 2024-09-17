@@ -108,7 +108,6 @@ export const MentorProfileEditPage = () => {
                 location={mentorData?.timeZone}
                 profession={mentorData?.jobPosition}
             />
-
             <Container as={Tag.Section}>
                 <MentorEditSectionPersonalData mentorData={mentorData}/>
                 <MentorEditSectionProfile mentorData={mentorData}/>

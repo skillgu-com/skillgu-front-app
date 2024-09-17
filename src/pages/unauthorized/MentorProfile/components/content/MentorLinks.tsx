@@ -8,9 +8,9 @@ import {
     TwitterCircleIcon,
     YoutubeCircleIcon,
 } from "@icons/social-media";
-import {BehanceIcon} from "@icons/social-media/BehanceIcon";
-import {WWWIcon} from "@icons/social-media/WWWIcon";
 import DribbbleIcon from "@icons/social-media/DribbbleIcon";
+import WWWIcon from "@icons/social-media/WWWIcon";
+import BehanceIcon from "@icons/social-media/BehanceIcon";
 
 type SocialMediaProvider =
     | "linkedin"

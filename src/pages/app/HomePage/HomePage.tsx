@@ -25,7 +25,7 @@ const HomePage = () => {
       {role === "S" ? (
         <>
           <Container as={Tag.Main} classes={styles.header}>
-            <h2 className={styles.sectionTitle}>Witaj, mentee!</h2>
+            <h2 className={styles.sectionTitle}>Czesc, Goska!</h2>
             <NavSection />
           </Container>
 
@@ -42,7 +42,7 @@ const HomePage = () => {
       {role === "M" ? (
         <>
           <Container as={Tag.Main} classes={styles.header}>
-            <h2 className={styles.sectionTitle}>Witaj, Andrzej !</h2>
+            <h2 className={styles.sectionTitle}>Czesc, Goska !</h2>
             <NavSection />
           </Container>
 

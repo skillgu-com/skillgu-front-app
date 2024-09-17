@@ -26,6 +26,9 @@ export type PortfolioFormInput = {
     github: string,
     dribble: string,
     behance: string,
+    facebook: string,
+    instagram: string,
+    youtube: string
 };
 
 export type VerificationFormInput = {

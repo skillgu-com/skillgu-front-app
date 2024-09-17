@@ -10,9 +10,7 @@ const useResolveAppMessages = () => {
 
     const authState = useSelector((state: any) => state.auth);
 
-    // message based on user authentication state
     useEffect(() => {
-        console.log('authState.user?.stripeIntegrationStatus', !authState.user?.stripeIntegrationStatus && authState.user?.role === "M")
         if (!authState.user?.stripeIntegrationStatus && authState.user?.role === "M") {
             dispatchMessage({
                 type: "SET_MESSAGE",
@@ -21,7 +19,7 @@ const useResolveAppMessages = () => {
                         <span>
                             Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
                             {' '}
-                            <Link to={paths.payment}>Przejdź do konfiguracji</Link>
+                            <Link to={paths.payment}>Przejdź do Rozliczenia</Link>
                         </span>
                     ),
                     severity: "warning",

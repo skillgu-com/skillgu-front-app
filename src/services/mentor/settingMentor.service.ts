@@ -62,7 +62,7 @@ interface MentorEditLinksFormInput {
     linkedin: string;
     twitter: string;
     github: string;
-    dribble: string;
+    dribbble: string;
     behance: string;
     youtube: string;
     facebook: string;

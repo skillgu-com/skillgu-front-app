@@ -12,7 +12,7 @@ export type MentorEditLinksFormInput = {
     linkedin: string;
     twitter: string;
     github: string;
-    dribble: string;
+    dribbble: string;
     behance: string;
     youtube: string;
     facebook: string;
@@ -40,7 +40,7 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
                 linkedin: "",
                 twitter: "",
                 github: "",
-                dribble: "",
+                dribbble: "",
                 behance: "",
                 youtube: "",
                 facebook: "",
@@ -61,9 +61,9 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
                 linkedin: data.linkedin,
                 twitter: data.twitter,
                 github: data.github,
-                dribble: data.dribble,
+                dribbble: data.dribbble,
                 behance: data.behance,
-                youtube: data.behance,
+                youtube: data.youtube,
                 facebook: data.facebook,
                 instagram: data.instagram,
 
@@ -75,7 +75,6 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
             console.error('Failed to update personal data', error);
         }
     };
-
 
     return (
         <UserEditSection
@@ -112,9 +111,9 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
                 />
                 <FormInputText<MentorEditLinksFormInput>
                     {...inputProps}
-                    inputProps={{placeholder: mentorData?.dribble || "Twój Dribble "}}
+                    inputProps={{placeholder: mentorData?.dribbble || "Twój Dribble "}}
                     label="Dribbble URL"
-                    name="dribble"
+                    name="dribbble"
                 />
                 <FormInputText<MentorEditLinksFormInput>
                     {...inputProps}
@@ -133,6 +132,12 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
                     inputProps={{placeholder: mentorData?.instagram || "Twój Instagram "}}
                     label="Instagram URL"
                     name="instagram"
+                />
+                <FormInputText<MentorEditLinksFormInput>
+                    {...inputProps}
+                    inputProps={{placeholder: mentorData?.facebook || "Twój Facebook "}}
+                    label="Facebook URL"
+                    name="facebook"
                 />
             </div>
         </UserEditSection>

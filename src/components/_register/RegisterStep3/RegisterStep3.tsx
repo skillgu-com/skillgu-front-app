@@ -70,11 +70,11 @@ const RegisterStep3 = () => {
                     formState={formState}
                     imageFile={imageFile}
                     onRemove={onRemoveProfilePhoto}
-                    controllerProps={{
-                        rules: {
-                            required: 'Zdjęcie profilowe jest wymagane',
-                        }
-                    }}
+                    // controllerProps={{
+                    //     rules: {
+                    //         required: 'Zdjęcie profilowe jest wymagane',
+                    //     }
+                    // }}
                 />
                 <FormInputText<ProfileFormInput>
                     inputProps={{multiline: true, rows: 4}}

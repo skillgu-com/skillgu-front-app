@@ -1,6 +1,6 @@
 import {MentorRegisterReducerState} from "./types";
 
-const mentorRegisterInitialState: MentorRegisterReducerState =  {
+const mentorRegisterInitialState: MentorRegisterReducerState = {
     step: 0,
     maxVisitedStep: 0,
     userId: null,
@@ -25,7 +25,10 @@ const mentorRegisterInitialState: MentorRegisterReducerState =  {
         twitter: "",
         github: "",
         dribble: "",
-        behance: ""
+        behance: "",
+        facebook: "",
+        instagram: "",
+        youtube: ""
     }
 };
 

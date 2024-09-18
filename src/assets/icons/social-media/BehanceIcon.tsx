@@ -5,7 +5,7 @@ interface CustomIconProps {
     className?: string;
 }
 
-const BehanceIcon: React.FC<CustomIconProps> = ({
+export const BehanceIcon: React.FC<CustomIconProps> = ({
                                                    size = "32",
                                                    className,
                                                }) => {

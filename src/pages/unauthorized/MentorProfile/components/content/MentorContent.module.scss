@@ -21,7 +21,7 @@
         flex-direction: row;
         margin: 48px 0;
     }
-} 
+}
 
 .MentorContent {
     display: flex;
@@ -73,7 +73,7 @@
 
 .skillsTitle {
     @extend %text-button-lg;
-    color: $colour-primary; 
+    color: $colour-primary;
 }
 
 .skillsTags {
@@ -94,7 +94,7 @@
     &.skillsTagShowMore {
         cursor: pointer;
     }
- 
+
     &.skillsTagPrimary {
         background-color: $colour-base-200;
         color: $colour-base-800;
@@ -116,7 +116,7 @@
         background-color: $colour-base-800;
     }
     }
-} 
+}
 
 .servicesTags {
     margin-top: 48px;

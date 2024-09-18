@@ -5,7 +5,7 @@ interface CustomIconProps {
     className?: string;
 }
 
-const WWWIcon: React.FC<CustomIconProps> = ({
+export const WWWIcon: React.FC<CustomIconProps> = ({
                                                    size = "32",
                                                    className,
                                                }) => {

@@ -4,16 +4,15 @@ import React, {useMemo} from 'react';
 import LinkedIn from 'src/assets/icons/social-media/LinkedIn';
 import Instagram from 'src/assets/icons/social-media/Instagram';
 import Website from 'src/assets/icons/social-media/Website';
-import YouTube from 'src/assets/icons/social-media/YouTube';
 import Source from 'src/assets/icons/Source';
 // Styles
 import styles from './SocialLink.module.scss';
+import {YoutubeCircleIcon} from "@icons/social-media";
 
 interface SocialLinkProps {
     link: string;
     type:
         | 'linkedin'
-        | 'youtube'
         | 'instagram'
         | 'facebook'
         | 'website'
@@ -33,7 +32,7 @@ const SocialLink = (props: SocialLinkProps) => {
             case 'instagram':
                 return <Instagram/>;
             case 'youtube':
-                return <YouTube/>;
+                return <YoutubeCircleIcon/>;
             default:
                 return <Website/>;
         }

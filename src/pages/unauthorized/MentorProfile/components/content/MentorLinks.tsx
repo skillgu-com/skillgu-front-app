@@ -7,10 +7,10 @@ import {
     FacebookInCircleIcon,
     TwitterCircleIcon,
     YoutubeCircleIcon,
+    DribbbleIcon,
+    BehanceIcon,
+    WWWIcon
 } from "@icons/social-media";
-import DribbbleIcon from "@icons/social-media/DribbbleIcon";
-import WWWIcon from "@icons/social-media/WWWIcon";
-import BehanceIcon from "@icons/social-media/BehanceIcon";
 
 type SocialMediaProvider =
     | "linkedin"
@@ -91,6 +91,7 @@ export const MentorLinks = ({isDesktop, className, ...social}: Props) => {
                         <YoutubeCircleIcon/>
                     </a>
                 ) : null}
+
                 {"dribbble" in social && social.dribbble ? (
                     <a
                         href={social.dribbble}

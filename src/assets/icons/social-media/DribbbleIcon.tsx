@@ -6,7 +6,7 @@ interface CustomIconProps {
     color?: string;
 }
 
-const DribbbleIcon: React.FC<CustomIconProps> = ({
+export const DribbbleIcon: React.FC<CustomIconProps> = ({
                                                 size = "32",
                                                 className,
                                                 color = "#56658F",

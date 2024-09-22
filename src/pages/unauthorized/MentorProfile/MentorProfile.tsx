@@ -34,7 +34,7 @@ import Button, {ButtonVariant} from "src/components/Button/Button";
 import {MentorProfilePageSkeleton} from "./MentorProfileSkeleton";
 
 export const MentorProfilePage = () => {
-    const {username} = useParams<{ username: string }>();
+    const {username} = useParams<{ username: string | ''}>();
     //   const safeUsername = username || ""; // lub 'unknown' lub inny string, który ma sens w twoim kontekście
 
     const location = useLocation();
@@ -142,6 +142,7 @@ export const MentorProfilePage = () => {
                 <Button href="/search-mentors" classes={styles.btn}>Znajdź mentora</Button>
             </Container>
         );
+
 
     return pending ? (
         <MentorProfilePageSkeleton/>
@@ -280,7 +281,7 @@ export const MentorProfilePage = () => {
 
             {mentorData?.mentorId ? (
                 <Container as={Tag.Section}>
-                    <MentorReviewsConnected mentorId={mentorData.mentorId}/>
+                    <MentorReviewsConnected username={username ?? null} />
                 </Container>
             ) : null}
         </>

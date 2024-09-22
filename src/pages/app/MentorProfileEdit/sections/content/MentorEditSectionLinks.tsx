@@ -24,13 +24,13 @@ type Props = {
     mentorData: MentorData;
 };
 
-const isValidUrl = (url: string, allowEmpty: boolean = true): boolean => {
-    if (allowEmpty && url === "") {
-        return true;
-    }
-    const urlRegex = /^(http|https):\/\/[^ "]+$/;
-    return urlRegex.test(url);
-};
+// const isValidUrl = (url: string, allowEmpty: boolean = true): boolean => {
+//     if (allowEmpty && url === "") {
+//         return true;
+//     }
+//     const urlRegex = /^(http|https):\/\/[^ "]+$/;
+//     return urlRegex.test(url);
+// };
 
 export const MentorEditSectionLinks = ({mentorData}: Props) => {
     const {control, formState, handleSubmit, watch} =
@@ -68,7 +68,7 @@ export const MentorEditSectionLinks = ({mentorData}: Props) => {
                 instagram: data.instagram,
 
             };
-            const response = await updateUserSocialLinks(mentorSocialLinks);
+            await updateUserSocialLinks(mentorSocialLinks);
             window.location.reload();
 
         } catch (error) {

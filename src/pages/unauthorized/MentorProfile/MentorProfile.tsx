@@ -74,6 +74,7 @@ export const MentorProfilePage = () => {
     const handleSelectSession = (opt: ServiceSession) => setSession(opt);
 
     useEffect(() => {
+        if (!username) return;
         const fetchInitialData = async (name: string) => {
             setPending(true);
             setLoading(false);

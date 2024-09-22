@@ -60,7 +60,7 @@ export const updatePaymentSchedule = async (selected: string) => {
 export const getBalance = async () => {
     try {
         const response = await axios.get('api/stripe/balance');
-        return response?.data.data;
+        return response?.data?.data;
     } catch (error) {
         console.error('Error fetching Stripe balance:', error);
         throw error;

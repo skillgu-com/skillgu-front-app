@@ -104,8 +104,6 @@ export const CreateMentoringOffer = () => {
                       </Button>
                     </div>
                   </div>
-                ) : initialPending ? (
-                  <Loader spinner />
                 ) : isScheduled ? (
                   <>
                     {state.step === "build" ? <Build /> : null}
@@ -128,8 +126,6 @@ export const CreateMentoringOffer = () => {
                     </Button>
                   </div>
                 </div>
-              ) : initialPending ? (
-                <Loader spinner />
               ) : isScheduled ? (
                 <>
                   {state.step === "build" ? <Build /> : null}
@@ -140,7 +136,7 @@ export const CreateMentoringOffer = () => {
               )}
             </div>
           )}
-        </div>{" "}
+        </div>
         {/* Domknięcie div, które obsługuje opacity */}
       </SectionTemplate>
     </main>

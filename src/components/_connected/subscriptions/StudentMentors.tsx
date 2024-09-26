@@ -70,6 +70,7 @@ export const StudentMentors = ({title}: Props) => {
                 skip: PER_PAGE * (pageRef.current - 1),
 
             });
+            console.log('tutaj sprawdzam : ',data)
             setData(data);
             setPending(false);
         };
@@ -386,7 +387,7 @@ export const StudentMentors = ({title}: Props) => {
                                                         </div>
                                                         <div className={styles.buttons}>
                                                             <a
-                                                                href={`/mentor-offer-details/${1}`}
+                                                                href={`/mentor-offer-details/${m?.serviceSessionDTO?.subscriptionId}`}
                                                                 className={styles.tableBtn}
                                                             >
                                                                 Zobacz aplikację mentee

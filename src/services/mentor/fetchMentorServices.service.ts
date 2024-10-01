@@ -230,6 +230,7 @@ export const getMentorProfileByID = async (userId: number | string) => {
 };
 
 export const getMentorProfileByMentorId = async (mentorID: number | string) => {
+  console.log('testuje na produkcji:', mentorID)
   const { data } = await axios.get(
       `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
   );

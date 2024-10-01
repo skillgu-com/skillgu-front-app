@@ -8,7 +8,7 @@ export const PlanDetails = () => {
 
   return plan ? (
     <div className={styles.choosenPlan}>
-      <span>Wybrany Plan:</span>
+      <span>Wybrany Plan</span>
       <MentorshipPlan
         id={plan.id}
         price={plan.price}

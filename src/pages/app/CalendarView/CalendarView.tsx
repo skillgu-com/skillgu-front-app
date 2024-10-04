@@ -56,8 +56,6 @@ const CalendarView = () => {
         queryFn: () => getMentoringSessionsInDatesService(queryParams),
     });
 
-    console.log('tutaj  : ',data)
-
     const events: MeetingInCalendar[] = useMemo(() => {
         if (!data) return [];
 

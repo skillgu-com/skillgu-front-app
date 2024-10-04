@@ -37,9 +37,9 @@ export const authReducer = (state = initialState, action: any) => {
                     email: action.payload.email,
                     role: action.payload.role,
                     username: action.payload.username,
+                    firstName: action.payload.firstName,
                     stripeIntegrationStatus: action.payload.stripeIntegrationStatus,
                 },
-
             };
         case 'UPDATE_STRIPE_STATUS':
             console.log('UPDATE_STRIPE_STATUS is: ', action.payload.stripeIntegrationStatus)

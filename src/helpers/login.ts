@@ -48,6 +48,7 @@ const getStoreAndReturnUserData = async (userJWT: string, email: string): LoginR
             email: userData.email,
             role: userData.role[0],
             username: userData.username,
+            firstName: userData.firstName,
             stripeIntegrationStatus: userData.stripeIntegrationStatus,
         },
     };

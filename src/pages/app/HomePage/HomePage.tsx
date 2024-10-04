@@ -28,7 +28,7 @@ const HomePage = () => {
         <>
           <Container as={Tag.Main} classes={styles.header}>
             <h2 className={styles.sectionTitle}>
-              Cześć {user ? user.firstName : "Nieznajomy"}!
+              Cześć {user ? user.firstName : "Nieznajomy"} !
             </h2>             <NavSection />
           </Container>
 
@@ -46,7 +46,7 @@ const HomePage = () => {
         <>
           <Container as={Tag.Main} classes={styles.header}>
             <h2 className={styles.sectionTitle}>
-              Cześć  {user ? user.firstName : "Nieznajomy"}!
+              Cześć  {user ? user.firstName : "Nieznajomy"} !
             </h2>             <NavSection />
           </Container>
 

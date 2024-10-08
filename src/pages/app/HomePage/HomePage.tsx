@@ -19,14 +19,17 @@ import {
 
 const HomePage = () => {
   const role = useSelector(getRole);
+  const authState = useSelector((state: any) => state.auth);
+  const user = authState.user;
 
   return (
     <div className={styles.pageWrapper}>
       {role === "S" ? (
         <>
           <Container as={Tag.Main} classes={styles.header}>
-            <h2 className={styles.sectionTitle}>Czesc, Goska!</h2>
-            <NavSection />
+            <h2 className={styles.sectionTitle}>
+              Cześć {user ? user.firstName : "Nieznajomy"} !
+            </h2>             <NavSection />
           </Container>
 
           <Container as={Tag.Main}>
@@ -42,8 +45,9 @@ const HomePage = () => {
       {role === "M" ? (
         <>
           <Container as={Tag.Main} classes={styles.header}>
-            <h2 className={styles.sectionTitle}>Czesc, Goska !</h2>
-            <NavSection />
+            <h2 className={styles.sectionTitle}>
+              Cześć  {user ? user.firstName : "Nieznajomy"} !
+            </h2>             <NavSection />
           </Container>
 
           <Container as={Tag.Main}>

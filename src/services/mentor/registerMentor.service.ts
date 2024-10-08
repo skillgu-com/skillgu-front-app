@@ -22,7 +22,6 @@ const registerMentorService = async (inputData: MergedRegisterMentorFormInput) =
         const profilePhoto = inputData.profilePhoto ? inputData.profilePhoto[0] : null;
 
         formData.append('profilePhoto', profilePhoto || new Blob());
-
         formData.append('formData', new Blob([JSON.stringify(inputData)], {
             type: 'application/json'
         }));

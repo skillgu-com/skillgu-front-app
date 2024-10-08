@@ -36,6 +36,7 @@ export const fetchOfferDetails = async (
 ): Promise<Output> => {
 
     const res = await axios.get(`/api/mentorship/fetch-offer/${offerId}`);
+    console.log(res)
     const media = res.data.data;
 
     return {

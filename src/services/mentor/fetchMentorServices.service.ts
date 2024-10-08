@@ -186,13 +186,32 @@ export const fetchMentorFilteredList = async (
   }
 };
 
+
 export const fetchMentorReviews = async ({
-  mentorId,
-  take = 10,
-  skip = 0,
-}: FetchMentorReviewsInput): Promise<FetchMentorReviewsData> => {
+                                           username,
+                                           take = 10,
+                                           skip = 0,
+                                         }: {
+  username: string | null;
+  take?: number;
+  skip?: number;
+}): Promise<FetchMentorReviewsData> => {
+  if (!username) {
+    throw new Error("Username is required to fetch reviews.");
+  }
+
   try {
-    const response = await fetch("/mentor-reviews.json");
+    const response = await fetch(`http://localhost:8081/api/review/mentor/${username}?take=${take}&skip=${skip}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error fetching mentor reviews: ${response.statusText}`);
+    }
+
     const responseData = await response.json();
     const { total, reviews, avgRate } = responseData;
     return { total, reviews, avgRate };
@@ -202,6 +221,7 @@ export const fetchMentorReviews = async ({
   }
 };
 
+
 export const getMentorProfileByID = async (userId: number | string) => {
   const { data } = await axios.get(
     `/api/mentor/get-mentor-by-user-id/${userId}`
@@ -210,6 +230,7 @@ export const getMentorProfileByID = async (userId: number | string) => {
 };
 
 export const getMentorProfileByMentorId = async (mentorID: number | string) => {
+  console.log('testuje na produkcji:', mentorID)
   const { data } = await axios.get(
       `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
   );

@@ -171,6 +171,7 @@
     justify-content: center;
     cursor: pointer;
     color: $colour-base-400;
+    transition: color 0.25s ease-in-out;
 
     &:hover {
         color: $colour-base-600;

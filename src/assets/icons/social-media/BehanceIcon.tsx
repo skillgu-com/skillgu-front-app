@@ -18,7 +18,7 @@ export const BehanceIcon: React.FC<CustomIconProps> = ({
             className={className}
             xmlns="http://www.w3.org/2000/svg"
         >
-            <circle cx="16" cy="16" r="16" fill="#E2E9FC" />
+            <circle cx="16" cy="16" r="16" fill="currentColor" />
             <g clipPath="url(#clip0_8882_27962)">
                 <path
                     d="M16 24C20.4183 24 24 20.4183 24 16C24 11.5817 20.4183 8 16 8C11.5817 8 8 11.5817 8 16C8 20.4183 11.5817 24 16 24Z"

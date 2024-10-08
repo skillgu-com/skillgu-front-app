@@ -18,7 +18,7 @@ export const WWWIcon: React.FC<CustomIconProps> = ({
             className={className}
             xmlns="http://www.w3.org/2000/svg"
         >
-            <circle cx="16" cy="16" r="16" fill="#E2E9FC" />
+            <circle cx="16" cy="16" r="16" fill="currentColor" />
             <g clipPath="url(#clip0_8882_28056)">
                 <path
                     d="M12.2528 19.7423C12.3482 20.2693 12.456 20.7959 12.586 21.3179C11.8226 20.8282 11.171 20.1746 10.6788 19.4093C11.2007 19.5402 11.7282 19.6495 12.2528 19.7423Z"

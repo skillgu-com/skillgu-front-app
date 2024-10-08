@@ -126,13 +126,14 @@
         text-align: left;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-start;
         gap: 14px;
         width: 100%;
     }
 
     svg {
+        margin-top:3px;
         width: 18px;
         height: 18px;
         color: $colour-primary;

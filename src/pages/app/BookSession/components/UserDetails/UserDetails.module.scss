@@ -31,10 +31,13 @@
         }
     }
 
-    .textarea textarea {
-        height: auto;
-        resize: none;
-        overflow: auto;
-        min-height: 126px;
+    .textarea {
+        margin-top:19px;
+        & textarea {
+            height: auto;
+            resize: none;
+            overflow: auto;
+            min-height: 126px;
+        }
     }
 }

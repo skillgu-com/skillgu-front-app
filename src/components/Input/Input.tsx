@@ -7,8 +7,8 @@ import Chip from "../Tag/Tag";
 import validation from "../../helpers/improovedValidation";
 // Styles
 import styles from "./Input.module.scss";
-import {Collapse} from "@mui/material";
-import {StyledFeedbackWrapper} from "../_form/FormInputSwitcher/FormInputSwitcher.styles";
+import { Collapse } from "@mui/material";
+import { StyledFeedbackWrapper } from "../_form/FormInputSwitcher/FormInputSwitcher.styles";
 import InputFeedback from "../_form/InputFeedback/InputFeedback";
 
 interface InputProps {
@@ -72,49 +72,39 @@ const Input = (props: InputProps) => {
     }
   };
 
-  const handleEnterPressHandler = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (
-      type !== "multi" ||
-      e.key !== "Enter" ||
-      currentChip.trim().length === 0
-    )
-      return;
+  // const handleEnterPressHandler = (
+  //   e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   if (
+  //     type !== "multi" ||
+  //     e.key !== "Enter" ||
+  //     currentChip.trim().length === 0
+  //   )
+  //     return;
 
-    const newChips = [
-      ...chip,
-      { id: Math.random().toString(36), name: currentChip },
-    ];
+  //   const newChips = [
+  //     ...chip,
+  //     { id: Math.random().toString(36), name: currentChip },
+  //   ];
 
-    setChip(newChips);
-    setCurrentChip("");
-    valueChangeHandler(name, {
-      value: newChips,
-      errorMessage,
-      isValid: errorMessage === "" && touched,
-    });
-  };
-
-  useEffect(() => {
-    if (!touched) return;
-    const errorMessage = validation(touched, value, name, required);
-
-    valueChangeHandler(name, {
-      value,
-      errorMessage,
-      isValid: errorMessage === "",
-    });
-  }, [touched]);
+  //   setChip(newChips);
+  //   setCurrentChip("");
+  //   valueChangeHandler(name, {
+  //     value: newChips,
+  //     errorMessage,
+  //     isValid: errorMessage === "" && touched,
+  //   });
+  // };
 
   useEffect(() => {
     if (type !== "multi") return;
     setChip(value as { id: string; name: string }[]);
   }, [type, value]);
 
+  const status = !!errorMessage && touched ? "error" : isValid ? "success" : "";
+
   return (
-    <div
-      className={classNames(styles.input, classes)}
-      data-status={!!errorMessage ? "error" : isValid ? "success" : ""}
-    >
+    <div className={classNames(styles.input, classes)} data-status={status}>
       <label className={styles.inputLabel}>
         {label && (
           <span className={styles.inputLabelText}>
@@ -137,7 +127,7 @@ const Input = (props: InputProps) => {
           placeholder={placeholder}
           autoComplete="true"
           onBlur={() => setTouched(true)}
-          onKeyDown={handleEnterPressHandler}
+          // onKeyDown={handleEnterPressHandler}
         />
         {type === "multi" && (
           <div className={styles.chips}>
@@ -159,11 +149,13 @@ const Input = (props: InputProps) => {
           </div>
         )}
       </label>
-      <Collapse in={!!errorMessage}>
+      {errorMessage && touched && (
+        <Collapse in={!!errorMessage}>
           <StyledFeedbackWrapper>
-              {errorMessage && (<InputFeedback message={errorMessage} severity='error'/>)}
+            <InputFeedback message={errorMessage} severity="error" />
           </StyledFeedbackWrapper>
-      </Collapse>
+        </Collapse>
+      )}
       {textMaxLength && typeof value === "string" ? (
         <span className={styles.textMaxLength}>
           Pozostało {Math.max(0, textMaxLength - value.length)} znaków

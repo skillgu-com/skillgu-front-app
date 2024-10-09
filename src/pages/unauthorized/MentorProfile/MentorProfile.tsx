@@ -84,7 +84,6 @@ export const MentorProfilePage = () => {
                     const mentorData = mentorResponse.data as MentorData;
                     setMentorData(mentorData);
                     const mentorId = mentorResponse.data?.mentorId;
-
                     if (mentorId) {
                         const [sessionResponse, mentoringResponse] = await Promise.all([
                             getMentorSessions(mentorId),

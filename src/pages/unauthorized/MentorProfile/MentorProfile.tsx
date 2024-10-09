@@ -234,6 +234,7 @@ export const MentorProfilePage = () => {
                                             services={optionsMentoring}
                                             selected={selectedMentoring}
                                             displayRadioInput={!mentorIsLoggedUser}
+                                            mentorIsLoggedUser={mentorIsLoggedUser}
                                             handleSelect={handleSelectMentoring}
                                             handleSubmit={
                                                 !mentorIsLoggedUser ? handleSubmitMentoring : undefined
@@ -263,6 +264,7 @@ export const MentorProfilePage = () => {
                                             <MentorServicesSession
                                                 services={optionsSession}
                                                 selected={selectedSession}
+                                                mentorIsLoggedUser={mentorIsLoggedUser}
                                                 displayRadioInput={!mentorIsLoggedUser}
                                                 handleSelect={handleSelectSession}
                                                 handleSubmit={

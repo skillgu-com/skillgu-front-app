@@ -16,8 +16,6 @@ export const UserDetails: React.FC<UserDetailsProps> = ({
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const isEmailValid =
-    !isLoggedIn &&
-    !!state.customerEmail &&
     emailRegex.test(state.customerEmail);
   const isPhoneValid = !isLoggedIn && !!state.customerPhone.trim();
 

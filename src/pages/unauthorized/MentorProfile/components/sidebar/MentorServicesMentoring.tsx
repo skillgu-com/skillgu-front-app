@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Sidebar.module.scss";
 import { ServiceMentoringOptionCard } from "../../../../../components/Cards/ServiceMentoringOptionCard";
 import { ServiceInfoBox } from "../../../../../components/_grouped";
@@ -8,6 +8,7 @@ type Props = {
   services: MentorshipPlanDTO[];
   selected?: MentorshipPlanDTO | null;
   displayRadioInput?: boolean;
+  mentorIsLoggedUser: boolean;
   handleSelect?: (opt: MentorshipPlanDTO) => void;
   handleSubmit?: (opt: MentorshipPlanDTO) => void;
 };
@@ -16,10 +17,17 @@ export const MentorServicesMentoring = ({
   services,
   selected,
   displayRadioInput,
+  mentorIsLoggedUser,
   handleSelect,
   handleSubmit,
 }: Props) => {
-  return services && services.length ? (
+  useEffect(() => {
+    if (services?.length === 1 && handleSelect && mentorIsLoggedUser) {
+      handleSelect(services[0]);
+    }
+  }, [services, handleSelect, mentorIsLoggedUser]);
+
+  return services?.length ? (
     <>
       <div className={styles.cards}>
         {services.map((s) => (
@@ -36,6 +44,7 @@ export const MentorServicesMentoring = ({
         <button
           onClick={selected ? () => handleSubmit(selected) : undefined}
           className={styles.submitBtn}
+          disabled={!selected}
         >
           Zarezerwuj termin
         </button>

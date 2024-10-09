@@ -1,20 +1,19 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Sidebar.module.scss";
-import {ServiceSession} from "@customTypes/order";
+import { ServiceSession } from "@customTypes/order";
 
-import {DollarCircleIcon} from "@icons/DollarCircleIcon";
-import {ClockSolidCircleIcon} from "@icons/ClockSolidCircleIcon";
-import {ClientPortal} from "../../../../../components/portal";
+import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
+import { ClientPortal } from "../../../../../components/portal";
 import Modal from "../../../../../components/Modal/Modal";
-import {ServiceInfoBox} from "../../../../../components/_grouped";
-import {
-    ServiceSessionOptionCard
-} from "../../../../../components/Cards/ServiceSessionOptionCard/ServiceSessionOptionCard";
+import { ServiceInfoBox } from "../../../../../components/_grouped";
+import { ServiceSessionOptionCard } from "../../../../../components/Cards/ServiceSessionOptionCard/ServiceSessionOptionCard";
 
 type Props = {
   services: ServiceSession[];
   selected?: ServiceSession | null;
   displayRadioInput?: boolean;
+  mentorIsLoggedUser: boolean;
   handleSelect?: (opt: ServiceSession) => void;
   handleSubmit?: (opt: ServiceSession) => void;
 };
@@ -23,12 +22,19 @@ export const MentorServicesSession = ({
   services,
   selected,
   displayRadioInput,
+  mentorIsLoggedUser,
   handleSelect,
   handleSubmit,
 }: Props) => {
   const [detailsService, setDetailsService] = useState<ServiceSession | null>(
     null
   );
+
+  useEffect(() => {
+    if (services?.length === 1 && handleSelect && mentorIsLoggedUser) {
+      handleSelect(services[0]);
+    }
+  }, [services, handleSelect, mentorIsLoggedUser]);
 
   return services.length ? (
     <>
@@ -79,6 +85,7 @@ export const MentorServicesSession = ({
         <button
           onClick={selected ? () => handleSubmit(selected) : undefined}
           className={styles.submitBtn}
+          disabled={!selected}
         >
           Zarezerwuj termin
         </button>

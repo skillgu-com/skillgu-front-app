@@ -20,7 +20,7 @@ export const DribbbleIcon: React.FC<CustomIconProps> = ({
             className={className}
             xmlns="http://www.w3.org/2000/svg"
         >
-            <circle cx="16" cy="16" r="16" fill="#E2E9FC" />
+            <circle cx="16" cy="16" r="16" fill="currentColor" />
             <g clipPath="url(#clip0_8882_27952)">
                 <path
                     d="M16.5 9.49805C20.3672 9.49805 23.4961 12.627 23.4961 16.4883C23.4961 20.3496 20.3672 23.4844 16.5 23.4844C12.6328 23.4844 9.50391 20.3555 9.50391 16.4941C9.50391 12.6328 12.6328 9.49805 16.5 9.49805Z"

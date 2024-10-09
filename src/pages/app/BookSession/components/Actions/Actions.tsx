@@ -22,7 +22,6 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
             onSubmit();
         }
     };
-
     return (
         <div className={styles.wrapper}>
             <Checkbox
@@ -41,6 +40,7 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
             {!state.consents && formTouched && (
                 <span className={styles.error}>Zgoda jest wymagana.</span>
             )}
+
 
             <Button
                 onClick={handleSubmit}

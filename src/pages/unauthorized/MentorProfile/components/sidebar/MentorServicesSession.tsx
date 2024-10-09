@@ -31,7 +31,7 @@ export const MentorServicesSession = ({
   );
 
   useEffect(() => {
-    if (services?.length === 1 && handleSelect && mentorIsLoggedUser) {
+    if (services?.length === 1 && handleSelect && !mentorIsLoggedUser) {
       handleSelect(services[0]);
     }
   }, [services, handleSelect, mentorIsLoggedUser]);

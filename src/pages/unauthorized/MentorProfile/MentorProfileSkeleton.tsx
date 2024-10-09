@@ -6,6 +6,21 @@ import styles from "./MentorProfile.module.scss";
 import { Skeleton } from "@mui/material";
 import { UserProfileHeaderSkeleton } from "src/components/_grouped/user-profile-header/UserProfileHeaderSkeleton";
 
+export const MentoringSkeleton = () => {
+  return (
+    <aside>
+      <div className={styles.boxSessionSkeleton}>
+        <Skeleton variant="rounded" style={{ width: "100%", height: "45px" }} />
+        <Skeleton
+          variant="rounded"
+          style={{ width: "100%", height: "45px", borderRadius: "50px" }}
+        />
+        <Skeleton variant="text" style={{ width: "100px" }} />
+      </div>
+    </aside>
+  );
+};
+
 export const MentorProfilePageSkeleton = () => {
   return (
     <>
@@ -60,19 +75,7 @@ export const MentorProfilePageSkeleton = () => {
               </div>
             </div>
           </main>
-          <aside>
-            <div className={styles.boxSessionSkeleton}>
-              <Skeleton
-                variant="rounded"
-                style={{ width: "100%", height: "45px" }}
-              />
-              <Skeleton
-                variant="rounded"
-                style={{ width: "100%", height: "45px", borderRadius: "50px" }}
-              />
-              <Skeleton variant="text" style={{ width: "100px" }} />
-            </div>
-          </aside>
+          < MentoringSkeleton/>
         </MentorMainWrapper>
       </Container>
     </>

@@ -1,4 +1,3 @@
-// TODO CHANGE ME:
 const sessionCategoriesDictionaryData = {
     IT: 'IT',
     BUSINESS: 'BIZNES & STARTUP',

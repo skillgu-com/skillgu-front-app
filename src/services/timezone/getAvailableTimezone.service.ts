@@ -1,15 +1,16 @@
 import { DropdownOption } from "@customTypes/dropdownOption";
-import moment from "moment-timezone";
+import axios from "axios";
 
-const getAvailableTimezone = async (): Promise<DropdownOption[]> => {
+export const getAvailableTimezone = async (): Promise<DropdownOption[]> => {
   try {
-    const names = moment.tz.names();
-    return names.map((t) => ({
+    const response = await axios.get('/api/timezones');
+    return response.data.map((t: string) => ({
       value: t,
       label: t,
     }));
-  } catch (e) {}
-  return [];
+  } catch (error) {
+    console.error('Error fetching timezones:', error);
+    throw error;
+  }
 };
-
 export default getAvailableTimezone;

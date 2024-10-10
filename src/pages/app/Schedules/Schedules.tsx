@@ -39,29 +39,32 @@ const SchedulesView = () => {
     const sr = useSchedulesReducer();
 
     // Fetch mentor data based on username
-    useEffect(() => {
-        const fetchMentorData = async () => {
-            try {
-                const mentorResponse = await getMentorByUsername(
-                    userFromRedux.username
-                );
-                setMentorData(mentorResponse.data); // Save mentor data in state
-            } catch (error) {
-                console.error("Error fetching mentor data:", error);
-            }
-        };
-        fetchMentorData();
-    }, [username, userFromRedux.username]);
+    // useEffect(() => {
+    //     const fetchMentorData = async () => {
+    //         try {
+    //             const mentorResponse = await getMentorByUsername(
+    //                 userFromRedux.username
+    //             );
+    //             setMentorData(mentorResponse.data); // Save mentor data in state
+    //         } catch (error) {
+    //             console.error("Error fetching mentor data:", error);
+    //         }
+    //     };
+    //     fetchMentorData();
+    // }, [username, userFromRedux.username]);
+
+
 
     useEffect(() => {
         sr.reset();
     }, []);
 
     useEffect(() => {
-        if (!mentorData || !mentorData.mentorId) {
+        if (!userFromRedux || !userFromRedux.id) {
             return;
         }
-        getMentorSessions(mentorData.mentorId).then((res) => {
+
+        getMentorSessions(userFromRedux.id).then((res) => {
             const formattedSessions = res?.data.map(
                 (elementFromAPI: ScheduleCardProps) => ({
                     id: elementFromAPI?.id.toString(),
@@ -82,7 +85,7 @@ const SchedulesView = () => {
             );
             setSessions(formattedSessions);
         });
-    }, [mentorData]);
+    }, [userFromRedux]);
 
     const schedules = sr.schedulesState.schedules.map(
         (elementFromAPI: ScheduleType) => {

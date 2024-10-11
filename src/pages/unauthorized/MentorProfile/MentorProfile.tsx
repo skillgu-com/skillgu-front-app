@@ -88,7 +88,6 @@ export const MentorProfilePage = () => {
           const mentorData = mentorResponse.data as MentorData;
           setMentorData(mentorData);
           const id = mentorResponse.data?.mentorId;
-          console.log(mentorResponse)
 
           if (id) {
             setMentorId(id);

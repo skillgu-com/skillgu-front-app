@@ -38,7 +38,6 @@ import {
 
 export const MentorProfilePage = () => {
   const { username } = useParams<{ username: string | "" }>();
-  //   const safeUsername = username || ""; // lub 'unknown' lub inny string, który ma sens w twoim kontekście
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,6 +46,8 @@ export const MentorProfilePage = () => {
   const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
+  const userFromRedux = useSelector((state: any) => state.auth.user);
+
 
   // @TODO: get user id from sesion/jwt
 
@@ -87,6 +88,7 @@ export const MentorProfilePage = () => {
           const mentorData = mentorResponse.data as MentorData;
           setMentorData(mentorData);
           const id = mentorResponse.data?.mentorId;
+          console.log(mentorResponse)
 
           if (id) {
             setMentorId(id);
@@ -131,7 +133,7 @@ export const MentorProfilePage = () => {
     const fetchSession = async (id: number) => {
       try {
         if (!id) return;
-        const sessionResponse = await getMentorSessions(id);
+        const sessionResponse = await getMentorSessions(userFromRedux.id);
 
         const formattedSessions = sessionResponse?.data.map(
           (elementFromAPI: any) => ({
@@ -155,7 +157,7 @@ export const MentorProfilePage = () => {
   }, [mentorId]);
 
   const useIsMentorLoggedUser = (data: MentorData) => {
-    const userFromRedux = useSelector((state: any) => state.auth.user);
+    // const userFromRedux = useSelector((state: any) => state.auth.user);
 
     const mentorIsLoggedUser = useMemo(() => {
       return userFromRedux?.id === data?.userID;

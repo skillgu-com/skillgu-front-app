@@ -38,23 +38,6 @@ const SchedulesView = () => {
     const userFromRedux = useSelector((state: any) => state.auth.user);
     const sr = useSchedulesReducer();
 
-    // Fetch mentor data based on username
-    // useEffect(() => {
-    //     const fetchMentorData = async () => {
-    //         try {
-    //             const mentorResponse = await getMentorByUsername(
-    //                 userFromRedux.username
-    //             );
-    //             setMentorData(mentorResponse.data); // Save mentor data in state
-    //         } catch (error) {
-    //             console.error("Error fetching mentor data:", error);
-    //         }
-    //     };
-    //     fetchMentorData();
-    // }, [username, userFromRedux.username]);
-
-
-
     useEffect(() => {
         sr.reset();
     }, []);

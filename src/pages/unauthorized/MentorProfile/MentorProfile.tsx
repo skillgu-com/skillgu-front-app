@@ -132,7 +132,7 @@ export const MentorProfilePage = () => {
     const fetchSession = async (id: number) => {
       try {
         if (!id) return;
-        const sessionResponse = await getMentorSessions(userFromRedux.id);
+        const sessionResponse = await getMentorSessions(mentorData?.userID);
 
         const formattedSessions = sessionResponse?.data.map(
           (elementFromAPI: any) => ({

@@ -37,7 +37,10 @@
   gap: 12px;
 
   @include media-lg-and-up {
+    max-width:calc(1200px + 3rem);
+    margin:auto;
     display: grid;
+    grid-template-columns: 1fr 350px;
     gap: 40px;
     grid-template-areas: "main" "sidebar" "faq";
     grid-template-areas: "main sidebar" "faq .";

@@ -13,7 +13,7 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
     const [state, dispatch] = useBookingReducer();
     const [formTouched, setFormTouched] = useState(false);
 
-    const isFormValid = (disabled || state.consents) && state.consents;
+    const isFormValid = !disabled && state.consents;
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -22,6 +22,7 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
             onSubmit();
         }
     };
+    
     return (
         <div className={styles.wrapper}>
             <Checkbox
@@ -48,7 +49,7 @@ export const Actions: FC<Props> = ({onSubmit, disabled}) => {
                 type="submit"
                 classes={styles.button}
                 fullWidth
-                disabled={!isFormValid}
+                disableButton={!isFormValid}
             >
                 Przejdź do płatności tutaj
             </Button>

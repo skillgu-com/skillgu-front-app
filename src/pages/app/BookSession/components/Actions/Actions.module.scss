@@ -9,6 +9,11 @@
 
 .button {
     @extend %text-button-md;
+
+    &:disabled {
+        background-color: $new-gray-color;
+        color: white;
+    }
 }
 
 .checkbox label span {

@@ -1,10 +1,9 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
 import axios from "axios";
 
-
-export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
+export const getAvailableLanguage = (): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
-        axios.get('/api/mentor/get-all-language')
+        axios.get('/api/languages')
 
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
@@ -21,13 +20,4 @@ export const fetchMentorLanguage = (): Promise<DropdownOption[]> => {
     });
 };
 
-const getAvailableLanguage = async (): Promise<DropdownOption[]> => {
-    return [
-        { value: 'pl', label: 'Polski' },
-        { value: 'en', label: 'Angielski' },
-        { value: 'ja', label: 'Japoński' },
-        { value: 'de', label: 'Niemiecki' },
-    ]
-    // return fetchMentorLanguage();
-}
 export default getAvailableLanguage;

@@ -45,6 +45,7 @@ export interface MentorData {
     services: DropdownOption[];
     skill: DropdownOption[];
     mentorTopics: DropdownOption[];
+    language: DropdownOption[];
 
     mentorCategory: DropdownOption[];
     linkedin: string | null;
@@ -79,6 +80,8 @@ export const MentorProfileEditPage = () => {
         }
     }, [mentorId, username]);
 
+    console.log('TUTAJ TESTUJE',mentorData)
+
     return loading ? (
         <ProfileEditPageSkeleton/>
     ) : (
@@ -99,9 +102,9 @@ export const MentorProfileEditPage = () => {
                     <MentorLangs
                         langs={[
                             {value: "pl", label: "Polski"},
-                            {value: "en", label: "Angielski"},
-                            {value: "de", label: "Niemiecki"},
-                            {value: "jp", label: "Japonski"},
+                            // {value: "en", label: "Angielski"},
+                            // {value: "de", label: "Niemiecki"},
+                            // {value: "jp", label: "Japonski"},
                         ]}
                     />
                 }

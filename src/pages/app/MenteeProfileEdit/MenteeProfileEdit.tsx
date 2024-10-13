@@ -85,7 +85,7 @@ export const MenteeProfileEditPage = () => {
                 coverUrl={mentee?.coverUrl}
                 fullname={mentee?.firstName + ' ' + mentee?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}
-                location="Warszawa, Polska (UTC+2)"
+                // location="Warszawa, Polska (UTC+2)"
                 profession="Mentee"
             />
 

@@ -49,7 +49,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 skill:mentorData?.skill || [],
                 services: mentorData?.services || [],
                 timezone: '',
-                language: [],
+                language: mentorData?.language || [],
                 categories: mentorData?.mentorCategory || [],
                 mentorTopics: mentorData?.mentorTopics || [],
             },
@@ -84,8 +84,6 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
             console.error('Failed to update personal data', error);
         }
     };
-
-
 
 
     return (

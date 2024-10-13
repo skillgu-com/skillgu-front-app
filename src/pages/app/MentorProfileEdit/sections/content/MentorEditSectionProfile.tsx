@@ -38,7 +38,6 @@ type Props = {
 };
 
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
-
     const {control, formState, handleSubmit, watch} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
@@ -49,7 +48,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 skill:mentorData?.skill || [],
                 services: mentorData?.services || [],
                 timezone: '',
-                language: [],
+                language: mentorData?.language  || [],
                 categories: mentorData?.mentorCategory || [],
                 mentorTopics: mentorData?.mentorTopics || [],
             },

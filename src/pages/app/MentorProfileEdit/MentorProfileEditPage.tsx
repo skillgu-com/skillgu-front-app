@@ -45,8 +45,7 @@ export interface MentorData {
     services: DropdownOption[];
     skill: DropdownOption[];
     mentorTopics: DropdownOption[];
-    language: DropdownOption[];
-
+    language: DropdownOption[]
     mentorCategory: DropdownOption[];
     linkedin: string | null;
     website: string | null;
@@ -79,8 +78,6 @@ export const MentorProfileEditPage = () => {
             initialDataFetched.current = true;
         }
     }, [mentorId, username]);
-
-    console.log('TUTAJ TESTUJE',mentorData)
 
     return loading ? (
         <ProfileEditPageSkeleton/>

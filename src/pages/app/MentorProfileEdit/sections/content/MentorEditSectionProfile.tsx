@@ -38,7 +38,7 @@ type Props = {
 };
 
 export const MentorEditSectionProfile = ({mentorData}: Props) => {
-    const {control, formState, handleSubmit, watch} =
+    const {control, formState, handleSubmit} =
         useForm<MentorEditProfileFormInput>({
             defaultValues: {
                 heading: '',
@@ -47,7 +47,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 biography: '',
                 skill:mentorData?.skill || [],
                 services: mentorData?.services || [],
-                timezone: '',
+                timezone: mentorData?.timeZone || '',
                 language: mentorData?.language  || [],
                 categories: mentorData?.mentorCategory || [],
                 mentorTopics: mentorData?.mentorTopics || [],
@@ -76,7 +76,7 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
                 mentorTopics: data.mentorTopics
 
             };
-            const response = await updateUserProfile(mentorEditSection);
+            await updateUserProfile(mentorEditSection);
             window.location.reload();
 
         } catch (error) {

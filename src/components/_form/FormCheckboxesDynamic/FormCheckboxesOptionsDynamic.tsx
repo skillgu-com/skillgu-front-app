@@ -82,11 +82,12 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
                 const fieldValues = field.value.map(
                   (f: DropdownOption) => f?.label
                 );
-
+                const {ref, ...rest} = field;
+  
                 return (
                   <Checkbox
                     key={opt.value}
-                    {...field}
+                    {...rest}
                     value={!!fieldValues.includes(opt.label)}
                     label={opt.label}
                     id={String(opt.value)}
@@ -111,9 +112,6 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
                         );
                       }
                     }}
-                    // type="checkbox"
-                    // {...field}
-                    // {...inputProps}
                   />
                 );
               })}

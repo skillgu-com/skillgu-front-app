@@ -3,11 +3,12 @@ import styles from "../CreateMentoringOffer.module.scss";
 import { CreateOfferTemplates } from "../CreateOfferTemplates";
 import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
 import { PlusIcon } from "@icons/PlusIcon";
+import { useNavigate } from "react-router-dom";
 
-export const AddScheduleMsg = () => {
+export const AddScheduleMsg = ({disabled=false}: {disabled?:boolean}) => {
+  const navigate = useNavigate();
   return (
-    <CreateOfferTemplates title="Harmonogram spotkań
-    " subtitle="" step={1}>
+    <CreateOfferTemplates title="Harmonogram spotkań" subtitle="" step={1}>
       <div className={styles.addSchedule}>
         <div className={styles.scheduleMsgImgBox}>
           <img
@@ -21,12 +22,12 @@ export const AddScheduleMsg = () => {
 
         <div className={styles.btnBox}>
           <Button
-            as={ButtonTag.InternalLink}
-            href="/schedules/add-schedule"
+            as={ButtonTag.Button}
+            onClick={()=>navigate("/schedules/add-schedule")}
             variant={ButtonVariant.Outline}
             type="button"
             classes={styles.scheduleBtn}
-
+            disableButton={disabled}
           >
             <span>Nowy harmonogram</span>
             <PlusIcon size={"24px"} />

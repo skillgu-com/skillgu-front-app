@@ -34,11 +34,6 @@ export const useSchedulesReducer = (): Output => {
     );
 
     useEffect(() => {
-        if (schedulesState.lastUpdate !== 0) {
-            return;
-        }
-        setPending(true);
-
         fetchAllSchedules().then((res) => {
             if (res.data) {
                 const schedules: ScheduleType[] = res.data.map((elementFromAPI) => ({
@@ -54,7 +49,7 @@ export const useSchedulesReducer = (): Output => {
                 updateRecords(schedules as ScheduleType[]);
             }
         })
-    }, [updateRecords, schedulesState.lastUpdate])
+    }, [updateRecords])
 
     const setPending = useCallback(
         (pending: boolean) =>

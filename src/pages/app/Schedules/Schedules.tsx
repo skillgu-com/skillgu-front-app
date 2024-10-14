@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
 // Sections
 import Empty from "./components/Empty/Empty";
 // Components
@@ -22,7 +21,6 @@ import {
     deleteSession,
     getMentorSessions,
 } from "@services/session/sessionService";
-import {getMentorByUsername} from "@services/mentor/fetchMentorServices.service";
 // Reducers & Types
 import {ScheduleType} from "@customTypes/schedule";
 import {useSchedulesReducer} from "src/reducers/schedules";
@@ -31,8 +29,6 @@ import {Tooltip} from "@mui/material";
 
 
 const SchedulesView = () => {
-    const {username} = useParams<{ username: string }>();
-    const [mentorData, setMentorData] = useState<any>(null);
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const userFromRedux = useSelector((state: any) => state.auth.user);

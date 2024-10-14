@@ -173,7 +173,6 @@ const SchedulesView = () => {
                                 </div>
                             )}
                         </div>
-                        {" "}
                         {/* Domknięcie div, które obsługuje opacity */}
                     </SectionTemplate>
                 </main>

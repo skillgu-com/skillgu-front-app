@@ -181,6 +181,9 @@
     width: 24px;
     height: 24px;
   }
+  &:disabled {
+    background-color: transparent !important;
+  }
 }
 
 .scheduleMsgImgBox {

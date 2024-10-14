@@ -104,13 +104,8 @@ export const CreateMentoringOffer = () => {
                       </Button>
                     </div>
                   </div>
-                ) : isScheduled ? (
-                  <>
-                    {state.step === "build" ? <Build /> : null}
-                    {state.step === "summary" ? <Summary /> : null}
-                  </>
                 ) : (
-                  <AddScheduleMsg />
+                  <AddScheduleMsg disabled={true}/>
                 )}
               </div>
             </Tooltip>

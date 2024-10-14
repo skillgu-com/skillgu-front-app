@@ -111,13 +111,23 @@ export const Reports = () => {
                   <TableCell width="167px">{renderStatus(r.status)}</TableCell>
                   <TableCell flex={3}>{r.sessionTitle}</TableCell>
                   <TableCell width="190px" noPadding>
+                    {/*<a*/}
+                    {/*  href={r.invoiceFileUrl}*/}
+                    {/*  download={r.invoiceNo}*/}
+                    {/*  className={styles.pdfBtn}*/}
+
+                    {/*>*/}
+                    {/*  Pobierz fakturę <PdfIcon />*/}
+                    {/*</a>*/}
                     <a
-                      href={r.invoiceFileUrl}
-                      download={r.invoiceNo}
-                      className={styles.pdfBtn}
+                        href="#"
+                        onClick={(e) => e.preventDefault()}  // Uniemożliwia kliknięcie
+                        className={`${styles.pdfBtn} ${styles.pdfBtnDisabled}`}  // Dodanie klasy, aby wyszarzyć przycisk
+                        title="Pobieranie faktur jest chwilowo niedostępne"  // Dodanie informacji po najechaniu
                     >
                       Pobierz fakturę <PdfIcon />
                     </a>
+
                   </TableCell>
                 </TableRow>
               ))

@@ -22,6 +22,7 @@ export const InProgress = ({ isMentor }: Props) => {
   const [rejecting, setRejecting] = useState<boolean>(false);
   const [accepting, setAccepting] = useState<boolean>(false);
 
+
   return !offer ? null : (
     <>
       <ModalConfirm

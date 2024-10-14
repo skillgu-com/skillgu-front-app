@@ -32,11 +32,8 @@ const SchedulesView = () => {
     const [sessions, setSessions] = useState<ScheduleCardProps[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const userFromRedux = useSelector((state: any) => state.auth.user);
-    const sr = useSchedulesReducer();
 
-    useEffect(() => {
-        sr.reset();
-    }, []);
+    const sr = useSchedulesReducer();
 
     useEffect(() => {
         if (!userFromRedux || !userFromRedux.id) {
@@ -68,6 +65,7 @@ const SchedulesView = () => {
 
     const schedules = sr.schedulesState.schedules.map(
         (elementFromAPI: ScheduleType) => {
+
             return {
                 id: elementFromAPI.id.toString(),
                 dateStart: new Date(elementFromAPI?.scheduleStartDay),

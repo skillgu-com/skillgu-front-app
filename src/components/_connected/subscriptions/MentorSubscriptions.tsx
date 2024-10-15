@@ -5,133 +5,174 @@ import { fetchMentorStudents } from "@services/mentor/fetchMentorStudents.servic
 import { SubscriptionStatus } from "@customTypes/subscriptions";
 import Pricing from "../pricing/Pricing";
 import { SectionTemplate } from "src/components/SectionTemplate";
+import Modal from "src/components/Modal/Modal";
 import styles from "./Subscriptions.module.scss";
-import {fetchMentorPlan, updateMentorPlan} from "@services/subscription/mentorSubscription.service";
+import {
+  fetchMentorPlan,
+  updateMentorPlan,
+} from "@services/subscription/mentorSubscription.service";
+import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
 
 const PER_PAGE = 5;
 
 export const MentorSubscriptions = () => {
-    const [selectedPlan, setSelectedPlan] = useState<string>("Free"); // Default to 'Free'
-
-    // Fetch mentor's current plan
-    useEffect(() => {
-        const getMentorPlan = async () => {
-            try {
-                const plan = await fetchMentorPlan();
-                setSelectedPlan(plan);
-            } catch (error) {
-                console.error('Error fetching mentor plan:', error);
-            }
-        };
-
-        getMentorPlan();
-    }, []);
-
-    const handleSelectPlan = async (plan: string) => {
+  const [selectedPlan, setSelectedPlan] = useState<string>("Free"); // Default to 'Free'
+  const [suspendingPlan, setSuspendingPlan] = useState<string | null>(null);
+  // Fetch mentor's current plan
+  useEffect(() => {
+    const getMentorPlan = async () => {
+      try {
+        const plan = await fetchMentorPlan();
         setSelectedPlan(plan);
-        try {
-            await updateMentorPlan(plan); // Update the mentor's plan in the backend
-        } catch (error) {
-            console.error("Error updating mentor plan:", error);
-        }
+      } catch (error) {
+        console.error("Error fetching mentor plan:", error);
+      }
     };
 
-    const sr = useSubscriptionsReducer();
-    const pageRef = useRef<number>(0);
-    const tabRef = useRef<SubscriptionStatus>("awaiting");
+    getMentorPlan();
+  }, []);
 
-    const { tab, page } = sr.subscriptionsState;
+  const handleSelectPlan = async (plan: string) => {
+    if (plan !== selectedPlan) {
+      setSuspendingPlan(plan);
+    }
+  };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            sr.setPending(true);
-            const data = await fetchMentorStudents({
-                take: PER_PAGE,
-                skip: PER_PAGE * (page - 1),
-                status: tab,
-                sortBy: "status",
-                sortMethod: "ASC",
-            });
-            sr.updateRecords({
-                total: data.total,
-                records: data.students,
-                role: "M",
-            });
-            sr.setPending(false);
-        };
-        if (
-            pageRef.current === 0 ||
-            pageRef.current !== page ||
-            tabRef.current !== tab
-        ) {
-            fetchData();
-            pageRef.current = page;
-            tabRef.current = tab;
-        }
-    }, [page, sr, tab]);
+  const changeMentorPlan = async (plan: string) => {
+    setSelectedPlan(plan);
+    try {
+      await updateMentorPlan(plan); // Update the mentor's plan in the backend
+    } catch (error) {
+      console.error("Error updating mentor plan:", error);
+    }
 
-    return (
-        <>
-            <Subscriptions
-                title="Status subskrypcji Twoich mentee"
-                subtitle={
-                    <>
-                        Tutaj masz wykaz aktualnie wykupionych przez mentee Subskrypcji, a
-                        jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-                        <a href="/payment">Płatnosci.</a>
-                    </>
-                }
-            />
-            <SectionTemplate
-                title="Twoje Plany"
-                description={
-                    <>
-                        Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-                        <a href="/payment"> Stripe.</a>
-                    </>
-                }
-                className={styles.sectionPricing}
+    setSuspendingPlan(null);
+  };
+
+  const sr = useSubscriptionsReducer();
+  const pageRef = useRef<number>(0);
+  const tabRef = useRef<SubscriptionStatus>("awaiting");
+
+  const { tab, page } = sr.subscriptionsState;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      sr.setPending(true);
+      const data = await fetchMentorStudents({
+        take: PER_PAGE,
+        skip: PER_PAGE * (page - 1),
+        status: tab,
+        sortBy: "status",
+        sortMethod: "ASC",
+      });
+      sr.updateRecords({
+        total: data.total,
+        records: data.students,
+        role: "M",
+      });
+      sr.setPending(false);
+    };
+    if (
+      pageRef.current === 0 ||
+      pageRef.current !== page ||
+      tabRef.current !== tab
+    ) {
+      fetchData();
+      pageRef.current = page;
+      tabRef.current = tab;
+    }
+  }, [page, sr, tab]);
+
+  return (
+    <>
+      {suspendingPlan ? (
+        <Modal
+          title={
+            <p className={styles.modalSubtitle}>
+              Czy napewno chcesz zmienić swój aktualny plan na{" "}
+              <span className={styles.modalPlan}>{suspendingPlan}</span>
+            </p>
+          }
+          className={styles.modal}
+          closeHandler={() => setSuspendingPlan(null)}
+        >
+          <div className={styles.modalBtnBox}>
+            <Button
+              as={ButtonTag.Button}
+              variant={ButtonVariant.Outline}
+              onClick={() => setSuspendingPlan(null)}
             >
-                <div className={styles.flex}>
-                    <Pricing
-                        planTitle="Free"
-                        price={0}
-                        values={[
-                            "Pełny dostęp do aplikacji",
-                            "Nieograniczona liczba mentee",
-                            "18% prowizji od spotkania",
-                            "Brak darmowych spotkań",
-                        ]}
-                        selectedPlan={selectedPlan}
-                        handleSelectPlan={handleSelectPlan}
-                    />
-                    <Pricing
-                        planTitle="Mid"
-                        price={89}
-                        values={[
-                            "5 darmowych spotkań w miesiącu",
-                            "Gwarancja stałej opłaty miesięcznej",
-                            "Niższa prowizja: 10%",
-                            "Pełny dostęp do aplikacji",
-                            "Nieograniczona liczba mentee",
-                        ]}
-                        selectedPlan={selectedPlan}
-                        handleSelectPlan={handleSelectPlan}
-                    />
-                    <Pricing
-                        selectedPlan={selectedPlan}
-                        price={190}
-                        handleSelectPlan={handleSelectPlan}
-                        planTitle="Pro"
-                        values={[
-                            "Darmowe spotkania bez limitu",
-                            "Gwarancja stałej opłaty miesięcznej",
-                            "Brak prowizji",
-                            "Nieograniczona liczba mentee",
-                        ]}
-                    />
-                </div>
-            </SectionTemplate>
-        </>
-    );
+              Anuluj
+            </Button>
+            <Button
+              as={ButtonTag.Button}
+              onClick={() => changeMentorPlan(suspendingPlan)}
+            >
+              Zmień plan
+            </Button>
+          </div>
+        </Modal>
+      ) : null}
+      <Subscriptions
+        title="Status subskrypcji Twoich mentee"
+        subtitle={
+          <>
+            Tutaj masz wykaz aktualnie wykupionych przez mentee Subskrypcji, a
+            jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
+            <a href="/payment">Płatnosci.</a>
+          </>
+        }
+      />
+      <SectionTemplate
+        title="Twoje Plany"
+        description={
+          <>
+            Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
+            <a href="/payment"> Stripe.</a>
+          </>
+        }
+        className={styles.sectionPricing}
+      >
+        <div className={styles.flex}>
+          <Pricing
+            planTitle="Free"
+            price={0}
+            values={[
+              "Pełny dostęp do aplikacji",
+              "Nieograniczona liczba mentee",
+              "18% prowizji od spotkania",
+              "Brak darmowych spotkań",
+            ]}
+            selectedPlan={selectedPlan}
+            handleSelectPlan={handleSelectPlan}
+          />
+          <Pricing
+            planTitle="Mid"
+            price={89}
+            values={[
+              "5 darmowych spotkań w miesiącu",
+              "Gwarancja stałej opłaty miesięcznej",
+              "Niższa prowizja: 10%",
+              "Pełny dostęp do aplikacji",
+              "Nieograniczona liczba mentee",
+            ]}
+            selectedPlan={selectedPlan}
+            handleSelectPlan={handleSelectPlan}
+          />
+          <Pricing
+            selectedPlan={selectedPlan}
+            price={190}
+            handleSelectPlan={handleSelectPlan}
+            planTitle="Pro"
+            values={[
+              "Darmowe spotkania bez limitu",
+              "Gwarancja stałej opłaty miesięcznej",
+              "Brak prowizji",
+              "Nieograniczona liczba mentee",
+            ]}
+          />
+        </div>
+      </SectionTemplate>
+    </>
+  );
 };

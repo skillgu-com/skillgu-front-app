@@ -273,3 +273,19 @@
     }
   }
 }
+
+.modalBtnBox {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.modalSubtitle {
+  max-width: 660px;
+  padding-right: 36px;
+  font-size: 24px;
+  .modalPlan {
+    color: $colour-secondary;
+  }
+}

@@ -1,5 +1,5 @@
 // Libraries
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
 import clx from "classnames";
 // Components
 import { Title } from "../typography";
@@ -14,7 +14,7 @@ import { TitleTag, TitleVariant } from "../typography/Title/Title";
 interface ModalProps extends Common {
   className?: string;
   classNameContent?: string;
-  title?: string;
+  title?: ReactElement | string;
   isOpen?: boolean;
   closeHandler: () => void;
 }

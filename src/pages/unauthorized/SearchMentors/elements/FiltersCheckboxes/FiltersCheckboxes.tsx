@@ -19,14 +19,19 @@ export const FiltersCheckboxes = ({
   startedRows,
   handleChange,
 }: FiltersCheckboxesProps) => {
-  const partialyHide = Math.max(options.length - (startedRows - 1), 0);
-  const displayAll = partialyHide > 0;
-  const [isExpanded, setIsExpanded] = useState<boolean>(displayAll);
   const [phrase, setPhrase] = useState<string>('')
 
   const handlePhraseChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPhrase(e.target.value)
   }, [])
+
+  const filteredOptions = useMemo(() => {
+    return phrase ? options.filter(o => o.label.toLowerCase().includes(phrase.toLowerCase())) : options
+  }, [options, phrase])
+
+  const partialyHide = Math.max(filteredOptions.length - (startedRows - 1), 0);
+  const displayAll = partialyHide > 0;
+  const [isExpanded, setIsExpanded] = useState<boolean>(displayAll);
 
   const onToggle = useCallback(() => {
     setIsExpanded((s) => !s);
@@ -46,9 +51,7 @@ export const FiltersCheckboxes = ({
     [name, options, selected, handleChange]
   );
 
-  const filteredOptions = useMemo(() => {
-    return phrase ? options.filter(o => o.label.includes(phrase)) : options
-  }, [options, phrase])
+
 
   return (
     <div className={styles.wrapper}>

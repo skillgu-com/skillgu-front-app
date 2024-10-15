@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
@@ -14,6 +14,7 @@ import { contactService } from "@services/contact/contact.service";
 type AddQuestionPopupTypes = {
   isOpen: boolean;
   handleClose: () => void;
+  setIsMsgSent?: Dispatch<SetStateAction<boolean>>;
 };
 export type AddQuestionFormTypes = {
   email: string;
@@ -23,6 +24,7 @@ export type AddQuestionFormTypes = {
 export const AddQuestionPopup = ({
   isOpen,
   handleClose,
+  setIsMsgSent,
 }: AddQuestionPopupTypes) => {
   const [isPending, setIsPending] = useState<boolean>(false);
 
@@ -38,7 +40,11 @@ export const AddQuestionPopup = ({
   const onSubmit = handleSubmit(async (data) => {
     setIsPending(true);
     try {
-      await contactService({ senderEmail: data.email, message: data.message }); //TODO
+      const response = await contactService({
+        senderEmail: data.email,
+        message: data.message,
+      }); //TODO
+      if (response?.success && setIsMsgSent) setIsMsgSent(true);
       setIsPending(false);
     } catch (err) {
       console.log(err); //TODO

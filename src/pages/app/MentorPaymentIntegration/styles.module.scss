@@ -200,12 +200,18 @@
   position: relative;
 }
 
-.stripeContainer {
+.sectionTemplate header {
   position: relative;
+}
+
+.stripeContainer {
   svg {
     position: absolute;
-    bottom: 0px;
-    left: -20px;
+    top: -10px;
+    left: 130px;
+    @include media-xl-and-up {
+      left: 150px;
+    }
   }
 }
 

@@ -34,6 +34,7 @@ export const Connected = ({ price, error, handleCreateAccountLink }: Props) => {
       <SectionTemplate
           title="Płatności"
           description='Płatności na platformie obsługuje firma Stripe. Jeżeli chcesz edytować jakieś dane lub wypłacić środki, kliknij "Przejdź do Stripe".'
+          className={styles.sectionTemplate}
           additionalContent={
             <div className={styles.stripeContainer}>
               <StripeSvg />

@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./MentorHeader.module.scss";
-import {MapMarkIcon} from "@icons/MapMarkIcon";
-import {MentorLangs} from "../../../../../components/_grouped/languages/MentorLangs";
-import {LangSwitcherConnected} from "../../../../../components/_connected/lang-switcher/LangSwitcher";
+import { MapMarkIcon } from "@icons/MapMarkIcon";
+import {
+  LangOption,
+  MentorLangs,
+} from "../../../../../components/_grouped/languages/MentorLangs";
+import { LangSwitcherConnected } from "../../../../../components/_connected/lang-switcher/LangSwitcher";
 
 type JobPosition = {
   id: number;
@@ -15,6 +18,7 @@ type Props = {
   location?: string;
   profession?: JobPosition[];
   company?: string;
+  languages?: LangOption[];
 };
 
 export const MentorHeader = ({
@@ -23,6 +27,7 @@ export const MentorHeader = ({
   location,
   profession,
   company,
+  languages,
 }: Props) => {
   return (
     <>
@@ -36,12 +41,15 @@ export const MentorHeader = ({
           <div className={styles.main}>
             <h2 className={styles.fullname}>{fullname}</h2>
             <div className={styles.subtitle}>
-              {profession && profession.length ? (
-              <span>
+              {profession?.length ? (
+                <span>
                   {profession.map((job: JobPosition, i: number) => (
-                      <li key={job.id} className={styles.skillsTag}>{job.name}</li>
-                  ))} w {company}
-              </span>
+                    <li key={job.id} className={styles.skillsTag}>
+                      {job.name}
+                    </li>
+                  ))}{" "}
+                  w {company}
+                </span>
               ) : null}
 
               <div className={styles.dot} />
@@ -50,15 +58,12 @@ export const MentorHeader = ({
               </span>
             </div>
           </div>
-          <div className={styles.languages}>
-            {/* <LangSwitcherConnected /> */}
-            <MentorLangs
-            langs={[
-              { value: "pl", label: "Polski" },
-              { value: "en", label: "Angielski" },
-            ]}
-          />
-          </div>
+          {languages ? (
+            <div className={styles.languages}>
+              {/* <LangSwitcherConnected /> */}
+              <MentorLangs langs={languages} />
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -72,12 +77,15 @@ export const MentorHeader = ({
           <div className={styles.main}>
             <h2 className={styles.fullname}>{fullname}</h2>
             <div className={styles.subtitle}>
-              {profession && profession.length ? (
-               <span>
+              {profession?.length ? (
+                <span>
                   {profession.map((job: JobPosition, i: number) => (
-                      <li key={job.id} className={styles.skillsTag}>{job.name}</li>
-                  ))} w {company}
-              </span>
+                    <li key={job.id} className={styles.skillsTag}>
+                      {job.name}
+                    </li>
+                  ))}{" "}
+                  w {company}
+                </span>
               ) : null}
             </div>
           </div>

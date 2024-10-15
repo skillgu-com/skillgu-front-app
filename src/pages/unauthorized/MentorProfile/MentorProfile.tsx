@@ -1,25 +1,43 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Container from "src/components/Container/Container";
-import {Tag} from "src/types/tags";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {MentorContent, MentorLinks, MentorMainWrapper,} from "./components/content";
-import {MentorServices, MentorServicesMentoring, MentorServicesSession,} from "./components/sidebar";
-import {MentorshipPlan, ServiceSession, ServiceType,} from "@customTypes/order";
+import { Tag } from "src/types/tags";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
-    getMentorByUsername,
-    getMentorshipPlansForMentorProfile,
-    MentorshipPlanDTO,
+  MentorContent,
+  MentorLinks,
+  MentorMainWrapper,
+} from "./components/content";
+import {
+  MentorServices,
+  MentorServicesMentoring,
+  MentorServicesSession,
+} from "./components/sidebar";
+import {
+  MentorshipPlan,
+  ServiceSession,
+  ServiceType,
+} from "@customTypes/order";
+import {
+  getMentorByUsername,
+  getMentorshipPlansForMentorProfile,
+  MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
-import {useSelector} from "react-redux";
-import {MentorData} from "src/pages/app/MentorProfileEdit";
-import {UserProfileHeader} from "../../../components/_grouped";
-import {MentorLangs} from "../../../components/_grouped/languages/MentorLangs";
-import {MentorReviewsConnected} from "../../../components/_connected";
-import {getMentorSessions} from "@services/session/sessionService";
-import Button, {ButtonVariant} from "src/components/Button/Button";
-import {MentoringSkeleton, MentorProfilePageSkeleton,} from "./MentorProfileSkeleton";
+import { useSelector } from "react-redux";
+import { MentorData } from "src/pages/app/MentorProfileEdit";
+import { UserProfileHeader } from "../../../components/_grouped";
+import {
+  LangOption,
+  MentorLangs,
+} from "../../../components/_grouped/languages/MentorLangs";
+import { MentorReviewsConnected } from "../../../components/_connected";
+import { getMentorSessions } from "@services/session/sessionService";
+import Button, { ButtonVariant } from "src/components/Button/Button";
+import {
+  MentoringSkeleton,
+  MentorProfilePageSkeleton,
+} from "./MentorProfileSkeleton";
 
 export const MentorProfilePage = () => {
   const { username } = useParams<{ username: string | "" }>();
@@ -32,7 +50,6 @@ export const MentorProfilePage = () => {
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-
 
   // @TODO: get user id from sesion/jwt
 
@@ -141,8 +158,8 @@ export const MentorProfilePage = () => {
   }, [mentorId]);
 
   const useIsMentorLoggedUser = (data: MentorData) => {
-      return useMemo(() => {
-        return userFromRedux?.id === data?.userID;
+    return useMemo(() => {
+      return userFromRedux?.id === data?.userID;
     }, [userFromRedux, data?.userID]);
   };
   const mentorIsLoggedUser = useIsMentorLoggedUser(mentorData);
@@ -179,14 +196,7 @@ export const MentorProfilePage = () => {
         }
         fullname={mentorData?.firstName + " " + mentorData?.lastName}
         langSwitcher={
-          <MentorLangs
-            langs={[
-              { value: "pl", label: "Polski" },
-              // { value: "en", label: "Angielski" },
-              // { value: "de", label: "Niemiecki" },
-              // { value: "jp", label: "Japonski" },
-            ]}
-          />
+          <MentorLangs langs={mentorData?.language as LangOption[]} />
         }
         location={mentorData?.timeZone}
         profession={mentorData?.jobPosition}

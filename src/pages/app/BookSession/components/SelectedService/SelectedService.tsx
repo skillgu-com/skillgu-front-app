@@ -13,7 +13,6 @@ export const SelectedService = () => {
   const [state] = useBookingReducer();
   const location = useLocation();
 
-  const sessionData = location.state as ServiceSession;
   const service = location.state as LocationState;
   return state.mentor && state.service ? (
     <MentorServiceCard
@@ -29,7 +28,7 @@ export const SelectedService = () => {
       title={service.opt.sessionType}
       initialDescriptionHeight={90}
       servicePrice={service.opt.sessionPrice}
-      serviceDuration={sessionData?.meetTime}
+      serviceDuration={service?.opt.meetTime}
     />
   ) : null;
 };

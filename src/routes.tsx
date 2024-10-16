@@ -36,6 +36,7 @@ import {MentorshipApplicationPage} from "./pages/app/MentorshipApplication";
 import {MenteePaymentReports} from "./pages/app/MenteePaymentRaports";
 import MenteeSubscriptionDetailPage from "./pages/app/MenteeSubscriptionDetailPage/MenteeSubscriptionDetailPage";
 import {PaymentMentorship} from "./pages/app/BookSession/components/Payment/PaymentMentorship";
+import { OrderConfirmPage } from "./pages/unauthorized/OrderConfirm/OrderConfirm";
 
 type Route = {
     id: string;
@@ -279,6 +280,11 @@ const routesRaw: Omit<Route, "id">[] = [
     {
         path: paths.mentorshipApplication,
         element: <MentorshipApplicationPage/>,
+        layoutVersion: 'default',
+    },
+        {
+        path: paths.orderConfirm,
+        element: <OrderConfirmPage/>,
         layoutVersion: 'default',
     },
 ];

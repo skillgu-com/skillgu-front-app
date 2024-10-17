@@ -70,7 +70,6 @@ const MenteeSubscriptionDetailPage: FC = () => {
     };
 
     useEffect(() => {
-        console.log('mistrzu drogi')
         dispatchBookingAction({
             type: 'UPDATE_MENTOR_ID',
             payload: {mentorId: subscriptionData?.mentorId || ''}

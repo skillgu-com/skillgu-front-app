@@ -17,9 +17,10 @@ export const MenteeProfilePage = () => {
         setPending(true)
         try {
             if (studentId) {
-                getMenteeByUserName(studentId).then((res)=>{
+                console.log('MenteeProfilePage studentId is:', studentId)
+                getMenteeByUserName(studentId).then((res) => {
                     setMentee(res.data)
-                })                
+                })
             }
         } catch (e) {
             setError('Wystąpił błąd podczas pobierania danych')

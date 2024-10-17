@@ -13,8 +13,9 @@ export const fetchMentorPlan = async (): Promise<string> => {
 
 // Update mentor plan
 export const updateMentorPlan = async (plan: string): Promise<void> => {
+    console.log('test tutaj zmieniamy plan: ', plan)
     try {
-        const response = await axios.post('/api/mentor/update-plan', { plan });
+        const response = await axios.post('/api/mentor/update-plan', {plan});
         console.log('Mentor plan updated successfully:', response.data);
     } catch (error) {
         console.error('Error updating mentor plan:', error);

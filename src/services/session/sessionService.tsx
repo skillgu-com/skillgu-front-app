@@ -85,13 +85,14 @@ export const deleteSession = async (sessionId: string) => {
 };
 
 export const getSingleSession = async (
-  sessionId: string | number
+  calendarEventId: string | number
 ): Promise<SingleSession> => {
-  // return await axios.get(`/api/1.0/session/delete/${sessionId}`);
+  ///return await axios.get(`/api/1.0/order-confirm/${calendarEventId}`);
   return {
     userEmail: "gosia_kow@wp.pl",
     mentor: {
-      avatarUrl: "",
+      avatarUrl:
+        "http://res.cloudinary.com/dkclg8ppw/image/upload/v1/default/avatar",
       profession: "UI/UX Designer",
       id: 1,
       userName: "some",
@@ -101,10 +102,10 @@ export const getSingleSession = async (
     },
     sessionName: "Anna Stokrotka",
     sessionPrice: 220,
-    sessionType: "training",
+    sessionType: "Technical call",
     sessionCategory: "IT",
     scheduleID: 1,
-    sessionDescription: "test",
+    sessionDescription: "some description concerning technical call",
     sessionTerm: new Date(),
     sessionDuration: 90,
   };

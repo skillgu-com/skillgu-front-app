@@ -37,13 +37,23 @@ import {useState} from "react/index";
 //     }
 // };
 // Funkcja pobierająca aktualny plan mentora
-export const fetchMentorPlan = async (): Promise<{ plan: string, startDate: string }> => {
+// export const fetchMentorPlan = async (): Promise<{ plan: string, startDate: string }> => {
+//     try {
+//         const response = await axios.get('/api/mentor/get-current-plan');
+//         return response.data; // Zakładamy, że odpowiedź zawiera obiekt z planem i startDate
+//     } catch (error) {
+//         console.error('Error fetching mentor plan:', error);
+//         throw error; // Rzucamy błąd dalej, aby komponent mógł go obsłużyć
+//     }
+// };
+
+export const fetchMentorPlan = async (): Promise<{ plan: string, startDate: string, canChangePlan: boolean }> => {
     try {
         const response = await axios.get('/api/mentor/get-current-plan');
-        return response.data; // Zakładamy, że odpowiedź zawiera obiekt z planem i startDate
+        return response.data; // Odpowiedź zawiera { plan, startDate, canChangePlan }
     } catch (error) {
         console.error('Error fetching mentor plan:', error);
-        throw error; // Rzucamy błąd dalej, aby komponent mógł go obsłużyć
+        throw error;
     }
 };
 

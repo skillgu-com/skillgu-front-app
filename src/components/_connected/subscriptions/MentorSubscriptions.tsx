@@ -20,24 +20,12 @@ export const MentorSubscriptions = () => {
     const [canChangePlan, setCanChangePlan] = useState<boolean>(true);
     const [suspendingPlan, setSuspendingPlan] = useState<string | null>(null);
 
-    // Fetch mentor's current plan
     useEffect(() => {
         const getMentorPlan = async () => {
             try {
-                const response = await fetchMentorPlan();
-                const { plan, startDate } = response;
-                console.log('getMentorPlan:', response);
-
+                const { plan, canChangePlan } = await fetchMentorPlan();
                 setSelectedPlan(plan);
-
-                // Konwersja startDate na obiekt Date
-                const start = new Date(startDate);
-
-                const now = new Date();
-                const isStartOfMonth = now.getDate() === 1;
-                const canChooseAnyPlan = isStartOfMonth || plan === "Free";
-
-                setCanChangePlan(canChooseAnyPlan);
+                setCanChangePlan(canChangePlan);
             } catch (error) {
                 console.error("Error fetching mentor plan:", error);
             }
@@ -46,30 +34,28 @@ export const MentorSubscriptions = () => {
         getMentorPlan();
     }, []);
 
-    const handleSelectPlan = async (plan: string) => {
-        if (!canChangePlan || plan === selectedPlan) {
-            alert("Nie możesz zmienić planu w bieżącym miesiącu.");
+
+    const handleSelectPlan = (plan: string) => {
+        if (!canChangePlan && plan !== selectedPlan) {
+            alert("Nie możesz zmienić planu w bieżącym miesiącu. Możliwość zmiany będzie dostępna od początku przyszłego miesiąca.");
             return;
         }
 
-        try {
-            await updateMentorPlan(plan);
-            setSelectedPlan(plan);
-            setCanChangePlan(false); // Po zmianie blokujemy możliwość zmiany do końca miesiąca
-        } catch (error) {
-            console.error("Błąd podczas zmiany planu:", error);
+        if (canChangePlan && plan !== selectedPlan) {
+            setSuspendingPlan(plan); // Ustawienie `suspendingPlan` na wybraną wartość, aby pokazać popup
         }
     };
 
     const changeMentorPlan = async (plan: string) => {
-        setSelectedPlan(plan);
         try {
-            await updateMentorPlan(plan);
+            await updateMentorPlan(plan); // Wywołanie API do aktualizacji planu
+            setSelectedPlan(plan); // Ustawienie wybranego planu jako aktywnego
+            setSuspendingPlan(null); // Zamknięcie popupu
+            setCanChangePlan(false); // Po zmianie planu zablokowanie możliwości kolejnej zmiany
         } catch (error) {
-            console.error("Error updating mentor plan:", error);
+            console.error("Błąd podczas zmiany planu:", error);
+            alert("Wystąpił błąd podczas zmiany planu.");
         }
-
-        setSuspendingPlan(null);
     };
 
     const sr = useSubscriptionsReducer();
@@ -164,6 +150,8 @@ export const MentorSubscriptions = () => {
                         ]}
                         selectedPlan={selectedPlan}
                         handleSelectPlan={handleSelectPlan}
+                        canChangePlan={canChangePlan}
+
                     />
                     <Pricing
                         planTitle="Mid"
@@ -177,6 +165,7 @@ export const MentorSubscriptions = () => {
                         ]}
                         selectedPlan={selectedPlan}
                         handleSelectPlan={handleSelectPlan}
+                        canChangePlan={canChangePlan}
                     />
                     <Pricing
                         planTitle="Pro"
@@ -189,6 +178,8 @@ export const MentorSubscriptions = () => {
                         ]}
                         selectedPlan={selectedPlan}
                         handleSelectPlan={handleSelectPlan}
+                        canChangePlan={canChangePlan}
+
                     />
                 </div>
             </SectionTemplate>

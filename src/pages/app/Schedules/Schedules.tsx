@@ -92,12 +92,15 @@ const SchedulesView = () => {
                 const assignedSession =
                     schedules.find((schedule) => schedule.id === id)?.schedule
                         ?.assignedSession || 0;
+
                 if (assignedSession > 0) {
                     setIsModalOpen(true);
                 } else {
-                    deleteSchedule(id).then(() => {
-                        sr.reset();
-                    });
+                    deleteSchedule(id)
+                    const copySchedules = sr.schedulesState.schedules.filter(
+                      (item) => item.id.toString() !== id
+                    );
+                    sr.updateRecords(copySchedules); 
                 }
             } else {
                 deleteSession(id).then(() => {

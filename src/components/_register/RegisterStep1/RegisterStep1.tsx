@@ -13,6 +13,7 @@ import StepContentWrapper from "../StepContentWrapper/StepContentWrapper";
 import FormInputText from "../../_form/FormInputText/FormInputText";
 import FormInputCheckbox from "../../_form/FormInputCheckbox/FormInputCheckbox";
 import TextLink from "../../TextLink/TextLink";
+import FormCheckboxesOptionsDynamic from "../../_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 
 type Props = {
     title: string,
@@ -47,8 +48,18 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
             email: dataSource.email || '',
             password: dataSource.password || '',
             acceptRules: dataSource.acceptRules || false,
+            terms: dataSource.terms || [],
         },
     });
+
+    const getCheckboxOptions = async (query: string, abortController: AbortController) => {
+        // Pobierz opcje z API lub innego źródła
+        return [
+            { label: "Akceptuję Regulamin serwisu Skillgu.com", value: "termsOfService" },
+            { label: "Chcę otrzymywać newsletter zgodnie z zasadami określonymi w Regulaminie Newslettera", value: "newsletter" },
+            { label: "Akceptuję Politykę prywatności", value: "privacyPolicy" },
+        ];
+    };
 
     const goToNextStep: SubmitHandler<RegisterFormInput> = async (formData) => {
         if (isMentor) {
@@ -69,9 +80,7 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                     payload: data
                 })
             }
-
         }
-
     };
 
     const passwordValue = watch("password");
@@ -136,13 +145,23 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                     controllerProps={{rules: {required: 'Hasło jest wymagane'}}}
                     customFeedback={passwordFeedback}
                 />
-                <FormInputCheckbox<RegisterFormInput>
-                    inputProps={{ color: 'secondary' }}
+                {/*<FormInputCheckbox<RegisterFormInput>*/}
+                {/*    inputProps={{ color: 'secondary' }}*/}
+                {/*    control={control}*/}
+                {/*    formState={formState}*/}
+                {/*    label='Akceptuję regulamin'*/}
+                {/*    name='acceptRules'*/}
+                {/*    controllerProps={{rules: {required: 'Zgoda wymagana'}}}*/}
+                {/*/>*/}
+                {/* Dodane dynamiczne checkboxy */}
+                <FormCheckboxesOptionsDynamic<RegisterFormInput>
+                    name="terms"
                     control={control}
                     formState={formState}
-                    label='Akceptuję regulamin'
-                    name='acceptRules'
+                    // label="Opcje"
+                    getOptions={getCheckboxOptions}
                     controllerProps={{rules: {required: 'Zgoda wymagana'}}}
+
                 />
             </form>
         </StepContentWrapper>

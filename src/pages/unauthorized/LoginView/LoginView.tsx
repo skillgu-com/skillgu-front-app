@@ -15,11 +15,13 @@ import FormInputText from "../../../components/_form/FormInputText/FormInputText
 import FormInputCheckbox from "../../../components/_form/FormInputCheckbox/FormInputCheckbox";
 import TextLink from "../../../components/TextLink/TextLink";
 import styles from './style.module.scss'
+import FormCheckboxesOptionsDynamic from "../../../components/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 
 type LoginFormInput = {
     email: string;
     password: string;
     rememberMe: boolean;
+    terms: string[]; // Dodane pole dla dynamicznych checkboxów
 }
 
 const LoginView = () => {
@@ -35,11 +37,12 @@ const LoginView = () => {
         defaultValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
         },
-    })
+    });
 
-    const onSubmit: SubmitHandler<LoginFormInput> = async ({password, email, rememberMe}) => {
+
+    const onSubmit: SubmitHandler<LoginFormInput> = async ({password, email, rememberMe, terms}) => {
         setGlobalError(null);
         const response = await loginUserByEmail(email, password, rememberMe);
         if (response.success) {
@@ -68,14 +71,13 @@ const LoginView = () => {
             <Box sx={{display: 'grid', gap: 2}}>
                 <Typography color="#252B61" variant='h2' textAlign='center'>Zaloguj się</Typography>
                 <Tabs
-                
                     sx={{marginBottom: 2}}
                     value={hashValue || 'mentee'}
                     onChange={(_e, value) => updateHash(value)}
                     textColor="inherit"
                     variant="fullWidth"
                 >
-                    <Tab  sx={{fontSize: '12px'}} label="Jestem mentee" value={pathAnchors.loginView.mentee}/>
+                    <Tab sx={{fontSize: '12px'}} label="Jestem mentee" value={pathAnchors.loginView.mentee}/>
                     <Tab sx={{fontSize: '12px'}} label="Jestem mentorem" value={pathAnchors.loginView.mentor}/>
                 </Tabs>
                 <FormInputText<LoginFormInput>
@@ -107,6 +109,7 @@ const LoginView = () => {
                     Zapomniałem hasła
                 </Link>
             </Box>
+
             <Collapse in={!!globalError}>
                 <Typography sx={{marginBottom: 2, marginTop: 2}} color='error' variant='caption'>
                     {globalError}
@@ -140,7 +143,7 @@ const LoginView = () => {
                     </Button>
                     <Box sx={{visibility: 'hidden', display: 'none'}} ref={googleButtonRef}></Box>
                 </Collapse>
-                <Typography color="base.80"  variant='body2' textAlign='center'>Nie masz jeszcze konta?{' '}
+                <Typography color="base.80" variant='body2' textAlign='center'>Nie masz jeszcze konta?{' '}
                     <TextLink
                         typographyProps={{variant: 'body2'}}
                         linkProps={{to: hashValue === pathAnchors.loginView.mentor ? paths.registerMentor : paths.registerMentee}}
@@ -153,4 +156,4 @@ const LoginView = () => {
     )
 }
 
-export default LoginView
+export default LoginView;

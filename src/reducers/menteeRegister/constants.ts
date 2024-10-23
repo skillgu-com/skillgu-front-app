@@ -10,6 +10,8 @@ const menteeRegisterInitialState: MenteeRegisterReducerState =  {
         lastName: "",
         password: "",
         acceptRules: false,
+        terms: [],
+
     }
 };
 

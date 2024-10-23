@@ -4,6 +4,7 @@ export type RegisterFormInput = {
     email: string,
     password: string,
     acceptRules: boolean,
+    terms: string[];
 };
 
 export type AboutFormInput = {

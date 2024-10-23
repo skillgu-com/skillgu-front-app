@@ -93,6 +93,7 @@ const FormCheckboxesOptionsDynamic = <T extends FieldValues>({
                     id={String(opt.value)}
                     fontVariant='caption'
                     colorVariant='base-80'
+
                     valueChangeHandler={(
                       name: string,
                       valueCh: CheckboxValueCb

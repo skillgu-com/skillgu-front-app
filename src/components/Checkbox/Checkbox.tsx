@@ -33,6 +33,7 @@ interface CheckboxProps {
     fontVariant?: "button-sm" | "caption";
     colorVariant?: "base-80" | "primary";
     disabled?: boolean
+
 }
 
 const Checkbox = (props: CheckboxProps) => {

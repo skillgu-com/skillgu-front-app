@@ -84,9 +84,6 @@ export const MentorEditSectionProfile = ({mentorData}: Props) => {
         }
     };
 
-
-
-
     return (
         <UserEditSection
             title="Profil"

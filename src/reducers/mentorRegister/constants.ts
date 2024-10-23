@@ -1,4 +1,5 @@
 import {MentorRegisterReducerState} from "./types";
+import {string} from "prop-types";
 
 const mentorRegisterInitialState: MentorRegisterReducerState = {
     step: 0,
@@ -10,6 +11,8 @@ const mentorRegisterInitialState: MentorRegisterReducerState = {
         lastName: "",
         password: "",
         acceptRules: false,
+        terms: [],
+
 
         profession: "",
         company: "",

@@ -32,6 +32,7 @@ type SessionData = {
     reviewsAvgRate: number;
     reviewsCount: number;
   };
+  timeZone:string
 };
 
 export const OrderConfirmPage = () => {
@@ -114,6 +115,7 @@ export const OrderConfirmPage = () => {
                   initialDescriptionHeight={90}
                   servicePrice={session.sessionPrice}
                   serviceDuration={session.sessionDuration || 45}
+                  timeZone={session?.timeZone}
               />
               <SelectedDate
                   selectedDate={formattedDate}

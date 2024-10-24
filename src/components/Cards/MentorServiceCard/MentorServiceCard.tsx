@@ -1,16 +1,15 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, { useCallback, useRef, useState } from "react";
 import AnimateHeight from "react-animate-height";
 // Components
 // Styles
 import styles from "./MentorServiceCard.module.scss";
 import clx from "classnames";
 import StarSvg from "@icons/StarSvg";
-import {DollarCircleIcon} from "@icons/DollarCircleIcon";
-import {ClockSolidCircleIcon} from "@icons/ClockSolidCircleIcon";
+import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
-import {ServiceInfoBox, ServiceInfoBoxProps} from "../../_grouped";
-import Title, {TitleTag, TitleVariant} from "../../typography/Title/Title";
-
+import { ServiceInfoBox, ServiceInfoBoxProps } from "../../_grouped";
+import Title, { TitleTag, TitleVariant } from "../../typography/Title/Title";
 
 type MentorServiceCardProps = Pick<
   ServiceInfoBoxProps,
@@ -26,7 +25,7 @@ type MentorServiceCardProps = Pick<
   initialDescriptionHeight?: number | "auto";
   servicePrice: number;
   serviceDuration: number;
-  timeZone?:string
+  timeZone?: string;
 };
 
 const DEFAULT_DESCRIPTION_HEIGHT = 60;
@@ -46,7 +45,7 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
   information,
   maxAttendees,
   meetingForm,
-  timeZone
+  timeZone,
 }) => {
   const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
     initialDescriptionHeight
@@ -91,9 +90,11 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
             <span>{reviewsCount}</span>
           </div>
         </div>
-        <span className={styles.location}>
-          <MapMarkIcon /> <p>{timeZone}</p>
-        </span>
+        {timeZone && (
+          <span className={styles.location}>
+            <MapMarkIcon /> <p>{timeZone}</p>
+          </span>
+        )}
       </div>
 
       <div className={styles.body}>

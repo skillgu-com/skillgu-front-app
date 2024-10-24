@@ -1,13 +1,13 @@
 import axios from "axios";
 import { MentorCategoryT } from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
-import {SessionDTO} from "@services/session/sessionService";
-
+import { SessionDTO } from "@services/session/sessionService";
 
 type SingleSession = SessionDTO & {
   sessionTerm?: Date;
   sessionDuration?: number;
   mentor: Mentor;
   userEmail: string;
+  timeZone: string;
 };
 
 type Mentor = {
@@ -19,7 +19,6 @@ type Mentor = {
   reviewsAvgRate: number;
   reviewsCount: number;
 };
-
 
 export const getSessionOrderSummary = async (
   calendarEventId: string | number
@@ -45,6 +44,6 @@ export const getSessionOrderSummary = async (
     sessionDescription: "some description concerning technical call",
     sessionTerm: new Date(),
     sessionDuration: 90,
+    timeZone: "Europe/Warsaw",
   };
 };
-

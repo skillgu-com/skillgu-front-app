@@ -107,30 +107,6 @@ export const MentorProfilePage = () => {
 
   useEffect(() => {
     if (!mentorId) return;
-    const fetchMentoring = async (id: string) => {
-      setLoading(true);
-      try {
-        if (!id) return;
-        const mentoringResponse = await getMentorshipPlansForMentorProfile({
-          mentorId: mentorId,
-        });
-
-        if (mentoringResponse) {
-          setOptionsMentoring(mentoringResponse.mentorships);
-        }
-      } catch (error) {
-        console.error("Error fetching mentoring:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (mentorId) {
-      fetchMentoring(mentorId);
-    }
-  }, [mentorId]);
-
-  useEffect(() => {
-    if (!mentorId) return;
     const fetchSession = async (id: number) => {
       try {
         if (!id) return;
@@ -154,6 +130,30 @@ export const MentorProfilePage = () => {
 
     if (Number(mentorId)) {
       fetchSession(Number(mentorId));
+    }
+  }, [mentorId]);
+
+  useEffect(() => {
+    if (!mentorId) return;
+    const fetchMentoring = async (id: string) => {
+      setLoading(true);
+      try {
+        if (!id) return;
+        const mentoringResponse = await getMentorshipPlansForMentorProfile({
+          mentorId: mentorId,
+        });
+
+        if (mentoringResponse) {
+          setOptionsMentoring(mentoringResponse.mentorships);
+        }
+      } catch (error) {
+        console.error("Error fetching mentoring:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (mentorId) {
+      fetchMentoring(mentorId);
     }
   }, [mentorId]);
 

@@ -120,6 +120,7 @@ export const MentorProfilePage = () => {
             description: elementFromAPI?.description,
             meetTime: elementFromAPI?.meetTime,
             mentorID: mentorId,
+            timeZone: mentorData?.timeZone,
           })
         );
         setOptionsSession(formattedSessions);
@@ -127,6 +128,7 @@ export const MentorProfilePage = () => {
         console.error("Error fetching session:", error);
       }
     };
+
 
     if (Number(mentorId)) {
       fetchSession(Number(mentorId));

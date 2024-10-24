@@ -7,8 +7,10 @@ import clx from "classnames";
 import StarSvg from "@icons/StarSvg";
 import {DollarCircleIcon} from "@icons/DollarCircleIcon";
 import {ClockSolidCircleIcon} from "@icons/ClockSolidCircleIcon";
+import { MapMarkIcon } from "@icons/MapMarkIcon";
 import {ServiceInfoBox, ServiceInfoBoxProps} from "../../_grouped";
 import Title, {TitleTag, TitleVariant} from "../../typography/Title/Title";
+
 
 type MentorServiceCardProps = Pick<
   ServiceInfoBoxProps,
@@ -24,6 +26,7 @@ type MentorServiceCardProps = Pick<
   initialDescriptionHeight?: number | "auto";
   servicePrice: number;
   serviceDuration: number;
+  timeZone?:string
 };
 
 const DEFAULT_DESCRIPTION_HEIGHT = 60;
@@ -43,6 +46,7 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
   information,
   maxAttendees,
   meetingForm,
+  timeZone
 }) => {
   const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
     initialDescriptionHeight
@@ -87,7 +91,11 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
             <span>{reviewsCount}</span>
           </div>
         </div>
+        <span className={styles.location}>
+          <MapMarkIcon /> <p>{timeZone}</p>
+        </span>
       </div>
+
       <div className={styles.body}>
         <Title
           tag={TitleTag.h3}
@@ -97,7 +105,8 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
           {title}
         </Title>
         <div className={styles.descriptionWrapper}>
-          {typeof description === 'string' && description.length > DESC_EXPAND_LENGTH ? (
+          {typeof description === "string" &&
+          description.length > DESC_EXPAND_LENGTH ? (
             <>
               <AnimateHeight
                 id="description"

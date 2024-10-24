@@ -7,6 +7,7 @@ import clx from "classnames";
 import { RadioInputIcon } from "@icons/RadioInput";
 import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
 import { DollarCircleIcon } from "@icons/DollarCircleIcon";
+import { Free } from "@icons/Free";
 
 type Props = ServiceSession & {
   name?: string;
@@ -59,8 +60,7 @@ export const ServiceSessionOptionCard = ({
         <div className={styles.rowInfo}>
           {sessionPrice === 0 ? (
               <div className={styles.infoCell}>
-                <DollarCircleIcon />
-                Free
+                <Free className={styles.Free}/>
               </div>
           ) : sessionPrice ? (
               <div className={styles.infoCell}>

@@ -1,4 +1,4 @@
-import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
+import { DescriptionRowDTO } from "@services/mentor/fetchMentorServices.service";
 
 // export type OrderStatus = 'awaiting'|'rejected'|'accepted'
 // export type SubscriptionStatus = 'active'|'suspended'|'completed'
@@ -52,7 +52,8 @@ export type ServiceSession = {
   description: string;
   avatarUrl: string;
   fullName: string;
-  reviewsCount: number
+  reviewsCount: number;
+  timeZone?: string;
 };
 
 export interface MentorshipPlan {

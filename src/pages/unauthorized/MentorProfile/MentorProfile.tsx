@@ -107,6 +107,36 @@ export const MentorProfilePage = () => {
 
   useEffect(() => {
     if (!mentorId) return;
+    const fetchSession = async (id: number) => {
+      try {
+        if (!id) return;
+        const sessionResponse = await getMentorSessions(mentorData?.userID);
+
+        const formattedSessions = sessionResponse?.data.map(
+          (elementFromAPI: any) => ({
+            id: elementFromAPI?.id,
+            sessionType: elementFromAPI?.sessionType,
+            sessionPrice: elementFromAPI?.sessionPrice,
+            description: elementFromAPI?.description,
+            meetTime: elementFromAPI?.meetTime,
+            mentorID: mentorId,
+            timeZone: mentorData?.timeZone,
+          })
+        );
+        setOptionsSession(formattedSessions);
+      } catch (error) {
+        console.error("Error fetching session:", error);
+      }
+    };
+
+
+    if (Number(mentorId)) {
+      fetchSession(Number(mentorId));
+    }
+  }, [mentorId]);
+
+  useEffect(() => {
+    if (!mentorId) return;
     const fetchMentoring = async (id: string) => {
       setLoading(true);
       try {
@@ -126,34 +156,6 @@ export const MentorProfilePage = () => {
     };
     if (mentorId) {
       fetchMentoring(mentorId);
-    }
-  }, [mentorId]);
-
-  useEffect(() => {
-    if (!mentorId) return;
-    const fetchSession = async (id: number) => {
-      try {
-        if (!id) return;
-        const sessionResponse = await getMentorSessions(mentorData?.userID);
-
-        const formattedSessions = sessionResponse?.data.map(
-          (elementFromAPI: any) => ({
-            id: elementFromAPI?.id,
-            sessionType: elementFromAPI?.sessionType,
-            sessionPrice: elementFromAPI?.sessionPrice,
-            description: elementFromAPI?.description,
-            meetTime: elementFromAPI?.meetTime,
-            mentorID: mentorId,
-          })
-        );
-        setOptionsSession(formattedSessions);
-      } catch (error) {
-        console.error("Error fetching session:", error);
-      }
-    };
-
-    if (Number(mentorId)) {
-      fetchSession(Number(mentorId));
     }
   }, [mentorId]);
 

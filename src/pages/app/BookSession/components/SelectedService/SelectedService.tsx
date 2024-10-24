@@ -14,6 +14,7 @@ export const SelectedService = () => {
   const location = useLocation();
 
   const service = location.state as LocationState;
+
   return state.mentor && state.service ? (
     <MentorServiceCard
       meetingForm="video"
@@ -29,6 +30,7 @@ export const SelectedService = () => {
       initialDescriptionHeight={90}
       servicePrice={service.opt.sessionPrice}
       serviceDuration={service?.opt.meetTime}
+      timeZone={service?.opt.timeZone}
     />
   ) : null;
 };

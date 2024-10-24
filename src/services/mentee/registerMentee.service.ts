@@ -1,11 +1,12 @@
 import {RegisterMenteeDTO} from "./registerMentee.types";
 import axios from "axios";
-import {MergedRegisterMenteeFormInput} from "@customTypes/registerFlow";
+import {MergedRegisterMenteeFormInput, UserConsentDTO} from "@customTypes/registerFlow";
 
 const parseDataForAPI = (inputData: MergedRegisterMenteeFormInput): RegisterMenteeDTO => inputData
 
-// TODO consider common error handler for services
 const registerMenteeService = async (inputData: MergedRegisterMenteeFormInput) => {
+    console.log(inputData)
+
     try {
         const response = await axios.post<string>('/api/auth/mentee/register', parseDataForAPI(inputData));
         return {success: true, data: response.data}

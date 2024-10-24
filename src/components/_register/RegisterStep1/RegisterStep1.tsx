@@ -2,7 +2,7 @@ import React, {FC, useMemo} from 'react';
 import Typography from "@mui/material/Typography";
 import paths, {pathAnchors} from "../../../paths";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {RegisterFormInput} from "@customTypes/registerFlow";
+import {RegisterFormInput, UserConsentDTO} from "@customTypes/registerFlow";
 import emailCheckService from "../../../services/emailCheck/emailCheck.service";
 import {Grid} from "@mui/material";
 import useRegisterMentorContext from "../../../context/RegisterMentorContext";
@@ -11,9 +11,8 @@ import registerMenteeService from "../../../services/mentee/registerMentee.servi
 import usePasswordValidation from "../../../hooks/usePasswordValidation";
 import StepContentWrapper from "../StepContentWrapper/StepContentWrapper";
 import FormInputText from "../../_form/FormInputText/FormInputText";
-import FormInputCheckbox from "../../_form/FormInputCheckbox/FormInputCheckbox";
 import TextLink from "../../TextLink/TextLink";
-import FormCheckboxesOptionsDynamic from "../../_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
+import CheckboxWithLinkOption from "../../_form/_FormCheckboxesWithLinksDynamic/CheckboxWithLinkOption";
 
 type Props = {
     title: string,
@@ -48,20 +47,59 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
             email: dataSource.email || '',
             password: dataSource.password || '',
             acceptRules: dataSource.acceptRules || false,
-            terms: dataSource.terms || [],
+            userConsents: dataSource.userConsents || [],
         },
     });
 
     const getCheckboxOptions = async (query: string, abortController: AbortController) => {
-        // Pobierz opcje z API lub innego źródła
         return [
-            { label: "Akceptuję Regulamin serwisu Skillgu.com", value: "termsOfService" },
-            { label: "Chcę otrzymywać newsletter zgodnie z zasadami określonymi w Regulaminie Newslettera", value: "newsletter" },
-            { label: "Akceptuję Politykę prywatności", value: "privacyPolicy" },
+            {
+                consentType: "privacyPolicy",
+                label: (
+                    <>
+                        Akceptuję <a href="https://www.skillgu.com/policy" target="_blank" rel="noopener noreferrer" style={{ color: 'blue', textDecoration: 'underline' }}>Politykę prywatności</a>.
+                    </>
+                )
+            },
+            {
+                consentType: "termsOfService",
+                label: (
+                    <>
+                        Oświadczam, że znam i akceptuję postanowienia <a href="https://www.skillgu.com/terms" target="_blank" rel="noopener noreferrer" style={{ color: 'blue', textDecoration: 'underline' }}>Regulaminu</a> świadczenia usług dla użytkowników Skillgu.com
+                    </>
+                )
+            },
+            {
+                consentType: "newsletter",
+                label: (
+                    <>
+                        Chcę otrzymywać newsletter Skillgu.com
+                    </>
+                )
+            },
         ];
     };
 
+    const mapToUserConsents = (selectedOptions: any[]): UserConsentDTO[] => {
+        return [
+            {
+                consentType: "privacyPolicy",
+                accepted: selectedOptions.some(option => option.consentType === "privacyPolicy")
+            },
+            {
+                consentType: "newsletter",
+                accepted: selectedOptions.some(option => option.consentType === "newsletter")
+            },
+            {
+                consentType: "termsOfService",
+                accepted: selectedOptions.some(option => option.consentType === "termsOfService")
+            }
+        ];
+    };
     const goToNextStep: SubmitHandler<RegisterFormInput> = async (formData) => {
+        console.log('TEST TEST')
+        formData.userConsents = mapToUserConsents(formData.userConsents);
+
         if (isMentor) {
             registerMentorDispatch({
                 type: 'COMMIT_REGISTER_INFO',
@@ -69,7 +107,6 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
             })
         } else {
             const {success, error, data} = await registerMenteeService(formData);
-            // TODO handle error
             if(data) {
                 registerMenteeDispatch({
                     type: 'COMMIT_REGISTER_INFO',
@@ -145,27 +182,34 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
                     controllerProps={{rules: {required: 'Hasło jest wymagane'}}}
                     customFeedback={passwordFeedback}
                 />
-                {/*<FormInputCheckbox<RegisterFormInput>*/}
-                {/*    inputProps={{ color: 'secondary' }}*/}
-                {/*    control={control}*/}
-                {/*    formState={formState}*/}
-                {/*    label='Akceptuję regulamin'*/}
-                {/*    name='acceptRules'*/}
-                {/*    controllerProps={{rules: {required: 'Zgoda wymagana'}}}*/}
-                {/*/>*/}
-                {/* Dodane dynamiczne checkboxy */}
-                <FormCheckboxesOptionsDynamic<RegisterFormInput>
-                    name="terms"
+                <CheckboxWithLinkOption<RegisterFormInput>
+                    name="userConsents"
                     control={control}
                     formState={formState}
-                    // label="Opcje"
                     getOptions={getCheckboxOptions}
-                    controllerProps={{rules: {required: 'Zgoda wymagana'}}}
+                    controllerProps={{
+                        rules: {
+                            validate: (selectedTerms: any) => {
+                                if (!Array.isArray(selectedTerms)) {
+                                    return 'Musisz wybrać odpowiednie opcje.';
+                                }
 
+                                const requiredTerms = ["termsOfService", "privacyPolicy"];
+                                const hasAllRequired = requiredTerms.every(term =>
+                                    selectedTerms.some(selected => selected.consentType === term)
+                                );
+
+                                if (!hasAllRequired) {
+                                    return 'Musisz zaakceptować Regulamin serwisu oraz Politykę prywatności.';
+                                }
+                                return true;
+                            }
+                        }
+                    }}
                 />
+
             </form>
         </StepContentWrapper>
     )
 }
-
 export default RegisterStep1;

@@ -4,7 +4,12 @@ export type RegisterFormInput = {
     email: string,
     password: string,
     acceptRules: boolean,
-    terms: string[];
+    userConsents: UserConsentDTO[];
+};
+
+export type UserConsentDTO = {
+    consentType: string;
+    accepted: boolean;
 };
 
 export type AboutFormInput = {

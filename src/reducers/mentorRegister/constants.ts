@@ -11,7 +11,7 @@ const mentorRegisterInitialState: MentorRegisterReducerState = {
         lastName: "",
         password: "",
         acceptRules: false,
-        terms: [],
+        userConsents: [],
 
 
         profession: "",

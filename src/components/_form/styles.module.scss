@@ -8,6 +8,9 @@
     gap: 4px;
     align-items: flex-start;
 }
-.checkboxSmallFont {
-    font-size: 10px; // Rozmiar czcionki, jaki potrzebujesz
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
 }

@@ -10,6 +10,7 @@ import { TextareaField } from "./TextareaField/TextareaField";
 import styles from "./AddQuestionPopup.module.scss";
 import { resolver } from "./resolver";
 import { contactService } from "@services/contact/contact.service";
+import { Loader } from "../_grouped/loader";
 
 type AddQuestionPopupTypes = {
   isOpen: boolean;
@@ -117,7 +118,7 @@ export const AddQuestionPopup = ({
       </form>
       {isPending && (
         <p className={styles.loading} aria-busy="true">
-          Loading...
+          <Loader spinner />
         </p>
       )}
     </Modal>

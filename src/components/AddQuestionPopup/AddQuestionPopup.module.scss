@@ -29,6 +29,7 @@
 }
 
 .btnPrimary {
+  font-weight: 500;
   @include media-md-and-up {
     order: 2;
   }

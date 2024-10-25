@@ -8,6 +8,7 @@ import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 import Typography from "@mui/material/Typography";
 import StarSvg from "@icons/StarSvg";
 import { Collapse } from "@mui/material";
+import { MapMarkIcon } from "@icons/MapMarkIcon";
 
 type Props = MentorshipPlan & {
   name?: string;
@@ -24,6 +25,7 @@ type Props = MentorshipPlan & {
     lastName: string;
     jobPosition: string;
     reviewsAvgRate: number | null;
+    timeZone: string;
   };
 };
 
@@ -80,11 +82,14 @@ export const ServiceMentoringOptionCard = ({
                   </>
                 )}
               </div>
-              <Typography variant="caption">
-                {mentorProfileReview.jobPosition}
-              </Typography>
+              <div className={styles.profession}>
+                <span>{mentorProfileReview.jobPosition}</span>
+              </div>
             </div>
           </div>
+          {<span className={styles.timeZone}>
+            <MapMarkIcon /> {mentorProfileReview.timeZone}
+          </span>}
         </Collapse>
       )}
       <div className={styles.rowTitle}>

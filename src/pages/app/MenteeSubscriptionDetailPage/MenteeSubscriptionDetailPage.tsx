@@ -136,6 +136,7 @@ const MenteeSubscriptionDetailPage: FC = () => {
                                 profileImage: mentorData.profileImage,
                                 jobPosition: mentorData.jobPosition,
                                 reviewsAvgRate: mentorData.reviewsAvgRate,
+                                timeZone:mentorData.timeZone
                             }}
                             id={subscriptionData.mentorId}
                             title={getPlanTitle(subscriptionData.mentorshipPlan.title)}

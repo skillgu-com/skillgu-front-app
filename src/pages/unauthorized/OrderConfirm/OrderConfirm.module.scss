@@ -26,6 +26,12 @@
       border: none;
     }
   }
+  .quest {
+    width: 100%;
+    @include media-lg-and-up {
+      max-width: 360px;
+    }
+  }
 
   .boxOuter {
     display: flex;
@@ -55,12 +61,21 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
     &Item {
       @extend %text-button-sm;
       display: flex;
       align-items: center;
+
       gap: 8px;
       color: $colour-base-800;
+    }
+
+    &IconBox {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
     }
   }
 

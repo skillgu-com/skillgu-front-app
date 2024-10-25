@@ -13,8 +13,8 @@ import { Tag } from "src/types/tags";
 import styles from "./HomePage.module.scss";
 import { SimilarMentors, RecommendedMentors } from "./sections";
 import {
-  StudentSessionsHistory,
   MentorSessionsHistory,
+  StudentSessionsHistory,
 } from "src/components/_connected/sessions-history";
 
 const HomePage = () => {

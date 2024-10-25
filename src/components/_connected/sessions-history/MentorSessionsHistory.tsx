@@ -18,6 +18,8 @@ export const MentorSessionsHistory = () => {
           take: PER_PAGE,
         });
 
+        console.log('a tutaj tez moge byc ', mentee)
+
         sr.updateRecords(mentee, total);
       } catch (e) {
         sr.updateStatus("Wystąpił błąd podczas pobierania danych.");

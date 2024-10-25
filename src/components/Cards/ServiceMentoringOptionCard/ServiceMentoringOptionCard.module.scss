@@ -68,7 +68,7 @@
 }
 
 .title {
-    @extend %text-button-md;
+    @extend %text-subtitle-1;
     color: $colour-primary;
 }
 
@@ -145,4 +145,23 @@
         @extend %text-caption;
         color: $colour-base-800;
     }
+}
+.profession {
+    @extend %text-caption;
+    color: $colour-base-600;
+    margin: 0;
+    text-align: left;
+}
+.timeZone {
+  @extend %text-caption;
+  color: $colour-base-600;
+  margin-bottom:12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }

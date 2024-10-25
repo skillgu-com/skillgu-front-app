@@ -47,6 +47,7 @@ export const MentorshipPlan = ({
       })}
     >
       {userIdentity}
+
       <div className={styles.rows}>
         <PlanName
           className={styles.planName}
@@ -65,7 +66,6 @@ export const MentorshipPlan = ({
             <span>{description}</span>
           </div>
         ) : null}
-
         <h6 className={styles.subtitle}>Plan obejmuje</h6>
         {typeof sessionsPerMonth !== "undefined" ? (
           <div className={clx(styles.row)}>

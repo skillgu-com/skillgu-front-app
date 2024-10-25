@@ -19,21 +19,16 @@ export const MentorEditSectionNotifications = () => {
         switch1: false,
         switch2: false,
         switch3: false,
-        switch4: false,
+        switch4: true,
       },
     });
 
-  // const inputProps = {
-  //   formState: formState,
-  //   control: control,
-  //   inputProps: { placeholder: "https://example.com" },
-  //   controllerProps: { rules: { required: "Imię jest wymagane" } },
-  // };
+
 
   return (
     <UserEditSection
-      title="Powiadomienia i widoczność"
-      subtitle="Wybierz, kiedy chcesz dostawać powiadomienia oraz kiedy chcesz być widoczny."
+      title="Powiadomienia i zgody"
+      subtitle="Wybierz, kiedy chcesz dostawać powiadomienia oraz kiedy nie chcesz otrzymywać od nas informacji"
       onClose={() => {
         console.log("onClose");
       }}
@@ -46,21 +41,21 @@ export const MentorEditSectionNotifications = () => {
       </Typography>
       <div className={styles.Switchers}>
         <FormInputSwitcher
-          label={"Ktoś wysłał mi wiadomość"}
+          label={"Otrzymałem nową wiadomość od użytkownika"}
           name={"switch1"}
           control={control}
           formState={formState}
           className={styles.Field}
         />
         <FormInputSwitcher
-          label={"Ktoś wysłał mi wiadomość"}
+          label={"Ktoś zarezerwował moją sesję mentoringową"}
           name={"switch2"}
           control={control}
           formState={formState}
           className={styles.Field}
         />
         <FormInputSwitcher
-          label={"Ktoś wysłał mi wiadomość"}
+          label={"Moja sesja została anulowana przez użytkownika"}
           name={"switch3"}
           control={control}
           formState={formState}
@@ -70,7 +65,7 @@ export const MentorEditSectionNotifications = () => {
       <hr className={styles.Divider} />
       <div className={styles.Switchers}>
         <FormInputSwitcher
-          label={"Ktoś wysłał mi wiadomość"}
+          label={"Chcę otrzymywać newsletter"}
           name={"switch4"}
           control={control}
           formState={formState}

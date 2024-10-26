@@ -10,9 +10,9 @@ export const getMentorMeetingHistory = async (
     const response = await axios.get('/mentor/home/meeting/history');
     const data = response.data;
     console.log('tutaj',data)
-    return {
-        total: data.length,
-        mentee: data.slice(props.skip, props.skip + props.take),
-    };
 
+    return {
+        mentee: data.slice(0, 10),
+        total: data.length,
+    };
 };

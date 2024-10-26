@@ -42,7 +42,7 @@ export const AddQuestionPopup = ({
     setIsPending(true);
     try {
       const response = await contactService({
-        senderEmail: data.email,
+        email: data.email,
         message: data.message,
       }); //TODO
       if (response?.success && setIsMsgSent) setIsMsgSent(true);

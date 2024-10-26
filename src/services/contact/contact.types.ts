@@ -1,5 +1,5 @@
 export type ContactServiceInput = {
-    senderEmail: string
+    email: string
     message: string
 }
 

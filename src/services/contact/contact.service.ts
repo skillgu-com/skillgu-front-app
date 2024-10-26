@@ -1,22 +1,28 @@
 import axios from "axios";
-import { ContactServiceInput, ContactServiceOutput } from "./contact.types";
+import {ContactServiceInput, ContactServiceOutput} from "./contact.types";
 
-export const contactService = async ({
-  senderEmail,
-  message,
-}: ContactServiceInput): Promise<ContactServiceOutput> => {
-  console.log(message);
-  // TODO
-  const response = await axios.post("....", { senderEmail, message });
+export const contactService = async ({email, message,}: ContactServiceInput): Promise<ContactServiceOutput> => {
+    try {
+        const response = await axios.post("/api/contact/app/send", {email, message,});
+        console.log(email)
+        console.log(message)
 
-  return {
-    success: true,
-    successMessage:
-      "Dziękujemy za wiadomość. Numer Twojego zgłoszenia to #1029", // @TODO
-  };
-
-  // return {
-  //     success: false,
-  //     errorMessage: 'Nie udało się wysłać wiadomości z powodu błędu serwera. Skontaktuj się z nami na email help@skillgu.com ', // @TODO
-  // }
+        if (response.status === 200 || response.status === 201) {
+            return {
+                success: true,
+                successMessage: "Dziękujemy za wiadomość. Numer Twojego zgłoszenia to #1029",
+            };
+        } else {
+            return {
+                success: false,
+                errorMessage: "Nie udało się wysłać wiadomości. Spróbuj ponownie później.",
+            };
+        }
+    } catch (error) {
+        console.error("Błąd przy wysyłaniu wiadomości: ", error);
+        return {
+            success: false,
+            errorMessage: "Nie udało się wysłać wiadomości z powodu błędu serwera. Skontaktuj się z nami na email help@skillgu.com",
+        };
+    }
 };

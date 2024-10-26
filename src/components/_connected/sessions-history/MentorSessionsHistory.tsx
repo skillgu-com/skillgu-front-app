@@ -18,7 +18,7 @@ export const MentorSessionsHistory = () => {
           take: PER_PAGE,
         });
 
-        console.log('a tutaj tez moge byc ', mentee)
+        console.log('a tutaj tez moge byc mente:::', mentee)
 
         sr.updateRecords(mentee, total);
       } catch (e) {

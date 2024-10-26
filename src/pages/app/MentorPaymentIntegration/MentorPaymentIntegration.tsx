@@ -157,7 +157,7 @@ export const MentorPaymentIntegration = () => {
         <NotConnected
           error={error ? "Error occurred while processing your request." : ""}
           handleCreateAccount={handleCreateAccount}
-          accountCreatePending={accountCreatePending} // Przekazanie stanu ładowania
+          accountCreatePending={accountCreatePending}
         />
       ) : null}
       <Container as={Tag.Section} classes={styles.faqSection}>

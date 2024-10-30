@@ -4,8 +4,7 @@ import clx from "classnames";
 
 import Accordion from "src/components/FAQ/Accordion/Accordion";
 import {
-  mentorshipApplicationFaq
-  , mentorshipSignupFaq
+   mentorshipSignupFaq
 } from "src/components/FAQ/Accordion/content/mentorship-application";
 import { PlanDetails } from "./PlanDetails";
 import { ProgressBarStepper } from "src/components/_base/progress-bar";

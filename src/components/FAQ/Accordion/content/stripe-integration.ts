@@ -3,26 +3,38 @@ import {AccordionItemModel} from "../components/AccordionItem/AccordionItem";
 export const stripeIntegration: AccordionItemModel[] = [
   {
     id: "01",
-    title: "Dlaczego muszę przyjmować płatności przez platformę?",
+    title: "Dlaczego warto przyjmować płatności przez platformę?",
     description:
-        `Pamiętaj, że płatność za wszystkie świadczone usługi należy przyjmować wyłącznie przez platformę. Rozliczanie się z menotrami poza platformą jest niezgodne z regulaminem i skutkuje wyłączeniem konta. <a href="#">Zobacz więcej</a>`,
+        "Przyjmowanie płatności przez platformę SkillGu to wygodny sposób na zarządzanie swoimi zarobkami i zapewnienie bezpieczeństwa finansowego. Obsługujemy rozliczenia, dzięki czemu możesz skupić się na mentoringu. Pamiętaj, że rozliczenia poza platformą są niezgodne z regulaminem i mogą prowadzić do wyłączenia konta.",
   },
   {
     id: "02",
     title: "Jak skonfigurować płatności?",
     description:
-        "Po kliknięciu w Konfiguruj płatność, zostaniesz przekierowany do formularza konfiguracji. Stripe poprosi Cię o dane. Pamiętaj, że te dane są potrzebne do weryfikacji Twojej tożsamości. My nie mamy do nich dostępu.",
+        "Po kliknięciu w Konfiguruj płatność, zostaniesz przekierowany do formularza konfiguracji Stripe, gdzie będziesz musiał podać dane do weryfikacji tożsamości. Pamiętaj, że te dane są przetwarzane przez Stripe i my nie mamy do nich dostępu.",
   },
   {
     id: "03",
     title: "Jak długo trwa przetwarzanie wypłaty?",
     description:
-        "Po kliknięciu Oznacz jako zrealizowane środki będą gotowe do wypłaty i widoczne w zakładce Moje zarobki po 24 godzinach. Po kliknięciu Wypłać zaksięgują się na Twoim koncie w ciąg 3-5 dni roboczych. ",
+        "Środki będą gotowe do wypłaty i widoczne w zakładce Moje zarobki po 24 godzinach od oznaczenia transakcji jako zrealizowanej. Po kliknięciu Wypłać, środki zostaną przelane na Twoje konto w ciągu 3-5 dni roboczych.",
   },
   {
     id: "04",
     title: "Jak mogę wypłacić swoje zarobki?",
     description:
         "Po skonfigurowaniu płatności zakładka Płatności zmienia się na Wypłać środki. W tej zakładce znajdziesz przycisk Przejdź do Stripe, który umożliwi Ci transfer środków na Twoje konto bankowe.",
+  },
+  {
+    id: "05",
+    title: "Dlaczego kwota zarobiona różni się od kwoty do wypłaty?",
+    description:
+        "Jako mentor, kwota widoczna w zakładce Rozliczenia uwzględnia prowizję pobieraną przez platformę SkillGu oraz opłatę Stripe za przetwarzanie płatności. Dzięki temu masz pełny wgląd w swoje rzeczywiste dochody i koszty związane z prowadzeniem sesji.",
+  },
+  {
+    id: "06",
+    title: "Jak mogę sprawdzić swoje rachunki za spotkania?",
+    description:
+        "W zakładce Moje zarobki znajdziesz szczegółowy przegląd swoich zarobków oraz rachunków za zrealizowane sesje. Widzisz tutaj pełną kwotę zarobioną przed prowizją oraz kwotę do wypłaty po uwzględnieniu opłat platformy i Stripe.",
   },
 ];

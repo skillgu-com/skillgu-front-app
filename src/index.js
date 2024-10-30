@@ -12,50 +12,51 @@ import {persistStore, persistReducer} from 'redux-persist';
 import rootReducer from "./reducers/rootReducer";
 
 const persistConfig = {
-	key: 'root',
-	storage,
+    key: 'root',
+    storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
-	reducer: persistedReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
-			serializableCheck: {
-				ignoredActions: ['persist/PERSIST'],
-			},
-		}),
-	// ...
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['persist/PERSIST'],
+            },
+        }),
+    // ...
 });
 
 const persistor = persistStore(store);
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+console.log("Używany klucz publikowalny Stripe:", process.env.REACT_APP_STRIPE_KEY);
 
 axios.interceptors.request.use(
-	(config) => {
-		if (localStorage.getItem('jwttoken')) {
-			config.headers = {
-				...config.headers,
-				Authorization: `Bearer ${localStorage.getItem('jwttoken')}`,
-			};
-			
-		} 
-		return config;
-	},
-	(error) => {
-		return Promise.reject(error);
-	}
+    (config) => {
+        if (localStorage.getItem('jwttoken')) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${localStorage.getItem('jwttoken')}`,
+            };
+
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
 );
 
 root.render(
-	<Provider store={store}>
-		<PersistGate loading={null} persistor={persistor}>
-			<App />
-		</PersistGate>
-	</Provider>
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <App/>
+        </PersistGate>
+    </Provider>
 );
 
 reportWebVitals();

@@ -15,7 +15,7 @@ import { Loader } from "../_grouped/loader";
 type AddQuestionPopupTypes = {
   isOpen: boolean;
   handleClose: () => void;
-  setIsMsgSent?: Dispatch<SetStateAction<boolean>>;
+  setResponseMsg: Dispatch<SetStateAction<string>>;
 };
 export type AddQuestionFormTypes = {
   email: string;
@@ -25,7 +25,7 @@ export type AddQuestionFormTypes = {
 export const AddQuestionPopup = ({
   isOpen,
   handleClose,
-  setIsMsgSent,
+  setResponseMsg,
 }: AddQuestionPopupTypes) => {
   const [isPending, setIsPending] = useState<boolean>(false);
 
@@ -44,11 +44,17 @@ export const AddQuestionPopup = ({
       const response = await contactService({
         email: data.email,
         message: data.message,
-      }); //TODO
-      if (response?.success && setIsMsgSent) setIsMsgSent(true);
+      });
+      if (response?.success && setResponseMsg) {
+        setResponseMsg(response.successMessage);
+      }
+
+      if (!response?.success) {
+        setResponseMsg(response.errorMessage);
+      }
       setIsPending(false);
     } catch (err) {
-      console.log(err); //TODO
+      console.log(err);
     }
 
     handleClose();

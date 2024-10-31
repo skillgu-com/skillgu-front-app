@@ -38,7 +38,7 @@ export const MentorPaymentIntegration = () => {
   const [accountLinkCreatePending, setAccountLinkCreatePending] =
     useState(false);
   const [error, setError] = useState(false);
-  const [isMsgSent, setIsMsgSent] = useState<boolean>(false);
+  const [responseMsg, setResponseMsg] = useState<string>("");
 
   useEffect(() => {
     const fetchStripeAccount = async () => {
@@ -135,7 +135,7 @@ export const MentorPaymentIntegration = () => {
       <AddQuestionPopup
         isOpen={popupOpen}
         handleClose={toogleModalOpened}
-        setIsMsgSent={setIsMsgSent}
+        setResponseMsg={setResponseMsg}
       />
       <Loader
         open={accountLinkCreatePending || initialDataPending}
@@ -164,9 +164,7 @@ export const MentorPaymentIntegration = () => {
         <div className={styles.faqContainer}>
           <div className={styles.faqHeader}>
             <h4 className={styles.faqTitle}>
-              {isMsgSent
-                ? "Dziękujemy! Wiadomość została wysłana"
-                : "Najczęściej zadawane pytania"}
+              {responseMsg || "Najczęściej zadawane pytania"}
             </h4>
             <p className={styles.faqSubtitle}>
               Nie znalazłeś odpowiedzi na swoje pytanie? Napisz do nas, a

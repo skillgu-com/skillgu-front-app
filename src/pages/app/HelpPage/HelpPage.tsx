@@ -11,7 +11,7 @@ import { SectionTemplate } from "src/components/SectionTemplate";
 
 const HelpPage = () => {
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
-  const [isMsgSent, setIsMsgSent] = useState<boolean>(false);
+  const [responseMsg, setResponseMsg] = useState<string>("");
   const toogleModalOpened = useCallback(() => setPopupOpen((s) => !s), []);
 
   return (
@@ -19,15 +19,13 @@ const HelpPage = () => {
       <AddQuestionPopup
         isOpen={popupOpen}
         handleClose={toogleModalOpened}
-        setIsMsgSent={setIsMsgSent}
+        setResponseMsg={setResponseMsg}
       />
       <SectionTemplate title="Pomoc">
         <div className={styles.gridContainer}>
           <div className={styles.boxWithBtn}>
             <Text classes={styles.subtitle}>
-              {isMsgSent
-                ? "Dziękujemy! Wiadomość została wysłana"
-                : "Najczęściej zadawane pytania"}
+              {responseMsg || "Najczęściej zadawane pytania"}
             </Text>
             <Text classes={styles.info}>
               Nie znalazłeś odpowiedzi na swoje pytanie? Napisz do nas, a

@@ -2,6 +2,7 @@ import React from "react";
 import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { ContentWrapper } from "../elements/ContentWrapper";
 import { PlanDetails } from "../elements";
+import styles from './../MentorshipApplication.module.scss'
 
 export const PlanStep = () => {
     const { state, ...actions } = useMentAppReducer()
@@ -15,7 +16,7 @@ export const PlanStep = () => {
             submitHandler={actions.submitPlan}
             step={1}
         >
-            <PlanDetails />            
+            <PlanDetails className={styles.planDetails}/>            
         </ContentWrapper>
     )
 }

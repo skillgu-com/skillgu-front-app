@@ -64,3 +64,17 @@
     color: $colour-base-600;
     display: block;
 }
+
+.timeZone {
+  @extend %text-caption;
+  color: $colour-base-600;
+  margin-bottom:12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

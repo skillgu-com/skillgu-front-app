@@ -20,6 +20,7 @@ type Props = Pick<
   userIdentity?: ReactNode;
   selected?: boolean;
   selectable?: boolean;
+  className?: string;
   onClick?: () => void;
 };
 
@@ -37,17 +38,16 @@ export const MentorshipPlan = ({
   userIdentity,
   selected,
   selectable,
+  className,
   onClick,
 }: Props) => {
-
   return (
     <div
       className={clx(styles.wrapper, {
         [styles.selected]: selected,
-      })}
+      }, className)}
     >
       {userIdentity}
-
       <div className={styles.rows}>
         <PlanName
           className={styles.planName}

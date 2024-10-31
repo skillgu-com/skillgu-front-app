@@ -3,10 +3,10 @@ import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { MentorshipPlan } from "src/components/_grouped/mentorship-plan";
 
-
-export const PlanDetails = () => {
+export const PlanDetails = ({ className }: { className?: string }) => {
   const { state } = useMentAppReducer();
   const { mentor, selectedPlan } = state;
+
   return selectedPlan && mentor ? (
     <MentorshipPlan
       id={selectedPlan?.id}
@@ -16,6 +16,7 @@ export const PlanDetails = () => {
       sessionDuration={selectedPlan.sessionDuration}
       sessionsPerMonth={selectedPlan.sessionsPerMonth}
       responseTime={selectedPlan.responseTime}
+      className={className}
       userIdentity={
         mentor ? (
           <UserIdentity
@@ -25,6 +26,9 @@ export const PlanDetails = () => {
             title={mentor.fullName}
             subtitle={[mentor.profession, mentor.company].join(" w ")}
             rate={mentor.rate}
+            timeZone={mentor.timeZone}
+            noPadding
+            fullWidth
           />
         ) : null
       }

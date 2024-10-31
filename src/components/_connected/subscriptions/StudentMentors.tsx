@@ -77,7 +77,7 @@ export const StudentMentors = ({ title }: Props) => {
       fetchData();
     }
   }, []);
-console.log(3, data)
+
   const settings = useMemo(() => {
     return {
       dots: true,

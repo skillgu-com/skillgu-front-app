@@ -37,8 +37,8 @@
   gap: 12px;
 
   @include media-lg-and-up {
-    max-width:calc(1200px + 3rem);
-    margin:auto;
+    max-width: calc(1200px + 3rem);
+    margin: auto;
     display: grid;
     grid-template-columns: 1fr 350px;
     gap: 40px;
@@ -188,9 +188,6 @@
     flex: 1;
   }
 
-  .checkIcon {
-  }
-
   input {
     display: none;
   }
@@ -208,9 +205,6 @@
     color: $colour-primary;
     flex: 1;
   }
-
-  .control {
-  }
 }
 
 .rowsFieldset {
@@ -224,9 +218,6 @@
   .label {
     @extend %text-button-md;
     color: $colour-primary;
-  }
-
-  .control {
   }
 
   .info {
@@ -266,4 +257,7 @@
     width: 0;
     height: 0;
   }
+}
+.planDetails {
+  margin: auto;
 }

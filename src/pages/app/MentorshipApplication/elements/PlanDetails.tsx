@@ -3,6 +3,7 @@ import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { UserIdentity } from "src/components/_base/UserIdentity";
 import { MentorshipPlan } from "src/components/_grouped/mentorship-plan";
 
+
 export const PlanDetails = () => {
   const { state } = useMentAppReducer();
   const { mentor, selectedPlan } = state;

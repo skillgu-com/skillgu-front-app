@@ -28,7 +28,7 @@ export const Pricing = ({
         <button
             className={`${styles.pricingCard} ${isActive ? styles.selected : ""} ${!canChangePlan && !isActive ? styles.inactive : ""}`}
             onClick={() => handleSelectPlan(planTitle)}
-            disabled={!canChangePlan && !isActive} // Wyłączamy przycisk, jeśli zmiana planu jest zablokowana
+            disabled={!canChangePlan && !isActive}
         >
             <div className={styles.planHeader}>
                 {planTitle !== "Free" ? (

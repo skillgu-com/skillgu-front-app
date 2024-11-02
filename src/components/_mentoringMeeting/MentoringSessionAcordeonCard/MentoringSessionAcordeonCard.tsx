@@ -115,23 +115,20 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                             sx={{gridArea: 'changeMeetingButton'}}
                             color='secondary'
                             variant='contained'
-                            disabled={isMentor}
-                        >
+                            disabled={true}>
                             Przełóż spotkanie
                         </Button>
-                        <Tooltip title="Ta funkcja chwilowo niedostępna">
-    <span> {}
-        <Button
-            onClick={onCancel}
-            sx={{gridArea: 'cancelMeetingButton'}}
-            color="error"
-            variant="contained"
-            disabled
-        >
+
+                        <span>
+                            <Button
+                                onClick={onCancel}
+                                sx={{gridArea: 'cancelMeetingButton'}}
+                                color="error"
+                                variant="contained"
+                                disabled>
             Odwołaj
         </Button>
     </span>
-                        </Tooltip>
                         <Box sx={{gridArea: 'joinMeetingButton'}}>
                             <MentoringSessionJoinButton meetingUrl={meetingLink}/>
                         </Box>

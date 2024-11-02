@@ -129,7 +129,7 @@ export const MentorSubscriptions = () => {
                 }
             />
             <SectionTemplate
-                title="Twoje Plany"
+                title="Wybierz Plan"
                 description={
                     <>
                         Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}

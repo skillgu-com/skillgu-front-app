@@ -23,7 +23,6 @@ export const fetchStudentSessions = async (
 
   const response = await axios.get('/mentee/home/meeting/history');
   const data = response.data;
-  console.log('tutaj',data)
 
   return {
     mentors: data.slice(0, 10),

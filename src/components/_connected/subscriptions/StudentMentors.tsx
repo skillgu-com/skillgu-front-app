@@ -70,7 +70,6 @@ export const StudentMentors = ({title}: Props) => {
                 skip: PER_PAGE * (pageRef.current - 1),
 
             });
-            console.log('tutaj sprawdzam : ',data)
             setData(data);
             setPending(false);
         };

@@ -9,6 +9,7 @@ export type MentorDetails = {
   profession: string;
   company: string;
   rate: number;
+  timeZone: string;
 };
 
 export type PlanDetails = {
@@ -16,15 +17,15 @@ export type PlanDetails = {
   plan: SubscriptionPlan;
   monthlyPrice: number;
   included: string[];
-  sessionDuration:number;
+  sessionDuration: number;
   sessionsPerMonth: number;
-  responseTime:number;
+  responseTime: number;
 };
 
 type AvailableGoalsDTO = {
-  value: string,
+  value: string;
   label: string;
-}
+};
 
 export type MentAppState = {
   step: MentAppStep;

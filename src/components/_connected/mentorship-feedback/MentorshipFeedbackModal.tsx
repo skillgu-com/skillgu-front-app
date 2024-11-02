@@ -69,7 +69,6 @@ const MentorshipFeedbackModalContent = ({
     });
     setDone(true);
   };
-
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
@@ -139,7 +138,6 @@ const MentorshipFeedbackModalContent = ({
       </div>
     );
   }
-
   /* Options fetching */
   if (pending && !config) {
     return (

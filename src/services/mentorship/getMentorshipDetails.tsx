@@ -31,6 +31,7 @@ export const getMentorshipDetails = async (
   const getAllMenteeAvailableGoal = await axios.get(
     "/api/mentorship/get-all-mentee-available-goal"
   );
+
   return {
     mentor: {
       id: mentor.data.data.mentorId,
@@ -39,10 +40,11 @@ export const getMentorshipDetails = async (
       rate: 4,
       profession: mentor.data.data.profession,
       company: mentor.data.data.company,
+      timeZone: mentor.data.data.timeZone,
     },
     plan: {
       id: response.data.data.id,
-      plan: response.data.title,
+      plan: response.data.data.variant,
       monthlyPrice: response.data.data.price,
       sessionDuration: response.data.data.sessionDurationMinutes,
       sessionsPerMonth: response.data.data.numberOfSessionsPerMonth,

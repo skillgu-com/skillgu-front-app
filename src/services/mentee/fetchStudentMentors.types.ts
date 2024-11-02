@@ -10,7 +10,7 @@ export type FetchStudentMentorsInput = {
 }
 export type ServiceSessionDTO = {
     mentorID: number;
-    subscriptionId: string;
+    subscriptionId: number;
     mentorshipId: string;
     meetTime: number;
     scheduleName: string;

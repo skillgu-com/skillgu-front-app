@@ -11,7 +11,8 @@
     border-radius: 16px;
     border: 1px solid $colour-base-400;
     box-sizing: border-box;
-    
+    max-width:350px; 
+    // margin:auto;
     &.selected {
         border-color: $colour-secondary;
         border-width: 2px;

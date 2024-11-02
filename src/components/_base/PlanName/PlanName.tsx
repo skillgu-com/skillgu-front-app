@@ -45,7 +45,7 @@ export const PlanName = ({
           [styles[iconPosition]]: iconPosition,
         })}
       >
-        {planName ?? displayPlanName(plan)}
+        {planName || displayPlanName(plan)}
       </span>
     </div>
   );

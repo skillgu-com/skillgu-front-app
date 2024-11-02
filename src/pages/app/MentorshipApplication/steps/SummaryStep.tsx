@@ -78,8 +78,8 @@ export const SummaryStep = () => {
         subtitle={"Zgłoszenie wysłane"}
         description={
           <>
-            Powinieneś dostać odpowiedź od Anny w przeciągu najbliższych kilku
-            dni. Status swojej aplikacji możesz zawsze sprawdzić w zakładce{" "}
+            Powinieneś dostać odpowiedź w przeciągu najbliższych kilku dni.
+            Status swojej aplikacji możesz zawsze sprawdzić w zakładce{" "}
             <Link to={"/mentee-subscriptions"}>Subskrypcje</Link>.
           </>
         }

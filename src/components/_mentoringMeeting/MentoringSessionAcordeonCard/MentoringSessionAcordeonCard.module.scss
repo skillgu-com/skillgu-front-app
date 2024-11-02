@@ -1,0 +1,44 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
+@use "../../../scss/mixins" as *;
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+
+  .btnDisabledChange:hover + .tooltipChange {
+    display: block;
+    opacity: 1;
+  }
+  .btnDisabledCancel:hover + .tooltipCancel {
+    display: block;
+    opacity: 1;
+  }
+}
+.tooltipCancel, .tooltipChange {
+  display: none;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $colour-base-800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: $colour-base-800 transparent transparent transparent;
+  }
+}

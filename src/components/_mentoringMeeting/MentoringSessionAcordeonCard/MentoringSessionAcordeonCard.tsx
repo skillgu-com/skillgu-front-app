@@ -19,6 +19,8 @@ import MentoringSessionMeetingDetailsHeader
 import MentoringSessionMeetingDetails from "../MentoringSessionMeetingDetails/MentoringSessionMeetingDetails";
 import MentoringSessionJoinButton from "../MentoringSessionJoinButton/MentoringSessionJoinButton";
 
+import styles from './MentoringSessionAcordeonCard.module.scss';
+
 type Props = MentoringSessionInListT & {
     isOpen: boolean;
     onToggle: () => void;
@@ -81,67 +83,77 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
     }
 
     return (
-        <StyledCard>
-            <Box sx={{gridArea: 'timeRange'}} id={`mentoringSessionId-${id}`}>
-                <Typography
-                    variant='buttonLg'
-                    color='primary'
-                >
-                    {format(start, 'H:mm')} - {format(end, 'H:mm')}
-                </Typography>
+      <StyledCard>
+        <Box sx={{ gridArea: "timeRange" }} id={`mentoringSessionId-${id}`}>
+          <Typography variant="buttonLg" color="primary">
+            {format(start, "H:mm")} - {format(end, "H:mm")}
+          </Typography>
+        </Box>
+        <Box sx={{ gridArea: "main" }}>
+          <MentoringSessionMeetingDetailsHeader
+            isLoading={false}
+            title={title}
+            mentorName={participant?.name}
+            avatarUrl={participant?.avatarUrl}
+          />
+          <Collapse in={isOpen}>
+            <Box sx={{ pt: 6 }}>
+              <MentoringSessionMeetingDetails
+                isLoading={false}
+                meetingDetails={{ participant }}
+              />
             </Box>
-            <Box sx={{gridArea: 'main'}}>
-                <MentoringSessionMeetingDetailsHeader
-                    isLoading={false}
-                    title={title}
-                    mentorName={participant?.name}
-                    avatarUrl={participant?.avatarUrl}
-                />
-                <Collapse in={isOpen}>
-                    <Box sx={{pt: 6}}>
-                        <MentoringSessionMeetingDetails
-                            isLoading={false}
-                            meetingDetails={{participant}}
-                        />
-                    </Box>
-                    <StyledButtonsWrapper>
-                        <Button
-                            component={Link}
-                            to={generatePath(paths.rescheduleMeeting, {
-                                meetingId: id,
-                                sessionId: sessionId,
-                                mentorId: mentorId
-                            })}
-                            sx={{gridArea: 'changeMeetingButton'}}
-                            color='secondary'
-                            variant='contained'
-                            disabled={true}>
-                            Przełóż spotkanie
-                        </Button>
-
-                        <span>
-                            <Button
-                                onClick={onCancel}
-                                sx={{gridArea: 'cancelMeetingButton'}}
-                                color="error"
-                                variant="contained"
-                                disabled>
-            Odwołaj
-        </Button>
-    </span>
-                        <Box sx={{gridArea: 'joinMeetingButton'}}>
-                            <MentoringSessionJoinButton meetingUrl={meetingLink}/>
-                        </Box>
-                    </StyledButtonsWrapper>
-                </Collapse>
-            </Box>
-            <Box sx={{justifySelf: 'flex-end', gridArea: 'expandButton'}}>
-                <StyledRoundButton isOpen={isOpen} onClick={onToggle}>
-                    <ChevronIcon/>
-                </StyledRoundButton>
-            </Box>
-        </StyledCard>
-    )
+            <StyledButtonsWrapper>
+              <div className={styles.tooltipContainer}>
+                <div className={styles.btnDisabledChange}>
+                  <Button
+                    component={Link}
+                    to={generatePath(paths.rescheduleMeeting, {
+                      meetingId: id,
+                      sessionId: sessionId,
+                      mentorId: mentorId,
+                    })}
+                    sx={{ gridArea: "changeMeetingButton" }}
+                    color="secondary"
+                    variant="contained"
+                    disabled={true}
+                  >
+                    Przełóż spotkanie
+                  </Button>
+                </div>
+                <span className={styles.tooltipChange}>
+                  Funkcja chwilowo niedostępna
+                </span>
+              </div>
+              <div className={styles.tooltipContainer}>
+                <div className={styles.btnDisabeldCancel}>
+                  <Button
+                    onClick={onCancel}
+                    sx={{ gridArea: "cancelMeetingButton" }}
+                    color="error"
+                    variant="contained"
+                    disabled
+                  >
+                    Odwołaj
+                  </Button>
+                </div>
+                <span className={styles.tooltipCancel}>
+                  Funkcja chwilowo niedostępna
+                </span>
+              </div>
+              <Box sx={{ gridArea: "joinMeetingButton" }}>
+                <MentoringSessionJoinButton meetingUrl={meetingLink} />
+              </Box>
+            </StyledButtonsWrapper>
+          </Collapse>
+        </Box>
+        <Box sx={{ justifySelf: "flex-end", gridArea: "expandButton" }}>
+          <StyledRoundButton isOpen={isOpen} onClick={onToggle}>
+            <ChevronIcon />
+          </StyledRoundButton>
+        </Box>
+      </StyledCard>
+    );
 }
 
 export default MentoringSessionAcordeonCard

@@ -261,7 +261,7 @@
   }
   :global(.slick-slide) > div {
     width: 100%;
-    max-width:400px;
+    max-width: 400px;
   }
 }
 .sectionPricing {
@@ -303,7 +303,7 @@
   position: relative;
   display: inline-block;
 
-  .btn:hover + .tooltip {
+  .btnDisabeldBox:hover + .tooltip {
     display: block;
     opacity: 1;
   }

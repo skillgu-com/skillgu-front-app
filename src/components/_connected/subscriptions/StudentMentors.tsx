@@ -465,20 +465,22 @@ export const StudentMentors = ({ title }: Props) => {
                             styles.tooltipContainer
                           )}
                         >
-                          <button
-                            onClick={() =>
-                              setSuspending({
-                                id: m.id,
-                                fullName: m.fullName,
-                                plan: m.plan,
-                                paidUntil: m.paidUntil,
-                              })
-                            }
-                            className={styles.btn}
-                            disabled
-                          >
-                            Zawieś subskrypcję
-                          </button>
+                          <div className={styles.btnDisabeldBox}>
+                            <button
+                              onClick={() =>
+                                setSuspending({
+                                  id: m.id,
+                                  fullName: m.fullName,
+                                  plan: m.plan,
+                                  paidUntil: m.paidUntil,
+                                })
+                              }
+                              className={styles.btn}
+                              disabled
+                            >
+                              Zawieś subskrypcję
+                            </button>
+                          </div>
                           <span className={styles.tooltip}>
                             Funkcja chwilowo niedostępna
                           </span>

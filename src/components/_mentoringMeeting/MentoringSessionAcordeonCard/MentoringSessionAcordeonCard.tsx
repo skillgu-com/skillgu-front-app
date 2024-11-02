@@ -126,7 +126,7 @@ const MentoringSessionAcordeonCard: FC<Props> = ({
                 </span>
               </div>
               <div className={styles.tooltipContainer}>
-                <div className={styles.btnDisabeldCancel}>
+                <div className={styles.btnDisabledCancel}>
                   <Button
                     onClick={onCancel}
                     sx={{ gridArea: "cancelMeetingButton" }}

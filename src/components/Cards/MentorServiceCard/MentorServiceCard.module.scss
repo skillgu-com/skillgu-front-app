@@ -262,3 +262,20 @@
     height: 20px;
   }
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  &Item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  &Icon {
+    margin-top:4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

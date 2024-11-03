@@ -10,13 +10,17 @@ import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
 import { ServiceInfoBox, ServiceInfoBoxProps } from "../../_grouped";
 import Title, { TitleTag, TitleVariant } from "../../typography/Title/Title";
+import Checkbox from "src/components/Checkbox/Checkbox";
+import { ListStyleIcon } from "@icons/ListStyleIcon";
+import Message from "@icons/Message";
+import { ChatIcon } from "@icons/Chat";
 
 type MentorServiceCardProps = Pick<
   ServiceInfoBoxProps,
   "information" | "maxAttendees" | "meetingForm"
 > & {
   avatar_url: string;
-  description: string;
+  description?: string;
   fullName: string;
   profession: string;
   reviewsAvgRate: string;
@@ -24,8 +28,12 @@ type MentorServiceCardProps = Pick<
   title: string;
   initialDescriptionHeight?: number | "auto";
   servicePrice: number;
+  servicePerMonth?: number;
   serviceDuration: number;
   timeZone?: string;
+  serviceType: "session" | "mentorship";
+  serviceIncluded?: string[];
+  responseTime?: number;
 };
 
 const DEFAULT_DESCRIPTION_HEIGHT = 60;
@@ -41,11 +49,15 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
   title,
   initialDescriptionHeight = DEFAULT_DESCRIPTION_HEIGHT,
   serviceDuration,
+  servicePerMonth,
   servicePrice,
   information,
   maxAttendees,
   meetingForm,
   timeZone,
+  serviceType,
+  serviceIncluded,
+  responseTime,
 }) => {
   const [descriptionHeight, setDescriptionHeight] = useState<number | "auto">(
     initialDescriptionHeight
@@ -105,26 +117,54 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
         >
           {title}
         </Title>
-        <div className={styles.descriptionWrapper}>
-          {typeof description === "string" &&
-          description.length > DESC_EXPAND_LENGTH ? (
-            <>
-              <AnimateHeight
-                id="description"
-                duration={500}
-                height={descriptionHeight}
-                animateOpacity={true}
-                contentClassName={clx(styles.animateDescriptionContent, {
-                  [styles.animateDescriptionContentExpanded]:
-                    descriptionHeight !== initialDescriptionHeight,
-                })}
-              >
-                <div
-                  className={styles.cover}
-                  style={{
-                    display: descriptionHeight === "auto" ? "none" : "block",
-                  }}
-                />
+        {description ? (
+          <div className={styles.descriptionWrapper}>
+            {typeof description === "string" &&
+            description.length > DESC_EXPAND_LENGTH ? (
+              <>
+                <AnimateHeight
+                  id="description"
+                  duration={500}
+                  height={descriptionHeight}
+                  animateOpacity={true}
+                  contentClassName={clx(styles.animateDescriptionContent, {
+                    [styles.animateDescriptionContentExpanded]:
+                      descriptionHeight !== initialDescriptionHeight,
+                  })}
+                >
+                  <div
+                    className={styles.cover}
+                    style={{
+                      display: descriptionHeight === "auto" ? "none" : "block",
+                    }}
+                  />
+                  <Title
+                    tag={TitleTag.h4}
+                    variant={TitleVariant.standard}
+                    classes={styles.description}
+                  >
+                    {description}
+                  </Title>
+                </AnimateHeight>
+                {initialDescriptionHeight !== "auto" ? (
+                  <button
+                    className={styles.moreBtn}
+                    onClick={toggleDescriptionExpanded}
+                    type="button"
+                    aria-controls="example-panel"
+                    aria-expanded={
+                      descriptionHeight !== initialDescriptionHeight
+                    }
+                    ref={descMoreRef}
+                  >
+                    {descriptionHeight === initialDescriptionHeight
+                      ? "Pokaż więcej"
+                      : "Pokaż mniej"}
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <>
                 <Title
                   tag={TitleTag.h4}
                   variant={TitleVariant.standard}
@@ -132,46 +172,44 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
                 >
                   {description}
                 </Title>
-              </AnimateHeight>
-              {initialDescriptionHeight !== "auto" ? (
-                <button
-                  className={styles.moreBtn}
-                  onClick={toggleDescriptionExpanded}
-                  type="button"
-                  aria-controls="example-panel"
-                  aria-expanded={descriptionHeight !== initialDescriptionHeight}
-                  ref={descMoreRef}
-                >
-                  {descriptionHeight === initialDescriptionHeight
-                    ? "Pokaż więcej"
-                    : "Pokaż mniej"}
-                </button>
-              ) : null}
-            </>
-          ) : (
-            <>
-              <Title
-                tag={TitleTag.h4}
-                variant={TitleVariant.standard}
-                classes={styles.description}
-              >
-                {description}
-              </Title>
-            </>
-          )}
-        </div>
+              </>
+            )}
+          </div>
+        ) : null}
+        {serviceIncluded?.length ? (
+          <ul className={styles.list}>
+            {serviceIncluded.map((item) => (
+              <li className={styles.listItem}>
+                <span className={styles.listIcon}>
+                  <ListStyleIcon />
+                </span>
+                <p className={styles.infoCell}>{item}</p>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
       <div className={styles.rowInfo}>
         {servicePrice ? (
           <div className={styles.infoCell}>
             <DollarCircleIcon />
-            {Math.ceil(servicePrice)} zł/h
+            {serviceType === "session"
+              ? `${Math.ceil(servicePrice)} zł/h`
+              : `${Math.ceil(servicePrice)} zł/miesiąc`}
           </div>
         ) : null}
         {serviceDuration ? (
           <div className={styles.infoCell}>
             <ClockSolidCircleIcon />
-            {serviceDuration} min
+            {serviceType === "mentorship" && servicePerMonth
+              ? `${servicePerMonth} x ${serviceDuration}`
+              : `${serviceDuration} min`}
+          </div>
+        ) : null}
+        {serviceType === "mentorship" && responseTime ? (
+          <div className={styles.infoCell}>
+            <ChatIcon />
+            {responseTime} h
           </div>
         ) : null}
       </div>

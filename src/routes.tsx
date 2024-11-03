@@ -287,7 +287,7 @@ const routesRaw: Omit<Route, "id">[] = [
     layoutVersion: "default",
   },
   {
-    path: paths.orderConfirm,
+    path: paths.sessionConfirm,
     element: <OrderConfirmPage />,
     layoutVersion: "default",
   },

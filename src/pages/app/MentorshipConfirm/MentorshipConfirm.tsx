@@ -1,25 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { MentorServiceCard } from "src/components/Cards/MentorServiceCard";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { Loader } from "src/components/_grouped/loader";
-import { getSessionOrderSummary } from "@services/order/orderService";
 import Container from "src/components/Container/Container";
-import { Tag } from "@customTypes/tags";
 import { SelectedDate } from "src/pages/app/BookSession/components";
 
-import styles from "./OrderConfirm.module.scss";
+import styles from "./MentorshipConfirm.module.scss";
+
 import paths from "../../../paths";
+import { Tag } from "@customTypes/tags";
+import { SubscriptionPlan } from "@customTypes/order";
+import { getMentorshipOrderSummary } from "@services/mentorship/mentorshipConfirm";
+import { displayPlanName } from "src/utils/plan";
 
 type MentorshipData = {
   userEmail: string;
-  sessionName: string;
-  sessionPrice: number;
-  sessionType: string;
-  scheduleID: number;
-  sessionDescription: string;
-  terms?: Date[];
-  sessionDuration?: number;
+  plan: {
+    id: number;
+    plan: SubscriptionPlan;
+    monthlyPrice: number;
+    included: string[];
+    sessionDuration: number;
+    sessionsPerMonth: number;
+    responseTime: number;
+  };
+  terms: Date[];
   mentor: {
     id: number;
     userName: string;
@@ -41,7 +48,7 @@ export const MentorshipConfirmPage = () => {
     const getMentporshipOrder = async (id: string) => {
       try {
         setIsLoading(true);
-        const data = await getSessionOrderSummary(id);
+        const data = await getMentorshipOrderSummary(id);
         setMentorship(data);
       } catch (err) {
         // Handle error if needed
@@ -52,6 +59,24 @@ export const MentorshipConfirmPage = () => {
 
     if (id) getMentporshipOrder(id);
   }, [id]);
+
+  const getFormatedTime = (term: Date) => {
+    return term
+      ? term.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "";
+  };
+
+  const formatedTerm = useMemo(() => {
+    return mentorship?.terms
+      ? mentorship?.terms.map((term) => ({
+          selectedDate: term ? term.toLocaleDateString() : "",
+          selectedTime: getFormatedTime(term),
+        }))
+      : [];
+  }, [mentorship?.terms]);
 
   if (!mentorship) {
     return (
@@ -66,15 +91,6 @@ export const MentorshipConfirmPage = () => {
       </>
     );
   }
-
-  const getFormatedTime = (term: Date) => {
-    return term
-      ? term.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : "";
-  };
 
   return (
     <main>
@@ -99,27 +115,35 @@ export const MentorshipConfirmPage = () => {
             </div>
             <MentorServiceCard
               meetingForm="video"
-              maxAttendees={5}
               information="Link do spotkania przyjdzie na e-mail lub po zalogowaniu aplikacji w kalendarzu"
               avatar_url={mentorship.mentor?.avatarUrl}
-              description={mentorship.sessionDescription}
-              fullName={mentorship.sessionName}
+              fullName={mentorship.mentor.fullName}
               profession={mentorship.mentor?.profession}
               reviewsAvgRate={String(mentorship.mentor?.reviewsAvgRate)}
               reviewsCount={String(mentorship.mentor?.reviewsCount)}
-              title={mentorship.sessionType}
+              title={displayPlanName(mentorship.plan.plan)}
               initialDescriptionHeight={90}
-              servicePrice={mentorship.sessionPrice}
-              serviceDuration={mentorship.sessionDuration || 45}
+              servicePrice={mentorship.plan.monthlyPrice}
+              servicePerMonth={mentorship.plan.sessionsPerMonth}
+              serviceDuration={mentorship.plan.sessionDuration || 45}
               timeZone={mentorship?.timeZone}
+              serviceType="mentorship"
+              serviceIncluded={mentorship.plan.included}
+              responseTime={mentorship.plan.responseTime}
             />
-            {mentorship?.terms?.map((term) => (
-              <SelectedDate
-                key={term.getTime()}
-                selectedDate={term ? term.toLocaleDateString() : ""}
-                selectedTime={getFormatedTime(term)}
-              />
-            ))}
+            {formatedTerm?.length ? (
+              <section className={styles.timeBox}>
+                <h4 className={styles.timeBoxTitle}>Wybrany termin</h4>
+                <ul className={styles.timeList}>
+                  {formatedTerm.map((term) => (
+                    <li className={styles.timeListItem}>
+                      <p className={styles.timeElem}>{term.selectedDate}</p>
+                      <p className={styles.timeElem}>{term.selectedTime}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
             <Button
               href={paths.home}
               classes={styles.btnDesktop}

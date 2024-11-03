@@ -1,0 +1,112 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.flexContainer {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  padding-bottom: 36px;
+  @include media-lg-and-up {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .boxMobile {
+    padding: 32px 24px;
+    border: 1px solid $colour-base-400;
+    border-radius: 8px;
+    @include media-lg-and-up {
+      padding: 0;
+      border: none;
+    }
+  }
+}
+
+.boxOuter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  @include media-lg-and-up {
+    padding: 32px 24px;
+    border: 1px solid $colour-base-400;
+    border-radius: 8px;
+  }
+}
+
+.title {
+  @extend %text-subtitle-1;
+  margin-bottom: 20px;
+  color: $colour-primary;
+}
+
+.subtitle {
+  @extend %text-button-md;
+  color: $colour-base-800;
+  & span {
+    color: $colour-secondary;
+  }
+}
+
+.btn {
+  @extend %text-button-md;
+  margin-top: 32px;
+  font-weight: 600;
+}
+
+.btnMobile {
+  @extend %text-button-md;
+  margin-top: 32px;
+  font-weight: 600;
+  @include media-lg-and-up {
+    display: none;
+  }
+}
+
+.btnDesktop {
+  @extend %text-button-md;
+  display: none;
+  font-weight: 600;
+  @include media-lg-and-up {
+    display: block;
+  }
+}
+
+.time {
+  &Box {
+    align-items: flex-start;
+    border-radius: $box-border-radius;
+    border: $box-border;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: flex-start;
+    padding: 16px;
+    background-color: #fff;
+    &Title {
+      @extend %text-button-lg;
+      color: $colour-primary;
+    }
+  }
+  &List {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    &Item {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  &Elem {
+    @extend %text-button-sm;
+    align-items: center;
+    background-color: rgba($colour-secondary, 0.09);
+    border-radius: 15px;
+    border: 1px solid $colour-secondary;
+    color: $colour-secondary;
+    display: flex;
+    justify-content: center;
+    padding: 4px 16px;
+  }
+}

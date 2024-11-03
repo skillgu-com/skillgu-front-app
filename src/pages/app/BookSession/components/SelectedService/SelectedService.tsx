@@ -31,6 +31,7 @@ export const SelectedService = () => {
       servicePrice={service.opt.sessionPrice}
       serviceDuration={service?.opt.meetTime}
       timeZone={service?.opt.timeZone}
+      serviceType="session"
     />
   ) : null;
 };

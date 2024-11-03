@@ -116,6 +116,7 @@ export const OrderConfirmPage = () => {
                   servicePrice={session.sessionPrice}
                   serviceDuration={session.sessionDuration || 45}
                   timeZone={session?.timeZone}
+                  serviceType="session"
               />
               <SelectedDate
                   selectedDate={formattedDate}

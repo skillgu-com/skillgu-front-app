@@ -79,8 +79,6 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
     );
     const mentoringData = response.data;
 
-    console.log('tutaj teraz KURWO TESTSUJE : ',mentoringData)
-
     const translateTitle = (title: string) => {
       switch (title.toLowerCase()) {
         case "basic":

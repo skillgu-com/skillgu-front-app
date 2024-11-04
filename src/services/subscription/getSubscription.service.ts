@@ -38,7 +38,6 @@ import axios, {AxiosResponse} from "axios";
 
 const getSubscriptionService = async (mentorshipId: string): Promise<Subscription> => {
     const { data } = await axios.get<SubscriptionDTO>(`/api/subscriptions/${mentorshipId}`);
-    console.log('sprawdzam data i szukam scheduleId: ', data)
     return data;
 }
 

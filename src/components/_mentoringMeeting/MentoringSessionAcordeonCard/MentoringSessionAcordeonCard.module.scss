@@ -5,6 +5,7 @@
 .tooltipContainer {
   position: relative;
   display: inline-block;
+  width: fit-content;
 
   .btnDisabledChange:hover + .tooltipChange {
     display: block;
@@ -15,7 +16,8 @@
     opacity: 1;
   }
 }
-.tooltipCancel, .tooltipChange {
+.tooltipCancel,
+.tooltipChange {
   display: none;
   position: absolute;
   top: -30px;

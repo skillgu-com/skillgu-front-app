@@ -54,8 +54,8 @@
     min-width: 34px;
 }
 
-.title, .rate {
-    @extend %text-button-lg;
+.title {
+    @extend %text-body-2;
     color: $colour-primary;
 }
 

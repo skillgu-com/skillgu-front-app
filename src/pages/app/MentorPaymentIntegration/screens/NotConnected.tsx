@@ -19,7 +19,7 @@ export const NotConnected = ({
 }: Props) => {
   return (
     <SectionTemplate
-      title="Rozliczenia"
+      title="Płatności"
       description='Płatności na platformie Skillgu obsługuje Stripe. Wybierz poniżej "Konfiguruj płatności", zostaniesz przekierowany do formularza Stripe, gdzie będziesz mógł podać dane, niezbędne do wypłacenia środków.'
       additionalContent={
         <div className={styles.stripeContainer}>{/*<StripeSvg />*/}</div>

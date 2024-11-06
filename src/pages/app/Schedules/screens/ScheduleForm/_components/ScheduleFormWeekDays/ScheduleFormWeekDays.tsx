@@ -15,17 +15,27 @@ type Props = {
     revalidate: (name: string) => () => void;
 }
 
+const daysMapping: Record<string, string> = {
+    'Mon': 'Pn',
+    'Tue': 'Wt',
+    'Wed': 'Śr',
+    'Thu': 'Cz',
+    'Fri': 'Pt',
+    'Sat': 'Sb',
+    'Sun': 'Nd'
+};
+
 const ScheduleFormWeekDays: FC<Props> = ({watch, formControl, formClearErrors, revalidate, formGetValues}) => {
     const weekdaysValue = watch('weekdays');
-
     return <div>
         {weekdays.map((name, index) => {
             const weekdayDate = setDay(today, index + 1);
-            const baseName = `weekdays.${name}`
+            const baseName = `weekdays.${name}`;
+            const dayLabel = daysMapping[format(weekdayDate, 'EEE')] || format(weekdayDate, 'EEE');
             return (
                 <WeekTime
                     key={name}
-                    label={format(weekdayDate, 'EEEEEE')}
+                    label={dayLabel}
                     baseName={baseName}
                     formControl={formControl}
                     formGetValues={formGetValues}
@@ -33,9 +43,9 @@ const ScheduleFormWeekDays: FC<Props> = ({watch, formControl, formClearErrors, r
                     isRowActivated={weekdaysValue ? weekdaysValue[name].isActivated : false}
                     revalidate={revalidate(baseName)}
                 />
-            )
+            );
         })}
-    </div>
+    </div>;
 };
 
 export default ScheduleFormWeekDays;

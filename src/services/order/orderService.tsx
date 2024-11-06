@@ -23,27 +23,28 @@ type Mentor = {
 export const getSessionOrderSummary = async (
   calendarEventId: string | number
 ): Promise<SingleSession> => {
-  ///return await axios.get(`/api/1.0/order-confirm/${calendarEventId}`);
+
+  const response =  await axios.get(`/api/1.0/order/session/${calendarEventId}`);
+
   return {
-    userEmail: "gosia_kow@wp.pl",
+    userEmail: response.data?.menteeEmail,
     mentor: {
-      avatarUrl:
-        "http://res.cloudinary.com/dkclg8ppw/image/upload/v1/default/avatar",
-      profession: "UI/UX Designer",
+      avatarUrl: response.data?.avatarUrl,
+      profession: response.data?.jobPosition,
       id: 1,
       userName: "some",
-      fullName: "Anna Kot",
+      fullName: response.data?.mentorFirstName + " " + response.data?.mentorLastName,
       reviewsAvgRate: 4.2,
-      reviewsCount: 8,
+      reviewsCount: 10,
     },
-    sessionName: "Anna Stokrotka",
-    sessionPrice: 220,
-    sessionType: "Technical call",
+    sessionName: response.data?.mentorFirstName + " " + response.data?.mentorLastName,
+    sessionPrice: response.data?.sessionPrice,
+    sessionType: response.data?.sessionType,
     sessionCategory: "IT",
     scheduleID: 1,
-    sessionDescription: "some description concerning technical call",
+    sessionDescription:  response.data?.description,
     sessionTerm: new Date(),
-    sessionDuration: 90,
-    timeZone: "Europe/Warsaw",
+    sessionDuration:  response.data?.sessionDuration,
+    timeZone: response.data?.timeZone,
   };
 };

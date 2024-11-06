@@ -71,7 +71,7 @@ const NavSection = () => {
                 {
                     link: '/payment',
                     icon: icons.paymentsIcon,
-                    title: 'Rozliczenia',
+                    title: 'Płatności',
                     text: 'Sprawdź swoje rozliczenia',
                 },
             ];

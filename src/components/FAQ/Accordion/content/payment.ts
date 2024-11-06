@@ -24,6 +24,6 @@ export const payment: AccordionItemModel[] = [
         id: "04",
         title: "Dlaczego kwota zarobiona różni się od kwoty do wypłaty?",
         description:
-            "Jako mentor, kwota widoczna w zakładce Rozliczenia uwzględnia prowizję pobieraną przez platformę SkillGu oraz opłatę Stripe za przetwarzanie płatności. Dzięki temu masz pełny wgląd w swoje rzeczywiste dochody i koszty związane z prowadzeniem sesji.",
+            "Jako mentor, kwota widoczna w zakładce Płatności uwzględnia prowizję pobieraną przez platformę SkillGu oraz opłatę Stripe za przetwarzanie płatności. Dzięki temu masz pełny wgląd w swoje rzeczywiste dochody i koszty związane z prowadzeniem sesji.",
     },
 ];

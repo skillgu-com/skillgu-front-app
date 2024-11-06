@@ -19,7 +19,7 @@ const useResolveAppMessages = () => {
                         <span>
                             Konfiguracja Stripe jest wymagana, aby móc korzystać ze wszystkich funcjonalności aplikacji.
                             {' '}
-                            <Link to={paths.payment}>Przejdź do Rozliczenia</Link>
+                            <Link to={paths.payment}>Przejdź do Płatności</Link>
                         </span>
                     ),
                     severity: "warning",

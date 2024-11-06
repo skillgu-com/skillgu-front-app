@@ -34,7 +34,7 @@ export const faqList: {
     id: "05",
     title: "Jak mogę otrzymać fakturę za sesje?",
     description:
-        "Faktury za sesje możesz pobrać w sekcji „Rozliczenia”. Tam znajdziesz wszystkie informacje na temat dokonanych płatności oraz opcję pobrania faktur.",
+        "Faktury za sesje możesz pobrać w sekcji „Płatno”. Tam znajdziesz wszystkie informacje na temat dokonanych płatności oraz opcję pobrania faktur.",
   },
   {
     id: "06",

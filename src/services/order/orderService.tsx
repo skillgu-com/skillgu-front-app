@@ -27,7 +27,7 @@ export const getSessionOrderSummary = async (
   const response =  await axios.get(`/api/1.0/order/session/${calendarEventId}`);
 
   return {
-    userEmail: response.data?.menteeEmail,
+    userEmail: response?.data?.menteeEmail,
     mentor: {
       avatarUrl: response.data?.avatarUrl,
       profession: response.data?.jobPosition,
@@ -37,12 +37,12 @@ export const getSessionOrderSummary = async (
       reviewsAvgRate: 4.2,
       reviewsCount: 10,
     },
-    sessionName: response.data?.mentorFirstName + " " + response.data?.mentorLastName,
-    sessionPrice: response.data?.sessionPrice,
-    sessionType: response.data?.sessionType,
+    sessionName: response?.data?.mentorFirstName + " " + response.data?.mentorLastName,
+    sessionPrice: response?.data?.sessionPrice,
+    sessionType: response?.data?.sessionType,
     sessionCategory: "IT",
     scheduleID: 1,
-    sessionDescription:  response.data?.description,
+    sessionDescription:  response?.data?.description,
     sessionTerm: new Date(),
     sessionDuration:  response.data?.sessionDuration,
     timeZone: response.data?.timeZone,

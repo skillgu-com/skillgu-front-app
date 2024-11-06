@@ -1,6 +1,5 @@
+import {PlanDetails} from "src/reducers/mentorship-application/types";
 import axios from "axios";
-import { MentorCategoryT } from "@services/dictionaries/sessionCategoriesDictionary/sessionCategoriesDictionary.data";
-import { PlanDetails } from "src/reducers/mentorship-application/types";
 
 type MentorshipOrder = {
   mentor: Mentor;
@@ -21,10 +20,13 @@ type Mentor = {
 };
 
 export const getMentorshipOrderSummary = async (
-  calendarEventId: string | number
+    meetingId: string | number
 ): Promise<MentorshipOrder> => {
-  //TODO
-  ///return await axios.get(`/api/1.0/order-confirm/${calendarEventId}`);
+
+  const response =  await axios.get(`/api/1.0/order/mentoring/${meetingId}`);
+
+  console.log(response.data)
+
   return {
     userEmail: "gosia_kow@wp.pl",
     mentor: {

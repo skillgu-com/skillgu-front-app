@@ -39,24 +39,40 @@ export const OrderConfirmPage = () => {
   const { id } = useParams<{ id: string | "" }>();
   const [session, setSession] = useState<SessionData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const role: "M" | "S" | "GUEST" = useSelector(getRole) || "GUEST";
+  const role = useSelector(getRole) || "GUEST";
+
+  // Parametry polling
+  const maxAttempts = 5; // maksymalna liczba prób
+  const interval = 500; // 2 sekundy przerwy między próbami
 
   useEffect(() => {
-    const getSessionOrder = async (id: string) => {
+    let attempts = 0;
+
+    const fetchSessionWithPolling = async (id: string) => {
       try {
         setIsLoading(true);
         const data = await getSessionOrderSummary(id);
         setSession(data);
-      } catch (err) {
-        // Handle error if needed
-      } finally {
         setIsLoading(false);
+      } catch (err) {
+        attempts++;
+        if (attempts < maxAttempts) {
+          // Jeśli dane nie są jeszcze dostępne, próbuj ponownie po określonym czasie
+          setTimeout(() => fetchSessionWithPolling(id), interval);
+        } else {
+          // Jeśli nie uda się załadować danych po maksymalnej liczbie prób, ustaw błąd
+          setIsLoading(false);
+          console.error("Błąd pobierania danych:", err);
+        }
       }
     };
 
-    if (id) getSessionOrder(id);
+    if (id) fetchSessionWithPolling(id);
   }, [id]);
 
+  if (isLoading) {
+    return <Loader overlay spinner />;
+  }
   if (!session) {
     return (
         <>

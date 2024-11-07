@@ -5,14 +5,13 @@ import { MentorServiceCard } from "src/components/Cards/MentorServiceCard";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import { Loader } from "src/components/_grouped/loader";
 import Container from "src/components/Container/Container";
-import { SelectedDate } from "src/pages/app/BookSession/components";
 
 import styles from "./MentorshipConfirm.module.scss";
 
 import paths from "../../../paths";
 import { Tag } from "@customTypes/tags";
 import { SubscriptionPlan } from "@customTypes/order";
-import { getMentorshipOrderSummary } from "@services/mentorship/mentorshipConfirm";
+import {getMentorshipOrderSummary} from "@services/mentorship/mentorshipConfirm";
 import { displayPlanName } from "src/utils/plan";
 
 type MentorshipData = {
@@ -45,11 +44,12 @@ export const MentorshipConfirmPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const getMentporshipOrder = async (id: string) => {
+    const getMentorshipOrder = async (id: string) => {
       try {
         setIsLoading(true);
         const data = await getMentorshipOrderSummary(id);
         setMentorship(data);
+        console.log(data)
       } catch (err) {
         // Handle error if needed
       } finally {
@@ -57,7 +57,7 @@ export const MentorshipConfirmPage = () => {
       }
     };
 
-    if (id) getMentporshipOrder(id);
+    if (id) getMentorshipOrder(id);
   }, [id]);
 
   const getFormatedTime = (term: Date) => {
@@ -68,7 +68,6 @@ export const MentorshipConfirmPage = () => {
         })
       : "";
   };
-
   const formatedTerm = useMemo(() => {
     return mentorship?.terms
       ? mentorship?.terms.map((term) => ({
@@ -98,7 +97,7 @@ export const MentorshipConfirmPage = () => {
         <div className={styles.flexContainer}>
           <div className={styles.boxOuter}>
             <div className={styles.boxMobile}>
-              <h3 className={styles.title}>Spotkanie zostało zarezerwowane</h3>
+              <h3 className={styles.title}>Mentoring został zarezerwowany</h3>
               <p className={styles.subtitle}>
                 Co teraz? Otrzymasz e-mail z potwierdzeniem spotkania, który
                 będzie zawierał link do spotkania. Sprawdź swoją skrzynkę

@@ -5,7 +5,7 @@ type MentorshipOrder = {
   mentor: Mentor;
   plan: PlanDetails;
   userEmail: string;
-  terms: Date[];
+  terms: Date[]; // zmienione z Date[] na SlotDateTime[]
   timeZone: string;
 };
 
@@ -17,6 +17,7 @@ type Mentor = {
   profession: string;
   reviewsAvgRate: number;
   reviewsCount: number;
+  // menteeEmail: string;
 };
 
 export const getMentorshipOrderSummary = async (
@@ -25,42 +26,32 @@ export const getMentorshipOrderSummary = async (
 
   const response =  await axios.get(`/api/1.0/order/mentoring/${meetingId}`);
 
-  console.log(response.data)
+  const terms = response.data?.terms.map((item: any) => {
+    return new Date(item.startDateTime);
+  });
 
   return {
-    userEmail: "gosia_kow@wp.pl",
+    userEmail: response?.data?.menteeEmail,
     mentor: {
-      avatarUrl:
-        "http://res.cloudinary.com/dkclg8ppw/image/upload/v1/default/avatar",
-      profession: "UI/UX Designer",
+      avatarUrl: response?.data?.avatarUrl,
+      profession: response?.data?.jobPosition,
       id: 1,
       userName: "some",
-      fullName: "Anna Kot",
+      fullName: response?.data?.mentorFirstName + ' ' + response?.data?.mentorLastName  ,
       reviewsAvgRate: 4.2,
       reviewsCount: 8,
+      // menteeEmail: response?.data?.menteeEmail,
     },
     plan: {
       id: 11,
-      plan: "pro",
-      monthlyPrice: 1000,
+      plan: response?.data?.planTypeEnum,
+      monthlyPrice: response?.data?.sessionPrice,
       sessionsPerMonth: 3,
-      sessionDuration: 45,
-      responseTime: 72,
-      included: [
-        "Nieograniczony dostęp do pytań i odpowiedzi",
-        "Stały kontakt mailowy – Wsparcie mailowe, na które możesz liczyć przez cały czas trwania pakietu",
-        "Możliwość zadawania pytań między sesjami – Drobne pytania czy wyzwania nie muszą czekać na kolejną sesję.",
-      ],
+      sessionDuration: response?.data?.sessionDurationMinutes,
+      responseTime: response?.data?.responseTimeHours,
+      included: response?.data?.descriptionRows || [],
     },
-    terms: [
-      new Date(),
-      new Date(
-        "Sun Nov 05 2024 14:38:13 GMT+0100 (czas środkowoeuropejski standardowy)"
-      ),
-      new Date(
-        "Sun Nov 09 2024 14:38:13 GMT+0100 (czas środkowoeuropejski standardowy)"
-      ),
-    ],
-    timeZone: "Europe/Warsaw",
+    terms,
+    timeZone: response?.data?.timeZone,
   };
 };

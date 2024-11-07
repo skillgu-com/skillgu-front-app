@@ -45,13 +45,13 @@ export const MentorProfilePage = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const [tab, setTab] = useState<ServiceType>("session");
   const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(true);
   // @TODO: get user id from sesion/jwt
 
   const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
@@ -130,7 +130,6 @@ export const MentorProfilePage = () => {
       }
     };
 
-
     if (Number(mentorId)) {
       fetchSession(Number(mentorId));
     }
@@ -185,7 +184,10 @@ export const MentorProfilePage = () => {
     <MentorProfilePageSkeleton />
   ) : (
     <>
-      <AddReviewPopup isOpen={true}/>
+      <AddReviewPopup
+        isOpen={isReviewPopupOpen}
+        handleClose={() => setIsReviewPopupOpen(false)}
+      />
       <UserProfileHeader
         avatarUrl={
           mentorData?.profileImage ||

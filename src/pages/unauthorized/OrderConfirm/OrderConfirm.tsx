@@ -41,9 +41,8 @@ export const OrderConfirmPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const role = useSelector(getRole) || "GUEST";
 
-  // Parametry polling
-  const maxAttempts = 5; // maksymalna liczba prób
-  const interval = 500; // 2 sekundy przerwy między próbami
+  const maxAttempts = 5;
+  const interval = 1000;
 
   useEffect(() => {
     let attempts = 0;

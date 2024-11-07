@@ -26,6 +26,7 @@ export const getMentorshipOrderSummary = async (
 
   const response =  await axios.get(`/api/1.0/order/mentoring/${meetingId}`);
 
+
   const terms = response.data?.terms.map((item: any) => {
     return new Date(item.startDateTime);
   });

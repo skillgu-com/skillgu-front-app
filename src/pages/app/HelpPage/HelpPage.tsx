@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Accordion from "src/components/FAQ/Accordion/Accordion";
 import { Text } from "src/components/typography";
-import { AddQuestionPopup } from "src/components/AddQuestionPopup/AddQuestionPopup";
+import { AddQuestionPopup } from "src/components/popups/AddQuestionPopup/AddQuestionPopup";
 
 import styles from "./HelpPage.module.scss";
 import { faqList } from "./config";

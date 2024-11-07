@@ -38,6 +38,7 @@ import {
   MentoringSkeleton,
   MentorProfilePageSkeleton,
 } from "./MentorProfileSkeleton";
+import { AddReviewPopup } from "src/components/popups/AddReviewPopup/AddReviewPopup";
 
 export const MentorProfilePage = () => {
   const { username } = useParams<{ username: string | "" }>();
@@ -184,6 +185,7 @@ export const MentorProfilePage = () => {
     <MentorProfilePageSkeleton />
   ) : (
     <>
+      <AddReviewPopup isOpen={true}/>
       <UserProfileHeader
         avatarUrl={
           mentorData?.profileImage ||

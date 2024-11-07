@@ -13,7 +13,7 @@ import {
 import Button from "src/components/Button/Button";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
 import Container from "src/components/Container/Container";
-import { AddQuestionPopup } from "src/components/AddQuestionPopup/AddQuestionPopup";
+import { AddQuestionPopup } from "src/components/popups/AddQuestionPopup/AddQuestionPopup";
 import { stripeIntegration } from "src/components/FAQ/Accordion/content/stripe-integration";
 import { payment } from "src/components/FAQ/Accordion/content/payment";
 

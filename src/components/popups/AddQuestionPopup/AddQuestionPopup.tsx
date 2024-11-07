@@ -1,16 +1,17 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import clx from "classnames";
 
 import Button, { ButtonVariant } from "src/components/Button/Button";
 import Modal from "src/components/Modal/Modal";
 import { Text } from "src/components/typography";
-import { InputField } from "./InputField/InputField";
-import { TextareaField } from "./TextareaField/TextareaField";
+import { InputField } from "../InputField/InputField";
+import { TextareaField } from "../TextareaField/TextareaField";
 
 import styles from "./AddQuestionPopup.module.scss";
 import { resolver } from "./resolver";
 import { contactService } from "@services/contact/contact.service";
-import { Loader } from "../_grouped/loader";
+import { Loader } from "../../_grouped/loader";
 
 type AddQuestionPopupTypes = {
   isOpen: boolean;
@@ -106,7 +107,7 @@ export const AddQuestionPopup = ({
           <Button
             fullWidth={true}
             variant={ButtonVariant.Primary}
-            classes={styles.btnPrimary}
+            classes={clx(styles.btn, styles.btnPrimary)}
             type="submit"
             disableButton={isPending}
           >
@@ -115,6 +116,7 @@ export const AddQuestionPopup = ({
           <Button
             fullWidth={true}
             onClick={handleClose}
+            classes={styles.btn}
             variant={ButtonVariant.Light}
             type="button"
           >

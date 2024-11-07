@@ -1,0 +1,18 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/font" as *;
+
+.container {
+  display: flex;
+  gap: 12px;
+  padding: 17px 0 32px;
+
+  .label {
+    position: relative;
+    text-align: center;
+  }
+  .radio {
+    position: fixed;
+    opacity: 0;
+  }
+}

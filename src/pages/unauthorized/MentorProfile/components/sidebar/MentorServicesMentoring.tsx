@@ -54,7 +54,7 @@ export const MentorServicesMentoring = ({
           </div>
 
           <span className={!user ? styles.tooltip : styles.hidden}>
-            Aby zarezerwować termin trzeba się zalogować
+            Aby zapisać się na menotring trzeba się zalogować
           </span>
         </div>
       ) : null}

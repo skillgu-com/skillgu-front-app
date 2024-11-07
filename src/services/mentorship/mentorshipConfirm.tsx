@@ -26,7 +26,6 @@ export const getMentorshipOrderSummary = async (
 
   const response =  await axios.get(`/api/1.0/order/mentoring/${meetingId}`);
 
-
   const terms = response.data?.terms.map((item: any) => {
     return new Date(item.startDateTime);
   });
@@ -41,7 +40,6 @@ export const getMentorshipOrderSummary = async (
       fullName: response?.data?.mentorFirstName + ' ' + response?.data?.mentorLastName  ,
       reviewsAvgRate: 4.2,
       reviewsCount: 8,
-      // menteeEmail: response?.data?.menteeEmail,
     },
     plan: {
       id: 11,

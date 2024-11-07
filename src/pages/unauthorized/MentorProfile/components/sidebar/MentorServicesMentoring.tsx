@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import clx from "classnames";
 import styles from "./Sidebar.module.scss";
 import { ServiceMentoringOptionCard } from "../../../../../components/Cards/ServiceMentoringOptionCard";
 import { ServiceInfoBox } from "../../../../../components/_grouped";
 import { MentorshipPlanDTO } from "@services/mentor/fetchMentorServices.service";
-
+import { useCurrentUser } from "src/hooks/useCurrentUser";
 type Props = {
   services: MentorshipPlanDTO[];
   selected?: MentorshipPlanDTO | null;
@@ -26,10 +27,10 @@ export const MentorServicesMentoring = ({
       handleSelect(services[0]);
     }
   }, [services, handleSelect, mentorIsLoggedUser]);
-
+  const user = useCurrentUser();
   return services?.length ? (
     <>
-      <div className={styles.cards}>
+      <div className={clx(styles.cards, { [styles.disabled]: !user })}>
         {services.map((s) => (
           <ServiceMentoringOptionCard
             key={s.id}
@@ -41,13 +42,21 @@ export const MentorServicesMentoring = ({
         ))}
       </div>
       {handleSubmit ? (
-        <button
-          onClick={selected ? () => handleSubmit(selected) : undefined}
-          className={styles.submitBtn}
-          disabled={!selected}
-        >
-          Zarezerwuj termin
-        </button>
+        <div className={styles.tooltipContainer}>
+          <div className={styles.btnDisabeldBox}>
+            <button
+              onClick={selected ? () => handleSubmit(selected) : undefined}
+              className={styles.submitBtn}
+              disabled={!selected || !user}
+            >
+              Zarezerwuj termin
+            </button>
+          </div>
+
+          <span className={!user ? styles.tooltip : styles.hidden}>
+            Aby zarezerwować termin trzeba się zalogować
+          </span>
+        </div>
       ) : null}
 
       <ServiceInfoBox

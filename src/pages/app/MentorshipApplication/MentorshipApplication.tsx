@@ -3,24 +3,12 @@ import { useMentAppReducer } from "src/reducers/mentorship-application";
 import { DetailsStep, GoalsStep, PlanStep, SummaryStep } from "./steps";
 import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
 import { getMentorshipDetails } from "@services/mentorship/getMentorshipDetails";
-import { useNavigate, useParams } from "react-router-dom";
-import { useCurrentUser } from "src/hooks/useCurrentUser";
-import paths from "../../../paths";
+import { useParams } from "react-router-dom";
 
 export const MentorshipApplicationPage = () => {
     const { state, ...actions } = useMentAppReducer()
     const init = useRef<boolean>(false)
     const { id } = useParams();
-    const user = useCurrentUser()
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user) {
-            const currentUrl = window.location.href;
-            const sp = new URLSearchParams({ redirect_to: currentUrl });
-            navigate(`${paths.login}?${sp.toString()}`);
-        }
-    }, [user, navigate])
 
     useEffect(() => {
         const fetchInitialData = async () => {

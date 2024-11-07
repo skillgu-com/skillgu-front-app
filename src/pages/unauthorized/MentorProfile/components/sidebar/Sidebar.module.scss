@@ -78,6 +78,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border-radius: 16px;
+  transition: background-color 0.24s;
+  &:hover {
+    background-color: $colour-base-200;
+  }
 }
 
 .rowInfo {
@@ -106,4 +111,52 @@
 .rowDescription {
   @extend %text-caption;
   color: $colour-base-600;
+}
+
+.disabled {
+  opacity: 0.5;
+  &:hover {
+    background-color: inherit;
+  }
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+
+  .btnDisabeldBox:hover + .tooltip {
+    display: block;
+    opacity: 1;
+  }
+}
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $colour-base-800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: $colour-base-800 transparent transparent transparent;
+  }
+}
+
+.hidden {
+  display: none !important;
 }

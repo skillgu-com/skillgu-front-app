@@ -43,8 +43,8 @@ export const MentorshipConfirmPage = () => {
     const [mentorship, setMentorship] = useState<MentorshipData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const maxAttempts = 5; // maksymalna liczba prób
-    const interval = 1000; // 2 sekundy przerwy między próbami
+    const maxAttempts = 5;
+    const interval = 1500;
 
     useEffect(() => {
         let attempts = 0;
@@ -69,23 +69,6 @@ export const MentorshipConfirmPage = () => {
 
         if (id) fetchSessionWithPolling(id);
     }, [id]);
-
-
-    // useEffect(() => {
-    //   const getMentorshipOrder = async (id: string) => {
-    //     try {
-    //       setIsLoading(true);
-    //       const data = await getMentorshipOrderSummary(id);
-    //       setMentorship(data);
-    //     } catch (err) {
-    //       // Handle error if needed
-    //     } finally {
-    //       setIsLoading(false);
-    //     }
-    //   };
-    //
-    //   if (id) getMentorshipOrder(id);
-    // }, [id]);
 
     const getFormatedTime = (term: Date) => {
         return term

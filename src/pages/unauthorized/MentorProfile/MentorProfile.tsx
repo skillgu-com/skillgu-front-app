@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Container from "src/components/Container/Container";
 import { Tag } from "src/types/tags";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import {
   MentorContent,
   MentorLinks,
@@ -42,7 +47,7 @@ import { AddReviewPopup } from "src/components/popups/AddReviewPopup/AddReviewPo
 
 export const MentorProfilePage = () => {
   const { username } = useParams<{ username: string | "" }>();
-
+  let [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -51,7 +56,9 @@ export const MentorProfilePage = () => {
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(true);
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(
+    searchParams.has("session_complete")
+  );
   // @TODO: get user id from sesion/jwt
 
   const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
@@ -185,6 +192,7 @@ export const MentorProfilePage = () => {
   ) : (
     <>
       <AddReviewPopup
+        setSearchParams={setSearchParams}
         isOpen={isReviewPopupOpen}
         handleClose={() => setIsReviewPopupOpen(false)}
       />

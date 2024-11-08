@@ -12,7 +12,8 @@ import { StarsRadioField } from "../StarsRadio/StarsRadio";
 import styles from "./AddReviewPopup.module.scss";
 
 import { resolver } from "./resolver";
-import { sendReview } from "@services/mentor/sendReview";
+import { sendReview } from "@services/mentor/fetchMentorServices.service";
+
 
 type AddReviewPopupTypes = {
   isOpen: boolean;
@@ -43,16 +44,18 @@ export const AddReviewPopup = ({
     if (username) {
       try {
         await sendReview({
-          date: new Date(),
+          createdAt: new Date().toDateString(),
           mentor: username,
-          rating: data.rating,
-          review: data.message,
+          rate: data.rating,
+          content: data.message,
+          // TODO
+          authorName: ''
         });
         setIsPending(false);
       } catch (err) {
         console.log(err);
       }
-      handleClose();
+      handleClose(); 
     }
   });
 

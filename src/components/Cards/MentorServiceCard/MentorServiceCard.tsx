@@ -14,6 +14,7 @@ import Checkbox from "src/components/Checkbox/Checkbox";
 import { ListStyleIcon } from "@icons/ListStyleIcon";
 import Message from "@icons/Message";
 import { ChatIcon } from "@icons/Chat";
+import { Free } from "@icons/Free";
 
 type MentorServiceCardProps = Pick<
   ServiceInfoBoxProps,
@@ -197,7 +198,7 @@ export const MentorServiceCard: React.FC<MentorServiceCardProps> = ({
               ? `${Math.ceil(servicePrice)} zł/h`
               : `${Math.ceil(servicePrice)} zł/miesiąc`}
           </div>
-        ) : null}
+        ) : <Free/>}
         {serviceDuration ? (
           <div className={styles.infoCell}>
             <ClockSolidCircleIcon />

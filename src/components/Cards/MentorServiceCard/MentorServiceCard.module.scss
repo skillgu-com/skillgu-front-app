@@ -175,8 +175,6 @@
     }
 
     @media (min-width: $md) {
-      // align-items: center;
-
       .price {
         align-self: unset;
       }
@@ -186,7 +184,7 @@
   .rowInfo {
     display: flex;
     gap: 16px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     border-top: 1px dashed $box-border-colour;
     padding: 16px;

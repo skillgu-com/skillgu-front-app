@@ -71,7 +71,6 @@ export type FilterTag = {
 export type Review = {
     id: string;
     rate: number;
-    title: string;
     authorName: string;
     createdAt: string;
     content: string;

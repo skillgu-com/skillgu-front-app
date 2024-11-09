@@ -3,6 +3,7 @@ import React, { FormEventHandler, Ref, useState } from "react";
 import StarSvg from "@icons/StarSvg";
 
 import styles from "./StarRadio.module.scss";
+import { generateTitle } from "../helper";
 
 type Props = {
   name: string;
@@ -18,31 +19,35 @@ export const StarsRadioField = ({ name, onChange, inputRef }: Props) => {
     { name: "fourth", value: 4 },
     { name: "fifth", value: 5 },
   ];
+
   return (
-    <div className={styles.container}>
-      {starsList.map((starsList) => (
-        <label
-          key={starsList.name}
-          className={styles.label}
-          htmlFor={starsList.name}
-          onClick={() => setRating(starsList.value)}
-          onChange={onChange}
-        >
-          <input
-            className={styles.radio}
-            type="radio"
-            id="first"
+    <>
+      <p className={styles.title}>{generateTitle(rating)}</p>
+      <div className={styles.container}>
+        {starsList.map((starsList) => (
+          <label
+            key={starsList.name}
+            className={styles.label}
+            htmlFor={starsList.name}
             aria-label={starsList.name}
-            name={name}
-            value={starsList.value}
-            ref={inputRef}
-          />
-          <StarSvg
-            size="32"
-            color={`${rating > starsList.value - 1 ? "#FFC728" : "#FFC72838"}`}
-          />
-        </label>
-      ))}
-    </div>
+            onClick={() => setRating(starsList.value)}
+            onChange={(e) => onChange(e)}
+          >
+            <input
+              className={styles.radio}
+              type="radio"
+              id={starsList.name}
+              name={name}
+              value={starsList.value}
+              ref={inputRef}
+            />
+            <StarSvg
+              size="32"
+              color={`${Number(rating) > Number(starsList.value) - 1 ? "#FFC728" : "#FFC72838"}`}
+            />
+          </label>
+        ))}
+      </div>
+    </>
   );
 };

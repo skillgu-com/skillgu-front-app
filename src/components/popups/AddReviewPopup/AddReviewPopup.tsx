@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,7 @@ import styles from "./AddReviewPopup.module.scss";
 
 import { resolver } from "./resolver";
 import { sendReview } from "@services/mentor/fetchMentorServices.service";
-
+import { generateTitle } from "../helper";
 
 type AddReviewPopupTypes = {
   isOpen: boolean;
@@ -22,6 +22,7 @@ type AddReviewPopupTypes = {
 export type AddReviewFormTypes = {
   rating: number;
   message: string;
+  title: string;
 };
 
 export const AddReviewPopup = ({
@@ -32,14 +33,21 @@ export const AddReviewPopup = ({
   const [isPending, setIsPending] = useState<boolean>(false);
   const {
     register,
+    getValues,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
   } = useForm<AddReviewFormTypes>({
     resolver,
+    defaultValues: {
+      rating: 5,
+      message: "",
+      title: "",
+    },
   });
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     setIsPending(true);
     if (username) {
       try {
@@ -48,14 +56,15 @@ export const AddReviewPopup = ({
           mentor: username,
           rate: data.rating,
           content: data.message,
+          title: generateTitle(Number(data.rating)),
           // TODO
-          authorName: ''
+          authorName: "",
         });
         setIsPending(false);
       } catch (err) {
         console.log(err);
       }
-      handleClose(); 
+      handleClose();
     }
   });
 
@@ -68,6 +77,7 @@ export const AddReviewPopup = ({
     onChange: onInputRadioChange,
     ref: inputRef,
   } = register("rating");
+
   const {
     name: messageTextareaName,
     onChange: onMessageTextareaChange,

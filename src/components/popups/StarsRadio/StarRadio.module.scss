@@ -16,3 +16,8 @@
     opacity: 0;
   }
 }
+
+.title {
+  @extend %text-button-md;
+  color: $colour-primary;
+}

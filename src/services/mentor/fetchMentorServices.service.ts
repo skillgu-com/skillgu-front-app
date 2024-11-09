@@ -48,7 +48,7 @@ export interface MentorshipPlanDTO {
   responseTimeHours: number;
   providesMaterials: boolean;
   mentoringDescription: string;
-  scheduleId:number;
+  scheduleId: number;
 }
 
 export interface MentorshipDTO {
@@ -75,7 +75,7 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
 }): Promise<MentorshipDTO> => {
   try {
     const response = await axios.get<any>(
-        `/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`
+      `/api/mentorship/mentors/${mentorId.mentorId}/mentorship-plans`
     );
     const mentoringData = response.data;
 
@@ -108,7 +108,7 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         responseTimeHours: mentoringData.basic.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.basic.description,
-        scheduleId: mentoringData.basic.scheduleId
+        scheduleId: mentoringData.basic.scheduleId,
       });
     }
 
@@ -119,16 +119,17 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         subtitle: mentoringData.advanced.description,
         price: mentoringData.advanced.price,
         variant: mentoringData.advanced.planType,
-        descriptionRows: mentoringData.advanced.planIncludes.map((item: any) => ({
-          description: item,
-        })),
+        descriptionRows: mentoringData.advanced.planIncludes.map(
+          (item: any) => ({
+            description: item,
+          })
+        ),
         sessionsPerMonth: mentoringData.advanced.sessionsPerMonth,
         sessionDurationMinutes: mentoringData.advanced.sessionDuration,
         responseTimeHours: mentoringData.advanced.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.advanced.description,
-        scheduleId: mentoringData.advanced.scheduleId
-
+        scheduleId: mentoringData.advanced.scheduleId,
       });
     }
 
@@ -147,8 +148,7 @@ export const getMentorshipPlansForMentorProfile = async (mentorId: {
         responseTimeHours: mentoringData.pro.responseTime,
         providesMaterials: mentoringData.providesMaterials,
         mentoringDescription: mentoringData.pro.description,
-        scheduleId: mentoringData.pro.scheduleId
-
+        scheduleId: mentoringData.pro.scheduleId,
       });
     }
 
@@ -174,10 +174,12 @@ export const fetchMentorFilteredList = async (
       filters: filters || null,
     };
 
-
-        const response = await axios.post('/api/mentor/filtered-mentors', filterMentorToSend);
-        const {total, mentors} = response.data;
-        const filteredMentors = mentors.slice(skip, skip + take);
+    const response = await axios.post(
+      "/api/mentor/filtered-mentors",
+      filterMentorToSend
+    );
+    const { total, mentors } = response.data;
+    const filteredMentors = mentors.slice(skip, skip + take);
 
     return { total, mentors: filteredMentors };
   } catch (error) {
@@ -186,12 +188,11 @@ export const fetchMentorFilteredList = async (
   }
 };
 
-
 export const fetchMentorReviews = async ({
-                                           username,
-                                           take = 10,
-                                           skip = 0,
-                                         }: {
+  username,
+  take = 10,
+  skip = 0,
+}: {
   username: string | null;
   take?: number;
   skip?: number;
@@ -201,12 +202,15 @@ export const fetchMentorReviews = async ({
   }
 
   try {
-    const response = await fetch(`http://localhost:8081/api/review/mentor/${username}?take=${take}&skip=${skip}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `http://localhost:8081/api/review/mentor/${username}?take=${take}&skip=${skip}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Error fetching mentor reviews: ${response.statusText}`);
@@ -221,7 +225,6 @@ export const fetchMentorReviews = async ({
   }
 };
 
-
 export const getMentorProfileByID = async (userId: number | string) => {
   const { data } = await axios.get(
     `/api/mentor/get-mentor-by-user-id/${userId}`
@@ -231,7 +234,7 @@ export const getMentorProfileByID = async (userId: number | string) => {
 
 export const getMentorProfileByMentorId = async (mentorID: number | string) => {
   const { data } = await axios.get(
-      `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
+    `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
   );
   return data;
 };
@@ -246,13 +249,13 @@ export const getMentorByUsername = async (username: string) => {
   );
 };
 
-
 type ReviewPropsTypes = {
   mentor: string;
   rate: number;
   authorName: string;
   createdAt: string;
   content: string;
+  title: string;
 };
 
 export const sendReview = async (props: ReviewPropsTypes): Promise<boolean> => {

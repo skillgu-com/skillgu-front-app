@@ -46,8 +46,8 @@ import {
 import { AddReviewPopup } from "src/components/popups/AddReviewPopup/AddReviewPopup";
 
 export const MentorProfilePage = () => {
-  const { username } = useParams<{ username: string | "" }>();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const { username } = useParams<{ username: string }>();
+  let [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -84,9 +84,11 @@ export const MentorProfilePage = () => {
   const handleSelectMentoring = (opt: MentorshipPlan) =>
     setSelectedMentoring(opt);
 
-  const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+  const [selectedSession, setSelectedSession] = useState<null | ServiceSession>(
+    null
+  );
   //   const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-  const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+  const handleSelectSession = (opt: ServiceSession) => setSelectedSession(opt);
 
   useEffect(() => {
     if (!username) return;
@@ -192,7 +194,6 @@ export const MentorProfilePage = () => {
   ) : (
     <>
       <AddReviewPopup
-        setSearchParams={setSearchParams}
         isOpen={isReviewPopupOpen}
         handleClose={() => setIsReviewPopupOpen(false)}
       />

@@ -3,7 +3,7 @@ import React, { FormEventHandler, Ref, useState } from "react";
 import StarSvg from "@icons/StarSvg";
 
 import styles from "./StarRadio.module.scss";
-import { generateTitle } from "../helper";
+import { generateTitle } from "../../../helpers/review";
 
 type Props = {
   name: string;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,6 @@ import styles from "./AddReviewPopup.module.scss";
 
 import { resolver } from "./resolver";
 import { sendReview } from "@services/mentor/fetchMentorServices.service";
-import { generateTitle } from "../helper";
 
 type AddReviewPopupTypes = {
   isOpen: boolean;
@@ -22,7 +21,6 @@ type AddReviewPopupTypes = {
 export type AddReviewFormTypes = {
   rating: number;
   message: string;
-  title: string;
 };
 
 export const AddReviewPopup = ({
@@ -33,7 +31,6 @@ export const AddReviewPopup = ({
   const [isPending, setIsPending] = useState<boolean>(false);
   const {
     register,
-    getValues,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -42,7 +39,6 @@ export const AddReviewPopup = ({
     defaultValues: {
       rating: 5,
       message: "",
-      title: "",
     },
   });
 
@@ -54,9 +50,8 @@ export const AddReviewPopup = ({
         await sendReview({
           createdAt: new Date().toDateString(),
           mentor: username,
-          rate: data.rating,
+          rate: Number(data.rating),
           content: data.message,
-          title: generateTitle(Number(data.rating)),
           // TODO
           authorName: "",
         });

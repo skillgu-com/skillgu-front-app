@@ -255,7 +255,6 @@ type ReviewPropsTypes = {
   authorName: string;
   createdAt: string;
   content: string;
-  title: string;
 };
 
 export const sendReview = async (props: ReviewPropsTypes): Promise<boolean> => {

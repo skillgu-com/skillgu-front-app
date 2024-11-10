@@ -22,7 +22,7 @@ import {Scrollable} from "src/components/_base/Scrollable";
 import {EmptyState} from "src/components/EmptyState";
 
 import {getRole} from "src/redux/selectors/authSelectors";
-import { SectionTemplate } from "src/components/SectionTemplate";
+import {SectionTemplate} from "src/components/SectionTemplate";
 
 type Props = {
     title?: string;
@@ -145,6 +145,8 @@ export const SubscriptionHistory = ({
                                                 <Status noWrap variant="success" text="Zawieszona"/>
                                             ) : s.status === "active" ? (
                                                 <Status noWrap variant="success" text="Aktywna"/>
+                                            ) : s.status === "completed" ? (
+                                                <Status noWrap variant="success" text="Zakończona"/>
                                             ) : null}
                                         </TableCell>
                                         <TableCell flex={3} className={styles.capitalize}>

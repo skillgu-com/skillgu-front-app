@@ -1,1 +1,1 @@
-export type SubscriptionStatus = 'awaiting' | 'active' | 'inactive' | 'suspended' | 'rejected'
+export type SubscriptionStatus = 'awaiting' | 'active' | 'inactive' | 'suspended' | 'rejected' | 'completed'

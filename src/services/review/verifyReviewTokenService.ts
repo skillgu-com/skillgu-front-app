@@ -10,6 +10,6 @@ export const verifyReviewToken = async (token: any) => {
         return response.data;
     } catch (error) {
         console.error('Error verifying token:', error);
-        throw error; // W razie potrzeby obsłuż błąd wyżej
+        throw error;
     }
 };

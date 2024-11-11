@@ -38,7 +38,7 @@ import {
   MentoringSkeleton,
   MentorProfilePageSkeleton,
 } from "./MentorProfileSkeleton";
-import {verifyReviewToken} from "@services/mentor/verifyReviewTokenService";
+import {verifyReviewToken} from "@services/review/verifyReviewTokenService";
 
 export const MentorProfilePage = () => {
   const { username, token } = useParams();

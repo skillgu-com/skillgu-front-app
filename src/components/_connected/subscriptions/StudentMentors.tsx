@@ -435,8 +435,7 @@ export const StudentMentors = ({ title }: Props) => {
                             variant="success"
                           />
                           <p>
-                            Jeżeli zostanie zaakceptowana, poprosimy Cię o
-                            wybranie terminów.
+                            Aplikacja zaakceptowana, wybierz terminy spotkań.
                           </p>
                         </div>
                         <div className={styles.buttons}>

@@ -13,7 +13,7 @@ export type FetchStudentSessionsOutput = {
         avatarUrl: string
         fullName: string
         date: string
-        status: 'in-progress'|'planned'|'cancelled'
+        status: 'in-progress'|'planned'|'cancelled'|'completed'
         serviceType: 'session'|'mentoring'
         serviceName: string
     }[]

@@ -25,7 +25,6 @@ import {
     OverflowMenuOption,
     OverflowMenuToggle,
 } from "src/components/_grouped/overflow-menu";
-// import {useNavigate} from "react-router-dom";
 import {useSubscriptionsReducer} from "src/reducers/subscriptions";
 import {Skeleton} from "@mui/material";
 import { SectionTemplate } from "src/components/SectionTemplate";
@@ -45,6 +44,8 @@ const renderStatus = (status: SubscriptionStatus) => {
             return <Status variant="success" text="Aktywna"/>;
         case "rejected":
             return <Status variant="danger" text="Odrzucona"/>;
+        case "completed":
+            return <Status variant="success" text="Zakończona"/>;
         default:
             return null;
     }
@@ -72,8 +73,6 @@ export const Subscriptions = ({title, subtitle}: Props) => {
     );
     const overflowMenuTimeRef = useRef<number>(0);
 
-    // const navigate = useNavigate();
-
     const handleEdit = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
             const btn = e.currentTarget as HTMLButtonElement;
@@ -97,7 +96,6 @@ export const Subscriptions = ({title, subtitle}: Props) => {
         },
         [sr]
     );
-
     return (
         <SectionTemplate title={title || ''} description={subtitle}>
                 <div className={styles.body}>
@@ -117,6 +115,13 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                             onClick={handleTabClick}
                         />
                         <HorizontalTabsButton
+                            isActive={tab === "rejected"}
+                            text="Odrzucone subskrypcje"
+                            name=""
+                            value="rejected"
+                            onClick={handleTabClick}
+                        />
+                        <HorizontalTabsButton
                             isActive={tab === "suspended"}
                             text="Zawieszone subskrypcje"
                             name=""
@@ -124,17 +129,10 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                             onClick={handleTabClick}
                         />
                         <HorizontalTabsButton
-                            isActive={tab === "inactive"}
-                            text="Nieaktywne subskrypcje"
+                            isActive={tab === "completed"}
+                            text="Zakończone subskrypcje"
                             name=""
-                            value="inactive"
-                            onClick={handleTabClick}
-                        />
-                        <HorizontalTabsButton
-                            isActive={tab === "rejected"}
-                            text="Odrzucone subskrypcje"
-                            name=""
-                            value="rejected"
+                            value="completed"
                             onClick={handleTabClick}
                         />
                     </HorizontalTabs>

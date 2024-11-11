@@ -1,7 +1,6 @@
 import { DescriptionRowDTO } from "@services/mentor/fetchMentorServices.service";
 
-// export type OrderStatus = 'awaiting'|'rejected'|'accepted'
-// export type SubscriptionStatus = 'active'|'suspended'|'completed'
+
 export type SubscriptionOrderStatus =
   | "awaiting"
   | "rejected"

@@ -39,43 +39,43 @@ import {
 import { MentorReviewsConnected } from "../../../components/_connected";
 import { getMentorSessions } from "@services/session/sessionService";
 import Button, { ButtonVariant } from "src/components/Button/Button";
+import { AddReviewPopup } from "src/components/popups/AddReviewPopup/AddReviewPopup";
 import {
   MentoringSkeleton,
   MentorProfilePageSkeleton,
 } from "./MentorProfileSkeleton";
-import { AddReviewPopup } from "src/components/popups/AddReviewPopup/AddReviewPopup";
+import { useCurrentUser } from "src/hooks/useCurrentUser";
+import { verifyReviewToken } from "@services/review/verifyReviewTokenService";
 
 export const MentorProfilePage = () => {
-  const { username } = useParams<{ username: string }>();
-  let [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
-
+  const { username, token } = useParams();
   const [tab, setTab] = useState<ServiceType>("session");
   const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(
-    searchParams.has("session_complete")
-  );
-  // @TODO: get user id from sesion/jwt
-
+  const [isTokenValid, setIsTokenValid] = useState<boolean>(false);
   const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
     []
   );
+
   const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
   const [selectedMentoring, setSelectedMentoring] =
     useState<null | MentorshipPlanDTO>(null);
+  const user = useCurrentUser();
+
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(
+    !!(isTokenValid && token && user)
+  );
 
   const toggleTab = () =>
     setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
   const [loading, setLoading] = useState<boolean>(true);
-
   const handleSubmitMentoring = (opt: MentorshipPlan) => {
     navigate(`/mentorship/${opt.id}/application`);
   };
-
   const handleSubmitSession = (opt: ServiceSession) => {
     navigate(`/session-book/${opt.id}`, {
       state: { opt, from: location?.pathname },
@@ -83,12 +83,20 @@ export const MentorProfilePage = () => {
   };
   const handleSelectMentoring = (opt: MentorshipPlan) =>
     setSelectedMentoring(opt);
+  const [selectedSession, setSession] = useState<null | ServiceSession>(null);
+  const handleSelectSession = (opt: ServiceSession) => setSession(opt);
 
-  const [selectedSession, setSelectedSession] = useState<null | ServiceSession>(
-    null
-  );
-  //   const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-  const handleSelectSession = (opt: ServiceSession) => setSelectedSession(opt);
+  useEffect(() => {
+    if (token) {
+      verifyReviewToken(token)
+        .then(() => {
+          setIsTokenValid(true);
+        })
+        .catch(() => {
+          setIsTokenValid(false);
+        });
+    }
+  }, [location.search]);
 
   useEffect(() => {
     if (!username) return;
@@ -194,6 +202,7 @@ export const MentorProfilePage = () => {
   ) : (
     <>
       <AddReviewPopup
+        user={user?.username}
         isOpen={isReviewPopupOpen}
         handleClose={() => setIsReviewPopupOpen(false)}
       />

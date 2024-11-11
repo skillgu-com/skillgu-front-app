@@ -17,6 +17,7 @@ import { sendReview } from "@services/mentor/fetchMentorServices.service";
 type AddReviewPopupTypes = {
   isOpen: boolean;
   handleClose: () => void;
+  user?: string;
 };
 export type AddReviewFormTypes = {
   rating: number;
@@ -24,6 +25,7 @@ export type AddReviewFormTypes = {
 };
 
 export const AddReviewPopup = ({
+  user,
   isOpen,
   handleClose,
 }: AddReviewPopupTypes) => {
@@ -45,7 +47,7 @@ export const AddReviewPopup = ({
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
     setIsPending(true);
-    if (username) {
+    if (username && user) {
       try {
         await sendReview({
           createdAt: new Date().toDateString(),
@@ -53,7 +55,7 @@ export const AddReviewPopup = ({
           rate: Number(data.rating),
           content: data.message,
           // TODO
-          authorName: "",
+          authorName: user,
         });
         setIsPending(false);
       } catch (err) {

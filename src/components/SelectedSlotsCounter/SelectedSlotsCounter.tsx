@@ -42,11 +42,19 @@ const SelectedSlotsCounter: FC<Props> = ({selectedSlots, slotsToSelect, errorMes
                         if (selectedSlot) {
                             const {day, time} = extractDate(selectedSlot);
                             return (
-                                <Box key={idx} sx={{display: 'flex', gap: 2}}>
-                                    <Chip label={day}  {...chipProps} />
-                                    <Chip label={time} {...chipProps} />
-                                </Box>
-                            )
+                              <Box key={idx} sx={{ display: "flex", gap: 2 }}>
+                                <Chip
+                                  label={day}
+                                  {...chipProps}
+                                  style={{ width: "110px" }}
+                                />
+                                <Chip
+                                  label={time}
+                                  {...chipProps}
+                                  style={{ width: "78px" }}
+                                />
+                              </Box>
+                            );
                         }
                         return <Box sx={{opacity: 0.55}}><Chip
                             label='Wybierz termin w kalendarzu' {...chipProps} /></Box>

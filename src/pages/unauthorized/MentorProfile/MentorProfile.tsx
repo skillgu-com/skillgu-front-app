@@ -66,9 +66,11 @@ export const MentorProfilePage = () => {
     useState<null | MentorshipPlanDTO>(null);
   const user = useCurrentUser();
 
-  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(
-    !!(isTokenValid && token && user)
-  );
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isTokenValid && token && user) setIsReviewPopupOpen(true);
+  }, [isTokenValid, token, user]);
 
   const toggleTab = () =>
     setTab((s) => (s === "mentoring" ? "session" : "mentoring"));

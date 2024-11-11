@@ -80,7 +80,8 @@
   gap: 16px;
   border-radius: 16px;
   transition: background-color 0.24s;
-  &:hover {
+  &InnerBox:hover {
+    border-radius: 16px;
     background-color: $colour-base-200;
   }
 }

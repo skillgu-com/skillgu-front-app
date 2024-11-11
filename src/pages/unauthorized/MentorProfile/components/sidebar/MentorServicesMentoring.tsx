@@ -32,13 +32,15 @@ export const MentorServicesMentoring = ({
     <>
       <div className={clx(styles.cards, { [styles.disabled]: !user })}>
         {services.map((s) => (
-          <ServiceMentoringOptionCard
-            key={s.id}
-            {...s}
-            displayRadioInput={displayRadioInput}
-            handleSelect={handleSelect ? () => handleSelect(s) : undefined}
-            selected={s === selected}
-          />
+          <div className={styles.cardsInnerBox}>
+            <ServiceMentoringOptionCard
+              key={s.id}
+              {...s}
+              displayRadioInput={displayRadioInput}
+              handleSelect={handleSelect ? () => handleSelect(s) : undefined}
+              selected={s === selected}
+            />
+          </div>
         ))}
       </div>
       {handleSubmit ? (

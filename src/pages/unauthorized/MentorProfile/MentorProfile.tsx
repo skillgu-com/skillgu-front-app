@@ -38,47 +38,40 @@ import {
   MentoringSkeleton,
   MentorProfilePageSkeleton,
 } from "./MentorProfileSkeleton";
+import {verifyReviewToken} from "@services/mentor/verifyReviewTokenService";
 
 export const MentorProfilePage = () => {
-  const { username } = useParams<{ username: string | "" }>();
-
+  const { username, token } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  
   const [tab, setTab] = useState<ServiceType>("session");
   const [mentorData, setMentorData] = useState<MentorData>({} as MentorData);
   const [pending, setPending] = useState<boolean>(true);
   const [mentorId, setMentorId] = useState<string | null>(null);
   const userFromRedux = useSelector((state: any) => state.auth.user);
-
-  // @TODO: get user id from sesion/jwt
-
-  const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>(
-    []
-  );
+  const [isTokenValid, setIsTokenValid] = useState<boolean>(false);
+  const [optionsMentoring, setOptionsMentoring] = useState<MentorshipPlanDTO[]>([]);
   const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-  const [selectedMentoring, setSelectedMentoring] =
-    useState<null | MentorshipPlanDTO>(null);
-
-  const toggleTab = () =>
-    setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
+  const [selectedMentoring, setSelectedMentoring] = useState<null | MentorshipPlanDTO>(null);
+  const toggleTab = () => setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
   const [loading, setLoading] = useState<boolean>(true);
-
-  const handleSubmitMentoring = (opt: MentorshipPlan) => {
-    navigate(`/mentorship/${opt.id}/application`);
-  };
-
-  const handleSubmitSession = (opt: ServiceSession) => {
-    navigate(`/session-book/${opt.id}`, {
-      state: { opt, from: location?.pathname },
-    });
-  };
-  const handleSelectMentoring = (opt: MentorshipPlan) =>
-    setSelectedMentoring(opt);
-
+  const handleSubmitMentoring = (opt: MentorshipPlan) => {navigate(`/mentorship/${opt.id}/application`);};
+  const handleSubmitSession = (opt: ServiceSession) => {navigate(`/session-book/${opt.id}`, {state: { opt, from: location?.pathname },});};
+  const handleSelectMentoring = (opt: MentorshipPlan) => setSelectedMentoring(opt);
   const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-  //   const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
   const handleSelectSession = (opt: ServiceSession) => setSession(opt);
+
+  useEffect(() => {
+    if (token) {
+      verifyReviewToken(token)
+          .then(() => {
+            setIsTokenValid(true);
+          })
+          .catch(() => {
+            setIsTokenValid(false);
+          });
+    }
+  }, [location.search]);
 
   useEffect(() => {
     if (!username) return;

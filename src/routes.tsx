@@ -68,6 +68,12 @@ const routesRaw: Omit<Route, "id">[] = [
     layoutVersion: "default",
   },
   {
+    path: paths.mentorProfileReview,
+    element: <MentorProfilePage />,
+    // isProtected: false,
+    layoutVersion: "default",
+  },
+  {
     path: paths.mentorProfileEdit,
     element: <MentorProfileEditPage />,
     layoutVersion: "default",

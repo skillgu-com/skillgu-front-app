@@ -41,6 +41,7 @@ const paths = {
   registerMentor: "/register-mentor",
   registerMentee: "/register-mentee",
   mentorProfile: "/mentor/:username",
+  mentorProfileReview: "/mentor/:username/review/:token",
   mentorProfileEdit: "/edit-mentor/:username",
   studentProfile: "/student/:id",
   studentProfileEdit: "/edit-student/:id",

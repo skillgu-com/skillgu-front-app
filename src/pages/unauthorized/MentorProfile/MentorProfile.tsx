@@ -205,6 +205,7 @@ export const MentorProfilePage = () => {
     <>
       <AddReviewPopup
         user={user?.username}
+        token={token}
         isOpen={isReviewPopupOpen}
         handleClose={() => setIsReviewPopupOpen(false)}
       />

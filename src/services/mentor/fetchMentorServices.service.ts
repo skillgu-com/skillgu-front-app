@@ -248,18 +248,3 @@ export const getMentorByUsername = async (username: string) => {
     `/api/mentor/get-mentor-by-mentor-username/${username}`
   );
 };
-
-type ReviewPropsTypes = {
-  mentor: string;
-  rate: number;
-  authorName: string;
-  createdAt: string;
-  content: string;
-};
-
-export const sendReview = async (props: ReviewPropsTypes): Promise<boolean> => {
-  // TODO
-  await axios.post("/.....", props);
-
-  return true;
-};

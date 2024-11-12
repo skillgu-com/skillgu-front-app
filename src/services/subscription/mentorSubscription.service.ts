@@ -12,7 +12,6 @@ export const fetchMentorPlan = async (): Promise<{ plan: string, startDate: stri
     }
 };
 
-// Funkcja aktualizująca plan mentora
 export const updateMentorPlan = async (plan: string): Promise<void> => {
     try {
         const response = await axios.post('/api/mentor/update-plan', plan, {

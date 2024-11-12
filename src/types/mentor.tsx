@@ -73,5 +73,5 @@ export type Review = {
     rate: number;
     authorName: string;
     createdAt: string;
-    content: string;
+    comment: string;
 };

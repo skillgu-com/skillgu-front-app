@@ -2,6 +2,9 @@
 @use "../../../scss/main" as *;
 @use "../../../scss/_mixins" as *;
 
+.wrapper {
+  margin-top: 32px;
+}
 .review {
   padding: 24px 16px;
   border: 1px solid $colour-base-200;

@@ -27,7 +27,6 @@ export const MentorReviewsConnected = ({ username }: Props) => {
         setPending(false);
         return;
       }
-
       setPending(true);
       setError("");
       try {
@@ -55,7 +54,7 @@ export const MentorReviewsConnected = ({ username }: Props) => {
   }, []);
 
   return (
-    <Reviews avgRate={avg} title="Opinie" total={total}>
+    <Reviews avgRate={avg} title="Opinie" total={total} className={styles.wrapper}>
       {!pending && reviews.length === 0 ? (
         <Reviews.Message>
           Ten mentor nie otrzymał na razie żadnych ocen.

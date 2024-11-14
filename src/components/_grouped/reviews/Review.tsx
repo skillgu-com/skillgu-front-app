@@ -18,7 +18,8 @@ export const Review = ({ className, review }: Props) => {
       <div>
         <h5 className={styles.item_title}>{generateTitle(review.rate)}</h5>
         <span className={styles.item_subtitle}>
-          {review.authorName} {formatDate(review.createdAt, "DD MMMM YYYY")}
+          {review.authorName}{" "}
+          {formatDate(review.createdAt, "DD MMMM YYYY", "pl-PL")}
         </span>
       </div>
       <div className={styles.item_content}>{review.comment}</div>

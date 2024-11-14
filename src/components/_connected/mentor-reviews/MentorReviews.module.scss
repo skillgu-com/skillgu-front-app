@@ -1,0 +1,9 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/main" as *;
+@use "../../../scss/_mixins" as *;
+
+.review {
+  padding: 24px 16px;
+  border: 1px solid $colour-base-200;
+  border-radius: 8px;
+}

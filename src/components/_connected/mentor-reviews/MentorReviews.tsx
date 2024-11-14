@@ -4,15 +4,14 @@ import { fetchMentorReviews } from "src/services/mentor/fetchMentorServices.serv
 import { Review, Reviews, ReviewSkeleton } from "../../_grouped/reviews";
 import { Pagination } from "../../_grouped";
 
+import styles from "./MentorReviews.module.scss";
+
 type Props = {
   username: string | null | undefined;
 };
 
 const REVIEWS_PER_PAGE = 3;
 
-/**
- * Mentor reviews Connected
- */
 export const MentorReviewsConnected = ({ username }: Props) => {
   const [error, setError] = useState<string>("");
   const [pending, setPending] = useState<boolean>(true);
@@ -56,28 +55,30 @@ export const MentorReviewsConnected = ({ username }: Props) => {
   }, []);
 
   return (
-      <Reviews avgRate={avg} title="Opinie" total={total}>
-        {!pending && reviews.length === 0 ? (
-            <Reviews.Message>
-              Ten mentor nie otrzymał na razie żadnych ocen.
-            </Reviews.Message>
-        ) : null}
-        <Reviews.List>
-          {pending
-              ? new Array(REVIEWS_PER_PAGE).fill(null).map((_, ind) => (
-                  <ReviewSkeleton key={ind} />
-              ))
-              : reviews.map((r) => <Review key={r.id} review={r} />)}
-        </Reviews.List>
-        {total ? (
-            <Reviews.Footer>
-              <Pagination
-                  current={page}
-                  last={Math.ceil(total / REVIEWS_PER_PAGE)}
-                  onClick={handleClick}
-              />
-            </Reviews.Footer>
-        ) : null}
-      </Reviews>
+    <Reviews avgRate={avg} title="Opinie" total={total}>
+      {!pending && reviews.length === 0 ? (
+        <Reviews.Message>
+          Ten mentor nie otrzymał na razie żadnych ocen.
+        </Reviews.Message>
+      ) : null}
+      <Reviews.List>
+        {pending
+          ? new Array(REVIEWS_PER_PAGE)
+              .fill(null)
+              .map((_, ind) => <ReviewSkeleton key={ind} />)
+          : reviews.map((r) => (
+              <Review key={r.id} review={r} className={styles.review} />
+            ))}
+      </Reviews.List>
+      {total ? (
+        <Reviews.Footer>
+          <Pagination
+            current={page}
+            last={Math.ceil(total / REVIEWS_PER_PAGE)}
+            onClick={handleClick}
+          />
+        </Reviews.Footer>
+      ) : null}
+    </Reviews>
   );
 };

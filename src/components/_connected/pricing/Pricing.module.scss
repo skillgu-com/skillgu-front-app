@@ -160,6 +160,7 @@
       color: $colour-base-800;
       border-color: $colour-base-600;
       cursor: not-allowed;
+      pointer-events: none; // Wyłączenie kliknięcia
     }
   }
 }

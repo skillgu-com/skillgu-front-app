@@ -11,7 +11,20 @@ type PricingPropsType = {
     selectedPlan: string;
     handleSelectPlan: (plan: string) => void;
     canChangePlan: boolean;
+    currentPlan: string;
+};
 
+const isPlanSelectable = (planTitle: string, targetPlan: string): boolean => {
+    if (planTitle === "Free") {
+        return targetPlan === "Mid" || targetPlan === "Pro";
+    }
+    if (planTitle === "Mid") {
+        return targetPlan === "Pro";
+    }
+    if (planTitle === "Pro") {
+        return false;
+    }
+    return true;
 };
 
 export const Pricing = ({
@@ -20,15 +33,17 @@ export const Pricing = ({
                             price,
                             selectedPlan,
                             handleSelectPlan,
-                            canChangePlan
+                            canChangePlan,
+                            currentPlan,
                         }: PricingPropsType) => {
     const isActive = selectedPlan === planTitle;
+    const selectable = isPlanSelectable(currentPlan, planTitle) && canChangePlan;
 
     return (
         <button
-            className={`${styles.pricingCard} ${isActive ? styles.selected : ""} ${!canChangePlan && !isActive ? styles.inactive : ""}`}
+            className={`${styles.pricingCard} ${isActive ? styles.selected : ""} ${!selectable ? styles.inactive : ""}`}
             onClick={() => handleSelectPlan(planTitle)}
-            disabled={!canChangePlan && !isActive}
+            disabled={!selectable && !isActive}
         >
             <div className={styles.planHeader}>
                 {planTitle !== "Free" ? (
@@ -44,7 +59,7 @@ export const Pricing = ({
                 <span className={styles.priceDetails}>/miesiąc</span>
             </p>
             <button
-                className={`${styles.btn} ${isActive ? styles.btnSelected : ""} ${!canChangePlan && !isActive ? styles.btnInactive : ""}`}
+                className={`${styles.btn} ${isActive ? styles.btnSelected : ""} ${!selectable ? styles.btnInactive : ""}`}
             >
                 {isActive ? "Twój aktualny plan" : "Wybierz ten plan"}
             </button>
@@ -63,5 +78,3 @@ export const Pricing = ({
         </button>
     );
 };
-
-export default Pricing;

@@ -70,6 +70,7 @@ export const fetchMentorShip = async (
         return {success: false, error: "Error"};
     }
 };
+
 export const getMentorshipPlansForMentorProfile = async (mentorId: {
     mentorId: string;
 }): Promise<MentorshipDTO> => {

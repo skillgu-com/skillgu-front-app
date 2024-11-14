@@ -16,39 +16,45 @@ type SectionTemplatePropsType = {
   children: ReactNode;
   className?: string;
   fullWidth?: boolean;
+  isCanceled?: boolean;
 };
 
 export const SectionTemplate = ({
-  title,
-  additionalContent,
-  description,
-  children,
-  className,
-  fullWidth,
-}: SectionTemplatePropsType) => {
+                                  title,
+                                  additionalContent,
+                                  description,
+                                  children,
+                                  className,
+                                  fullWidth,
+                                  isCanceled = false,
+                                }: SectionTemplatePropsType) => {
   return (
-    <Container as={Tag.Section} classes={clx(styles.container, className)}>
-      <header className={styles.header}>
-        <div
-          className={clx(
-            styles.titleWrapper,
-            fullWidth ? styles.fullWidth : null
-          )}
-        >
-          <Title
-            tag={TitleTag.h2}
-            variant={TitleVariant.section}
-            classes={styles.title}
+      <Container as={Tag.Section} classes={clx(styles.container, className)}>
+        <header className={styles.header}>
+          <div
+              className={clx(
+                  styles.titleWrapper,
+                  fullWidth ? styles.fullWidth : null
+              )}
           >
-            {title}
-          </Title>
-          {additionalContent}
-        </div>
-        {description ? (
-          <p className={styles.description}>{description}</p>
-        ) : null}
-      </header>
-      {children}
-    </Container>
+            <Title
+                tag={TitleTag.h2}
+                variant={TitleVariant.section}
+                classes={styles.title}
+            >
+              {title}
+            </Title>
+            {additionalContent}
+          </div>
+          {isCanceled ? (
+              <p className={styles.description}>
+                Twoja subskrypcja została anulowana. Subskrypcja wygaśnie: {description}
+              </p>
+          ) : description ? (
+              <p className={styles.description}>{description}</p>
+          ) : null}
+        </header>
+        {children}
+      </Container>
   );
 };

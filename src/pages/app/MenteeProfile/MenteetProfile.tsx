@@ -17,7 +17,6 @@ export const MenteeProfilePage = () => {
         setPending(true)
         try {
             if (studentId) {
-                console.log('MenteeProfilePage studentId is:', studentId)
                 getMenteeByUserName(studentId).then((res) => {
                     setMentee(res.data)
                 })

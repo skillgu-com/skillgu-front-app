@@ -113,10 +113,11 @@ export const MentorSubscriptions = () => {
     }, [page, sr, tab]);
 
 
-    console.log("Selected Plan:", selectedPlan);
+    // console.log("Selected Plan:", selectedPlan);
     console.log("Can Change Plan:", canChangePlan);
     console.log("Czy plan Free jest aktywny:", selectedPlan === "Free");
     console.log("Czy plan Mid jest aktywny:", selectedPlan === "Mid");
+    console.log("Czy plan PRO jest aktywny:", selectedPlan === "Pro");
 
     return (
         <>

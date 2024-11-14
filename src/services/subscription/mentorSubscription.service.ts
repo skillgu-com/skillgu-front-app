@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 interface SubscriptionDetailsDTO {
     status: string;
     startDate: string;

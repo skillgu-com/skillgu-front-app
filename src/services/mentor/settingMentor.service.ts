@@ -1,5 +1,4 @@
 import axios from "axios";
-import {SpecialVariant} from "@customTypes/mentor";
 import {DropdownOption} from "@customTypes/dropdownOption";
 
 type MentorPersonalData = {
@@ -9,39 +8,38 @@ type MentorPersonalData = {
     coverUrl: File[];
 };
 
-export interface MentorData {
-    avatar_url: string;
-    description: string;
-    id: string;
-    firstName: string;
-    lastName: string;
-    price: number;
-    location: string;
-    profession: string;
-    reviewsAvgRate: number;
-    reviewsCount: number;
-    special: string;
-    title: string;
-    intro: string;
-    jobPosition: string;
-    profileImage: string;
-
-    specialVariant: SpecialVariant;
-    services: DropdownOption[];
-    skill: DropdownOption[];
-    // mentorTopics: DropdownOption[];
-    mentorCategory: DropdownOption[];
-    linkedin: string | null;
-    website: string | null;
-    youtube: string | null;
-    instagram: string | null;
-    twitter: string | null;
-    facebook: string | null;
-    dribble: string | null;
-    behance: string | null;
-    avatarUrl: File[];
-    coverUrl: File[];
-}
+// export interface MentorData {
+//     avatar_url: string;
+//     description: string;
+//     id: string;
+//     firstName: string;
+//     lastName: string;
+//     price: number;
+//     location: string;
+//     profession: string;
+//     reviewsAvgRate: number;
+//     reviewsCount: number;
+//     special: string;
+//     title: string;
+//     intro: string;
+//     jobPosition: string;
+//     profileImage: string;
+//
+//     specialVariant: SpecialVariant;
+//     services: DropdownOption[];
+//     skill: DropdownOption[];
+//     mentorCategory: DropdownOption[];
+//     linkedin: string | null;
+//     website: string | null;
+//     youtube: string | null;
+//     instagram: string | null;
+//     twitter: string | null;
+//     facebook: string | null;
+//     dribble: string | null;
+//     behance: string | null;
+//     avatarUrl: File[];
+//     coverUrl: File[];
+// }
 
 
 export type MentorEditProfileFormInput = {

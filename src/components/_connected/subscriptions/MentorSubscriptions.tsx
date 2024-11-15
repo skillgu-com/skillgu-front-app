@@ -16,6 +16,7 @@ import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
 import { Pricing } from "../pricing/Pricing";
 import { Basic } from "@icons/Basic";
 import { Pro } from "@icons/Pro";
+import { MentorPaymentSubscription } from "../../../pages/app/MentorPaymentSubscription/elements/MentorPaymentSubscription";
 
 const PER_PAGE = 5;
 
@@ -293,6 +294,9 @@ export const MentorSubscriptions = () => {
             />
           </div>
         )}
+        <div className={styles.subscriptionHistoryContainer}>
+          <MentorPaymentSubscription />
+        </div>
       </SectionTemplate>
     </>
   );

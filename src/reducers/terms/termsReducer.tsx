@@ -1,6 +1,6 @@
-import { Terms } from "@customTypes/mentor";
 import { termsInitialState } from "./constants";
 import { type TermsAction, type TermsState } from "./types";
+import {Terms} from "@customTypes/terms";
 
 export const termsReducer = (
   state = termsInitialState,

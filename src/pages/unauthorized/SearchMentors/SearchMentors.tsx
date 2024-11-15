@@ -11,7 +11,6 @@ import {
 import Container from "src/components/Container/Container";
 import { SectionTemplate } from "src/components/SectionTemplate";
 // Types
-import { FilterName, FiltersSelected, Option, SortOption } from "@customTypes/mentor";
 import { Tag } from "src/types/tags";
 // Variables
 import { PAGE_SIZE, SEARCH_DELAY } from "./config";
@@ -23,6 +22,8 @@ import { mentorsReducer } from "src/reducers/mentors";
 import { mentorsInitialState } from "src/reducers/mentors/constants";
 import { fetchMentorFilteredList } from "src/services/mentor/fetchMentorServices.service";
 import { fetchTerms } from "../../../services/terms.service";
+import {FilterName, FiltersSelected} from "@customTypes/filterTag";
+import {Option, SortOption} from "@customTypes/option";
 
 export type LocationTypes = {
   pathname: string;

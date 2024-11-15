@@ -1,8 +1,5 @@
 import { PER_PAGE, sessionsInitialState } from "./constants";
-import {
-  type SessionsAction,
-  type SessionsState,
-} from "./types";
+import {SessionsAction, SessionsState} from "@customTypes/session";
 
 const parsePage = (newPage: number, max: number): number => {
   return Math.max(0, Math.min(newPage, max));

@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  FilterName,
-  Terms,
-  FiltersSelected,
-  Option,
-} from "@customTypes/mentor";
+
 import styles from "./FiltersPopup.module.scss";
 import Modal from "src/components/Modal/Modal";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
 import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
+import {FilterName, FiltersSelected} from "@customTypes/filterTag";
+import {Terms} from "@customTypes/terms";
+import {Option} from "@customTypes/option";
 
 type Props = {
   terms: Terms;

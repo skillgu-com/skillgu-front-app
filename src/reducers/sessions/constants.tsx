@@ -1,4 +1,4 @@
-import { SessionsState } from "./types";
+import {SessionsState} from "@customTypes/session";
 
 export const sessionsInitialState: SessionsState = {
   pending: true,

@@ -1,58 +1,18 @@
-import {
-    Input,
-    OutputFailed,
-    OutputSuccess,
-} from "./fetchMentorServices.types";
-import {FiltersSelected, Mentor, Review} from "@customTypes/mentor";
 import axios from "axios";
+import {Mentor} from "@customTypes/mentor";
+import {MentorshipDTO, MentorshipPlanDTO} from "@customTypes/mentorship";
+import {FiltersSelected} from "@customTypes/filterTag";
+import {FetchMentorReviewsData} from "@customTypes/review";
+import {Input, OutputFailed, OutputSuccess} from "@customTypes/output_input";
 
 type ResponseData = {
     mentors: Mentor[];
     total: number;
 };
 
-export type ServiceMentoring = {
-    id: string;
-    title: string;
-    subtitle: string;
-    price: number;
-    variant: "" | "pro";
-    descriptionRows: string[];
-};
-
-type FetchMentorReviewsInput = {
-    mentorId: string;
-    take: number;
-    skip: number;
-};
-
-type FetchMentorReviewsData = {
-    total: number;
-    avgRate: number;
-    reviews: Review[];
-};
 
 export interface DescriptionRowDTO {
     description: string;
-}
-
-export interface MentorshipPlanDTO {
-    id: string;
-    title: string;
-    subtitle: string;
-    price: number;
-    variant: string;
-    descriptionRows: DescriptionRowDTO[];
-    sessionsPerMonth: number;
-    sessionDurationMinutes: number;
-    responseTimeHours: number;
-    providesMaterials: boolean;
-    mentoringDescription: string;
-    scheduleId: number;
-}
-
-export interface MentorshipDTO {
-    mentorships: MentorshipPlanDTO[];
 }
 
 export const fetchMentorShip = async (

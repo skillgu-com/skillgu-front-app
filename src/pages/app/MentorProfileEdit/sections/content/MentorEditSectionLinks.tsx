@@ -2,35 +2,16 @@ import React from "react";
 
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import {updateUserSocialLinks} from "@services/mentor/settingMentor.service";
 import {MentorData} from "../../MentorProfileEditPage";
 import {UserEditSection} from "../../../../../components/_grouped";
 import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
-
-export type MentorEditLinksFormInput = {
-    website: string;
-    linkedin: string;
-    twitter: string;
-    github: string;
-    dribbble: string;
-    behance: string;
-    youtube: string;
-    facebook: string;
-    instagram: string;
-};
+import {MentorEditLinksFormInput} from "@customTypes/mentor";
+import {updateUserSocialLinks} from "@services/mentor/mentorSettingProfileService";
 
 
 type Props = {
     mentorData: MentorData;
 };
-
-// const isValidUrl = (url: string, allowEmpty: boolean = true): boolean => {
-//     if (allowEmpty && url === "") {
-//         return true;
-//     }
-//     const urlRegex = /^(http|https):\/\/[^ "]+$/;
-//     return urlRegex.test(url);
-// };
 
 export const MentorEditSectionLinks = ({mentorData}: Props) => {
     const {control, formState, handleSubmit, watch} =

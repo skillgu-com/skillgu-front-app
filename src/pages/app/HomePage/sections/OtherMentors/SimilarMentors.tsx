@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { OtherMentors } from "./OtherMentors";
 import { Mentor } from "./types";
-import { FetchSimilarMentorsOutput } from "@services/mentor/fetchSimilarMentors.types";
 import { fetchSimilarMentors } from "@services/mentor/fetchSimilarMentors.service";
+import {FetchSimilarMentorsOutput} from "@customTypes/mentor";
 
 export const SimilarMentors = () => {
   const [data, setData] = useState<FetchSimilarMentorsOutput | null>(null);

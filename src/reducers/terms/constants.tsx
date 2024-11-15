@@ -1,4 +1,4 @@
-import { Terms } from "@customTypes/mentor";
+import {Terms} from "@customTypes/terms";
 
 export const UPDATE_TERMS = "UPDATE_TERMS";
 

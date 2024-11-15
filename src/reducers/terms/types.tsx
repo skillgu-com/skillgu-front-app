@@ -1,4 +1,4 @@
-import { Terms } from "@customTypes/mentor";
+import {Terms} from "@customTypes/terms";
 
 export type ActionType = "UPDATE_TERMS";
 

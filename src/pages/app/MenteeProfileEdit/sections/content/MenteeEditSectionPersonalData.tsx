@@ -1,25 +1,13 @@
 import React from "react";
 import {useForm} from "react-hook-form";
 import styles from "./styles.module.scss";
-import updateUserPersonalData from "@services/mentor/settingMentor.service";
 import {UserEditSection} from "../../../../../components/_grouped";
 import FormInputText from "../../../../../components/_form/FormInputText/FormInputText";
 import FormInputFile from "../../../../../components/_form/FormUploadFile/FormUploadFile";
+import {MentorEditPersonalDataFormInput} from "@customTypes/mentor";
+import {MenteePersonalData} from "@customTypes/mentee";
+import updateUserPersonalData from "@services/mentor/mentorSettingProfileService";
 
-export type MentorEditPersonalDataFormInput = {
-    userID: number;
-    firstName: string;
-    surname: string;
-    avatarUrl: File[];
-    coverUrl: File[];
-};
-
-type MenteePersonalData = {
-    firstName: string;
-    surname: string;
-    avatarUrl: File[];
-    coverUrl: File[];
-};
 
 export const MenteeEditSectionPersonalData = () => {
     const {control, formState, handleSubmit, watch} =

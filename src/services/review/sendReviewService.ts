@@ -1,20 +1,5 @@
 import axios from "axios";
-
-type ReviewPropsTypes = {
-    rate: number;
-    authorName: string;
-    createdAt: string;
-    comment: string;
-    token: string;
-};
-
-// export const sendReview = async (props: ReviewPropsTypes): Promise<boolean> => {
-//     console.log(props)
-//     await axios.post("/.....", props);
-//
-//     return true;
-// };
-
+import {ReviewPropsTypes} from "@customTypes/review";
 
 export const sendReview = async (props: ReviewPropsTypes) => {
     try {

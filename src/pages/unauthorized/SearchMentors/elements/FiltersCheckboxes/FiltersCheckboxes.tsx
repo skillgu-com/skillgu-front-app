@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { Option, FilterName } from "@customTypes/mentor";
 import Checkbox, { type CheckboxValueCb } from "src/components/Checkbox/Checkbox";
 import styles from './FiltersCheckboxes.module.scss'
 import SearchSvg from "@icons/SearchSvg";
+import {FilterName} from "@customTypes/filterTag";
+import {Option} from "@customTypes/option";
 
 type FiltersCheckboxesProps = {
   name: FilterName;

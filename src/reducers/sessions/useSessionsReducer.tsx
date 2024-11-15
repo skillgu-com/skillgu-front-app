@@ -1,7 +1,7 @@
 import { sessionsInitialState } from "./constants";
 import { useDispatch, useSelector } from "react-redux";
-import { SessionRowType, SessionsState } from "./types";
 import { useCallback } from "react";
+import {SessionRowType, SessionsState} from "@customTypes/session";
 
 type Output = {
   sessionsState: SessionsState;

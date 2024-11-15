@@ -1,6 +1,7 @@
-import { SortOption } from "@customTypes/mentor";
 
 // Display maximum 5 options or 4 options + show more btn
+import {SortOption} from "@customTypes/option";
+
 export const FILTERS_CHECKBOXES_ROWS_LIMIT = 5;
 
 export const PAGE_SIZE = 3;

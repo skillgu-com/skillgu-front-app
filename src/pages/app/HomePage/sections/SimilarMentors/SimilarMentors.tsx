@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Slider from "react-slick";
 import styles from "./SimilarMentors.module.scss";
-import {FetchSimilarMentorsOutput} from "@services/mentor/fetchSimilarMentors.types";
 import {fetchSimilarMentors} from "@services/mentor/fetchSimilarMentors.service";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {FetchSimilarMentorsOutput} from "@customTypes/mentor";
 
 const settings = {
     dots: false,

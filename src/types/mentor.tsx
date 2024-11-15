@@ -1,50 +1,8 @@
 import {DropdownOption} from "@customTypes/dropdownOption";
-
-export type FilterName =
-    | "priceMin"
-    | "priceMax"
-    | "categories"
-    | "skills"
-    | "services"
-    | "phrase"
-    | "sort"
-    | "topics";
-
-export type SortOption = "rateASC" | "rateDESC" | "priceASC" | "priceDESC";
+import {SubscriptionStatus} from "@customTypes/subscriptions";
+import {SessionStatus} from "@customTypes/session";
 
 export type SpecialVariant = "success" | "warning" | "error";
-
-export type Option = {
-    value: string;
-    label: string;
-};
-
-export type Terms = {
-    categories: Option[];
-    skills: Option[];
-    services: Option[];
-    topics: Option[];
-};
-
-export type FiltersOptions = {
-    priceMin: number;
-    priceMax: number;
-    categories: Option[];
-    skills: Option[];
-    services: Option[];
-    topics: Option[];
-};
-
-export type FiltersSelected = {
-    priceMin: number;
-    priceMax: number;
-    categories: Option[];
-    skills: Option[];
-    services: Option[];
-    topics: Option[];
-    phrase: string;
-    sort: SortOption;
-};
 
 export type Mentor = {
     avatar_url: string;
@@ -63,15 +21,110 @@ export type Mentor = {
     username: string;
 };
 
-export type FilterTag = {
-    name: FilterName;
-    displayValue: string;
+
+export interface MentorEditLinksFormInput {
+    website: string;
+    linkedin: string;
+    twitter: string;
+    github: string;
+    dribbble: string;
+    behance: string;
+    youtube: string;
+    facebook: string;
+    instagram: string;
 };
 
-export type Review = {
-    id: string;
-    rate: number;
-    authorName: string;
-    createdAt: string;
-    comment: string;
+export type FetchSimilarMentorsInput = {
+    take: number
+}
+
+export type FetchSimilarMentorsOutput = {
+    mentors: {
+        id: number
+        userName: string
+        avatarUrl: string
+        fullName: string
+        profession: string
+        skill: string[]
+    }[]
+}
+export type FetchMentorStudentsInput = {
+    status: SubscriptionStatus,
+    sortBy: 'status'
+    sortMethod: 'ASC' | 'DESC'
+    skip: number
+    take: number
+}
+
+export type FetchMentorStudentsOutput = {
+    total: number
+    students: {
+        id: number
+        nickname: string
+        avatarUrl: string
+        fullName: string
+        date: string
+        status: SubscriptionStatus
+        serviceType: 'session' | 'mentoring'
+        serviceName: string
+        isPro: boolean
+        planName: string
+    }[]
+}
+
+export type FetchMentorSessionsOutput = {
+    total: number
+    mentee: {
+        id: number
+        userName: string
+        avatarUrl: string
+        fullName: string
+        date: string
+        status: SessionStatus
+        serviceType: 'session' | 'mentoring'
+        serviceName: string
+    }[]
+}
+export type FetchMentorSessionsInput = {
+    sortBy: 'status'
+    sortMethod: 'ASC' | 'DESC'
+    skip: number
+    take: number
+}
+
+export type MentorEditProfileFormInput = {
+    heading: string;
+    profession: string;
+    company: string;
+    biography: string;
+    skill: DropdownOption[];
+    services: DropdownOption[];
+    timezone: string;
+    language: DropdownOption[];
+    categories: DropdownOption[];
+    mentorTopics: DropdownOption[];
 };
+
+export type MentorEditPersonalDataFormInput = {
+    firstName: string;
+    surname: string;
+    avatarUrl: File[];
+    coverUrl: File[];
+};
+
+
+export type MentorEditPersonalDataFormInputTest = {
+    firstName: string;
+    surname: string;
+    avatarUrl: string;
+    coverUrl:string;
+};
+
+export type MentorPersonalData = {
+    firstName: string;
+    surname: string;
+    avatarUrl: File[];
+    coverUrl: File[];
+};
+
+

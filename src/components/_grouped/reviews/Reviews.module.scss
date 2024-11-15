@@ -21,12 +21,12 @@
   }
 
   .list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: pxToRem(16);
 
     @include media-md-and-up {
-      flex-direction: row;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: pxToRem(24);
     }
   }
@@ -34,7 +34,7 @@
   .item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 16px;
     flex: 1;
   }
 

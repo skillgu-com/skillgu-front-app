@@ -16,9 +16,9 @@ import {ReportStatus} from "@customTypes/reports";
 import {formatDate} from "src/utils";
 import {formatPrice} from "src/utils/price";
 import {fetchPaymentReports} from "@services/payments/fetchPaymentReports.service";
-import {FetchPaymentReportsServiceOutput} from "@services/payments/fetchPaymentReports.types";
 import Title, {TitleTag, TitleVariant} from "../../../../components/typography/Title/Title";
 import scheduleStyles from "../../Schedules/Schedules.module.scss";
+import {FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 
 const renderStatus = (status: ReportStatus) => {
     switch (status) {

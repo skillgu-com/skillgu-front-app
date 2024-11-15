@@ -1,4 +1,4 @@
-import { FiltersSelected, FilterTag } from "@customTypes/mentor";
+import {FiltersSelected, FilterTag} from "@customTypes/filterTag";
 
 export const filtersToTags = (filters: FiltersSelected): FilterTag[] => {
   const tags: FilterTag[] = [];

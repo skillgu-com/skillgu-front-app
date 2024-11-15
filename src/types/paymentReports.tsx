@@ -1,4 +1,4 @@
-import { Report } from "@customTypes/reports"
+import {Report} from "@customTypes/reports";
 
 export type FetchPaymentReportsServiceInput = {
     page?: number

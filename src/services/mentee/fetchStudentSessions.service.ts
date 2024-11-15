@@ -3,6 +3,7 @@ import {
   FetchStudentSessionsOutput,
 } from "./fetchStudentSessions.types";
 import axios from "axios";
+import {FetchMentorReviewsData} from "@customTypes/review";
 
 
 export const fetchStudentSessions = async (
@@ -18,16 +19,55 @@ export const fetchStudentSessions = async (
   };
 };
 
-export const fetchMenteeSubscriptionHistory = async (
-    props: FetchStudentSessionsInput
-): Promise<FetchStudentSessionsOutput> => {
+// export const fetchMentorReviews = async ({username, take = 10, skip = 0,}: {
+//   username: string | null;
+//   take?: number;
+//   skip?: number;
+// }): Promise<FetchMentorReviewsData> => {
+//   if (!username) {
+//     throw new Error("Username is required to fetch reviews.");
+//   }
+//   try {
+//     const {data} = await axios.get(`/api/review/mentor/${username}`, {
+//       params: {take, skip,},
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//
+//     const {total, reviews, avgRate} = data;
+//     return {total, reviews, avgRate};
+//   } catch (error) {
+//     console.error("Error fetching mentor reviews:", error);
+//     throw error;
+//   }
+// };
 
+export const fetchMenteeSubscriptionHistory = async ({
+                                                       take = 10,
+                                                       skip = 0,
+                                                     }: FetchStudentSessionsInput): Promise<FetchStudentSessionsOutput> => {
+  const response = await axios.get('/mentee/home/meeting/subscription/history', {
+    params: {
+      take,
+      skip,
+    },
+  });
 
-  const response = await axios.get('/mentee/home/meeting/subscription/history');
   const data = response.data;
 
   return {
-    mentors: data.slice(0, props.take),
-    total: data.length,
+    total: data.total,
+    mentors: data.subscriptions.map((item: any) => ({
+      id: item.id,
+      userName: item.username, // Poprawienie na `item.username`
+      avatarUrl: item.avatarUrl || "", // Dodaj avatarUrl, jeśli dostępny
+      fullName: item.fullName, // Poprawienie na `item.fullName`
+      date: item.sessionDate,
+      status: item.status || 'in-progress', // Używanie statusu z backendu, z domyślną wartością
+      serviceType: item.planType === 'basic' ? 'session' : 'mentoring', // Mapa dla odpowiednich wartości
+      serviceName: item.scheduleName, // Poprawienie na `item.scheduleName`
+    })),
   };
 };
+

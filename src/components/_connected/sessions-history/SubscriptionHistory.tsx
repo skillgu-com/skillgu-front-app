@@ -40,24 +40,6 @@ export const SubscriptionHistory = ({
     const sessions = sr.sessionsState.sessions;
     const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);
 
-
-    // const [overflowMenuIndex, setOverflowMenuIndex] = useState<number | null>(
-    //     null
-    // );
-
-    // const handleEdit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    //     const btn = e.currentTarget as HTMLButtonElement;
-    //     const id = Number(btn.value);
-    //     const action = btn.name as "suspend" | "cancel";
-    //     if (id && action === "suspend") {
-    //         console.log("Przełóż spotkanie o id: ", id);
-    //     }
-    //     if (id && action === "cancel") {
-    //         console.log("Odwołaj spotkanie o id: ", id);
-    //     }
-    //     setOverflowMenuIndex(null);
-    // }, []);
-
     const navigate = useNavigate();
 
     const handlePagination = useCallback(
@@ -69,6 +51,8 @@ export const SubscriptionHistory = ({
         },
         [sr]
     );
+
+    console.log(sr)
     return (
         <SectionTemplate title={title} description={subtitle}>
             <Table className={styles.table}>

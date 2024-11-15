@@ -1,13 +1,11 @@
 import React from "react";
-import { 
-    FilterName,
-    FiltersSelected,
-    Option,
-    Terms,
-  } from "@customTypes/mentor";
+
 import styles from "./FiltersSidebar.module.scss";
 import { FiltersCheckboxes, FiltersGroup, FiltersRange } from "../../elements";
 import { FILTERS_CHECKBOXES_ROWS_LIMIT } from "../../config";
+import {Terms} from "@customTypes/terms";
+import {FilterName, FiltersSelected} from "@customTypes/filterTag";
+import {Option} from "@customTypes/option";
 
 type FiltersSidebarProps = {
   terms: Terms;

@@ -1,4 +1,4 @@
-import { type Review as ReviewType } from "@customTypes/mentor";
+import { type Review as ReviewType } from "@customTypes/review";
 import React from "react";
 import { Stars } from "../stars";
 import { formatDate } from "src/utils";

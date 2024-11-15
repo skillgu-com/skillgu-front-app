@@ -3,8 +3,8 @@ import clx from "classnames";
 import styles from "./Sidebar.module.scss";
 import { ServiceMentoringOptionCard } from "../../../../../components/Cards/ServiceMentoringOptionCard";
 import { ServiceInfoBox } from "../../../../../components/_grouped";
-import { MentorshipPlanDTO } from "@services/mentor/fetchMentorServices.service";
 import { useCurrentUser } from "src/hooks/useCurrentUser";
+import {MentorshipPlanDTO} from "@customTypes/mentorship";
 type Props = {
   services: MentorshipPlanDTO[];
   selected?: MentorshipPlanDTO | null;

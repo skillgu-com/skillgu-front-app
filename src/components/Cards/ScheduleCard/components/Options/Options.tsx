@@ -5,7 +5,7 @@ import Dots from '../icons/Dots';
 import styles from './Options.module.scss';
 import clx from 'classnames'
 
-export interface Option {
+interface Option {
   icon: React.ReactNode;
   text: string;
   onClick: () => void;
@@ -15,7 +15,7 @@ export interface Option {
 
 }
 
-interface OptionsProps {
+export interface OptionsProps {
   options: Option[];
 }
 

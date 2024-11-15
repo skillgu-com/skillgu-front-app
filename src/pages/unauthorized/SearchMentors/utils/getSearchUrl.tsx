@@ -1,5 +1,5 @@
 import { PAGE_SIZE } from "../config";
-import { FiltersSelected } from "@customTypes/mentor";
+import {FiltersSelected} from "@customTypes/filterTag";
 
 export const getSearchUrl = (
   page: number,

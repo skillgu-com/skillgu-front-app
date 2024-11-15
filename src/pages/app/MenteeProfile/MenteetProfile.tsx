@@ -22,7 +22,7 @@ export const MenteeProfilePage = () => {
                 })
             }
         } catch (e) {
-            setError('Wystąpił błąd podczas pobierania danych')
+            setError('An error occurred while downloading data')
         }
         setPending(false)
     }, [studentId]);

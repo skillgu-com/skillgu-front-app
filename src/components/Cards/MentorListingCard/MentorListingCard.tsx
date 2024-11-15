@@ -8,9 +8,10 @@ import styles from "./MentorListingCard.module.scss";
 
 import clx from "classnames";
 import StarSvg from "@icons/StarSvg";
-import { FiltersSelected, SpecialVariant } from "@customTypes/mentor";
+import { SpecialVariant } from "@customTypes/mentor";
 import { DropdownOption } from "@customTypes/dropdownOption";
 import Title, { TitleTag, TitleVariant } from "../../typography/Title/Title";
+import {FiltersSelected} from "@customTypes/filterTag";
 
 interface MentorListingCardProps {
   avatar_url: string;

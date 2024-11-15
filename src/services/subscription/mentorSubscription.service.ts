@@ -1,20 +1,6 @@
 import axios from 'axios';
+import {SubscriptionDetailsDTO} from "@customTypes/subscription";
 
-interface SubscriptionDetailsDTO {
-    status: string;
-    startDate: string;
-    endDate: string;
-    amountDue: string;
-    invoiceDate: string;
-    planId: string;
-    planName: string;
-    planAmount: string;
-    interval: string;
-    autoRenewal: string;
-    canceledAtPeriodEnd: string;
-    mentorId: string;
-    isCanceled: boolean
-}
 
 export const fetchMentorPlan = async (): Promise<{ plan: string, startDate: string, canChangePlan: boolean }> => {
     try {

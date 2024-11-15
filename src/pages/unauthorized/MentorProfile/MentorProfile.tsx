@@ -20,7 +20,6 @@ import {
 import {
   getMentorByUsername,
   getMentorshipPlansForMentorProfile,
-  MentorshipPlanDTO,
 } from "src/services/mentor/fetchMentorServices.service";
 import styles from "./MentorProfile.module.scss";
 import clx from "classnames";
@@ -41,6 +40,7 @@ import {
 } from "./MentorProfileSkeleton";
 import { useCurrentUser } from "src/hooks/useCurrentUser";
 import { verifyReviewToken } from "@services/review/verifyReviewTokenService";
+import {MentorshipPlanDTO} from "@customTypes/mentorship";
 
 export const MentorProfilePage = () => {
   const location = useLocation();

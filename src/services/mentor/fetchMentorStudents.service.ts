@@ -1,5 +1,5 @@
-import {FetchMentorStudentsInput, FetchMentorStudentsOutput,} from "./fetchMentorStudents.types";
 import axios from "axios";
+import {FetchMentorStudentsInput, FetchMentorStudentsOutput} from "@customTypes/mentor";
 
 export const fetchMentorStudents = async (
     props: FetchMentorStudentsInput

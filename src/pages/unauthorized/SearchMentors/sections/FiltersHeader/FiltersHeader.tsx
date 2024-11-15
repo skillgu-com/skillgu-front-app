@@ -4,15 +4,11 @@ import {Tag} from "src/types/tags";
 import styles from "./FiltersHeader.module.scss";
 import {sortOptions} from "../../config";
 import SearchSvg from "@icons/SearchSvg";
-import {
-    FilterName,
-    FiltersSelected,
-    Option,
-    SortOption,
-} from "@customTypes/mentor";
 import {FilterTag} from "../../elements";
 import {FilterSearchSvg} from "@icons/FilterSearchSvg";
 import Select from "../../../../../components/Select/Select";
+import {FilterName, FiltersSelected} from "@customTypes/filterTag";
+import {Option, SortOption} from "@customTypes/option";
 
 type FiltersHeaderProps = {
     displayed: number;

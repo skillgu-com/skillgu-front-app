@@ -7,30 +7,9 @@ import FormInputText from "../../../../../components/_form/FormInputText/FormInp
 import FormInputFile from "../../../../../components/_form/FormUploadFile/FormUploadFile";
 
 import styles from "./styles.module.scss";
+import updateUserPersonalData from "@services/mentor/mentorSettingProfileService";
+import {MentorEditPersonalDataFormInput, MentorPersonalData} from "@customTypes/mentor";
 
-import updateUserPersonalData from "../../../../../services/mentor/settingMentor.service";
-
-export type MentorEditPersonalDataFormInput = {
-    firstName: string;
-    surname: string;
-    avatarUrl: File[];
-    coverUrl: File[];
-};
-
-
-export type MentorEditPersonalDataFormInputTest = {
-    firstName: string;
-    surname: string;
-    avatarUrl: string;
-    coverUrl:string;
-};
-
-type MentorPersonalData = {
-    firstName: string;
-    surname: string;
-    avatarUrl: File[];
-    coverUrl: File[];
-};
 
 type Props = {
     mentorData: MentorData;

@@ -10,11 +10,12 @@ import styles from "./MentorsList.module.scss";
 import { Tag } from "src/types/tags";
 // Utils
 import { buildMentorLink } from "../../utils";
-import { FiltersSelected, Mentor } from "@customTypes/mentor";
 import {
   MentorListingCard,
   MentorListingCardSkeleton,
 } from "../../../../../components/Cards/MentorListingCard";
+import {FiltersSelected} from "@customTypes/filterTag";
+import {Mentor} from "@customTypes/mentor";
 
 type Props = {
   error?: string;

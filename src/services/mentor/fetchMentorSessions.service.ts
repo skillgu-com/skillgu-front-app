@@ -1,8 +1,6 @@
-import {
-    FetchMentorSessionsInput,
-    FetchMentorSessionsOutput,
-} from "./fetchMentorSessions.types";
+
 import axios from "axios";
+import {FetchMentorSessionsInput, FetchMentorSessionsOutput} from "@customTypes/mentor";
 
 export const getMentorMeetingHistory = async (
     props: FetchMentorSessionsInput

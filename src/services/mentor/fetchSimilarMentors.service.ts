@@ -1,9 +1,5 @@
-import {
-  FetchSimilarMentorsOutput,
-  FetchSimilarMentorsInput,
-} from "./fetchSimilarMentors.types";
 import axios from "axios";
-
+import {FetchSimilarMentorsInput, FetchSimilarMentorsOutput} from "@customTypes/mentor";
 
 export const fetchSimilarMentors = async (props: FetchSimilarMentorsInput): Promise<FetchSimilarMentorsOutput> => {
   try {

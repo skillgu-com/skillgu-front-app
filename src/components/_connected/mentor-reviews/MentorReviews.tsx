@@ -1,4 +1,4 @@
-import { type Review as ReviewType } from "@customTypes/mentor";
+import { type Review as ReviewType } from "@customTypes/review";
 import React, { useCallback, useEffect, useState } from "react";
 import { fetchMentorReviews } from "src/services/mentor/fetchMentorServices.service";
 import { Review, Reviews, ReviewSkeleton } from "../../_grouped/reviews";

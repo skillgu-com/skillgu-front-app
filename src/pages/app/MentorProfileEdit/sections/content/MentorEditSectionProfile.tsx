@@ -7,7 +7,6 @@ import getAvailableSkillsService from "src/services/skills/getAvailableSkills.se
 import getAvailableServices from "src/services/services/getAvailableServices";
 import getAvailableCategoriesService from "src/services/categories/getAvailableCategories.service";
 import getAvailableTopicsService from "src/services/topics/getAvailableTopics.service";
-import {updateUserProfile} from "../../../../../services/mentor/settingMentor.service";
 import getAvailableLanguage from "../../../../../services/language/getAvailableLanguage.service";
 import {DropdownOption} from "@customTypes/dropdownOption";
 import getAvailableTimezone from "@services/timezone/getAvailableTimezone.service";
@@ -18,20 +17,8 @@ import FormAutocompleteDynamic from "../../../../../components/_form/FormAutocom
 import FormCheckboxesOptionsDynamic
     from "../../../../../components/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 import FormInputSelect from "../../../../../components/_form/FormInputSelect/FormInputSelect";
-
-
-export type MentorEditProfileFormInput = {
-    heading: string;
-    profession: string;
-    company: string;
-    biography: string;
-    skill: DropdownOption[];
-    services: DropdownOption[];
-    timezone: string;
-    language: DropdownOption[];
-    categories: DropdownOption[];
-    mentorTopics: DropdownOption[];
-};
+import {MentorEditProfileFormInput} from "@customTypes/mentor";
+import {updateUserProfile} from "@services/mentor/mentorSettingProfileService";
 
 type Props = {
     mentorData: MentorData;

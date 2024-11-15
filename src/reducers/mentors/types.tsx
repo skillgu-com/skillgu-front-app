@@ -1,4 +1,5 @@
-import { FiltersSelected, Mentor } from "@customTypes/mentor";
+import {FiltersSelected} from "@customTypes/filterTag";
+import {Mentor} from "@customTypes/mentor";
 
 export type ActionType =
   | "UPDATE_FILTERS"

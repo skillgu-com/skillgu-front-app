@@ -12,12 +12,9 @@ import styles from "./styles.module.scss";
 
 import {ReportStatus} from "@customTypes/reports";
 
-
 import {formatDate} from "src/utils";
 import {formatPrice} from "src/utils/price";
-import {fetchPaymentReports} from "@services/payments/fetchPaymentReports.service";
-import Title, {TitleTag, TitleVariant} from "../../../../components/typography/Title/Title";
-import scheduleStyles from "../../Schedules/Schedules.module.scss";
+import {fetchMentorSubscriptionPayment} from "@services/mentorSubscriptionPayment/fetchMentorSubscriptionPayment";
 import {FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 
 const renderStatus = (status: ReportStatus) => {
@@ -45,7 +42,7 @@ const renderStatus = (status: ReportStatus) => {
 
 const PER_PAGE = 8;
 
-export const Reports = () => {
+export const MentorPaymentSubscription = () => {
     const [data, setData] = useState<FetchPaymentReportsServiceOutput | null>(
         null
     );
@@ -55,7 +52,7 @@ export const Reports = () => {
     useEffect(() => {
         const run = async (page: number) => {
             setPending(true);
-            const data = await fetchPaymentReports({
+            const data = await fetchMentorSubscriptionPayment({
                 take: PER_PAGE,
                 skip: PER_PAGE * (page - 1),
             });
@@ -74,20 +71,6 @@ export const Reports = () => {
         </div>
     ) : data && data.success && data.reports.length ? (
         <section>
-            <Title
-                tag={TitleTag.h2}
-                variant={TitleVariant.section}
-                classes={scheduleStyles.title}>
-                Raporty
-            </Title>
-            <div className={styles.wrapper}>
-                <p className={styles.description}>
-                    Poniżej znajdziesz historię swoich dotychczasowych rozliczeń. Przedłużysz swoje plany mentoringowe w
-                    zakładce {" "}
-                    <a className={styles.link} href="/mentee-subscriptions">Subskrypcja.</a>
-                </p>
-            </div>
-
             <Table>
                 <Scrollable minWidth={"920px"}>
                     <TableRow heading>
@@ -147,10 +130,10 @@ export const Reports = () => {
                     <TableCell heading text="Data"/>
                     <TableCell heading text="Kwota"/>
                     <TableCell heading text="Status"/>
-                    <TableCell heading text="Sesja"/>
+                    <TableCell heading text="Plan"/>
                 </TableRow>
                 <TableCell flex className={styles.emptyCell}>
-                    <EmptyState text="Nie znaleziono żadnych Twoich raportów"/>
+                    <EmptyState text="Nie znaleziono żadnych Twoich subskrypcji"/>
                 </TableCell>
             </Scrollable>
         </Table>

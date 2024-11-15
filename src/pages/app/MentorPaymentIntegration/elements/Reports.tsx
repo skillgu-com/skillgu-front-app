@@ -11,7 +11,7 @@ import { Scrollable } from "src/components/_base/Scrollable";
 import { PdfIcon } from "@icons/PdfIcon";
 import { Loader } from "src/components/_grouped/loader";
 import { fetchPaymentReports } from "@services/payments/fetchPaymentReports.service";
-import { FetchPaymentReportsServiceOutput } from "@services/payments/fetchPaymentReports.types";
+import {FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 
 const renderStatus = (status: ReportStatus) => {
   switch (status) {

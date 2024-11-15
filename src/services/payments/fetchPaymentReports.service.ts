@@ -1,9 +1,7 @@
-import {
-  FetchPaymentReportsServiceInput,
-  FetchPaymentReportsServiceOutput,
-} from "./fetchPaymentReports.types";
+
 import axios from "axios";
 import {Report} from "@customTypes/reports";
+import {FetchPaymentReportsServiceInput, FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 
 export const fetchPaymentReports = async ({
                                             take = 10,

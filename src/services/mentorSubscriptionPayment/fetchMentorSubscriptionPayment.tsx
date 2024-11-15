@@ -1,15 +1,14 @@
-
 import axios from "axios";
 import {Report} from "@customTypes/reports";
 import {FetchPaymentReportsServiceInput, FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 import {SubscriptionMentorReport} from "@customTypes/subscriptionMentorReport";
 
 export const fetchMentorSubscriptionPayment = async ({
-                                              take = 10,
-                                              skip = 0,
-                                              sortBy,
-                                              sortMethod,
-                                          }: FetchPaymentReportsServiceInput): Promise<FetchPaymentReportsServiceOutput> => {
+                                                         take = 10,
+                                                         skip = 0,
+                                                         sortBy,
+                                                         sortMethod,
+                                                     }: FetchPaymentReportsServiceInput): Promise<FetchPaymentReportsServiceOutput> => {
     try {
         const res = await axios.get('/api/payment/mentor-subscription');
         // const data: Report[] = res.data.data;
@@ -28,7 +27,6 @@ export const fetchMentorSubscriptionPayment = async ({
             });
         }
 
-        // Pagination logic
         const start = skip;
         const end = start + take;
         const reports = data.slice(start, end);

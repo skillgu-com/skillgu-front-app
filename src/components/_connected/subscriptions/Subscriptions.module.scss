@@ -270,21 +270,31 @@
 }
 .currentPlan {
   display: flex;
-  margin: 32px 16px;
-  gap: 32px;
+  flex-direction: column;
+  margin: 32px 16px 0;
+  gap: 40px;
+
+  @include media-md-and-up {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
   @include media-xl-and-up {
     margin: 40px 24px;
   }
   .titleBox {
-    @include media-xl-and-up {
-      width: 50%;
+    @include media-md-and-up {
+      width: 45%;
     }
   }
   .title {
     @extend %text-heading-2;
     margin-bottom: 16px;
+    font-size: 28px !important;
     color: $colour-primary;
+    @include media-xl-and-up {
+      font-size: 32px !important;
+    }
   }
 
   .subtitle {
@@ -298,16 +308,14 @@
   }
 
   &InfoBox {
-    display: none;
-    @include media-xl-and-up {
-      flex-grow: 1;
-      display: flex;
-      gap: 16px;
-      flex-direction: column;
-      padding: 32px;
-      border: 1px solid $colour-base-400;
-      border-radius: 20px;
-    }
+    flex-grow: 1;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    max-width: 480px;
+    padding: 32px;
+    border: 1px solid $colour-base-400;
+    border-radius: 20px;
 
     .planHeader {
       display: flex;
@@ -347,13 +355,13 @@
   }
 }
 .sectionPricing {
-  margin-top: 60px !important;
+  margin-top: 0px !important;
   .flex {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    gap: 18px;
+    gap: 24px;
     width: 100%;
 
     @include media-md-and-up {
@@ -416,4 +424,8 @@
     border-style: solid;
     border-color: $colour-base-800 transparent transparent transparent;
   }
+}
+
+.subscriptionHistoryContainer {
+  margin-top: 40px;
 }

@@ -170,10 +170,8 @@ export const MentorSubscriptions = () => {
           <div className={styles.titleBox}>
             <h2 className={styles.title}>Aktualny plan</h2>
             <p className={styles.subtitle}>
-              Jeżeli chcesz zobaczyć historię swoich transakcji, przejdź do{" "}
-              <a href=" " className={styles.subtitleLink}>
-                Stripe.
-              </a>
+              Tutaj możesz zobaczyć swój aktualny plan, anulować subskrypcję lub
+              przejść na wyższy plan.
             </p>
           </div>
           <div className={styles.currentPlanInfoBox}>
@@ -192,7 +190,8 @@ export const MentorSubscriptions = () => {
             ) : (
               <>
                 <div className={styles.planHeader}>
-                  {subscriptionDetails?.planName !== "Free" ? (
+                  {subscriptionDetails?.planName !== "Free" &&
+                  subscriptionDetails?.planName !== "No active plan" ? (
                     <div className={styles.iconBox}>
                       {subscriptionDetails?.planName === "Mid" && <Basic />}
                       {subscriptionDetails?.planName === "Pro" && <Pro />}
@@ -204,16 +203,7 @@ export const MentorSubscriptions = () => {
                 </div>
                 <ul className={styles.planInfoList}>
                   <li className={styles.planItem}>
-                    Status: {subscriptionDetails?.status}
-                  </li>
-                  <li className={styles.planItem}>
-                    Data rozpoczęcia{" "}
-                    <span className={styles.planItemValue}>
-                      {subscriptionDetails?.startDate}
-                    </span>
-                  </li>
-                  <li className={styles.a}>
-                    Data zakończenia{" "}
+                    Data odnowy subskrypcji:{" "}
                     <span className={styles.planItemValue}>
                       {subscriptionDetails?.endDate}
                     </span>

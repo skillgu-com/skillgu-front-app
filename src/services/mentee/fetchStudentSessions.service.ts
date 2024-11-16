@@ -19,30 +19,6 @@ export const fetchStudentSessions = async (
   };
 };
 
-// export const fetchMentorReviews = async ({username, take = 10, skip = 0,}: {
-//   username: string | null;
-//   take?: number;
-//   skip?: number;
-// }): Promise<FetchMentorReviewsData> => {
-//   if (!username) {
-//     throw new Error("Username is required to fetch reviews.");
-//   }
-//   try {
-//     const {data} = await axios.get(`/api/review/mentor/${username}`, {
-//       params: {take, skip,},
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//
-//     const {total, reviews, avgRate} = data;
-//     return {total, reviews, avgRate};
-//   } catch (error) {
-//     console.error("Error fetching mentor reviews:", error);
-//     throw error;
-//   }
-// };
-
 export const fetchMenteeSubscriptionHistory = async ({
                                                        take = 10,
                                                        skip = 0,
@@ -60,9 +36,9 @@ export const fetchMenteeSubscriptionHistory = async ({
     total: data.total,
     mentors: data.subscriptions.map((item: any) => ({
       id: item.id,
-      userName: item.username, // Poprawienie na `item.username`
+      userName: item?.username, // Poprawienie na `item.username`
       avatarUrl: item.avatarUrl || "", // Dodaj avatarUrl, jeśli dostępny
-      fullName: item.fullName, // Poprawienie na `item.fullName`
+      fullName: item?.fullName,
       date: item.sessionDate,
       status: item.status || 'in-progress', // Używanie statusu z backendu, z domyślną wartością
       serviceType: item.planType === 'basic' ? 'session' : 'mentoring', // Mapa dla odpowiednich wartości

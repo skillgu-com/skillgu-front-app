@@ -82,9 +82,9 @@ export const MentorSubscriptions = () => {
       await cancelMentorSubscription(); // API call to cancel subscription
       const updatedDetails = await fetchCurrentSubscription();
       setSubscriptionDetails(updatedDetails);
+      setIsCancelingPlan(false);
     } catch (error) {
       console.error("Błąd podczas anulowania subskrypcji:", error);
-      alert("Wystąpił błąd podczas anulowania subskrypcji.");
     }
   };
 

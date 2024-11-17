@@ -264,14 +264,104 @@
     max-width: 400px;
   }
 }
+.sectionContainer {
+  max-width: calc(1200px + 3rem);
+  margin: auto;
+}
+.currentPlan {
+  display: flex;
+  flex-direction: column;
+  margin: 32px 16px 0;
+  gap: 40px;
+
+  @include media-md-and-up {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  @include media-xl-and-up {
+    margin: 40px 24px;
+  }
+  .titleBox {
+    @include media-md-and-up {
+      width: 45%;
+    }
+  }
+  .title {
+    @extend %text-heading-2;
+    margin-bottom: 16px;
+    font-size: 28px !important;
+    color: $colour-primary;
+    @include media-xl-and-up {
+      font-size: 32px !important;
+    }
+  }
+
+  .subtitle {
+    @extend %text-button-md;
+    color: $colour-base-800;
+    &Link {
+      color: $colour-secondary;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+
+  &InfoBox {
+    flex-grow: 1;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    max-width: 480px;
+    padding: 32px;
+    border: 1px solid $colour-base-400;
+    border-radius: 20px;
+
+    .planHeader {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 12px;
+
+      .iconBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid $colour-base-400;
+        border-radius: 50%;
+        background-color: $colour-base-200;
+      }
+      .planName {
+        @extend %text-button-lg;
+        color: $colour-primary;
+      }
+    }
+    .planInfoList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .planItem {
+      @extend %text-button-sm;
+      color: $colour-primary;
+      &Value {
+        @extend %text-caption;
+        color: $colour-base-800;
+        font-weight: 500;
+      }
+    }
+  }
+}
 .sectionPricing {
-  margin-top: 60px !important;
+  margin-top: 0px !important;
   .flex {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    gap: 18px;
+    gap: 24px;
     width: 100%;
 
     @include media-md-and-up {
@@ -333,5 +423,44 @@
     border-width: 5px;
     border-style: solid;
     border-color: $colour-base-800 transparent transparent transparent;
+  }
+}
+
+.subscriptionHistoryContainer {
+  margin-top: 40px;
+}
+
+.modalCancel {
+  max-width: 600px !important;
+
+  .title {
+    @extend %text-heading-3;
+  }
+  .info {
+    @extend %text-body-2;
+    margin-bottom: 32px;
+    color: $colour-base-600;
+  }
+
+  &BtnBox {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    @include media-md-and-up {
+      flex-direction: row;
+      justify-content: stretch;
+    }
+    & button {
+      @extend %text-button-md;
+      width: calc(50% - 12px);
+    }
+    & button:first-child {
+      color: $colour-base-800;
+      background-color: $colour-base-200;
+    }
+    & .mainBtn {
+      background-color: $colour-error-200;
+      color: $colour-error-100;
+    }
   }
 }

@@ -9,6 +9,7 @@ import styles from "./InputField.module.scss";
 export interface IFormValues {
   email: string;
   message: string;
+  authorName:string
 }
 
 export type InputFieldTypes = {

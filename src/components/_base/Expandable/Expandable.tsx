@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import AnimateHeight from "react-animate-height";
 import clx from "classnames";
 import styles from "./Expandable.module.scss";

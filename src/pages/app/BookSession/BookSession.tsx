@@ -17,7 +17,6 @@ import sharedStyles from "./../../../styles/sharedStyles/selectSessionDatesPage.
 import clx from "classnames";
 import { faqRows } from "./config";
 import FAQ from "src/components/FAQ/Accordion/Accordion";
-import { useBookingReducer } from "src/reducers/booking";
 import { getMentorProfileByMentorId } from "@services/mentor/fetchMentorServices.service";
 import Box from "@mui/material/Box";
 import { parseUserFromJwt } from "../../../helpers/parseUserFromJwt";
@@ -51,7 +50,6 @@ const BookSession = ({ payment }: BookSessionProps) => {
         setTerm(term);
     };
 
-    const [state] = useBookingReducer();
     const dispatch = useDispatch();
 
     const formattedDate = term ? term.toLocaleDateString() : "";
@@ -113,7 +111,7 @@ const BookSession = ({ payment }: BookSessionProps) => {
                     type: "SET_SERVICE",
                     payload: { service: element?.opt },
                 });
-                if (mentorData && mentorData.firstName && mentorData.lastName) {
+                if (mentorData?.firstName && mentorData?.lastName) {
                     const mentor = {
                         avatar_url: mentorData.profileImage || "default_avatar_url",
                         description: mentorData.description || "No description available",

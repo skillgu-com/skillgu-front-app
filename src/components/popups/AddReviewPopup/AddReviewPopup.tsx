@@ -8,6 +8,7 @@ import {Text} from "src/components/typography";
 import {TextareaField} from "../TextareaField/TextareaField";
 import {Loader} from "src/components/_grouped/loader";
 import {StarsRadioField} from "../StarsRadio/StarsRadio";
+import { InputField } from "../InputField/InputField";
 
 import styles from "./AddReviewPopup.module.scss";
 
@@ -23,6 +24,7 @@ type AddReviewPopupTypes = {
 export type AddReviewFormTypes = {
     rating: number;
     message: string;
+    authorName: string;
 };
 
 export const AddReviewPopup = ({
@@ -43,6 +45,7 @@ export const AddReviewPopup = ({
         defaultValues: {
             rating: 5,
             message: "",
+            authorName:""
         },
     });
 
@@ -54,7 +57,7 @@ export const AddReviewPopup = ({
                     createdAt: new Date().toDateString(),
                     rate: Number(data.rating),
                     comment: data.message,
-                    authorName: user,
+                    authorName: data.authorName,
                     token: token || ""
                 });
                 setIsPending(false);
@@ -76,62 +79,76 @@ export const AddReviewPopup = ({
     } = register("rating");
 
     const {
-        name: messageTextareaName,
-        onChange: onMessageTextareaChange,
-        ref: textareaRef,
+      name: authorNameInputName,
+      onChange: onAuthorNameInputChange,
+      ref: authorNameInputRef,
+    } = register("authorName");
+    
+    const {
+      name: messageTextareaName,
+      onChange: onMessageTextareaChange,
+      ref: textareaRef,
     } = register("message");
 
     if (!isOpen) return null;
 
     return (
-        <Modal
-            className={styles.modal}
-            classNameContent={styles.modalContent}
-            title="Napisz opinię"
-            closeHandler={handleClose}
-        >
-            {/* TODO */}
-            <Text classes={styles.info}>Jak oceniasz współpracę z mentorem?</Text>
-            <form onSubmit={onSubmit}>
-                <StarsRadioField
-                    name={inputRadioName}
-                    inputRef={inputRef}
-                    onChange={onInputRadioChange}
-                />
-                <TextareaField
-                    name={messageTextareaName}
-                    id="message"
-                    label="Opinia"
-                    onChange={onMessageTextareaChange}
-                    textareaRef={textareaRef}
-                    error={errors?.message?.message}
-                />
-                <div className={styles.flexContainer}>
-                    <Button
-                        fullWidth={true}
-                        variant={ButtonVariant.Primary}
-                        classes={styles.btnPrimary}
-                        type="submit"
-                        disableButton={isPending}
-                    >
-                        Wyślij
-                    </Button>
-                    <Button
-                        fullWidth={true}
-                        onClick={handleClose}
-                        classes={styles.btn}
-                        variant={ButtonVariant.Light}
-                        type="button"
-                    >
-                        Anuluj
-                    </Button>
-                </div>
-            </form>
-            {isPending && (
-                <p className={styles.loading} aria-busy="true">
-                    <Loader spinner/>
-                </p>
-            )}
-        </Modal>
+      <Modal
+        className={styles.modal}
+        classNameContent={styles.modalContent}
+        title="Napisz opinię"
+        closeHandler={handleClose}
+      >
+        <Text classes={styles.info}>Jak oceniasz współpracę z mentorem?</Text>
+        <form onSubmit={onSubmit}>
+          <StarsRadioField
+            name={inputRadioName}
+            inputRef={inputRef}
+            onChange={onInputRadioChange}
+          />
+          <TextareaField
+            name={messageTextareaName}
+            id="message"
+            label="Opinia"
+            onChange={onMessageTextareaChange}
+            textareaRef={textareaRef}
+            error={errors?.message?.message}
+          />
+          <InputField
+            name={authorNameInputName}
+            id="authorName"
+            label="Podpis"
+            className={styles.authorNameField}
+            onChange={onAuthorNameInputChange}
+            inputRef={authorNameInputRef}
+            error={errors?.authorName?.message}
+          />
+          <div className={styles.flexContainer}>
+            <Button
+              fullWidth={true}
+              variant={ButtonVariant.Primary}
+              classes={styles.btnPrimary}
+              type="submit"
+              disableButton={isPending}
+            >
+              Wyślij
+            </Button>
+            <Button
+              fullWidth={true}
+              onClick={handleClose}
+              classes={styles.btn}
+              variant={ButtonVariant.Light}
+              type="button"
+            >
+              Anuluj
+            </Button>
+          </div>
+        </form>
+        {isPending && (
+          <p className={styles.loading} aria-busy="true">
+            <Loader spinner />
+          </p>
+        )}
+      </Modal>
     );
 };

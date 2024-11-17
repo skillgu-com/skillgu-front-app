@@ -13,8 +13,4 @@ export const useBookingReducer = () : [BookingState, Dispatch<BookingAction>] =>
     const dispatch = useDispatch();
 
     return [bookingState, dispatch]
-    // return useReducer(
-    //     bookingReducer,
-    //     bookingInitialState,
-    // );
 }

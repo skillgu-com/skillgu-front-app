@@ -1,15 +1,11 @@
 import React, {
     ReactNode,
     useCallback,
-    // useEffect,
-    // useRef,
-    // useState,
 } from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 import styles from "./SessionsHistory.module.scss";
-// import {getMentorMeetingHistory} from "@services/mentor/fetchMentorSessions.service";
 import {PER_PAGE, useSessionsReducer} from "src/reducers/sessions";
 import {Table, TableCell, TableRow} from "src/components/_base/Table";
 import {Pagination} from "src/components/_grouped";

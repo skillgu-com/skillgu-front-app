@@ -1,5 +1,5 @@
 // Libraries
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement } from "react";
 import clx from "classnames";
 // Components
 import { Title } from "../typography";
@@ -17,17 +17,18 @@ interface ModalProps extends Common {
   title?: ReactElement | string;
   isOpen?: boolean;
   closeHandler: () => void;
+  withClose?: boolean
 }
 
 const Modal = (props: ModalProps) => {
-  const { title, children, closeHandler, isOpen = true } = props;
+  const { title, children, closeHandler, isOpen = true, withClose=true } = props;
 
   return isOpen ? (
     <div className={clx(styles.wrapper, props.className)}>
       <div className={clx(styles.content, props.classNameContent)}>
-        <button className={styles.close} onClick={closeHandler}>
+        {withClose ? <button className={styles.close} onClick={closeHandler}>
           <CloseSvg width={16} height={16} />
-        </button>
+        </button> : null}
         <Title
           tag={TitleTag.h3}
           variant={TitleVariant.standard}

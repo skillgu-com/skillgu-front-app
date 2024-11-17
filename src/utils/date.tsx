@@ -58,3 +58,11 @@ export function getSortFunction(
     }
   };
 }
+
+export function getDateForMonth() {
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() - 1);
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  const formatedDay = formatDate(currentDate, "DD.MM.YYYY", 'pl-PL');
+  return formatedDay;
+}

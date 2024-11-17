@@ -10,9 +10,7 @@ import { ClockSolidCircleIcon } from "@icons/ClockSolidCircleIcon";
 import { MapMarkIcon } from "@icons/MapMarkIcon";
 import { ServiceInfoBox, ServiceInfoBoxProps } from "../../_grouped";
 import Title, { TitleTag, TitleVariant } from "../../typography/Title/Title";
-import Checkbox from "src/components/Checkbox/Checkbox";
 import { ListStyleIcon } from "@icons/ListStyleIcon";
-import Message from "@icons/Message";
 import { ChatIcon } from "@icons/Chat";
 import { Free } from "@icons/Free";
 

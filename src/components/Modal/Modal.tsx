@@ -1,5 +1,5 @@
 // Libraries
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement } from "react";
 import clx from "classnames";
 // Components
 import { Title } from "../typography";

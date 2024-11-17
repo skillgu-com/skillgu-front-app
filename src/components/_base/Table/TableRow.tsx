@@ -1,7 +1,6 @@
-import React from "react";
+import React, { ReactNode, forwardRef, ForwardedRef, CSSProperties } from "react";
 import clx from "classnames";
 import styles from "./styles.module.scss";
-import { ReactNode, forwardRef, ForwardedRef, CSSProperties } from "react";
 
 interface TableListRowProps {
   children?: ReactNode;

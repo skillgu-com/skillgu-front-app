@@ -15,7 +15,6 @@ import FormInputText from "../../../components/_form/FormInputText/FormInputText
 import FormInputCheckbox from "../../../components/_form/FormInputCheckbox/FormInputCheckbox";
 import TextLink from "../../../components/TextLink/TextLink";
 import styles from './style.module.scss'
-import FormCheckboxesOptionsDynamic from "../../../components/_form/FormCheckboxesDynamic/FormCheckboxesOptionsDynamic";
 
 type LoginFormInput = {
     email: string;

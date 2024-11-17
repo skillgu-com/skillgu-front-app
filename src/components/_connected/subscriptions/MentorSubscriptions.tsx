@@ -190,7 +190,7 @@ export const MentorSubscriptions = () => {
             ) : (
               <>
                 <div className={styles.planHeader}>
-                  {subscriptionDetails?.planName !== "Free" &&
+                  {subscriptionDetails?.planName && subscriptionDetails?.planName !== "Free" &&
                   subscriptionDetails?.planName !== "No active plan" ? (
                     <div className={styles.iconBox}>
                       {subscriptionDetails?.planName === "Mid" && <Basic />}

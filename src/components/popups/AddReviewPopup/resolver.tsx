@@ -15,6 +15,11 @@ export const resolver: Resolver<AddReviewFormTypes> = async (values) => {
       type: "required",
       message: "Treść wiadomości jest wymagana",
     };
+  if (!values.authorName)
+    errors.authorName = {
+      type: "required",
+      message: "Podpis jest wymagany",
+    };
 
   return {
     values: values.message ? values : {},

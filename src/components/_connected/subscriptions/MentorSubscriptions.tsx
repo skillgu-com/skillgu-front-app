@@ -17,6 +17,7 @@ import { Pricing } from "../pricing/Pricing";
 import { Basic } from "@icons/Basic";
 import { Pro } from "@icons/Pro";
 import { MentorPaymentSubscription } from "../../../pages/app/MentorPaymentSubscription/elements/MentorPaymentSubscription";
+import { getDateForMonth } from "src/utils";
 
 const PER_PAGE = 5;
 
@@ -24,6 +25,7 @@ export const MentorSubscriptions = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>("Free");
   const [canChangePlan, setCanChangePlan] = useState<boolean>(true);
   const [suspendingPlan, setSuspendingPlan] = useState<string | null>(null);
+  const [isCancelingPlan, setIsCancelingPlan] = useState<boolean>(true);
   const [subscriptionDetails, setSubscriptionDetails] = useState<any>(null);
 
   useEffect(() => {
@@ -85,7 +87,7 @@ export const MentorSubscriptions = () => {
       alert("Wystąpił błąd podczas anulowania subskrypcji.");
     }
   };
-  console.log(676, subscriptionDetails?.planName);
+
   const sr = useSubscriptionsReducer();
   const pageRef = useRef<number>(0);
   const tabRef = useRef<SubscriptionStatus>("awaiting");
@@ -155,6 +157,40 @@ export const MentorSubscriptions = () => {
           </div>
         </Modal>
       )}
+      {isCancelingPlan && (
+        <Modal
+          withClose={false}
+          title={
+            <p className={styles.title}>
+              Czy na pewno chcesz anulować swój plan?
+            </p>
+          }
+          classNameContent={styles.modalCancel}
+          closeHandler={() => setIsCancelingPlan(false)}
+        >
+          <p className={styles.info}>
+            {`Możesz nadal korzystać z korzyści wynikających z planu do dnia
+            ${getDateForMonth()}r.`}
+          </p>
+          <div className={styles.modalCancelBtnBox}>
+            <Button
+              as={ButtonTag.Button}
+              variant={ButtonVariant.Transparent}
+              onClick={() => setIsCancelingPlan(false)}
+            >
+              Zamknij
+            </Button>
+            <Button
+              as={ButtonTag.Button}
+              variant={ButtonVariant.Transparent}
+              classes={styles.mainBtn}
+              onClick={handleCancelSubscription}
+            >
+              Tak, anuluj plan
+            </Button>
+          </div>
+        </Modal>
+      )}
       <Subscriptions
         title="Status subskrypcji Twoich mentee"
         subtitle={
@@ -190,7 +226,8 @@ export const MentorSubscriptions = () => {
             ) : (
               <>
                 <div className={styles.planHeader}>
-                  {subscriptionDetails?.planName && subscriptionDetails?.planName !== "Free" &&
+                  {subscriptionDetails?.planName &&
+                  subscriptionDetails?.planName !== "Free" &&
                   subscriptionDetails?.planName !== "No active plan" ? (
                     <div className={styles.iconBox}>
                       {subscriptionDetails?.planName === "Mid" && <Basic />}
@@ -217,7 +254,7 @@ export const MentorSubscriptions = () => {
                 </ul>
 
                 <Button
-                  onClick={handleCancelSubscription}
+                  onClick={() => setIsCancelingPlan(true)}
                   //   className={clx(styles.btn, styles.BtnSubmit)}
                   variant={ButtonVariant.PrimaryLight}
                   as={ButtonTag.Button}

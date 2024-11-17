@@ -429,3 +429,38 @@
 .subscriptionHistoryContainer {
   margin-top: 40px;
 }
+
+.modalCancel {
+  max-width: 600px !important;
+
+  .title {
+    @extend %text-heading-3;
+  }
+  .info {
+    @extend %text-body-2;
+    margin-bottom: 32px;
+    color: $colour-base-600;
+  }
+
+  &BtnBox {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    @include media-md-and-up {
+      flex-direction: row;
+      justify-content: stretch;
+    }
+    & button {
+      @extend %text-button-md;
+      width: calc(50% - 12px);
+    }
+    & button:first-child {
+      color: $colour-base-800;
+      background-color: $colour-base-200;
+    }
+    & .mainBtn {
+      background-color: $colour-error-200;
+      color: $colour-error-100;
+    }
+  }
+}

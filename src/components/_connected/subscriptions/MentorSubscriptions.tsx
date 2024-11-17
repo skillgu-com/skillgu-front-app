@@ -25,7 +25,7 @@ export const MentorSubscriptions = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>("Free");
   const [canChangePlan, setCanChangePlan] = useState<boolean>(true);
   const [suspendingPlan, setSuspendingPlan] = useState<string | null>(null);
-  const [isCancelingPlan, setIsCancelingPlan] = useState<boolean>(true);
+  const [isCancelingPlan, setIsCancelingPlan] = useState<boolean>(false);
   const [subscriptionDetails, setSubscriptionDetails] = useState<any>(null);
 
   useEffect(() => {

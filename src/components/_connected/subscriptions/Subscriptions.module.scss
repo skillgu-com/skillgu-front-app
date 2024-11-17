@@ -432,9 +432,10 @@
 
 .modalCancel {
   max-width: 600px !important;
-
+  margin: 0 12px;
   .title {
     @extend %text-heading-3;
+    margin-top: 36px;
   }
   .info {
     @extend %text-body-2;
@@ -444,15 +445,19 @@
 
   &BtnBox {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 24px;
+    margin-bottom: 24px;
+
     @include media-md-and-up {
       flex-direction: row;
       justify-content: stretch;
     }
     & button {
       @extend %text-button-md;
-      width: calc(50% - 12px);
+      @include media-md-and-up {
+        width: calc(50% - 12px);
+      }
     }
     & button:first-child {
       color: $colour-base-800;

@@ -246,8 +246,12 @@ export const MentorSubscriptions = () => {
               <>
                 <div className={styles.planHeader}>
                   <div className={styles.iconBox}>
-                    {subscriptionDetails?.planName === "Mid" && <Basic />}
-                    {subscriptionDetails?.planName === "Pro" && <Pro />}
+                    {subscriptionDetails?.planName?.toLowerCase() === "mid" && (
+                      <Basic />
+                    )}
+                    {subscriptionDetails?.planName.toLowerCase() === "pro" && (
+                      <Pro />
+                    )}
                   </div>
                   <h4 className={styles.planName}>
                     Plan {subscriptionDetails?.planName || "N/A"}

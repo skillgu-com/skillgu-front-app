@@ -72,10 +72,10 @@ export const MentorSubscriptions = () => {
 
   const changeMentorPlan = async (plan: string) => {
     try {
-      await updateMentorPlan(plan); // API call to update plan
-      setSelectedPlan(plan); // Set the selected plan as active
-      setSuspendingPlan(null); // Closing the popup
-      setCanChangePlan(false); // After changing the plan, blocking the possibility of another change
+      await updateMentorPlan(plan);   // API call to update plan
+      setSelectedPlan(plan);          // Set the selected plan as active
+      setSuspendingPlan(null);  // Closing the popup
+      setCanChangePlan(false);  // After changing the plan, blocking the possibility of another change
     } catch (error) {
       console.error("Błąd podczas zmiany planu:", error);
       alert("Wystąpił błąd podczas zmiany planu.");
@@ -226,7 +226,7 @@ export const MentorSubscriptions = () => {
                   Twoja subskrypcja została anulowana.
                 </p>
                 <p className={styles.planItem}>
-                  Ostatnia subskrypcja wygaśnie: {subscriptionDetails?.endDate}
+                  Ostatni dzień rozliczenia: {subscriptionDetails?.endDate}
                 </p>
                 <p className={styles.planItem}>
                   Ostatnia nazwa subskrypcji :{" "}

@@ -5,15 +5,13 @@ export interface SubscriptionDetailsDTO {
     startDate: string;
     endDate: string;
     amountDue: string;
-    invoiceDate: string;
-    planId: string;
     planName: string;
     planAmount: string;
     interval: string;
     autoRenewal: string;
     canceledAtPeriodEnd: string;
-    mentorId: string;
-    isCanceled: boolean
+    isCanceled: boolean;
+    lastPlanName: string;
 }
 
 export type SubscriptionDTO = {

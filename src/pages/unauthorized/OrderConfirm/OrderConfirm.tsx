@@ -41,8 +41,8 @@ export const OrderConfirmPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const role = useSelector(getRole) || "GUEST";
 
-  const maxAttempts = 5;
-  const interval = 1000;
+  const maxAttempts = 8;
+  const interval = 1500;
 
   useEffect(() => {
     let attempts = 0;
@@ -106,7 +106,7 @@ export const OrderConfirmPage = () => {
                 <p className={styles.subtitle}>
                   Co teraz? Otrzymasz e-mail z potwierdzeniem spotkania, który będzie zawierał link do spotkania.
                   Sprawdź swoją skrzynkę pocztową, aby uzyskać więcej szczegółów.{" "}
-                  <span className={styles.mail}>{session.userEmail}</span>
+                  <span className={styles.mail}>{session?.userEmail}</span>
                 </p>
                 <Button
                     href={paths.home}
@@ -120,16 +120,16 @@ export const OrderConfirmPage = () => {
                   meetingForm="video"
                   maxAttendees={5}
                   information="Link do spotkania przyjdzie na e-mail lub po zalogowaniu aplikacji w kalendarzu"
-                  avatar_url={session.mentor?.avatarUrl}
-                  description={session.sessionDescription}
-                  fullName={session.sessionName}
-                  profession={session.mentor?.profession}
-                  reviewsAvgRate={String(session.mentor?.reviewsAvgRate)}
-                  reviewsCount={String(session.mentor?.reviewsCount)}
-                  title={session.sessionType}
+                  avatar_url={session?.mentor?.avatarUrl}
+                  description={session?.sessionDescription}
+                  fullName={session?.sessionName}
+                  profession={session?.mentor?.profession}
+                  reviewsAvgRate={String(session?.mentor?.reviewsAvgRate)}
+                  reviewsCount={String(session?.mentor?.reviewsCount)}
+                  title={session?.sessionType}
                   initialDescriptionHeight={90}
-                  servicePrice={session.sessionPrice}
-                  serviceDuration={session.sessionDuration || 45}
+                  servicePrice={session?.sessionPrice}
+                  serviceDuration={session?.sessionDuration || 45}
                   timeZone={session?.timeZone}
                   serviceType="session"
               />

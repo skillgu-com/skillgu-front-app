@@ -114,7 +114,24 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         97: 'Podejmowanie decyzji',  // DECISION_MAKING
         98: 'Zwiększanie kreatywności',  // CREATIVITY_BOOSTING
         99: 'Samomotywacja',  // SELF_MOTIVATION
-    }
-};
+    },
+    TRADING: {
+        100: 'Wprowadzenie do handlu kryptowalutami',  // INTRO_TO_CRYPTO
+        101: 'Zaawansowane strategie handlowe',  // ADVANCED_TRADING_STRATEGIES
+        102: 'Sesja analizy technicznej',  // TECHNICAL_ANALYSIS_SESSION
+        103: 'Podstawy blockchain',  // BLOCKCHAIN_101
+        104: 'Tworzenie botów handlowych',  // TRADING_BOT_DEVELOPMENT
+        105: 'Wprowadzenie do zdecentralizowanych finansów (DeFi)',  // DECENTRALIZED_FINANCE_INTRO
+        106: 'Konfiguracja i zabezpieczenie portfela kryptowalut',  // CRYPTO_WALLET_SETUP
+        107: 'Inwestowanie i handel NFT',  // NFT_INVESTING
+        108: 'Psychologia rynku i finanse behawioralne',  // MARKET_PSYCHOLOGY
+        109: 'Zarządzanie ryzykiem w handlu',  // TRADING_RISK_MANAGEMENT
+        110: 'Handel opcjami i kontraktami terminowymi',  // OPTIONS_AND_FUTURES
+        111: 'Strategie handlowe Forex',  // FOREX_STRATEGY
+        112: 'Podstawy giełdy papierów wartościowych',  // STOCK_MARKET_BASICS
+        113: 'Demonstracja handlu na żywo',  // LIVE_TRADING_DEMO
+        114: 'Kompletny kurs handlowy',  // TRADING_COURSE_BUNDLE
+    },
+}
 
 export default sessionTypesDictionaryData;

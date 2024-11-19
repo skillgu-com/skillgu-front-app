@@ -4,7 +4,8 @@ const sessionCategoriesDictionaryData = {
     CAREER: 'KARIERA',
     DESIGN: 'DESIGN',
     MARKETING: 'MARKETING',
-    PERSONAL_DEVELOPMENT: 'ROZWÓJ OSOBISTY'
+    PERSONAL_DEVELOPMENT: 'ROZWÓJ OSOBISTY',
+    TRADING: 'TRADING'
 };
 
 export type MentorCategoryT = keyof typeof sessionCategoriesDictionaryData;

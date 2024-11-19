@@ -18,7 +18,7 @@ export const MentorListingCardSkeleton: React.FC = () => {
                 sx={{ fontSize: "1rem" }}
               />
               <div className={styles.reviews}>
-                <div className={styles.stars}>
+                <div className={styles.noneMobile}>
                   <Skeleton
                     style={{ width: "120px" }}
                     variant="circular"
@@ -26,7 +26,7 @@ export const MentorListingCardSkeleton: React.FC = () => {
                     height={20}
                   />
                 </div>
-                <span>
+                <span className={styles.noneMobile}>
                   <Skeleton
                     style={{ width: "120px" }}
                     variant="text"

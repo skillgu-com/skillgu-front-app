@@ -97,7 +97,23 @@ const sessionDescriptionTemplatesDictionaryData: Record<string, string> = {
     97: 'Podejmowanie decyzji to sesja wspierająca w efektywnym podejmowaniu wyborów.',
     98: 'Zwiększanie kreatywności rozwija techniki stymulujące twórcze myślenie.',
     99: 'Samomotywacja to sesja o rozwijaniu wewnętrznej motywacji.',
-    100: 'Default session description.'
+    100: 'Wprowadzenie do handlu kryptowalutami to sesja, która omawia podstawy handlu kryptowalutami, w tym główne platformy i strategie inwestycyjne.',  // INTRO_TO_CRYPTO
+    101: 'Zaawansowane strategie handlowe to sesja dla osób z doświadczeniem, które chcą poznać bardziej zaawansowane metody analizy rynku i zarządzania pozycjami.',  // ADVANCED_TRADING_STRATEGIES
+    102: 'Sesja analizy technicznej uczy, jak interpretować wykresy i korzystać z narzędzi technicznych, takich jak wskaźniki i poziomy wsparcia/oporu.',  // TECHNICAL_ANALYSIS_SESSION
+    103: 'Podstawy blockchain to sesja wprowadzająca w technologię blockchain, jej zastosowania i korzyści w handlu oraz innych dziedzinach.',  // BLOCKCHAIN_101
+    104: 'Tworzenie botów handlowych to praktyczna sesja, w której uczestnicy dowiedzą się, jak zaprogramować i skonfigurować bota do automatycznego handlu.',  // TRADING_BOT_DEVELOPMENT
+    105: 'Wprowadzenie do zdecentralizowanych finansów (DeFi) omawia podstawy DeFi, w tym korzystanie z zdecentralizowanych giełd i zarządzanie aktywami cyfrowymi.',  // DECENTRALIZED_FINANCE_INTRO
+    106: 'Konfiguracja i zabezpieczenie portfela kryptowalut to sesja o zakładaniu i bezpiecznym korzystaniu z portfeli kryptowalutowych.',  // CRYPTO_WALLET_SETUP
+    107: 'Inwestowanie i handel NFT to sesja wyjaśniająca, jak działa rynek NFT, jak ocenić ich wartość i skutecznie inwestować.',  // NFT_INVESTING
+    108: 'Psychologia rynku i finanse behawioralne to sesja, która uczy, jak zarządzać emocjami i unikać typowych błędów w handlu.',  // MARKET_PSYCHOLOGY
+    109: 'Zarządzanie ryzykiem w handlu to kluczowa sesja dla osób chcących nauczyć się minimalizowania strat i maksymalizacji zysków.',  // TRADING_RISK_MANAGEMENT
+    110: 'Handel opcjami i kontraktami terminowymi to sesja dla osób zainteresowanych bardziej zaawansowanymi instrumentami finansowymi.',  // OPTIONS_AND_FUTURES
+    111: 'Strategie handlowe Forex to praktyczna sesja o zarządzaniu pozycjami i stosowaniu strategii na rynku walutowym.',  // FOREX_STRATEGY
+    112: 'Podstawy giełdy papierów wartościowych to sesja dla początkujących, omawiająca podstawowe zasady inwestowania w akcje.',  // STOCK_MARKET_BASICS
+    113: 'Demonstracja handlu na żywo to praktyczna sesja, podczas której mentor pokazuje, jak analizować rynek i podejmować decyzje handlowe w czasie rzeczywistym.',  // LIVE_TRADING_DEMO
+    114: 'Kompletny kurs handlowy to kompleksowa sesja łącząca teorie i praktyki związane z handlem na różnych rynkach.',  // TRADING_COURSE_BUNDLE
+    115: 'Default session description.',
+    116: 'mentoring'
 };
 
 export default sessionDescriptionTemplatesDictionaryData;

@@ -22,8 +22,8 @@ import { mentorsReducer } from "src/reducers/mentors";
 import { mentorsInitialState } from "src/reducers/mentors/constants";
 import { fetchMentorFilteredList } from "src/services/mentor/fetchMentorServices.service";
 import { fetchTerms } from "../../../services/terms.service";
-import {FilterName, FiltersSelected} from "@customTypes/filterTag";
-import {Option, SortOption} from "@customTypes/option";
+import { FilterName, FiltersSelected } from "@customTypes/filterTag";
+import { Option, SortOption } from "@customTypes/option";
 
 export type LocationTypes = {
   pathname: string;
@@ -255,7 +255,10 @@ const SearchMentors = () => {
   );
 
   return (
-    <SectionTemplate title="Znajdź mentora dla siebie" description="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania.">
+    <SectionTemplate
+      title="Znajdź mentora dla siebie"
+      description="Przeglądaj profile mentorów i wybierz tego, który spełnia twoje oczekiwania."
+    >
       <FiltersPopup
         terms={terms}
         filters={state.filters}
@@ -264,7 +267,7 @@ const SearchMentors = () => {
         handleClose={toggleFiltersSidebar}
         handleSubmit={toggleFiltersSidebar}
       />
-      <Container as={Tag.Header} classes={styles.header}>
+      <section>
         <div className={styles.grid}>
           <FiltersSidebar
             terms={terms}
@@ -295,7 +298,7 @@ const SearchMentors = () => {
             />
           </div>
         </div>
-      </Container>
+      </section>
     </SectionTemplate>
   );
 };

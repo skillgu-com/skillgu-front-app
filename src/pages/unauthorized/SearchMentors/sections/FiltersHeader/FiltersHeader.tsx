@@ -44,7 +44,7 @@ export const FiltersHeader = ({
     }
 
     return (
-        <Container as={Tag.Section} classes={styles.wrapper}>
+        <section className={styles.wrapper}>
             <div className={styles.wrapper}>
                 <div className={styles.phraseRow}>
                     <input
@@ -132,6 +132,6 @@ export const FiltersHeader = ({
                     </div>
                 </div>
             </div>
-        </Container>
+        </section>
     );
 };

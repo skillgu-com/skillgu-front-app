@@ -205,18 +205,16 @@
 	.footer {
 		width: 100%;
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
+		gap:8px;
 
 		.price {
 			align-self: flex-end;
 		}
 
 		@media (min-width: $md) {
-			align-items: center;
-
-			.price {
-				align-self: unset;
-			}
+			flex-direction: row;
 		}
 	}
 
@@ -258,7 +256,6 @@
 		&.animateDescriptionContentExpanded::after {
 			opacity: 0;
 			transition: 0.5s;
-			// background-image: linear-gradient(to top, rgb(255, 255, 255, 0) calc(100% - 30px), rgba(255, 255, 255, 0));
 		}
 	}
 }

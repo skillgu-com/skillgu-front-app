@@ -43,7 +43,7 @@ export const MentorsList = ({
   });
 
   return (
-    <Container as={Tag.Section} classes={styles.wrapper}>
+    
       <div className={styles.mentorsList}>
         {mentors?.map((item: Mentor) => (
           <MentorListingCard
@@ -76,6 +76,5 @@ export const MentorsList = ({
           </div>
         )}
       </div>
-    </Container>
   );
 };

@@ -28,7 +28,7 @@ const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 if (!stripeKey)
   throw new Error("Stripe key not provided, check environment variables");
 const stripePromise = loadStripe(stripeKey);
-console.log("App working under server: ", process.env.REACT_APP_BASE_URL);
+// console.log("App working under server: ", process.env.REACT_APP_BASE_URL);
 const ResolveLayout = ({
   children,
   version,

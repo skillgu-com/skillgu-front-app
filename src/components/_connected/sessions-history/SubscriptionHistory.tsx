@@ -48,7 +48,6 @@ export const SubscriptionHistory = ({
         [sr]
     );
 
-    console.log(sr)
     return (
         <SectionTemplate title={title} description={subtitle}>
             <Table className={styles.table}>

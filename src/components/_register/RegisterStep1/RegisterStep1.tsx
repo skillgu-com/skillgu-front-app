@@ -97,7 +97,6 @@ const RegisterStep1: FC<Props> = ({title, isMentor}) => {
         ];
     };
     const goToNextStep: SubmitHandler<RegisterFormInput> = async (formData) => {
-        console.log('TEST TEST')
         formData.userConsents = mapToUserConsents(formData.userConsents);
 
         if (isMentor) {

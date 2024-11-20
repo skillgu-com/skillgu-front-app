@@ -38,7 +38,6 @@ export const fetchOfferDetails = async (
     const res = await axios.get(`/api/mentorship/fetch-offer/${offerId}`);
     const media = res.data.data;
 
-    console.log('testuje co mam za odp z API: ', media)
     return {
         offer: {
             status: 'awaiting',

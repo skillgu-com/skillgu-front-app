@@ -93,8 +93,6 @@ export const MentorSubscriptions = () => {
     }
   };
 
-  console.log('subscriptionDetails: ',subscriptionDetails);
-
   useEffect(() => {
     const fetchData = async () => {
       sr.setPending(true);

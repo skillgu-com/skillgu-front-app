@@ -5,7 +5,6 @@ import {MergedRegisterMenteeFormInput, UserConsentDTO} from "@customTypes/regist
 const parseDataForAPI = (inputData: MergedRegisterMenteeFormInput): RegisterMenteeDTO => inputData
 
 const registerMenteeService = async (inputData: MergedRegisterMenteeFormInput) => {
-    console.log(inputData)
 
     try {
         const response = await axios.post<string>('/api/auth/mentee/register', parseDataForAPI(inputData));

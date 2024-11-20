@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./Sidebar.module.scss";
 import { ServiceSession } from "@customTypes/order";
 
@@ -36,6 +36,10 @@ export const MentorServicesSession = ({
     }
   }, [services, handleSelect, mentorIsLoggedUser]);
 
+  const sortedServices = useMemo(() => {
+    return services.sort((a, b) => a.sessionPrice - b.sessionPrice);
+  }, [services]);
+
   return services.length ? (
     <>
       <ClientPortal selector="modal-root" show={!!detailsService}>
@@ -70,7 +74,7 @@ export const MentorServicesSession = ({
         ) : null}
       </ClientPortal>
       <div className={styles.cards}>
-        {services.map((s) => (
+        {sortedServices.map((s) => (
           <ServiceSessionOptionCard
             key={s.id}
             {...s}

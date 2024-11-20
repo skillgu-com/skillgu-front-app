@@ -60,7 +60,7 @@ export const MentorSubscriptions = () => {
   const handleSelectPlan = (plan: string) => {
     if (!canChangePlan && plan !== selectedPlan) {
       alert(
-          "Nie możesz zmienić planu w bieżącym miesiącu. Możliwość zmiany będzie dostępna od początku przyszłego miesiąca."
+        "Nie możesz zmienić planu w bieżącym miesiącu. Możliwość zmiany będzie dostępna od początku przyszłego miesiąca."
       );
       return;
     }
@@ -72,10 +72,10 @@ export const MentorSubscriptions = () => {
 
   const changeMentorPlan = async (plan: string) => {
     try {
-      await updateMentorPlan(plan);   // API call to update plan
-      setSelectedPlan(plan);          // Set the selected plan as active
-      setSuspendingPlan(null);  // Closing the popup
-      setCanChangePlan(false);  // After changing the plan, blocking the possibility of another change
+      await updateMentorPlan(plan); // API call to update plan
+      setSelectedPlan(plan); // Set the selected plan as active
+      setSuspendingPlan(null); // Closing the popup
+      setCanChangePlan(false); // After changing the plan, blocking the possibility of another change
     } catch (error) {
       console.error("Błąd podczas zmiany planu:", error);
       alert("Wystąpił błąd podczas zmiany planu.");
@@ -93,7 +93,7 @@ export const MentorSubscriptions = () => {
     }
   };
 
-  console.log('subscriptionDetails: ',subscriptionDetails);
+  console.log("subscriptionDetails: ", subscriptionDetails);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,9 +113,9 @@ export const MentorSubscriptions = () => {
       sr.setPending(false);
     };
     if (
-        pageRef.current === 0 ||
-        pageRef.current !== page ||
-        tabRef.current !== tab
+      pageRef.current === 0 ||
+      pageRef.current !== page ||
+      tabRef.current !== tab
     ) {
       fetchData();
       pageRef.current = page;
@@ -226,11 +226,12 @@ export const MentorSubscriptions = () => {
                   Twoja subskrypcja została anulowana.
                 </p>
                 <p className={styles.planItem}>
-                  Ostatni dzień rozliczenia: {subscriptionDetails?.endDate}
-                </p>
-                <p className={styles.planItem}>
                   Ostatnia nazwa subskrypcji :{" "}
                   {subscriptionDetails?.lastPlanName}
+                </p>
+                <p className={styles.planItem}>
+                  Możesz nadal korzystać z korzyści wynikających z planu do dnia{" "}
+                  {subscriptionDetails?.endDate}
                 </p>
               </>
             ) : subscriptionDetails?.planName === "Free" ? (
@@ -245,14 +246,15 @@ export const MentorSubscriptions = () => {
             ) : (
               <>
                 <div className={styles.planHeader}>
-                  <div className={styles.iconBox}>
-                    {subscriptionDetails?.planName?.toLowerCase() === "mid" && (
-                      <Basic />
-                    )}
-                    {subscriptionDetails?.planName.toLowerCase() === "pro" && (
-                      <Pro />
-                    )}
-                  </div>
+                  {subscriptionDetails?.planName?.toLowerCase() === "mid" ||
+                  subscriptionDetails?.planName.toLowerCase() === "pro" ? (
+                    <div className={styles.iconBox}>
+                      {subscriptionDetails?.planName?.toLowerCase() ===
+                        "mid" && <Basic />}
+                      {subscriptionDetails?.planName.toLowerCase() ===
+                        "pro" && <Pro />}
+                    </div>
+                  ) : null}
                   <h4 className={styles.planName}>
                     Plan {subscriptionDetails?.planName || "N/A"}
                   </h4>

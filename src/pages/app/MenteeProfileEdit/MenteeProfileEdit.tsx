@@ -15,52 +15,8 @@ import {UserProfileHeader} from "../../../components/_grouped";
 import {LangSwitcherConnected} from "../../../components/_connected/lang-switcher/LangSwitcher";
 import { ProfileEditPageSkeleton } from "src/components/ProfileEditSkeleton";
 
-/**
- *
- */
 export const MenteeProfileEditPage = () => {
     const {id: menteeId} = useParams();
-    // const {username: username} = useParams();
-
-
-    // const [tab, setTab] = useState<ServiceType>("mentoring");
-    // const toggleTab = () =>
-    //   setTab((s) => (s === "mentoring" ? "session" : "mentoring"));
-    // const [loading, setLoading] = useState<boolean>(true);
-    // const [optionsMentoring, setOptionsMentoring] = useState<ServiceMentoring[]>(
-    //   []
-    // );
-    // const [optionsSession, setOptionsSession] = useState<ServiceSession[]>([]);
-    // const [selectedMentoring, setMentoring] = useState<null | ServiceMentoring>(
-    //   null
-    // );
-    // const [selectedSession, setSession] = useState<null | ServiceSession>(null);
-    // const [popupSession, setPopupSession] = useState<null | ServiceSession>(null);
-    // const handleSelectMentoring = (opt: ServiceMentoring) => setMentoring(opt);
-    // const handleSelectSession = (opt: ServiceSession) => setSession(opt);
-    // const handleSubmitMentoring = (opt: ServiceMentoring) => {
-    //   console.log("ORDER Mentoring, ", opt);
-    // };
-    // const handleSubmitSession = (opt: ServiceSession) => {
-    //   console.log("ORDER Session, ", opt);
-    // };
-    // const openPopup = (opt: ServiceSession) => setPopupSession(opt);
-    // const closePopup = () => setPopupSession(null);
-
-    // useEffect(() => {
-    //     const run = async () => {
-    //         const resp = await fetchMentorServices({mentorId: mentorId || ""});
-    //         if (resp.success) {
-    //             setOptionsMentoring(resp.mentoring);
-    //             setOptionsSession(resp.session);
-    //         }
-    //         setLoading(false);
-    //     };
-    //     if (mentorId) {
-    //         run();
-    //     }
-    // }, [mentorId]);
-
     const [mentee, setMentee] = useState<MenteeDTO | null>(null);
 
     useEffect(() => {

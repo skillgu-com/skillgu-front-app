@@ -9,7 +9,7 @@ export const PlanStep = () => {
 
     return (
         <ContentWrapper
-            title={`Wybrałeś Plan Pro`} 
+            title={`Zapraszam na mój mentoring`}
             subtitle={''} 
             description={'Informacje, które wypełnisz, zostaną przesłane do mentora, aby ten mógł lepiej przygotować się do Waszych spotkań.'} 
             submitText={'Zaczynajmy'}

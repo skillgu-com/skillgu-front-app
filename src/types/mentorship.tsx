@@ -1,5 +1,14 @@
 import {DescriptionRowDTO} from "@services/mentor/fetchMentorServices.service";
-import {Review} from "@customTypes/review";
+
+
+export type MentorshipOrderInput = {
+    planId: number;
+    selectedGoals: string[];
+    timezone: string;
+    location: string;
+    description: string;
+    questions: string;
+};
 
 export interface MentorshipData {
     mentorId: string;

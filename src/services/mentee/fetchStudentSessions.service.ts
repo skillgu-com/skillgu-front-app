@@ -32,6 +32,8 @@ export const fetchMenteeSubscriptionHistory = async ({
 
   const data = response.data;
 
+  console.log(data)
+
   return {
     total: data.total,
     mentors: data.subscriptions.map((item: any) => ({
@@ -40,9 +42,9 @@ export const fetchMenteeSubscriptionHistory = async ({
       avatarUrl: item.avatarUrl || "", // Dodaj avatarUrl, jeśli dostępny
       fullName: item?.fullName,
       date: item.sessionDate,
-      status: item.status || 'in-progress', // Używanie statusu z backendu, z domyślną wartością
-      serviceType: item.planType === 'basic' ? 'session' : 'mentoring', // Mapa dla odpowiednich wartości
-      serviceName: item.scheduleName, // Poprawienie na `item.scheduleName`
+      status: item.status.toLowerCase() || 'in-progress', // Używanie statusu z backendu, z domyślną wartością
+      serviceType:  'mentoring',
+      serviceName: item?.planType.toUpperCase(),
     })),
   };
 };

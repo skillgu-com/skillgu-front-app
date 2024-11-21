@@ -111,11 +111,11 @@ export const SubscriptionHistory = ({
                                             />
                                         </TableCell>
                                         <TableCell flex={3}>
-                                            {formatDate(s.date, "DD.MM.YYYY")}
+                                            {s.date ? formatDate(s.date, "DD.MM.YYYY") : "Data w trakcie ustalania"}
                                         </TableCell>
                                         <TableCell flex={3}>
                                             {s.status === "accepted" ? (
-                                                <Status noWrap variant="warning" text="Zaakceptowana"/>
+                                                <Status noWrap variant="success" text="Zaakceptowana"/>
                                             ) : s.status === "rejected" ? (
                                                 <Status noWrap variant="danger" text="Odrzucona"/>
                                             ) : s.status === "awaiting" ? (

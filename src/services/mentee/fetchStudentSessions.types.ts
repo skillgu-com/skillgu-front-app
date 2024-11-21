@@ -15,6 +15,7 @@ export type FetchStudentSessionsOutput = {
         date: string
         status: 'in-progress'|'planned'|'cancelled'|'completed'
         serviceType: 'session'|'mentoring'
-        serviceName: string
+        serviceName: string,
+        planType :string
     }[]
 }

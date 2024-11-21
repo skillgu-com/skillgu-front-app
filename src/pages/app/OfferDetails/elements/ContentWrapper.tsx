@@ -25,10 +25,7 @@ export const ContentWrapper = (props: Props) => {
           {props.title ? (
             <h1 className={styles.title}>
               {props.backArrow ? (
-                <a
-                  href="/mentor-subscriptions"
-                  className={styles.arrow}
-                >
+                <a href="/mentee-subscriptions" className={styles.arrow}>
                   <ArrowLongLeft />
                 </a>
               ) : null}

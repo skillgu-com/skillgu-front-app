@@ -6,7 +6,7 @@ export type ReportStatus =
     | "requires_capture"
     | "canceled"
     | "succeeded"
-    | "complete";
+    | "complete"
 
 export type Report = {
   id: number;

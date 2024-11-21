@@ -1,19 +1,21 @@
-type SubscriptionMentorReportStatus =
-    | "requires_payment_method"
-    | "requires_confirmation"
-    | "requires_action"
-    | "processing"
-    | "requires_capture"
-    | "canceled"
-    | "succeeded"
-    | "complete";
+export type SubscriptionMentorReportStatus =
+  | "requires_payment_method"
+  | "requires_confirmation"
+  | "requires_action"
+  | "processing"
+  | "requires_capture"
+  | "canceled"
+  | "succeeded"
+  | "complete"
+  | "card_error";
 
 export type SubscriptionMentorReport = {
   id: number;
   invoiceNo: string;
-  date: string;
+  startDate: string | Date;
+  endDate: string | Date;
   amount: number;
   status: SubscriptionMentorReportStatus;
-  sessionTitle: string;
+  planName: string;
   invoiceFileUrl: string;
 };

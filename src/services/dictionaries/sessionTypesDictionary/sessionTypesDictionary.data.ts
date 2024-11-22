@@ -22,6 +22,10 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         32: 'Zarządzanie infrastrukturą IT',  // IT_INFRASTRUCTURE_MANAGEMENT
     },
     DESIGN: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
+        3: 'Przygotowanie CV',  // CV_PREPARATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         13: 'Design thinking i kreatywność',  // DESIGN_THINKING_CREATIVITY
         17: 'Podstawy UI/UX Design',  // UI_UX_DESIGN_FUNDAMENTALS
         18: 'Techniki projektowania graficznego',  // GRAPHIC_DESIGN_TECHNIQUES
@@ -42,6 +46,9 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         67: 'Audyt UX',  // UX_AUDIT
     },
     BUSINESS: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         14: 'Strategia biznesowa i innowacje',  // BUSINESS_STRATEGY_INNOVATION
         15: 'Coaching rozwoju kariery',  // CAREER_ADVANCEMENT_COACHING
         16: 'Trendy marketingowe i strategie cyfrowe',  // MARKETING_TRENDS_DIGITAL_STRATEGIES
@@ -68,6 +75,9 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         57: 'Matchmaking współzałożycieli',  // CO_FOUNDER_MATCHMAKING
     },
     MARKETING: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         16: 'Trendy marketingowe i strategie cyfrowe',  // MARKETING_TRENDS_DIGITAL_STRATEGIES
         39: 'Relacje publiczne',  // PUBLIC_RELATIONS
         40: 'Tworzenie treści',  // CONTENT_CREATION
@@ -87,7 +97,10 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         79: 'Strategia pozyskiwania klientów',  // CUSTOMER_ACQUISITION_STRATEGY
     },
     CAREER: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
         6: 'Przygotowanie do rozmowy',  // INTERVIEW_PREPARATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         13: 'Przegląd CV',  // CV_PREPARATION (dodane również do DESIGN)
         15: 'Coaching rozwoju kariery',  // CAREER_ADVANCEMENT_COACHING
         22: 'Skuteczny networking',  // EFFECTIVE_NETWORKING
@@ -104,6 +117,9 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         89: 'Negocjacje płacowe',  // SALARY_NEGOTIATION
     },
     PERSONAL_DEVELOPMENT: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         90: 'Zarządzanie stresem',  // STRESS_MANAGEMENT
         91: 'Zarządzanie czasem',  // TIME_MANAGEMENT
         92: 'Budowanie odporności',  // RESILIENCE_BUILDING
@@ -116,6 +132,9 @@ const sessionTypesDictionaryData: Record<MentorCategoryT, Record<number, string>
         99: 'Samomotywacja',  // SELF_MOTIVATION
     },
     TRADING: {
+        1: 'Rozmowa wstępna',  // INTRO_CONVERSATION
+        2: 'Spotkanie 1:1',  // ONE_ON_ONE_CONVERSATION
+        7: 'Rozmowa z ekspertem',  // EXPERT_CONVERSATION
         100: 'Wprowadzenie do handlu kryptowalutami',  // INTRO_TO_CRYPTO
         101: 'Zaawansowane strategie handlowe',  // ADVANCED_TRADING_STRATEGIES
         102: 'Sesja analizy technicznej',  // TECHNICAL_ANALYSIS_SESSION

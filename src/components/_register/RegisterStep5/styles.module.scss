@@ -1,0 +1,17 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/font" as *;
+
+.container {
+  .lottieWrapper {
+    width: 70%;
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .description {
+    @extend %text-body-2;
+    color: $colour-base-800;
+    margin: auto;
+    text-align: center;
+  }
+}

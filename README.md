@@ -23,7 +23,7 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 ### About skillgu.com
-### Skillguru.pl
+### Skillgu.com
 is a React.js application aimed at connecting users with mentors in the fields of IT, business, and related domains. It provides a platform where users can easily find and connect with experienced professionals who can guide and mentor them in their career development and skill enhancement journey.
 
 ### Features

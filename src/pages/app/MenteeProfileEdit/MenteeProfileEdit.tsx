@@ -37,7 +37,7 @@ export const MenteeProfileEditPage = () => {
                 avatarUrl={mentee?.avatarUrl}
                 btnText='Zobacz profil'
                 btnHref={`/student/${menteeId}`}
-                company="Skillguru"
+                company="Skillgu"
                 coverUrl={mentee?.coverUrl}
                 fullname={mentee?.firstName + ' ' + mentee?.lastName}
                 langSwitcher={<LangSwitcherConnected/>}

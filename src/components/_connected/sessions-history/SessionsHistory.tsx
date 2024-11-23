@@ -120,7 +120,7 @@ export const SessionsHistory = ({
                                         </TableCell>
                                         <TableCell flex={3}>
                                             {s.status === "planned" ? (
-                                                <Status noWrap variant="warning" text="Zaplanowane"/>
+                                                <Status noWrap variant="danger" text="Zaplanowane"/>
                                             ) : s.status === "cancelled" ? (
                                                 <Status noWrap variant="danger" text="Odwołana"/>
                                             ) : s.status === "in-progress" ? (

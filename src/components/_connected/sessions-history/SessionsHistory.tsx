@@ -120,7 +120,7 @@ export const SessionsHistory = ({
                                         </TableCell>
                                         <TableCell flex={3}>
                                             {s.status === "planned" ? (
-                                                <Status noWrap variant="danger" text="Zaplanowane"/>
+                                                <Status noWrap variant="info" text="Zaplanowane"/>
                                             ) : s.status === "cancelled" ? (
                                                 <Status noWrap variant="danger" text="Odwołana"/>
                                             ) : s.status === "in-progress" ? (
@@ -134,7 +134,7 @@ export const SessionsHistory = ({
                                             ) : s.status === "rejected" ? (
                                                 <Status noWrap variant="danger" text="ODRZUCONA"/>
                                             ) : s.status === "accepted" ? (
-                                                <Status noWrap variant="success" text="ZAAKCEPTOWANA"/>
+                                                <Status noWrap variant="info" text="ZAAKCEPTOWANA"/>
                                             ) : s.status === "suspended" ? (
                                                 <Status noWrap variant="warning" text="ZAWIESZONA"/>
                                             ) : null}

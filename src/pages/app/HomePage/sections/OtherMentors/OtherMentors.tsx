@@ -7,41 +7,7 @@ import { Skeleton } from "@mui/material";
 import { Mentor } from "./types";
 import { useViewportSize } from "src/hooks/useViewportSize";
 import { useTallestElementHeight } from "src/hooks/useTallestElementHeight";
-import {Link} from "react-router-dom";
-
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 2,
-  responsive: [
-    {
-      breakpoint: 1600,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 2,
-        infinite: true,
-        dots: true,
-      },
-    },
-    {
-      breakpoint: 1060,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
-      },
-    },
-    {
-      breakpoint: 560,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
+import { Link } from "react-router-dom";
 
 type Props = {
   title: string;
@@ -53,18 +19,52 @@ type Props = {
 export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
   const [slideHeight, setSlideHeight] = useState<number | null>(null);
   const { width, height } = useViewportSize();
-  const [counter, setCounter] = useState<number>(0)
+  const [counter, setCounter] = useState<number>(0);
+
+  const settings = {
+    dots: true,
+    infinite: mentors.length > 3,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          infinite: mentors.length > 2,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 1060,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
-    setSlideHeight(0)
+    setSlideHeight(0);
     const timer = setTimeout(() => {
-      setCounter(n => n + 1)
-    }, 100)
+      setCounter((n) => n + 1);
+    }, 100);
 
-    return () => clearTimeout(timer)
-  }, [width, height])
+    return () => clearTimeout(timer);
+  }, [width, height]);
 
-  const { addToRefs } = useTallestElementHeight(setSlideHeight, [counter])
+  const { addToRefs } = useTallestElementHeight(setSlideHeight, [counter]);
 
   return mentors ? (
     <div className={styles.wrapper}>
@@ -104,15 +104,17 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
         ) : null}
         {ready ? (
           <Slider {...settings} className={styles.slick}>
-            {mentors.map((m) => (
-              <Link to={`/mentor/${m.userName}`} key={m.mentorId} className={styles.slickItem}>
+            {[...mentors].map((m) => (
+              <Link
+                to={`/mentor/${m.userName}`}
+                key={m.mentorId}
+                className={styles.slickItem}
+              >
                 <div
                   className={styles.card}
                   ref={addToRefs}
                   style={{
-                    minHeight: slideHeight
-                      ? `${slideHeight}px`
-                      : "unset",
+                    minHeight: slideHeight ? `${slideHeight}px` : "unset",
                   }}
                 >
                   <div className={styles.user}>
@@ -128,9 +130,7 @@ export const OtherMentors = ({ pending, ready, title, mentors }: Props) => {
                   </div>
                   <ul className={styles.tags}>
                     <li className={styles.tag}>
-                      <span className={styles.link}>
-                        Zobacz profil
-                      </span>
+                      <span className={styles.link}>Zobacz profil</span>
                     </li>
                     {/*{m.skill.map((t) => (*/}
                     {/*  <li className={styles.tag}>{t}</li>*/}

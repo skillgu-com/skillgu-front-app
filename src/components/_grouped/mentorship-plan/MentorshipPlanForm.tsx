@@ -310,6 +310,7 @@ export const MentorshipPlanForm = ({
                 value={r}
                 name={`planIncludes[${i}]`}
                 onChange={inputChangeHandler}
+                maxLength={500}
                 className={clx(
                   styles.input,
                   styles.rowMiddle,

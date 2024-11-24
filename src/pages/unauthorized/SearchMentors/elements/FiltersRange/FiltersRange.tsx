@@ -44,7 +44,7 @@ export const FiltersRange = ({
             min={min}
             max={Math.min(max, valueMax)}
             type="text"
-            value={`$${valueMin}`}
+            value={`${valueMin}zł`}
             onChange={_handleInputChange}
           />
         </div>
@@ -56,7 +56,7 @@ export const FiltersRange = ({
             min={Math.max(valueMin, min)}
             max={max}
             type="text"
-            value={`$${valueMax}`}
+            value={`${valueMax}zł`}
             onChange={_handleInputChange}
           />
         </div>

@@ -96,7 +96,7 @@ export const FiltersHeader = ({
                     ))}
 
                     <FilterTag
-                        text={`$${filters.priceMin} - $${filters.priceMax}`}
+                        text={`${filters.priceMin}zł - ${filters.priceMax}zł`}
                         handleRemove={handleRemovePrice}
                     />
 

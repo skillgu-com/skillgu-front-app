@@ -64,6 +64,7 @@ export type FetchMentorStudentsOutput = {
         avatarUrl: string
         fullName: string
         date: string
+        dateRange: string
         status: SubscriptionStatus
         serviceType: 'session' | 'mentoring'
         serviceName: string

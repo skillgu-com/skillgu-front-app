@@ -181,7 +181,8 @@ export const Subscriptions = ({title, subtitle}: Props) => {
                                                 />
                                             </TableCell>
                                             <TableCell flex={3}>
-                                                {formatDate(s.date, "DD.MM.YYYY")}
+                                                {/*{formatDate(s.date, "DD.MM.YYYY")}*/}
+                                                {s.dateRange}
                                             </TableCell>
                                             <TableCell flex={3}>{renderStatus(s.status)}</TableCell>
                                             <TableCell flex={3} className={styles.service}>

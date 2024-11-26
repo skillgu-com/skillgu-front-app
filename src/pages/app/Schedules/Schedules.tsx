@@ -141,7 +141,7 @@ const SchedulesView = () => {
                         <div style={{opacity: userStripeIntegrationStatus ? 1 : 0.5}}>
                             {!userStripeIntegrationStatus ? (
                                 <Tooltip
-                                    title="Najpierw przejdź do rozliczeń aby zintegrować się ze Stripe"
+                                    title="Najpierw przejdź do płatności aby zintegrować się ze Stripe"
                                     placement="bottom-start"
                                 >
                                     <div>

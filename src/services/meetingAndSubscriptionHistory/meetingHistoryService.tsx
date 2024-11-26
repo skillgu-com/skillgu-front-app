@@ -3,7 +3,7 @@ import {FetchMentorSessionsInput, FetchMentorSessionsOutput} from "@customTypes/
 import {FetchStudentSessionsInput, FetchStudentSessionsOutput} from "@services/mentee/fetchStudentSessions.types";
 
 export const fetchMentorMeetingHistory = async ({
-                                                    take = 10,
+                                                    take = 20,
                                                     skip = 0,
                                                 }: FetchMentorSessionsInput): Promise<FetchMentorSessionsOutput> => {
     const response = await axios.get('/meetings/history/mentor/session', {params: {take, skip},});
@@ -25,7 +25,7 @@ export const fetchMentorMeetingHistory = async ({
 };
 
 export const fetchMenteeMeetingHistory = async ({
-                                                    take = 10,
+                                                    take = 20,
                                                     skip = 0,
                                                 }: FetchStudentSessionsInput): Promise<FetchStudentSessionsOutput> => {
     const response = await axios.get('/meetings/history/mentee/session', {params: {take, skip},});

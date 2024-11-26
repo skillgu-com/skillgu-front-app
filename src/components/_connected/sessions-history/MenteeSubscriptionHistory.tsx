@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
-import {fetchMenteeSubscriptionHistory} from "@services/mentee/fetchStudentSessions.service";
 import {SubscriptionHistory} from "./SubscriptionHistory";
+import {fetchMenteeSubscriptionHistory} from "@services/meetingAndSubscriptionHistory/subscriptionHistoryService";
 
 type Props = {
   title?: string

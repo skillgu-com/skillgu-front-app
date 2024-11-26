@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
-import { fetchStudentSessions } from "@services/mentee/fetchStudentSessions.service";
+import {fetchMenteeMeetingHistory} from "@services/meetingAndSubscriptionHistory/meetingHistoryService";
 
 type Props = {
   title?: string
@@ -16,12 +16,14 @@ export const StudentSessionsHistory = ({ title, subtitle } : Props) => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { mentors, total } = await fetchStudentSessions({
+        const { mentors, total } = await fetchMenteeMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
+        console.log('moich mentors:')
+
         sr.updateRecords(mentors, total);
       } catch (e) {
         sr.updateStatus("Wystąpił błąd podczas pobierania danych.");

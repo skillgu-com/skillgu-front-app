@@ -16,6 +16,8 @@ export type FetchStudentSessionsOutput = {
         status: 'in-progress'|'planned'|'cancelled'|'completed'
         serviceType: 'session'|'mentoring'
         serviceName: string,
-        planType :string
+        planType :string,
+        meetingType: string
+        sessionStatus: string;
     }[]
 }

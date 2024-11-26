@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { getMentorMeetingHistory } from "@services/mentor/fetchMentorSessions.service";
 import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
+import {fetchMentorMeetingHistory} from "@services/meetingAndSubscriptionHistory/meetingHistoryService";
 
 export const MentorSessionsHistory = () => {
   const sr = useSessionsReducer();
@@ -11,13 +11,14 @@ export const MentorSessionsHistory = () => {
     const fetchData = async (page: number) => {
       sr.setPending(true);
       try {
-        const { mentee, total } = await getMentorMeetingHistory({
+        const { mentee, total } = await fetchMentorMeetingHistory({
           sortBy: "status",
           sortMethod: "ASC",
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
 
+        console.log('moich mentee:')
 
         sr.updateRecords(mentee, total);
       } catch (e) {

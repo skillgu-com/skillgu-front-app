@@ -1,7 +1,6 @@
 import React, {
     ReactNode,
     useCallback,
-    // useState,
 } from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -128,15 +127,15 @@ export const SessionsHistory = ({
                                             ) : s.status === "completed" ? (
                                                 <Status noWrap variant="success" text="Zrealizowana"/>
                                             ) : s.status === "active" ? (
-                                                <Status noWrap variant="success" text="AKTYWNA"/>
+                                                <Status noWrap variant="success" text="Aktywna"/>
                                             ) : s.status === "awaiting" ? (
-                                                <Status noWrap variant="warning" text="OCZEKUJĄCA"/>
+                                                <Status noWrap variant="warning" text="Oczekująca"/>
                                             ) : s.status === "rejected" ? (
-                                                <Status noWrap variant="danger" text="ODRZUCONA"/>
+                                                <Status noWrap variant="danger" text="Odrzucona"/>
                                             ) : s.status === "accepted" ? (
-                                                <Status noWrap variant="info" text="ZAAKCEPTOWANA"/>
+                                                <Status noWrap variant="info" text="Zaakceptowana"/>
                                             ) : s.status === "suspended" ? (
-                                                <Status noWrap variant="warning" text="ZAWIESZONA"/>
+                                                <Status noWrap variant="warning" text="Zawieszona"/>
                                             ) : null}
                                         </TableCell>
                                         <TableCell flex={3} className={styles.capitalize}>

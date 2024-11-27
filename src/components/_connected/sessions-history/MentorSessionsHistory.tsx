@@ -32,3 +32,5 @@ export const MentorSessionsHistory = () => {
 
     return <SessionsHistory getProfileLink={(userName: string) => `/student/${userName}`}/>;
 };
+
+

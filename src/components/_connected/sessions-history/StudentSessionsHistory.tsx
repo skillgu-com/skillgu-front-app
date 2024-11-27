@@ -3,6 +3,7 @@ import { PER_PAGE, useSessionsReducer } from "src/reducers/sessions";
 import { SessionsHistory } from "./SessionsHistory";
 import {fetchMenteeMeetingHistory} from "@services/meetingAndSubscriptionHistory/meetingHistoryService";
 
+
 type Props = {
   title?: string
   subtitle?: ReactNode
@@ -22,7 +23,6 @@ export const StudentSessionsHistory = ({ title, subtitle } : Props) => {
           skip: PER_PAGE * (page - 1),
           take: PER_PAGE,
         });
-        console.log('moich mentors:')
 
         sr.updateRecords(mentors, total);
       } catch (e) {

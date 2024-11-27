@@ -31,6 +31,7 @@ export const SessionsHistory = ({
                                     getProfileLink,
                                 }: Props) => {
     const role = useSelector(getRole);
+
     const sr = useSessionsReducer();
     const sessions = sr.sessionsState.sessions;
     const totalPages = Math.ceil(sr.sessionsState.totalRecords / PER_PAGE);

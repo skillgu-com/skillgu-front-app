@@ -7,14 +7,14 @@ import {
 import { SubscriptionMentorReport } from "@customTypes/subscriptionMentorReport";
 
 export const fetchMentorSubscriptionPayment = async ({
-  take = 10,
-  skip = 0,
-  sortBy,
-  sortMethod,
-}: FetchPaymentReportsServiceInput): Promise<FetchPaymentSubscriptionServiceOutput> => {
+                                                       take = 10,
+                                                       skip = 0,
+                                                       sortBy,
+                                                       sortMethod,
+                                                     }: FetchPaymentReportsServiceInput): Promise<FetchPaymentSubscriptionServiceOutput> => {
   try {
     const res = await axios.get("/api/payment/mentor-subscription");
-    // const data: SubscriptionMentorReport[] = res.data.data;
+
     const data: SubscriptionMentorReport[] = [
       {
         id: 1,
@@ -38,7 +38,7 @@ export const fetchMentorSubscriptionPayment = async ({
       },
       {
         id: 3,
-        invoiceNo: "#002",
+        invoiceNo: "#003",
         startDate: new Date(),
         endDate: new Date(),
         amount: 80000,
@@ -48,10 +48,12 @@ export const fetchMentorSubscriptionPayment = async ({
       },
     ];
 
+    // Sortowanie danych, jeśli podano sortBy i sortMethod
     if (sortBy && sortMethod) {
       data.sort((a: SubscriptionMentorReport, b: SubscriptionMentorReport) => {
         const aValue = a[sortBy as keyof SubscriptionMentorReport];
         const bValue = b[sortBy as keyof SubscriptionMentorReport];
+
         if (sortMethod === "asc") {
           return aValue > bValue ? 1 : -1;
         } else {
@@ -60,19 +62,24 @@ export const fetchMentorSubscriptionPayment = async ({
       });
     }
 
+    // Obsługa paginacji
     const start = skip;
     const end = start + take;
     const reports = data.slice(start, end);
 
     return {
-      reports,
-      total: data.length,
       success: true,
+      reports,
+      total: data.length, // Całkowita liczba raportów przed paginacją
     };
   } catch (error) {
+    console.error("Error fetching mentor subscription payments:", error);
+
     return {
       success: false,
-      errorMessage: "error",
+      errorMessage: "Nie udało się pobrać raportów subskrypcji mentora.",
+      reports: [],
+      total: 0, // Ustaw total na 0 w przypadku błędu
     };
   }
 };

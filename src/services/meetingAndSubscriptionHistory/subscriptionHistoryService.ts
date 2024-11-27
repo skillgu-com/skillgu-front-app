@@ -2,7 +2,7 @@ import {FetchStudentSessionsInput, FetchStudentSessionsOutput} from "@services/m
 import axios from "axios";
 
 export const fetchMenteeSubscriptionHistory = async ({take = 10, skip = 0,}: FetchStudentSessionsInput): Promise<FetchStudentSessionsOutput> => {
-    const response = await axios.get('/meetings/history/mentee/subscription', {
+    const response = await axios.get('/api/meetings/history/mentee/subscription', {
         params: {
             take,
             skip,

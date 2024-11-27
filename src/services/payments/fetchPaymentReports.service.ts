@@ -1,45 +1,47 @@
-
 import axios from "axios";
-import {Report} from "@customTypes/reports";
 import {FetchPaymentReportsServiceInput, FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
 
 export const fetchPaymentReports = async ({
-                                            take = 10,
-                                            skip = 0,
-                                            sortBy,
-                                            sortMethod,
+                                              take = 5,
+                                              skip = 0,
                                           }: FetchPaymentReportsServiceInput): Promise<FetchPaymentReportsServiceOutput> => {
-  try {
-    const res = await axios.get('/api/payment/reports');
-    const data: Report[] = res.data.data; // Assuming the response directly contains an array of Report objects
+    try {
+        const response = await axios.get('/api/payment/reports', {
+            params: {
+                take,
+                skip,
+            },
+        });
+        const data = response.data.data;
 
-    // Sorting logic if sortBy and sortMethod are provided
-    if (sortBy && sortMethod) {
-      data.sort((a: Report, b: Report) => {
-        const aValue = a[sortBy as keyof Report];
-        const bValue = b[sortBy as keyof Report];
-        if (sortMethod === 'asc') {
-          return aValue > bValue ? 1 : -1;
-        } else {
-          return aValue < bValue ? 1 : -1;
-        }
-      });
+        return {
+            total: data?.total ?? 0,
+            reports: Array.isArray(data?.reports)
+                ? data.reports.map((item: any) => ({
+                    id: item?.id ?? 0,
+                    invoiceNo: item?.invoiceNo ?? "",
+                    date: item?.date ?? "",
+                    amount: item?.amount ?? 0,
+                    status: item?.status,
+                    sessionTitle: item?.sessionTitle ?? "",
+                    invoiceFileUrl: item?.invoiceFileUrl ?? "",
+                }))
+                : [], // Domyślna pusta tablica raportów
+            success: true, // Dodano pole success
+        };
+    } catch (error) {
+        console.error('Error fetching payment reports:', error);
+
+        return {
+            total: 0, // Domyślna wartość dla total
+            reports: [], // Domyślna pusta lista raportów
+            success: false, // Dodano pole success dla błędu
+            errorMessage: 'Nie udało się pobrać raportów płatności', // Dodano pole errorMessage
+        };
     }
-
-    // Pagination logic
-    const start = skip;
-    const end = start + take;
-    const reports = data.slice(start, end);
-
-    return {
-      reports,
-      total: data.length,
-      success: true,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      errorMessage: 'error'
-    };
-  }
 };
+
+
+
+
+

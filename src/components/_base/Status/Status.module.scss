@@ -67,11 +67,11 @@
     }
 
     &.info {
-        background-color: $colour-warning-200;
-        color: $colour-warning-100;
+        background-color: $colour-info-200;
+        color: $colour-info-100;
 
         &::before {
-            background-color: $colour-warning-100;
+            background-color: $colour-info-100;
         }
     }
 }

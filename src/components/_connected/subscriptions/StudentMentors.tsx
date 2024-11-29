@@ -432,7 +432,7 @@ export const StudentMentors = ({ title }: Props) => {
                         <div className={styles.cardStatus}>
                           <Status
                             text="Aplikacja zaakceptowana"
-                            variant="success"
+                            variant="info"
                           />
                           <p>
                             Aplikacja zaakceptowana, wybierz terminy spotkań.

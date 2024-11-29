@@ -115,7 +115,7 @@ export const SubscriptionHistory = ({
                                         </TableCell>
                                         <TableCell flex={3}>
                                             {s.status === "accepted" ? (
-                                                <Status noWrap variant="success" text="Zaakceptowana"/>
+                                                <Status noWrap variant="info" text="Zaakceptowana"/>
                                             ) : s.status === "rejected" ? (
                                                 <Status noWrap variant="danger" text="Odrzucona"/>
                                             ) : s.status === "awaiting" ? (

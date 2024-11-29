@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./Sidebar.module.scss";
 import { ServiceSession } from "@customTypes/order";
 
@@ -8,6 +9,8 @@ import { ClientPortal } from "../../../../../components/portal";
 import Modal from "../../../../../components/Modal/Modal";
 import { ServiceInfoBox } from "../../../../../components/_grouped";
 import { ServiceSessionOptionCard } from "../../../../../components/Cards/ServiceSessionOptionCard/ServiceSessionOptionCard";
+
+import { getRole } from "src/redux/selectors/authSelectors";
 
 type Props = {
   services: ServiceSession[];
@@ -29,7 +32,7 @@ export const MentorServicesSession = ({
   const [detailsService, setDetailsService] = useState<ServiceSession | null>(
     null
   );
-
+  const role = useSelector(getRole);
   useEffect(() => {
     if (services?.length === 1 && handleSelect && !mentorIsLoggedUser) {
       handleSelect(services[0]);
@@ -85,7 +88,7 @@ export const MentorServicesSession = ({
           />
         ))}
       </div>
-      {handleSubmit ? (
+      {handleSubmit && role === "S" ? (
         <button
           onClick={selected ? () => handleSubmit(selected) : undefined}
           className={styles.submitBtn}

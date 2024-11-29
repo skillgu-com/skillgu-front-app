@@ -3,6 +3,8 @@ import styles from "../MentorOfferDetails.module.scss";
 import clx from "classnames";
 import { PlanDetails } from "./PlanDetails";
 import { ArrowLongLeft } from "@icons/ArrowLongLeft";
+import { useSelector } from "react-redux";
+import { getRole } from "src/redux/selectors/authSelectors";
 
 type Props = {
   title: string;
@@ -13,6 +15,7 @@ type Props = {
 };
 
 export const ContentWrapper = (props: Props) => {
+  const role = useSelector(getRole);
   return (
     <div className={styles.wrapper}>
       <div
@@ -24,7 +27,14 @@ export const ContentWrapper = (props: Props) => {
           {props.title ? (
             <h1 className={styles.title}>
               {props.backArrow ? (
-                <a href="/mentee-subscriptions" className={styles.arrow}>
+                <a
+                  href={
+                    role === "S"
+                      ? "/mentee-subscriptions"
+                      : "/mentor-subscriptions"
+                  }
+                  className={styles.arrow}
+                >
                   <ArrowLongLeft />
                 </a>
               ) : null}

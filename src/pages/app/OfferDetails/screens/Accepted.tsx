@@ -17,7 +17,6 @@ export const Accepted = () => {
           <a href="/mentor-subscriptions">tutaj</a>.
         </>
       }
-      sidebar
     >
       <div className={styles.accepted}>
         <img 

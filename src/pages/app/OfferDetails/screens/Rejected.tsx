@@ -21,7 +21,6 @@ export const Rejected = () => {
           <a href="/mentor-subscriptions">tutaj</a>.
         </>
       }
-      sidebar
     >
       <div className={styles.rejected}>
         {offer.rejectionFeedback ? (

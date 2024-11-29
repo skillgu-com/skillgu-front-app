@@ -56,7 +56,6 @@ export const InProgress = ({ isMentor }: Props) => {
       <ContentWrapper
         title={`Aplikacja`}
         description={""}
-        sidebar
         backArrow
         sidebarFirst
       >

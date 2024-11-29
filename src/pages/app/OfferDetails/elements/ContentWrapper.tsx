@@ -7,7 +7,6 @@ import { ArrowLongLeft } from "@icons/ArrowLongLeft";
 type Props = {
   title: string;
   description: ReactNode;
-  sidebar?: boolean;
   sidebarFirst?: boolean;
   children?: ReactNode;
   backArrow?: boolean;

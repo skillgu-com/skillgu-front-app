@@ -89,14 +89,16 @@ export const MentorListingCard: React.FC<MentorListingCardProps> = ({
 
   return (
     <Link
-      state={{ from:  "/search-mentors", filters }}
+      state={{ from: "/search-mentors", filters }}
       className={styles.wrapper}
       to={link}
       onClick={handleClick}
     >
       <div className={styles.header}>
         <div className={styles.user}>
-          <img src={avatar_url} alt={fullName} className={styles.avatar} />
+          <div>
+            <img src={avatar_url} alt={fullName} className={styles.avatar} />
+          </div>
           <div className={styles.userHeader}>
             <div className={styles.userNameRow}>
               <Title

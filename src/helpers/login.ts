@@ -20,14 +20,9 @@ export const loginUserByEmail = async (email: string, password: string, remember
         if (status === 200 && response.data?.data) {
             const userJWT = response.data.data;
             return await getStoreAndReturnUserData(userJWT, email);
+        } else {
+            return { success: false, errorMessage: 'Nieprawidłowy adres e-mail lub hasło.' };
         }
-        if (status === 401) {
-            return { success: false, errorMessage: 'Złe hasło. Spróbuj ponownie.' };
-        }
-        if (status === 404) {
-            return { success: false, errorMessage: 'Taki email nie istnieje w naszej bazie.' };
-        }
-        return { success: false, errorMessage: `Wystąpił problem: Status ${status}` };
     } catch (err: any) {
         return { success: false, errorMessage: 'Wystąpił nieznany problem z zalogowaniem.' };
     }

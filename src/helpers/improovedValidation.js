@@ -11,7 +11,7 @@ const validation = (inputTouched, inputValue, inputName, required) => {
 	if (typeof inputValue === 'string') {
 		switch (inputName) {
 			case 'name':
-			case 'firtsName':
+			case 'firstName':
 			case 'LastName':
 			case 'company':
 				return inputValue.trim().length < 2 ? 'Pole musi przekraczać 2 znaki.' : '';
@@ -27,7 +27,7 @@ const validation = (inputTouched, inputValue, inputName, required) => {
 				return '';
 			case 'phone':
 				if (!phoneNumberRegex.test(inputValue))
-					return 'Numer jest za nieprawidłowy.';
+					return 'Numer jest nieprawidłowy.';
 				return '';
 			case 'password':
 				if (

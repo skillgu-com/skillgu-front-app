@@ -61,7 +61,7 @@ export const MentorEditSectionAccount = ({mentorData}: Props) => {
     return (
         <UserEditSection
             title="Informacje kontaktowe"
-            subtitle="Zmień swój e-mail lub hasło."
+            subtitle="Zmień swoje hasło."
             onClose={
                 editPassword
                     ? () => {
@@ -73,7 +73,7 @@ export const MentorEditSectionAccount = ({mentorData}: Props) => {
 
             <div className={styles.Inputs}>
                 <div className={styles.PopupInput}>
-                    <span>Twój aktualny e-mail to {control._formValues.email}</span>
+                    {/*<span>Twój aktualny e-mail to {control._formValues.email}</span>*/}
                 </div>
                 <div className={styles.PopupInput}>
                     <span>Zmień hasło</span>

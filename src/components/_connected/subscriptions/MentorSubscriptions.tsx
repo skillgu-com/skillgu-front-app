@@ -138,13 +138,14 @@ export const MentorSubscriptions = () => {
     <>
       {suspendingPlan && (
         <Modal
+          withClose={false}
           title={
-            <p className={styles.modalSubtitle}>
+            <p className={styles.title}>
               Czy na pewno chcesz zmienić swój aktualny plan na{" "}
               <span className={styles.modalPlan}>{suspendingPlan}</span>?
             </p>
           }
-          className={styles.modal}
+          classNameContent={styles.modal}
           closeHandler={() => setSuspendingPlan(null)}
         >
           <div className={styles.modalBtnBox}>
@@ -172,16 +173,17 @@ export const MentorSubscriptions = () => {
               Czy na pewno chcesz anulować swój plan?
             </p>
           }
-          classNameContent={styles.modalCancel}
+          classNameContent={styles.modal}
           closeHandler={() => setIsCancelingPlan(false)}
         >
           <p className={styles.info}>
             {`Możesz nadal korzystać z korzyści wynikających z planu do dnia
             ${subscriptionDetails?.endDate}.`}
           </p>
-          <div className={styles.modalCancelBtnBox}>
+          <div className={styles.modalBtnBox}>
             <Button
               as={ButtonTag.Button}
+              classes={styles.transparentBtn}
               variant={ButtonVariant.Transparent}
               onClick={() => setIsCancelingPlan(false)}
             >

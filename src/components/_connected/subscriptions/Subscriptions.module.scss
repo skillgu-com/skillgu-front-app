@@ -214,38 +214,6 @@
   }
 }
 
-.modal {
-  .box {
-    max-width: 600px;
-  }
-  & h3 {
-    margin-top: 60px;
-    @include media-lg-and-up {
-      font-size: 28px !important;
-    }
-  }
-
-  .info {
-    @extend %text-body-1;
-    margin-bottom: 20px;
-    color: $colour-base-800;
-  }
-
-  .btnBox {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding-top: 20px;
-    border-top: 1px solid $colour-base-200;
-    & button {
-      @extend %text-button-md;
-    }
-    & .mainBtn {
-      background-color: $colour-error-200;
-      color: $colour-error-100;
-    }
-  }
-}
 .slick {
   :global(.slick-list) {
     padding-bottom: 18px;
@@ -374,21 +342,6 @@
   }
 }
 
-.modalBtnBox {
-  display: flex;
-  gap: 24px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
-
-.modalSubtitle {
-  max-width: 660px;
-  padding-right: 36px;
-  font-size: 24px;
-  .modalPlan {
-    color: $colour-secondary;
-  }
-}
 .tooltipContainer {
   position: relative;
   display: inline-block;
@@ -430,12 +383,16 @@
   margin: 40px 20px;
 }
 
-.modalCancel {
-  max-width: 600px !important;
+.modal {
+  max-width: 680px !important;
   margin: 0 12px;
+
   .title {
     @extend %text-heading-3;
     margin-top: 36px;
+    .modalPlan {
+      color: $colour-secondary;
+    }
   }
   .info {
     @extend %text-body-2;
@@ -447,6 +404,7 @@
     display: flex;
     flex-direction: column-reverse;
     gap: 24px;
+    margin-top: 32px;
     margin-bottom: 24px;
 
     @include media-md-and-up {
@@ -459,10 +417,12 @@
         width: calc(50% - 12px);
       }
     }
-    & button:first-child {
+
+    & .transparentBtn {
       color: $colour-base-800;
       background-color: $colour-base-200;
     }
+
     & .mainBtn {
       background-color: $colour-error-200;
       color: $colour-error-100;

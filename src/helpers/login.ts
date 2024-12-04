@@ -72,5 +72,3 @@ export const logout = (dispatch: Dispatch<any>, navigate: NavigateFunction) => {
     dispatch({type: 'LOGOUT'});
     navigate(paths.login);
 };
-
-

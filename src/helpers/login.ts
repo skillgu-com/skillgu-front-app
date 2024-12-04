@@ -1,7 +1,6 @@
-// Libraries
 import {Dispatch} from 'react';
 import {NavigateFunction} from 'react-router-dom';
-// Service
+
 import {parseUserFromJwt} from './parseUserFromJwt';
 import paths from "../paths";
 import {loginGoogleUser, loginUser} from "@services/auth/authenticationService";

@@ -13,7 +13,7 @@ export const fetchMentorSubscriptionPayment = async ({
                                                        sortMethod,
                                                      }: FetchPaymentReportsServiceInput): Promise<FetchPaymentSubscriptionServiceOutput> => {
   try {
-    const res = await axios.get("/api/payment/mentor-subscription");
+    // const res = await axios.get("/api/payment/mentor-subscription");
 
     const data: SubscriptionMentorReport[] = [
       {
@@ -48,7 +48,6 @@ export const fetchMentorSubscriptionPayment = async ({
       },
     ];
 
-    // Sortowanie danych, jeśli podano sortBy i sortMethod
     if (sortBy && sortMethod) {
       data.sort((a: SubscriptionMentorReport, b: SubscriptionMentorReport) => {
         const aValue = a[sortBy as keyof SubscriptionMentorReport];
@@ -62,7 +61,6 @@ export const fetchMentorSubscriptionPayment = async ({
       });
     }
 
-    // Obsługa paginacji
     const start = skip;
     const end = start + take;
     const reports = data.slice(start, end);

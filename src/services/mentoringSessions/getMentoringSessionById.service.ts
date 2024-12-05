@@ -4,7 +4,7 @@ import {parseMentoringSessionForFE} from "./mentoringSession.parsers";
 
 
 const getMentoringSessionById = async (id: string): Promise<MentoringSessionT> => {
-    const { data } =  await axios.get<MentoringSessionDTO>(`/api/1.0/fetch-user-calendar-event-detail/${id}`);
+    const {data} = await axios.get<MentoringSessionDTO>(`/api/1.0/calendar/events/${id}`);
 
     return parseMentoringSessionForFE(data);
 };

@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const fetchRecommendedMentors = async (props: FetchRecommendedMentorsInput): Promise<FetchRecommendedMentorsOutput> => {
     try {
-        const response = await axios.get('/mentee/home/suggested');
+        const response = await axios.get('/api/1.0/home/suggested-mentors');
         const data = response.data;
 
         return {

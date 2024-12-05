@@ -3,7 +3,7 @@ import {FetchSimilarMentorsInput, FetchSimilarMentorsOutput} from "@customTypes/
 
 export const fetchSimilarMentors = async (props: FetchSimilarMentorsInput): Promise<FetchSimilarMentorsOutput> => {
   try {
-    const response = await axios.get('/mentor/home/mentors/similar');
+    const response = await axios.get('/api/1.0/home/similar-mentors');
     const data = response.data;
 
     return {

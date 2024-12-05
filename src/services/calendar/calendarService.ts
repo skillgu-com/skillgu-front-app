@@ -6,13 +6,10 @@ type Input = {
     sessionID: number
 }
 
-type MentorshipInput = {
-    mentorID: number
-    mentorshipId: number
-}
-
 type Output = CalendarSlot[]
 
 export const fetchCalendarSession = async (mentorSessionRequest: Input) => {
-    return await axios.post<Output>('/api/1.0/fetch-calendar-session', mentorSessionRequest);
-}
+    const {mentorID, sessionID} = mentorSessionRequest;
+    const url = `/api/1.0/mentor/${mentorID}/sessions/${sessionID}`;
+    return await axios.get<Output>(url);
+};

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchMentorSkill = (query: string): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
-        axios.get('/api/mentor/get-all-skills')
+        axios.get('/api/1.0/mentors/skills')
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
                     label: item.label,

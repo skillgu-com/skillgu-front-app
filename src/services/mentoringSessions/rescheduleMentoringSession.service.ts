@@ -13,7 +13,7 @@ type RescheduleMentoringSessionParams = {
 
 const rescheduleMentoringSessionService = async ({id, body}: RescheduleMentoringSessionParams): Promise<number> => {
     // TODO API
-    const {status} = await axios.patch(`/api/1.0/update-calendar-event/${id}/${body.timeSlotId}`);
+    const {status} = await axios.patch(`/api/1.0/calendar/events/${id}/${body.timeSlotId}`);
     return status;
 
 };

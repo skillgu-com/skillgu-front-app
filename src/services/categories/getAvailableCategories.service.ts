@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchMentorCategory = (query: string): Promise<DropdownOption[]> => {
     return new Promise((resolve, reject) => {
-        axios.get('/api/mentor/get-all-mentor-category')
+        axios.get('/api/1.0/mentors/categories')
             .then(response => {
                 const data: DropdownOption[] = response.data.map((item: DropdownOption) => ({
                     label: item.label,

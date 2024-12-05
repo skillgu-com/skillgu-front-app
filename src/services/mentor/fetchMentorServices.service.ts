@@ -136,7 +136,7 @@ export const fetchMentorFilteredList = async (
         };
 
         const response = await axios.post(
-            "/api/mentor/filtered-mentors",
+            "/api/1.0/mentors/search",
             filterMentorToSend
         );
         const {total, mentors} = response.data;
@@ -174,15 +174,18 @@ export const fetchMentorReviews = async ({username, take = 10, skip = 0,}: {
 };
 
 export const getMentorProfileByID = async (userId: number | string) => {
-    const {data} = await axios.get(
-        `/api/mentor/get-mentor-by-user-id/${userId}`
-    );
+    const {data} = await axios.get('/api/1.0/mentors/profile', {
+        params: {userId: userId},
+    });
     return data;
 };
 
+
 export const getMentorProfileByMentorId = async (mentorID: number | string) => {
     const {data} = await axios.get(
-        `/api/mentor/get-mentor-by-mentor-id/${mentorID}`
+        `/api/1.0/mentors/profile`, {
+            params: {mentorId: mentorID},
+        }
     );
     return data;
 };
@@ -193,6 +196,8 @@ export const getMentorProfileByIDKeyGenerator = (mentorID: number | string) => {
 
 export const getMentorByUsername = async (username: string) => {
     return await axios.get(
-        `/api/mentor/get-mentor-by-mentor-username/${username}`
+        `/api/1.0/mentors/profile`, {
+            params: {username: username},
+        }
     );
 };

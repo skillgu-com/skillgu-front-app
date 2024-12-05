@@ -50,7 +50,7 @@ const parseSessionFormDataToSessionDTO = (
 
 export const createSession = async (session: SessionFormInput) => {
   return await axios.post(
-    "/api/1.0/session",
+    "/api/1.0/mentor/sessions",
     parseSessionFormDataToSessionDTO(session)
   );
 };
@@ -63,25 +63,23 @@ export const editSession = async ({
   session: SessionFormInput;
 }) => {
   return await axios.post(
-    `/api/1.0/session/${sessionId}`,
+    `/api/1.0/mentor/sessions/${sessionId}`,
     parseSessionFormDataToSessionDTO(session)
   );
 };
 
 export const getMentorSessions = async (mentorId: number) => {
-  return await axios.get(`/api/1.0/mentor-sessions`, {
-    params: { mentorId },
-  });
+  return await axios.get(`/api/1.0/mentor/${mentorId}/sessions`);
 };
 export const getSessionTypes = async () => {
   // TODO type response tightly and eventually parse it
   return await axios.get<{ id: number; name: string }[]>(
-    "/api/session-types/get-all"
+    "/api/1.0/mentor/sessions/types"
   );
 };
 
 export const deleteSession = async (sessionId: string) => {
-  return await axios.post(`/api/1.0/session/delete/${sessionId}`);
+  return await axios.delete(`/api/1.0/mentor/sessions/${sessionId}`);
 };
 
 export const getSingleSession = async (
@@ -116,7 +114,7 @@ export const editMentorSingleSession = async (
   updatedData: SessionDTO
 ) => {
   try {
-    const response = await axios.put(`/api/1.0/session/edit/${sessionId}`, {
+    const response = await axios.patch(`/api/1.0/mentor/sessions/${sessionId}`, {
       sessionName: updatedData.sessionName,
       sessionPrice: updatedData.sessionPrice,
       sessionCategory: updatedData.sessionCategory,

@@ -6,12 +6,15 @@ export interface JobPosition {
     name: string;
 }
 
-
 export const getMenteeProfileById = async (studentId: number) => {
-    return await axios.get<MenteeDTO>(`/api/mentee/get-mentee-by-id/${studentId}`);
+    return await axios.get<MenteeDTO>(`/api/1.0/mentee/profile`, {
+        params: {studentId: studentId},
+    });
 }
 
 export const getMenteeByUserName = async (username: string) => {
-    return await axios.get(`/api/mentee/get-mentee-by-mentee-username/${username}`);
+    return await axios.get(`/api/1.0/mentee/profile`, {
+        params: {username: username},
+    });
 }
 

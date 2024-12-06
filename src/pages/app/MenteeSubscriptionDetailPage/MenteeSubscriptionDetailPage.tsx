@@ -24,7 +24,6 @@ import useCalendarLogic from "./_logic/useCalendarLogic";
 import useUserInputLogic from "./_logic/useUserInputLogic";
 import {parseUserFromJwt} from "../../../helpers/parseUserFromJwt";
 
-
 const MenteeSubscriptionDetailPage: FC = () => {
     const {mentorshipId, subscriptionId} = useParams() as { mentorshipId: string, subscriptionId: string };
     const [bookingState, dispatchBookingAction] = useBookingReducer();
@@ -32,7 +31,6 @@ const MenteeSubscriptionDetailPage: FC = () => {
     const [state] = useBookingReducer();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userEmail, setUserEmail] = useState(""); // To store user's email from token if logged in
-
 
     const {data: subscriptionData} = useQuery({
         queryKey: getSubscriptionServiceKeyGenerator(mentorshipId),

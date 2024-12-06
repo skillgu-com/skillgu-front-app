@@ -1,28 +1,9 @@
-import {
-    GetMentorAvailabilityParams, SessionCalendarEventResponse,
-    Slot,
-    // SlotDTO
-} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
-// import {format} from "date-fns";
-import axios from "axios";
-
-const dataParser = (dto: SessionCalendarEventResponse): Slot => {
-    const startDateTime = new Date(`${dto.sessionDate}T${dto.hour}`);
-    const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
-    return {
-        id: dto.calendarEventId,
-        title: `${startDateTime.getHours()}:${startDateTime.getMinutes() < 10 ? '0' : ''}${startDateTime.getMinutes()}`,
-        start: startDateTime,
-        end: endDateTime,
-        available: dto.available
-    };
-};
+import {GetMentorAvailabilityParams,} from "@services/mentoringSessions/getMentorAvailabilityByMeetingId.types";
+import {fetchCalendarMentorship} from "@services/calendar/calendarService";
 
 
 const getMentorAvailabilityByMentorIdService = async (mentorId: string, sessionId: string, params: GetMentorAvailabilityParams) => {
-
-    const { data } = await axios.post<SessionCalendarEventResponse[]>(`/api/1.0/mentor/${mentorId}/sessions/${sessionId}`,);
-    return data.map(dataParser);
+    return fetchCalendarMentorship(mentorId, sessionId);
 };
 
 export const getMentorAvailabilityByMeetingIdServiceKeyGenerator = (mentorId: string, params: GetMentorAvailabilityParams) => {

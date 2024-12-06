@@ -44,30 +44,37 @@ export const OrderConfirmPage = () => {
   const maxAttempts = 8;
   const interval = 1500;
 
-  useEffect(() => {
+  const fetchSessionWithPolling = async (id: string) => {
     let attempts = 0;
 
-    const fetchSessionWithPolling = async (id: string) => {
+    const poll = async () => {
       try {
         setIsLoading(true);
         const data = await getSessionOrderSummary(id);
-        setSession(data);
-        setIsLoading(false);
+        if (data) {
+          setSession(data);
+          setIsLoading(false);
+          return; // Zakończ polling po sukcesie
+        }
       } catch (err) {
         attempts++;
+        console.log(`Attempt ${attempts}/${maxAttempts}`);
         if (attempts < maxAttempts) {
-          // Jeśli dane nie są jeszcze dostępne, próbuj ponownie po określonym czasie
-          setTimeout(() => fetchSessionWithPolling(id), interval);
+          setTimeout(poll, interval);
         } else {
-          // Jeśli nie uda się załadować danych po maksymalnej liczbie prób, ustaw błąd
           setIsLoading(false);
           console.error("Błąd pobierania danych:", err);
         }
       }
     };
 
+    poll();
+  };
+
+  useEffect(() => {
     if (id) fetchSessionWithPolling(id);
   }, [id]);
+
 
   if (isLoading) {
     return <Loader overlay spinner />;

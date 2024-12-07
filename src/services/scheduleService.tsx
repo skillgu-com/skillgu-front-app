@@ -56,7 +56,7 @@ export const createScheduleMeeting = async (currentState: ScheduleFormInputT) =>
     } = currentState;
     const weekTimes = extractTimeIntervalsFromDays(weekdays);
 
-    return await axios.post('/api/1.0/schedule', {
+    return await axios.post('/api/1.0/schedules', {
         scheduleName: scheduleName,
         scheduleStartDay: format(dateFrom, 'yyyy-MM-dd'),
         scheduleEndDay: format(dateTo, 'yyyy-MM-dd'),
@@ -69,12 +69,12 @@ export const createScheduleMeeting = async (currentState: ScheduleFormInputT) =>
 };
 
 export const fetchAllSchedules = async () => {
-    return await axios.get<ScheduleType[]>('/api/1.0/schedule/fetch-all')
+    return await axios.get<ScheduleType[]>('/api/1.0/schedules')
 }
 
 export const deleteSchedule = async (scheduleID: string) => {
     try {
-        const response = await axios.post(`/api/1.0/schedule/delete?scheduleID=${scheduleID}`);
+        const response = await axios.delete(`/api/1.0/schedules/${scheduleID}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to delete schedule');
@@ -83,7 +83,7 @@ export const deleteSchedule = async (scheduleID: string) => {
 
 
 export const getScheduleFormInitialData = async (scheduleId: string): Promise<ScheduleFormInputT> => {
-    const response = await axios.get<{ data: ScheduleDTO }>(`/api/1.0/fetch/schedule-edit/${scheduleId}`);
+    const response = await axios.get<{ data: ScheduleDTO }>(`/api/1.0/schedules/${scheduleId}`);
     const elements = response.data.data;
 
         const mock: ScheduleDTO = {
@@ -171,7 +171,7 @@ export const getScheduleFormInitialData = async (scheduleId: string): Promise<Sc
 
     export const editMentorSchedule = async (scheduleId: string, updatedData: ScheduleFormInputT) => {
         try {
-            const response = await axios.put(`/api/1.0/schedule/edit/${scheduleId}`, {
+            const response = await axios.put(`/api/1.0/schedules/${scheduleId}`, {
                 scheduleName: updatedData.scheduleName,
                 dateFrom: updatedData.dateFrom,
                 dateTo: updatedData.dateTo,

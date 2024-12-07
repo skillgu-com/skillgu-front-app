@@ -1,128 +1,139 @@
 @use "../../../scss/variables" as *;
 @use "../../../scss/font" as *;
-
+@use "@styles/mixins" as *;
 .status {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.875rem;
-    text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.875rem;
+  text-transform: uppercase;
 
-    &.success {
-        background-color: #88d498;
-        color: #fff;
-    }
-    &.success-light {
-        background-color: #c7f9cc;
-        color: #1b4332;
-    }
-    &.success-dark {
-        background-color: #1b4332;
-        color: #c7f9cc;
-    }
+  &.success {
+    background-color: #88d498;
+    color: #fff;
+  }
+  &.success-light {
+    background-color: #c7f9cc;
+    color: #1b4332;
+  }
+  &.success-dark {
+    background-color: #1b4332;
+    color: #c7f9cc;
+  }
 
-    &.danger {
-        background-color: #ff6b6b;
-        color: #fff;
-    }
-    &.danger-light {
-        background-color: #ffadad;
-        color: #d00000;
-    }
-    &.danger-dark {
-        background-color: #d00000;
-        color: #ffadad;
-    }
+  &.danger {
+    background-color: #ff6b6b;
+    color: #fff;
+  }
+  &.danger-light {
+    background-color: #ffadad;
+    color: #d00000;
+  }
+  &.danger-dark {
+    background-color: #d00000;
+    color: #ffadad;
+  }
 
-    &.warning {
-        background-color: #f4a261;
-        color: #fff;
-    }
-    &.warning-light {
-        background-color: #ffe066;
-        color: #ff8800;
-    }
-    &.warning-dark {
-        background-color: #ff8800;
-        color: #ffe066;
-    }
+  &.warning {
+    background-color: #f4a261;
+    color: #fff;
+  }
+  &.warning-light {
+    background-color: #ffe066;
+    color: #ff8800;
+  }
+  &.warning-dark {
+    background-color: #ff8800;
+    color: #ffe066;
+  }
 
-    &.info {
-        background-color: #56c7c0;
-        color: #fff;
-    }
-    &.info-light {
-        background-color: #8ecae6;
-        color: #023047;
-    }
-    &.info-dark {
-        background-color: #023047;
-        color: #8ecae6;
-    }
+  &.info {
+    background-color: #56c7c0;
+    color: #fff;
+  }
+  &.info-light {
+    background-color: #8ecae6;
+    color: #023047;
+  }
+  &.info-dark {
+    background-color: #023047;
+    color: #8ecae6;
+  }
 
-    &.noWrap {
-        white-space: nowrap;
-    }
+  &.noWrap {
+    white-space: nowrap;
+  }
 }
 
-
-.PaginationSkeleton { 
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
+.PaginationSkeleton {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
 }
 
 .wrapper {
-    margin-bottom: 48px;
+  margin-bottom: 48px;
 }
 
 .title {
-    @extend %text-subtitle-1;
-    color: $colour-primary;
-    margin-bottom: 24px;
+  @extend %text-subtitle-1;
+  color: $colour-primary;
+  margin-bottom: 24px;
 }
 
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .dotsCell {
-    padding: 0;
+  padding: 0;
 }
 
 .header {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 
-    .title {
-        @extend %text-subtitle-2;
-        color: $colour-primary;
-        font-weight: 700;
+  .title {
+    @extend %text-subtitle-2;
+    color: $colour-primary;
+    font-weight: 700;
+  }
+
+  .title + .subtitle {
+    margin-top: 16px;
+  }
+
+  .subtitle {
+    @extend %text-button-md;
+    color: $colour-base-800;
+
+    a {
+      @extend %text-button-md;
+      color: $colour-secondary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
-
-    .title + .subtitle {
-        margin-top: 16px;
-    }
-
-    .subtitle {
-        @extend %text-button-md;
-        color: $colour-base-800;
-
-        a {
-            @extend %text-button-md;
-            color: $colour-secondary;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+  }
 }
 .userIdentity {
-    padding:0 !important;
+  padding: 0 !important;
+}
+
+.emptyStateHeading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileHidden {
+  display: none !important;
+  @include media-md-and-up {
+    display: block !important;
+  }
 }

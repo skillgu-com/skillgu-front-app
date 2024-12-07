@@ -11,7 +11,7 @@ import { Scrollable } from "src/components/_base/Scrollable";
 import { PdfIcon } from "@icons/PdfIcon";
 import { Loader } from "src/components/_grouped/loader";
 import { fetchPaymentReports } from "@services/payments/fetchPaymentReports.service";
-import {FetchPaymentReportsServiceOutput} from "@customTypes/paymentReports";
+import { FetchPaymentReportsServiceOutput } from "@customTypes/paymentReports";
 
 const renderStatus = (status: ReportStatus) => {
   switch (status) {
@@ -59,12 +59,12 @@ export const Reports = () => {
   }, [page]);
 
   return pending ? (
-    <Loader spinner spinnerSize="lg" shadow overlay='global' />
+    <Loader spinner spinnerSize="lg" shadow overlay="global" />
   ) : data === null ? (
     <div className={styles.alert}>
       <p>Brak danych</p>
     </div>
-  ) : (data && data.success && data.reports.length) ? (
+  ) : data && data.success && data.reports.length ? (
     <section>
       <Table>
         <Scrollable minWidth={"920px"}>
@@ -121,18 +121,16 @@ export const Reports = () => {
     </section>
   ) : (
     <Table>
-      <Scrollable minWidth={"400px"}>
-        <TableRow heading className={styles.emptyStateHeading}>
-          <TableCell heading text="Faktura" />
-          <TableCell heading text="Data" />
-          <TableCell heading text="Kwota" />
-          <TableCell heading text="Status" />
-          <TableCell heading text="Sesja" />
-        </TableRow>
-        <TableCell flex className={styles.emptyCell}>
-          <EmptyState text="Nie znaleziono żadnych Twoich raportów" />
-        </TableCell>
-      </Scrollable>
+      <TableRow heading className={styles.emptyStateHeading}>
+        <TableCell heading text="Faktura" />
+        <TableCell heading text="Data" />
+        <TableCell heading text="Kwota" />
+        <TableCell heading text="Status" className={styles.mobileHidden} />
+        <TableCell heading text="Sesja" className={styles.mobileHidden} />
+      </TableRow>
+      <TableCell flex className={styles.emptyCell}>
+        <EmptyState text="Nie znaleziono żadnych Twoich raportów" />
+      </TableCell>
     </Table>
   );
 };

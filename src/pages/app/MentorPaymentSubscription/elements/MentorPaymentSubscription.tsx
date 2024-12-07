@@ -119,18 +119,16 @@ export const MentorPaymentSubscription = () => {
     </section>
   ) : (
     <Table>
-      <Scrollable minWidth={"400px"}>
-        <TableRow heading className={styles.emptyStateHeading}>
-          <TableCell heading text="Faktura" />
-          <TableCell heading text="Data ważności" />
-          <TableCell heading text="Kwota" />
-          <TableCell heading text="Status" />
-          <TableCell heading text="Plan" />
-        </TableRow>
-        <TableCell flex className={styles.emptyCell}>
-          <EmptyState text="Nie znaleziono żadnych Twoich subskrypcji" />
-        </TableCell>
-      </Scrollable>
+      <TableRow heading className={styles.emptyStateHeading}>
+        <TableCell heading text="Faktura" />
+        <TableCell heading text="Data ważności" />
+        <TableCell heading text="Kwota" />
+        <TableCell heading text="Status" className={styles.mobileHidden} />
+        <TableCell heading text="Plan" className={styles.mobileHidden} />
+      </TableRow>
+      <TableCell flex className={styles.emptyCell}>
+        <EmptyState text="Nie znaleziono żadnych Twoich subskrypcji" />
+      </TableCell>
     </Table>
   );
 };

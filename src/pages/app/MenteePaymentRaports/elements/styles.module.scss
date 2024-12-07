@@ -71,3 +71,10 @@
     }
   }
 }
+
+.mobileHidden {
+  display: none;
+  @include media-md-and-up {
+    display: block;
+  }
+}

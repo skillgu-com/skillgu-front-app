@@ -115,8 +115,6 @@ export const fetchMentorFilteredList = async (
             take: 10,
             skip: 10,
 
-            // take: take.toString(),
-            // skip: skip.toString(),
             filters: filters || null,
         };
 

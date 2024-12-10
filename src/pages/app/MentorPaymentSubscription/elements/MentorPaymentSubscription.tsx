@@ -20,8 +20,8 @@ const renderStatus = (status: SubscriptionMentorReportStatus) => {
   switch (status) {
     case "requires_payment_method":
       return <Status variant="warning" text="Wymaga metody płatności" />;
-    case "requires_confirmation":
-      return <Status variant="info" text="Wymaga potwierdzenia" />;
+    case "requires_action":
+      return <Status variant="warning" text="Wymaga podjęcia działania" />;
     case "processing":
       return <Status variant="info" text="Przetwarzanie" />;
     case "card_error":
@@ -30,10 +30,13 @@ const renderStatus = (status: SubscriptionMentorReportStatus) => {
       return <Status variant="danger" text="Anulowane" />;
     case "complete":
       return <Status variant="success" text="Zapłacone" />;
+    case "succeeded":
+      return <Status variant="success" text="Pomyślnie zakończone" />;
     default:
-      return null;
+      return <Status variant="info" text="Nieznany status" />;
   }
 };
+
 
 const PER_PAGE = 8;
 

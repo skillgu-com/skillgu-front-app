@@ -162,7 +162,7 @@ export const StudentMentors = ({ title }: Props) => {
                 </Text>
               )}
             </div>
-            <div className={styles.btnBox}>
+            <div className={styles.modalBtnBox}>
               <Button
                 classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
@@ -193,7 +193,7 @@ export const StudentMentors = ({ title }: Props) => {
               subskrypcję.
             </Text>
 
-            <div className={styles.btnBox}>
+            <div className={styles.modalBtnBox}>
               <Button
                 classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
@@ -214,8 +214,7 @@ export const StudentMentors = ({ title }: Props) => {
         ) : null}
         {cancelling ? (
           <Modal
-            className={styles.modal}
-            classNameContent={styles.box}
+            classNameContent={styles.modal}
             title={`Czy jesteś pewny, że chcesz anulować swój plan z ${cancelling.fullName}?`}
             closeHandler={() => setCancelling(null)}
           >
@@ -225,7 +224,7 @@ export const StudentMentors = ({ title }: Props) => {
                 {formatDate(cancelling.paidUntil, "DD MMMM YYYY")} roku.
               </Text>
             )}
-            <div className={styles.btnBox}>
+            <div className={styles.modalBtnBox}>
               <Button
                 classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}
@@ -246,8 +245,7 @@ export const StudentMentors = ({ title }: Props) => {
         ) : null}
         {confirmedCanceling ? (
           <Modal
-            className={styles.modal}
-            classNameContent={styles.box}
+            classNameContent={styles.modal}
             title={`Anulowałeś swój plan Pro z ${confirmedCanceling.fullName}?`}
             closeHandler={() => setConfirmedCanceling(null)}
           >
@@ -256,7 +254,7 @@ export const StudentMentors = ({ title }: Props) => {
               subskrypcję.
             </Text>
 
-            <div className={styles.btnBox}>
+            <div className={styles.modalBtnBox}>
               <Button
                 classes={styles.mainBtn}
                 variant={ButtonVariant.Transparent}

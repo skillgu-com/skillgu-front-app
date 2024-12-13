@@ -6,28 +6,37 @@ import {Link, useParams} from "react-router-dom";
 import paths from "../../../paths";
 import {format, set} from "date-fns";
 import {useQuery} from "@tanstack/react-query";
-import getMentoringSessionsInDatesService, {
-    getMentoringSessionsInDatesServiceKeyGenerator
-} from "@services/mentoringSessions/getMentoringSessionsInDates.service";
 import FullSizeIconButton from "../../../components/FullSizeIconButton/FullSizeIconButton";
 import CalendarDailyAgenda from "../../../components/CalendarDailyAgenda/CalendarDailyAgenda";
-
+import {
+    getMentoringSessionsInDatesServiceKeyGenerator
+} from "@services/mentoringSessions/getMentoringSessionsInDates.service";
+import {fetchAllCalendarEventsForSpecificDate} from "@services/calendar/fetchCalendarEvents";
 const CalendarDailyView = () => {
     const theme = useTheme();
     const {year, month, day} = useParams() as { year: string, month: string, day: string };
 
     const date = useMemo(() => new Date(+year, +month - 1, +day), [year, month, day]);
 
+    const dateString = useMemo(() => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`, [year, month, day]);
+
+    const queryParamsTest = useMemo(() => ({
+        date: dateString,
+    }), [dateString]);
+
+
     const queryParams = useMemo(() => ({
         from: set(date, {hours: 0, minutes: 0, seconds: 0}),
         to: set(date, {hours: 23, minutes: 59, seconds: 59}),
     }), [date]);
 
+
     const queryKey = useMemo(() => getMentoringSessionsInDatesServiceKeyGenerator(queryParams), [queryParams]);
+
 
     const {data, isLoading} = useQuery({
         queryKey,
-        queryFn: () => getMentoringSessionsInDatesService(queryParams),
+        queryFn: () => fetchAllCalendarEventsForSpecificDate(queryParamsTest),
     });
 
     const isMD = useMediaQuery((theme) => (theme as Theme).breakpoints.up('md'));

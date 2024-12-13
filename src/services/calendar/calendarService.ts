@@ -33,4 +33,3 @@ export const fetchCalendarMentorship = async (mentorId: string, sessionId: strin
     return data.map(dataParser);
 }
 
-

@@ -1,13 +1,13 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styles from "../CreateMentoringOffer.module.scss";
-import {useCreateOfferReducer} from "src/reducers/createOffer";
-import {CreateOfferTemplates} from "../CreateOfferTemplates";
-import Button, {ButtonTag, ButtonVariant} from "src/components/Button/Button";
-import {createMentoringOffer} from "@services/offer/createMentoringOffer";
+import { useCreateOfferReducer } from "src/reducers/createOffer";
+import { CreateOfferTemplates } from "../CreateOfferTemplates";
+import Button, { ButtonTag, ButtonVariant } from "src/components/Button/Button";
+import { createMentoringOffer } from "@services/offer/createMentoringOffer";
 
 export const Summary = () => {
   const co = useCreateOfferReducer();
-  const { updateStatus, setPending} = co;
+  const { updateStatus, setPending } = co;
   const { errorMessage, success, pending } = co.createOfferState;
 
   useEffect(() => {
@@ -17,11 +17,27 @@ export const Summary = () => {
         const resData = await createMentoringOffer({
           numberOfPlans: co.createOfferState.numberOfPlans,
           providesMaterials: co.createOfferState.providesMaterials,
-          basic: co.createOfferState.basic,
-          advanced: co.createOfferState.advanced,
-          pro: co.createOfferState.pro,
+          basic: co.createOfferState.basic && {
+            ...co.createOfferState.basic,
+            price: Number(co.createOfferState.basic.price),
+            sessionsPerMonth: Number(
+              co.createOfferState.basic.sessionsPerMonth
+            ),
+          },
+          advanced: co.createOfferState.advanced && {
+            ...co.createOfferState.advanced,
+            price: Number(co.createOfferState.advanced.price),
+            sessionsPerMonth: Number(
+              co.createOfferState.advanced.sessionsPerMonth
+            ),
+          },
+          pro: co.createOfferState.pro && {
+            ...co.createOfferState.pro,
+            price: Number(co.createOfferState.pro.price),
+            sessionsPerMonth: Number(co.createOfferState.pro.sessionsPerMonth),
+          },
         });
-        
+
         if (resData.success === false) {
           throw new Error("");
         }
@@ -68,7 +84,8 @@ export const Summary = () => {
       {errorMessage && <p>Error</p>}
       <div className={styles.btnBox}>
         {/*//TODO usuniete onclick i dodane href. Zeby nie resetowalo juz wczesniej dodanych mentorshipow */}
-        <Button as={ButtonTag.InternalLink}
+        <Button
+          as={ButtonTag.InternalLink}
           onClick={() => co.reset()}
           //   as={ButtonTag.InternalLink}
           //   href='' // link do profilu

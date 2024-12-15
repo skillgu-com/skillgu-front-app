@@ -42,8 +42,8 @@ export type MentorshipPlanFormFieldName =
 
 export type MentorshipPlanFormChangeProp =
   | { name: "description"; value: string }
-  | { name: "price"; value: number }
+  | { name: "price"; value: number | string }
   | { name: "sessionDuration"; value: number }
   | { name: "responseTime"; value: number }
-  | { name: "sessionsPerMonth"; value: number }
+  | { name: "sessionsPerMonth"; value: number | string }
   | { name: "planIncludes"; value?: string; i: number };

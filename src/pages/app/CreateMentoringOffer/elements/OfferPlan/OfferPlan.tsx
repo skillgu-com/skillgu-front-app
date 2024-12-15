@@ -97,9 +97,11 @@ export const OfferPlan = ({
               newValues[props.name] = String(props.value);
               break;
             case "price":
+            case "sessionsPerMonth":
+              newValues[props.name] = props.value;
+              break;
             case "sessionDuration":
             case "responseTime":
-            case "sessionsPerMonth":
               newValues[props.name] = Number(props.value);
               break;
             case "planIncludes":

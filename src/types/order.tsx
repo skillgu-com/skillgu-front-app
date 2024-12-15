@@ -24,9 +24,9 @@ export type MentorhsipPlanType = {
   id: number;
   variant: SubscriptionPlan;
   description?: string;
-  price: number;
+  price: string | number;
   sessionDuration?: number;
-  sessionsPerMonth?: number;
+  sessionsPerMonth?: string | number;
   responseTime?: number;
   planIncludes: string[];
 };

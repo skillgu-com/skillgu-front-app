@@ -142,11 +142,12 @@ export const MentorshipPlanForm = ({
           handleChange && handleChange({ name, value: strValue });
           break;
         case "price":
+        case "sessionsPerMonth":
+          handleChange && handleChange({ name, value: inp.value });
+          break;
         case "responseTime":
         case "sessionDuration":
-        case "sessionsPerMonth":
-          const numValue = Number(inp.value);
-          handleChange && handleChange({ name, value: numValue });
+          handleChange && handleChange({ name, value: Number(inp.value) });
           break;
         case "planIncludes":
           if (typeof i !== "number" || isNaN(i)) {
@@ -167,8 +168,7 @@ export const MentorshipPlanForm = ({
       switch (name) {
         case "responseTime":
         case "sessionDuration":
-          const numValue = Number(value);
-          handleChange && handleChange({ name, value: numValue });
+          handleChange && handleChange({ name, value: Number(value) });
           break;
       }
     },
@@ -235,6 +235,7 @@ export const MentorshipPlanForm = ({
             onBlur={inputBlurHandler}
             name={"price"}
             value={values.price}
+            // placeholder=" "
           />
           <span className={styles.textCurrency}>zł</span>
           <span>miesięcznie</span>
@@ -261,7 +262,7 @@ export const MentorshipPlanForm = ({
             <div className={clx(styles.rowMiddle)}>
               <input
                 className={clx(styles.input, styles.text)}
-                type="text"
+                type="number"
                 onChange={inputChangeHandler}
                 onBlur={inputBlurHandler}
                 name={"sessionsPerMonth"}

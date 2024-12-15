@@ -29,6 +29,7 @@ import { parseNameAndIndex } from "./utils";
 import { CheckCircleSolidIcon } from "@icons/CheckCircleSolidIcon";
 import { BinIcon } from "@icons/BinIcon";
 import { useCreateOfferReducer } from "../../../reducers/createOffer";
+import { useInputScrollDisabled } from "src/hooks/useInputScrollDisabled";
 
 type Props = {
   subscriptionVariant: SubscriptionPlan;
@@ -56,9 +57,9 @@ export const MentorshipPlanForm = ({
   handleChange,
   handleRemove,
 }: Props) => {
+  useInputScrollDisabled();
   const { createOfferState } = useCreateOfferReducer();
   const variantData = createOfferState[subscriptionVariant];
-
   const schedule = variantData?.schedule || "";
   const selectedSchedule = useMemo(() => {
     const matchedValue = createOfferState.availableSchedules.find(

@@ -35,7 +35,7 @@ const validatePlan = (inp: PlanInput|null) => {
   if (!inp.description) {
     errors.description = "Wprowadź opis";
   }
-  if (!inp.price || isNaN(inp.price) || inp.price < 1) {
+  if (!inp.price || isNaN(Number(inp.price)) || Number(inp.price) < 1) {
     errors.price = "Wprowadź cenę";
   }
   if (!inp.responseTime) {

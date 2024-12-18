@@ -88,7 +88,7 @@ export const MentorServicesSession = ({
           />
         ))}
       </div>
-      {handleSubmit && role === "S" ? (
+      {handleSubmit && role !== "M" ? (
         <button
           onClick={selected ? () => handleSubmit(selected) : undefined}
           className={styles.submitBtn}

@@ -12,6 +12,7 @@ export type MentoringSessionT = {
         email: string,
         name: string,
         avatarUrl: string,
+        meetingDescription: string;
     },
 };
 
@@ -31,6 +32,8 @@ export type MentoringSessionDTO = {
         email: string,
         name: string,
         avatar_url: string,
+        meetingDescription: string;
+
     },
 }
 

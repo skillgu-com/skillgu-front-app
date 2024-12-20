@@ -20,6 +20,7 @@ export const parseMentoringSessionForFE = (data: MentoringSessionDTO): Mentoring
             email: data.participant.email,
             name: data.participant.name,
             avatarUrl: data.participant.avatar_url,
+            meetingDescription: data?.participant?.meetingDescription
         }
     }
 }
@@ -39,6 +40,7 @@ export const parseMentoringSessionInListForFE = (data: MentoringSessionInListDTO
             email: data.participant.email,
             name: data.participant.name,
             avatarUrl: data.participant.avatar_url,
+            meetingDescription: data?.participant?.meetingDescription
         }
     }
 }

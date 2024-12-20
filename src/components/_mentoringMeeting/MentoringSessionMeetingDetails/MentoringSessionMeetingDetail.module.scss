@@ -1,0 +1,13 @@
+//@use "../../../../../scss/variables" as *;
+@use "../../../scss/variables" as *;
+
+@use "../../../scss/mixins" as *;
+@use "../../../scss/main" as *;
+@use "../../../scss/font" as *;
+
+.showMore {
+    @extend %text-reset-button, %text-button-sm;
+    color: $colour-secondary;
+    margin-top: 18px;
+    cursor: pointer;
+}

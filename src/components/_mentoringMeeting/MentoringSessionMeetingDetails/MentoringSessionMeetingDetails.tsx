@@ -31,7 +31,6 @@ const iconSx = {
 const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    console.log(meetingDetails);
     return (
         <Box sx={{ display: 'grid', gap: 1.5}}>
             <Box
@@ -40,9 +39,13 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                     borderTop: '1px solid #ddd',
                     pt: 2,
                     width: '100%',
-                    maxWidth: '100%',
+                    maxWidth: 'none',
                     wordWrap: 'break-word',
                     overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // alignItems: 'flex-start', // Dodano, aby wyrównać elementy do lewej strony
+
                 }}
             >
                 {isLoading ? (
@@ -58,7 +61,7 @@ const MentoringSessionMeetingDetails: FC<Props> = ({isLoading, meetingDetails}) 
                                     overflowWrap: 'break-word', // Obsługuje łamanie w przeglądarkach
                                 }}
                             >
-                                {meetingDetails?.participant.meetingDescription || 'Tutaj pojawi się treść dotycząca spotkania... Tutaj pojawi się treść dotycząca spotkania... Tutaj pojawi się treść dotycząca spotkania...'}
+                                {meetingDetails?.participant.meetingDescription || 'Brak opisu'}
                             </Typography>
                         </Expandable>
                         <button
